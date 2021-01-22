@@ -29,8 +29,6 @@ import { IAdministration, ITitre } from '../../src/types'
 //   }))
 // }
 
-let titreIndex = 0
-
 interface IAdministrationTitreTypeTest {
   titreId: string
   administrationId: string
@@ -56,7 +54,7 @@ const testAdministrationTitreTypeBuild = (
   titreTypeId: string
 ) => {
   const administrationTitreTypeTests = [] as IAdministrationTitreTypeTest[]
-
+  let uniqueId = 0
   // Visibilité des titres
   //   |T|D|E|
   //  V|X| | |
@@ -66,7 +64,7 @@ const testAdministrationTitreTypeBuild = (
   //        |
   //        restriction 2 : sur les types d'étape
   administrationTitreTypeTests.push({
-    titreId: `titre_${++titreIndex}`,
+    titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
     administrationId: administration.id,
     pouvoir: 'peut',
     action: 'voir',
@@ -83,7 +81,7 @@ const testAdministrationTitreTypeBuild = (
   //        |
   //        restriction 2 : sur les types d'étape
   administrationTitreTypeTests.push({
-    titreId: `titre_${++titreIndex}`,
+    titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
     administrationId: administration.id,
     pouvoir: 'peut',
     action: 'voir',
@@ -107,7 +105,7 @@ const testAdministrationTitreTypeBuild = (
         .filter(ttet => ttet.titreTypeId === titreTypeId)
         .map(restriction => {
           return {
-            titreId: `titre_${++titreIndex}`,
+            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
             administrationId: restriction.administrationId,
             pouvoir: restriction.lectureInterdit ? 'ne peut pas' : 'peut',
             action: 'voir',
@@ -136,11 +134,11 @@ const testAdministrationTitreTypeBuild = (
         .filter(ttts => ttts.titreTypeId === titreTypeId)
         .map(restriction => {
           return {
-            titreId: `titre_${++titreIndex}`,
+            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
             administrationId: administration.id,
-            gestionnaire: restriction.titreType.gestionnaire,
+            gestionnaire: restriction.titreType!.gestionnaire,
             pouvoir:
-              restriction.titreType.gestionnaire &&
+              restriction.titreType!.gestionnaire &&
               !restriction.titresModificationInterdit
                 ? 'peut'
                 : 'ne peut pas',
@@ -169,11 +167,11 @@ const testAdministrationTitreTypeBuild = (
         .filter(ttts => ttts.titreTypeId === titreTypeId)
         .map(restriction => {
           return {
-            titreId: `titre_${++titreIndex}`,
+            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
             administrationId: administration.id,
-            gestionnaire: restriction.titreType.gestionnaire,
+            gestionnaire: restriction.titreType!.gestionnaire,
             pouvoir:
-              restriction.titreType.gestionnaire &&
+              restriction.titreType!.gestionnaire &&
               !restriction.demarchesModificationInterdit
                 ? 'peut'
                 : 'ne peut pas',
@@ -202,11 +200,11 @@ const testAdministrationTitreTypeBuild = (
         .filter(ttts => ttts.titreTypeId === titreTypeId)
         .map(restriction => {
           return {
-            titreId: `titre_${++titreIndex}`,
+            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
             administrationId: administration.id,
-            gestionnaire: restriction.titreType.gestionnaire,
+            gestionnaire: restriction.titreType!.gestionnaire,
             pouvoir:
-              restriction.titreType.gestionnaire &&
+              restriction.titreType!.gestionnaire &&
               !restriction.etapesModificationInterdit
                 ? 'peut'
                 : 'ne peut pas',
@@ -226,7 +224,7 @@ const testAdministrationTitreTypeBuild = (
   //       .filter(ttet => ttet.titreTypeId === titreTypeId)
   //       .map(restriction => {
   //         return {
-  //           titreId: `titre_${++titreIndex}`,
+  //           titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
   //           administrationId: administration.id,
   //           gestionnaire: restriction.titreType.gestionnaire,
   //           pouvoir:
@@ -278,23 +276,28 @@ const messageBuild = (scenario: IAdministrationTitreTypeTest) => {
 }
 
 const titreBuild = (
-  scenario: IAdministrationTitreTypeTest,
+  {
+    titreId,
+    titreTypeId,
+    titreStatutId,
+    etapeTypeId
+  }: IAdministrationTitreTypeTest,
   administration: IAdministration
 ) => {
   const titre = {
-    id: scenario.titreId,
+    id: titreId,
     nom: 'nom titre',
     demarches: [
       {
-        id: `${scenario.titreId}-demarche-id`,
-        titreId: scenario.titreId,
+        id: `${titreId}-demarche-id`,
+        titreId: titreId,
         typeId: 'oct',
         etapes: [
           {
-            id: `${scenario.titreId}-demarche-id-etape-id`,
+            id: `${titreId}-demarche-id-etape-id`,
             typeId: 'mfr',
             ordre: 0,
-            titreDemarcheId: `${scenario.titreId}-demarche-id`,
+            titreDemarcheId: `${titreId}-demarche-id`,
             statutId: 'enc',
             date: '2020-01-01'
           }
@@ -304,18 +307,26 @@ const titreBuild = (
     publicLecture: false
   } as ITitre
 
-  titre.typeId = scenario.titreTypeId
+  titre.typeId = titreTypeId
   titre.domaineId = titre.typeId.slice(-1)
-  titre.administrationsGestionnaires = [administration]
+  titre.administrationsGestionnaires = []
+
+  const administrationTitreType = administration.titresTypes?.find(
+    att => att.id === titreTypeId
+  )
+
+  if (administrationTitreType?.gestionnaire) {
+    titre.administrationsGestionnaires.push(administration)
+  }
   // titre.administrationsLocales = []
 
-  if (scenario.titreStatutId) {
-    titre.statutId = scenario.titreStatutId
+  if (titreStatutId) {
+    titre.statutId = titreStatutId
   }
 
-  if (scenario.etapeTypeId) {
-    titre.demarches![0]!.etapes![0]!.id = `${scenario.titreId}-demarche-id-${scenario.etapeTypeId}`
-    titre.demarches![0]!.etapes![0]!.typeId = scenario.etapeTypeId
+  if (etapeTypeId) {
+    titre.demarches![0]!.etapes![0]!.id = `${titreId}-demarche-id-${etapeTypeId}`
+    titre.demarches![0]!.etapes![0]!.typeId = etapeTypeId
   }
 
   return titre

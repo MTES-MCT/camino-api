@@ -20,7 +20,6 @@ afterAll(async () => {
 describe('permissions des administrations', () => {
   const scenarios = scenariosBuild(
     administrations.filter(a => a.id === 'ope-onf-973-01')
-    // administrations.filter(a => a.type_id === 'ope')
   )
   const titreQuery = queryImport('titre')
 

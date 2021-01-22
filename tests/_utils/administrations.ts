@@ -12,56 +12,27 @@ import {
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
-interface IAdministrationTitreTypeTitreStatutJson
-  extends IAdministrationTitreTypeTitreStatut {
-  titres_modification_interdit: string
-  demarches_modification_interdit: string
-  etapes_modification_interdit: string
-}
-
-interface IAdministrationTitreTypeEtapeTypeJson
-  extends IAdministrationTitreTypeEtapeType {
-  lecture_interdit: string
-  creation_interdit: string
-  modification_interdit: string
-}
-
-interface IAdministrationJson extends IAdministration {
-  type_id: string
-}
-
 interface ISources {
   administrations: {
     path: string
-    data: (IAdministration & { type_id: string })[]
+    data: IAdministration[]
   }
   titresTypes: {
     path: string
-    data: (ITitreType & { domaine_id: string; type_id: string })[]
+    data: ITitreType[]
   }
   titresStatuts: { path: string; data: ITitreStatut[] }
   administrations__titresTypes: {
     path: string
-    data: (IAdministrationTitreType & {
-      administration_id: string
-      titre_type_id: string
-    })[]
+    data: IAdministrationTitreType[]
   }
   administrations__titresTypes__titresStatuts: {
     path: string
-    data: (IAdministrationTitreTypeTitreStatutJson & {
-      administration_id: string
-      titre_type_id: string
-      titre_statut_id: string
-    })[]
+    data: IAdministrationTitreTypeTitreStatut[]
   }
   administrations__titresTypes__etapesTypes: {
     path: string
-    data: (IAdministrationTitreTypeEtapeTypeJson & {
-      administration_id: string
-      titre_type_id: string
-      etape_type_id: string
-    })[]
+    data: IAdministrationTitreTypeEtapeType[]
   }
   etapesTypes: { path: string; data: IEtapeType[] }
 }
@@ -88,27 +59,44 @@ const sources = {
 const readFile = (filePath: string) =>
   JSON.parse(readFileSync(join(__dirname, filePath)).toString())
 
+// convertit les clés en camel-case
+const jsonKeysCaseChange = (val: any) => {
+  if (typeof val !== 'object') {
+    return val
+  }
+
+  if (Array.isArray(val)) {
+    return val.map(objectKeysCaseChange)
+  }
+
+  return objectKeysCaseChange(val)
+}
+
+const objectKeysCaseChange = obj =>
+  Object.fromEntries(
+    Object.entries(obj).map(([key, val]) => [
+      key.replace(/_(.)/g, g => g[1].toUpperCase()),
+      jsonKeysCaseChange(val)
+    ])
+  )
+
 Object.keys(sources).forEach(name => {
   const element = sources[name as keyof ISources]
 
-  element.data = readFile(element.path)
+  element.data = jsonKeysCaseChange(readFile(element.path))
 })
 
 const administrationsWithRelations = sources.administrations.data.map(
-  (a: IAdministrationJson) => {
-    a.typeId = a.type_id
+  (a: IAdministration) => {
     a.titresTypes = sources.administrations__titresTypes.data
-      .filter(att => att.administration_id === a.id)
+      .filter(att => att.administrationId === a.id)
       .map(att => {
-        att.titreTypeId = att.titre_type_id
-        att.administrationId = att.administration_id
-
         const titreType = sources.titresTypes.data.find(
-          tt => att.titre_type_id === tt.id
-        )!
+          tt => att.titreTypeId === tt.id
+        )! as ITitreType & IAdministrationTitreType
 
-        titreType.domaineId = titreType.domaine_id
-        titreType.typeId = titreType.type_id
+        titreType.administrationId = att.administrationId
+        titreType.titreTypeId = att.titreTypeId
 
         if (att.associee) {
           titreType.associee = true
@@ -122,20 +110,8 @@ const administrationsWithRelations = sources.administrations.data.map(
       })
 
     a.titresTypesTitresStatuts = sources.administrations__titresTypes__titresStatuts.data
-      .filter(attts => attts.administration_id === a.id)
+      .filter(attts => attts.administrationId === a.id)
       .map(attts => {
-        attts.administrationId = attts.administration_id
-        attts.titreTypeId = attts.titre_type_id
-        attts.titreStatutId = attts.titre_statut_id
-        attts.titresModificationInterdit = attts.titres_modification_interdit
-          ? JSON.parse(attts.titres_modification_interdit)
-          : false
-        attts.demarchesModificationInterdit = attts.demarches_modification_interdit
-          ? JSON.parse(attts.demarches_modification_interdit)
-          : false
-        attts.etapesModificationInterdit = attts.etapes_modification_interdit
-          ? JSON.parse(attts.etapes_modification_interdit)
-          : false
         attts.titreType = sources.titresTypes.data.find(
           tt => tt.id === attts.titreTypeId
         )
@@ -147,20 +123,8 @@ const administrationsWithRelations = sources.administrations.data.map(
       })
 
     a.titresTypesEtapesTypes = sources.administrations__titresTypes__etapesTypes.data
-      .filter(attet => attet.administration_id === a.id)
+      .filter(attet => attet.administrationId === a.id)
       .map(attet => {
-        attet.administrationId = attet.administration_id
-        attet.titreTypeId = attet.titre_type_id
-        attet.etapeTypeId = attet.etape_type_id
-        attet.lectureInterdit = attet.lecture_interdit
-          ? JSON.parse(attet.lecture_interdit)
-          : false
-        attet.creationInterdit = attet.creation_interdit
-          ? JSON.parse(attet.creation_interdit)
-          : false
-        attet.modificationInterdit = attet.modification_interdit
-          ? JSON.parse(attet.modification_interdit)
-          : false
         attet.titreType = sources.titresTypes.data.find(
           tt => tt.id === attet.titreTypeId
         )
