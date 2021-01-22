@@ -59,20 +59,26 @@ const sources = {
 const readFile = (filePath: string) =>
   JSON.parse(readFileSync(join(__dirname, filePath)).toString())
 
+type ITruc = IObject | IObject[] | any
+
+interface IObject {
+  [key: string]: ITruc
+}
+
 // convertit les clés en camel-case
-const jsonKeysCaseChange = (val: any) => {
+const jsonKeysCaseChange = (val: ITruc): ITruc => {
   if (typeof val !== 'object') {
     return val
   }
 
   if (Array.isArray(val)) {
-    return val.map(objectKeysCaseChange)
+    return val.map(jsonKeysCaseChange)
   }
 
   return objectKeysCaseChange(val)
 }
 
-const objectKeysCaseChange = obj =>
+const objectKeysCaseChange = (obj: IObject) =>
   Object.fromEntries(
     Object.entries(obj).map(([key, val]) => [
       key.replace(/_(.)/g, g => g[1].toUpperCase()),

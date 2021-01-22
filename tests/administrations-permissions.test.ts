@@ -14,6 +14,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
+  await dbManager.truncateDb()
   dbManager.closeKnex()
 })
 
