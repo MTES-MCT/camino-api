@@ -36,7 +36,7 @@ const demarchesDefinitionsCheck = async () => {
             titreDemarcheDepotDemandeDateFind(d.etapes) >
               demarcheDefinition.dateDebut
         )
-        // .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'axm')
+        // .filter(d => ['oct'].includes(d.typeId) && demarcheDefinition.titreTypeId === 'axm')
         // On garde seulement les octroi d’AXM non terminées
         .filter(
           d =>
