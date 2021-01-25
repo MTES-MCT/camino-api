@@ -7,8 +7,9 @@ import {
   ITitreIncertitudes
 } from '../../src/types'
 
-import { titresGet, titreUpdate } from '../../src/database/queries/titres'
-import { titreEtapeUpdate } from '../../src/database/queries/titres-etapes'
+import { titresGet } from '../../src/database/queries/titres'
+import Titres from '../../src/database/models/titres'
+import TitresEtapes from '../../src/database/models/titres-etapes'
 
 type ITitreEtapeIdPropId =
   | 'pointsTitreEtapeId'
@@ -93,9 +94,9 @@ async function main() {
               )
 
               if (Object.keys(incertitudes).length) {
-                await titreEtapeUpdate(te.id, { incertitudes } as {
-                  incertitudes: ITitreIncertitudes
-                })
+                await TitresEtapes.query()
+                  .patch({ incertitudes })
+                  .where('id', te.id)
               }
             }
           }
@@ -103,7 +104,7 @@ async function main() {
       }
     }
 
-    await titreUpdate(t.id, { propsTitreEtapesIds })
+    await Titres.query().patch({ propsTitreEtapesIds }).where('id', t.id)
 
     console.info(`${t.id} mis à jour`)
   }
