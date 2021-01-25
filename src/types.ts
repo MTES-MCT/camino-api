@@ -129,7 +129,7 @@ interface IAdministration {
   departementId?: string | null
   regionId?: string | null
   abreviation?: string | null
-  titresTypes?: ITitreType[] | null
+  titresTypes?: (ITitreType & IAdministrationTitreType)[] | null
   titresTypesTitresStatuts?: IAdministrationTitreTypeTitreStatut[] | null
   titresTypesEtapesTypes?: IAdministrationTitreTypeEtapeType[] | null
   activitesTypes?: IActiviteType[] | null

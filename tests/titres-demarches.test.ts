@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils/index'
 import { titreCreate } from '../src/database/queries/titres'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapeUpsert } from '../src/database/queries/titres-etapes'

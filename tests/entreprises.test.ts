@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils/index'
 import { mocked } from 'ts-jest/utils'
 import {
   entreprisesEtablissementsFetch,

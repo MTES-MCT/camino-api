@@ -3,7 +3,6 @@ const seeding = require('../seeding')
 const definitions = require('../../sources/definitions.json')
 const domaines = require('../../sources/domaines.json')
 const titresTypesTypes = require('../../sources/titres-types-types.json')
-// eslint-disable-next-line camelcase
 const titresTypes = require('../../sources/titres-types.json')
 const titresStatuts = require('../../sources/titres-statuts.json')
 // eslint-disable-next-line camelcase

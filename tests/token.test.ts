@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils/index'
 import Utilisateurs from '../src/database/models/utilisateurs'
 import * as jwt from 'jsonwebtoken'
 
