@@ -123,7 +123,7 @@
     "nodemailer": "^6.4.17",
     "nodemailer-html-to-text": "^3.1.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "npm-check-updates": "^11.0.2",
+    "npm-check-updates": "^11.1.0",
     "objection": "^2.2.3",
     "p-queue": "^6.6.2",
     "pg": "^8.5.1",
@@ -160,7 +160,7 @@
     "supertest": "^6.1.2",
     "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
-    "typedoc": "^0.20.18",
+    "typedoc": "^0.20.19",
     "typedoc-plugin-external-module-name": "^4.0.6",
     "typedoc-plugin-pages": "^1.1.0",
     "typedoc-plugin-sourcefile-url": "^1.0.6"
