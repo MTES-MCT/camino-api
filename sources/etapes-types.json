@@ -2,70 +2,73 @@
   {
     "id": "mfr",
     "nom": "demande",
+    "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
     "ordre": "1",
-    "fondamentale": "TRUE",
-    "unique": "TRUE",
-    "acceptation_auto": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "unique": "true",
+    "acceptation_auto": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dec",
     "nom": "déclaration",
     "ordre": "2",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dsl",
     "nom": "demande d'accord du propriétaire du sol",
     "ordre": "3",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "qae",
     "nom": "demande d'examen au cas par cas",
     "ordre": "4",
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "asl",
     "nom": "décision du propriétaire du sol",
     "ordre": "5",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mdp",
     "nom": "dépôt de la demande",
+    "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
     "ordre": "6",
-    "unique": "TRUE",
-    "acceptation_auto": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "acceptation_auto": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mdd",
     "nom": "dépôt de la déclaration",
     "ordre": "7",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "men",
     "nom": "enregistrement de la demande",
+    "description": "L’enregistrement de la demande est une étape de gestion administrative interne du dossier qui se confond au dépôt de la demande lorsqu'elle est numérique et dématérialisée.",
     "ordre": "8",
     "date_fin": "2018-01-01",
-    "unique": "TRUE",
-    "acceptation_auto": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "acceptation_auto": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dae",
@@ -79,39 +82,42 @@
           {
             "id": "arrete",
             "nom": "Arrêté préfectoral",
-            "description": "Numéro de l'arrêté préfectoral portant décision dans le cadre de l’examen au cas par cas du projet d’autorisation de recherche minière",
-            "type": "text"
+            "type": "text",
+            "description": "Numéro de l'arrêté préfectoral portant décision dans le cadre de l’examen au cas par cas du projet d’autorisation de recherche minière"
           }
         ]
       }
     ],
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ide",
     "nom": "initiation de la démarche de retrait",
+    "description": "Initiative de l’administration qui marque l’engagement d’une démarche de retrait.",
     "ordre": "10",
-    "unique": "TRUE",
-    "acceptation_auto": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "acceptation_auto": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "spp",
     "nom": "saisine du préfet",
+    "description": "L’administration centrale transmet la demande au préfet pour qu’il engage son instruction locale.\n",
     "ordre": "11",
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "des",
     "nom": "désistement du demandeur",
+    "description": "Le demandeur signifie son souhait de ne pas donner suite à sa demande. Le désistement met fin à la démarche. Le demandeur ne peut pas se désister de sa demande après qu’une décision ait été rendue sur celle-ci.",
     "ordre": "12",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "pfd",
@@ -125,43 +131,45 @@
           {
             "id": "frais",
             "nom": "Frais de dossier",
-            "description": "Montant en euro des frais de dossier payés",
-            "type": "number"
+            "type": "number",
+            "description": "Montant en euro des frais de dossier payés"
           },
           {
             "id": "virement",
             "nom": "Virement banquaire ou postal",
-            "description": "Référence communiquée par le demandeur à sa banque",
-            "type": "text"
+            "type": "text",
+            "description": "Référence communiquée par le demandeur à sa banque"
           }
         ]
       }
     ],
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mod",
     "nom": "modification de la demande",
+    "description": "Le porteur modifie les caractéristiques fondamentales de sa demande. Cette modification ne change pas le délai de décision implicite. Les possibilités sont limitées au gré de l’avancement de la démarche, en particulier après la mise en concurrence et après la participation du public.\n",
     "ordre": "14",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mom",
-    "parentId": "mod",
+    "parent_id": "mod",
     "nom": "modification de la demande (décision de la mission autorité environnementale (examen au cas par cas du projet)",
     "description": "après une dae",
     "ordre": "15",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mco",
     "nom": "demande de compléments",
+    "description": "Étape à l'initiative du service instructeur qui demande des compléments au demandeur et lui fixe un délai maximum pour les transmettre. Cette étape interrompt le décompte du délai dans lequel une décision doit être prise. Cette demande doit faire l'objet d'une lettre recommandée avec demande d'accusé de réception.",
     "ordre": "16",
     "sections": [
       {
@@ -171,24 +179,24 @@
           {
             "id": "delaifixe",
             "nom": "Délai fixé (jour)",
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état.",
-            "type": "number"
+            "type": "number",
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
           },
           {
             "id": "datear",
             "nom": "Accusé de réception",
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments.",
-            "type": "date"
+            "type": "date",
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mcm",
-    "parentId": "mco",
+    "parent_id": "mco",
     "nom": "demande de compléments (complétude de la demande)",
     "description": "après une mcp",
     "ordre": "17",
@@ -200,24 +208,24 @@
           {
             "id": "delaifixe",
             "nom": "Délai fixé (jour)",
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état.",
-            "type": "number"
+            "type": "number",
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
           },
           {
             "id": "datear",
             "nom": "Accusé de réception",
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments.",
-            "type": "date"
+            "type": "date",
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mcd",
-    "parentId": "mco",
+    "parent_id": "mco",
     "nom": "demande de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet)",
     "description": "après une dae",
     "ordre": "18",
@@ -229,24 +237,24 @@
           {
             "id": "delaifixe",
             "nom": "Délai fixé (jour)",
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état.",
-            "type": "number"
+            "type": "number",
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
           },
           {
             "id": "datear",
             "nom": "Accusé de réception",
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments.",
-            "type": "date"
+            "type": "date",
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mcb",
-    "parentId": "mco",
+    "parent_id": "mco",
     "nom": "demande de compléments (récépissé de déclaration loi sur l'eau)",
     "description": "après une rde",
     "ordre": "19",
@@ -258,24 +266,24 @@
           {
             "id": "delaifixe",
             "nom": "Délai fixé (jour)",
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état.",
-            "type": "number"
+            "type": "number",
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
           },
           {
             "id": "datear",
             "nom": "Accusé de réception",
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments.",
-            "type": "date"
+            "type": "date",
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mca",
-    "parentId": "mco",
+    "parent_id": "mco",
     "nom": "demande de compléments (recevabilité de la demande)",
     "description": "après une mcr",
     "ordre": "20",
@@ -287,24 +295,24 @@
           {
             "id": "delaifixe",
             "nom": "Délai fixé (jour)",
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état.",
-            "type": "number"
+            "type": "number",
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
           },
           {
             "id": "datear",
             "nom": "Accusé de réception",
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments.",
-            "type": "date"
+            "type": "date",
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mcs",
-    "parentId": "mco",
+    "parent_id": "mco",
     "nom": "demande de compléments (saisine de la CARM)",
     "description": "après une sca",
     "ordre": "21",
@@ -316,214 +324,221 @@
           {
             "id": "delaifixe",
             "nom": "Délai fixé (jour)",
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état.",
-            "type": "number"
+            "type": "number",
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
           },
           {
             "id": "datear",
             "nom": "Accusé de réception",
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments.",
-            "type": "date"
+            "type": "date",
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rco",
     "nom": "réception de compléments",
+    "description": "Étape par laquelle le service instructeur accuse réception des compléments transmis par le demandeur. Cette étape permet la reprise du décompte du délai dans lequel une décision doit être prise.",
     "ordre": "22",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rcm",
-    "parentId": "rco",
+    "parent_id": "rco",
     "nom": "réception de compléments (complétude de la demande)",
     "description": "après une mcp",
     "ordre": "23",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rcd",
-    "parentId": "rco",
+    "parent_id": "rco",
     "nom": "réception de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet))",
     "description": "après une dae",
     "ordre": "24",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rcb",
-    "parentId": "rco",
+    "parent_id": "rco",
     "nom": "réception de compléments (récépissé de déclaration loi sur l'eau)",
     "description": "après une rde",
     "ordre": "25",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rca",
-    "parentId": "rco",
+    "parent_id": "rco",
     "nom": "réception de compléments (recevabilité de la demande)",
     "description": "après une mcr",
     "ordre": "26",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rcs",
-    "parentId": "rco",
+    "parent_id": "rco",
     "nom": "réception de compléments (saisine de la CARM)",
     "description": "après une sca",
     "ordre": "27",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mif",
     "nom": "demande d'informations",
+    "description": "Étape à l'initiative du service instructeur pour obtenir des informations qui ne sont pas de nature à interrompre le décompte du délai dans lequel une décision doit être prise. \n",
     "ordre": "28",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mim",
-    "parentId": "mif",
+    "parent_id": "mif",
     "nom": "demande d'informations (recevabilité de la demande)",
     "description": "après une mcr",
     "ordre": "29",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mio",
-    "parentId": "mif",
+    "parent_id": "mif",
     "nom": "demande d'informations (expertise de l'Office national des forêts)",
     "description": "après une eof",
     "ordre": "30",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mid",
-    "parentId": "mif",
+    "parent_id": "mif",
     "nom": "demande d'informations (expertise DGTM / DATE)",
     "description": "après une edm",
     "ordre": "31",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mie",
-    "parentId": "mif",
+    "parent_id": "mif",
     "nom": "demande d'informations (avis du DREAL, DEAL ou DGTM)",
     "description": "après une adp",
     "ordre": "32",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mia",
-    "parentId": "mif",
+    "parent_id": "mif",
     "nom": "demande d'informations (avis de l'Office national des forêts)",
     "description": "après une aof",
     "ordre": "33",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rif",
     "nom": "réception d'information",
+    "description": "Étape par laquelle le service instructeur reçoit l'information demandée.",
     "ordre": "34",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rim",
-    "parentId": "rif",
+    "parent_id": "rif",
     "nom": "réception d'information (recevabilité de la demande)",
     "description": "après une mcr",
     "ordre": "35",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rio",
-    "parentId": "rif",
+    "parent_id": "rif",
     "nom": "réception d'information (expertise de l'Office national des forêts)",
     "description": "après une eof",
     "ordre": "36",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rid",
-    "parentId": "rif",
+    "parent_id": "rif",
     "nom": "réception d'information (expertise DGTM / DATE)",
     "description": "après une edm",
     "ordre": "37",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rie",
-    "parentId": "rif",
+    "parent_id": "rif",
     "nom": "réception d'information (avis du DREAL, DEAL ou DGTM)",
     "description": "après une adp",
     "ordre": "38",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ria",
-    "parentId": "rif",
+    "parent_id": "rif",
     "nom": "réception d'information (avis de l'Office national des forêts)",
     "description": "après une aof",
     "ordre": "39",
-    "fondamentale": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mcp",
     "nom": "complétude de la demande",
+    "description": "Phase d’examen qui permet d’établir que toutes les pièces exigées par la réglementation sont bien fournies par le demandeur. Cet examen ne préjuge pas de la décision qui sera apportée par l’administration. ",
     "ordre": "40",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mcr",
     "nom": "recevabilité de la demande",
+    "description": "Acte de l’administration établissant que l’examen de complétude a été mené à bien. Le constat de recevabilité donne lieu à un rapport de la part de l’administration qui constate que le dossier de demande est complet. ",
     "ordre": "41",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "apu",
     "nom": "publication de l'avis de décision implicite",
+    "description": "Le principe adopté par la réglementation actuelle veut que le silence de l’administration pendant un délai fixé vaut accord implicite. Toutefois il existe des décisions implicites de rejets pour certaines catégories de décisions. En particulier pour les titres miniers, l’octroi, la prolongation et la mutation. Les décisions de rejet ne sont pas publiées, les décisions d’acceptation doivent faire l’objet d’un avis au JORF confirmant que cette dernière est acquise. ",
     "ordre": "42",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rde",
     "nom": "récépissé de déclaration loi sur l'eau",
+    "description": "Document nécessaire à l’utilisation de l’eau dans le cas d’une autorisation de recherches minières (ARM).",
     "ordre": "43",
     "sections": [
       {
@@ -533,8 +548,8 @@
           {
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
-            "description": "Nombre de franchissements de cours d'eau",
-            "type": "integer"
+            "type": "integer",
+            "description": "Nombre de franchissements de cours d'eau"
           }
         ]
       },
@@ -545,40 +560,42 @@
           {
             "id": "numero-dossier-deal-eau",
             "nom": "Numéro de dossier",
-            "description": "Numéro de dossier DEAL Service eau",
-            "type": "text"
+            "type": "text",
+            "description": "Numéro de dossier DEAL Service eau"
           },
           {
             "id": "numero-recepice",
             "nom": "Numéro de récépicé",
-            "description": "Numéro de récépicé émis par la DEAL Service eau",
-            "type": "text"
+            "type": "text",
+            "description": "Numéro de récépicé émis par la DEAL Service eau"
           }
         ]
       }
     ],
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rdt",
     "nom": "récépissé de déclaration d'ouverture de travaux miniers",
+    "description": "Courrier par lequel l’administration accuse réception de la déclaration faite au préfet pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.61-1 du code minier.",
     "ordre": "44",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "meo",
     "nom": "prise en charge par l'Office national des forêts",
     "ordre": "45",
     "date_fin": "2020-01-01",
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "vfd",
     "nom": "validation du paiement des frais de dossier",
+    "description": "Acte attestant que le pétitionnaire d’une autorisation de recherches minières (ARM) a acquitté ses frais de dossier.\n",
     "ordre": "46",
     "sections": [
       {
@@ -588,84 +605,93 @@
           {
             "id": "facture",
             "nom": "Facture ONF",
-            "description": "Numéro de facture émise par l'ONF",
-            "type": "text"
+            "type": "text",
+            "description": "Numéro de facture émise par l'ONF"
           }
         ]
       }
     ],
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "anf",
     "nom": "avis de mise en concurrence au JORF",
+    "description": "Pour les titres miniers H (hydrocarbures), étape par laquelle le ministre chargé des mines publie l'avis de mise en concurrence au Journal officiel de la République française au frais du demandeur. Pour les titres miniers M (métaux), étape par laquelle le préfet publie l'avis de mise en concurrence au Journal officiel de la République française au frais du demandeur.",
     "ordre": "47",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ane",
     "nom": "avis de mise en concurrence au JOUE",
+    "description": "Pour les titres miniers H (hydrocarbures), étape par laquelle le ministre chargé des mines publie l'avis de mise en concurrence au Journal officiel de l'Union européenne au frais du demandeur.",
     "ordre": "48",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mec",
     "nom": "avis de demande concurrente",
+    "description": "Annonce à un demandeur qu’une demande concurrente à la sienne a été déposée.",
     "ordre": "49",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ppu",
     "nom": "ouverture de la participation du public",
+    "description": "La participation du public est obligatoire pour l’octroi des permis exclusifs de recherches (PER) et les prolongations de concessions minières. La législation ne prévoit pas à quel moment elle intervient. Il a été décidé pour les titres miniers qu’elle aurait lieu dès la déclaration de recevabilité du dossier. ",
     "ordre": "50",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "epu",
     "nom": "ouverture de l'enquête publique",
+    "description": "L’enquête publique requise pour l’octroi des concessions minières et des permis d’exploitations dans les départements d’outre-mer a lieu après constat de recevabilité du dossier.",
     "ordre": "51",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ppc",
     "nom": "clôture de la participation du public",
+    "description": "La durée de la participation du public doit être au moins égale 15 jours. L’administration doit tenir compte pour sa décision des avis recueillis lors de la participation du public.",
     "ordre": "52",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "epc",
     "nom": "clôture de l'enquête publique",
+    "description": "L’enquête publique dure un mois. Il est possible de la prolonger. ",
     "ordre": "53",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ssr",
     "nom": "saisine des services",
+    "description": "Demande de consultation dans le cadre d’un titre minier des chefs de service civils et de l’autorité militaire. Les intéressés ont un mois pour répondre. Au-delà de ce délai,  le silence vaut accord.\n",
     "ordre": "54",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "cps",
     "nom": "confirmation de l'accord du propriétaire du sol",
     "ordre": "55",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ede",
     "nom": "expertise DREAL ou DGTM service eau",
+    "description": "Instruction de demande sur la réglementation ayant trait à l’eau par les services de la DGTM.\n",
     "ordre": "56",
     "sections": [
       {
@@ -675,20 +701,20 @@
           {
             "id": "motifs",
             "nom": "Motifs",
-            "description": "élément d'expertise",
-            "type": "textarea"
+            "type": "textarea",
+            "description": "élément d'expertise"
           },
           {
             "id": "agent",
             "nom": "Agent",
-            "description": "Prénom et nom de l'agent chargé de l'expertise",
-            "type": "text"
+            "type": "text",
+            "description": "Prénom et nom de l'agent chargé de l'expertise"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "edm",
@@ -702,380 +728,417 @@
           {
             "id": "motifs",
             "nom": "Motifs",
-            "description": "élément d'expertise",
-            "type": "textarea"
+            "type": "textarea",
+            "description": "élément d'expertise"
           },
           {
             "id": "agent",
             "nom": "Agent",
-            "description": "Prénom et nom de l'agent chargé de l'expertise",
-            "type": "text"
+            "type": "text",
+            "description": "Prénom et nom de l'agent chargé de l'expertise"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "esb",
     "nom": "expertise DREAL ou DGTM service biodiversité",
+    "description": "Instruction de demande sur la réglementation ayant trait à la biodiversité par les services de la DGTM.",
     "ordre": "58",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "eof",
     "nom": "expertise de l'Office national des forêts",
+    "description": "Expertise effectuée par l’ONF dans le cadre d’une demande d’autorisation de recherches minières (ARM).",
     "ordre": "59",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "aof",
     "nom": "avis de l'Office national des forêts",
+    "description": "Avis délivré par l’ONF dans le cadre de l’instruction d’un titre minier.\n",
     "ordre": "60",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "aop",
     "nom": "avis de l'Institut national de l'origine et de la qualité",
     "ordre": "61",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "apl",
     "nom": "avis d'un service administratif local",
     "ordre": "62",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "apm",
     "nom": "avis de l'autorité militaire",
+    "description": "Avis de l’autorité militaire, délivré dans le cadre de l’instruction d’un titre minier.",
     "ordre": "63",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "cod",
     "nom": "saisine du conseil départemental de l'environnement et des risques sanitaires et technologiques  (Coderst)",
     "ordre": "64",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "scl",
     "nom": "saisine des collectivités locales",
+    "description": "Consultation pour avis, des collectivités locales dans le cadre de l’instruction d’un titre ou d’une autorisation.",
     "ordre": "65",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ama",
     "nom": "avis d'un maire",
+    "description": "Avis du maire, dans le cadre de l’instruction d’un titre.",
     "ordre": "66",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "aep",
     "nom": "avis d'un président d'EPCI",
+    "description": "Avis du président d’EPCI dans le cadre de l’instruction d’un titre.",
     "ordre": "67",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "acl",
     "nom": "avis d'une collectivité locale",
+    "description": "Avis de la collectivité locale dans le cadre de l’instruction d’un titre.",
     "ordre": "68",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "apd",
     "nom": "avis du DREAL, DEAL ou DGTM",
+    "description": "Étape par laquelle le DREAL ou le DEAL rend un avis sur la demande. Cet avis tient compte du rapport rédigé par le service instructeur de la DREAL ou de la DEAL qui s'appuie sur les avis émis par les chefs des services civils et de l'autorité militaire intéressés sur la demande.",
     "ordre": "69",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "def",
     "nom": "décision de l'Office national des forêts",
+    "description": "Décision de l’ONF dans le cadre des autorisations d’exploitation (AEX) et des autorisations de recherches minières (ARM) en tant que propriétaire du sol.",
     "ordre": "70",
     "date_fin": "2020-01-01",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "apn",
     "nom": "avis du parc national",
+    "description": "Avis du parc national dans le cadre de l’instruction d’un titre.",
     "ordre": "71",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "pnr",
     "nom": "avis du parc naturel régional",
+    "description": "Avis du parc naturel régional dans le cadre de l’instruction d’un titre.",
     "ordre": "72",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "ari",
     "nom": "avis de la réunion interservice",
     "ordre": "73",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "aim",
     "nom": "avis de l'Ifremer",
+    "description": "Avis de l’institut français de recherche pour l’exploitation en mer (IFREMER) dans le cadre d’autorisation en mer.",
     "ordre": "74",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "ami",
     "nom": "avis du parc naturel marin",
+    "description": "Avis du parc naturel marin dans le cadre d’autorisation en mer.",
     "ordre": "75",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "abs",
     "nom": "avis DGTM service milieux naturels, biodiversité, sites et paysages (MNBST)",
+    "description": "Avis du MNBST sur la notice d’impact pour les titres miniers et les autorisations d'exploitation.",
     "ordre": "76",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "auc",
     "nom": "avis DGTM service aménagement, urbanisme, construction, logement (AUCL)",
+    "description": "Avis de l’AUCL sur la notice d’impact pour les titres miniers et les autorisations d’exploitation. ",
     "ordre": "77",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "ass",
     "nom": "avis de la caisse générale de sécurité sociale",
+    "description": "Avis émis par le service de la sécurité sociale sur la situation sociale de l'entreprise.",
     "ordre": "78",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "aaf",
     "nom": "avis de la direction d'alimentation de l'agriculture et de la forêt",
+    "description": "Avis pour un titre minier.",
     "ordre": "79",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "ars",
     "nom": "avis de l'agence régionale de santé",
+    "description": "Avis pour les titres miniers concernant leur respect de la réglementation sanitaire.",
     "ordre": "80",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "aac",
     "nom": "avis de direction régionale des affaires culturelles",
+    "description": "Avis sur la situation archéologique du site en question.",
     "ordre": "81",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "api",
     "nom": "avis de l'état major orpaillage et pêche illicite (EMOPI)",
+    "description": "Avis pour tous les titres miniers en Guyane.",
     "ordre": "82",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "agn",
     "nom": "avis de la gendarmerie nationale",
+    "description": "Avis sur les titres miniers.",
     "ordre": "83",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "afp",
     "nom": "avis de la direction régionale des finances publiques",
+    "description": "Avis délivré sur la régularité fiscale de l’entreprise.",
     "ordre": "84",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "aec",
     "nom": "avis de la direction des entreprises, de la concurrence, de la consommation, du travail et de l'emploi",
+    "description": "Avis facultatif sur la situation économique de l’entreprise.",
     "ordre": "85",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "spo",
     "nom": "saisine de la commission départementale des mines (CDM)",
+    "description": "Dans les seuls départements d’Outre-mer (Guadeloupe, Guyane, Réunion, Martinique et Mayotte) une commission dédiée à l’examen des demandes minières se réunit comportant les différentes parties prenantes. Cette commission donne un avis consultatif sur le rapport des services déconcentrés. Pour l’instant, cette commission se réunit uniquement en Guyane.",
     "ordre": "86",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "apo",
     "nom": "avis de la commission départementale des mines (CDM)",
+    "description": "L’avis de cette commission est consultatif et donne lieu à des votes des différents membres des collèges. Les représentants des administrations participent également.",
     "ordre": "87",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "sca",
     "nom": "saisine de la commission des autorisations de recherches minières (CARM)",
     "ordre": "88",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "aca",
     "nom": "avis de la commission des autorisations de recherches minières (CARM)",
     "ordre": "89",
-    "fondamentale": "TRUE",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "app",
     "nom": "avis du préfet",
+    "description": "Le préfet émet un avis à l’issue de l’instruction du dossier, prenant en compte les avis délivrés par les services déconcentrés et éventuellement, l’avis de la commission des mines en Guyane.",
     "ordre": "90",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "apw",
     "nom": "avis du préfet maritime",
+    "description": "Avis pour les titres miniers en mer.",
     "ordre": "91",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "cac",
     "nom": "consultation des administrations centrales",
     "ordre": "92",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "cim",
     "nom": "concertation interministérielle",
+    "description": "Concertation prévue dans le cadre des exploitations de granulats marins par les ministères concernés.",
     "ordre": "93",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "scg",
     "nom": "saisine du conseil général chargé des mines",
     "description": "Étape par laquelle le service instructeur transmet la demande, les différents avis et une proposition de décision du ministre chargé des mines au conseil général chargé des mines pour avis.",
     "ordre": "94",
-    "acceptation_auto": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "acceptation_auto": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "rcg",
     "nom": "rapport du conseil général chargé des mines",
     "ordre": "95",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "acg",
     "nom": "avis du conseil général chargé des mines",
+    "description": "Le conseil général chargé des mines donne un avis sur la demande et sur son instruction au ministre chargé des mines. Cet avis n'est pas conforme.",
     "ordre": "96",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "spe",
     "nom": "saisine du Conseil d'Etat",
+    "description": "Le service instructeur transmet la demande, les différents avis et une proposition de décision du premier ministre et du ministre chargé des mines au conseil d’État pour avis.",
     "ordre": "97",
-    "acceptation_auto": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "acceptation_auto": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "rpe",
     "nom": "rapport du Conseil d’État",
     "ordre": "98",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "ape",
     "nom": "avis du Conseil d'Etat",
+    "description": "Le conseil d’État donne au premier ministre et au ministre chargé des mines un avis sur la demande et sur son instruction. Cet avis n'est pas conforme mais si la décision s'écarte de l'avis donné, elle doit être validée en conseil des ministres.",
     "ordre": "99",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "sas",
     "nom": "saisine de l'autorité signataire",
     "ordre": "100",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "dim",
     "nom": "décision implicite",
+    "description": "En dehors des décisions implicites, l’autorité administrative compétente (préfet, ministre chargé des mines ou gouvernement) peut prendre une décision express de refus ou d’acceptation par arrêté ou décret en conseil d’État (décision relative aux concessions minières).",
     "ordre": "101",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "css",
     "nom": "classement sans suite",
     "ordre": "102",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dex",
     "nom": "décision de l'administration",
     "ordre": "103",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dpu",
     "nom": "publication de décision au JORF",
+    "description": "En dehors des refus et décisions implicites de rejet, la décision de l’autorité compétente est publiée soit au recueil administratif de la préfecture soit au JORF pour les décisions du préfet et au JORF pour celle du ministre chargé des mines et du gouvernement. Ces publications pour les actes relatifs aux titres miniers sont publiés par extrait.",
     "ordre": "104",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dux",
     "nom": "décision administrative",
+    "description": "Refus ou acceptation à l’issue d’une instruction.",
     "ordre": "105",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dup",
     "nom": "publication de décision administrative au JORF",
+    "description": "A la fin d’une instruction, la décision administrative est publiée au JORF  si elle est positive. Pour les instructions relatives aux granulats marins, la décision administrative est publiée au JORF, qu’elle soit positive ou négative.",
     "ordre": "106",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "npp",
     "nom": "notification au préfet",
+    "description": "Note au préfet demandant de notifier la décision à l’intéressé et de prendre les mesures de publicité nécessaires.",
     "ordre": "107",
     "sections": [
       {
@@ -1085,58 +1148,63 @@
           {
             "id": "info",
             "nom": "Informations complémentaires",
-            "description": "Informations complémentaires accompagnant la notification de la décision au préfet",
             "type": "textarea",
-            "optionnel": true
+            "optionnel": true,
+            "description": "Informations complémentaires accompagnant la notification de la décision au préfet"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "rpu",
     "nom": "publication de décision au recueil des actes administratifs",
+    "description": "Publication, par le préfet, au recueil des actes administratifs.",
     "ordre": "108",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "pqr",
     "nom": "publication dans un journal local ou national",
     "ordre": "109",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rtd",
     "nom": "retrait de la décision",
+    "description": "Sanction administrative consistant à retirer le titre minier dans les cas énumérés dans le code minier.",
     "ordre": "110",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "abd",
     "nom": "abrogation de la décision",
+    "description": "Suppression de l’acte administratif pour l’avenir.",
     "ordre": "111",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "and",
     "nom": "décision du juge administratif",
+    "description": "Décision à un contentieux ou à un référé.",
     "ordre": "112",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mno",
     "nom": "notification au demandeur",
+    "description": "Notification de la décision au demandeur.",
     "ordre": "113",
     "sections": [
       {
@@ -1146,18 +1214,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mna",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (ajournement de la CARM)",
     "description": "après une aca ajournée",
     "ordre": "114",
@@ -1169,18 +1237,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception de la notification",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception de la notification"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mnb",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (avis favorable de la CARM)",
     "description": "après une aca favorable",
     "ordre": "115",
@@ -1192,18 +1260,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mnc",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (classement sans suite)",
     "description": "après une css",
     "ordre": "116",
@@ -1215,18 +1283,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mnd",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (avis défavorable)",
     "description": "après une aca défavorable",
     "ordre": "117",
@@ -1238,18 +1306,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mns",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (signature de l’autorisation de recherche minière)",
     "description": "après une sco",
     "ordre": "118",
@@ -1261,18 +1329,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mnv",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (signature de l'avenant à l’autorisation de recherche minière)",
     "description": "après une aco",
     "ordre": "119",
@@ -1284,18 +1352,18 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mni",
-    "parentId": "mno",
+    "parent_id": "mno",
     "nom": "notification au demandeur (initiation de la démarche de retrait)",
     "description": "après une ide",
     "ordre": "120",
@@ -1307,21 +1375,22 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
-            "type": "date"
+            "type": "date",
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ncl",
     "nom": "notification des collectivités locales",
+    "description": "Notification de la décision aux collectivités locales.",
     "ordre": "121",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "pfc",
@@ -1335,25 +1404,26 @@
           {
             "id": "fraisComplementaires",
             "nom": "Frais de dossier complémentaires",
-            "description": "Montant en euro des frais de dossier complémentaires payés",
-            "type": "number"
+            "type": "number",
+            "description": "Montant en euro des frais de dossier complémentaires payés"
           },
           {
             "id": "virement",
             "nom": "Virement banquaire ou postal",
-            "description": "Référence communiquée par le demandeur à sa banque",
-            "type": "text"
+            "type": "text",
+            "description": "Référence communiquée par le demandeur à sa banque"
           }
         ]
       }
     ],
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "vfc",
     "nom": "validation du paiement des frais de dossier complémentaires",
+    "description": "Validation par la direction générale des territoires et des mines (DGTM).",
     "ordre": "123",
     "sections": [
       {
@@ -1363,42 +1433,43 @@
           {
             "id": "facture",
             "nom": "Facture ONF",
-            "description": "Numéro de facture émise par l'ONF",
-            "type": "text"
+            "type": "text",
+            "description": "Numéro de facture émise par l'ONF"
           }
         ]
       }
     ],
-    "unique": "TRUE",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "unique": "true",
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "sco",
     "nom": "signature de l’autorisation de recherche minière",
     "ordre": "124",
-    "fondamentale": "TRUE",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "aco",
-    "nom": "signature de l'avenant à l’autorisation de recherche minière",
+    "nom": "avenant à l’autorisation de recherche minière",
     "ordre": "125",
-    "fondamentale": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "ihi",
     "nom": "informations historiques incomplètes",
+    "description": "Impossibilité de retracer la totalité de la vie administrative du titre.",
     "ordre": "126",
     "date_fin": "2018-12-31",
-    "fondamentale": "TRUE",
-    "unique": "TRUE",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "fondamentale": "true",
+    "unique": "true",
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dow",
@@ -1413,52 +1484,56 @@
   {
     "id": "awu",
     "nom": "premier donné acte d'arret des travaux miniers",
+    "description": "Décision du préfet demandant à l’opérateur de prendre certaines mesures d’après-mine.",
     "ordre": "129",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "awd",
     "nom": "second donné acte d'arret des travaux miniers",
+    "description": "Décision du préfet actant que l’opérateur a pris toutes les mesures nécessaires pour fermer la mine.",
     "ordre": "130",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "dpm",
     "nom": "décision de police des mines",
     "ordre": "131",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "sup",
     "nom": "décision instituant une servitude d'utilité publique",
     "ordre": "132",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rwp",
     "nom": "récolement partiel",
+    "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
     "ordre": "133",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "mfw",
     "nom": "mémoire de fin de travaux",
     "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
     "ordre": "134",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "rwt",
     "nom": "récolement complet",
+    "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
     "ordre": "135",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "false",
+    "entreprises_lecture": "true"
   },
   {
     "id": "nis",
@@ -1472,21 +1547,21 @@
           {
             "id": "note",
             "nom": "Notes réservées à l'administration",
-            "description": "Informations internes importantes pour la compréhension du suivi de l'instruction de la démarche",
             "type": "textarea",
-            "optionnel": false
+            "optionnel": false,
+            "description": "Informations internes importantes pour la compréhension du suivi de l'instruction de la démarche"
           }
         ]
       }
     ],
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "false",
+    "entreprises_lecture": "false"
   },
   {
     "id": "acd",
     "nom": "avis du conseil départemental de l'environnement et des risques sanitaires et technologiques (Coderst)",
     "ordre": "137",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
+    "public_lecture": "true",
+    "entreprises_lecture": "true"
   }
 ]

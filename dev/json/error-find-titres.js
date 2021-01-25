@@ -1,21 +1,38 @@
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
+const documents = require('../../sources/documents.json')
 
-const errorFind = (a, b, join) => {
-  const elementsA = domainesIds.flatMap(domaineId =>
-    require(`../../sources/titres-${domaineId}-titres-${a}.json`)
-  )
+const etapes = domainesIds.reduce((acc, domaineId) => {
+  const e = require(`../../sources/titres-${domaineId}-titres-etapes.json`)
 
-  const elementsB = require(`../../sources/${b}.json`)
+  acc = acc.concat(e)
 
-  elementsB.forEach(r => {
-    if (!r[join]) return
+  return acc
+}, [])
 
-    const p = elementsA.find(p => p.id === r[join])
+const justificatifs = domainesIds.reduce((acc, domaineId) => {
+  const j = require(`../../sources/titres-${domaineId}-titres-etapes-justificatifs.json`)
 
-    if (!p) {
-      console.info(r)
+  acc = acc.concat(j)
+
+  return acc
+}, [])
+
+documents.forEach(d => {
+  if (d.titre_etape_id) {
+    const etape = etapes.find(e => e.id === d.titre_etape_id)
+
+    if (!etape) {
+      console.log(etape.id)
+      console.log('---->', d)
     }
-  })
-}
+  }
+})
 
-errorFind('etapes', 'documents', 'titre_etape_id')
+justificatifs.forEach(j => {
+  const etape = etapes.find(e => e.id === j.titre_etape_id)
+
+  if (!etape) {
+    console.log(etape.id)
+    console.log('---->', j)
+  }
+})

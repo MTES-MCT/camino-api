@@ -66,7 +66,9 @@ sections.forEach(s => {
 const domainesIds = ['m']
 
 domainesIds.forEach(domaineId => {
-  const fileName = decamelize(`titres-${domaineId}-titres-etapes.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres-etapes.json`, {
+    separator: '-'
+  })
 
   try {
     const filePath = `./sources/${fileName}`

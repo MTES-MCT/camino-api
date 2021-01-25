@@ -8,12 +8,14 @@
   {
     "id": "acc",
     "nom": "accepté",
+    "description": "La demande a fait l’objet d’une décision favorable de l'administration.",
     "couleur": "success",
     "ordre": "2"
   },
   {
     "id": "rej",
     "nom": "rejeté",
+    "description": "La demande a fait l’objet d’une décision défavorable de l'administration. Les textes d’applications du code minier prévoient que les décisions de rejet ne font pas l’objet d’une publication. En conséquence, les démarches qui passent au statut “rejeté” dans Camino sont dé-publiées et rendues inaccessibles aux tiers.\n",
     "couleur": "error",
     "ordre": "3"
   },
@@ -62,6 +64,7 @@
   {
     "id": "ter",
     "nom": "terminé",
+    "description": "La démarche engagée unilatéralement par l’administration qui a fait l’objet d’une décision de l’administration. Celle-ci n’a pas fait l’objet d’une demande de la part du titulaire du titre ou de l’autorisation.\n",
     "couleur": "neutral",
     "ordre": "11"
   },

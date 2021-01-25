@@ -70,7 +70,7 @@ const titres = titresFiles.reduce(
       domainesIds.reduce((res, domaineId) => {
         res.push({
           name: file,
-          file: decamelize(`titres-${domaineId}-${file}`, '-')
+          file: decamelize(`titres-${domaineId}-${file}`, { separator: '-' })
         })
 
         return res
@@ -105,7 +105,9 @@ const data = [
   let model
   try {
     model = !file.match(/--/)
-      ? require(`../../src/database/models/${decamelize(name, '-')}`).default
+      ? require(`../../src/database/models/${decamelize(name, {
+          separator: '-'
+        })}`).default
       : null
   } catch (e) {
     console.info(e)
@@ -113,7 +115,7 @@ const data = [
 
   let data
   try {
-    data = require(`./sources/${decamelize(file, '-')}.json`)
+    data = require(`./sources/${decamelize(file, { separator: '-' })}.json`)
   } catch (e) {
     data = []
   }

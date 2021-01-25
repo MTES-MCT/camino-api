@@ -28,7 +28,9 @@ const files = [
 
 const data = files.reduce((d, file) => {
   d[file] = domainesIds.reduce((res, domaineId) => {
-    const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
+    const fileName = decamelize(`titres-${domaineId}-${file}`, {
+      separator: '-'
+    })
 
     let content
     try {

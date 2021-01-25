@@ -1,37 +1,37 @@
 [
   {
-    "id": "m3x",
-    "symbole": "m³",
-    "nom": "mètre cube"
-  },
-  {
-    "id": "km3",
-    "symbole": "km³",
-    "nom": "kilomètre cube"
-  },
-  {
-    "id": "m3a",
-    "symbole": "m³ / an",
-    "nom": "mètre cube par an"
-  },
-  {
-    "id": "txa",
-    "symbole": "t / an",
-    "nom": "tonnes par an"
-  },
-  {
-    "id": "met",
-    "symbole": "m",
-    "nom": "mètre"
-  },
-  {
     "id": "deg",
-    "symbole": "º",
-    "nom": "degré"
+    "nom": "degré",
+    "symbole": "º"
   },
   {
     "id": "gon",
-    "symbole": "gon",
-    "nom": "grade"
+    "nom": "grade",
+    "symbole": "gon"
+  },
+  {
+    "id": "km3",
+    "nom": "kilomètre cube",
+    "symbole": "km³"
+  },
+  {
+    "id": "m3a",
+    "nom": "mètre cube par an",
+    "symbole": "m³ / an"
+  },
+  {
+    "id": "m3x",
+    "nom": "mètre cube",
+    "symbole": "m³"
+  },
+  {
+    "id": "met",
+    "nom": "mètre",
+    "symbole": "m"
+  },
+  {
+    "id": "txa",
+    "nom": "tonnes par an",
+    "symbole": "t / an"
   }
 ]

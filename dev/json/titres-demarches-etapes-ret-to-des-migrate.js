@@ -5,7 +5,9 @@ const decamelize = require('decamelize')
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const modify = (domaineId, type, field) => {
-  const fileName = decamelize(`titres-${domaineId}-titres-${type}s.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres-${type}s.json`, {
+    separator: '-'
+  })
 
   let changed = 0
 

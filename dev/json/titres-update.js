@@ -5,7 +5,9 @@ const decamelize = require('decamelize')
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 domainesIds.forEach(domaineId => {
-  const fileName = decamelize(`titres-${domaineId}-titres.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres.json`, {
+    separator: '-'
+  })
 
   try {
     const filePath = `./sources/${fileName}`

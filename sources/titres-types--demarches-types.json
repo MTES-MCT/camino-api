@@ -3,14 +3,14 @@
     "titre_type_id": "apc",
     "demarche_type_id": "oct",
     "duree_max": "24",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "apc",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "4",
     "delai_recours": "2"
   },
@@ -23,14 +23,14 @@
     "titre_type_id": "aph",
     "demarche_type_id": "oct",
     "duree_max": "24",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "aph",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "4",
     "delai_recours": "2"
   },
@@ -43,14 +43,14 @@
     "titre_type_id": "apm",
     "demarche_type_id": "oct",
     "duree_max": "24",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "apm",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "4",
     "delai_recours": "2"
   },
@@ -63,14 +63,14 @@
     "titre_type_id": "apw",
     "demarche_type_id": "oct",
     "duree_max": "24",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "apw",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "4",
     "delai_recours": "2"
   },
@@ -83,7 +83,7 @@
     "titre_type_id": "arc",
     "demarche_type_id": "oct",
     "duree_max": "36",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
@@ -91,14 +91,14 @@
     "titre_type_id": "arc",
     "demarche_type_id": "pro",
     "duree_max": "36",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "arc",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -110,14 +110,14 @@
   {
     "titre_type_id": "arg",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "arg",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
@@ -125,14 +125,14 @@
     "titre_type_id": "arg",
     "demarche_type_id": "oct",
     "duree_max": "36",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "arg",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -145,18 +145,18 @@
     "titre_type_id": "arm",
     "demarche_type_id": "oct",
     "duree_max": "48",
-    "acceptation_implicite": "FALSE"
+    "acceptation_implicite": "false"
   },
   {
     "titre_type_id": "arm",
     "demarche_type_id": "pro",
     "duree_max": "48",
-    "acceptation_implicite": "FALSE"
+    "acceptation_implicite": "false"
   },
   {
     "titre_type_id": "arm",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "FALSE"
+    "acceptation_implicite": "false"
   },
   {
     "titre_type_id": "arm",
@@ -165,27 +165,27 @@
   {
     "titre_type_id": "axm",
     "demarche_type_id": "dep",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "axm",
     "demarche_type_id": "oct",
     "duree_max": "48",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "axm",
     "demarche_type_id": "pro",
     "duree_max": "48",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "axm",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_recours": "2"
   },
   {
@@ -197,28 +197,28 @@
     "titre_type_id": "axm",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxf",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxf",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxf",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -226,7 +226,7 @@
     "titre_type_id": "cxf",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -234,21 +234,21 @@
     "titre_type_id": "cxf",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxf",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxf",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -260,21 +260,21 @@
   {
     "titre_type_id": "cxg",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxg",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxg",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -282,7 +282,7 @@
     "titre_type_id": "cxg",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -290,21 +290,21 @@
     "titre_type_id": "cxg",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxg",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxg",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -316,28 +316,28 @@
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "con",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -345,7 +345,7 @@
     "titre_type_id": "cxh",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -353,21 +353,21 @@
     "titre_type_id": "cxh",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -379,7 +379,7 @@
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -394,14 +394,14 @@
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -409,7 +409,7 @@
     "titre_type_id": "cxm",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -417,21 +417,21 @@
     "titre_type_id": "cxm",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -443,28 +443,28 @@
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "vut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxr",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxr",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxr",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -472,7 +472,7 @@
     "titre_type_id": "cxr",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -480,21 +480,21 @@
     "titre_type_id": "cxr",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxr",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxr",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -506,21 +506,21 @@
   {
     "titre_type_id": "cxs",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxs",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxs",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -528,7 +528,7 @@
     "titre_type_id": "cxs",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -536,21 +536,21 @@
     "titre_type_id": "cxs",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxs",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxs",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -562,21 +562,21 @@
   {
     "titre_type_id": "cxw",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxw",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxw",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -584,7 +584,7 @@
     "titre_type_id": "cxw",
     "demarche_type_id": "oct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -592,21 +592,21 @@
     "titre_type_id": "cxw",
     "demarche_type_id": "pro",
     "duree_max": "300",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxw",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "cxw",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -618,21 +618,21 @@
   {
     "titre_type_id": "pcc",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pcc",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pcc",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -640,7 +640,7 @@
     "titre_type_id": "pcc",
     "demarche_type_id": "oct",
     "duree_max": "120",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -648,21 +648,21 @@
     "titre_type_id": "pcc",
     "demarche_type_id": "pro",
     "duree_max": "120",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pcc",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pcc",
     "demarche_type_id": "res",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
@@ -674,21 +674,21 @@
   {
     "titre_type_id": "prf",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prf",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prf",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -696,7 +696,7 @@
     "titre_type_id": "prf",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -704,7 +704,7 @@
     "titre_type_id": "prf",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -712,14 +712,14 @@
     "titre_type_id": "prf",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prf",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -732,28 +732,28 @@
     "titre_type_id": "prf",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prg",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prg",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prg",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -761,7 +761,7 @@
     "titre_type_id": "prg",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -769,7 +769,7 @@
     "titre_type_id": "prg",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -777,14 +777,14 @@
     "titre_type_id": "prg",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prg",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -797,28 +797,28 @@
     "titre_type_id": "prg",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prh",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prh",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prh",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -826,7 +826,7 @@
     "titre_type_id": "prh",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -834,7 +834,7 @@
     "titre_type_id": "prh",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -842,7 +842,7 @@
     "titre_type_id": "prh",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -850,14 +850,14 @@
     "titre_type_id": "prh",
     "demarche_type_id": "pre",
     "duree_max": "36",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prh",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -869,28 +869,28 @@
   {
     "titre_type_id": "prm",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prm",
     "demarche_type_id": "exs",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prm",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prm",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -898,7 +898,7 @@
     "titre_type_id": "prm",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -906,7 +906,7 @@
     "titre_type_id": "prm",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -914,14 +914,14 @@
     "titre_type_id": "prm",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prm",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -934,28 +934,28 @@
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prr",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prr",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prr",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -963,7 +963,7 @@
     "titre_type_id": "prr",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -971,7 +971,7 @@
     "titre_type_id": "prr",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -979,14 +979,14 @@
     "titre_type_id": "prr",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prr",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -999,28 +999,28 @@
     "titre_type_id": "prr",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prs",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prs",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prs",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1028,7 +1028,7 @@
     "titre_type_id": "prs",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1036,7 +1036,7 @@
     "titre_type_id": "prs",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1044,14 +1044,14 @@
     "titre_type_id": "prs",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prs",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1064,28 +1064,28 @@
     "titre_type_id": "prs",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prw",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prw",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prw",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1093,7 +1093,7 @@
     "titre_type_id": "prw",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1101,7 +1101,7 @@
     "titre_type_id": "prw",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1109,14 +1109,14 @@
     "titre_type_id": "prw",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "prw",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1129,35 +1129,35 @@
     "titre_type_id": "prw",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxg",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxg",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxg",
     "demarche_type_id": "fus",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxg",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
@@ -1165,7 +1165,7 @@
     "titre_type_id": "pxg",
     "demarche_type_id": "oct",
     "duree_max": "360",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
@@ -1173,21 +1173,21 @@
     "titre_type_id": "pxg",
     "demarche_type_id": "pro",
     "duree_max": "180",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxg",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxg",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "12",
     "delai_recours": "2"
   },
@@ -1199,27 +1199,24 @@
   {
     "titre_type_id": "pxh",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
   {
     "titre_type_id": "pxh",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
   {
     "titre_type_id": "pxh",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
@@ -1227,9 +1224,8 @@
     "titre_type_id": "pxh",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
@@ -1237,9 +1233,8 @@
     "titre_type_id": "pxh",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
@@ -1247,9 +1242,8 @@
     "titre_type_id": "pxh",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
@@ -1261,18 +1255,16 @@
   {
     "titre_type_id": "pxh",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
   {
     "titre_type_id": "pxh",
     "demarche_type_id": "res",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
@@ -1280,7 +1272,6 @@
     "titre_type_id": "pxh",
     "demarche_type_id": "ret",
     "delai_recours": "2",
-    "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
   },
@@ -1288,35 +1279,35 @@
     "titre_type_id": "pxh",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxm",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxm",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxm",
     "demarche_type_id": "exs",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxm",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1324,7 +1315,7 @@
     "titre_type_id": "pxm",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "30",
     "delai_recours": "2"
   },
@@ -1332,7 +1323,7 @@
     "titre_type_id": "pxm",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
@@ -1340,21 +1331,21 @@
     "titre_type_id": "pxm",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxm",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxm",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1367,35 +1358,35 @@
     "titre_type_id": "pxm",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxr",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxr",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxr",
     "demarche_type_id": "exs",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxr",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1403,7 +1394,7 @@
     "titre_type_id": "pxr",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "30",
     "delai_recours": "2"
   },
@@ -1411,7 +1402,7 @@
     "titre_type_id": "pxr",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
@@ -1419,21 +1410,21 @@
     "titre_type_id": "pxr",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxr",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "18",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxr",
     "demarche_type_id": "res",
-    "acceptation_implicite": "TRUE",
+    "acceptation_implicite": "true",
     "delai_implicite": "15",
     "delai_recours": "2"
   },
@@ -1446,47 +1437,47 @@
     "titre_type_id": "pxr",
     "demarche_type_id": "vct",
     "duree_max": "600",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_implicite": "24",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "amo",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "exp",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "mut",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "oct",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "pr1",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "pr2",
     "duree_max": "60",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
@@ -1497,13 +1488,13 @@
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "ren",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "res",
-    "acceptation_implicite": "FALSE",
+    "acceptation_implicite": "false",
     "delai_recours": "2"
   },
   {

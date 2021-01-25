@@ -5,7 +5,7 @@
 import { sheets_v4 } from 'googleapis'
 import { ISpreadsheetMultiple, ITable } from './_types'
 
-import decamelize from '../decamelize'
+import * as decamelize from 'decamelize'
 import credentials from './credentials'
 import rowFormat from './_utils/row-format'
 
@@ -90,7 +90,7 @@ const requestsBuild = (
       addSheet: {
         properties: {
           sheetId: id,
-          title: decamelize(name),
+          title: decamelize(name, { separator: '-' }),
           sheetType: 'GRID',
           gridProperties: {
             columnCount: columns.length,
@@ -105,7 +105,9 @@ const requestsBuild = (
       {
         values: columns.map(h => ({
           userEnteredValue: {
-            stringValue: decamelize(typeof h === 'object' ? h.id : h)
+            stringValue: decamelize(typeof h === 'object' ? h.id : h, {
+              separator: '-'
+            })
           }
         }))
       },

@@ -35,12 +35,12 @@
     "type_id": "ar",
     "props_etapes_types": [
       {
-        "sectionId": "arm",
-        "elementId": "mecanise"
+        "elementId": "mecanise",
+        "sectionId": "arm"
       },
       {
-        "sectionId": "arm",
-        "elementId": "franchissements"
+        "elementId": "franchissements",
+        "sectionId": "arm"
       }
     ]
   },
@@ -65,6 +65,11 @@
     "type_id": "cx"
   },
   {
+    "id": "cxi",
+    "domaine_id": "i",
+    "type_id": "cx"
+  },
+  {
     "id": "cxm",
     "domaine_id": "m",
     "type_id": "cx"
@@ -80,12 +85,12 @@
     "type_id": "cx",
     "props_etapes_types": [
       {
-        "sectionId": "cxx",
-        "elementId": "volume"
+        "elementId": "volume",
+        "sectionId": "cxx"
       },
       {
-        "sectionId": "cxx",
-        "elementId": "volumeUniteId"
+        "elementId": "volumeUniteId",
+        "sectionId": "cxx"
       }
     ]
   },
@@ -95,19 +100,34 @@
     "type_id": "cx",
     "props_etapes_types": [
       {
-        "sectionId": "cxx",
-        "elementId": "volume"
+        "elementId": "volume",
+        "sectionId": "cxx"
       },
       {
-        "sectionId": "cxx",
-        "elementId": "volumeUniteId"
+        "elementId": "volumeUniteId",
+        "sectionId": "cxx"
       }
     ]
   },
   {
-    "id": "cxi",
+    "id": "inh",
+    "domaine_id": "h",
+    "type_id": "in"
+  },
+  {
+    "id": "ini",
     "domaine_id": "i",
-    "type_id": "cx"
+    "type_id": "in"
+  },
+  {
+    "id": "inm",
+    "domaine_id": "m",
+    "type_id": "in"
+  },
+  {
+    "id": "inr",
+    "domaine_id": "r",
+    "type_id": "in"
   },
   {
     "id": "pcc",
@@ -120,12 +140,12 @@
     "type_id": "pr",
     "props_etapes_types": [
       {
-        "sectionId": "prx",
-        "elementId": "engagement"
+        "elementId": "engagement",
+        "sectionId": "prx"
       },
       {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
       }
     ]
   },
@@ -135,12 +155,12 @@
     "type_id": "pr",
     "props_etapes_types": [
       {
-        "sectionId": "prx",
-        "elementId": "engagement"
+        "elementId": "engagement",
+        "sectionId": "prx"
       },
       {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
       }
     ]
   },
@@ -150,72 +170,12 @@
     "type_id": "pr",
     "props_etapes_types": [
       {
-        "sectionId": "prx",
-        "elementId": "engagement"
+        "elementId": "engagement",
+        "sectionId": "prx"
       },
       {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
-      }
-    ]
-  },
-  {
-    "id": "prm",
-    "domaine_id": "m",
-    "type_id": "pr",
-    "props_etapes_types": [
-      {
-        "sectionId": "prx",
-        "elementId": "engagement"
-      },
-      {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
-      }
-    ]
-  },
-  {
-    "id": "prr",
-    "domaine_id": "r",
-    "type_id": "pr",
-    "props_etapes_types": [
-      {
-        "sectionId": "prx",
-        "elementId": "engagement"
-      },
-      {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
-      }
-    ]
-  },
-  {
-    "id": "prs",
-    "domaine_id": "s",
-    "type_id": "pr",
-    "props_etapes_types": [
-      {
-        "sectionId": "prx",
-        "elementId": "engagement"
-      },
-      {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
-      }
-    ]
-  },
-  {
-    "id": "prw",
-    "domaine_id": "w",
-    "type_id": "pr",
-    "props_etapes_types": [
-      {
-        "sectionId": "prx",
-        "elementId": "engagement"
-      },
-      {
-        "sectionId": "prx",
-        "elementId": "engagementDeviseId"
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
       }
     ]
   },
@@ -225,6 +185,71 @@
     "type_id": "pr"
   },
   {
+    "id": "prm",
+    "domaine_id": "m",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "prr",
+    "domaine_id": "r",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "prs",
+    "domaine_id": "s",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "prw",
+    "domaine_id": "w",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "pxf",
+    "domaine_id": "f",
+    "type_id": "px"
+  },
+  {
     "id": "pxg",
     "domaine_id": "g",
     "type_id": "px"
@@ -232,6 +257,11 @@
   {
     "id": "pxh",
     "domaine_id": "h",
+    "type_id": "px"
+  },
+  {
+    "id": "pxi",
+    "domaine_id": "i",
     "type_id": "px"
   },
   {
@@ -250,43 +280,13 @@
     "type_id": "px",
     "props_etapes_types": [
       {
-        "sectionId": "pxx",
-        "elementId": "volume"
+        "elementId": "volume",
+        "sectionId": "pxx"
       },
       {
-        "sectionId": "pxx",
-        "elementId": "volumeUniteId"
+        "elementId": "volumeUniteId",
+        "sectionId": "pxx"
       }
     ]
-  },
-  {
-    "id": "pxf",
-    "domaine_id": "f",
-    "type_id": "px"
-  },
-  {
-    "id": "pxi",
-    "domaine_id": "i",
-    "type_id": "px"
-  },
-  {
-    "id": "ini",
-    "domaine_id": "i",
-    "type_id": "in"
-  },
-  {
-    "id": "inh",
-    "domaine_id": "h",
-    "type_id": "in"
-  },
-  {
-    "id": "inm",
-    "domaine_id": "m",
-    "type_id": "in"
-  },
-  {
-    "id": "inr",
-    "domaine_id": "r",
-    "type_id": "in"
   }
 ]

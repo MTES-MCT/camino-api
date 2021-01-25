@@ -54,7 +54,9 @@ const matchFuzzy = (name, array, partGet = hashGet) => {
 }
 
 const titresDocumentsIdsRename = async domaineId => {
-  const fileName = decamelize(`titres-${domaineId}-titres-documents.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres-documents.json`, {
+    separator: '-'
+  })
   const filePath = `./sources/${fileName}`
 
   const documents = JSON.parse(readFile(filePath).toString())
@@ -107,7 +109,9 @@ const titresDocumentsIdsRename = async domaineId => {
 }
 
 const titresDocumentsNoFileRename = async domaineId => {
-  const fileName = decamelize(`titres-${domaineId}-titres-documents.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres-documents.json`, {
+    separator: '-'
+  })
   const filePath = `./sources/${fileName}`
 
   const documents = JSON.parse(readFile(filePath).toString())

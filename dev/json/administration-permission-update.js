@@ -4,7 +4,7 @@ const decamelize = require('decamelize')
 
 const fileName = decamelize(
   'administrations--titres-types--etapes-types.json',
-  '-'
+  { separator: '-' }
 )
 
 try {

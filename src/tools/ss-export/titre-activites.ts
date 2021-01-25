@@ -1,7 +1,7 @@
 // eslint-disable-next-line camelcase
 import { sheets_v4 } from 'googleapis'
 import { Index, ITitreActivite } from '../../types'
-import decamelize from '../decamelize'
+import * as decamelize from 'decamelize'
 import credentials from './credentials'
 import {
   spreadsheetValuesGet,
@@ -30,7 +30,7 @@ const titreActivitesRowUpdate = async (
     const worksheet = await spreadsheetValuesGet(
       credentials,
       definition.id,
-      decamelize(table.name)
+      decamelize(table.name, { separator: '-' })
     )
 
     const requests = activites.map(activite => {

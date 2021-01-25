@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import decamelize from '../../tools/decamelize'
+import * as decamelize from 'decamelize'
 import * as camelcase from 'camelcase'
 import { mocked } from 'ts-jest/utils'
 
@@ -42,7 +42,7 @@ const titreContenuFormatMock = mocked(titreContenuFormat, true)
 const propsTitreEtapesIdsFindMock = mocked(propsTitreEtapesIdsFind, true)
 
 const elementsGet = <T>(fileName: string): T[] => {
-  fileName = decamelize(fileName, '-')
+  fileName = decamelize(fileName, { separator: '-' })
   const filePath = `./sources/${fileName}`
   const results = JSON.parse(fs.readFileSync(filePath).toString())
 

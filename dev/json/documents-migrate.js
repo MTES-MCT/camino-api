@@ -43,7 +43,7 @@ const fileRename = (oldFileName, newFileName, repertoire, dossier) => {
 
 const elementsLoad = name => {
   try {
-    const fileName = decamelize(`${name}.json`, '-')
+    const fileName = decamelize(`${name}.json`, { separator: '-' })
 
     const filePath = `./sources/${fileName}`
     const elements = JSON.parse(fs.readFileSync(filePath).toString())
@@ -56,7 +56,7 @@ const elementsLoad = name => {
 
 const elementsSave = (name, elements) => {
   try {
-    const fileName = decamelize(`${name}.json`, '-')
+    const fileName = decamelize(`${name}.json`, { separator: '-' })
 
     const filePath = `./sources/${fileName}`
 

@@ -68,6 +68,14 @@ interface IObject {
 // convertit les clés en camel-case
 const jsonKeysCaseChange = (val: ITruc): ITruc => {
   if (typeof val !== 'object') {
+    if (typeof val === 'string' && val === 'true') {
+      return true
+    }
+
+    if (typeof val === 'string' && val === 'false') {
+      return false
+    }
+
     return val
   }
 

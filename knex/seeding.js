@@ -21,7 +21,7 @@ module.exports = func => knex => {
       // si le message d'erreur est trop long
       // réduit la taille du message à 100 caractères
       const problem = e.message.split(' - ').pop()
-      const message = `Table "${table}" - ${problem}`
+      const message = `Table "${table}" - ${problem} - ${e.detail}`
 
       throw new Error(message)
     })

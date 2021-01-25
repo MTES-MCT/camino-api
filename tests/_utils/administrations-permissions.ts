@@ -77,6 +77,7 @@ const testAdministrationTitreTypeBuild = (
   //  V| |X| |
   //  C| | | |
   //  M| | | |
+
   administrationTitreTypeTests.push({
     titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
     administrationId: administration.id,
@@ -127,10 +128,10 @@ const testAdministrationTitreTypeBuild = (
           titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
           administrationId: administration.id,
           gestionnaire: restriction.titreType!.gestionnaire,
-          pouvoir:
-            (restriction.titreType!.gestionnaire &&
-              !restriction.titresModificationInterdit) ||
-            false,
+          pouvoir: !!(
+            restriction.titreType!.gestionnaire &&
+            !restriction.titresModificationInterdit
+          ),
           action: 'modifier' as IAction,
           cible: 'titre',
           titreTypeId,
@@ -155,10 +156,10 @@ const testAdministrationTitreTypeBuild = (
           titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
           administrationId: administration.id,
           gestionnaire: restriction.titreType!.gestionnaire,
-          pouvoir:
-            (restriction.titreType!.gestionnaire &&
-              !restriction.demarchesModificationInterdit) ||
-            false,
+          pouvoir: !!(
+            restriction.titreType!.gestionnaire &&
+            !restriction.demarchesModificationInterdit
+          ),
           action: 'modifier' as IAction,
           cible: 'demarche',
           titreTypeId,
@@ -183,10 +184,10 @@ const testAdministrationTitreTypeBuild = (
           titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
           administrationId: administration.id,
           gestionnaire: restriction.titreType!.gestionnaire,
-          pouvoir:
-            (restriction.titreType!.gestionnaire &&
-              !restriction.etapesModificationInterdit) ||
-            false,
+          pouvoir: !!(
+            restriction.titreType!.gestionnaire &&
+            !restriction.etapesModificationInterdit
+          ),
           action: 'modifier' as IAction,
           cible: 'etape',
           titreTypeId,
@@ -206,8 +207,8 @@ const testAdministrationTitreTypeBuild = (
   //           administrationId: administration.id,
   //           gestionnaire: restriction.titreType.gestionnaire,
   //           pouvoir:
-  //             restriction.titreType.gestionnaire &&
-  //             !restriction.modificationInterdit,
+  //             !!(restriction.titreType.gestionnaire &&
+  //             !restriction.modificationInterdit),
   //           action: restriction.lectureInterdit ? 'modifier(voir)' : 'modifier',
   //           cible: 'etape',
   //           titreTypeId,

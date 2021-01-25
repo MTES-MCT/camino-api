@@ -24,6 +24,10 @@
     "nom": "IRSN"
   },
   {
+    "id": "nus",
+    "nom": "Nom d'usage"
+  },
+  {
     "id": "onf",
     "nom": "ONF"
   },
@@ -34,9 +38,5 @@
   {
     "id": "rnt",
     "nom": "RNTM"
-  },
-  {
-    "id": "nus",
-    "nom": "Nom d'usage"
   }
 ]

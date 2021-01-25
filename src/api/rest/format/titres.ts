@@ -1,6 +1,6 @@
 import { ITitre, Index, IContenuValeur, IPays, IContenu } from '../../../types'
 
-import decamelize from '../../../tools/decamelize'
+import * as decamelize from 'decamelize'
 
 const titreContenuFormat = (contenu?: IContenu | null) =>
   contenu

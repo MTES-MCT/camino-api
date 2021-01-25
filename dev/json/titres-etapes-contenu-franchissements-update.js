@@ -3,14 +3,14 @@ const chalk = require('chalk')
 const decamelize = require('decamelize')
 
 const elementsGet = fileName => {
-  fileName = decamelize(fileName, '-')
+  fileName = decamelize(fileName, { separator: '-' })
   const filePath = `./sources/${fileName}`
 
   return JSON.parse(fs.readFileSync(filePath).toString())
 }
 
 const elementsWrite = (fileName, elements) => {
-  fileName = decamelize(fileName, '-')
+  fileName = decamelize(fileName, { separator: '-' })
   const filePath = `./sources/${fileName}`
   fs.writeFileSync(`${filePath}`, JSON.stringify(elements, null, 2))
 }

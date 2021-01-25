@@ -5,10 +5,9 @@ const decamelize = require('decamelize')
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const deleteTitresIncertides = domaineId => {
-  const fileName = decamelize(
-    `titres-${domaineId}-titres-incertitudes.json`,
-    '-'
-  )
+  const fileName = decamelize(`titres-${domaineId}-titres-incertitudes.json`, {
+    separator: '-'
+  })
   const filePath = `./sources/${fileName}`
 
   try {
@@ -46,7 +45,9 @@ const deleteTitresIncertides = domaineId => {
 }
 
 const migrateTitresEtapesIds = domaineId => {
-  const fileName = decamelize(`titres-${domaineId}-titres.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres.json`, {
+    separator: '-'
+  })
   const filePath = `./sources/${fileName}`
 
   try {
@@ -116,7 +117,9 @@ const migrateTitresEtapesIds = domaineId => {
 }
 
 const migrateEtapesContenu = domaineId => {
-  const fileName = decamelize(`titres-${domaineId}-titres-etapes.json`, '-')
+  const fileName = decamelize(`titres-${domaineId}-titres-etapes.json`, {
+    separator: '-'
+  })
   const filePath = `./sources/${fileName}`
 
   try {

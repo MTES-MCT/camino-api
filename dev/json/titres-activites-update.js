@@ -4,7 +4,7 @@ const decamelize = require('decamelize')
 
 let changed = 0
 
-const fileName = decamelize('titres-activites.json', '-')
+const fileName = decamelize('titres-activites.json', { separator: '-' })
 
 try {
   const filePath = `./sources/${fileName}`

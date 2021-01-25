@@ -28,7 +28,9 @@ const idsChanges = {}
 
 domainesIds.forEach(domaineId =>
   titresElementsFiles.forEach(element => {
-    const fileName = decamelize(`titres-${domaineId}-${element}.json`, '-')
+    const fileName = decamelize(`titres-${domaineId}-${element}.json`, {
+      separator: '-'
+    })
 
     try {
       const filePath = `./sources/${fileName}`

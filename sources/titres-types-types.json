@@ -44,7 +44,7 @@
   {
     "id": "in",
     "nom": "indéterminé",
-    "description": "Inconnu",
+    "description": "Titres et autorisations dont les informations disponibles sont insuffisantes pour en déterminer le statut.",
     "ordre": "8"
   }
 ]
