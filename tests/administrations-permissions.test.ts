@@ -3,7 +3,7 @@ import 'dotenv/config'
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils/index'
 import { scenariosBuild } from './_utils/administrations-permissions'
-import administrations from './_utils/administrations'
+import { administrationsWithRelations } from './_utils/administrations'
 import { titreCreate } from '../src/database/queries/titres'
 
 console.info = jest.fn()
@@ -20,7 +20,7 @@ afterAll(async () => {
 
 describe('permissions des administrations', () => {
   const scenarios = scenariosBuild(
-    administrations.filter(a => a.id === 'ope-onf-973-01')
+    administrationsWithRelations.filter(a => a.id === 'ope-onf-973-01')
   )
   const titreQuery = queryImport('titre')
 

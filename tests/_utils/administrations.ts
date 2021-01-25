@@ -145,4 +145,4 @@ const administrationsWithRelations = sources.administrations.data.map(
   }
 )
 
-export default administrationsWithRelations
+export { administrationsWithRelations }

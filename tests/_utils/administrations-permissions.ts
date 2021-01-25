@@ -29,11 +29,13 @@ import { IAdministration, ITitre } from '../../src/types'
 //   }))
 // }
 
+type IAction = 'rien' | 'voir' | 'modifier' | 'creer'
+
 interface IAdministrationTitreTypeTest {
   titreId: string
   administrationId: string
-  pouvoir: string
-  action: string
+  pouvoir: boolean
+  action: IAction
   cible: string
   titreTypeId: string
   domaineId?: string
@@ -59,14 +61,12 @@ const testAdministrationTitreTypeBuild = (
   //   |T|D|E|
   //  V|X| | |
   //  C| | | |
-  //  M| | | | <- restriction 1 : sur le statut du titre
-  //        ^
-  //        |
-  //        restriction 2 : sur les types d'étape
+  //  M| | | |
+
   administrationTitreTypeTests.push({
     titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
     administrationId: administration.id,
-    pouvoir: 'peut',
+    pouvoir: true,
     action: 'voir',
     cible: 'titre',
     titreTypeId
@@ -76,14 +76,11 @@ const testAdministrationTitreTypeBuild = (
   //   |T|D|E|
   //  V| |X| |
   //  C| | | |
-  //  M| | | | <- restriction 1 : sur le statut du titre
-  //        ^
-  //        |
-  //        restriction 2 : sur les types d'étape
+  //  M| | | |
   administrationTitreTypeTests.push({
     titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
     administrationId: administration.id,
-    pouvoir: 'peut',
+    pouvoir: true,
     action: 'voir',
     cible: 'demarche',
     titreTypeId
@@ -93,27 +90,23 @@ const testAdministrationTitreTypeBuild = (
   //   |T|D|E|
   //  V| | |X|
   //  C| | | |
-  //  M| | | | <- restriction 1 : sur le statut du titre
-  //        ^
-  //        |
-  //        restriction 2 : sur les types d'étape
+  //  M| | | |
 
-  // s'il y a restriction de visibilité
+  // s'il y a restriction de visibilité `lectureInterdit`
+  // dans titresTypesEtapesTypes
   if (administration.titresTypesEtapesTypes?.length) {
     administrationTitreTypeTests.push(
       ...administration.titresTypesEtapesTypes
         .filter(ttet => ttet.titreTypeId === titreTypeId)
-        .map(restriction => {
-          return {
-            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
-            administrationId: restriction.administrationId,
-            pouvoir: restriction.lectureInterdit ? 'ne peut pas' : 'peut',
-            action: 'voir',
-            cible: 'etape',
-            titreTypeId,
-            etapeTypeId: restriction.etapeTypeId
-          }
-        })
+        .map(restriction => ({
+          titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
+          administrationId: restriction.administrationId,
+          pouvoir: !restriction.lectureInterdit,
+          action: 'voir' as IAction,
+          cible: 'etape',
+          titreTypeId,
+          etapeTypeId: restriction.etapeTypeId
+        }))
     )
   }
 
@@ -122,32 +115,27 @@ const testAdministrationTitreTypeBuild = (
   //   |T|D|E|
   //  V| | | |
   //  C| | | |
-  //  M|X| | | <- restriction 1 : sur le statut du titre
-  //        ^
-  //        |
-  //        restriction 2 : sur les types d'étape
+  //  M|X| | |
 
-  // s'il y a restriction d'édition TDE : sur les titres
+  // s'il y a restriction d'édition `titresModificationInterdit`
+  // dans  titresTypesTitresStatuts
   if (administration.titresTypesTitresStatuts?.length) {
     administrationTitreTypeTests.push(
       ...administration.titresTypesTitresStatuts
         .filter(ttts => ttts.titreTypeId === titreTypeId)
-        .map(restriction => {
-          return {
-            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
-            administrationId: administration.id,
-            gestionnaire: restriction.titreType!.gestionnaire,
-            pouvoir:
-              restriction.titreType!.gestionnaire &&
-              !restriction.titresModificationInterdit
-                ? 'peut'
-                : 'ne peut pas',
-            action: 'modifier',
-            cible: 'titre',
-            titreTypeId,
-            titreStatutId: restriction.titreStatutId
-          }
-        })
+        .map(restriction => ({
+          titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
+          administrationId: administration.id,
+          gestionnaire: restriction.titreType!.gestionnaire,
+          pouvoir:
+            (restriction.titreType!.gestionnaire &&
+              !restriction.titresModificationInterdit) ||
+            false,
+          action: 'modifier' as IAction,
+          cible: 'titre',
+          titreTypeId,
+          titreStatutId: restriction.titreStatutId
+        }))
     )
   }
 
@@ -155,32 +143,27 @@ const testAdministrationTitreTypeBuild = (
   //   |T|D|E|
   //  V| | | |
   //  C| | | |
-  //  M| |X| | <- restriction 1 : sur le statut du titre
-  //        ^
-  //        |
-  //        restriction 2 : sur les types d'étape
+  //  M| |X| |
 
-  // s'il y a restriction d'édition TDE : sur les démarches
+  // s'il y a restriction d'édition `demarchesModificationInterdit`
+  // dans  titresTypesTitresStatuts
   if (administration.titresTypesTitresStatuts?.length) {
     administrationTitreTypeTests.push(
       ...administration.titresTypesTitresStatuts
         .filter(ttts => ttts.titreTypeId === titreTypeId)
-        .map(restriction => {
-          return {
-            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
-            administrationId: administration.id,
-            gestionnaire: restriction.titreType!.gestionnaire,
-            pouvoir:
-              restriction.titreType!.gestionnaire &&
-              !restriction.demarchesModificationInterdit
-                ? 'peut'
-                : 'ne peut pas',
-            action: 'modifier',
-            cible: 'demarche',
-            titreTypeId,
-            titreStatutId: restriction.titreStatutId
-          }
-        })
+        .map(restriction => ({
+          titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
+          administrationId: administration.id,
+          gestionnaire: restriction.titreType!.gestionnaire,
+          pouvoir:
+            (restriction.titreType!.gestionnaire &&
+              !restriction.demarchesModificationInterdit) ||
+            false,
+          action: 'modifier' as IAction,
+          cible: 'demarche',
+          titreTypeId,
+          titreStatutId: restriction.titreStatutId
+        }))
     )
   }
 
@@ -188,32 +171,27 @@ const testAdministrationTitreTypeBuild = (
   //   |T|D|E|
   //  V| | | |
   //  C| | | |
-  //  M| | |X| <- restriction 1 : sur le statut du titre
-  //        ^
-  //        |
-  //        restriction 2 : sur les types d'étape
+  //  M| | |X|
 
-  // s'il y a restriction d'édition TDE : sur les étapes
+  // s'il y a restriction d'édition `etapesModificationInterdit`
+  // dans titresTypesTitresStatuts
   if (administration.titresTypesTitresStatuts?.length) {
     administrationTitreTypeTests.push(
       ...administration.titresTypesTitresStatuts
         .filter(ttts => ttts.titreTypeId === titreTypeId)
-        .map(restriction => {
-          return {
-            titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
-            administrationId: administration.id,
-            gestionnaire: restriction.titreType!.gestionnaire,
-            pouvoir:
-              restriction.titreType!.gestionnaire &&
-              !restriction.etapesModificationInterdit
-                ? 'peut'
-                : 'ne peut pas',
-            action: 'modifier',
-            cible: 'etape',
-            titreTypeId,
-            titreStatutId: restriction.titreStatutId
-          }
-        })
+        .map(restriction => ({
+          titreId: `titre-${titreTypeId}-${administration.id}-${uniqueId++}`,
+          administrationId: administration.id,
+          gestionnaire: restriction.titreType!.gestionnaire,
+          pouvoir:
+            (restriction.titreType!.gestionnaire &&
+              !restriction.etapesModificationInterdit) ||
+            false,
+          action: 'modifier' as IAction,
+          cible: 'etape',
+          titreTypeId,
+          titreStatutId: restriction.titreStatutId
+        }))
     )
   }
 
@@ -229,9 +207,7 @@ const testAdministrationTitreTypeBuild = (
   //           gestionnaire: restriction.titreType.gestionnaire,
   //           pouvoir:
   //             restriction.titreType.gestionnaire &&
-  //             !restriction.modificationInterdit
-  //               ? 'peut'
-  //               : 'ne peut pas',
+  //             !restriction.modificationInterdit,
   //           action: restriction.lectureInterdit ? 'modifier(voir)' : 'modifier',
   //           cible: 'etape',
   //           titreTypeId,
@@ -255,24 +231,26 @@ const administrationsTestsBuild = (administrations: IAdministration[]) =>
   )
 
 const messageBuild = (scenario: IAdministrationTitreTypeTest) => {
-  let objet = ''
+  let message = ''
   if (scenario.cible! === 'titre') {
-    objet = 'un titre '
+    message = 'un titre '
   } else if (scenario.cible! === 'demarche') {
-    objet = "les démarches d'un titre "
+    message = "les démarches d'un titre "
   } else if (scenario.cible! === 'etape') {
     if (scenario.etapeTypeId!) {
-      objet = `une étape ${scenario.etapeTypeId} d'un titre `
+      message = `une étape ${scenario.etapeTypeId} d'un titre `
     } else {
-      objet = `les étapes d'un titre `
+      message = `les étapes d'un titre `
     }
   }
-  objet += scenario.titreTypeId
-  objet += scenario.titreStatutId!
+  message += scenario.titreTypeId
+  message += scenario.titreStatutId!
     ? ` dont le statut est ${scenario.titreStatutId}`
     : ''
 
-  return `${scenario.administrationId}: ${scenario.pouvoir} ${scenario.action} ${objet}`
+  return `${scenario.administrationId}: ${
+    scenario.pouvoir ? 'peut' : 'ne peut pas'
+  } ${scenario.action} ${message}`
 }
 
 const titreBuild = (
@@ -354,7 +332,7 @@ const resultBuild = (scenario: IAdministrationTitreTypeTest) => {
     // on retire les démarches
     delete titre.demarches
 
-    if (scenario.pouvoir === 'peut') {
+    if (scenario.pouvoir) {
       if (scenario.action === 'voir') {
         // on teste juste la visibilité, on retire la 'modification'
         delete titre.modification
@@ -378,7 +356,7 @@ const resultBuild = (scenario: IAdministrationTitreTypeTest) => {
     delete titre.modification
     // on retire les étapes
     delete titre.demarches![0]!.etapes
-    if (scenario.pouvoir === 'peut') {
+    if (scenario.pouvoir) {
       if (scenario.action === 'voir') {
         // on teste juste la visibilité, on retire la 'modification'
         delete titre.demarches![0]!.modification
@@ -407,7 +385,7 @@ const resultBuild = (scenario: IAdministrationTitreTypeTest) => {
       titre!.demarches![0]!.etapes![0]!.id = `${scenario.titreId}-demarche-id-${scenario.etapeTypeId}`
     }
 
-    if (scenario.pouvoir === 'peut') {
+    if (scenario.pouvoir) {
       if (scenario.action === 'voir') {
         // on teste juste la visibilité, on retire la 'modification'
         delete titre.demarches![0]!.etapes![0]!.modification
@@ -422,7 +400,7 @@ const resultBuild = (scenario: IAdministrationTitreTypeTest) => {
         titre.demarches![0]!.etapes = []
       } else if (scenario.action === 'modifier') {
         titre.demarches![0]!.etapes![0]!.modification = null
-      } else if (scenario.action === 'modifier(voir)') {
+      } else if (scenario.action === 'rien') {
         titre.demarches![0]!.etapes = []
       } else {
         // todo : gérer la création
