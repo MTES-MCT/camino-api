@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.67](https://github.com/MTES-MCT/camino-api/compare/v0.24.64...v0.24.67) (2021-01-25)
+
+
+### Features
+
+* **édition d'étape:** limite les type d'étape en fonction de la date ([#624](https://github.com/MTES-MCT/camino-api/issues/624)) ([066dc75](https://github.com/MTES-MCT/camino-api/commit/066dc75acb2678986db8b7c80e5175097b2f4976))
+* ajoute une date de début pour chaque définition de démarche ([1fedfac](https://github.com/MTES-MCT/camino-api/commit/1fedfac9f461a51048340d9f639ee90e7d1caca0))
+* **api:** expose les statistiques des granulats marins ([#608](https://github.com/MTES-MCT/camino-api/issues/608)) ([fc26690](https://github.com/MTES-MCT/camino-api/commit/fc26690f8e7f2d628e331966506f0c81fd57e889))
+* **demarches:** conditionne l'affichage du bouton de création de démarches ([#610](https://github.com/MTES-MCT/camino-api/issues/610)) ([40cd542](https://github.com/MTES-MCT/camino-api/commit/40cd5428ac1c7b68735b0ca4865e4747ab3e6e3f))
+* **statistiques:** améliore le rendu ([#617](https://github.com/MTES-MCT/camino-api/issues/617)) ([43f439f](https://github.com/MTES-MCT/camino-api/commit/43f439fc6c0a3e15cd8aded3c5822ddfa7f29293))
+* édite les métas ([#607](https://github.com/MTES-MCT/camino-api/issues/607)) ([cc65f6f](https://github.com/MTES-MCT/camino-api/commit/cc65f6fad05ec3dbec67a6556b1d84bc64185f44))
+* exporte les métas vers les spreadsheets ([#613](https://github.com/MTES-MCT/camino-api/issues/613)) ([fbebdf7](https://github.com/MTES-MCT/camino-api/commit/fbebdf7a008f9d306d44c3e764461b1e5414015e))
+
+
+### Bug Fixes
+
+* **arbre:** charge correctement le titre pour valider l’ajout d’une étape ([2a7dc6d](https://github.com/MTES-MCT/camino-api/commit/2a7dc6d045aa16cec958cd7c9f3ea88f25c4519e))
+* **arbre:** charge les demarches avec leur étapes du titre pour pouvoir faire la validation correctement ([42d03ca](https://github.com/MTES-MCT/camino-api/commit/42d03ca3dff8a874c0c108dd6c99ef5354d5fbbb))
+* **arbre:** corrige la récupération du nom des étapes ([4a50528](https://github.com/MTES-MCT/camino-api/commit/4a50528c6cae7d59ff275685216f1897ac4eff69))
+* **arbre:** corrige le calcul des sections du titre en fonction des étapes effectuées ([7fd8373](https://github.com/MTES-MCT/camino-api/commit/7fd8373dfac806b1d239d2509aaea1f5738e11de))
+* **arbre:** met à jour l’arbre d’instructions d’octroi d’ARM ([85beffe](https://github.com/MTES-MCT/camino-api/commit/85beffe12a9a5ed1681d71f832adb79d2c58823b))
+* **arbre:** ne peut pas créer de demande de compléments sans dépot de la démarche ([5c985e6](https://github.com/MTES-MCT/camino-api/commit/5c985e6979c7b2ebbdab189d42c33a2dbef58540))
+* **arbre:** permet de mettre l’étape « note interne » qu’après la création de la demande ([a5b3347](https://github.com/MTES-MCT/camino-api/commit/a5b3347c916036001302fa9570c9c830b23cbbae))
+* **arm:** corrige le statut de la démarche d’octroi d’ARM après un avis défavorable de la CARM ([#605](https://github.com/MTES-MCT/camino-api/issues/605)) ([5895772](https://github.com/MTES-MCT/camino-api/commit/58957724b92e63e22197287364d366cddb719dec))
+* **cron:** ajoute le réseau pour que le conteneur accède à géo api ([#606](https://github.com/MTES-MCT/camino-api/issues/606)) ([63b8486](https://github.com/MTES-MCT/camino-api/commit/63b8486ab6fef2f8eab370b89de061c7f2531081))
+* **cron:** corrige l’exécution du daily qui était lancé une seule fois ([#619](https://github.com/MTES-MCT/camino-api/issues/619)) ([39e2475](https://github.com/MTES-MCT/camino-api/commit/39e2475d2d009ecb239f6b08a753efb02b1f24e8))
+* **daily:** affiche les erreurs dans la console au lieu d’arrêter le daily ([286670d](https://github.com/MTES-MCT/camino-api/commit/286670d197f49dc6d90b62eb2fa51fad639a7863))
+* **demarche:** utilise la date du dépot de la demande pour activer les arbres d’instructions ([eb82d5a](https://github.com/MTES-MCT/camino-api/commit/eb82d5a5b2af9ac29ea99ed62a1e9e6eb446ad02))
+* **démarche:** ne peut pas la modifier si elle a des étapes ([#622](https://github.com/MTES-MCT/camino-api/issues/622)) ([ec4f2a6](https://github.com/MTES-MCT/camino-api/commit/ec4f2a66791b419e4c32423f42df0131e8243363))
+* **session:** augmente le temps de validité du token à 15 minutes ([dbb5f93](https://github.com/MTES-MCT/camino-api/commit/dbb5f9340d522c4cdd8aa6354d3320ba6eece1e4))
+* **statistiques:** corrige le caclcul des surfaces ([#623](https://github.com/MTES-MCT/camino-api/issues/623)) ([a36695c](https://github.com/MTES-MCT/camino-api/commit/a36695ca70df32363b2cffbc83e355ecf8aaa6e1))
+* corrige l'import des titres depuis les spreasheets ([79aeca6](https://github.com/MTES-MCT/camino-api/commit/79aeca63d00dbc8d9bb6604598515f8730cc7d6d))
+* supprime les effets de bords ([b5e5d0f](https://github.com/MTES-MCT/camino-api/commit/b5e5d0f22bb54e87a13e67d97a31da52a976405d))
+* **statistiques:** corrige les calculs sur les granulats marins ([#620](https://github.com/MTES-MCT/camino-api/issues/620)) ([b48ea9c](https://github.com/MTES-MCT/camino-api/commit/b48ea9c39c2b4d420e69a723416f6baeec60e1ac))
+* corrige l'ordre d'effacement des tables ([51d928b](https://github.com/MTES-MCT/camino-api/commit/51d928b6c4bf8c2307acb4f9f78a90f6f79f0312))
+* supprime des tables de jointure inutiles ([961d7cd](https://github.com/MTES-MCT/camino-api/commit/961d7cda3a876cc080c6bb17e06640420f1c23eb))
+* **glossaire:** supprime les substances en double dans le glossaire ([#603](https://github.com/MTES-MCT/camino-api/issues/603)) ([92d83fd](https://github.com/MTES-MCT/camino-api/commit/92d83fd18a4ca3ef86fb04e1e977e7708b9c89b4))
+* **statistiques:** corrige le nombre rapport de production d'or ([#612](https://github.com/MTES-MCT/camino-api/issues/612)) ([16195e6](https://github.com/MTES-MCT/camino-api/commit/16195e60029d09469a0772e26505595588432413))
+* autorise un désistement si la démarche est en attente de paiement ([#601](https://github.com/MTES-MCT/camino-api/issues/601)) ([f678843](https://github.com/MTES-MCT/camino-api/commit/f6788438ba823ae41995ffd711e9baaabce60573))
+* corrige le calcul des amodiataires ([#602](https://github.com/MTES-MCT/camino-api/issues/602)) ([3cf130c](https://github.com/MTES-MCT/camino-api/commit/3cf130ceabaa0fc696d525f052f9d4a9112880fd))
+
 ### [0.24.66](https://github.com/MTES-MCT/camino-api/compare/v0.24.65...v0.24.66) (2020-12-22)
 
 
