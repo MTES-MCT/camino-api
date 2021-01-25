@@ -3,7 +3,7 @@ import { ITitreCondition } from '../../types'
 import { restrictionsArmOct } from './arm/oct'
 import { restrictionsArmRenPro } from './arm/ren-pro'
 import { restrictionsAxmOct } from './axm/oct'
-// import { etatsDefinitionPrmOct } from './prm/oct'
+import { etatsDefinitionPrmOct } from './prm/oct'
 
 interface IEtapeTypeIdCondition {
   etapeTypeId?: string
@@ -46,11 +46,12 @@ const demarchesDefinitions: IDemarcheDefinition[] = [
     restrictions: restrictionsArmRenPro,
     dateDebut: '2019-10-31'
   },
-  // {
-  //   titreTypeId: 'prm',
-  //   demarcheTypeIds: ['oct'],
-  //   restrictions: etatsDefinitionPrmOct
-  // },
+  {
+    titreTypeId: 'prm',
+    demarcheTypeIds: ['oct'],
+    restrictions: etatsDefinitionPrmOct,
+    dateDebut: '2019-10-31'
+  },
   {
     titreTypeId: 'axm',
     demarcheTypeIds: ['oct'],
