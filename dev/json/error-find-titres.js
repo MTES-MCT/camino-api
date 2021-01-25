@@ -22,8 +22,8 @@ documents.forEach(d => {
     const etape = etapes.find(e => e.id === d.titre_etape_id)
 
     if (!etape) {
-      console.log(etape.id)
-      console.log('---->', d)
+      console.infos(etape.id)
+      console.infos('---->', d)
     }
   }
 })
@@ -32,7 +32,7 @@ justificatifs.forEach(j => {
   const etape = etapes.find(e => e.id === j.titre_etape_id)
 
   if (!etape) {
-    console.log(etape.id)
-    console.log('---->', j)
+    console.infos(etape.id)
+    console.infos('---->', j)
   }
 })
