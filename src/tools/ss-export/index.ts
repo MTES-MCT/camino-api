@@ -12,6 +12,7 @@ import defininitionTerritoires from './definitions/territoires'
 import defininitionTravaux from './definitions/titres-travaux'
 import defininitionForets from './definitions/forets'
 import definitionMetas from './definitions/metas'
+import definitionMetasActivites from './definitions/metas-activites'
 
 const ssExport = async () => {
   try {
@@ -30,7 +31,8 @@ const ssExport = async () => {
       () => dbToSpreadsheet(defininitionTerritoires),
       () => dbToSpreadsheet(defininitionForets),
       () => dbToSpreadsheet(defininitionTravaux),
-      () => dbsToSpreadsheet(definitionMetas)
+      () => dbsToSpreadsheet(definitionMetas),
+      () => dbToSpreadsheet(definitionMetasActivites)
     ]
 
     const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1000 })

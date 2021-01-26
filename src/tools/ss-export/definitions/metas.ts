@@ -24,7 +24,8 @@ import {
   titresTypesTypesGet,
   travauxTypesEtapesTypesGet,
   travauxTypesGet,
-  unitesGet
+  unitesGet,
+  activitesStatutsGet
 } from '../../../database/queries/metas'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_METAS
@@ -198,6 +199,11 @@ const tables = [
     id: 23,
     name: 'referencesTypes',
     columns: ['id', 'nom']
+  },
+  {
+    id: 24,
+    name: 'activitesStatuts',
+    columns: ['id', 'nom']
   }
 ]
 
@@ -229,7 +235,8 @@ const definition = {
     permissions: async () =>
       permissionsGet(null as never, null as never, 'super'),
     documentsTypes: async () => documentsTypesGet({}),
-    referencesTypes: async () => referencesTypesGet()
+    referencesTypes: async () => referencesTypesGet(),
+    activitesStatuts: async () => activitesStatutsGet()
   },
   tables
 } as ISpreadsheetMultiple

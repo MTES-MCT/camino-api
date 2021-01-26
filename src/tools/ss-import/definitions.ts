@@ -159,7 +159,8 @@ const metas = {
     { name: 'administrations_types' },
     { name: 'permissions' },
     { name: 'documents_types' },
-    { name: 'references_types' }
+    { name: 'references_types' },
+    { name: 'activites_statuts' }
   ]
 } as ISpreadsheet
 
@@ -240,7 +241,6 @@ const metasActivites = {
   id: metasActivitesSpreadsheetId,
   tables: [
     { name: 'activites_types', cb: { sections: JSON.parse } },
-    { name: 'activites_statuts' },
     { name: 'titres_types__activites_types' },
     { name: 'activites_types__pays' },
     { name: 'activites_types__administrations' },

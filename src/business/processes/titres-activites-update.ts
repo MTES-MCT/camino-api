@@ -2,10 +2,10 @@ import { ITitreActivite } from '../../types'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
 import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
-import { titreActivitesUpsert } from '../../database/queries/titres-activites'
+import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 import { titresGet } from '../../database/queries/titres'
-import { activitesTypesGet } from '../../database/queries/metas'
+import { activitesTypesGet } from '../../database/queries/metas-activites'
 
 const titresActivitesUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -46,7 +46,7 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
   )
 
   if (titresActivitesCreated.length) {
-    await titreActivitesUpsert(titresActivitesCreated)
+    await titresActivitesUpsert(titresActivitesCreated)
 
     const log = {
       type: 'titre / activités (création) ->',

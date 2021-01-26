@@ -373,10 +373,10 @@ const titresActivitesCount = async (
   return titresActivites.length
 }
 
-const titreActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
+const titresActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
   TitresActivites.query()
     .withGraphFetched(options.titresActivites.graph)
-    .upsertGraph(titreActivites, { insertMissing: true })
+    .upsertGraph(titreActivites, options.titresActivites.update)
 
 const titreActiviteUpdate = async (
   id: string,
@@ -392,11 +392,23 @@ const titreActiviteUpdate = async (
     .patchAndFetchById(id, props)
 }
 
+const titreActiviteDelete = async (
+  id: string,
+  { fields }: { fields?: IFields }
+) => {
+  const graph = fields
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', graphFormat)
+    : options.titresActivites.graph
+
+  return TitresActivites.query().withGraphFetched(graph).deleteById(id)
+}
+
 export {
   titreActiviteGet,
   titresActivitesCount,
-  titreActivitesUpsert,
+  titresActivitesUpsert,
   titresActivitesGet,
   titreActiviteUpdate,
-  activitesAnneesGet
+  activitesAnneesGet,
+  titreActiviteDelete
 }
