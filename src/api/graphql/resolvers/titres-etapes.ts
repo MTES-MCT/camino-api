@@ -42,32 +42,34 @@ const etapeCreer = async (
       throw new Error('droits insuffisants')
     }
 
-    const demarche = await titreDemarcheGet(
+    let demarche = await titreDemarcheGet(
       etape.titreDemarcheId,
-      {},
+      { fields: { id: {} } },
       user && user.id
     )
 
     if (!demarche) throw new Error("la démarche n'existe pas")
 
-    const titre = await titreGet(
-      demarche.titreId,
+    demarche = await titreDemarcheGet(
+      etape.titreDemarcheId,
       {
         fields: {
-          type: { demarchesTypes: { id: {} } },
-          demarches: { etapes: { id: {} } },
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
+          type: { etapesTypes: { etapesStatuts: { id: {} } } },
+          titre: {
+            type: { demarchesTypes: { id: {} } },
+            demarches: { etapes: { id: {} } }
+          },
+          etapes: { type: { id: {} } }
         }
       },
-      user.id
+      'super'
     )
 
-    if (!titre) throw new Error("le titre n'existe pas")
+    if (!demarche.titre) throw new Error("le titre n'existe pas")
 
     const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
       user,
-      titre.id,
+      demarche.titre.id,
       etape.typeId,
       'creation'
     )
@@ -77,11 +79,16 @@ const etapeCreer = async (
     }
 
     const inputErrors = await titreEtapeInputValidate(etape, demarche)
+
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
     }
 
-    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+    const rulesErrors = await titreEtapeUpdationValidate(
+      etape,
+      demarche,
+      demarche.titre
+    )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -122,30 +129,34 @@ const etapeModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    const demarche = await titreDemarcheGet(
+    let demarche = await titreDemarcheGet(
       etape.titreDemarcheId,
-      {},
+      { fields: { id: {} } },
       user && user.id
     )
+
     if (!demarche) throw new Error("la démarche n'existe pas")
 
-    const titre = await titreGet(
-      demarche.titreId,
+    demarche = await titreDemarcheGet(
+      etape.titreDemarcheId,
       {
         fields: {
-          type: { demarchesTypes: { id: {} } },
-          demarches: { etapes: { id: {} } },
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
+          type: { etapesTypes: { etapesStatuts: { id: {} } } },
+          titre: {
+            type: { demarchesTypes: { id: {} } },
+            demarches: { etapes: { id: {} } }
+          },
+          etapes: { type: { id: {} } }
         }
       },
-      user.id
+      'super'
     )
-    if (!titre) throw new Error("le titre n'existe pas")
+
+    if (!demarche.titre) throw new Error("le titre n'existe pas")
 
     const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
       user,
-      titre.id,
+      demarche.titre.id,
       etape.typeId,
       'modification'
     )
@@ -159,7 +170,11 @@ const etapeModifier = async (
       throw new Error(inputErrors.join(', '))
     }
 
-    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+    const rulesErrors = await titreEtapeUpdationValidate(
+      etape,
+      demarche,
+      demarche.titre
+    )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -210,17 +225,25 @@ const etapeSupprimer = async (
 
     const demarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
-      {},
-      user && user.id
+      {
+        fields: {
+          type: { etapesTypes: { etapesStatuts: { id: {} } } },
+          titre: {
+            type: { demarchesTypes: { id: {} } },
+            demarches: { etapes: { id: {} } }
+          },
+          etapes: { type: { id: {} } }
+        }
+      },
+      'super'
     )
     if (!demarche) throw new Error("la démarche n'existe pas")
 
-    const titre = await titreGet(demarche.titreId, {}, user.id)
-    if (!titre) throw new Error("le titre n'existe pas")
+    if (!demarche.titre) throw new Error("le titre n'existe pas")
 
     const rulesErrors = await titreDemarcheUpdatedEtatValidate(
       demarche.type!,
-      titre,
+      demarche.titre,
       titreEtape,
       demarche.etapes!,
       true
