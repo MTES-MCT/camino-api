@@ -274,7 +274,7 @@ const demarcheEtapesTypesGet = async (
         etapes: { type: { id: {} } }
       }
     },
-    user?.id
+    'super'
   )
 
   if (!titreDemarche) throw new Error("la démarche n'existe pas")
