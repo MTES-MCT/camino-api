@@ -20,7 +20,7 @@ jest.mock('../../database/queries/titres', () => ({
   titresGet: jest.fn()
 }))
 
-jest.mock('../../database/queries/metas', () => ({
+jest.mock('../../database/queries/metas-activites', () => ({
   activitesTypesGet: jest.fn()
 }))
 
