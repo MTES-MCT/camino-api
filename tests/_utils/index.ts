@@ -50,7 +50,13 @@ const tokenUserGenerate = async (
   permissionId: IPermissionId,
   administration?: IAdministration
 ) => {
-  const id = permissionId !== 'super' ? `${permissionId}-user` : 'super'
+  let id = 'super'
+  if (permissionId !== 'super') {
+    id = `${permissionId}-user`
+    if (administration?.id) {
+      id += `-${administration.id}`
+    }
+  }
   const userInDb = await utilisateurGet(id, undefined, 'super')
 
   if (!userInDb) {
@@ -65,7 +71,7 @@ const tokenUserGenerate = async (
         id,
         prenom: `prenom-${permissionId}`,
         nom: `nom-${permissionId}`,
-        email: `test-${permissionId}@camino.local`,
+        email: `${id}@camino.local`,
         motDePasse: 'mot-de-passe',
         permissionId,
         administrations
