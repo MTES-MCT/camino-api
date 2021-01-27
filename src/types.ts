@@ -91,13 +91,17 @@ interface ITitreSection {
   elementId: string
 }
 
+interface IActiviteTypeTitreType extends ITitreType {
+  optionnel: boolean
+}
+
 interface IActiviteType {
   id: string
   nom: string
   frequenceId: string
   dateDebut: string
   delaiMois: number
-  titresTypes: ITitreType[]
+  titresTypes: IActiviteTypeTitreType[]
   sections?: ISection[] | null
   frequence?: IFrequence | null
   pays?: IPays[] | null

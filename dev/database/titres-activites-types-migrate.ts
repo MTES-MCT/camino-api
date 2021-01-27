@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../src/init'
+import knex from '../../src/init'
 import {
   activitesTypesGet,
   activiteTypeCreate,
@@ -12,16 +12,27 @@ import {
 } from '../../src/database/queries/titres-activites'
 
 const main = async () => {
+  await knex.schema.alterTable('activitesTypes__documentsTypes', table => {
+    table.boolean('optionnel')
+  })
+
   const activitesTypes = await activitesTypesGet({}, 'super')
   const activiteTypeNew = activitesTypes.find(at => at.id === 'gra')!
   activiteTypeNew.id = 'grx'
-  activiteTypeNew.titresTypes = activiteTypeNew.titresTypes.filter(
-    tt => tt.id === 'axm'
-  )
+  activiteTypeNew.nom =
+    "rapport annuel de production d'or en Guyane (autorisation d'exploitation)"
+  activiteTypeNew.titresTypes = activiteTypeNew.titresTypes
+    .filter(tt => tt.id === 'axm')
+    .map(tt => {
+      tt.optionnel = true
 
-  activiteTypeNew.documents[]
+      return tt
+    })
 
   await activiteTypeCreate(activiteTypeNew)
+
+  console.log(`type d'activité ajoutée: ${activiteTypeNew.nom}`)
+
   const titresActivites = await titresActivitesGet(
     { typesIds: ['gra'] },
     {},
@@ -34,6 +45,8 @@ const main = async () => {
   for (const ta of titresActivites) {
     oldIds.push(ta.id)
     ta.id = ta.id.replace('-gra-', '-grx-')
+    delete ta.type
+
     ta.typeId = 'grx'
 
     newTitreActivites.push(ta)
@@ -44,6 +57,9 @@ const main = async () => {
   for (const id of oldIds) {
     await titreActiviteDelete(id, {})
   }
+
+  console.log(`${newTitreActivites.length} activités insérees`)
+  console.log(`${oldIds.length} activités supprimées`)
 
   process.exit(0)
 }

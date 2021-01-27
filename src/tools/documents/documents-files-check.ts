@@ -31,7 +31,7 @@ const documentsFilesCheck = (
     })
   } else {
     console.info(
-      'Tous les documents en base de données ont des fichiers correspondants'
+      'tous les documents en base de données ont des fichiers correspondants'
     )
   }
 }

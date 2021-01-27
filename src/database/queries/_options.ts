@@ -222,7 +222,8 @@ const activitesTypesRelateTrue = [
   'pays',
   'frequence',
   'titresTypes',
-  'administrations'
+  'administrations',
+  'documentsTypes'
 ]
 
 const activitesTypesUpdateFalse = [

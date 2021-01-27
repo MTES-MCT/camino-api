@@ -87,7 +87,7 @@ const filesDocumentCheck = (
     })
   } else {
     console.info(
-      'Tous les fichiers correspondent à des documents dans la base de données'
+      'tous les fichiers correspondent à des documents dans la base de données'
     )
   }
 }
