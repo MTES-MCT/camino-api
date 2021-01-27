@@ -2,8 +2,7 @@ import 'dotenv/config'
 import knex from '../../src/init'
 import {
   activitesTypesGet,
-  activiteTypeCreate,
-  activiteTypeDelete
+  activiteTypeCreate
 } from '../../src/database/queries/metas-activites'
 import {
   titresActivitesUpsert,
@@ -21,20 +20,18 @@ const main = async () => {
   activiteTypeNew.id = 'grx'
   activiteTypeNew.nom =
     "rapport annuel de production d'or en Guyane (autorisation d'exploitation)"
-  activiteTypeNew.titresTypes = activiteTypeNew.titresTypes
-    .filter(tt => tt.id === 'axm')
-    .map(tt => {
-      tt.optionnel = true
+  activiteTypeNew.titresTypes = activiteTypeNew.titresTypes.filter(
+    tt => tt.id === 'axm'
+  )
 
-      return tt
-    })
+  activiteTypeNew.documentsTypes[0].optionnel = true
 
   await activiteTypeCreate(activiteTypeNew)
 
   console.log(`type d'activité ajoutée: ${activiteTypeNew.nom}`)
 
   const titresActivites = await titresActivitesGet(
-    { typesIds: ['gra'] },
+    { typesIds: ['gra'], titresTypesIds: ['ax'] },
     {},
     'super'
   )

@@ -10,4 +10,5 @@ type ActiviteType {
   sections: Json!
   frequence: Frequence!
   pays: [Pays!]
+  documentsTypes: [DocumentType]
 }
