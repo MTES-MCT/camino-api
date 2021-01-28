@@ -1,3 +1,4 @@
+import { ISubstanceLegale } from '../../types'
 import Substances from '../models/substances'
 import SubstancesLegales from '../models/substances-legales'
 import options from './_options'
@@ -17,4 +18,12 @@ const substancesLegalesGet = async ({ distinct }: { distinct: string }) => {
   return query
 }
 
-export { substancesGet, substanceGet, substancesLegalesGet }
+const substanceFiscaleCreate = async (substanceLegale: ISubstanceLegale) =>
+  SubstancesLegales.query().insertAndFetch(substanceLegale)
+
+export {
+  substancesGet,
+  substanceGet,
+  substancesLegalesGet,
+  substanceFiscaleCreate
+}

@@ -503,9 +503,17 @@ interface ISubstanceLegale {
   nom: string
   domaineId?: string | null
   description?: string | null
-  substanceLegalCodeId?: string | null
+  substanceLegaleCodeId?: string | null
   domaine?: IDomaine | null
   code?: ISubstanceLegaleCode | null
+}
+
+interface ISubstanceFiscale {
+  id: string
+  nom: string
+  description: string
+  substanceLegaleId: string
+  uniteId: string
 }
 
 interface ISubstance {
@@ -824,6 +832,8 @@ interface IUnite {
   id: string
   nom: string
   symbole: string
+  referenceRatio?: number
+  referenceUniteId?: string
 }
 
 interface IUser extends IUtilisateur {
@@ -951,6 +961,7 @@ export {
   ISubstance,
   ISubstanceLegale,
   ISubstanceLegaleCode,
+  ISubstanceFiscale,
   ITitre,
   ITitreActivite,
   ITitreAdministrationGestionnaire,

@@ -17,7 +17,7 @@ class SubstancesLegales extends Model {
       nom: { type: ['string', 'null'] },
       domaineId: { type: ['string', 'null'] },
       description: { type: ['string', 'null'] },
-      substanceLegalCodeId: { type: ['string', 'null'] }
+      substanceLegaleCodeId: { type: ['string', 'null'] }
     }
   }
 
