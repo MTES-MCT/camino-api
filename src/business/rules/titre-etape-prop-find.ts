@@ -55,10 +55,10 @@ const titreDemarchesEtapesFilter = (
       )
 
       if (titreEtapesFiltered.length) {
-        titreDemarche.etapes = titreEtapesFiltered
-
         return true
       }
+
+      return false
     }
 
     return false
@@ -88,10 +88,24 @@ const titreEtapePropFind = (
     if (!titreDemarches?.length) return null
 
     // filtre les démarches et étapes antérieures à la date de l'étape sélectionnée
+
     const titreDemarchesFiltered = titreDemarchesEtapesFilter(
       titreDemarches,
       titreEtape.date
     )
+
+    titreDemarchesFiltered.forEach((td: ITitreDemarche) => {
+      if (td.etapes) {
+        const titreEtapesFiltered = titreEtapesDateFilter(
+          td.etapes,
+          titreEtape.date
+        )
+
+        if (titreEtapesFiltered.length) {
+          td.etapes = titreEtapesFiltered
+        }
+      }
+    })
 
     // calcule le statut du titre
     const titreStatutId = titreStatutIdFind(aujourdhui, titreDemarchesFiltered)
