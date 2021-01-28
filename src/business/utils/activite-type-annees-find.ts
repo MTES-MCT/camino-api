@@ -1,9 +1,11 @@
 import { IActiviteType } from '../../types'
 
-const activiteTypeAnneesFind = (activiteType: IActiviteType) => {
+const activiteTypeAnneesFind = (
+  activiteType: IActiviteType,
+  anneeFin: number
+) => {
   // calcule les années qui concernent le type d'activité
   const anneeDebut = new Date(activiteType.dateDebut).getFullYear()
-  const anneeFin = new Date().getFullYear()
 
   const annees = [...new Array(anneeFin - anneeDebut + 1)].map(
     (x, delta) => anneeDebut + delta
@@ -12,4 +14,4 @@ const activiteTypeAnneesFind = (activiteType: IActiviteType) => {
   return annees
 }
 
-export default activiteTypeAnneesFind
+export { activiteTypeAnneesFind }

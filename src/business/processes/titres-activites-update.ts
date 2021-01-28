@@ -1,9 +1,10 @@
 import { ITitreActivite } from '../../types'
+import * as dateFormat from 'dateformat'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
-import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
+import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
-import titreActivitesBuild from '../rules/titre-activites-build'
+import { titreActivitesBuild } from '../rules/titre-activites-build'
 import { titresGet } from '../../database/queries/titres'
 import { activitesTypesGet } from '../../database/queries/metas-activites'
 
@@ -23,10 +24,12 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
     'super'
   )
   const activitesTypes = await activitesTypesGet({}, 'super')
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+  const annee = new Date().getFullYear()
 
   const titresActivitesCreated = activitesTypes.reduce(
     (acc: ITitreActivite[], activiteType) => {
-      const annees = activiteTypeAnneesFind(activiteType)
+      const annees = activiteTypeAnneesFind(activiteType, annee)
       if (!annees.length) return acc
 
       acc.push(
@@ -34,7 +37,9 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
           // filtre les types d'activités qui concernent le titre
           if (!activitesTypesFilter(activiteType, titre)) return acc
 
-          acc.push(...titreActivitesBuild(titre, activiteType, annees))
+          acc.push(
+            ...titreActivitesBuild(titre, activiteType, annees, aujourdhui)
+          )
 
           return acc
         }, [])

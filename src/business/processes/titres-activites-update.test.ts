@@ -4,11 +4,11 @@ import { ITitreActivite } from '../../types'
 import titresActivitesTypesUpdate from './titres-activites-update'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
-import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
+import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titresGet } from '../../database/queries/titres'
 import { activitesTypesGet } from '../../database/queries/metas-activites'
-import titreActivitesBuild from '../rules/titre-activites-build'
+import { titreActivitesBuild } from '../rules/titre-activites-build'
 
 import {
   titresSansActivite,
@@ -31,7 +31,7 @@ jest.mock('../utils/activites-types-filter', () => ({
 
 jest.mock('../utils/activite-type-annees-find', () => ({
   __esModule: true,
-  default: jest.fn()
+  activiteTypeAnneesFind: jest.fn()
 }))
 
 jest.mock('../../database/queries/titres-activites', () => ({
@@ -41,7 +41,7 @@ jest.mock('../../database/queries/titres-activites', () => ({
 
 jest.mock('../rules/titre-activites-build', () => ({
   __esModule: true,
-  default: jest.fn().mockResolvedValue(true)
+  titreActivitesBuild: jest.fn().mockResolvedValue(true)
 }))
 
 const titresGetMock = mocked(titresGet, true)

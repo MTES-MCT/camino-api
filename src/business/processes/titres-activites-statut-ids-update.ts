@@ -4,7 +4,7 @@ import {
   titreActiviteUpdate,
   titresActivitesGet
 } from '../../database/queries/titres-activites'
-import titreActiviteStatutIdFind from '../rules/titre-activite-statut-id-find'
+import { titreActiviteStatutIdFind } from '../rules/titre-activite-statut-id-find'
 
 // met à jour le statut des activités d'un titre
 const titreActivitesStatutIdsUpdate = async () => {

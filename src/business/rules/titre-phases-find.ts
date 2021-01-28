@@ -1,6 +1,5 @@
 import { ITitreDemarche, ITitrePhase } from '../../types'
 
-import * as dateFormat from 'dateformat'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 import titreDemarchePhasesFilter from './titre-demarche-phases-filter'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
@@ -29,6 +28,7 @@ const titreDemarcheAnnulationFind = (titreDemarches: ITitreDemarche[]) =>
 // retourne un tableau contenant les phases d'un titre
 const titrePhasesFind = (
   titreDemarches: ITitreDemarche[],
+  aujourdhui: string,
   titreTypeId?: string
 ) => {
   // filtre les démarches qui donnent lieu à des phases
@@ -44,7 +44,6 @@ const titrePhasesFind = (
   return titreDemarchesFiltered.reduce(
     (titrePhases: ITitrePhase[], titreDemarche, index) => {
       let dateFin = titrePhaseDateFinFind(
-        titreDemarches,
         titreDemarchesFiltered,
         titreDemarche
       ) as string
@@ -68,8 +67,6 @@ const titrePhasesFind = (
 
       // dateFin et dateDebut ne seront jamais `null`
       // car les démarches sont pré-filtrées
-
-      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
       // si
       // - la date du jour est plus récente que la date de fin
@@ -146,7 +143,6 @@ const titrePhaseDateDebutFind = (
 // - titreDemarche: la démarche dont on cherche la date de fin
 
 const titrePhaseDateFinFind = (
-  titreDemarches: ITitreDemarche[],
   titreDemarchesFiltered: ITitreDemarche[],
   titreDemarche: ITitreDemarche
 ) =>
@@ -156,4 +152,4 @@ const titrePhaseDateFinFind = (
     titreDemarche.ordre!
   ).dateFin
 
-export default titrePhasesFind
+export { titrePhasesFind }

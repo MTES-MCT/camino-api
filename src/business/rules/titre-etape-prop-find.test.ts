@@ -1,17 +1,19 @@
-import { ITitreEtape, ITitre } from '../../types'
+import { ITitreEtape, ITitreDemarche } from '../../types'
 
-import titreEtapePropFind from './titre-etape-prop-find'
+import { titreEtapePropFind } from './titre-etape-prop-find'
 
 console.error = jest.fn()
 
 describe("valeur d'une propriété pour une étape", () => {
+  const aujourdhui = '2020-12-01'
   test('retourne null si le titre ne contient pas de propriété "demarches"', () => {
     expect(
       titreEtapePropFind(
         'titulaires',
         ({} as unknown) as ITitreEtape,
         ([] as unknown) as ITitreEtape[],
-        ({} as unknown) as ITitre
+        aujourdhui,
+        undefined
       )
     ).toEqual(null)
   })
@@ -22,7 +24,8 @@ describe("valeur d'une propriété pour une étape", () => {
         'titulaires',
         ({} as unknown) as ITitreEtape,
         ([] as unknown) as ITitreEtape[],
-        ({ demarches: [] } as unknown) as ITitre
+        aujourdhui,
+        ([] as unknown) as ITitreDemarche[]
       )
     ).toEqual(null)
   })
@@ -33,7 +36,8 @@ describe("valeur d'une propriété pour une étape", () => {
         'titulaires',
         ({} as unknown) as ITitreEtape,
         ([] as unknown) as ITitreEtape[],
-        ({ demarches: [{ etapes: {} }] } as unknown) as ITitre
+        aujourdhui,
+        ([{ etapes: {} }] as unknown) as ITitreDemarche[]
       )
     ).toThrow(/is not a function/)
     expect(console.error).toHaveBeenCalled()
@@ -45,9 +49,8 @@ describe("valeur d'une propriété pour une étape", () => {
         'titulaires',
         ({} as unknown) as ITitreEtape,
         ([] as unknown) as ITitreEtape[],
-        ({
-          demarches: [{}, { etapes: [] }]
-        } as unknown) as ITitre
+        aujourdhui,
+        ([{}, { etapes: [] }] as unknown) as ITitreDemarche[]
       )
     ).toEqual(null)
   })
@@ -69,7 +72,8 @@ describe("valeur d'une propriété pour une étape", () => {
             titulaires: [{ id: 'fr-xxxxxxxxx' }]
           }
         ] as unknown) as ITitreEtape[],
-        {} as ITitre
+        aujourdhui,
+        undefined
       )
     ).toEqual([{ id: 'fr-xxxxxxxxx' }])
   })
@@ -80,30 +84,29 @@ describe("valeur d'une propriété pour une étape", () => {
         'titulaires',
         ({ date: '1000-01-01' } as unknown) as ITitreEtape,
         [],
-        ({
-          demarches: [
-            {
-              id: 'demarche-01',
-              etapes: [
-                {
-                  id: 'demarche-01-etape-01',
-                  date: '1000-01-01'
-                }
-              ]
-            },
-            {
-              typeId: 'oct',
-              etapes: [
-                {
-                  id: 'demarche-02-etape-01',
-                  date: '1000-01-01',
-                  statutId: 'acc',
-                  titulaires: [{ id: 'fr-xxxxxxxxx' }]
-                }
-              ]
-            }
-          ]
-        } as unknown) as ITitre
+        aujourdhui,
+        ([
+          {
+            id: 'demarche-01',
+            etapes: [
+              {
+                id: 'demarche-01-etape-01',
+                date: '1000-01-01'
+              }
+            ]
+          },
+          {
+            typeId: 'oct',
+            etapes: [
+              {
+                id: 'demarche-02-etape-01',
+                date: '1000-01-01',
+                statutId: 'acc',
+                titulaires: [{ id: 'fr-xxxxxxxxx' }]
+              }
+            ]
+          }
+        ] as unknown) as ITitreDemarche[]
       )
     ).toEqual([{ id: 'fr-xxxxxxxxx' }])
   })

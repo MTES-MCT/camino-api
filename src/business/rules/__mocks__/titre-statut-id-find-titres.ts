@@ -1,158 +1,126 @@
-import { ITitre } from '../../../types'
+import { ITitreDemarche } from '../../../types'
 
-const titreSansDemarche = {
-  id: 'test'
-} as ITitre
+const titreDemarchesIndefini = [{ statutId: 'ind' }] as ITitreDemarche[]
 
-const titreDemarcheIndefini = {
-  id: 'test',
-  demarches: [{ statutId: 'ind' }]
-} as ITitre
+const titreDemarchesValide = [
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'acc',
+    ordre: 1,
+    etapes: [
+      {
+        id: 'm-pr-saint-pierre-2014-oct01-dex01',
+        titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '2014-04-01',
+        dateDebut: null,
+        dateFin: '3014-04-01'
+      }
+    ]
+  }
+] as ITitreDemarche[]
 
-const titreValide = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'acc',
-      ordre: 1,
-      etapes: [
-        {
-          id: 'm-pr-saint-pierre-2014-oct01-dex01',
-          titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
-          typeId: 'dex',
-          statutId: 'acc',
-          ordre: 1,
-          date: '2014-04-01',
-          dateDebut: null,
-          dateFin: '3014-04-01'
-        }
-      ]
-    }
-  ]
-} as ITitre
+const titreDemarchesEchu = [
+  {
+    id: 'm-pr-saint-pierre-1914-oct01',
+    titreId: 'm-pr-saint-pierre-1914',
+    typeId: 'oct',
+    statutId: 'acc',
+    ordre: 1,
+    etapes: [
+      {
+        id: 'm-pr-saint-pierre-2014-oct01-dex01',
+        titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '1014-04-01',
+        dateDebut: null,
+        dateFin: '2014-04-01'
+      }
+    ]
+  }
+] as ITitreDemarche[]
 
-const titreEchu = {
-  id: 'm-pr-saint-pierre-1914',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-1914-oct01',
-      titreId: 'm-pr-saint-pierre-1914',
-      typeId: 'oct',
-      statutId: 'acc',
-      ordre: 1,
-      etapes: [
-        {
-          id: 'm-pr-saint-pierre-2014-oct01-dex01',
-          titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
-          typeId: 'dex',
-          statutId: 'acc',
-          ordre: 1,
-          date: '1014-04-01',
-          dateDebut: null,
-          dateFin: '2014-04-01'
-        }
-      ]
-    }
-  ]
-} as ITitre
+const titreDemarchesOctroiInstruction = [
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'ins',
+    ordre: 1
+  }
+] as ITitreDemarche[]
 
-const titreOctroiInstruction = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'ins',
-      ordre: 1
-    }
-  ]
-} as ITitre
+const titreDemarchesOctroiDepose = [
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'dep',
+    ordre: 1
+  }
+] as ITitreDemarche[]
 
-const titreOctroiDepose = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'dep',
-      ordre: 1
-    }
-  ]
-} as ITitre
+const titreDemarchesOctroiRejete = [
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'rej',
+    ordre: 1
+  }
+] as ITitreDemarche[]
 
-const titreOctroiRejete = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'rej',
-      ordre: 1
-    }
-  ]
-} as ITitre
+const titreDemarchesOctroiClasse = [
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'cls',
+    ordre: 1
+  }
+] as ITitreDemarche[]
 
-const titreOctroiClasse = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'cls',
-      ordre: 1
-    }
-  ]
-} as ITitre
+const titreDemarchesOctroiRetire = [
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'des',
+    ordre: 1
+  }
+] as ITitreDemarche[]
 
-const titreOctroiRetire = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'des',
-      ordre: 1
-    }
-  ]
-} as ITitre
-
-const titreDemarcheInstruction = {
-  id: 'm-pr-saint-pierre-2014',
-  demarches: [
-    {
-      id: 'm-pr-saint-pierre-2014-mut01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'mut',
-      statutId: 'ins',
-      ordre: 1
-    },
-    {
-      id: 'm-pr-saint-pierre-2014-oct01',
-      titreId: 'm-pr-saint-pierre-2014',
-      typeId: 'oct',
-      statutId: 'acc',
-      ordre: 1
-    }
-  ]
-} as ITitre
+const titreDemarchesInstruction = [
+  {
+    id: 'm-pr-saint-pierre-2014-mut01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'mut',
+    statutId: 'ins',
+    ordre: 1
+  },
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    typeId: 'oct',
+    statutId: 'acc',
+    ordre: 1
+  }
+] as ITitreDemarche[]
 
 export {
-  titreSansDemarche,
-  titreDemarcheIndefini,
-  titreValide,
-  titreEchu,
-  titreOctroiInstruction,
-  titreOctroiDepose,
-  titreOctroiRejete,
-  titreOctroiClasse,
-  titreOctroiRetire,
-  titreDemarcheInstruction
+  titreDemarchesIndefini,
+  titreDemarchesValide,
+  titreDemarchesEchu,
+  titreDemarchesOctroiInstruction,
+  titreDemarchesOctroiDepose,
+  titreDemarchesOctroiRejete,
+  titreDemarchesOctroiClasse,
+  titreDemarchesOctroiRetire,
+  titreDemarchesInstruction
 }
