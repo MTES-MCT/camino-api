@@ -258,7 +258,7 @@ const titresActivitesUpdateFalse = [
 ]
 
 const titresActivites = {
-  graph: `[type.${activitesTypes.graph}, statut, utilisateur]`,
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.substances.legales.fiscales]`,
   update: {
     relate: titresActivitesUpdateTrue,
     unrelate: titresActivitesUpdateTrue,

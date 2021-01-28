@@ -1008,6 +1008,5 @@ export {
   IColonne,
   ITitreCondition,
   IDefinition,
-  ITitreSection,
-  IPeriodeNoms
+  ITitreSection
 }

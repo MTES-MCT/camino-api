@@ -27,7 +27,7 @@ jobs:
           - 5432:5432
     strategy:
       matrix:
-        node-version: [14.15]
+        node-version: [14]
 
     steps:
       - name: Checkout
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.15]
+        node-version: [14]
 
     steps:
       - name: Checkout
@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.15]
+        node-version: [14]
 
     steps:
       - name: Add the release tag
@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.15]
+        node-version: [14]
 
     steps:
       - name: Checkout

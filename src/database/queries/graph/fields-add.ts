@@ -2,7 +2,7 @@ import { IFields } from '../../../types'
 
 // ajoute les champs nécessaire pour obtenir le sous-objet titre
 // pour vérifier si l'utilisateur a les droits sur les titres
-const fieldsTitreAdd = (fields: IFields) => {
+const fieldsTitreAdd = (fields: IFields, isTitreActivite = false) => {
   if (!fields.titre) {
     fields.titre = {
       id: {},
@@ -34,7 +34,7 @@ const fieldsTitreAdd = (fields: IFields) => {
     fields.titre.amodiataires = {}
   }
 
-  if (fields.titre.activites) {
+  if (isTitreActivite) {
     fields.titre = activitesFieldsAdd(fields.titre)
   }
 

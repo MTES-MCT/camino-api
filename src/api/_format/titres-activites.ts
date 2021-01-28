@@ -4,7 +4,8 @@ import {
   IMois,
   IAnnee,
   IFields,
-  ISubstanceFiscale
+  ISubstanceFiscale,
+  ISection
 } from '../../types'
 
 import { objectClone } from '../../tools/object-clone'
@@ -20,7 +21,7 @@ const titreActiviteFormat = (
   ta: ITitreActivite,
   fields: IFields = titreActiviteFormatFields
 ) => {
-  const sections = objectClone(ta!.type!.sections)
+  const sections = objectClone(ta!.type!.sections) as ISection[]
 
   if (
     ['gra', 'grx'].includes(ta.typeId) &&

@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import knex from '../../src/init'
-import { uniteUpdate } from '../../src/database/queries/metas'
 import SubstancesFiscales from '../../src/database/models/substances-fiscales'
 import { ISubstanceFiscale, IUnite } from '../../src/types'
 import Unites from '../../src/database/models/unites'
