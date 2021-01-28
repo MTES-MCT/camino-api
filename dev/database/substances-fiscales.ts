@@ -68,7 +68,7 @@ const main = async () => {
     },
     {
       id: 'mtk',
-      nom: 'milier de tonnes',
+      nom: 'millier de tonnes',
       symbole: 'x 1000 t',
       referenceRatio: 1000000,
       referenceUniteId: 'mkg'
@@ -110,7 +110,7 @@ const main = async () => {
     },
     {
       id: 'mkg',
-      nom: 'Kilogramme',
+      nom: 'kilogramme',
       symbole: 'Kg'
     }
   ] as IUnite[]
@@ -132,35 +132,35 @@ const main = async () => {
       substanceLegaleId: 'anti',
       uniteId: 'mtt',
       nom: 'antimoine',
-      description: "antimoine contenu dans les minerais d'antimoine"
+      description: 'contenu dans les minerais'
     },
     {
       id: 'arge',
       substanceLegaleId: 'arge',
       uniteId: 'mkc',
       nom: 'argent',
-      description: 'argent contenu pour les minerais argentifères'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'arse',
       substanceLegaleId: 'arse',
       uniteId: 'mtk',
       nom: 'arsenic',
-      description: "arsenic contenu dans les minerais d'arsenic"
+      description: 'contenu dans les minerais'
     },
     {
       id: 'auru',
       substanceLegaleId: 'auru',
       uniteId: 'mkg',
       nom: 'or',
-      description: 'or contenu pour les minerais aurifères'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'bism',
       substanceLegaleId: 'bism',
       uniteId: 'mtt',
       nom: 'bismuth',
-      description: 'bismuth contenu dans les minerais de bismuth'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'cfxa',
@@ -190,42 +190,42 @@ const main = async () => {
       substanceLegaleId: 'coox',
       uniteId: 'vmd',
       nom: 'gaz carbonique',
-      description: 'extrait à 1 bar et 15 °C pour le gaz carbonique'
+      description: 'extrait à 1 bar et 15 °C'
     },
     {
       id: 'cuiv',
       substanceLegaleId: 'cuiv',
       uniteId: 'mtt',
       nom: 'cuivre',
-      description: 'cuivre contenu dans les minerais de cuivre'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'etai',
       substanceLegaleId: 'etai',
       uniteId: 'mtt',
       nom: 'étain',
-      description: "étain contenu dans les minerais d'étain"
+      description: 'contenu dans les minerais'
     },
     {
       id: 'fera',
       substanceLegaleId: 'ferx',
       uniteId: 'mtt',
       nom: 'pyrite de fer',
-      description: 'net livré pour la pyrite de fer'
+      description: 'net livré'
     },
     {
       id: 'ferb',
       substanceLegaleId: 'ferx',
       uniteId: 'mtt',
       nom: 'minerais de fer',
-      description: 'net livré de minerais de fer'
+      description: 'net livré'
     },
     {
       id: 'fluo',
       substanceLegaleId: 'fluo',
       uniteId: 'mtk',
       nom: 'fluorine',
-      description: 'fluorine nettes livrées'
+      description: 'net livré'
     },
     {
       id: 'hyda',
@@ -233,7 +233,7 @@ const main = async () => {
       uniteId: 'mtk',
       nom: 'calcaires et grès bitumineux ou asphaltiques',
       description:
-        "net livré pour les calcaires et grès bitumineux ou asphaltiques (non destinés à la distillation pour production d'huiles ou d'essences)"
+        "net livré (non destinés à la distillation pour production d'huiles ou d'essences)"
     },
     {
       id: 'hydb',
@@ -241,7 +241,7 @@ const main = async () => {
       uniteId: 'mtt',
       nom: 'schistes carbobitumineux et schistes bitumineux',
       description:
-        'net livré pour les schistes carbobitumineux et schistes bitumineux (à traiter par distillation pour en extraire des huiles et des essences)'
+        'net livré (à traiter par distillation pour en extraire des huiles et des essences)'
     },
     {
       id: 'hydc',
@@ -255,21 +255,21 @@ const main = async () => {
       substanceLegaleId: 'hydx',
       uniteId: 'mtt',
       nom: 'propane et le butane',
-      description: 'net livré pour le propane et le butane'
+      description: 'net livré'
     },
     {
       id: 'hyde',
       substanceLegaleId: 'hydx',
       uniteId: 'mtt',
       nom: 'essence de dégazolinage',
-      description: "net livrée pour l'essence de dégazolinage"
+      description: 'net livré'
     },
     {
       id: 'hydf',
       substanceLegaleId: 'hydx',
       uniteId: 'vmd',
       nom: 'gaz naturel',
-      description: 'extrait des gisements de gaz naturel'
+      description: 'extrait des gisements'
     },
     {
       id: 'kclx',
@@ -290,45 +290,42 @@ const main = async () => {
       substanceLegaleId: 'mang',
       uniteId: 'mtc',
       nom: 'manganèse',
-      description: 'manganèse contenu dans les minerais de manganèse'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'moly',
       substanceLegaleId: 'moly',
       uniteId: 'mtt',
       nom: 'molybdène',
-      description: 'molybdène contenu dans les minerais de molybdène'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'naca',
       substanceLegaleId: 'nacl',
       uniteId: 'mtk',
-      nom: 'sel extrait par abatage (chlorure de sodium)',
-      description: 'sel extrait par abattage net livré'
+      nom: 'sel (chlorure de sodium)',
+      description: 'extrait par abattage net livré'
     },
     {
       id: 'nacb',
       substanceLegaleId: 'nacl',
       uniteId: 'mtk',
-      nom: 'sel extrait en dissolution livré raffiné (chlorure de sodium)',
-      description:
-        'sel extrait en dissolution par sondage et livré raffiné (chlorure de sodium)'
+      nom: 'sel (chlorure de sodium)',
+      description: 'extrait en dissolution par sondage et livré raffiné'
     },
     {
       id: 'nacc',
       substanceLegaleId: 'nacl',
       uniteId: 'mtk',
-      nom:
-        'sel extrait en dissolution livré en dissolution (chlorure de sodium contenu)',
-      description:
-        'sel extrait en dissolution par sondage et livré en dissolution (chlorure de sodium contenu)'
+      nom: 'sel (chlorure de sodium contenu)',
+      description: 'extrait en dissolution par sondage et livré en dissolution'
     },
     {
       id: 'plom',
       substanceLegaleId: 'plom',
       uniteId: 'mtc',
       nom: 'plomb',
-      description: 'plomb contenu dans les minerais de plomb'
+      description: 'contenu dans les minerais'
     },
     {
       id: 'souf',
@@ -336,29 +333,28 @@ const main = async () => {
       uniteId: 'mtt',
       nom: 'soufre',
       description:
-        'soufre contenu pour les minerais de soufre autres que les pyrites de fer'
+        'contenu dans les minerais de soufre autres que les pyrites de fer'
     },
     {
       id: 'uran',
       substanceLegaleId: 'uran',
       uniteId: 'mkc',
       nom: 'uranium',
-      description: "uranium contenu pour les minerais d'uranium"
+      description: 'contenu dans les minerais'
     },
     {
       id: 'wolf',
       substanceLegaleId: 'wolf',
       uniteId: 'mtt',
-      nom: 'oxyde de tungstène',
-      description:
-        'oxyde de tungstène (WO3) contenu pour les minerais de tungstène'
+      nom: 'oxyde de tungstène (WO3)',
+      description: 'contenu dans les minerais'
     },
     {
       id: 'zinc',
       substanceLegaleId: 'zinc',
       uniteId: 'mtc',
       nom: 'zinc',
-      description: 'zinc contenu dans les minerais de zinc'
+      description: 'contenu dans les minerais'
     }
   ] as ISubstanceFiscale[]
 
@@ -371,6 +367,8 @@ const main = async () => {
   const graSection = activiteTypeGra.sections!.find(
     ({ id }) => id === 'renseignements'
   )!
+
+  activiteTypeGra.nom = 'rapport annuel de production'
 
   graSection.id = 'substancesFiscales'
   delete graSection.elements

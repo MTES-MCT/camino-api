@@ -44,9 +44,9 @@ const titreActiviteFormat = (
     if (section) {
       section.elements = substancesFiscales.map((sf: ISubstanceFiscale) => ({
         id: sf.id,
-        nom: `${sf.nom} (${sf.unite!.nom})`,
+        nom: `${sf.nom}`,
         type: 'number',
-        description: sf.description
+        description: `${sf.description} (<b>${sf.unite!.nom}</b>)`
       }))
     }
   }
