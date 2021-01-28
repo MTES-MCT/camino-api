@@ -444,6 +444,13 @@ interface ITitreTypeDemarcheType {
   dateFin?: string | null
 }
 
+interface ITitreTypeActiviteType {
+  titreTypeId: string
+  titreType?: ITitreType | null
+  activiteTypeId: string
+  activiteType?: IActiviteType | null
+}
+
 interface IEtapeTypeEtapeStatut {
   etapeTypeId: string
   etapeStatutId: string
@@ -934,6 +941,7 @@ export {
   IRegion,
   ITitreTypeTitreStatut,
   ITitreTypeDemarcheType,
+  ITitreTypeActiviteType,
   IEtapeTypeEtapeStatut,
   ITravauxTypeEtapeType,
   IAdministrationTitreType,

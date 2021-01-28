@@ -90,7 +90,7 @@ const requestsBuild = (
       addSheet: {
         properties: {
           sheetId: id,
-          title: decamelize(name, { separator: '-' }),
+          title: decamelize(name),
           sheetType: 'GRID',
           gridProperties: {
             columnCount: columns.length,
@@ -105,9 +105,7 @@ const requestsBuild = (
       {
         values: columns.map(h => ({
           userEnteredValue: {
-            stringValue: decamelize(typeof h === 'object' ? h.id : h, {
-              separator: '-'
-            })
+            stringValue: decamelize(typeof h === 'object' ? h.id : h)
           }
         }))
       },

@@ -2,7 +2,8 @@ import 'dotenv/config'
 import knex from '../../src/init'
 import {
   activitesTypesGet,
-  activiteTypeCreate
+  activiteTypeCreate,
+  titreTypeActiviteTypeDelete
 } from '../../src/database/queries/metas-activites'
 import {
   titresActivitesUpsert,
@@ -28,7 +29,11 @@ const main = async () => {
 
   await activiteTypeCreate(activiteTypeNew)
 
-  console.log(`type d'activité ajoutée: ${activiteTypeNew.nom}`)
+  console.info(`type d'activité ajoutée: ${activiteTypeNew.nom}`)
+  await titreTypeActiviteTypeDelete({
+    titreTypeId: 'axm',
+    activiteTypeId: 'gra'
+  })
 
   const titresActivites = await titresActivitesGet(
     { typesIds: ['gra'], titresTypesIds: ['ax'] },
@@ -55,8 +60,8 @@ const main = async () => {
     await titreActiviteDelete(id, {})
   }
 
-  console.log(`${newTitreActivites.length} activités insérees`)
-  console.log(`${oldIds.length} activités supprimées`)
+  console.info(`${newTitreActivites.length} activités insérees`)
+  console.info(`${oldIds.length} activités supprimées`)
 
   process.exit(0)
 }

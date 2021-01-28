@@ -1,5 +1,6 @@
 import { IActiviteType, IFields } from '../../types'
 import ActivitesTypes from '../models/activites-types'
+import TitresTypesActivitesTypes from '../models/titres-types--activites-types'
 
 import options from './_options'
 import graphBuild from './graph/build'
@@ -37,9 +38,19 @@ const activiteTypeCreate = async (activiteType: IActiviteType) =>
 const activiteTypeDelete = async (activiteTypeId: string) =>
   ActivitesTypes.query().deleteById(activiteTypeId)
 
+const titreTypeActiviteTypeDelete = async ({
+  activiteTypeId,
+  titreTypeId
+}: {
+  activiteTypeId: string
+  titreTypeId: string
+}) =>
+  TitresTypesActivitesTypes.query().deleteById([titreTypeId, activiteTypeId])
+
 export {
   activitesTypesGet,
   activiteTypeUpdate,
   activiteTypeCreate,
-  activiteTypeDelete
+  activiteTypeDelete,
+  titreTypeActiviteTypeDelete
 }

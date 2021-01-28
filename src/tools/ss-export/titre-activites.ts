@@ -30,7 +30,7 @@ const titreActivitesRowUpdate = async (
     const worksheet = await spreadsheetValuesGet(
       credentials,
       definition.id,
-      decamelize(table.name, { separator: '-' })
+      decamelize(table.name)
     )
 
     const requests = activites.map(activite => {

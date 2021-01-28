@@ -2,16 +2,16 @@ import { ITitre, Index, IContenuValeur, IPays, IContenu } from '../../../types'
 
 import * as decamelize from 'decamelize'
 
-const titreContenuFormat = (contenu?: IContenu | null) =>
+const titreContenuTableFormat = (contenu?: IContenu | null) =>
   contenu
     ? Object.keys(contenu).reduce(
         (props: Index<IContenuValeur>, section) =>
           contenu && contenu[section]
             ? Object.keys(contenu[section]).reduce((props, element) => {
                 if (contenu && contenu[section][element]) {
-                  props[decamelize(element).replace('_id', '')] = contenu[
-                    section
-                  ][element] as IContenuValeur
+                  const propNom = decamelize(element).replace('_id', '')
+
+                  props[propNom] = contenu[section][element] as IContenuValeur
                 }
 
                 return props
@@ -75,7 +75,7 @@ const titresFormatTable = (titres: ITitre[]) =>
         .join(separator),
       geojson: JSON.stringify(titre.geojsonMultiPolygon),
       ...titreReferences,
-      ...titreContenuFormat(titre.contenu)
+      ...titreContenuTableFormat(titre.contenu)
     }
 
     return titreNew
@@ -124,7 +124,7 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
           titre.references
             .map(reference => `${reference.type!.nom}: ${reference.nom}`)
             .join(separator),
-        ...titreContenuFormat(titre.contenu)
+        ...titreContenuTableFormat(titre.contenu)
       }
     }
   })

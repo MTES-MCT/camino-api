@@ -47,7 +47,7 @@ const requestsBuild = (utilisateurs: IUtilisateur[], tables: ITable[]) =>
     const worksheet = await spreadsheetValuesGet(
       credentials,
       definition.id,
-      decamelize(name, { separator: '-' })
+      decamelize(name)
     )
 
     // trouve l'id de l'élément à supprimer

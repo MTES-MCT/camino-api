@@ -29,7 +29,7 @@ const tables = [
     name: 'titresTypes__activitesTypes',
     columns: [
       { id: 'titreTypeId', key: 'id' },
-      { id: 'activitesTypeId', parentKey: 'id' }
+      { id: 'activiteTypeId', parentKey: 'id' }
     ],
     parents: ['titresTypes']
   },
