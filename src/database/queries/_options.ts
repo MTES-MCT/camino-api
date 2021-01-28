@@ -170,7 +170,7 @@ const titresTravauxEtapes = {
   }
 }
 
-const titresTypesUpdateFalse = [
+const titresTypesRelateFalse = [
   'type',
   'demarchesTypes',
   'demarchesTypes.etapesTypes',
@@ -194,7 +194,7 @@ const titresDemarchesUpdateFalse = [
   'type.etapesTypes.etapesStatuts',
   'type.etapesTypes',
   'titreType',
-  ...titresTypesUpdateFalse.map(k => `titreType.${k}`)
+  ...titresTypesRelateFalse.map(k => `titreType.${k}`)
 ]
 
 const titresDemarches = {
@@ -218,28 +218,55 @@ const titresDemarches = {
   }
 }
 
-const activitesUpdateFalse = [
-  'type',
-  'statut',
-  'utilisateur',
-  'type.frequence',
-  'type.frequence.trimestres',
-  'type.frequence.trimestres.mois',
-  'type.frequence.annees',
-  'type.pays',
-  'type.titresTypes',
-  ...titresTypesUpdateFalse.map(k => `type.titresTypes.${k}`),
-  'type.administrations',
-  'type.administrations.type',
-  ...documents.update.relate.map(k => `documents.${k}`)
+const activitesTypesRelateTrue = [
+  'pays',
+  'frequence',
+  'titresTypes',
+  'administrations',
+  'documentsTypes'
+]
+
+const activitesTypesUpdateFalse = [
+  ...activitesTypesRelateTrue,
+  'frequence.mois',
+  'frequence.trimestres',
+  'frequence.trimestres.mois',
+  'frequence.annees',
+  'administrations.type',
+  ...titresTypesRelateFalse.map(k => `type.titresTypes.${k}`)
 ]
 
 const activitesTypes = {
-  graph: `[pays, frequence.[mois, trimestres.mois, annees], titresTypes, administrations]`
+  graph: `[pays, frequence.[mois, trimestres.mois, annees], titresTypes, administrations, documentsTypes]`,
+
+  update: {
+    relate: activitesTypesRelateTrue,
+    unrelate: activitesTypesRelateTrue,
+    noInsert: activitesTypesUpdateFalse,
+    noUpdate: activitesTypesUpdateFalse,
+    noDelete: activitesTypesUpdateFalse,
+    insertMissing: false
+  }
 }
 
+const titresActivitesUpdateTrue = ['type', 'statut', 'utilisateur', 'documents']
+
+const titresActivitesUpdateFalse = [
+  ...titresActivitesUpdateTrue,
+  ...activitesTypesUpdateFalse.map(k => `type.${k}`),
+  ...documents.update.relate.map(k => `documents.${k}`)
+]
+
 const titresActivites = {
-  graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur]`,
+  update: {
+    relate: titresActivitesUpdateTrue,
+    unrelate: titresActivitesUpdateTrue,
+    noInsert: titresActivitesUpdateFalse,
+    noUpdate: titresActivitesUpdateFalse,
+    noDelete: titresActivitesUpdateFalse,
+    insertMissing: true
+  }
 }
 
 const titresTravauxRelateTrue = [
@@ -280,9 +307,9 @@ const titresRelateTrue = [
 
 const titresUpdateFalse = [
   ...titresRelateTrue,
-  ...titresTypesUpdateFalse.map(k => `type.${k}`),
+  ...titresTypesRelateFalse.map(k => `type.${k}`),
   'domaine.titresTypes',
-  ...titresTypesUpdateFalse.map(k => `domaine.titresTypes.${k}`),
+  ...titresTypesRelateFalse.map(k => `domaine.titresTypes.${k}`),
   'points',
   'points.references',
   'points.references.geoSysteme',
@@ -319,7 +346,7 @@ const titresUpdateFalse = [
   'administrationsLocales.utilisateurs',
   'administrationsLocales.utilisateurs.permission',
   'surfaceEtape',
-  ...activitesUpdateFalse.map(k => `activites.${k}`),
+  ...titresActivitesUpdateFalse.map(k => `activites.${k}`),
   ...titresDemarchesUpdateFalse.map(k => `demarches.${k}`),
   ...titresTravauxUpdateFalse.map(k => `travaux.${k}`)
 ]

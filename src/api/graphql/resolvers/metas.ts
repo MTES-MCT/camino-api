@@ -25,7 +25,6 @@ import { debug } from '../../../config/index'
 
 import {
   activitesStatutsGet,
-  activitesTypesGet,
   administrationsTypesGet,
   administrationTypeUpdate,
   definitionsGet,
@@ -62,6 +61,7 @@ import {
   documentTypeUpdate,
   referenceTypeUpdate
 } from '../../../database/queries/metas'
+import { activitesTypesGet } from '../../../database/queries/metas-activites'
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'

@@ -6,7 +6,7 @@ import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-de
 const demarchesDefinitionsCheck = async () => {
   console.info()
   console.info('- - -')
-  console.info('vérification des démarches avec les arbres d’instructions')
+  console.info('vérification des démarches')
   console.info()
 
   let errorsNb = 0
@@ -64,13 +64,13 @@ const demarchesDefinitionsCheck = async () => {
               //   }))
               // )
               console.error(
-                `https://camino.beta.gouv.fr/titres/${demarche.titreId} => Démarche "${demarche.typeId}" : ${errors}`
+                `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errors}`
               )
 
               return true
             }
           } catch (e) {
-            console.error(`${demarche.id} Démarche invalide =>\n\t${e}`)
+            console.error(`${demarche.id} démarche invalide =>\n\t${e}`)
             errorsNb++
 
             return true
@@ -80,7 +80,7 @@ const demarchesDefinitionsCheck = async () => {
         })
     }
   }
-  console.error(`Nb errors = ${errorsNb}`)
+  console.error(`erreurs : ${errorsNb}`)
 }
 
 export default demarchesDefinitionsCheck

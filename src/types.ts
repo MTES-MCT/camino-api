@@ -91,6 +91,10 @@ interface ITitreSection {
   elementId: string
 }
 
+interface IActiviteTypeDocumentType extends IDocumentType {
+  optionnel: boolean
+}
+
 interface IActiviteType {
   id: string
   nom: string
@@ -98,6 +102,7 @@ interface IActiviteType {
   dateDebut: string
   delaiMois: number
   titresTypes: ITitreType[]
+  documentsTypes: IActiviteTypeDocumentType[]
   sections?: ISection[] | null
   frequence?: IFrequence | null
   pays?: IPays[] | null

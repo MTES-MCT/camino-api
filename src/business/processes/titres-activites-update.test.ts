@@ -5,9 +5,9 @@ import titresActivitesTypesUpdate from './titres-activites-update'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
 import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
-import { titreActivitesUpsert } from '../../database/queries/titres-activites'
+import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titresGet } from '../../database/queries/titres'
-import { activitesTypesGet } from '../../database/queries/metas'
+import { activitesTypesGet } from '../../database/queries/metas-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
 import {
@@ -20,7 +20,7 @@ jest.mock('../../database/queries/titres', () => ({
   titresGet: jest.fn()
 }))
 
-jest.mock('../../database/queries/metas', () => ({
+jest.mock('../../database/queries/metas-activites', () => ({
   activitesTypesGet: jest.fn()
 }))
 
@@ -36,7 +36,7 @@ jest.mock('../utils/activite-type-annees-find', () => ({
 
 jest.mock('../../database/queries/titres-activites', () => ({
   __esModule: true,
-  titreActivitesUpsert: jest.fn().mockResolvedValue(true)
+  titresActivitesUpsert: jest.fn().mockResolvedValue(true)
 }))
 
 jest.mock('../rules/titre-activites-build', () => ({
@@ -67,7 +67,7 @@ describe("activités d'un titre", () => {
     expect(activitesTypesFilter).toHaveBeenCalledTimes(
       titresSansActivite.length
     )
-    expect(titreActivitesUpsert).toHaveBeenCalled()
+    expect(titresActivitesUpsert).toHaveBeenCalled()
     expect(titreActivitesBuild).toHaveBeenCalled()
   })
 
@@ -84,7 +84,7 @@ describe("activités d'un titre", () => {
 
     expect(activitesTypesFilter).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).toHaveBeenCalled()
-    expect(titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(titresActivitesUpsert).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {
@@ -99,7 +99,7 @@ describe("activités d'un titre", () => {
 
     expect(activitesTypesFilter).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).not.toHaveBeenCalled()
-    expect(titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(titresActivitesUpsert).not.toHaveBeenCalled()
   })
 
   test('ne met pas à jour de titre si les activités ne sont valables sur aucune année', async () => {
@@ -114,6 +114,6 @@ describe("activités d'un titre", () => {
 
     expect(activitesTypesFilter).not.toHaveBeenCalled()
     expect(titreActivitesBuild).not.toHaveBeenCalled()
-    expect(titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(titresActivitesUpsert).not.toHaveBeenCalled()
   })
 })

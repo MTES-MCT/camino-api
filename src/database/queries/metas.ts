@@ -26,7 +26,6 @@ import {
   ITravauxTypeEtapeType
 } from '../../types'
 
-import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
 import TravauxTypes from '../models/travaux-types'
 import Devises from '../models/devises'
@@ -56,7 +55,6 @@ import {
   domainesPermissionQueryBuild,
   etapesTypesPermissionQueryBuild,
   demarchesTypesPermissionQueryBuild,
-  activitesTypesPermissionQueryBuild,
   permissionsPermissionQueryBuild,
   travauxTypesPermissionQueryBuild,
   travauxEtapesTypesPermissionQueryBuild
@@ -436,23 +434,6 @@ const unitesGet = async () => Unites.query().orderBy('id')
 const uniteUpdate = async (id: string, props: Partial<IUnite>) =>
   Unites.query().patchAndFetchById(id, props)
 
-const activitesTypesGet = async (
-  { fields }: { fields?: IFields },
-  userId?: string
-) => {
-  const user = await userGet(userId)
-
-  const graph = fields
-    ? graphBuild(fields, 'activitesTypes', graphFormat)
-    : options.activitesTypes.graph
-
-  const q = ActivitesTypes.query().withGraphFetched(graph).modify('orderAsc')
-
-  activitesTypesPermissionQueryBuild(q, user)
-
-  return q
-}
-
 const activitesStatutsGet = async () => {
   const q = ActivitesStatuts.query()
 
@@ -506,7 +487,6 @@ export {
   geoSystemeGet,
   unitesGet,
   uniteUpdate,
-  activitesTypesGet,
   activitesStatutsGet,
   referencesTypesGet,
   phasesStatutsGet,

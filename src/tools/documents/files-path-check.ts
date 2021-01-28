@@ -24,7 +24,7 @@ const filesPathCheck = (
       )
     )
   } else {
-    console.info('Tous les fichiers sont au bon endroit sur le disque')
+    console.info('tous les fichiers sont au bon endroit sur le disque')
   }
 }
 
