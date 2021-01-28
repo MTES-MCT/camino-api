@@ -1,4 +1,4 @@
-FROM node:14.15-alpine as build-stage
+FROM node:14-alpine as build-stage
 WORKDIR /app
 
 COPY package*.json ./
@@ -10,7 +10,7 @@ COPY dev dev/
 COPY knex knex/
 RUN npm run build
 
-FROM node:14.15-alpine as production-stage
+FROM node:14-alpine as production-stage
 WORKDIR /app
 
 # redirige les logs sur le collecteur de logs docker
@@ -25,5 +25,6 @@ COPY --from=build-stage /app/knex ./knex
 COPY --from=build-stage /app/dev ./dev
 # nous avons besoin des sources pour lancer certains scripts manuellement
 COPY --from=build-stage /app/src ./src
+COPY --from=build-stage /app/tsconfig.json ./
 
 CMD ["npm", "start"]
