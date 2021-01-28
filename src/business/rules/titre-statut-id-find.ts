@@ -1,25 +1,27 @@
-import { ITitre } from '../../types'
+import { ITitreDemarche } from '../../types'
 
-import * as dateFormat from 'dateformat'
 import titreDateFinFind from './titre-date-fin-find'
 
-const titreStatutIdFind = (titre: ITitre) => {
-  if (!titre.demarches || !titre.demarches.length) return 'ind'
+const titreStatutIdFind = (
+  aujourdhui: string,
+  titreDemarches?: ITitreDemarche[] | null
+) => {
+  if (!titreDemarches || !titreDemarches.length) return 'ind'
 
   // si toutes les démarches du titre ont le statut `indéfini`
   // alors le titre a également le statut `indéfini`
-  if (titre.demarches.every(d => d.statutId === 'ind')) return 'ind'
+  if (titreDemarches.every(d => d.statutId === 'ind')) return 'ind'
 
   // s'il y a une seule démarche (octroi)
   if (
-    titre.demarches.length === 1 &&
-    ['oct', 'vut', 'vct'].includes(titre.demarches[0].typeId) &&
+    titreDemarches.length === 1 &&
+    ['oct', 'vut', 'vct'].includes(titreDemarches[0].typeId) &&
     ['eco', 'ins', 'dep', 'rej', 'cls', 'des'].includes(
-      titre.demarches[0].statutId!
+      titreDemarches[0].statutId!
     )
   ) {
     // le statut de la démarche est en instruction ou déposée
-    if (['eco', 'ins', 'dep'].includes(titre.demarches[0].statutId!)) {
+    if (['eco', 'ins', 'dep'].includes(titreDemarches[0].statutId!)) {
       // le statut du titre est demande initiale
       return 'dmi'
     }
@@ -30,14 +32,14 @@ const titreStatutIdFind = (titre: ITitre) => {
   }
 
   // une démarche a le statut en instruction
-  if (titre.demarches.find(d => d.statutId === 'ins')) {
+  if (titreDemarches.find(d => d.statutId === 'ins')) {
     // le statut du titre est modification en instance
     return 'mod'
   }
 
   // la date du jour est inférieure à la date d’échéance
-  const dateFin = titreDateFinFind(titre.demarches)
-  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+  const dateFin = titreDateFinFind(titreDemarches)
+
   if (dateFin && aujourdhui < dateFin) {
     // le statut du titre est valide
     return 'val'
@@ -47,4 +49,4 @@ const titreStatutIdFind = (titre: ITitre) => {
   return 'ech'
 }
 
-export default titreStatutIdFind
+export { titreStatutIdFind }

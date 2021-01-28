@@ -1,7 +1,8 @@
 import PQueue from 'p-queue'
+import * as dateFormat from 'dateformat'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import titreStatutIdFind from '../rules/titre-statut-id-find'
+import { titreStatutIdFind } from '../rules/titre-statut-id-find'
 
 const titresStatutIdsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -19,9 +20,10 @@ const titresStatutIdsUpdate = async (titresIds?: string[]) => {
   )
 
   const titresUpdated = [] as string[]
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
   titres.forEach(titre => {
-    const statutId = titreStatutIdFind(titre)
+    const statutId = titreStatutIdFind(aujourdhui, titre.demarches)
 
     if (statutId !== titre.statutId) {
       queue.add(async () => {

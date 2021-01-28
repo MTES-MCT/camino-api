@@ -1,5 +1,7 @@
-import titreEtapePropFind from '../../../business/rules/titre-etape-prop-find'
+import { titreEtapePropFind } from '../../../business/rules/titre-etape-prop-find'
 import { debug } from '../../../config/index'
+import * as dateFormat from 'dateformat'
+
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { matomoData } from '../../../tools/api-matomo/index'
 import { ITitre } from '../../../types'
@@ -86,11 +88,13 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
 
       if (!firstOctroiValide?.etapes?.length) return acc
 
+      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
       const surface = titreEtapePropFind(
         'surface',
         firstOctroiValide.etapes[0],
         firstOctroiValide.etapes,
-        titre
+        aujourdhui,
+        titre.demarches
       ) as number | null | undefined
 
       acc.push({

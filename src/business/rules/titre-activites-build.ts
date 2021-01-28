@@ -8,6 +8,19 @@ import {
 import * as dateFormat from 'dateformat'
 import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
+/**
+ * Construit une activité
+ * @param titreDemarches - démarches d'un titre
+ * @param titreStatutId - id du statut du titre
+ * @param titreId - id du titre
+ * @param typeId - id du type de l'activité
+ * @param annee - année,
+ * @param periodeIndex - index de la période concernée (ex: 1 pour le premier trimestre)
+ * @param monthsCount - nombre de mois concernés (ex : 3 pour un trimestre)
+ * @param aujourdhui - date du jour au format YYYY-MM-JJ
+ * @returns une activité ou null
+ */
+
 const titreActiviteBuild = (
   titreDemarches: ITitreDemarche[],
   titreStatutId: string,
@@ -15,7 +28,8 @@ const titreActiviteBuild = (
   typeId: string,
   annee: number,
   periodeIndex: number,
-  monthsCount: number
+  monthsCount: number,
+  aujourdhui: string
 ) => {
   const frequencePeriodeId = periodeIndex + 1
 
@@ -23,8 +37,6 @@ const titreActiviteBuild = (
     new Date(annee, (periodeIndex + 1) * monthsCount, 1),
     'yyyy-mm-dd'
   )
-
-  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
@@ -66,10 +78,20 @@ const titreActiviteBuild = (
   return titreActivite
 }
 
+/**
+ * Construit les activités à ajouter sur un titre
+ * @param titre - titre
+ * @param activiteType - type d'activité
+ * @param annees - liste des années
+ * @param aujourdhui - date du jour au format yyyy-mm-dd
+ * @returns une liste d'activités
+ */
+
 const titreActivitesBuild = (
   titre: ITitre,
   activiteType: IActiviteType,
-  annees: number[]
+  annees: number[],
+  aujourdhui: string
 ) => {
   const periods = activiteType.frequence![activiteType.frequence!.periodesNom!]!
   const monthsCount = 12 / periods.length
@@ -102,7 +124,8 @@ const titreActivitesBuild = (
           activiteType.id,
           annee,
           periodeIndex,
-          monthsCount
+          monthsCount,
+          aujourdhui
         )
 
         if (titreActivite) {
@@ -115,4 +138,4 @@ const titreActivitesBuild = (
   )
 }
 
-export default titreActivitesBuild
+export { titreActivitesBuild }

@@ -1,12 +1,7 @@
-import {
-  ITitreDemarche,
-  ITitre,
-  ITitreEtape,
-  ITitreEtapeProp
-} from '../../types'
+import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
 
 import titrePropEtapeIdFind from './titre-prop-etape-id-find'
-import titreStatutIdFind from './titre-statut-id-find'
+import { titreStatutIdFind } from './titre-statut-id-find'
 
 const titreEtapeFind = (
   titreDemarches: ITitreDemarche[],
@@ -60,10 +55,10 @@ const titreDemarchesEtapesFilter = (
       )
 
       if (titreEtapesFiltered.length) {
-        titreDemarche.etapes = titreEtapesFiltered
-
         return true
       }
+
+      return false
     }
 
     return false
@@ -74,7 +69,8 @@ const titreEtapePropFind = (
   prop: ITitreEtapeProp,
   titreEtape: ITitreEtape,
   titreDemarcheEtapes: ITitreEtape[],
-  titre: ITitre
+  aujourdhui: string,
+  titreDemarches?: ITitreDemarche[] | null
 ) => {
   try {
     // filtre les étapes antérieures à la date de l'étape sélectionnée
@@ -89,27 +85,44 @@ const titreEtapePropFind = (
 
     // sinon (la propriété n'est pas dans la démarche)
     // cherche la propriété dans les démarches précédentes
-    if (!titre.demarches?.length) return null
+    if (!titreDemarches?.length) return null
 
     // filtre les démarches et étapes antérieures à la date de l'étape sélectionnée
-    titre.demarches = titreDemarchesEtapesFilter(
-      titre.demarches,
+
+    const titreDemarchesFiltered = titreDemarchesEtapesFilter(
+      titreDemarches,
       titreEtape.date
     )
 
-    // recalcule le statut du titre
-    titre.statutId = titreStatutIdFind(titre)
+    titreDemarchesFiltered.forEach((td: ITitreDemarche) => {
+      if (td.etapes) {
+        const titreEtapesFiltered = titreEtapesDateFilter(
+          td.etapes,
+          titreEtape.date
+        )
+
+        if (titreEtapesFiltered.length) {
+          td.etapes = titreEtapesFiltered
+        }
+      }
+    })
+
+    // calcule le statut du titre
+    const titreStatutId = titreStatutIdFind(aujourdhui, titreDemarchesFiltered)
 
     // cherche la première occurrence de la propriété
     // dans une démarche et une étape valides
     const propTitreEtapeId = titrePropEtapeIdFind(
       prop,
-      titre.demarches,
-      titre.statutId!
+      titreDemarchesFiltered,
+      titreStatutId!
     )
 
     if (propTitreEtapeId) {
-      const propTitreEtape = titreEtapeFind(titre.demarches, propTitreEtapeId)
+      const propTitreEtape = titreEtapeFind(
+        titreDemarchesFiltered,
+        propTitreEtapeId
+      )
 
       return propTitreEtape![prop]
     }
@@ -122,4 +135,4 @@ const titreEtapePropFind = (
   }
 }
 
-export default titreEtapePropFind
+export { titreEtapePropFind }

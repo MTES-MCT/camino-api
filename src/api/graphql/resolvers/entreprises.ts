@@ -1,5 +1,6 @@
 import { IEntreprise, IEntrepriseColonneId, IToken } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
+import * as dateFormat from 'dateformat'
 
 import { debug } from '../../../config/index'
 import {
@@ -20,7 +21,7 @@ import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
 import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
 
-import titreEtapePropFind from '../../../business/rules/titre-etape-prop-find'
+import { titreEtapePropFind } from '../../../business/rules/titre-etape-prop-find'
 
 const entreprise = async (
   { id }: { id: string },
@@ -96,12 +97,14 @@ const etapeEntreprises = async (
     let entreprises = [] as IEntreprise[]
 
     if (titreDemarche.etapes) {
+      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
       const titulaires =
         (titreEtapePropFind(
           'titulaires',
           titreEtape,
           titreDemarche.etapes,
-          titre
+          aujourdhui,
+          titre.demarches
         ) as IEntreprise[] | null) || []
 
       const amodiataires =
@@ -109,7 +112,8 @@ const etapeEntreprises = async (
           'amodiataires',
           titreEtape,
           titreDemarche.etapes,
-          titre
+          aujourdhui,
+          titre.demarches
         ) as IEntreprise[] | null) || []
 
       entreprises = [...titulaires, ...amodiataires]

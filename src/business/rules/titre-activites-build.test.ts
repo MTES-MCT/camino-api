@@ -1,5 +1,6 @@
 import { mocked } from 'ts-jest/utils'
-import titreActivitesBuild from './titre-activites-build'
+
+import { titreActivitesBuild } from './titre-activites-build'
 import * as titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
 import {
@@ -21,10 +22,17 @@ jest.mock('../utils/titre-validite-periode-check', () => ({
 const titreValiditePeriodeCheckMock = mocked(titreValiditePeriodeCheck, true)
 
 describe("construction des activités d'un titre", () => {
+  const aujourdhui = '2020-12-01'
+
   test("ne crée pas d'activité si la fin de la période est dans le futur", () => {
     titreValiditePeriodeCheckMock.default.mockReturnValue(true)
 
-    const res = titreActivitesBuild(titreVide, activiteTypeGrp, [2300])
+    const res = titreActivitesBuild(
+      titreVide,
+      activiteTypeGrp,
+      [2300],
+      aujourdhui
+    )
 
     expect(res.length).toEqual(0)
     expect(titreValiditePeriodeCheckMock.default).not.toHaveBeenCalled()
@@ -33,9 +41,12 @@ describe("construction des activités d'un titre", () => {
   test('crée quatre activités si le titre est valide pour la période', () => {
     titreValiditePeriodeCheckMock.default.mockReturnValue(true)
 
-    const res = titreActivitesBuild(titreAvecActivite201801, activiteTypeXxx, [
-      2018
-    ])
+    const res = titreActivitesBuild(
+      titreAvecActivite201801,
+      activiteTypeXxx,
+      [2018],
+      aujourdhui
+    )
 
     expect(res.length).toEqual(4)
     expect(titreValiditePeriodeCheckMock.default).toHaveBeenCalled()
@@ -44,9 +55,12 @@ describe("construction des activités d'un titre", () => {
   test('crée trois activités si le titre est valide pour la période et possède déja une activité', () => {
     titreValiditePeriodeCheckMock.default.mockReturnValue(true)
 
-    const res = titreActivitesBuild(titreAvecActivite201801, activiteTypeGrp, [
-      2018
-    ])
+    const res = titreActivitesBuild(
+      titreAvecActivite201801,
+      activiteTypeGrp,
+      [2018],
+      aujourdhui
+    )
 
     expect(res.length).toEqual(3)
     expect(titreValiditePeriodeCheckMock.default).toHaveBeenCalled()
@@ -55,7 +69,12 @@ describe("construction des activités d'un titre", () => {
   test("ne crée pas d'activité si le titre n'est pas valide pour la période", () => {
     titreValiditePeriodeCheckMock.default.mockReturnValue(false)
 
-    const res = titreActivitesBuild(titreVide, activiteTypeGrp, [2018])
+    const res = titreActivitesBuild(
+      titreVide,
+      activiteTypeGrp,
+      [2018],
+      aujourdhui
+    )
 
     expect(res.length).toEqual(0)
     expect(titreValiditePeriodeCheckMock.default).toHaveBeenCalled()
@@ -67,7 +86,8 @@ describe("construction des activités d'un titre", () => {
     const res = titreActivitesBuild(
       titreModificationEnInstance,
       activiteTypeGrp,
-      [2018]
+      [2018],
+      aujourdhui
     )
 
     expect(res.length).toEqual(4)

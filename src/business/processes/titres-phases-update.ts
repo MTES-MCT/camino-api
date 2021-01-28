@@ -1,10 +1,11 @@
 import { ITitrePhase } from '../../types'
+import * as dateFormat from 'dateformat'
 
 import {
   titrePhasesUpsert,
   titrePhasesDelete
 } from '../../database/queries/titres-phases'
-import titrePhasesFind from '../rules/titre-phases-find'
+import { titrePhasesFind } from '../rules/titre-phases-find'
 import PQueue from 'p-queue'
 import { titresGet } from '../../database/queries/titres'
 
@@ -100,6 +101,8 @@ const titresPhasesUpdate = async (titresIds?: string[]) => {
     'super'
   )
 
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+
   const { titresPhasesIdsUpdated, titresPhasesIdsDeleted } = titres.reduce(
     (
       res: {
@@ -123,7 +126,7 @@ const titresPhasesUpdate = async (titresIds?: string[]) => {
 
       // retourne un tableau avec les phases
       // créées à partir des démarches
-      const titrePhases = titrePhasesFind(demarches, titre.typeId)
+      const titrePhases = titrePhasesFind(demarches, aujourdhui, titre.typeId)
 
       const titrePhasesToUpdate = titrePhasesUpdatedFind(
         titrePhasesOld,
