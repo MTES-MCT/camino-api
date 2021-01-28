@@ -9,6 +9,7 @@ import {
   titreDemarcheDelete
 } from '../../src/database/queries/titres-demarches'
 import TitresDemarches from '../../src/database/models/titres-demarches'
+import { objectClone } from '../../src/tools/object-clone'
 
 const valueExists = a => a !== undefined && a !== null
 
@@ -47,7 +48,7 @@ const titreEtapeCopy = ({ props, condition }, titreEtapeFrom, titreEtapes) => {
     return false
   }
 
-  const etapeCopy = JSON.parse(JSON.stringify(titreEtapeFrom))
+  const etapeCopy = objectClone(titreEtapeFrom)
 
   Object.keys(props).forEach(prop => {
     const value =

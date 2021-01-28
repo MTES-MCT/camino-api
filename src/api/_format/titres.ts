@@ -163,9 +163,11 @@ const titreFormat = (
   }
 
   if (fields.activites && t.activites?.length) {
-    t.activites = t.activites.map(ta =>
-      titreActiviteFormat(ta, fields.activites)
-    )
+    t.activites = t.activites.map(ta => {
+      ta.titre = t
+
+      return titreActiviteFormat(ta, fields.activites)
+    })
   }
 
   if (fields.administrations) {

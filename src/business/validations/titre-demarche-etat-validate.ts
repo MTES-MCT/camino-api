@@ -10,6 +10,7 @@ import { titreContenuFormat } from '../../database/models/_format/titres-contenu
 import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'
 import { titreEtapeEtatValidate } from './titre-etape-etat-validate'
 import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot-demande-date-find'
+import { objectClone } from '../../tools/object-clone'
 
 const titreDemarcheEtapesBuild = (
   titreEtape: ITitreEtape,
@@ -75,7 +76,7 @@ const titreDemarcheEtatValidate = (
 
   // on copie les démarches car on va les modifier en ajoutant les étapes une à une
   const titreDemarches = titre.demarches
-    ? (JSON.parse(JSON.stringify(titre.demarches)) as ITitreDemarche[])
+    ? (objectClone(titre.demarches) as ITitreDemarche[])
     : []
 
   const titreDemarche = titreDemarches.find(d => d.typeId === demarcheType.id)

@@ -6,6 +6,7 @@ import { ITitre, ITitreActivite } from '../../../types'
 import { titresArrayBuild } from './statistiques'
 
 const statistiquesGuyaneActivitesGet = (
+  sectionId: string,
   titresActivites: ITitreActivite[],
   init: { [key: string]: number }
 ) =>
@@ -15,14 +16,14 @@ const statistiquesGuyaneActivitesGet = (
     Object.keys(acc).forEach(prop => {
       if (
         ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements[prop] &&
+        ta.contenu[sectionId] &&
+        ta.contenu[sectionId][prop] &&
         (prop !== 'effectifs' ||
           ta.titre!.typeId === 'axm' ||
           ta.titre!.typeId === 'pxm' ||
           ta.titre!.typeId === 'cxm')
       ) {
-        const value = ta.contenu!.renseignements[prop]
+        const value = ta.contenu![sectionId][prop]
         acc[prop] += Math.abs(Number(value))
       }
     })
@@ -123,6 +124,7 @@ const statistiquesGuyaneAnneeBuild = (
     ta => ta.annee === annee && ta.typeId === 'grp'
   )
   const statistiquesActivitesGrp = statistiquesGuyaneActivitesGet(
+    'renseignements',
     titresActivitesGrpFiltered,
     {
       carburantConventionnel: 0,
@@ -136,9 +138,10 @@ const statistiquesGuyaneAnneeBuild = (
   )
   // les activités de type gra de l'année
   const titresActivitesGraFiltered = titresActivites.filter(
-    ta => ta.annee === annee && ta.typeId === 'gra'
+    ta => ta.annee === annee && (ta.typeId === 'gra' || ta.typeId === 'grx')
   )
   const statistiquesActivitesGra = statistiquesGuyaneActivitesGet(
+    'substancesFiscales',
     titresActivitesGraFiltered,
     {
       orNet: 0,
@@ -166,7 +169,7 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm,
-    orNet: Math.floor(statistiquesActivitesGra.orNet / 1000), // conversion 1000g = 1kg
+    orNet: Math.floor(statistiquesActivitesGra.auru / 1000), // conversion 1000g = 1kg
     carburantConventionnel: Math.floor(
       statistiquesActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres

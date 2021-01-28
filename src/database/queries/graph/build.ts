@@ -1,3 +1,4 @@
+import { objectClone } from '../../../tools/object-clone'
 import { IFields } from '../../../types'
 
 interface IFieldsFormat {
@@ -65,7 +66,7 @@ const graphBuild = (
   root = 'root',
   format: IFieldsFormat = (fields: IFields) => fields
 ) => {
-  fields = JSON.parse(JSON.stringify(fields))
+  fields = objectClone(fields)
 
   // in: AST de la requête GraphQl
   // out: string au format 'graph' de objection.js

@@ -15,7 +15,7 @@ class Frequences extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      periodesNom: { type: 'string' }
+      periodesNom: { enum: ['annees', 'trimestres', 'mois'] }
     }
   }
 

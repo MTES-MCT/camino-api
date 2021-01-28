@@ -302,10 +302,12 @@ interface IEtapeType {
 
 interface IForet extends IArea {}
 
+type IPeriodeNom = 'annees' | 'trimestres' | 'mois'
+
 interface IFrequence {
   id: string
   nom: string
-  periodesNom: 'annees' | 'trimestres' | 'mois'
+  periodesNom: IPeriodeNom
   annees?: IAnnee[] | null
   trimestres?: ITrimestre[] | null
   mois?: IMois[] | null
@@ -506,6 +508,7 @@ interface ISubstanceLegale {
   substanceLegaleCodeId?: string | null
   domaine?: IDomaine | null
   code?: ISubstanceLegaleCode | null
+  fiscales?: ISubstanceFiscale[] | null
 }
 
 interface ISubstanceFiscale {
@@ -514,6 +517,7 @@ interface ISubstanceFiscale {
   description: string
   substanceLegaleId: string
   uniteId: string
+  unite?: IUnite | null
 }
 
 interface ISubstance {
@@ -522,8 +526,7 @@ interface ISubstance {
   symbole?: string | null
   gerep?: number | null
   description?: string | null
-  substanceLegaleId: string
-  substanceLegale: ISubstanceLegale
+  legales: ISubstanceLegale[]
 }
 
 interface ITitre {
@@ -1005,5 +1008,6 @@ export {
   IColonne,
   ITitreCondition,
   IDefinition,
-  ITitreSection
+  ITitreSection,
+  IPeriodeNoms
 }

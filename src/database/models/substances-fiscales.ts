@@ -1,6 +1,7 @@
 import { Model } from 'objection'
 
 import { ISubstanceFiscale } from '../../types'
+import Unites from './unites'
 
 interface SubstancesFiscales extends ISubstanceFiscale {}
 
@@ -17,6 +18,17 @@ class SubstancesFiscales extends Model {
       description: { type: 'string' },
       uniteId: { type: 'string' },
       substanceLegaleId: { type: 'string' }
+    }
+  }
+
+  public static relationMappings = {
+    unite: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Unites,
+      join: {
+        from: 'substancesFiscales.uniteId',
+        to: 'unites.id'
+      }
     }
   }
 }

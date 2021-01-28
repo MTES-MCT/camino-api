@@ -2,6 +2,7 @@ import { Model } from 'objection'
 import { join } from 'path'
 
 import { ISubstanceLegale } from '../../types'
+import SubstancesFiscales from './substances-fiscales'
 
 interface SubstancesLegales extends ISubstanceLegale {}
 
@@ -30,12 +31,22 @@ class SubstancesLegales extends Model {
         to: 'substancesLegalesCodes.id'
       }
     },
+
     domaine: {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'domaines'),
       join: {
         from: 'substancesLegales.domaineId',
         to: 'domaines.id'
+      }
+    },
+
+    fiscales: {
+      relation: Model.HasManyRelation,
+      modelClass: SubstancesFiscales,
+      join: {
+        from: 'substancesLegales.id',
+        to: 'substancesFiscales.substanceLegaleId'
       }
     }
   }

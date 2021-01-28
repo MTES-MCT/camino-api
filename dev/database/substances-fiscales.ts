@@ -5,6 +5,10 @@ import SubstancesFiscales from '../../src/database/models/substances-fiscales'
 import { ISubstanceFiscale, IUnite } from '../../src/types'
 import Unites from '../../src/database/models/unites'
 
+import ActivitesTypes from '../../src/database/models/activites-types'
+import { titresActivitesGet } from '../../src/database/queries/titres-activites'
+import TitresActivites from '../../src/database/models/titres-activites'
+
 const main = async () => {
   await knex.schema.alterTable('unites', table => {
     table.string('referenceUniteId', 3).references('id')
@@ -362,6 +366,63 @@ const main = async () => {
   await SubstancesFiscales.query().insert(substancesFiscales)
 
   console.info(`${substancesFiscales.length} substancesFiscales ajoutées`)
+
+  const activiteTypeGra = await ActivitesTypes.query().findById('gra')
+
+  const graSection = activiteTypeGra.sections!.find(
+    ({ id }) => id === 'renseignements'
+  )!
+
+  graSection.id = 'substancesFiscales'
+  delete graSection.elements
+
+  await ActivitesTypes.query().patchAndFetchById('gra', activiteTypeGra)
+
+  await knex('activites_types__pays').where('activite_type_id', 'gra').del()
+
+  console.info(`type d'activité gra modifié`)
+
+  const activiteTypeGrx = await ActivitesTypes.query().findById('grx')
+
+  const grxSection = activiteTypeGrx.sections!.find(
+    ({ id }) => id === 'renseignements'
+  )!
+
+  grxSection.id = 'substancesFiscales'
+  delete grxSection.elements
+
+  await ActivitesTypes.query().patchAndFetchById('grx', activiteTypeGrx)
+
+  console.info(`type d'activité gra modifié`)
+
+  const titresActivites = await titresActivitesGet(
+    { typesIds: ['gra', 'grx'] },
+    {},
+    'super'
+  )
+
+  const titreActivitesFiltered = titresActivites.filter(
+    ta => ta.contenu?.renseignements
+  )
+
+  for (const ta of titreActivitesFiltered) {
+    if (
+      ta.contenu &&
+      (ta.contenu.renseignements.orNet || ta.contenu.renseignements.orNet === 0)
+    ) {
+      ta.contenu.substancesFiscales = {
+        auru: (ta.contenu.renseignements.orNet as number) / 1000
+      }
+    }
+
+    if (ta.contenu?.renseignements) {
+      delete ta.contenu.renseignements
+    }
+
+    await TitresActivites.query().patchAndFetchById(ta.id, ta)
+  }
+
+  console.info(`${titreActivitesFiltered.length} activités modifiées`)
 
   process.exit(0)
 }

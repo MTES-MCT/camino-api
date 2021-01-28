@@ -34,6 +34,10 @@ const fieldsTitreAdd = (fields: IFields) => {
     fields.titre.amodiataires = {}
   }
 
+  if (fields.titre.activites) {
+    fields.titre = activitesFieldsAdd(fields.titre)
+  }
+
   return fields
 }
 
@@ -77,6 +81,8 @@ const titresFieldsAdd = (fields: IFields) => {
     if (!fields.activites.type.frequence) {
       fields.activites.type.frequence = { id: {} }
     }
+
+    fields = activitesFieldsAdd(fields)
   }
 
   if (fields.travaux) {
@@ -86,6 +92,28 @@ const titresFieldsAdd = (fields: IFields) => {
   }
 
   return fields
+}
+
+// ajoute le lien entre le titre, les substances et les substances légales
+// pour formatter les sections des activités
+const activitesFieldsAdd = (titreFields: IFields) => {
+  if (!titreFields.substances) {
+    titreFields.substances = {}
+  }
+
+  if (!titreFields.substances.legales) {
+    titreFields.substances.legales = {}
+  }
+
+  if (!titreFields.substances.legales.fiscales) {
+    titreFields.substances.legales.fiscales = { id: {} }
+  }
+
+  if (!titreFields.substances.legales.fiscales.unite) {
+    titreFields.substances.legales.fiscales.unite = { id: {} }
+  }
+
+  return titreFields
 }
 
 export { fieldsTitreAdd, titresFieldsAdd }
