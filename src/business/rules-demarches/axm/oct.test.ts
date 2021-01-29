@@ -38,4 +38,10 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
       ])
     ).toEqual(['l’étape "mdp" n’est plus possible après "mfr", "mca"'])
   })
+
+  test('ne peut pas avoir juste une étape "Décision de l’administration"', () => {
+    expect(octEtatsValidate([{ typeId: 'dex', date: '2020-08-21' }])).toEqual([
+      'l’étape "dex" n’est pas possible juste après '
+    ])
+  })
 })
