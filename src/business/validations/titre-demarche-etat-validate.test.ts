@@ -9,7 +9,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
@@ -27,7 +27,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'pro' }, { typeId: 'oct' }]
       } as ITitre,
@@ -45,7 +45,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
@@ -66,7 +66,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
@@ -85,7 +85,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
@@ -104,7 +104,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
           typeId: 'arm',
           type: ({
             id: 'arm',
-            propsEtapesTypes: []
+            contenuIds: []
           } as unknown) as ITitreType,
           demarches: [{ typeId: 'pro' }]
         } as ITitre,
@@ -120,7 +120,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
           typeId: 'arm',
           type: ({
             id: 'arm',
-            propsEtapesTypes: []
+            contenuIds: []
           } as unknown) as ITitreType
         } as ITitre,
         { id: '1', typeId: 'mfr' } as ITitreEtape,
@@ -136,7 +136,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
@@ -155,7 +155,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         typeId: 'arm',
         type: ({
           id: 'arm',
-          propsEtapesTypes: []
+          contenuIds: []
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,

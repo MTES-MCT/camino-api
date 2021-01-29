@@ -43,7 +43,7 @@ class Titres extends Model {
       administrationsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      propsTitreEtapesIds: { type: 'json' },
+      contenusTitreEtapesIds: { type: 'json' },
       coordonnees: {
         type: ['object', 'null'],
         properties: { x: { type: 'number' }, y: { type: 'number' } }
@@ -217,9 +217,9 @@ class Titres extends Model {
   $afterFind() {
     this.pays = paysFormat(this.communes || [])
 
-    if (this.propsTitreEtapesIds) {
+    if (this.contenusTitreEtapesIds) {
       this.contenu = titreContenuFormat(
-        this.propsTitreEtapesIds,
+        this.contenusTitreEtapesIds,
         this.demarches
       )
     }

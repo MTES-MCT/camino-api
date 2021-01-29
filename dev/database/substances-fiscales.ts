@@ -26,6 +26,14 @@ const main = async () => {
     table.string('description', 2048)
   })
 
+  await knex.schema.alterTable('titresTypes', table => {
+    table.renameColumn('propsEtapesTypes', 'contenuIds')
+  })
+
+  await knex.schema.alterTable('titres', table => {
+    table.renameColumn('propsTitreEtapesIds', 'contenusTitreEtapesIds')
+  })
+
   const unites = [
     {
       id: 'deg',
@@ -77,7 +85,7 @@ const main = async () => {
       id: 'mtc',
       nom: 'centaine de tonnes',
       symbole: 'x 100 t',
-      referenceRatio: '100000',
+      referenceRatio: 100000,
       referenceUniteId: 'mkg'
     },
     {

@@ -1,5 +1,5 @@
 import { restrictionsArmRet } from './arm/ret'
-import { ITitreCondition } from '../../types'
+import { IContenuValeur } from '../../types'
 import { restrictionsArmOct } from './arm/oct'
 import { restrictionsArmRenPro } from './arm/ren-pro'
 import { restrictionsAxmOct } from './axm/oct'
@@ -25,6 +25,24 @@ interface IDemarcheDefinition {
   demarcheTypeIds: string[]
   restrictions: IDemarcheDefinitionRestrictions[]
   dateDebut: string
+}
+
+type IContenuOperation = {
+  valeur: IContenuValeur
+  operation?: 'NOT_EQUAL' | 'EQUAL'
+}
+
+interface IContenuElementCondition {
+  [id: string]: IContenuOperation | undefined
+}
+
+interface IContenuCondition {
+  [id: string]: IContenuElementCondition
+}
+
+interface ITitreCondition {
+  statutId?: string
+  contenu: IContenuCondition
 }
 
 const demarchesDefinitions: IDemarcheDefinition[] = [
@@ -70,7 +88,9 @@ const demarcheDefinitionFind = (titreTypeId: string, demarcheTypeId: string) =>
 export {
   demarchesDefinitions,
   demarcheDefinitionFind,
+  ITitreCondition,
   IDemarcheDefinitionRestrictions,
   IEtapeTypeIdCondition,
-  IDemarcheDefinition
+  IDemarcheDefinition,
+  IContenuElementCondition
 }

@@ -68,8 +68,8 @@ const titresFieldsAdd = (fields: IFields) => {
       fields.demarches.type.etapesTypes = { id: {} }
     }
 
-    if (!fields.propsTitreEtapesIds && fields.contenu) {
-      fields.propsTitreEtapesIds = {}
+    if (!fields.contenusTitreEtapesIds && fields.contenu) {
+      fields.contenusTitreEtapesIds = {}
     }
   }
 
@@ -111,6 +111,10 @@ const activitesFieldsAdd = (titreFields: IFields) => {
 
   if (!titreFields.substances.legales.fiscales.unite) {
     titreFields.substances.legales.fiscales.unite = { id: {} }
+  }
+
+  if (!titreFields.substances.legales.fiscales.unite.referenceUnite) {
+    titreFields.substances.legales.fiscales.unite.referenceUnite = { id: {} }
   }
 
   return titreFields

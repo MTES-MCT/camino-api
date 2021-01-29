@@ -1,7 +1,7 @@
 import { ITitreActivite } from '../../types'
 import * as dateFormat from 'dateformat'
 
-import activitesTypesFilter from '../utils/activites-types-filter'
+import { activiteTypeTitreCheck } from '../utils/activite-type-titre-check'
 import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titreActivitesBuild } from '../rules/titre-activites-build'
@@ -34,8 +34,7 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
 
       acc.push(
         ...titres.reduce((acc: ITitreActivite[], titre) => {
-          // filtre les types d'activités qui concernent le titre
-          if (!activitesTypesFilter(activiteType, titre)) return acc
+          if (!activiteTypeTitreCheck(activiteType, titre)) return acc
 
           acc.push(
             ...titreActivitesBuild(titre, activiteType, annees, aujourdhui)

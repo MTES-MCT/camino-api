@@ -13,7 +13,20 @@ class Unites extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      symbole: { type: 'string' }
+      symbole: { type: 'string' },
+      referenceRatio: { type: ['number', 'null'] },
+      referenceUniteId: { type: ['string', 'null'] }
+    }
+  }
+
+  public static relationMappings = {
+    referenceUnite: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Unites,
+      join: {
+        from: 'unites.referenceUniteId',
+        to: 'unites.id'
+      }
     }
   }
 }

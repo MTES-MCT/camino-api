@@ -79,7 +79,7 @@ const titreRelation = {
             },
             {
               name: 'titre',
-              contenus: ['propsTitreEtapesIds'],
+              contenus: ['contenusTitreEtapesIds'],
               path: []
             },
             {

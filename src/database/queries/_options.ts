@@ -258,7 +258,7 @@ const titresActivitesUpdateFalse = [
 ]
 
 const titresActivites = {
-  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.substances.legales.fiscales]`,
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.substances.legales.fiscales.unite.referenceUnite]`,
   update: {
     relate: titresActivitesUpdateTrue,
     unrelate: titresActivitesUpdateTrue,
@@ -328,6 +328,7 @@ const titresUpdateFalse = [
   'substances.legales.domaine',
   'substances.legales.fiscales',
   'substances.legales.fiscales.unite',
+  'substances.legales.fiscales.unite.referenceUnite',
   'titulaires',
   'titulaires.etablissements',
   'titulaires.utilisateurs',

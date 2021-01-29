@@ -2,7 +2,7 @@ import { ITitre, ITitreProp, ITitreEtapeProp } from '../../types'
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
+import { titrePropEtapeIdFind } from '../rules/titre-prop-etape-id-find'
 
 const titrePropsEtapes = [
   'points',

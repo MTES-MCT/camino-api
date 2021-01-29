@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 import titresPropsEtapesIdsUpdate from './titres-props-etapes-ids-update'
-import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
+import { titrePropEtapeIdFind } from '../rules/titre-prop-etape-id-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
 
@@ -10,7 +10,7 @@ jest.mock('../../database/queries/titres', () => ({
 }))
 
 jest.mock('../rules/titre-prop-etape-id-find', () => ({
-  default: jest.fn()
+  titrePropEtapeIdFind: jest.fn()
 }))
 
 const titresGetMock = mocked(titresGet, true)

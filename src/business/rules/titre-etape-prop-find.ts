@@ -1,6 +1,6 @@
 import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
 
-import titrePropEtapeIdFind from './titre-prop-etape-id-find'
+import { titrePropEtapeIdFind } from './titre-prop-etape-id-find'
 import { titreStatutIdFind } from './titre-statut-id-find'
 
 const titreEtapeFind = (

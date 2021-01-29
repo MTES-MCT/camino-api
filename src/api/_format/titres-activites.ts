@@ -29,11 +29,11 @@ const titreActiviteFormat = (
     sections?.length
   ) {
     const substancesFiscales = ta.titre.substances
-      .flatMap(sub => sub.legales)
-      .flatMap(leg => leg.fiscales)
-      .reduce((acc: ISubstanceFiscale[], sub) => {
-        if (sub && !acc.map(({ id }) => id).includes(sub.id)) {
-          acc.push(sub)
+      .flatMap(s => s.legales)
+      .flatMap(s => s.fiscales)
+      .reduce((acc: ISubstanceFiscale[], s) => {
+        if (s && !acc.map(({ id }) => id).includes(s.id)) {
+          acc.push(s)
         }
 
         return acc
@@ -42,12 +42,22 @@ const titreActiviteFormat = (
     const section = sections.find(({ id }) => id === 'substancesFiscales')
 
     if (section) {
-      section.elements = substancesFiscales.map((sf: ISubstanceFiscale) => ({
+      section.elements = substancesFiscales.map(sf => ({
         id: sf.id,
         nom: `${sf.nom}`,
         type: 'number',
         description: `${sf.description} (<b>${sf.unite!.nom}</b>)`
       }))
+    }
+
+    if (ta.typeId === 'gra') {
+      substancesFiscales.forEach(s => {
+        if (ta.contenu?.substancesFiscales[s.id] && s.unite?.referenceRatio) {
+          ta.contenu.substancesFiscales[s.id] =
+            (ta.contenu.substancesFiscales[s.id] as number) *
+            s.unite.referenceRatio
+        }
+      })
     }
   }
 

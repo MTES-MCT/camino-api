@@ -1,6 +1,12 @@
 import { ITitre, IActiviteType } from '../../types'
 
-const activitesTypesFilter = (activiteType: IActiviteType, titre: ITitre) =>
+/**
+ * Vérifie que le titre peut recevoir un type d'activité
+ * @param activiteType - type d'activité
+ * @param titre - titre
+ */
+
+const activiteTypeTitreCheck = (activiteType: IActiviteType, titre: ITitre) =>
   !!(
     // si le type d'activité est relié au type de titre
     (
@@ -17,4 +23,4 @@ const activitesTypesFilter = (activiteType: IActiviteType, titre: ITitre) =>
     )
   )
 
-export default activitesTypesFilter
+export { activiteTypeTitreCheck }

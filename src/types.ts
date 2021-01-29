@@ -86,11 +86,6 @@ interface ISectionElement {
   valeursMetasNom?: IValeurMetasNom
 }
 
-interface ITitreSection {
-  sectionId: string
-  elementId: string
-}
-
 interface IActiviteTypeDocumentType extends IDocumentType {
   optionnel: boolean
 }
@@ -161,26 +156,27 @@ interface ICommune extends IArea {
   departementId?: string | null
 }
 
+interface IContenuId {
+  sectionId: string
+  elementId: string
+}
+
 type IContenuValeur = string | number | string[] | boolean
-type IContenuOperation = {
-  valeur: IContenuValeur
-  operation?: 'NOT_EQUAL' | 'EQUAL'
+
+interface IContenuElement {
+  [elementId: string]: IContenuValeur
 }
 
 interface IContenu {
-  [id: string]: IContenuElement
+  [sectionId: string]: IContenuElement
 }
 
-interface IContenuElement {
-  [id: string]: IContenuValeur
-}
-
-interface ITitrePropsTitreEtapesIdsValeur {
+interface IContenuTitreEtapesIdsValeur {
   [elementId: string]: string
 }
 
-interface ITitrePropsTitreEtapesIds {
-  [sectionId: string]: ITitrePropsTitreEtapesIdsValeur
+interface IContenusTitreEtapesIds {
+  [sectionId: string]: IContenuTitreEtapesIdsValeur
 }
 
 interface ICoordonnees {
@@ -576,7 +572,7 @@ interface ITitre {
   doublonTitreId?: string | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
-  propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
+  contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   contenu?: IContenu | null
 }
 
@@ -809,7 +805,7 @@ interface ITitreType {
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
   autorisationsTitresStatuts?: ITitreTypeTitreStatut[] | null
-  propsEtapesTypes?: ITitreSection[] | null
+  contenuIds?: IContenuId[] | null
   sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
@@ -836,7 +832,8 @@ interface IUnite {
   nom: string
   symbole: string
   referenceRatio?: number
-  referenceUniteId?: string
+  referenceUniteId?: string | null
+  referenceUnite?: IUnite | null
 }
 
 interface IUser extends IUtilisateur {
@@ -877,19 +874,6 @@ interface ITokenUser {
   iat: number
 }
 
-interface ITitreCondition {
-  statutId?: string
-  contenu: IContenuCondition
-}
-
-interface IContenuCondition {
-  [id: string]: IContenuElementCondition
-}
-
-interface IContenuElementCondition {
-  [id: string]: IContenuOperation | undefined
-}
-
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
 
 interface IDefinition {
@@ -920,10 +904,7 @@ export {
   IContenu,
   IContenuElement,
   IContenuValeur,
-  IContenuCondition,
-  IContenuElementCondition,
-  IContenuOperation,
-  ITitrePropsTitreEtapesIds,
+  IContenusTitreEtapesIds,
   ICoordonnees,
   IDemarcheStatut,
   IDemarcheType,
@@ -1006,7 +987,6 @@ export {
   IEntrepriseColonneId,
   IAdministrationColonneId,
   IColonne,
-  ITitreCondition,
   IDefinition,
-  ITitreSection
+  IContenuId
 }
