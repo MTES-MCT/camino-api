@@ -14,7 +14,7 @@ class Unites extends Model {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
       symbole: { type: 'string' },
-      referenceRatio: { type: ['number', 'null'] },
+      referenceUniteRatio: { type: ['number', 'null'] },
       referenceUniteId: { type: ['string', 'null'] }
     }
   }

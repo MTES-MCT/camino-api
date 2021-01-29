@@ -3,7 +3,7 @@ import {
   IContenusTitreEtapesIds,
   IContenuId
 } from '../../types'
-import { titreContenuEtapeIdFind } from '../rules/titre-prop-etape-id-find'
+import { titreContenuEtapeFind } from '../rules/titre-prop-etape-find'
 
 const contenusTitreEtapesIdsFind = (
   titreStatutId: string,
@@ -18,14 +18,14 @@ const contenusTitreEtapesIdsFind = (
       { sectionId, elementId }
     ) => {
       // trouve l'id de l'étape qui contient l'élément dans la section
-      const titreEtapeId = titreContenuEtapeIdFind(
+      const titreEtape = titreContenuEtapeFind(
         { sectionId, elementId },
         titreDemarches,
         titreStatutId
       )
 
       // si une étape est trouvée
-      if (titreEtapeId) {
+      if (titreEtape) {
         if (!contenusTitreEtapesIds) {
           contenusTitreEtapesIds = {}
         }
@@ -34,7 +34,7 @@ const contenusTitreEtapesIdsFind = (
           contenusTitreEtapesIds[sectionId] = {}
         }
 
-        contenusTitreEtapesIds[sectionId][elementId] = titreEtapeId
+        contenusTitreEtapesIds[sectionId][elementId] = titreEtape.id
       }
 
       return contenusTitreEtapesIds

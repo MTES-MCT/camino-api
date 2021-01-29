@@ -1,14 +1,4 @@
-import {
-  ITitreActivite,
-  ITrimestre,
-  IMois,
-  IAnnee,
-  IFields,
-  ISubstanceFiscale,
-  ISection
-} from '../../types'
-
-import { objectClone } from '../../tools/object-clone'
+import { ITitreActivite, ITrimestre, IMois, IAnnee, IFields } from '../../types'
 
 import { titreSectionsFormat } from './titres-sections'
 
@@ -21,44 +11,25 @@ const titreActiviteFormat = (
   ta: ITitreActivite,
   fields: IFields = titreActiviteFormatFields
 ) => {
-  const sections = objectClone(ta!.type!.sections) as ISection[]
+  // si les sections contiennent des élements sur cette activité
+  if (fields.sections && ta.sections?.length) {
+    ta.sections = titreSectionsFormat(ta.sections)
+  }
 
-  if (
-    ['gra', 'grx'].includes(ta.typeId) &&
-    ta.titre?.substances?.length &&
-    sections?.length
-  ) {
-    const substancesFiscales = ta.titre.substances
-      .flatMap(s => s.legales)
-      .flatMap(s => s.fiscales)
-      .reduce((acc: ISubstanceFiscale[], s) => {
-        if (s && !acc.map(({ id }) => id).includes(s.id)) {
-          acc.push(s)
-        }
+  const section = ta.sections.find(s => s.id === 'substancesFiscales')
 
-        return acc
-      }, [])
+  if (section?.elements?.length && ta.contenu?.substancesFiscales) {
+    const substancesFiscalesIds = Object.keys(ta.contenu?.substancesFiscales)
 
-    const section = sections.find(({ id }) => id === 'substancesFiscales')
+    substancesFiscalesIds.forEach(id => {
+      const element = section!.elements!.find(e => e.id === id)
+      const ratio = element?.referenceUniteRatio
 
-    if (section) {
-      section.elements = substancesFiscales.map(sf => ({
-        id: sf.id,
-        nom: `${sf.nom}`,
-        type: 'number',
-        description: `${sf.description} (<b>${sf.unite!.nom}</b>)`
-      }))
-    }
-
-    if (ta.typeId === 'gra') {
-      substancesFiscales.forEach(s => {
-        if (ta.contenu?.substancesFiscales[s.id] && s.unite?.referenceRatio) {
-          ta.contenu.substancesFiscales[s.id] =
-            (ta.contenu.substancesFiscales[s.id] as number) *
-            s.unite.referenceRatio
-        }
-      })
-    }
+      if (ratio) {
+        ta!.contenu!.substancesFiscales[id] =
+          (ta!.contenu!.substancesFiscales[id] as number) * ratio
+      }
+    })
   }
 
   // si
@@ -76,11 +47,6 @@ const titreActiviteFormat = (
     ta.periode = ta.type.frequence[ta.type.frequence.periodesNom]!.find(
       p => p.id === ta.frequencePeriodeId
     ) as IAnnee | ITrimestre | IMois
-
-    // si les sections contiennent des élements sur cette activité
-    if (fields.sections && sections?.length) {
-      ta.sections = titreSectionsFormat(sections, ta.periode?.id, ta.date)
-    }
   }
 
   return ta

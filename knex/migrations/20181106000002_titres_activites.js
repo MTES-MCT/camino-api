@@ -11,6 +11,7 @@ exports.up = knex =>
     table.string('date', 10)
     table.string('dateSaisie', 10)
     table.jsonb('contenu')
+    table.specificType('sections', 'jsonb[]')
     table
       .string('typeId', 3)
       .index()

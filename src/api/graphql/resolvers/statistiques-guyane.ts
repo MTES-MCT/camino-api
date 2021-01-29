@@ -3,7 +3,7 @@ import { debug } from '../../../config/index'
 import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { ITitre, ITitreActivite } from '../../../types'
-import { titresArrayBuild } from './statistiques'
+import { titresSurfaceIndexBuild } from './statistiques'
 
 const statistiquesGuyaneActivitesGet = (
   sectionId: string,
@@ -38,7 +38,7 @@ type IStatsGuyaneTitresTypes =
   | 'titresPxm'
   | 'titresCxm'
 
-const statistiquesGuyaneTitresGet = (
+const statistiquesGuyaneTitresBuild = (
   titres: { id: string; typeId: string; surface: number }[]
 ) =>
   titres.reduce(
@@ -108,8 +108,7 @@ const statistiquesGuyaneAnneeBuild = (
   titresActivites: ITitreActivite[],
   annee: number
 ) => {
-  // les titres créés dans l'année et leur surface lors de l'octroi
-  const titresFiltered = titresArrayBuild(titres, annee)
+  const titresFiltered = titresSurfaceIndexBuild(titres, annee)
 
   const {
     titresArm,
@@ -117,7 +116,7 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm
-  } = statistiquesGuyaneTitresGet(titresFiltered)
+  } = statistiquesGuyaneTitresBuild(titresFiltered)
 
   // les activités de type grp de l'année
   const titresActivitesGrpFiltered = titresActivites.filter(

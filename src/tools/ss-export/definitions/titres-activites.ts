@@ -1,4 +1,4 @@
-import { ITitreActivite, IContenu } from '../../../types'
+import { ITitreActivite, IContenu, ISection } from '../../../types'
 import { ISpreadsheet } from '../_types'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 
@@ -17,13 +17,15 @@ const tables = [
       'date',
       'dateSaisie',
       'contenu',
+      'sections',
       'typeId',
       'statutId',
       'frequencePeriodeId',
       'annee'
     ],
     callbacks: {
-      contenu: (v: IContenu) => JSON.stringify(v)
+      contenu: (v: IContenu[]) => JSON.stringify(v),
+      sections: (v: ISection[]) => JSON.stringify(v)
     }
   }
 ]

@@ -10,7 +10,7 @@ exports.up = knex =>
       table.string('nom').notNullable()
       table.string('symbole').notNullable()
       table.string('referenceUniteId', 3).references('id')
-      table.float('referenceRatio')
+      table.float('referenceUniteRatio')
     })
     .createTable('geoSystemes', table => {
       table.string('id', 5).primary()

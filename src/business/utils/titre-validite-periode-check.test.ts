@@ -1,4 +1,4 @@
-import titreValiditePeriodeCheck from './titre-validite-periode-check'
+import { titreValiditePeriodeCheck } from './titre-validite-periode-check'
 import { titreDemarches } from './__mocks__/titre-validite-periode-check-demarches'
 
 describe("vérifie la validité d'un titre pendant une période en fonction des phases des démarches", () => {

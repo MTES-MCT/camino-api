@@ -178,7 +178,7 @@ const tables = [
   {
     id: 19,
     name: 'unites',
-    columns: ['id', 'nom', 'symbole', 'referenceRatio', 'referenceUniteId']
+    columns: ['id', 'nom', 'symbole', 'referenceUniteRatio', 'referenceUniteId']
   },
   {
     id: 20,

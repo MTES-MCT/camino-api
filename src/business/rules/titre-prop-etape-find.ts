@@ -86,7 +86,7 @@ const etapePropFind = (
     }
 
     return true
-  })
+  }) || null
 
 // retourne la première étape valide qui contient l'élément dans la section
 const etapeContenuFind = (
@@ -101,7 +101,7 @@ const etapeContenuFind = (
       titreEtape.contenu &&
       titreEtape.contenu[sectionId] &&
       titreEtape.contenu[sectionId][elementId] !== undefined
-  )
+  ) || null
 
 // si
 // - la démarches est acceptée, terminée
@@ -129,7 +129,7 @@ const demarcheEligibleCheck = (
  * @returns id d'une etape
  */
 
-const titrePropEtapeIdFind = (
+const titrePropEtapeFind = (
   prop: ITitreEtapeProp,
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
@@ -137,9 +137,9 @@ const titrePropEtapeIdFind = (
   const titreDemarchesSorted = titreDemarchesSortAsc(titreDemarches).reverse()
 
   return titreDemarchesSorted.reduce(
-    (etapeId: string | null, titreDemarche: ITitreDemarche) => {
+    (etape: ITitreEtape | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
-      if (etapeId) return etapeId
+      if (etape) return etape
 
       // si la démarche n'est pas éligible
       if (
@@ -153,35 +153,27 @@ const titrePropEtapeIdFind = (
         return null
       }
 
-      const etape = etapePropFind(
+      return etapePropFind(
         prop,
         titreDemarche.etapes!,
         titreDemarche.typeId,
         titreStatutId,
         titreDemarchesSorted
       )
-
-      // si l'étape existe,
-      // retourne son id
-      // sinon retourne `null`
-
-      if (!etape) return null
-
-      return etape.id
     },
     null
   )
 }
 
 /**
- * Trouve l'id de l'étape de référence pour un contenu
+ * Trouve l'étape de référence pour un contenu
  * @param sectionIds - id de la section et de l'élément du contenu
  * @param titreDemarches - démarches du titre
  * @param titreStatutId - statut du titre
- * @returns id d'une etape
+ * @returns une étape ou null
  */
 
-const titreContenuEtapeIdFind = (
+const titreContenuEtapeFind = (
   { sectionId, elementId }: IContenuId,
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
@@ -189,9 +181,9 @@ const titreContenuEtapeIdFind = (
   const titreDemarchesSorted = titreDemarchesSortAsc(titreDemarches).reverse()
 
   return titreDemarchesSorted.reduce(
-    (etapeId: string | null, titreDemarche: ITitreDemarche) => {
+    (etape: ITitreEtape | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
-      if (etapeId) return etapeId
+      if (etape) return etape
 
       if (
         !demarcheEligibleCheck(
@@ -204,18 +196,14 @@ const titreContenuEtapeIdFind = (
         return null
       }
 
-      const etape = etapeContenuFind(
+      return etapeContenuFind(
         { sectionId, elementId },
         titreDemarche.etapes!,
         titreDemarche.typeId
       )
-
-      if (!etape) return null
-
-      return etape.id
     },
     null
   )
 }
 
-export { titrePropEtapeIdFind, titreContenuEtapeIdFind }
+export { titrePropEtapeFind, titreContenuEtapeFind }

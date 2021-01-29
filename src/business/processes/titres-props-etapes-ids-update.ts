@@ -2,7 +2,7 @@ import { ITitre, ITitreProp, ITitreEtapeProp } from '../../types'
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import { titrePropEtapeIdFind } from '../rules/titre-prop-etape-id-find'
+import { titrePropEtapeFind } from '../rules/titre-prop-etape-find'
 
 const titrePropsEtapes = [
   'points',
@@ -50,7 +50,7 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
   titres.forEach(titre => {
     const propsEtapesIds = titrePropsEtapes.reduce(
       (propsEtapesIds: Partial<ITitre>, { prop, name }) => {
-        const titreEtapeId = titrePropEtapeIdFind(
+        const titreEtape = titrePropEtapeFind(
           prop,
           titre.demarches!,
           titre.statutId!
@@ -59,8 +59,12 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
         // si
         // - l'id de l'étape est différente de celle du titre
         // - l'id de l'étape existe ou elle existe dans le titre
-        if (titreEtapeId !== titre[name] && (titre[name] || titreEtapeId)) {
-          propsEtapesIds[name] = titreEtapeId
+        if (
+          titreEtape &&
+          titreEtape.id !== titre[name] &&
+          (titre[name] || titreEtape.id)
+        ) {
+          propsEtapesIds[name] = titreEtape.id
         }
 
         return propsEtapesIds

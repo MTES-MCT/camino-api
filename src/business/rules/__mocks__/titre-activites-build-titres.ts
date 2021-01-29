@@ -10,12 +10,52 @@ const titreAvecActivite201801 = ({
 
 const activiteTypeXxx = {
   id: 'xxx',
-  frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] }
+  frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] },
+  sections: [
+    {
+      id: 'renseignements',
+      elements: [
+        {
+          id: 'orBrut',
+          nom: 'Or brut extrait (g)',
+          type: 'number',
+          dateDebut: '2018-01-01',
+          description: 'Masse d’or brut'
+        },
+        {
+          id: 'orExtrait',
+          nom: 'Or extrait (g)',
+          type: 'number',
+          dateFin: '2018-01-01',
+          description: "Masse d'or brut extrait au cours du trimestre."
+        }
+      ]
+    }
+  ]
 } as IActiviteType
 
 const activiteTypeGrp = {
   id: 'grp',
-  frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] }
+  frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] },
+  sections: [
+    {
+      id: 'renseignements',
+      elements: [
+        {
+          id: 'orBrut',
+          nom: 'Or brut extrait (g)',
+          type: 'number',
+          description: 'Masse d’or brut'
+        },
+        {
+          id: 'orExtrait',
+          nom: 'Or extrait (g)',
+          type: 'number',
+          description: "Masse d'or brut extrait au cours du trimestre."
+        }
+      ]
+    }
+  ]
 } as IActiviteType
 
 export {

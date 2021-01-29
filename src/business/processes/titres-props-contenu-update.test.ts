@@ -1,27 +1,28 @@
 import { mocked } from 'ts-jest/utils'
 
 import { titresPropsContenuUpdate } from './titres-props-contenu-update'
-import { titreContenuEtapeIdFind } from '../rules/titre-prop-etape-id-find'
+import { titreContenuEtapeFind } from '../rules/titre-prop-etape-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
+import { ITitreEtape } from '../../types'
 
 jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true),
   titresGet: jest.fn()
 }))
 
-jest.mock('../rules/titre-prop-etape-id-find', () => ({
-  titreContenuEtapeIdFind: jest.fn()
+jest.mock('../rules/titre-prop-etape-find', () => ({
+  titreContenuEtapeFind: jest.fn()
 }))
 
 const titresGetMock = mocked(titresGet, true)
-const titreContenuEtapeIdFindMock = mocked(titreContenuEtapeIdFind, true)
+const titreContenuEtapeFindMock = mocked(titreContenuEtapeFind, true)
 
 console.info = jest.fn()
 
 describe("propriétés (contenu) d'un titre", () => {
   test('ajoute 2 nouvelles propriétés dans les props du titre', async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue('etape-id')
+    titreContenuEtapeFindMock.mockReturnValue({ id: 'etape-id' } as ITitreEtape)
     titresGetMock.mockResolvedValue([
       ({
         type: {
@@ -39,7 +40,7 @@ describe("propriétés (contenu) d'un titre", () => {
   })
 
   test('ajoute 1 nouvelle propriété dans les props du titre', async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue('etape-id')
+    titreContenuEtapeFindMock.mockReturnValue({ id: 'etape-id' } as ITitreEtape)
     titresGetMock.mockResolvedValue([
       ({
         type: {
@@ -55,7 +56,9 @@ describe("propriétés (contenu) d'un titre", () => {
   })
 
   test('met à jour 1 propriété dans les props du titre', async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue('new-etape-id')
+    titreContenuEtapeFindMock.mockReturnValue({
+      id: 'new-etape-id'
+    } as ITitreEtape)
     titresGetMock.mockResolvedValue([
       ({
         type: {
@@ -71,7 +74,7 @@ describe("propriétés (contenu) d'un titre", () => {
   })
 
   test('ne met pas à jour de propriété dans les props du titre', async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue('etape-id')
+    titreContenuEtapeFindMock.mockReturnValue({ id: 'etape-id' } as ITitreEtape)
     titresGetMock.mockResolvedValue([
       ({
         type: {
@@ -86,7 +89,7 @@ describe("propriétés (contenu) d'un titre", () => {
   })
 
   test('efface 1 propriété dans les props du titre', async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue(null)
+    titreContenuEtapeFindMock.mockReturnValue(null)
     titresGetMock.mockResolvedValue([
       ({
         type: {
@@ -102,7 +105,7 @@ describe("propriétés (contenu) d'un titre", () => {
   })
 
   test('efface 1 section dans les props du titre', async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue(null)
+    titreContenuEtapeFindMock.mockReturnValue(null)
     titresGetMock.mockResolvedValue([
       ({
         type: {
@@ -123,7 +126,7 @@ describe("propriétés (contenu) d'un titre", () => {
   })
 
   test("ne met pas à jour un titre qui n'a pas de configuration de props", async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue(null)
+    titreContenuEtapeFindMock.mockReturnValue(null)
     titresGetMock.mockResolvedValue([
       ({ type: { contenuIds: null } } as unknown) as Titres
     ])

@@ -66,7 +66,13 @@ const statistiquesGlobales = async () => {
   }
 }
 
-const titresArrayBuild = (titres: ITitre[], annee: number) =>
+/**
+ * titres créés dans l'année et leur surface lors de l'octroi
+ * @param titres -
+ * @param annee
+ */
+
+const titresSurfaceIndexBuild = (titres: ITitre[], annee: number) =>
   titres.reduce(
     (
       acc: {
@@ -76,9 +82,8 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
       }[],
       titre
     ) => {
-      // filtre les titres dont le premier octroi avec une phase valide
-      // débute cette année
-      const firstOctroiValide = titre.demarches?.find(
+      // titres dont le premier octroi avec une phase valide débute cette année
+      const titreDemarcheOctroiValide = titre.demarches?.find(
         demarche =>
           demarche.typeId === 'oct' &&
           demarche.phase &&
@@ -86,15 +91,13 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
           demarche.phase.dateDebut.substr(0, 4) === annee.toString()
       )
 
-      if (!firstOctroiValide?.etapes?.length) return acc
+      if (!titreDemarcheOctroiValide?.etapes?.length) return acc
 
       const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
       const surface = titreEtapePropFind(
         'surface',
-        firstOctroiValide.etapes[0],
-        firstOctroiValide.etapes,
         aujourdhui,
-        titre.demarches
+        titre.demarches!
       ) as number | null | undefined
 
       acc.push({
@@ -108,4 +111,4 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
     []
   )
 
-export { statistiquesGlobales, titresArrayBuild }
+export { statistiquesGlobales, titresSurfaceIndexBuild }

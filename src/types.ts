@@ -55,9 +55,32 @@ interface IActiviteStatut {
   couleur: string
 }
 
+interface IContenuId {
+  sectionId: string
+  elementId: string
+}
+
+type IContenuValeur = string | number | string[] | boolean
+
+interface IContenuElement {
+  [elementId: string]: IContenuValeur
+}
+
+interface IContenu {
+  [sectionId: string]: IContenuElement
+}
+
+interface IContenuTitreEtapesIdsValeur {
+  [elementId: string]: string
+}
+
+interface IContenusTitreEtapesIds {
+  [sectionId: string]: IContenuTitreEtapesIdsValeur
+}
+
 interface ISection {
   id: string
-  nom: string
+  nom?: string
   elements?: ISectionElement[] | null
 }
 
@@ -84,6 +107,7 @@ interface ISectionElement {
   frequencePeriodesIds?: number[] | null
   valeurs?: { id: string; nom: string }[] | null
   valeursMetasNom?: IValeurMetasNom
+  referenceUniteRatio?: number
 }
 
 interface IActiviteTypeDocumentType extends IDocumentType {
@@ -154,29 +178,6 @@ interface IArea {
 interface ICommune extends IArea {
   departement?: IDepartement | null
   departementId?: string | null
-}
-
-interface IContenuId {
-  sectionId: string
-  elementId: string
-}
-
-type IContenuValeur = string | number | string[] | boolean
-
-interface IContenuElement {
-  [elementId: string]: IContenuValeur
-}
-
-interface IContenu {
-  [sectionId: string]: IContenuElement
-}
-
-interface IContenuTitreEtapesIdsValeur {
-  [elementId: string]: string
-}
-
-interface IContenusTitreEtapesIds {
-  [sectionId: string]: IContenuTitreEtapesIdsValeur
 }
 
 interface ICoordonnees {
@@ -592,7 +593,7 @@ interface ITitreActivite {
   utilisateur?: IUtilisateur | null
   dateSaisie?: string
   contenu?: IContenu | null
-  sections?: ISection[] | null
+  sections: ISection[]
   documents?: IDocument[] | null
   modification?: boolean | null
   documentsCreation?: boolean | null
@@ -831,7 +832,7 @@ interface IUnite {
   id: string
   nom: string
   symbole: string
-  referenceRatio?: number
+  referenceUniteRatio?: number
   referenceUniteId?: string | null
   referenceUnite?: IUnite | null
 }

@@ -1,4 +1,5 @@
 import { administrations } from './administrations'
+import { ITitre } from '../../src/types'
 
 const titreWithActiviteGrp = {
   id: 'titre-id',
@@ -17,7 +18,26 @@ const titreWithActiviteGrp = {
       statutId: 'abs',
       frequencePeriodeId: 3,
       annee: 2020,
-      utilisateurId: null
+      utilisateurId: null,
+      sections: [
+        {
+          id: 'renseignements',
+          elements: [
+            {
+              id: 'orBrut',
+              nom: 'Or brut extrait (g)',
+              type: 'number',
+              description: 'Masse d’or brut'
+            },
+            {
+              id: 'orExtrait',
+              nom: 'Or extrait (g)',
+              type: 'number',
+              description: "Masse d'or brut extrait au cours du trimestre."
+            }
+          ]
+        }
+      ]
     }
   ],
   demarches: [
@@ -34,12 +54,12 @@ const titreWithActiviteGrp = {
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02',
-          administrationsIds: ['dea-guyane-01']
+          administrations: [{ id: 'dea-guyane-01' }]
         }
       ]
     }
   ]
-}
+} as ITitre
 
 const titrePublicLecture = {
   id: 'titre-id',
@@ -187,7 +207,27 @@ const titreActivites = {
       date: '2020-01-01',
       statutId: 'dep',
       frequencePeriodeId: 1,
-      annee: 2020
+      annee: 2020,
+      sections: [
+        {
+          id: 'renseignements',
+          elements: [
+            {
+              id: 'orBrut',
+              nom: 'Or brut extrait (g)',
+              type: 'number',
+              dateDebut: '2018-01-01',
+              description: 'Masse d’or brut'
+            },
+            {
+              id: 'orExtrait',
+              nom: 'Or extrait (g)',
+              type: 'number',
+              description: "Masse d'or brut extrait au cours du trimestre."
+            }
+          ]
+        }
+      ]
     },
     {
       id: 'titre-id-activites-pro',
@@ -196,10 +236,29 @@ const titreActivites = {
       date: '2020-01-01',
       statutId: 'dep',
       frequencePeriodeId: 1,
-      annee: 2020
+      annee: 2020,
+      sections: [
+        {
+          id: 'renseignements',
+          elements: [
+            {
+              id: 'orBrut',
+              nom: 'Or brut extrait (g)',
+              type: 'number',
+              description: 'Masse d’or brut'
+            },
+            {
+              id: 'orExtrait',
+              nom: 'Or extrait (g)',
+              type: 'number',
+              description: "Masse d'or brut extrait au cours du trimestre."
+            }
+          ]
+        }
+      ]
     }
   ]
-}
+} as ITitre
 
 export {
   titreWithActiviteGrp,

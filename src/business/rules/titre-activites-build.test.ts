@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 
 import { titreActivitesBuild } from './titre-activites-build'
-import * as titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
+import { titreValiditePeriodeCheck } from '../utils/titre-validite-periode-check'
 
 import {
   titreVide,
@@ -16,7 +16,7 @@ jest.mock('../../database/queries/titres-activites', () => ({
 }))
 
 jest.mock('../utils/titre-validite-periode-check', () => ({
-  default: jest.fn()
+  titreValiditePeriodeCheck: jest.fn()
 }))
 
 const titreValiditePeriodeCheckMock = mocked(titreValiditePeriodeCheck, true)
@@ -25,7 +25,7 @@ describe("construction des activités d'un titre", () => {
   const aujourdhui = '2020-12-01'
 
   test("ne crée pas d'activité si la fin de la période est dans le futur", () => {
-    titreValiditePeriodeCheckMock.default.mockReturnValue(true)
+    titreValiditePeriodeCheckMock.mockReturnValue(true)
 
     const res = titreActivitesBuild(
       titreVide,
@@ -35,11 +35,11 @@ describe("construction des activités d'un titre", () => {
     )
 
     expect(res.length).toEqual(0)
-    expect(titreValiditePeriodeCheckMock.default).not.toHaveBeenCalled()
+    expect(titreValiditePeriodeCheckMock).not.toHaveBeenCalled()
   })
 
   test('crée quatre activités si le titre est valide pour la période', () => {
-    titreValiditePeriodeCheckMock.default.mockReturnValue(true)
+    titreValiditePeriodeCheckMock.mockReturnValue(true)
 
     const res = titreActivitesBuild(
       titreAvecActivite201801,
@@ -49,11 +49,11 @@ describe("construction des activités d'un titre", () => {
     )
 
     expect(res.length).toEqual(4)
-    expect(titreValiditePeriodeCheckMock.default).toHaveBeenCalled()
+    expect(titreValiditePeriodeCheckMock).toHaveBeenCalled()
   })
 
   test('crée trois activités si le titre est valide pour la période et possède déja une activité', () => {
-    titreValiditePeriodeCheckMock.default.mockReturnValue(true)
+    titreValiditePeriodeCheckMock.mockReturnValue(true)
 
     const res = titreActivitesBuild(
       titreAvecActivite201801,
@@ -63,11 +63,11 @@ describe("construction des activités d'un titre", () => {
     )
 
     expect(res.length).toEqual(3)
-    expect(titreValiditePeriodeCheckMock.default).toHaveBeenCalled()
+    expect(titreValiditePeriodeCheckMock).toHaveBeenCalled()
   })
 
   test("ne crée pas d'activité si le titre n'est pas valide pour la période", () => {
-    titreValiditePeriodeCheckMock.default.mockReturnValue(false)
+    titreValiditePeriodeCheckMock.mockReturnValue(false)
 
     const res = titreActivitesBuild(
       titreVide,
@@ -77,11 +77,11 @@ describe("construction des activités d'un titre", () => {
     )
 
     expect(res.length).toEqual(0)
-    expect(titreValiditePeriodeCheckMock.default).toHaveBeenCalled()
+    expect(titreValiditePeriodeCheckMock).toHaveBeenCalled()
   })
 
   test("crée une activité si le titre a le statut 'modification en instance'", () => {
-    titreValiditePeriodeCheckMock.default.mockReturnValue(false)
+    titreValiditePeriodeCheckMock.mockReturnValue(false)
 
     const res = titreActivitesBuild(
       titreModificationEnInstance,
@@ -91,6 +91,6 @@ describe("construction des activités d'un titre", () => {
     )
 
     expect(res.length).toEqual(4)
-    expect(titreValiditePeriodeCheckMock.default).not.toHaveBeenCalled()
+    expect(titreValiditePeriodeCheckMock).not.toHaveBeenCalled()
   })
 })
