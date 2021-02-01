@@ -1,6 +1,6 @@
-import { ITitreDemarche, Index } from '../../../types'
+import { ITitreDemarche, Index, IEtapeType } from '../../../types'
 
-import metas from '../../../database/cache/metas'
+import { metasGet } from '../../../database/cache/metas'
 
 import titreEtapesSortAscByDate from '../../../business/utils/titre-etapes-sort-asc-by-date'
 
@@ -47,7 +47,9 @@ const etapesDatesStatutsBuild = (titreDemarche: ITitreDemarche) => {
 
   // initialise l'objet selon tous les types d'étapes intéressants pour l'instruction
   return etapesTypesIds.reduce((etapesDatesStatuts, typeId) => {
-    const type = metas.etapesTypes.find(et => et.id === typeId)
+    const etapesTypes = metasGet('etapesTypes') as IEtapeType[]
+    const type = etapesTypes.find(et => et.id === typeId)
+
     if (!type) return etapesDatesStatuts
 
     // cherche l'étape la plus récente de ce type

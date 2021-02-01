@@ -1,4 +1,4 @@
-import { objectClone } from '../../../tools/object-clone'
+import { objectClone } from '../../../tools/index'
 import { IFields } from '../../../types'
 
 interface IFieldsFormat {

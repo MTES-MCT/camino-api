@@ -6,7 +6,7 @@ import { ITitreDemarche } from '../../types'
  * @param dateDebut - date de début
  * @param dateFin - date de fin
  */
-const titreValiditePeriodeCheck = (
+const titreValideCheck = (
   titreDemarches: ITitreDemarche[],
   dateDebut: string,
   dateFin: string
@@ -17,4 +17,4 @@ const titreValiditePeriodeCheck = (
       phase && dateDebut <= phase.dateFin && dateFin >= phase.dateDebut
   )
 
-export { titreValiditePeriodeCheck }
+export { titreValideCheck }

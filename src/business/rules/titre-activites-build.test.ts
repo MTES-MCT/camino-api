@@ -1,96 +1,227 @@
 import { mocked } from 'ts-jest/utils'
+import {
+  IActiviteType,
+  ISubstance,
+  ITitreActivite,
+  ITitreDemarche,
+  IUnite
+} from '../../types'
 
 import { titreActivitesBuild } from './titre-activites-build'
-import { titreValiditePeriodeCheck } from '../utils/titre-validite-periode-check'
+import { titreValideCheck } from '../utils/titre-valide-check'
+import { titreEtapePropFind } from './titre-etape-prop-find'
+import { metasGet } from '../../database/cache/metas'
 
 import {
-  titreVide,
-  titreModificationEnInstance,
-  titreAvecActivite201801,
-  activiteTypeXxx,
+  titreActivitesGra,
+  titreActivitesGrp,
+  activiteTypeGra,
   activiteTypeGrp
 } from './__mocks__/titre-activites-build-titres'
 
-jest.mock('../../database/queries/titres-activites', () => ({
-  titreActiviteInsert: jest.fn().mockReturnValue(Promise.resolve())
+jest.mock('../utils/titre-valide-check', () => ({
+  titreValideCheck: jest.fn()
 }))
 
-jest.mock('../utils/titre-validite-periode-check', () => ({
-  titreValiditePeriodeCheck: jest.fn()
+jest.mock('./titre-etape-prop-find', () => ({
+  titreEtapePropFind: jest.fn()
 }))
 
-const titreValiditePeriodeCheckMock = mocked(titreValiditePeriodeCheck, true)
+jest.mock('../../database/cache/metas', () => ({
+  metasGet: jest.fn()
+}))
+
+const titreValideCheckMock = mocked(titreValideCheck, true)
+const titreEtapePropFindMock = mocked(titreEtapePropFind, true)
+const metasGetMock = mocked(metasGet, true)
 
 describe("construction des activités d'un titre", () => {
-  const aujourdhui = '2020-12-01'
+  const aujourdhui = '2021-01-01'
 
-  test("ne crée pas d'activité si la fin de la période est dans le futur", () => {
-    titreValiditePeriodeCheckMock.mockReturnValue(true)
+  test("ne crée pas d'activité pour un titre qui n'a pas de phase de démarches", () => {
+    titreValideCheckMock.mockReturnValue(true)
+
+    const titreActivites1 = titreActivitesBuild(
+      activiteTypeGrp,
+      [2020],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      undefined
+    )
+
+    expect(titreActivites1.length).toEqual(0)
+
+    const titreActivites2 = titreActivitesBuild(
+      activiteTypeGrp,
+      [2020],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      []
+    )
+
+    expect(titreActivites2.length).toEqual(0)
+
+    const titreActivites3 = titreActivitesBuild(
+      activiteTypeGrp,
+      [2020],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id' } as unknown) as ITitreDemarche]
+    )
+
+    expect(titreActivites3.length).toEqual(0)
+    expect(titreValideCheckMock).not.toHaveBeenCalled()
+  })
+
+  test('ne crée pas une activité si elle existe déjà', () => {
+    titreValideCheckMock.mockReturnValue(true)
 
     const res = titreActivitesBuild(
-      titreVide,
-      activiteTypeGrp,
-      [2300],
-      aujourdhui
+      activiteTypeGra,
+      [2018],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche],
+      [
+        { typeId: 'gra', annee: 2018, frequencePeriodeId: 1 }
+      ] as ITitreActivite[]
     )
 
     expect(res.length).toEqual(0)
-    expect(titreValiditePeriodeCheckMock).not.toHaveBeenCalled()
+    expect(titreValideCheckMock).not.toHaveBeenCalled()
   })
 
-  test('crée quatre activités si le titre est valide pour la période', () => {
-    titreValiditePeriodeCheckMock.mockReturnValue(true)
-
+  test("ne crée pas une activité si sa date de fin n'a pas eu lieu", () => {
     const res = titreActivitesBuild(
-      titreAvecActivite201801,
-      activiteTypeXxx,
-      [2018],
-      aujourdhui
+      activiteTypeGrp,
+      [2021],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
-    expect(res.length).toEqual(4)
-    expect(titreValiditePeriodeCheckMock).toHaveBeenCalled()
+    expect(res.length).toEqual(0)
+    expect(titreValideCheckMock).not.toHaveBeenCalled()
   })
 
-  test('crée trois activités si le titre est valide pour la période et possède déja une activité', () => {
-    titreValiditePeriodeCheckMock.mockReturnValue(true)
+  test('crée des activités', () => {
+    titreValideCheckMock.mockReturnValue(true)
+    metasGetMock.mockReturnValue([
+      { id: 'mkg', nom: 'kilogramme' },
+      { id: 'lit', nom: 'Litres' }
+    ] as IUnite[])
+    titreEtapePropFindMock.mockReturnValue([
+      {
+        id: 'auru',
+        legales: [
+          {
+            fiscales: [
+              {
+                id: 'auru',
+                nom: 'Or',
+                description: 'métal précieux',
+                unite: { nom: 'kilogramme' }
+              },
+              {
+                id: 'sela',
+                nom: 'Sel',
+                description: 'Sel',
+                unite: { nom: 'tonnes', referenceUniteRatio: 0.001 }
+              },
+              null
+            ]
+          }
+        ]
+      }
+    ] as ISubstance[])
 
-    const res = titreActivitesBuild(
-      titreAvecActivite201801,
+    const titreActivitesA = titreActivitesBuild(
+      activiteTypeGra,
+      [2018],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
+    )
+
+    expect(titreActivitesA).toEqual(titreActivitesGra)
+
+    const titreActivitesB = titreActivitesBuild(
       activiteTypeGrp,
       [2018],
-      aujourdhui
+      aujourdhui,
+      'titre-id',
+      'mod',
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
-    expect(res.length).toEqual(3)
-    expect(titreValiditePeriodeCheckMock).toHaveBeenCalled()
+    expect(titreActivitesB).toEqual(titreActivitesGrp)
+
+    expect(titreValideCheckMock).toHaveBeenCalled()
   })
 
   test("ne crée pas d'activité si le titre n'est pas valide pour la période", () => {
-    titreValiditePeriodeCheckMock.mockReturnValue(false)
+    titreValideCheckMock.mockReturnValue(false)
 
-    const res = titreActivitesBuild(
-      titreVide,
+    const titreActivites = titreActivitesBuild(
       activiteTypeGrp,
       [2018],
-      aujourdhui
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
-    expect(res.length).toEqual(0)
-    expect(titreValiditePeriodeCheckMock).toHaveBeenCalled()
+    expect(titreActivites.length).toEqual(0)
+    expect(titreValideCheckMock).toHaveBeenCalled()
   })
 
-  test("crée une activité si le titre a le statut 'modification en instance'", () => {
-    titreValiditePeriodeCheckMock.mockReturnValue(false)
+  test("ne crée pas d'activités si les sections sont vides", () => {
+    titreValideCheckMock.mockReturnValue(true)
+    titreEtapePropFindMock.mockReturnValueOnce([] as ISubstance[])
 
-    const res = titreActivitesBuild(
-      titreModificationEnInstance,
-      activiteTypeGrp,
+    const titreActivitesA = titreActivitesBuild(
+      activiteTypeGra,
       [2018],
-      aujourdhui
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
-    expect(res.length).toEqual(4)
-    expect(titreValiditePeriodeCheckMock).not.toHaveBeenCalled()
+    expect(titreActivitesA).toEqual([])
+
+    titreEtapePropFindMock.mockReturnValueOnce(null)
+
+    const titreActivitesB = titreActivitesBuild(
+      activiteTypeGra,
+      [2018],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
+    )
+
+    expect(titreActivitesB).toEqual([])
+
+    const titreActivitesC = titreActivitesBuild(
+      ({
+        id: 'gra',
+        frequence: { periodesNom: 'annees', annees: [1] },
+        sections: [{ id: 'renseignements' }]
+      } as unknown) as IActiviteType,
+      [2018],
+      aujourdhui,
+      'titre-id',
+      undefined,
+      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
+    )
+
+    expect(titreActivitesC).toEqual([])
   })
 })

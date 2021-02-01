@@ -1,4 +1,4 @@
-import { activiteTypeTitreCheck } from './activite-type-titre-check'
+import { titreActiviteTypeCheck } from './titre-activite-type-check'
 import {
   activiteTypeMAxmPxmGuyane,
   activiteTypeMPrmMetropole,
@@ -8,42 +8,42 @@ import {
   titreMAxmMetropole,
   titreMPrmMetropole,
   titrePrwSansPays
-} from './__mocks__/activites-types-filter-titres'
+} from './__mocks__/titre-activite-type-check'
 
-describe("vérifie que le titre a des types d'activités", () => {
+describe("vérifie si un titre a des activités d'un certain type", () => {
   test("ne retourne aucun type d'activité relié à un pays sur un titre sans pays", () => {
     expect(
-      activiteTypeTitreCheck(activiteTypeMAxmPxmGuyane, titreSansPays)
+      titreActiviteTypeCheck(activiteTypeMAxmPxmGuyane, titreSansPays)
     ).toEqual(false)
   })
 
   test("retourne un type d'activité sur un titre AXM de Guyane", () => {
     expect(
-      activiteTypeTitreCheck(activiteTypeMAxmPxmGuyane, titreMAxmGuyane)
+      titreActiviteTypeCheck(activiteTypeMAxmPxmGuyane, titreMAxmGuyane)
     ).toEqual(true)
   })
 
   test("ne retourne aucun type d'activité sur un titre AXM de métropole", () => {
     expect(
-      activiteTypeTitreCheck(activiteTypeMAxmPxmGuyane, titreMAxmMetropole)
+      titreActiviteTypeCheck(activiteTypeMAxmPxmGuyane, titreMAxmMetropole)
     ).toEqual(false)
   })
 
   test("retourne un type d'activité sur un titre AXM de métropole", () => {
     expect(
-      activiteTypeTitreCheck(activiteTypeMPrmMetropole, titreMPrmMetropole)
+      titreActiviteTypeCheck(activiteTypeMPrmMetropole, titreMPrmMetropole)
     ).toEqual(true)
   })
 
   test("ne retourne aucun type d'activité de titre AXM Guyane sur un titre PRM de métropole", () => {
     expect(
-      activiteTypeTitreCheck(activiteTypeMAxmPxmGuyane, titreMPrmMetropole)
+      titreActiviteTypeCheck(activiteTypeMAxmPxmGuyane, titreMPrmMetropole)
     ).toEqual(false)
   })
 
   test("retourne un type d'activité de titre  qui n'a pas de pays et qui est liée à un type de titer", () => {
     expect(
-      activiteTypeTitreCheck(activiteTypeWPrwSansPays, titrePrwSansPays)
+      titreActiviteTypeCheck(activiteTypeWPrwSansPays, titrePrwSansPays)
     ).toEqual(true)
   })
 })

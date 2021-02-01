@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import knex from '../../src/init'
-import { objectClone } from '../../src/tools/object-clone'
+import { objectClone } from '../../src/tools/index'
 
 import SubstancesFiscales from '../../src/database/models/substances-fiscales'
 import { ISubstanceFiscale, IUnite } from '../../src/types'

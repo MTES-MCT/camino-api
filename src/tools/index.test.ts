@@ -1,4 +1,10 @@
-import { objectsDiffer, dupRemove, dupFind, diffFind } from './index'
+import {
+  objectsDiffer,
+  dupRemove,
+  dupFind,
+  diffFind,
+  objectClone
+} from './index'
 
 describe('comparaison entre des objets', () => {
   test('retourne false si les objets sont identiques (dates)', () => {
@@ -93,5 +99,13 @@ describe('comparaison entre des tableaux', () => {
       { id: 2, nom: 'nom-2' },
       { id: 3, nom: 'nom-3' }
     ])
+  })
+})
+
+describe("copie d'objet", () => {
+  test('copie un objet', () => {
+    const res = objectClone({ id: 1, nom: 'nom-1' })
+
+    expect(res).toMatchObject({ id: 1, nom: 'nom-1' })
   })
 })

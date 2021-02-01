@@ -10,7 +10,7 @@ import { titreContenuFormat } from '../../database/models/_format/titres-contenu
 import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'
 import { titreEtapeEtatValidate } from './titre-etape-etat-validate'
 import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot-demande-date-find'
-import { objectClone } from '../../tools/object-clone'
+import { objectClone } from '../../tools/index'
 
 const titreDemarcheEtapesBuild = (
   titreEtape: ITitreEtape,

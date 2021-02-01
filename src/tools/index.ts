@@ -1,5 +1,7 @@
 import { Index } from '../types'
 
+import { serialize, deserialize } from 'v8'
+
 const dupRemove = (key: string, ...arrays: Index<any>[][]) =>
   arrays.reduce(
     (result, array) =>
@@ -74,4 +76,6 @@ const objectsDiffer = (a: Index<any> | any, b: Index<any> | any): boolean => {
   return comparator(a, b) || comparator(b, a)
 }
 
-export { dupRemove, dupFind, diffFind, objectsDiffer }
+const objectClone = (obj: any) => deserialize(serialize(obj))
+
+export { objectClone, dupRemove, dupFind, diffFind, objectsDiffer }

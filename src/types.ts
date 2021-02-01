@@ -122,7 +122,7 @@ interface IActiviteType {
   delaiMois: number
   titresTypes: ITitreType[]
   documentsTypes: IActiviteTypeDocumentType[]
-  sections?: ISection[] | null
+  sections: ISection[]
   frequence?: IFrequence | null
   pays?: IPays[] | null
   administrations?: IAdministration[] | null

@@ -1,25 +1,28 @@
 import { ISection, ISectionElement } from '../../types'
 
-import metas from '../../database/cache/metas'
+import { metasGet } from '../../database/cache/metas'
+import { objectClone } from '../../tools'
 
-const titreSectionElementFormat = (e: ISectionElement) => {
-  if (e.valeursMetasNom) {
-    e.valeurs = metas[e.valeursMetasNom]
+const titreSectionElementFormat = (element: ISectionElement) => {
+  if (element.valeursMetasNom) {
+    element.valeurs = metasGet(element.valeursMetasNom)
 
-    delete e.valeursMetasNom
+    delete element.valeursMetasNom
   }
 
-  return e
+  return element
 }
 
 // - ne conserve que les sections qui contiennent des élements
 const titreSectionsFormat = (sections: ISection[]) =>
-  sections.reduce((sections: ISection[], s) => {
-    if (s.elements) {
+  sections.reduce((sections: ISection[], { id, nom, elements }) => {
+    if (elements?.length) {
+      const newElements = objectClone(elements)
+
       sections.push({
-        id: s.id,
-        nom: s.nom,
-        elements: s.elements.map(titreSectionElementFormat)
+        id,
+        nom,
+        elements: newElements.map(titreSectionElementFormat)
       })
     }
 

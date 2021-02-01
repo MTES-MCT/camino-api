@@ -1,4 +1,4 @@
-import { objectClone } from '../../tools/object-clone'
+import { objectClone } from '../../tools/index'
 import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
 
 import { titrePropEtapeFind } from './titre-prop-etape-find'
@@ -59,7 +59,7 @@ const titreDemarchesEtapesFilter = (
  * @param prop - propriété recherchée
  * @param date - date
  * @param titreDemarches - démarches du titre
- * @returns la propriété recherchée ou null
+ * @returns la ou les propriétés recherchées ou null
  */
 const titreEtapePropFind = (
   prop: ITitreEtapeProp,

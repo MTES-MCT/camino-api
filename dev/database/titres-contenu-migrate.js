@@ -9,7 +9,7 @@ import {
   titreDemarcheDelete
 } from '../../src/database/queries/titres-demarches'
 import TitresDemarches from '../../src/database/models/titres-demarches'
-import { objectClone } from '../../src/tools/object-clone'
+import { objectClone } from '../../src/tools/index'
 
 const valueExists = a => a !== undefined && a !== null
 
