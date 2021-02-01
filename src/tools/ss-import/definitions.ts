@@ -8,8 +8,6 @@ const titresMSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_M
 const titresRSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_R
 const titresSSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_S
 const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_W
-const titresRepriseSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_TITRES_REPRISE
 
 const globalesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_GLOBALES
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
@@ -31,8 +29,6 @@ const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
 const titresTravauxSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_TRAVAUX
-const titresActivitesRepriseSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES_REPRISE
 
 const titresTables = [
   { name: 'titres', cb: { props_titre_etapes_ids: JSON.parse } },
@@ -120,14 +116,6 @@ const titres = [
   titresS,
   titresW
 ]
-
-// feuille optionnelle pour la reprise de données
-const titresReprise = {
-  id: titresRepriseSpreadsheetId,
-  name: 'titres-reprise',
-  tables: titresTables,
-  prefixFileName: true
-} as ISpreadsheet
 
 const metas = {
   name: 'metas',
@@ -263,13 +251,6 @@ const titresTravaux = {
   ]
 } as ISpreadsheet
 
-const titresActivitesReprise = {
-  name: 'titres-activites-reprise',
-  id: titresActivitesRepriseSpreadsheetId,
-  tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }],
-  prefixFileName: true
-} as ISpreadsheet
-
 const globales = {
   name: 'globales',
   id: globalesSpreadsheetId,
@@ -278,7 +259,6 @@ const globales = {
 
 const definitions = [
   ...titres,
-  titresReprise,
   metas,
   substances,
   documents,
@@ -291,7 +271,6 @@ const definitions = [
   metasActivites,
   titresActivites,
   titresTravaux,
-  titresActivitesReprise,
   globales
 ]
 

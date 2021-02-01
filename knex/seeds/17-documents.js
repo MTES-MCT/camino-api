@@ -5,7 +5,7 @@ const decamelize = require('decamelize')
 
 const documents = require('../../sources/documents.json')
 
-const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w', 'reprise']
+const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const titresEtapesJustificatifs = domainesIds.reduce((res, domaineId) => {
   const fileName = decamelize(`titres-${domaineId}-titresEtapesJustificatifs`, {

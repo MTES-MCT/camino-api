@@ -5,7 +5,7 @@ const forets = require('../../sources/forets.json')
 
 const seeding = require('../seeding')
 
-const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w', 'reprise']
+const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const files = [
   'titres',
