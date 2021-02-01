@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.68](https://github.com/MTES-MCT/camino-api/compare/v0.24.67...v0.24.68) (2021-02-01)
+
+
+### Features
+
+* **activités:** peut rendre les documents optionnels ([#625](https://github.com/MTES-MCT/camino-api/issues/625)) ([497bccd](https://github.com/MTES-MCT/camino-api/commit/497bccd1578d6389145945406f441c4da975ab6c))
+* **demarche:** active l’arbre d’instructions des octrois de PRM ([#626](https://github.com/MTES-MCT/camino-api/issues/626)) ([b5af3bc](https://github.com/MTES-MCT/camino-api/commit/b5af3bc812ab696e4ef5ea2864d1a975c0b182d9))
+
+
+### Bug Fixes
+
+* **demarche:** corrige l’arbre d’instruction d’octroi de PRM ([#631](https://github.com/MTES-MCT/camino-api/issues/631)) ([2573c85](https://github.com/MTES-MCT/camino-api/commit/2573c8557c8f607f974597bd7d9e1b6a4dd65855))
+* corrige les exports ([139258d](https://github.com/MTES-MCT/camino-api/commit/139258d8a7ddfb2df60973426006ec29238c41b5))
+* **démarche:** corrige les droits d’édition des étapes pour les administrations ([#627](https://github.com/MTES-MCT/camino-api/issues/627)) ([23b8936](https://github.com/MTES-MCT/camino-api/commit/23b89369cbed4e2b964b835f1669631e14d23e08))
+
 ### [0.24.67](https://github.com/MTES-MCT/camino-api/compare/v0.24.64...v0.24.67) (2021-01-25)
 
 
