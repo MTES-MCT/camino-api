@@ -166,28 +166,19 @@ const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions[] = [
   },
   {
     etapeTypeId: 'rpu',
-    apres: [
-      [{ etapeTypeId: 'dex', statutId: 'acc' }],
-      [{ etapeTypeId: 'npp' }]
-    ],
+    apres: [[{ etapeTypeId: 'dex', statutId: 'acc' }, { etapeTypeId: 'npp' }]],
     avant: [[{ etapeTypeId: 'rpu' }]],
     justeApres: []
   },
   {
     etapeTypeId: 'ncl',
-    apres: [
-      [{ etapeTypeId: 'dex', statutId: 'acc' }],
-      [{ etapeTypeId: 'npp' }]
-    ],
+    apres: [[{ etapeTypeId: 'dex', statutId: 'acc' }, { etapeTypeId: 'npp' }]],
     avant: [[{ etapeTypeId: 'ncl' }]],
     justeApres: []
   },
   {
     etapeTypeId: 'pqr',
-    apres: [
-      [{ etapeTypeId: 'dex', statutId: 'acc' }],
-      [{ etapeTypeId: 'npp' }]
-    ],
+    apres: [[{ etapeTypeId: 'dex', statutId: 'acc' }, { etapeTypeId: 'npp' }]],
     avant: [[{ etapeTypeId: 'pqr' }]],
     justeApres: []
   },
