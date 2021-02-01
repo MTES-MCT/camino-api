@@ -105,9 +105,11 @@ const administrationsWithRelations = sources.administrations.data.map(
     a.titresTypes = sources.administrations__titresTypes.data
       .filter(att => att.administrationId === a.id)
       .map(att => {
-        const titreType = sources.titresTypes.data.find(
-          tt => att.titreTypeId === tt.id
-        )! as ITitreType & IAdministrationTitreType
+        const titreType = JSON.parse(
+          JSON.stringify(
+            sources.titresTypes.data.find(tt => att.titreTypeId === tt.id)!
+          )
+        ) as ITitreType & IAdministrationTitreType
 
         titreType.administrationId = att.administrationId
         titreType.titreTypeId = att.titreTypeId

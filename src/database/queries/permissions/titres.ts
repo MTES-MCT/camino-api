@@ -53,7 +53,7 @@ const titrePermissionQueryBuild = (
   q.select('titres.*')
 
   const administrationMinistereCheck = user?.administrations?.some(
-    a => a.type?.id === 'min'
+    a => a.typeId === 'min'
   )
 
   // si

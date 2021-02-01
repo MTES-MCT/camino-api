@@ -139,6 +139,9 @@ class Titres extends Model {
     administrationsGestionnaires: {
       relation: Model.ManyToManyRelation,
       modelClass: Administrations,
+      // On ne peut pas utiliser directement administrations__titresTypes car on ne peut pas sélectionner les lignes où le booléen
+      // gestionnaire est à vrai
+      // https://github.com/Vincit/objection.js/issues/1356
       join: {
         from: 'titres.id',
         through: {
