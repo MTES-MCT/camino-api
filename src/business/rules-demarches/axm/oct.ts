@@ -41,7 +41,10 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
   {
     etapeTypeId: 'mdp',
     avant: [[{ etapeTypeId: 'mdp' }]],
-    justeApres: [[{ etapeTypeId: 'mfr' }]]
+    justeApres: [
+      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'dae', statutId: 'fav' }],
+      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'mom' }]
+    ]
   },
   {
     etapeTypeId: 'nis',
@@ -62,36 +65,12 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
   {
     etapeTypeId: 'mcr',
     justeApres: [
-      [
-        { etapeTypeId: 'mdp' },
-        { etapeTypeId: 'asl', statutId: 'fav' },
-        { etapeTypeId: 'dae', statutId: 'fav' }
-      ],
-      [
-        { etapeTypeId: 'mdp' },
-        { etapeTypeId: 'asl', statutId: 'fav' },
-        { etapeTypeId: 'mom' }
-      ],
-      [
-        { etapeTypeId: 'rca' },
-        { etapeTypeId: 'asl', statutId: 'fav' },
-        { etapeTypeId: 'dae', statutId: 'fav' }
-      ],
-      [
-        { etapeTypeId: 'rca' },
-        { etapeTypeId: 'asl', statutId: 'fav' },
-        { etapeTypeId: 'mom' }
-      ],
-      [
-        { etapeTypeId: 'mod' },
-        { etapeTypeId: 'asl', statutId: 'fav' },
-        { etapeTypeId: 'dae', statutId: 'fav' }
-      ],
-      [
-        { etapeTypeId: 'mod' },
-        { etapeTypeId: 'asl', statutId: 'fav' },
-        { etapeTypeId: 'mom' }
-      ]
+      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'mod' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'mod' }]
     ],
     separation: ['apd']
   },
@@ -131,8 +110,9 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
   { etapeTypeId: 'api', justeApres: [[{ etapeTypeId: 'ssr' }]] },
   {
     etapeTypeId: 'apd',
+    apres: [[{ etapeTypeId: 'scl' }]],
     justeApres: [
-      [{ etapeTypeId: 'cps' }, { etapeTypeId: 'scl' }],
+      [{ etapeTypeId: 'cps' }],
       [{ etapeTypeId: 'apo', statutId: 'ajo' }]
     ]
   },
@@ -156,15 +136,80 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
     justeApres: [[{ etapeTypeId: 'sas' }]],
     separation: []
   },
-  { etapeTypeId: 'mno', justeApres: [[{ etapeTypeId: 'dex' }]] },
-  { etapeTypeId: 'rpu', justeApres: [[{ etapeTypeId: 'dex' }]] },
-  { etapeTypeId: 'pqr', justeApres: [[{ etapeTypeId: 'dex' }]] },
-  { etapeTypeId: 'ncl', justeApres: [[{ etapeTypeId: 'dex' }]] },
-  { etapeTypeId: 'abd', justeApres: [[{ etapeTypeId: 'dex' }]] },
-  { etapeTypeId: 'rtd', justeApres: [[{ etapeTypeId: 'dex' }]] },
+  {
+    etapeTypeId: 'mno',
+    justeApres: [[{ etapeTypeId: 'dex' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }]
+    ]
+  },
+  {
+    etapeTypeId: 'rpu',
+    justeApres: [[{ etapeTypeId: 'dex' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }]
+    ]
+  },
+  {
+    etapeTypeId: 'pqr',
+    justeApres: [[{ etapeTypeId: 'dex' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }]
+    ]
+  },
+  {
+    etapeTypeId: 'ncl',
+    justeApres: [[{ etapeTypeId: 'dex' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }]
+    ]
+  },
+  {
+    etapeTypeId: 'abd',
+    justeApres: [[{ etapeTypeId: 'dex' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }],
+      [{ etapeTypeId: 'mno' }],
+      [{ etapeTypeId: 'rpu' }],
+      [{ etapeTypeId: 'pqr' }],
+      [{ etapeTypeId: 'ncl' }]
+    ]
+  },
+  {
+    etapeTypeId: 'rtd',
+    justeApres: [[{ etapeTypeId: 'dex' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }],
+      [{ etapeTypeId: 'mno' }],
+      [{ etapeTypeId: 'rpu' }],
+      [{ etapeTypeId: 'pqr' }],
+      [{ etapeTypeId: 'ncl' }]
+    ]
+  },
   {
     etapeTypeId: 'and',
-    justeApres: [[{ etapeTypeId: 'dex' }], [{ etapeTypeId: 'dim' }]]
+    justeApres: [[{ etapeTypeId: 'dex' }], [{ etapeTypeId: 'dim' }]],
+    avant: [
+      [{ etapeTypeId: 'abd' }],
+      [{ etapeTypeId: 'rtd' }],
+      [{ etapeTypeId: 'and' }],
+      [{ etapeTypeId: 'mno' }],
+      [{ etapeTypeId: 'rpu' }],
+      [{ etapeTypeId: 'pqr' }],
+      [{ etapeTypeId: 'ncl' }]
+    ]
   },
   {
     etapeTypeId: 'dim',
