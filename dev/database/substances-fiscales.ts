@@ -84,7 +84,7 @@ async function main() {
 
   await ActivitesTypes.query().patchAndFetchById('grx', activiteTypeGrx)
 
-  console.info(`type d'activité gra modifié`)
+  console.info(`type d'activité grx modifié`)
 
   const titresActivites = await titresActivitesGet({}, { fields: {} }, 'super')
 

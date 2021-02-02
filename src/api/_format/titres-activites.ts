@@ -27,8 +27,8 @@ const titreActiviteContenuFormat = (
       if (ratio) {
         contenu!.substancesFiscales[id] =
           operation === 'read'
-            ? (contenu!.substancesFiscales[id] as number) * ratio
-            : (contenu!.substancesFiscales[id] as number) / ratio
+            ? (contenu!.substancesFiscales[id] as number) / ratio
+            : (contenu!.substancesFiscales[id] as number) * ratio
       }
     })
   }
