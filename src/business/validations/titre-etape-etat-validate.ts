@@ -1,11 +1,43 @@
 // valide la date et la position de l'étape en fonction des autres étapes
-import { ITitreEtape, ITitreCondition, IContenu } from '../../types'
+import { ITitreEtape, IContenu, Index } from '../../types'
 
-import { contenuConditionMatch } from '../../tools/index'
 import {
+  ITitreCondition,
+  IContenuElementCondition,
   IEtapeTypeIdCondition,
   IDemarcheDefinitionRestrictions
 } from '../rules-demarches/definitions'
+
+const contenuConditionMatch = (
+  condition: IContenuElementCondition,
+  obj: Index<any> | null,
+  keys: string[] | null = null
+) => {
+  // si les conditions sont testées plusieurs fois, (dans une boucle par ex)
+  // alors les clés de l'objet de condition peuvent être passées optionnellement
+  // pour ne pas les recalculer à chaque fois
+  const conditionKeys = keys || Object.keys(condition)
+
+  return conditionKeys.every(k => {
+    const contenuElementCondition = condition[k]
+
+    let contenuValeur = obj ? obj[k] : undefined
+    if (!contenuValeur) {
+      if (typeof contenuElementCondition?.valeur === 'number') {
+        contenuValeur = 0
+      } else if (typeof contenuElementCondition?.valeur === 'boolean') {
+        contenuValeur = false
+      }
+    }
+
+    switch (contenuElementCondition?.operation) {
+      case 'NOT_EQUAL':
+        return contenuElementCondition.valeur !== contenuValeur
+      default:
+        return contenuElementCondition?.valeur === contenuValeur
+    }
+  })
+}
 
 const sameContenuCheck = (
   conditionTitre: ITitreCondition,

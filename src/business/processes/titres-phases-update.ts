@@ -183,4 +183,4 @@ const titresPhasesUpdate = async (titresIds?: string[]) => {
   return [titresPhasesIdsUpdated, titresPhasesIdsDeleted]
 }
 
-export default titresPhasesUpdate
+export { titresPhasesUpdate }

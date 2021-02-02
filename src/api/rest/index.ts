@@ -345,9 +345,9 @@ interface IUtilisateursQueryInput {
   format?: IFormat
   colonne?: IUtilisateursColonneId | null
   ordre?: 'asc' | 'desc' | null
-  entrepriseIds?: string | undefined
-  administrationIds?: string | undefined
-  permissionIds?: string | undefined
+  entrepriseIds?: string
+  administrationIds?: string
+  permissionIds?: string
   noms?: string | null
   emails?: string | null
 }

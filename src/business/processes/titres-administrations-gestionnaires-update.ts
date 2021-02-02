@@ -180,4 +180,4 @@ const titresAdministrationsGestionnairesUpdate = async (
   }
 }
 
-export default titresAdministrationsGestionnairesUpdate
+export { titresAdministrationsGestionnairesUpdate }

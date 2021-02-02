@@ -2,7 +2,7 @@ import { IFields } from '../../../types'
 
 // ajoute les champs nécessaire pour obtenir le sous-objet titre
 // pour vérifier si l'utilisateur a les droits sur les titres
-const fieldsTitreAdd = (fields: IFields) => {
+const fieldsTitreAdd = (fields: IFields, { isTitreActivite = false } = {}) => {
   if (!fields.titre) {
     fields.titre = {
       id: {},
@@ -32,6 +32,10 @@ const fieldsTitreAdd = (fields: IFields) => {
 
   if (!fields.titre.amodiataires) {
     fields.titre.amodiataires = {}
+  }
+
+  if (isTitreActivite) {
+    fields.titre = activitesFieldsAdd(fields.titre)
   }
 
   return fields
@@ -64,8 +68,8 @@ const titresFieldsAdd = (fields: IFields) => {
       fields.demarches.type.etapesTypes = { id: {} }
     }
 
-    if (!fields.propsTitreEtapesIds && fields.contenu) {
-      fields.propsTitreEtapesIds = {}
+    if (!fields.contenusTitreEtapesIds && fields.contenu) {
+      fields.contenusTitreEtapesIds = {}
     }
   }
 
@@ -77,6 +81,8 @@ const titresFieldsAdd = (fields: IFields) => {
     if (!fields.activites.type.frequence) {
       fields.activites.type.frequence = { id: {} }
     }
+
+    fields = activitesFieldsAdd(fields)
   }
 
   if (fields.travaux) {
@@ -86,6 +92,32 @@ const titresFieldsAdd = (fields: IFields) => {
   }
 
   return fields
+}
+
+// ajoute le lien entre le titre, les substances et les substances légales
+// pour formatter les sections des activités
+const activitesFieldsAdd = (titreFields: IFields) => {
+  if (!titreFields.substances) {
+    titreFields.substances = {}
+  }
+
+  if (!titreFields.substances.legales) {
+    titreFields.substances.legales = {}
+  }
+
+  if (!titreFields.substances.legales.fiscales) {
+    titreFields.substances.legales.fiscales = { id: {} }
+  }
+
+  if (!titreFields.substances.legales.fiscales.unite) {
+    titreFields.substances.legales.fiscales.unite = { id: {} }
+  }
+
+  if (!titreFields.substances.legales.fiscales.unite.referenceUnite) {
+    titreFields.substances.legales.fiscales.unite.referenceUnite = { id: {} }
+  }
+
+  return titreFields
 }
 
 export { fieldsTitreAdd, titresFieldsAdd }

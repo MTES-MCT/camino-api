@@ -54,4 +54,4 @@ const titresPointsReferencesCreate = async () => {
   return pointsReferencesCreated
 }
 
-export default titresPointsReferencesCreate
+export { titresPointsReferencesCreate }

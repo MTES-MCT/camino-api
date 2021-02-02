@@ -83,4 +83,4 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
   return titresDemarchesUpdated
 }
 
-export default titresDemarchesPublicUpdate
+export { titresDemarchesPublicUpdate }

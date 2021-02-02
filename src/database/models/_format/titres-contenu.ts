@@ -2,14 +2,14 @@ import {
   IContenu,
   ITitreDemarche,
   ITitreEtape,
-  ITitrePropsTitreEtapesIds
+  IContenusTitreEtapesIds
 } from '../../../types'
 
 const titreContenuFormat = (
-  propsTitreEtapesIds: ITitrePropsTitreEtapesIds,
-  titreDemarches?: ITitreDemarche[] | undefined | null
+  contenusTitreEtapesIds: IContenusTitreEtapesIds,
+  titreDemarches?: ITitreDemarche[] | null
 ) => {
-  if (!propsTitreEtapesIds || !titreDemarches?.length) return {}
+  if (!contenusTitreEtapesIds || !titreDemarches?.length) return {}
 
   const etapesIndex = {} as { [id: string]: ITitreEtape }
 
@@ -25,9 +25,9 @@ const titreContenuFormat = (
 
   const contenu = {} as IContenu
 
-  Object.keys(propsTitreEtapesIds).forEach((sectionId: string) => {
-    Object.keys(propsTitreEtapesIds[sectionId]).forEach(elementId => {
-      const etapeId = propsTitreEtapesIds[sectionId][elementId]
+  Object.keys(contenusTitreEtapesIds).forEach((sectionId: string) => {
+    Object.keys(contenusTitreEtapesIds[sectionId]).forEach(elementId => {
+      const etapeId = contenusTitreEtapesIds[sectionId][elementId]
 
       if (etapeId) {
         const etape = etapesIndex[etapeId]

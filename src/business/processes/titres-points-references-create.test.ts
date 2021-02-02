@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titresPointsReferencesCreate from './titres-points-references-create'
+import { titresPointsReferencesCreate } from './titres-points-references-create'
 import * as queries from '../../database/queries/titres-points'
 import { titresPointsGet } from '../../database/queries/titres-points'
 import TitresPoints from '../../database/models/titres-points'

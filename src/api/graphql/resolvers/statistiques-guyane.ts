@@ -3,9 +3,10 @@ import { debug } from '../../../config/index'
 import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { ITitre, ITitreActivite } from '../../../types'
-import { titresArrayBuild } from './statistiques'
+import { titresSurfaceIndexBuild } from './statistiques'
 
 const statistiquesGuyaneActivitesGet = (
+  sectionId: string,
   titresActivites: ITitreActivite[],
   init: { [key: string]: number }
 ) =>
@@ -15,14 +16,14 @@ const statistiquesGuyaneActivitesGet = (
     Object.keys(acc).forEach(prop => {
       if (
         ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements[prop] &&
+        ta.contenu[sectionId] &&
+        ta.contenu[sectionId][prop] &&
         (prop !== 'effectifs' ||
           ta.titre!.typeId === 'axm' ||
           ta.titre!.typeId === 'pxm' ||
           ta.titre!.typeId === 'cxm')
       ) {
-        const value = ta.contenu!.renseignements[prop]
+        const value = ta.contenu![sectionId][prop]
         acc[prop] += Math.abs(Number(value))
       }
     })
@@ -37,7 +38,7 @@ type IStatsGuyaneTitresTypes =
   | 'titresPxm'
   | 'titresCxm'
 
-const statistiquesGuyaneTitresGet = (
+const statistiquesGuyaneTitresBuild = (
   titres: { id: string; typeId: string; surface: number }[]
 ) =>
   titres.reduce(
@@ -107,8 +108,7 @@ const statistiquesGuyaneAnneeBuild = (
   titresActivites: ITitreActivite[],
   annee: number
 ) => {
-  // les titres créés dans l'année et leur surface lors de l'octroi
-  const titresFiltered = titresArrayBuild(titres, annee)
+  const titresFiltered = titresSurfaceIndexBuild(titres, annee)
 
   const {
     titresArm,
@@ -116,13 +116,14 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm
-  } = statistiquesGuyaneTitresGet(titresFiltered)
+  } = statistiquesGuyaneTitresBuild(titresFiltered)
 
   // les activités de type grp de l'année
   const titresActivitesGrpFiltered = titresActivites.filter(
     ta => ta.annee === annee && ta.typeId === 'grp'
   )
   const statistiquesActivitesGrp = statistiquesGuyaneActivitesGet(
+    'renseignements',
     titresActivitesGrpFiltered,
     {
       carburantConventionnel: 0,
@@ -136,9 +137,10 @@ const statistiquesGuyaneAnneeBuild = (
   )
   // les activités de type gra de l'année
   const titresActivitesGraFiltered = titresActivites.filter(
-    ta => ta.annee === annee && ta.typeId === 'gra'
+    ta => ta.annee === annee && (ta.typeId === 'gra' || ta.typeId === 'grx')
   )
   const statistiquesActivitesGra = statistiquesGuyaneActivitesGet(
+    'substancesFiscales',
     titresActivitesGraFiltered,
     {
       orNet: 0,
@@ -166,7 +168,7 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm,
-    orNet: Math.floor(statistiquesActivitesGra.orNet / 1000), // conversion 1000g = 1kg
+    orNet: Math.floor(statistiquesActivitesGra.auru / 1000), // conversion 1000g = 1kg
     carburantConventionnel: Math.floor(
       statistiquesActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres

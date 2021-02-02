@@ -4,7 +4,7 @@ import { documentGet } from '../../database/queries/documents'
 
 const fichier = async (
   { documentId }: { documentId?: string },
-  userId?: string | undefined
+  userId?: string
 ) => {
   if (!documentId) {
     throw new Error('id du document absent')

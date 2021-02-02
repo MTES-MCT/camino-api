@@ -1,25 +1,25 @@
-import titresActivitesStatutIdsUpdate from './processes/titres-activites-statut-ids-update'
-import titresActivitesUpdate from './processes/titres-activites-update'
-import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
-import titresDatesUpdate from './processes/titres-dates-update'
-import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
-import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
-import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
-import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
+import { titresActivitesStatutIdsUpdate } from './processes/titres-activites-statut-ids-update'
+import { titresActivitesUpdate } from './processes/titres-activites-update'
+import { titresAdministrationsGestionnairesUpdate } from './processes/titres-administrations-gestionnaires-update'
+import { titresDatesUpdate } from './processes/titres-dates-update'
+import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-update'
+import { titresDemarchesPublicUpdate } from './processes/titres-demarches-public-update'
+import { titresDemarchesStatutIdUpdate } from './processes/titres-demarches-statut-ids-update'
+import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
 import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
-import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
+import { titresEtapesOrdreUpdate } from './processes/titres-etapes-ordre-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
-import titresPhasesUpdate from './processes/titres-phases-update'
-import titresPointsReferencesCreate from './processes/titres-points-references-create'
-import titresPublicUpdate from './processes/titres-public-update'
-import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
-import { titresPropsContenuUpdate } from './processes/titres-props-contenu-update'
-import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
-import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
-import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
+import { titresPhasesUpdate } from './processes/titres-phases-update'
+import { titresPointsReferencesCreate } from './processes/titres-points-references-create'
+import { titresPublicUpdate } from './processes/titres-public-update'
+import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
+import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etapes-ids-update'
+import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
+import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
+import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
 import { matomoCacheInit } from '../tools/api-matomo'
-import updatesLog from './_updates-log'
-import titresCoordonneesUpdate from './processes/titres-coordonnees-update'
+import { logsUpdate } from './_logs-update'
+import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 
 const daily = async () => {
   try {
@@ -59,7 +59,7 @@ const daily = async () => {
       titresEtapesAdministrationsLocalesDeleted
     } = await titresEtapesAdministrationsLocalesUpdate()
     const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate()
-    const titresPropsContenuUpdated = await titresPropsContenuUpdate()
+    const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate()
 
     const titresCoordonneesUpdated = await titresCoordonneesUpdate()
     const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate()
@@ -73,7 +73,7 @@ const daily = async () => {
     console.info('rafraichissement du cache Matomo…')
     await matomoCacheInit()
 
-    updatesLog({
+    logsUpdate({
       titresEtapesOrdreUpdated,
       titresDemarchesStatutUpdated,
       titresDemarchesPublicUpdated,
@@ -95,7 +95,7 @@ const daily = async () => {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted,
       titresPropsEtapesIdsUpdated,
-      titresPropsContenuUpdated,
+      titresContenusEtapesIdsUpdated,
       titresCoordonneesUpdated,
       titresTravauxEtapesOrdreUpdated,
       titresTravauxOrdreUpdated,

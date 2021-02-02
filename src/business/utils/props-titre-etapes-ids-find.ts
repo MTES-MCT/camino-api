@@ -1,44 +1,43 @@
 import {
   ITitreDemarche,
-  ITitrePropsTitreEtapesIds,
-  ITitreSection
+  IContenusTitreEtapesIds,
+  IContenuId
 } from '../../types'
-import { titreContenuEtapeIdFind } from '../rules/titre-contenu-etape-id-find'
+import { titreContenuTitreEtapeFind } from '../rules/titre-prop-etape-find'
 
-const propsTitreEtapesIdsFind = (
+const contenusTitreEtapesIdsFind = (
   titreStatutId: string,
   titreDemarches: ITitreDemarche[],
-  titrePropsEtapesTypes?: ITitreSection[] | null
+  contenuIds?: IContenuId[] | null
 ) => {
-  if (!titrePropsEtapesTypes) return null
+  if (!contenuIds) return null
 
-  const titrePropsEtapesIds = titrePropsEtapesTypes.reduce(
+  const titrePropsEtapesIds = contenuIds.reduce(
     (
-      propsTitreEtapesIds: ITitrePropsTitreEtapesIds | null,
+      contenusTitreEtapesIds: IContenusTitreEtapesIds | null,
       { sectionId, elementId }
     ) => {
       // trouve l'id de l'étape qui contient l'élément dans la section
-      const titreEtapeId = titreContenuEtapeIdFind(
+      const titreEtape = titreContenuTitreEtapeFind(
+        { sectionId, elementId },
         titreDemarches,
-        titreStatutId,
-        sectionId,
-        elementId
+        titreStatutId
       )
 
       // si une étape est trouvée
-      if (titreEtapeId) {
-        if (!propsTitreEtapesIds) {
-          propsTitreEtapesIds = {}
+      if (titreEtape) {
+        if (!contenusTitreEtapesIds) {
+          contenusTitreEtapesIds = {}
         }
 
-        if (!propsTitreEtapesIds[sectionId]) {
-          propsTitreEtapesIds[sectionId] = {}
+        if (!contenusTitreEtapesIds[sectionId]) {
+          contenusTitreEtapesIds[sectionId] = {}
         }
 
-        propsTitreEtapesIds[sectionId][elementId] = titreEtapeId
+        contenusTitreEtapesIds[sectionId][elementId] = titreEtape.id
       }
 
-      return propsTitreEtapesIds
+      return contenusTitreEtapesIds
     },
     null
   )
@@ -46,4 +45,4 @@ const propsTitreEtapesIdsFind = (
   return titrePropsEtapesIds
 }
 
-export { propsTitreEtapesIdsFind }
+export { contenusTitreEtapesIdsFind }

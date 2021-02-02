@@ -33,7 +33,7 @@
     "id": "arm",
     "domaine_id": "m",
     "type_id": "ar",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "mecanise",
         "sectionId": "arm"
@@ -83,7 +83,7 @@
     "id": "cxs",
     "domaine_id": "s",
     "type_id": "cx",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "volume",
         "sectionId": "cxx"
@@ -98,7 +98,7 @@
     "id": "cxw",
     "domaine_id": "w",
     "type_id": "cx",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "volume",
         "sectionId": "cxx"
@@ -138,7 +138,7 @@
     "id": "prf",
     "domaine_id": "f",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -153,7 +153,7 @@
     "id": "prg",
     "domaine_id": "g",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -168,7 +168,7 @@
     "id": "prh",
     "domaine_id": "h",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -188,7 +188,7 @@
     "id": "prm",
     "domaine_id": "m",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -203,7 +203,7 @@
     "id": "prr",
     "domaine_id": "r",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -218,7 +218,7 @@
     "id": "prs",
     "domaine_id": "s",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -233,7 +233,7 @@
     "id": "prw",
     "domaine_id": "w",
     "type_id": "pr",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "engagement",
         "sectionId": "prx"
@@ -278,7 +278,7 @@
     "id": "pxw",
     "domaine_id": "w",
     "type_id": "px",
-    "props_etapes_types": [
+    "contenuIds": [
       {
         "elementId": "volume",
         "sectionId": "pxx"

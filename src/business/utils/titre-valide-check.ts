@@ -1,6 +1,12 @@
 import { ITitreDemarche } from '../../types'
 
-const titreValiditePeriodeCheck = (
+/**
+ * Vérifie la validité du titre pendant la période
+ * @param titreDemarches - démarche du titre
+ * @param dateDebut - date de début
+ * @param dateFin - date de fin
+ */
+const titreValideCheck = (
   titreDemarches: ITitreDemarche[],
   dateDebut: string,
   dateFin: string
@@ -11,4 +17,4 @@ const titreValiditePeriodeCheck = (
       phase && dateDebut <= phase.dateFin && dateFin >= phase.dateDebut
   )
 
-export default titreValiditePeriodeCheck
+export { titreValideCheck }

@@ -1,5 +1,5 @@
 import { ISpreadsheetMultiple } from '../_types'
-import { ISection } from '../../../types'
+import { IContenuId, ISection } from '../../../types'
 
 import {
   definitionsGet,
@@ -49,9 +49,9 @@ const tables = [
   {
     id: 4,
     name: 'titresTypes',
-    columns: ['id', 'domaineId', 'typeId', 'propsEtapesTypes', 'archive'],
+    columns: ['id', 'domaineId', 'typeId', 'contenuIds', 'archive'],
     callbacks: {
-      propsEtapesTypes: (v: ISection) => JSON.stringify(v)
+      contenuIds: (v: IContenuId[]) => JSON.stringify(v)
     }
   },
   {
@@ -128,7 +128,7 @@ const tables = [
       'entreprisesLecture'
     ],
     callbacks: {
-      sections: (v: ISection) => JSON.stringify(v)
+      sections: (v: ISection[]) => JSON.stringify(v)
     }
   },
   {
@@ -142,7 +142,7 @@ const tables = [
       'sections'
     ],
     callbacks: {
-      sections: (v: ISection) => JSON.stringify(v)
+      sections: (v: ISection[]) => JSON.stringify(v)
     }
   },
   {
@@ -178,7 +178,7 @@ const tables = [
   {
     id: 19,
     name: 'unites',
-    columns: ['id', 'nom', 'symbole']
+    columns: ['id', 'nom', 'symbole', 'referenceUniteRatio', 'referenceUniteId']
   },
   {
     id: 20,

@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titresDatesUpdate from './titres-dates-update'
+import { titresDatesUpdate } from './titres-dates-update'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 import titreDateDemandeFind from '../rules/titre-date-demande-find'

@@ -44,6 +44,17 @@ exports.up = knex => {
         .notNullable()
       table.primary(['substanceId', 'substanceLegaleId'])
     })
+    .createTable('substancesFiscales', table => {
+      table.string('id', 4).primary()
+      table
+        .string('substanceLegaleId')
+        .index()
+        .references('substancesLegales.id')
+        .notNullable()
+      table.string('uniteId').index().references('unites.id').notNullable()
+      table.string('nom').notNullable()
+      table.string('description', 2048)
+    })
 }
 
 exports.down = knex => {

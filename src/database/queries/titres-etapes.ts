@@ -35,7 +35,7 @@ const titresEtapesQueryBuild = (
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapes', graphFormat)
-    : options.titresDemarchesEtapes.graph
+    : options.titresEtapes.graph
 
   const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)
 
@@ -101,23 +101,23 @@ const titresEtapesGet = async (
 const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
   TitresEtapes.query()
     .insertAndFetch(titreEtape)
-    .withGraphFetched(options.titresDemarchesEtapes.graph)
+    .withGraphFetched(options.titresEtapes.graph)
 
 const titreEtapeUpdate = async (id: string, props: Partial<ITitreEtape>) =>
   TitresEtapes.query()
-    .withGraphFetched(options.titresDemarchesEtapes.graph)
+    .withGraphFetched(options.titresEtapes.graph)
     .patchAndFetchById(id, props)
 
 const titreEtapeDelete = async (id: string, trx?: Transaction) =>
   TitresEtapes.query(trx)
     .deleteById(id)
-    .withGraphFetched(options.titresDemarchesEtapes.graph)
+    .withGraphFetched(options.titresEtapes.graph)
     .returning('*')
 
 const titreEtapeUpsert = async (titreEtape: ITitreEtape, trx?: Transaction) =>
   TitresEtapes.query(trx)
-    .upsertGraph(titreEtape, options.titresDemarchesEtapes.update)
-    .withGraphFetched(options.titresDemarchesEtapes.graph)
+    .upsertGraph(titreEtape, options.titresEtapes.update)
+    .withGraphFetched(options.titresEtapes.graph)
     .returning('*')
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()

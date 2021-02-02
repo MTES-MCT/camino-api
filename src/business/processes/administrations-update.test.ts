@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import administrationUpdate from './administrations-update'
+import { administrationsUpdate } from './administrations-update'
 import {
   organismeDepartementGet,
   organismesDepartementsGet
@@ -41,7 +41,7 @@ describe('administrations', () => {
     organismeDepartementGetMock.mockResolvedValue(administrationApiTest)
     organismesDepartementsGetMock.mockResolvedValue(administrationsApiCreees)
 
-    const administrationsUpdated = await administrationUpdate()
+    const administrationsUpdated = await administrationsUpdate()
 
     expect(administrationsUpdated.length).toEqual(0)
   })
@@ -51,7 +51,7 @@ describe('administrations', () => {
     organismeDepartementGetMock.mockResolvedValue(administrationApiTest)
     organismesDepartementsGetMock.mockResolvedValue(administrationsApiModifiees)
 
-    const administrationsUpdated = await administrationUpdate()
+    const administrationsUpdated = await administrationsUpdate()
 
     expect(administrationsUpdated.length).toEqual(1)
   })
@@ -63,7 +63,7 @@ describe('administrations', () => {
       administrationsApiExistantes
     )
 
-    const administrationsUpdated = await administrationUpdate()
+    const administrationsUpdated = await administrationsUpdate()
 
     expect(administrationsUpdated.length).toEqual(0)
   })
@@ -73,7 +73,7 @@ describe('administrations', () => {
     organismeDepartementGetMock.mockRejectedValue(new Error('api error'))
     organismeDepartementGetMock.mockResolvedValue(null)
 
-    const administrationsUpdated = await administrationUpdate()
+    const administrationsUpdated = await administrationsUpdate()
 
     expect(administrationsUpdated.length).toEqual(0)
   })

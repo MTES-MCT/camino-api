@@ -20,6 +20,7 @@ const metasInit = async () => {
   )
 }
 
-export default metas
+const metasGet = (metaName: 'devises' | 'unites' | 'etapesTypes') =>
+  metas[metaName]
 
-export { metasInit }
+export { metasInit, metasGet }

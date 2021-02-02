@@ -1,4 +1,6 @@
-import { IContenuElementCondition, Index } from '../types'
+import { Index } from '../types'
+
+import { serialize, deserialize } from 'v8'
 
 const dupRemove = (key: string, ...arrays: Index<any>[][]) =>
   arrays.reduce(
@@ -74,35 +76,6 @@ const objectsDiffer = (a: Index<any> | any, b: Index<any> | any): boolean => {
   return comparator(a, b) || comparator(b, a)
 }
 
-const contenuConditionMatch = (
-  condition: IContenuElementCondition,
-  obj: Index<any> | null,
-  keys: string[] | null = null
-) => {
-  // si les conditions sont testées plusieurs fois, (dans une boucle par ex)
-  // alors les clés de l'objet de condition peuvent être passées optionnellement
-  // pour ne pas les recalculer à chaque fois
-  const conditionKeys = keys || Object.keys(condition)
+const objectClone = (obj: any) => deserialize(serialize(obj))
 
-  return conditionKeys.every(k => {
-    const contenuElementCondition = condition[k]
-
-    let contenuValeur = obj ? obj[k] : undefined
-    if (!contenuValeur) {
-      if (typeof contenuElementCondition?.valeur === 'number') {
-        contenuValeur = 0
-      } else if (typeof contenuElementCondition?.valeur === 'boolean') {
-        contenuValeur = false
-      }
-    }
-
-    switch (contenuElementCondition?.operation) {
-      case 'NOT_EQUAL':
-        return contenuElementCondition.valeur !== contenuValeur
-      default:
-        return contenuElementCondition?.valeur === contenuValeur
-    }
-  })
-}
-
-export { dupRemove, dupFind, diffFind, objectsDiffer, contenuConditionMatch }
+export { objectClone, dupRemove, dupFind, diffFind, objectsDiffer }

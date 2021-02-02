@@ -10,6 +10,7 @@ class TitresActivites extends Model {
 
   public static jsonSchema = {
     type: 'object',
+
     required: [
       'id',
       'titreId',
@@ -19,6 +20,7 @@ class TitresActivites extends Model {
       'frequencePeriodeId',
       'annee'
     ],
+
     properties: {
       id: { type: 'string' },
       titreId: { type: 'string' },
@@ -29,7 +31,8 @@ class TitresActivites extends Model {
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
       frequencePeriodeId: { type: 'integer' },
-      annee: { type: 'integer', maxLength: 4 }
+      annee: { type: 'integer', maxLength: 4 },
+      sections: { type: 'json' }
     }
   }
 

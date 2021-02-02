@@ -46,4 +46,4 @@ const titresCoordonneesUpdate = async (titresIds?: string[]) => {
   return titresCoordonneesUpdated
 }
 
-export default titresCoordonneesUpdate
+export { titresCoordonneesUpdate }

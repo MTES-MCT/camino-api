@@ -16,7 +16,7 @@ import {
 import { titreDemarcheEtatValidate } from '../validations/titre-demarche-etat-validate'
 import { demarcheDefinitionFind } from './definitions'
 import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
-import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
+import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 
 test('teste EtatsValidate', () => {
   const octEtatsValidate = demarcheEtatsValidate('oct', 'arm')
@@ -35,11 +35,11 @@ jest.mock('../../database/models/_format/titres-contenu', () => ({
 
 jest.mock('../utils/props-titre-etapes-ids-find', () => ({
   __esModule: true,
-  propsTitreEtapesIdsFind: jest.fn()
+  contenusTitreEtapesIdsFind: jest.fn()
 }))
 
 const titreContenuFormatMock = mocked(titreContenuFormat, true)
-const propsTitreEtapesIdsFindMock = mocked(propsTitreEtapesIdsFind, true)
+const contenusTitreEtapesIdsFindMock = mocked(contenusTitreEtapesIdsFind, true)
 
 const elementsGet = <T>(fileName: string): T[] => {
   fileName = decamelize(fileName, { separator: '-' })
@@ -77,7 +77,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     titreDemarcheEtapes: Partial<ITitreEtape>[],
     titre: Partial<ITitre> = {}
   ) => {
-    propsTitreEtapesIdsFindMock.mockReturnValue({})
+    contenusTitreEtapesIdsFindMock.mockReturnValue({})
     titreContenuFormatMock.mockReturnValue(titre.contenu as IContenu)
 
     const demarcheDefinitionRestrictions = demarcheDefinitionFind(
@@ -90,7 +90,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
       typeId: titreTypeId,
       type: ({
         id: titreTypeId,
-        propsEtapesTypes: []
+        contenuIds: []
       } as unknown) as ITitreType,
       demarches: [{ typeId: demarcheTypeId }] as ITitreDemarche[]
     }

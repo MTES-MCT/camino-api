@@ -15,7 +15,7 @@ interface IColonne<T> {
   groupBy?: boolean | T | T[]
 }
 
-type ITitreProp =
+type ITitreEtapeIdPropId =
   | 'pointsTitreEtapeId'
   | 'titulairesTitreEtapeId'
   | 'amodiatairesTitreEtapeId'
@@ -24,7 +24,7 @@ type ITitreProp =
   | 'communesTitreEtapeId'
   | 'surfaceTitreEtapeId'
 
-type ITitreEtapeProp =
+type IPropId =
   | 'points'
   | 'titulaires'
   | 'amodiataires'
@@ -55,9 +55,32 @@ interface IActiviteStatut {
   couleur: string
 }
 
+interface IContenuId {
+  sectionId: string
+  elementId: string
+}
+
+type IContenuValeur = string | number | string[] | boolean
+
+interface IContenuElement {
+  [elementId: string]: IContenuValeur
+}
+
+interface IContenu {
+  [sectionId: string]: IContenuElement
+}
+
+interface IContenuTitreEtapesIdsValeur {
+  [elementId: string]: string
+}
+
+interface IContenusTitreEtapesIds {
+  [sectionId: string]: IContenuTitreEtapesIdsValeur
+}
+
 interface ISection {
   id: string
-  nom: string
+  nom?: string
   elements?: ISectionElement[] | null
 }
 
@@ -84,11 +107,7 @@ interface ISectionElement {
   frequencePeriodesIds?: number[] | null
   valeurs?: { id: string; nom: string }[] | null
   valeursMetasNom?: IValeurMetasNom
-}
-
-interface ITitreSection {
-  sectionId: string
-  elementId: string
+  referenceUniteRatio?: number
 }
 
 interface IActiviteTypeDocumentType extends IDocumentType {
@@ -103,7 +122,7 @@ interface IActiviteType {
   delaiMois: number
   titresTypes: ITitreType[]
   documentsTypes: IActiviteTypeDocumentType[]
-  sections?: ISection[] | null
+  sections: ISection[]
   frequence?: IFrequence | null
   pays?: IPays[] | null
   administrations?: IAdministration[] | null
@@ -159,28 +178,6 @@ interface IArea {
 interface ICommune extends IArea {
   departement?: IDepartement | null
   departementId?: string | null
-}
-
-type IContenuValeur = string | number | string[] | boolean
-type IContenuOperation = {
-  valeur: IContenuValeur
-  operation?: 'NOT_EQUAL' | 'EQUAL'
-}
-
-interface IContenu {
-  [id: string]: IContenuElement
-}
-
-interface IContenuElement {
-  [id: string]: IContenuValeur
-}
-
-interface ITitrePropsTitreEtapesIdsValeur {
-  [elementId: string]: string
-}
-
-interface ITitrePropsTitreEtapesIds {
-  [sectionId: string]: ITitrePropsTitreEtapesIdsValeur
 }
 
 interface ICoordonnees {
@@ -302,10 +299,12 @@ interface IEtapeType {
 
 interface IForet extends IArea {}
 
+type IPeriodeNom = 'annees' | 'trimestres' | 'mois'
+
 interface IFrequence {
   id: string
   nom: string
-  periodesNom: 'annees' | 'trimestres' | 'mois'
+  periodesNom: IPeriodeNom
   annees?: IAnnee[] | null
   trimestres?: ITrimestre[] | null
   mois?: IMois[] | null
@@ -503,9 +502,19 @@ interface ISubstanceLegale {
   nom: string
   domaineId?: string | null
   description?: string | null
-  substanceLegalCodeId?: string | null
+  substanceLegaleCodeId?: string | null
   domaine?: IDomaine | null
   code?: ISubstanceLegaleCode | null
+  fiscales?: ISubstanceFiscale[] | null
+}
+
+interface ISubstanceFiscale {
+  id: string
+  nom: string
+  description: string
+  substanceLegaleId: string
+  uniteId: string
+  unite?: IUnite | null
 }
 
 interface ISubstance {
@@ -514,8 +523,7 @@ interface ISubstance {
   symbole?: string | null
   gerep?: number | null
   description?: string | null
-  substanceLegaleId: string
-  substanceLegale: ISubstanceLegale
+  legales: ISubstanceLegale[]
 }
 
 interface ITitre {
@@ -565,7 +573,7 @@ interface ITitre {
   doublonTitreId?: string | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
-  propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
+  contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   contenu?: IContenu | null
 }
 
@@ -585,7 +593,7 @@ interface ITitreActivite {
   utilisateur?: IUtilisateur | null
   dateSaisie?: string
   contenu?: IContenu | null
-  sections?: ISection[] | null
+  sections: ISection[]
   documents?: IDocument[] | null
   modification?: boolean | null
   documentsCreation?: boolean | null
@@ -798,7 +806,7 @@ interface ITitreType {
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
   autorisationsTitresStatuts?: ITitreTypeTitreStatut[] | null
-  propsEtapesTypes?: ITitreSection[] | null
+  contenuIds?: IContenuId[] | null
   sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
@@ -824,6 +832,9 @@ interface IUnite {
   id: string
   nom: string
   symbole: string
+  referenceUniteRatio?: number
+  referenceUniteId?: string | null
+  referenceUnite?: IUnite | null
 }
 
 interface IUser extends IUtilisateur {
@@ -864,19 +875,6 @@ interface ITokenUser {
   iat: number
 }
 
-interface ITitreCondition {
-  statutId?: string
-  contenu: IContenuCondition
-}
-
-interface IContenuCondition {
-  [id: string]: IContenuElementCondition
-}
-
-interface IContenuElementCondition {
-  [id: string]: IContenuOperation | undefined
-}
-
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
 
 interface IDefinition {
@@ -907,10 +905,7 @@ export {
   IContenu,
   IContenuElement,
   IContenuValeur,
-  IContenuCondition,
-  IContenuElementCondition,
-  IContenuOperation,
-  ITitrePropsTitreEtapesIds,
+  IContenusTitreEtapesIds,
   ICoordonnees,
   IDemarcheStatut,
   IDemarcheType,
@@ -951,6 +946,7 @@ export {
   ISubstance,
   ISubstanceLegale,
   ISubstanceLegaleCode,
+  ISubstanceFiscale,
   ITitre,
   ITitreActivite,
   ITitreAdministrationGestionnaire,
@@ -981,8 +977,8 @@ export {
   IUser,
   IUtilisateur,
   IUtilisateurCreation,
-  ITitreProp,
-  ITitreEtapeProp,
+  ITitreEtapeIdPropId,
+  IPropId,
   IToken,
   ITokenUser,
   ITitreColonneId,
@@ -992,7 +988,6 @@ export {
   IEntrepriseColonneId,
   IAdministrationColonneId,
   IColonne,
-  ITitreCondition,
   IDefinition,
-  ITitreSection
+  IContenuId
 }

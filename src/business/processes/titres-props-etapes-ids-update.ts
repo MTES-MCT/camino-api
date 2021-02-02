@@ -1,8 +1,8 @@
-import { ITitre, ITitreProp, ITitreEtapeProp } from '../../types'
+import { ITitre, ITitreEtapeIdPropId, IPropId } from '../../types'
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
+import { titrePropTitreEtapeFind } from '../rules/titre-prop-etape-find'
 
 const titrePropsEtapes = [
   'points',
@@ -12,12 +12,12 @@ const titrePropsEtapes = [
   'substances',
   'communes',
   'surface'
-].map(prop => ({
-  prop,
-  name: `${prop}TitreEtapeId`
+].map(propId => ({
+  propId,
+  titreEtapeIdPropId: `${propId}TitreEtapeId`
 })) as {
-  prop: ITitreEtapeProp
-  name: ITitreProp
+  propId: IPropId
+  titreEtapeIdPropId: ITitreEtapeIdPropId
 }[]
 
 const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
@@ -48,10 +48,13 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
   const titresPropsEtapesIdsUpdated = [] as string[]
 
   titres.forEach(titre => {
-    const propsEtapesIds = titrePropsEtapes.reduce(
-      (propsEtapesIds: Partial<ITitre>, { prop, name }) => {
-        const titreEtapeId = titrePropEtapeIdFind(
-          prop,
+    const propsTitreEtapesIds = titrePropsEtapes.reduce(
+      (
+        propsTitreEtapesIds: Partial<ITitre>,
+        { propId, titreEtapeIdPropId }
+      ) => {
+        const titreEtape = titrePropTitreEtapeFind(
+          propId,
           titre.demarches!,
           titre.statutId!
         )
@@ -59,22 +62,26 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
         // si
         // - l'id de l'étape est différente de celle du titre
         // - l'id de l'étape existe ou elle existe dans le titre
-        if (titreEtapeId !== titre[name] && (titre[name] || titreEtapeId)) {
-          propsEtapesIds[name] = titreEtapeId
+        if (
+          titreEtape &&
+          titreEtape.id !== titre[titreEtapeIdPropId] &&
+          (titre[titreEtapeIdPropId] || titreEtape.id)
+        ) {
+          propsTitreEtapesIds[titreEtapeIdPropId] = titreEtape.id
         }
 
-        return propsEtapesIds
+        return propsTitreEtapesIds
       },
       {}
     )
 
-    if (Object.keys(propsEtapesIds).length) {
+    if (Object.keys(propsTitreEtapesIds).length) {
       queue.add(async () => {
-        await titreUpdate(titre.id, propsEtapesIds)
+        await titreUpdate(titre.id, propsTitreEtapesIds)
 
         const log = {
           type: "titre : ids d'étapes des props (mise à jour) ->",
-          value: `${titre.id} : ${JSON.stringify(propsEtapesIds)}`
+          value: `${titre.id} : ${JSON.stringify(propsTitreEtapesIds)}`
         }
 
         console.info(log.type, log.value)
@@ -89,6 +96,4 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
   return titresPropsEtapesIdsUpdated
 }
 
-export { titrePropsEtapes }
-
-export default titresPropsEtapesIdsUpdate
+export { titrePropsEtapes, titresPropsEtapesIdsUpdate }

@@ -8,7 +8,7 @@ const datePropsNames = ['date'] as [keyof ITitreActivite]
 
 const titreActiviteInputValidate = (
   titreActivite: ITitreActivite,
-  activiteTypeSections: ISection[] | undefined | null
+  activiteTypeSections?: ISection[] | null
 ) => {
   const errors = []
 

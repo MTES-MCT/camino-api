@@ -5,7 +5,7 @@ import {
   IUtilisateur,
   IFields,
   ISection,
-  ITitrePropsTitreEtapesIds,
+  IContenusTitreEtapesIds,
   ITitreDemarche
 } from '../../types'
 
@@ -40,16 +40,16 @@ const titreFormatFields = {
 } as IFields
 
 const titreTypeSectionsFormat = (
-  propsTitreEtapesIds: ITitrePropsTitreEtapesIds,
+  contenusTitreEtapesIds: IContenusTitreEtapesIds,
   demarches: ITitreDemarche[]
 ) => {
   const sections = [] as ISection[]
 
-  Object.keys(propsTitreEtapesIds).some(sectionId => {
-    if (!propsTitreEtapesIds![sectionId]) return false
+  Object.keys(contenusTitreEtapesIds).some(sectionId => {
+    if (!contenusTitreEtapesIds![sectionId]) return false
 
-    Object.keys(propsTitreEtapesIds![sectionId]).some(elementId => {
-      const etapeId = propsTitreEtapesIds![sectionId][elementId]
+    Object.keys(contenusTitreEtapesIds![sectionId]).some(elementId => {
+      const etapeId = contenusTitreEtapesIds![sectionId][elementId]
 
       if (!etapeId) return false
 
@@ -60,7 +60,7 @@ const titreTypeSectionsFormat = (
 
         if (!etape) return false
 
-        // sinon, si l'étape correspond à l'id de `propsTitreEtapesIds`
+        // sinon, si l'étape correspond à l'id de `contenusTitreEtapesIds`
         // et que l'étape n'a ni contenu ni section ni l'élément qui nous intéresse
         // on ne cherche pas plus loin
         if (
@@ -151,9 +151,13 @@ const titreFormat = (
     )
   }
 
-  if (fields.type?.sections && t.propsTitreEtapesIds && t.demarches?.length) {
+  if (
+    fields.type?.sections &&
+    t.contenusTitreEtapesIds &&
+    t.demarches?.length
+  ) {
     t.type!.sections = titreTypeSectionsFormat(
-      t.propsTitreEtapesIds,
+      t.contenusTitreEtapesIds,
       t.demarches
     )
   }
@@ -163,9 +167,11 @@ const titreFormat = (
   }
 
   if (fields.activites && t.activites?.length) {
-    t.activites = t.activites.map(ta =>
-      titreActiviteFormat(ta, fields.activites)
-    )
+    t.activites = t.activites.map(ta => {
+      ta.titre = t
+
+      return titreActiviteFormat(ta, fields.activites)
+    })
   }
 
   if (fields.administrations) {

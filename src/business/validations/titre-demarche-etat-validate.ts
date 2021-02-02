@@ -5,11 +5,12 @@ import {
   demarcheDefinitionFind,
   IDemarcheDefinitionRestrictions
 } from '../rules-demarches/definitions'
-import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
+import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
 import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'
 import { titreEtapeEtatValidate } from './titre-etape-etat-validate'
 import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot-demande-date-find'
+import { objectClone } from '../../tools/index'
 
 const titreDemarcheEtapesBuild = (
   titreEtape: ITitreEtape,
@@ -75,7 +76,7 @@ const titreDemarcheEtatValidate = (
 
   // on copie les démarches car on va les modifier en ajoutant les étapes une à une
   const titreDemarches = titre.demarches
-    ? (JSON.parse(JSON.stringify(titre.demarches)) as ITitreDemarche[])
+    ? (objectClone(titre.demarches) as ITitreDemarche[])
     : []
 
   const titreDemarche = titreDemarches.find(d => d.typeId === demarcheType.id)
@@ -92,15 +93,15 @@ const titreDemarcheEtatValidate = (
     const etapes = titreEtapes.slice(0, i)
     titreDemarche.etapes = etapes
 
-    const propsTitreEtapesIds = propsTitreEtapesIdsFind(
+    const contenusTitreEtapesIds = contenusTitreEtapesIdsFind(
       titre.statutId!,
       titreDemarches!,
-      titre.type!.propsEtapesTypes
+      titre.type!.contenuIds
     )
 
     let contenu = null
-    if (propsTitreEtapesIds) {
-      contenu = titreContenuFormat(propsTitreEtapesIds, titre.demarches)
+    if (contenusTitreEtapesIds) {
+      contenu = titreContenuFormat(contenusTitreEtapesIds, titre.demarches)
     }
 
     const titreEtapeErrors = titreEtapeEtatValidate(

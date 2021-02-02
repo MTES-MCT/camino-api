@@ -75,7 +75,11 @@ const titreActivitesQueryBuild = (
   if (!user?.permissionId) return null
 
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'activite', graphFormat)
+    ? graphBuild(
+        fieldsTitreAdd(fields, { isTitreActivite: true }),
+        'activite',
+        graphFormat
+      )
     : options.titresActivites.graph
 
   const q = TitresActivites.query().withGraphFetched(graph)
@@ -384,7 +388,11 @@ const titreActiviteUpdate = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'activite', graphFormat)
+    ? graphBuild(
+        fieldsTitreAdd(fields, { isTitreActivite: true }),
+        'activite',
+        graphFormat
+      )
     : options.titresActivites.graph
 
   return TitresActivites.query()
@@ -397,7 +405,11 @@ const titreActiviteDelete = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'activite', graphFormat)
+    ? graphBuild(
+        fieldsTitreAdd(fields, { isTitreActivite: true }),
+        'activite',
+        graphFormat
+      )
     : options.titresActivites.graph
 
   return TitresActivites.query().withGraphFetched(graph).deleteById(id)

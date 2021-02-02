@@ -2,7 +2,7 @@ import {
   ITitre,
   ICoordonnees,
   IContenu,
-  ITitrePropsTitreEtapesIds
+  IContenusTitreEtapesIds
 } from '../../../types'
 import { ISpreadsheet } from '../_types'
 import { titresGet } from '../../../database/queries/titres'
@@ -58,12 +58,12 @@ const tables = [
       'substancesTitreEtapeId',
       'communesTitreEtapeId',
       'surfaceTitreEtapeId',
-      'propsTitreEtapesIds',
+      'contenusTitreEtapesIds',
       'publicLecture',
       'entreprisesLecture'
     ],
     callbacks: {
-      propsTitreEtapesIds: (v: ITitrePropsTitreEtapesIds) => JSON.stringify(v),
+      contenusTitreEtapesIds: (v: IContenusTitreEtapesIds) => JSON.stringify(v),
       coordonnees: (v: ICoordonnees) => `${v.x},${v.y}`
     }
   },

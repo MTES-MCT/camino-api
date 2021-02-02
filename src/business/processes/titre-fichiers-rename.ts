@@ -33,7 +33,6 @@ const titreEtapesFilePathsNamesFind = (
 
 const titreFilePathsNamesFind = (
   titreDemarches: ITitreDemarche[] | undefined | null,
-  titreId: string,
   relationsIdsUpdatedIndex: Index<Index<string>>
 ) => {
   if (!titreDemarches?.length) {
@@ -59,7 +58,6 @@ const titreFilePathsRename = async (
 
   const titreFilePathsNames = titreFilePathsNamesFind(
     titre.demarches,
-    titre.id,
     relationsIdsUpdatedIndex
   )
 

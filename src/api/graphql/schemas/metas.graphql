@@ -32,7 +32,7 @@ type TitreType {
   gestionnaire: Boolean
   associee: Boolean
   titresCreation: Boolean
-  propsEtapesTypes: Json
+  contenuIds: Json
 }
 
 "Type de titre minier"
@@ -466,14 +466,14 @@ input InputGeoSysteme {
 
 input InputTitreTypeModification {
   id: ID!
-  propsEtapesTypes: Json
+  contenuIds: Json
 }
 
 input InputTitreTypeCreation {
   id: ID!
   domaineId: String!
   typeId: String!
-  propsEtapesTypes: Json
+  contenuIds: Json
 }
 
 input InputTitreTypeTitreStatut {

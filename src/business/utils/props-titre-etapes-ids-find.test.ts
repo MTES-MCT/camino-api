@@ -1,9 +1,9 @@
-import { propsTitreEtapesIdsFind } from './props-titre-etapes-ids-find'
+import { contenusTitreEtapesIdsFind } from './props-titre-etapes-ids-find'
 
 describe("liste des propriétés et les étapes qui en sont à l'origine", () => {
   test('trouve la liste des propriétés', () => {
     expect(
-      propsTitreEtapesIdsFind(
+      contenusTitreEtapesIdsFind(
         'val',
         [
           {

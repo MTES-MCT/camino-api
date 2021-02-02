@@ -1,10 +1,10 @@
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
+import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 import { objectsDiffer } from '../../tools/index'
 
-const titresPropsContenuUpdate = async (titresIds?: string[]) => {
+const titresContenusEtapesIdsUpdate = async (titresIds?: string[]) => {
   console.info()
   console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
   const queue = new PQueue({ concurrency: 100 })
@@ -16,29 +16,29 @@ const titresPropsContenuUpdate = async (titresIds?: string[]) => {
   )
 
   const titresUpdated = titres.reduce((titresIdsUpdated: string[], titre) => {
-    const propsTitreEtapesIds = propsTitreEtapesIdsFind(
+    const contenusTitreEtapesIds = contenusTitreEtapesIdsFind(
       titre.statutId!,
       titre.demarches!,
-      titre.type!.propsEtapesTypes
+      titre.type!.contenuIds
     )
 
     // si une prop du titre est mise à jour
     const hasChanged =
-      (!titre.propsTitreEtapesIds && propsTitreEtapesIds) ||
-      (titre.propsTitreEtapesIds && !propsTitreEtapesIds) ||
-      (titre.propsTitreEtapesIds &&
-        propsTitreEtapesIds &&
-        objectsDiffer(titre.propsTitreEtapesIds, propsTitreEtapesIds))
+      (!titre.contenusTitreEtapesIds && contenusTitreEtapesIds) ||
+      (titre.contenusTitreEtapesIds && !contenusTitreEtapesIds) ||
+      (titre.contenusTitreEtapesIds &&
+        contenusTitreEtapesIds &&
+        objectsDiffer(titre.contenusTitreEtapesIds, contenusTitreEtapesIds))
 
     if (hasChanged) {
       queue.add(async () => {
         await titreUpdate(titre.id, {
-          propsTitreEtapesIds
+          contenusTitreEtapesIds
         })
 
         const log = {
           type: 'titre : props-contenu-etape (mise à jour) ->',
-          value: `${titre.id} : ${JSON.stringify(propsTitreEtapesIds)}`
+          value: `${titre.id} : ${JSON.stringify(contenusTitreEtapesIds)}`
         }
 
         console.info(log.type, log.value)
@@ -55,4 +55,4 @@ const titresPropsContenuUpdate = async (titresIds?: string[]) => {
   return titresUpdated
 }
 
-export { titresPropsContenuUpdate, propsTitreEtapesIdsFind }
+export { titresContenusEtapesIdsUpdate }

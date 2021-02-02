@@ -4,7 +4,7 @@ import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 const titreDemarcheOctroiDateDebutFind = (
-  titreDemarches: ITitreDemarche[] | null | undefined
+  titreDemarches?: ITitreDemarche[] | null
 ) => {
   if (!titreDemarches || !titreDemarches.length) return '0000'
 

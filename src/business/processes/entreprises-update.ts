@@ -174,4 +174,4 @@ const entreprisesUpdate = async () => {
   return { entreprisesUpdated, etablissementsUpdated, etablissementsDeleted }
 }
 
-export default entreprisesUpdate
+export { entreprisesUpdate }

@@ -1,6 +1,5 @@
 import { IEntreprise, IEntrepriseColonneId, IToken } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
-import * as dateFormat from 'dateformat'
 
 import { debug } from '../../../config/index'
 import {
@@ -66,6 +65,7 @@ const etapeEntreprises = async (
       { fields: { id: {} } },
       'super'
     )
+
     if (!titreEtape) throw new Error("l'étape n'existe pas")
 
     const titreDemarche = await titreDemarcheGet(
@@ -96,23 +96,16 @@ const etapeEntreprises = async (
 
     let entreprises = [] as IEntreprise[]
 
-    if (titreDemarche.etapes) {
-      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+    if (titre.demarches) {
       const titulaires =
-        (titreEtapePropFind(
-          'titulaires',
-          titreEtape,
-          titreDemarche.etapes,
-          aujourdhui,
-          titre.demarches
-        ) as IEntreprise[] | null) || []
+        (titreEtapePropFind('titulaires', titreEtape.date, titre.demarches) as
+          | IEntreprise[]
+          | null) || []
 
       const amodiataires =
         (titreEtapePropFind(
           'amodiataires',
-          titreEtape,
-          titreDemarche.etapes,
-          aujourdhui,
+          titreEtape.date,
           titre.demarches
         ) as IEntreprise[] | null) || []
 

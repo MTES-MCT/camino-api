@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import entrepriseUpdate from './entreprises-update'
+import { entreprisesUpdate } from './entreprises-update'
 import { entreprisesGet } from '../../database/queries/entreprises'
 import { entreprisesEtablissementsGet } from '../../database/queries/entreprises-etablissements'
 import {
@@ -80,7 +80,7 @@ describe('entreprises', () => {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    } = await entrepriseUpdate()
+    } = await entreprisesUpdate()
 
     expect(etablissementsUpdated).toEqual([
       { id: 'pipo', nom: 'pipo' },
@@ -104,7 +104,7 @@ describe('entreprises', () => {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    } = await entrepriseUpdate()
+    } = await entreprisesUpdate()
 
     expect(etablissementsUpdated).toEqual([{ id: 'toto', nom: 'tutu' }])
     expect(etablissementsDeleted.length).toEqual(0)
@@ -126,7 +126,7 @@ describe('entreprises', () => {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    } = await entrepriseUpdate()
+    } = await entreprisesUpdate()
 
     expect(etablissementsUpdated.length).toEqual(0)
     expect(etablissementsDeleted.length).toEqual(1)
@@ -148,7 +148,7 @@ describe('entreprises', () => {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    } = await entrepriseUpdate()
+    } = await entreprisesUpdate()
 
     expect(entreprisesUpdated).toEqual([])
     expect(etablissementsDeleted.length).toEqual(0)
@@ -169,7 +169,7 @@ describe('entreprises', () => {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    } = await entrepriseUpdate()
+    } = await entreprisesUpdate()
 
     expect(etablissementsUpdated.length).toEqual(0)
     expect(etablissementsDeleted.length).toEqual(0)

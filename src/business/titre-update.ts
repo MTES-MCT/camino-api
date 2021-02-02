@@ -1,8 +1,8 @@
-import titresActivitesUpdate from './processes/titres-activites-update'
-import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
-import titresPublicUpdate from './processes/titres-public-update'
+import { titresActivitesUpdate } from './processes/titres-activites-update'
+import { titresAdministrationsGestionnairesUpdate } from './processes/titres-administrations-gestionnaires-update'
+import { titresPublicUpdate } from './processes/titres-public-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
-import updatesLog from './_updates-log'
+import { logsUpdate } from './_logs-update'
 
 const titreUpdate = async (titreId: string) => {
   try {
@@ -23,7 +23,7 @@ const titreUpdate = async (titreId: string) => {
       titreId = titreIdTmp
     }
 
-    updatesLog({
+    logsUpdate({
       titresPublicUpdated,
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted,

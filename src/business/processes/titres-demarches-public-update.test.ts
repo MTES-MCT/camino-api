@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titresDemarchePublicUpdate from './titres-demarches-public-update'
+import { titresDemarchesPublicUpdate } from './titres-demarches-public-update'
 import { titresGet } from '../../database/queries/titres'
 
 import {
@@ -22,14 +22,14 @@ console.info = jest.fn()
 describe("public des démarches d'un titre", () => {
   test("met à jour la publicité d'une démarche", async () => {
     titresGetMock.mockResolvedValue(titresDemarchesPublicModifie)
-    const titresDemarchesPublicUpdated = await titresDemarchePublicUpdate()
+    const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
 
     expect(titresDemarchesPublicUpdated.length).toEqual(1)
   })
 
   test("ne met pas à jour la publicité d'une démarche", async () => {
     titresGetMock.mockResolvedValue(titresDemarchesPublicIdentique)
-    const titresDemarchesPublicUpdated = await titresDemarchePublicUpdate()
+    const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
 
     expect(titresDemarchesPublicUpdated.length).toEqual(0)
   })

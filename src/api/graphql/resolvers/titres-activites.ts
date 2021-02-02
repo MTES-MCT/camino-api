@@ -10,7 +10,10 @@ import * as dateFormat from 'dateformat'
 
 import { titreActiviteEmailsSend } from './_titre-activite'
 import { permissionCheck } from '../../../tools/permission'
-import { titreActiviteFormat } from '../../_format/titres-activites'
+import {
+  titreActiviteContenuFormat,
+  titreActiviteFormat
+} from '../../_format/titres-activites'
 
 import fieldsBuild from './_fields-build'
 
@@ -282,6 +285,7 @@ const activiteModifier = async (
       activite,
       activiteOld.type?.sections
     )
+
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
     }
@@ -295,6 +299,14 @@ const activiteModifier = async (
 
     const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
     activite.dateSaisie = aujourdhui
+
+    if (activite.contenu) {
+      activite.contenu = titreActiviteContenuFormat(
+        activiteOld.sections,
+        activite.contenu,
+        'write'
+      )
+    }
 
     const fields = fieldsBuild(info)
 

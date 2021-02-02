@@ -1,141 +1,290 @@
 import {
-  ITitre,
   ITitreDemarche,
   IActiviteType,
-  ITitreActivite
+  ITitreActivite,
+  ISubstance,
+  ISection,
+  ISubstanceFiscale,
+  ISectionElement
 } from '../../types'
 
 import * as dateFormat from 'dateformat'
-import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
+import { titreValideCheck } from '../utils/titre-valide-check'
+import { titreEtapePropFind } from './titre-etape-prop-find'
+import { objectClone } from '../../tools/index'
+import { metasGet } from '../../database/cache/metas'
+
+const substancesFiscalesFind = (substances: ISubstance[]) =>
+  substances
+    .flatMap(s => s.legales)
+    .flatMap(s => s.fiscales)
+    .reduce((acc: ISubstanceFiscale[], s) => {
+      if (s && !acc.map(({ id }) => id).includes(s.id)) {
+        acc.push(s)
+      }
+
+      return acc
+    }, [])
+
+const titreActiviteSectionElementsFormat = (
+  elements: ISectionElement[],
+  frequencePeriodeId: number,
+  date: string
+) =>
+  elements.reduce((newElements: ISectionElement[], e) => {
+    // ne conserve que les éléments dont
+    // - la période,
+    // - la date de début et la date de fin
+    // correspondent à l'élément
+    if (
+      (!e.frequencePeriodesIds ||
+        e.frequencePeriodesIds.find(id => frequencePeriodeId === id)) &&
+      (!e.dateFin || e.dateFin >= date) &&
+      (!e.dateDebut || e.dateDebut < date)
+    ) {
+      const element = {
+        id: e.id,
+        nom: e.nom,
+        type: e.type,
+        description: e.description
+      } as ISectionElement
+
+      if (e.valeurs) {
+        element.valeurs = objectClone(e.valeurs)
+      } else if (e.valeursMetasNom) {
+        element.valeurs = objectClone(metasGet(e.valeursMetasNom))
+      }
+
+      newElements.push(element)
+    }
+
+    return newElements
+  }, [])
+
+/**
+ * Construit les sections d'une activité en fonction de son type
+ * @param activiteTypeId - id du type d'activité
+ * @param sections - modèle de sections
+ * @param frequencePeriodeId - index de la période concernée (ex: 1 pour le premier trimestre)
+ * @param date - date de l'activité
+ * @param titreDemarches - démarches du titre
+ */
+
+const titreActiviteSectionsBuild = (
+  activiteTypeId: string,
+  sections: ISection[],
+  frequencePeriodeId: number,
+  date: string,
+  titreDemarches: ITitreDemarche[]
+) =>
+  sections.reduce((newSections: ISection[], s) => {
+    let elements = [] as ISectionElement[]
+
+    if (s.elements) {
+      elements = titreActiviteSectionElementsFormat(
+        s.elements,
+        frequencePeriodeId,
+        date
+      )
+    } else if (
+      ['gra', 'grx'].includes(activiteTypeId) &&
+      s.id === 'substancesFiscales'
+    ) {
+      const substances = titreEtapePropFind(
+        'substances',
+        date,
+        titreDemarches
+      ) as ISubstance[] | null
+
+      if (substances?.length) {
+        const substancesFiscales = substancesFiscalesFind(substances)
+
+        elements = substancesFiscales.map(sf => {
+          const element = {
+            id: sf.id,
+            nom: `${sf.nom}`,
+            type: 'number',
+            description: `${sf.description} (<b>${sf.unite!.nom}</b>)`
+          } as ISectionElement
+
+          if (sf.unite!.referenceUniteRatio) {
+            element.referenceUniteRatio = sf.unite!.referenceUniteRatio
+          }
+
+          return element
+        })
+      }
+    }
+
+    if (elements.length) {
+      const section = {
+        id: s.id,
+        elements
+      } as ISection
+
+      if (s.nom) {
+        section.nom = s.nom
+      }
+
+      newSections.push(section)
+    }
+
+    return newSections
+  }, [])
 
 /**
  * Construit une activité
- * @param titreDemarches - démarches d'un titre
- * @param titreStatutId - id du statut du titre
- * @param titreId - id du titre
- * @param typeId - id du type de l'activité
+ * @param activiteType - type d'activité
  * @param annee - année,
- * @param periodeIndex - index de la période concernée (ex: 1 pour le premier trimestre)
- * @param monthsCount - nombre de mois concernés (ex : 3 pour un trimestre)
- * @param aujourdhui - date du jour au format YYYY-MM-JJ
+ * @param frequencePeriodeId - index de la période concernée (ex: 1 pour le premier trimestre)
+ * @param months - nombre de mois concernés (ex : 3 pour un trimestre)
+ * @param aujourdhui - date du jour au format yyyy-mm-jj
+ * @param titreId - id du titre
+ * @param titreDemarches - démarches du titre
+ * @param titreStatutId - id du titre
  * @returns une activité ou null
  */
 
 const titreActiviteBuild = (
-  titreDemarches: ITitreDemarche[],
-  titreStatutId: string,
-  titreId: string,
-  typeId: string,
+  activiteType: IActiviteType,
   annee: number,
-  periodeIndex: number,
-  monthsCount: number,
-  aujourdhui: string
+  frequencePeriodeId: number,
+  months: number,
+  aujourdhui: string,
+  titreId: string,
+  titreDemarches: ITitreDemarche[],
+  titreStatutId?: string | null
 ) => {
-  const frequencePeriodeId = periodeIndex + 1
-
-  const periodeDateFin = dateFormat(
-    new Date(annee, (periodeIndex + 1) * monthsCount, 1),
+  // la date de fin de l'activité est le premier jour du mois
+  // du début de la période suivante, en fonction de la fréquence
+  const date = dateFormat(
+    new Date(annee, frequencePeriodeId * months, 1),
     'yyyy-mm-dd'
   )
 
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
-  if (periodeDateFin > aujourdhui) return null
+  if (date > aujourdhui) return null
 
   // si le statut du titre n'est pas "modification en instance"
-  // - vérifie les dates de validité
+  // - cherche si le titre est valide pendant la durée de l'activité
+
   if (titreStatutId !== 'mod') {
-    const periodeDateDebut = dateFormat(
-      new Date(annee, periodeIndex * monthsCount, 1),
+    const dateDebut = dateFormat(
+      new Date(annee, (frequencePeriodeId - 1) * months, 1),
       'yyyy-mm-dd'
     )
 
-    // vérifie la validité du titre pour la période
-    const titreIsValid = titreValiditePeriodeCheck(
-      titreDemarches,
-      periodeDateDebut,
-      periodeDateFin
-    )
+    const titreIsValide = titreValideCheck(titreDemarches, dateDebut, date)
 
     // le titre n'est pas valide pour cette période
     // on ne crée pas l'activité
-    if (!titreIsValid) return null
+    if (!titreIsValide) return null
+  }
+
+  // le statut de l'activité créée est 'absente'
+  const statutId = 'abs'
+
+  const sections = titreActiviteSectionsBuild(
+    activiteType.id,
+    activiteType.sections,
+    frequencePeriodeId,
+    date,
+    titreDemarches
+  )
+
+  if (!sections.length) {
+    return null
   }
 
   const titreActivite = {
     titreId,
-    // la date de début de l'activité est le premier jour du mois
-    // du début de la période suivante, en fonction de la fréquence
-    date: periodeDateFin,
-    typeId,
-    // le statut de l'activité crée automatiquement
-    // est 'absente'
-    statutId: 'abs',
+    date,
+    typeId: activiteType.id,
+    statutId,
     frequencePeriodeId,
-    annee
+    annee,
+    sections
   } as ITitreActivite
 
   return titreActivite
 }
 
+const activiteFind = (
+  activiteTypeId: string,
+  annee: number,
+  periodeId: number,
+  titreActivites?: ITitreActivite[] | null
+) =>
+  !!titreActivites?.length &&
+  titreActivites.find(
+    a =>
+      a.typeId === activiteTypeId &&
+      a.annee === annee &&
+      a.frequencePeriodeId === periodeId
+  )
+
 /**
  * Construit les activités à ajouter sur un titre
- * @param titre - titre
+ * @param titreId - id du titre
  * @param activiteType - type d'activité
- * @param annees - liste des années
+ * @param annees - années pour lesquelles des activités sont à créer
  * @param aujourdhui - date du jour au format yyyy-mm-dd
+ * @param titreStatutId - id du statut du titre
+ * @param titreDemarches - demarches du titre
  * @returns une liste d'activités
  */
 
 const titreActivitesBuild = (
-  titre: ITitre,
   activiteType: IActiviteType,
   annees: number[],
-  aujourdhui: string
+  aujourdhui: string,
+  titreId: string,
+  titreStatutId?: string | null,
+  titreDemarches?: ITitreDemarche[] | null,
+  titreActivites?: ITitreActivite[] | null
 ) => {
+  // si le titre n'a pas de phases de démarches
+  // aucune activité ne peut être créées
+  if (!titreDemarches?.some(d => d.phase)) return []
+
   const periods = activiteType.frequence![activiteType.frequence!.periodesNom!]!
-  const monthsCount = 12 / periods.length
+  const months = 12 / periods.length
 
-  const { activites: titreActivites } = titre
-
-  const periodsIndices = [...new Array(periods.length)]
+  const periodsIndexes = [...new Array(periods.length)]
 
   return annees.reduce(
     (titreActivitesNew: ITitreActivite[], annee) =>
-      periodsIndices.reduce((titreActivitesNew, e, periodeIndex) => {
-        // cherche si l'activité existe déjà dans le titre
-        let titreActivite =
-          titreActivites &&
-          titreActivites.find(
-            a =>
-              a.typeId === activiteType.id &&
-              a.annee === annee &&
-              a.frequencePeriodeId === periodeIndex + 1
-          )
+      periodsIndexes.reduce((acc: ITitreActivite[], _, i) => {
+        const periodeIndex = i + 1
 
-        // la ligne d'activité existe déjà pour le titre
-        // il n'est pas nécessaire de la créer
-        if (titreActivite) return titreActivitesNew
+        // si l'activité existe déjà
+        // ne la créée pas
+        if (
+          activiteFind(activiteType.id, annee, periodeIndex, titreActivites)
+        ) {
+          return acc
+        }
 
-        titreActivite = titreActiviteBuild(
-          titre.demarches!,
-          titre.statutId!,
-          titre.id,
-          activiteType.id,
+        const titreActivite = titreActiviteBuild(
+          activiteType,
           annee,
           periodeIndex,
-          monthsCount,
-          aujourdhui
+          months,
+          aujourdhui,
+          titreId,
+          titreDemarches!,
+          titreStatutId
         )
 
         if (titreActivite) {
-          titreActivitesNew.push(titreActivite)
+          acc.push(titreActivite)
         }
 
-        return titreActivitesNew
+        return acc
       }, titreActivitesNew),
     []
   )
 }
 
-export { titreActivitesBuild }
+export { titreActivitesBuild, titreActiviteSectionsBuild }

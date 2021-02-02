@@ -5,7 +5,7 @@ import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
-const titresDemarchesStatutUpdate = async (titresIds?: string[]) => {
+const titresDemarchesStatutIdUpdate = async (titresIds?: string[]) => {
   console.info()
   console.info('statut des démarches…')
 
@@ -58,4 +58,4 @@ const titresDemarchesStatutUpdate = async (titresIds?: string[]) => {
   return titresDemarchesUpdated
 }
 
-export default titresDemarchesStatutUpdate
+export { titresDemarchesStatutIdUpdate }

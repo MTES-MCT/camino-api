@@ -23,7 +23,7 @@ exports.up = knex =>
     table.string('substancesTitreEtapeId', 128)
     table.string('communesTitreEtapeId', 128)
     table.string('doublonTitreId', 128)
-    table.jsonb('propsTitreEtapesIds')
+    table.jsonb('contenusTitreEtapesIds')
     table.specificType('coordonnees', 'POINT').index(null, 'GIST')
   })
 
