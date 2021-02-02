@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 import { ITitreActivite } from '../../types'
 
-import titresActivitesTypesUpdate from './titres-activites-update'
+import { titresActivitesUpdate } from './titres-activites-update'
 
 import { titreActiviteTypeCheck } from '../utils/titre-activite-type-check'
 import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
@@ -60,7 +60,7 @@ describe("activités d'un titre", () => {
     activiteTypeAnneesFindMock.mockReturnValue([2018])
     titreActivitesBuildMock.mockReturnValue([{}] as ITitreActivite[])
 
-    const titresActivitesNew = await titresActivitesTypesUpdate()
+    const titresActivitesNew = await titresActivitesUpdate()
 
     expect(titresActivitesNew.length).toEqual(1)
 
@@ -78,7 +78,7 @@ describe("activités d'un titre", () => {
     activiteTypeAnneesFindMock.mockReturnValue([2018])
     titreActivitesBuildMock.mockReturnValue([])
 
-    const titresActivitesNew = await titresActivitesTypesUpdate()
+    const titresActivitesNew = await titresActivitesUpdate()
 
     expect(titresActivitesNew.length).toEqual(0)
 
@@ -93,7 +93,7 @@ describe("activités d'un titre", () => {
     titreActiviteTypeCheckMock.mockReturnValue(false)
     activiteTypeAnneesFindMock.mockReturnValue([2018])
 
-    const titresActivitesNew = await titresActivitesTypesUpdate()
+    const titresActivitesNew = await titresActivitesUpdate()
 
     expect(titresActivitesNew.length).toEqual(0)
 
@@ -108,7 +108,7 @@ describe("activités d'un titre", () => {
     titreActiviteTypeCheckMock.mockReturnValue(false)
     activiteTypeAnneesFindMock.mockReturnValue([])
 
-    const titresActivitesNew = await titresActivitesTypesUpdate()
+    const titresActivitesNew = await titresActivitesUpdate()
 
     expect(titresActivitesNew.length).toEqual(0)
 

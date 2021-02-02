@@ -1,8 +1,8 @@
-import { ITitreDemarche, ITitreEtapeProp } from '../../types'
+import { ITitreDemarche, IPropId } from '../../types'
 
 import {
-  titreContenuEtapeFind,
-  titrePropEtapeFind
+  titreContenuTitreEtapeFind,
+  titrePropTitreEtapeFind
 } from './titre-prop-etape-find'
 
 import {
@@ -24,7 +24,7 @@ import {
 describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
   test("trouve l'id de la dernière étape acceptée de la démarche d'octroi acceptée ayant la propriété 'points'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesOctPointsMut.demarches,
         titreDemarchesOctPointsMut.statutId
@@ -34,7 +34,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("ne trouve pas d'id si la dernière étape acceptée de la dernière démarche acceptée possède une propriété 'points' vide", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesOctPointsVides.demarches,
         titreDemarchesOctPointsVides.statutId
@@ -44,7 +44,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("trouve l'id de la dernière étape acceptée de la démarche de mutation acceptée ayant la propriété 'points'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesOctMutPoints.demarches,
         titreDemarchesOctMutPoints.statutId
@@ -54,7 +54,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("ne trouve pas d'id si aucune étape acceptée ne contient la propriété 'communes'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'communes',
         titreDemarchesOctMutPoints.demarches,
         titreDemarchesOctMutPoints.statutId
@@ -64,7 +64,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("trouve l'id de la dernière étape acceptée de la dernière démarche d'octroi en instruction ayant la propriété 'points'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesOctPointsMutInstruction.demarches,
         titreDemarchesOctPointsMutInstruction.statutId
@@ -74,7 +74,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("ne trouve pas d'id si l'étape est rejetée", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesOctAccDpuRej.demarches,
         titreDemarchesOctAccDpuRej.statutId
@@ -84,7 +84,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("trouve l'id de la dernière étape de formalisation de la demande de la dernière démarche d'octroi acceptée ayant la propriété 'points'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesOctMfrPoints.demarches,
         titreDemarchesOctMfrPoints.statutId
@@ -94,7 +94,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("trouve l'id de la dernière étape de dpu d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient un périmètre et le titre a le statut 'modification en instance' et aucune phase n'est valide", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesProPointsModPhaseEch.demarches,
         titreDemarchesProPointsModPhaseEch.statutId
@@ -104,7 +104,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("ne trouve pas l'id de la dernière étape de dpu d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient un périmètre et le titre a le statut 'modification en instance' mais la phase est encore valide", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesProPointsModPhaseVal.demarches,
         titreDemarchesProPointsModPhaseVal.statutId
@@ -114,7 +114,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("ne trouve pas l'id de la dernière étape de dpu car aucune démarche de prolongation ou de demande de titre en instruction ne contient de périmètre et le titre a le statut 'modification en instance'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'points',
         titreDemarchesMutPointsMod.demarches,
         titreDemarchesMutPointsMod.statutId
@@ -122,17 +122,12 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     ).toBeNull()
   })
 
-  test.each([
-    'points',
-    'surface',
-    'substances',
-    'communes'
-  ] as ITitreEtapeProp[])(
+  test.each(['points', 'surface', 'substances', 'communes'] as IPropId[])(
     "trouve l'id de la dernière étape de n’importe quel type d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient la propriété %s et le titre a le statut 'modification en instance' et aucune phase n'est valide",
-    prop => {
+    propId => {
       expect(
-        titrePropEtapeFind(
-          prop,
+        titrePropTitreEtapeFind(
+          propId,
           titreDemarchesProModPhaseEch.demarches,
           titreDemarchesProModPhaseEch.statutId
         )?.id
@@ -140,12 +135,12 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     }
   )
 
-  test.each(['titulaires', 'administrations'] as ITitreEtapeProp[])(
+  test.each(['titulaires', 'administrations'] as IPropId[])(
     "ne trouve pas l'id de la mod car la propriété %s n’est pas modifiée par cette étape",
-    prop => {
+    propId => {
       expect(
-        titrePropEtapeFind(
-          prop,
+        titrePropTitreEtapeFind(
+          propId,
           titreDemarchesProModPhaseEch.demarches,
           titreDemarchesProModPhaseEch.statutId
         )?.id
@@ -157,7 +152,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("trouve pas d'id si la démarche de l'étape contenant la propriété 'amodiataires' a une phase valide", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'amodiataires',
         titreDemarchesOctAmodiatairesPassee.demarches,
         titreDemarchesOctAmodiatairesPassee.statutId
@@ -167,7 +162,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("trouve l'id de dernière étape contenant la propriété 'amodiataires' dont la démarche précédente a une phase valide", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'amodiataires',
         titreDemarchesOctAmodiatairesValide.demarches,
         titreDemarchesOctAmodiatairesValide.statutId
@@ -177,7 +172,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
   test("ne trouve pas l'id de la dernière étape contenant la propriété 'amodiataires'", () => {
     expect(
-      titrePropEtapeFind(
+      titrePropTitreEtapeFind(
         'amodiataires',
         titreDemarchesOctAmodiatairesMod.demarches,
         titreDemarchesOctAmodiatairesMod.statutId
@@ -188,13 +183,13 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
 
 describe("id de l'étape qui a un contenu", () => {
   test("retourne null si aucune étape n'est trouvé", () => {
-    const etape1 = titreContenuEtapeFind(
+    const etape1 = titreContenuTitreEtapeFind(
       { sectionId: 'arm', elementId: 'mecanisee' },
       [{ id: 'demarche-id', etapes: [{ id: 'etape-id' }] }] as ITitreDemarche[],
       'val'
     )
 
-    const etape2 = titreContenuEtapeFind(
+    const etape2 = titreContenuTitreEtapeFind(
       { sectionId: 'arm', elementId: 'mecanisee' },
       [
         {
@@ -206,7 +201,7 @@ describe("id de l'étape qui a un contenu", () => {
       'val'
     )
 
-    const etape3 = titreContenuEtapeFind(
+    const etape3 = titreContenuTitreEtapeFind(
       { sectionId: 'arm', elementId: 'mecanisee' },
       [
         {
@@ -240,7 +235,7 @@ describe("id de l'étape qui a un contenu", () => {
   })
 
   test("retourne l'id de l'étape si elle existe", () => {
-    const etape1 = titreContenuEtapeFind(
+    const etape1 = titreContenuTitreEtapeFind(
       { sectionId: 'arm', elementId: 'mecanisee' },
       [
         {
@@ -276,7 +271,7 @@ describe("id de l'étape qui a un contenu", () => {
       'val'
     )
 
-    const etape2 = titreContenuEtapeFind(
+    const etape2 = titreContenuTitreEtapeFind(
       { sectionId: 'arm', elementId: 'mecanisee' },
       [
         {

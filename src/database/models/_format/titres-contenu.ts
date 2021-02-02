@@ -7,7 +7,7 @@ import {
 
 const titreContenuFormat = (
   contenusTitreEtapesIds: IContenusTitreEtapesIds,
-  titreDemarches?: ITitreDemarche[] | undefined | null
+  titreDemarches?: ITitreDemarche[] | null
 ) => {
   if (!contenusTitreEtapesIds || !titreDemarches?.length) return {}
 

@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titresPhasesUpdate from './titres-phases-update'
+import { titresPhasesUpdate } from './titres-phases-update'
 import * as queries from '../../database/queries/titres-phases'
 import { titresGet } from '../../database/queries/titres'
 

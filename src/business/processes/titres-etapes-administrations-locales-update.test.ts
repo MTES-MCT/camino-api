@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 
-import titresEtapeAdministrationsLocalesUpdate from './titres-etapes-administrations-locales-update'
+import { titresEtapesAdministrationsLocalesUpdate } from './titres-etapes-administrations-locales-update'
 
 import * as titreEtapes from '../../database/queries/titres-etapes'
 import { titresGet } from '../../database/queries/titres'
@@ -43,7 +43,7 @@ describe("administrations d'une étape", () => {
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapeAdministrationsLocalesUpdate()
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
@@ -55,7 +55,7 @@ describe("administrations d'une étape", () => {
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapeAdministrationsLocalesUpdate()
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(1)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
@@ -70,7 +70,7 @@ describe("administrations d'une étape", () => {
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapeAdministrationsLocalesUpdate()
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
@@ -85,7 +85,7 @@ describe("administrations d'une étape", () => {
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapeAdministrationsLocalesUpdate()
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
@@ -99,7 +99,7 @@ describe("administrations d'une étape", () => {
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapeAdministrationsLocalesUpdate()
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(1)
@@ -111,7 +111,7 @@ describe("administrations d'une étape", () => {
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapeAdministrationsLocalesUpdate()
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)

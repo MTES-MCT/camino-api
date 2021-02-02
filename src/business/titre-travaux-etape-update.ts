@@ -1,7 +1,7 @@
 import { titreTravauxGet } from '../database/queries/titres-travaux'
-import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
-import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
-import updatesLog from './_updates-log'
+import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
+import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
+import { logsUpdate } from './_logs-update'
 
 const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
   try {
@@ -27,7 +27,7 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
     const titreId = titreTravaux.titreId
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
 
-    updatesLog({
+    logsUpdate({
       titresTravauxEtapesOrdreUpdated,
       titresTravauxOrdreUpdated
     })

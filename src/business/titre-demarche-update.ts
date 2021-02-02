@@ -1,17 +1,17 @@
 import { titreGet } from '../database/queries/titres'
 
-import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
-import titresActivitesUpdate from './processes/titres-activites-update'
-import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
-import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
-import { titresPropsContenuUpdate } from './processes/titres-props-contenu-update'
-import titresPhasesUpdate from './processes/titres-phases-update'
-import titresDatesUpdate from './processes/titres-dates-update'
-import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
-import titresPublicUpdate from './processes/titres-public-update'
+import { titresDemarchesPublicUpdate } from './processes/titres-demarches-public-update'
+import { titresActivitesUpdate } from './processes/titres-activites-update'
+import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
+import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
+import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etapes-ids-update'
+import { titresPhasesUpdate } from './processes/titres-phases-update'
+import { titresDatesUpdate } from './processes/titres-dates-update'
+import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-update'
+import { titresPublicUpdate } from './processes/titres-public-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
-import updatesLog from './_updates-log'
-import titresCoordonneesUpdate from './processes/titres-coordonnees-update'
+import { logsUpdate } from './_logs-update'
+import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 
 const titreDemarcheUpdate = async (
   titreDemarcheId: string | null,
@@ -55,7 +55,9 @@ const titreDemarcheUpdate = async (
     const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
       titreId
     ])
-    const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
+    const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate([
+      titreId
+    ])
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
 
@@ -66,7 +68,7 @@ const titreDemarcheUpdate = async (
       titreId = titreIdTmp
     }
 
-    updatesLog({
+    logsUpdate({
       titresDemarchesPublicUpdated,
       titresDemarchesOrdreUpdated,
       titresStatutIdUpdated,
@@ -75,7 +77,7 @@ const titreDemarcheUpdate = async (
       titresPhasesDeleted,
       titresDatesUpdated,
       titresPropsEtapesIdsUpdated,
-      titresPropsContenuUpdated,
+      titresContenusEtapesIdsUpdated,
       titresCoordonneesUpdated,
       titresActivitesCreated,
       titresUpdatedIndex

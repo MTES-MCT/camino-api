@@ -1,24 +1,12 @@
 import { objectClone } from '../../tools/index'
-import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
+import { ITitreDemarche, ITitreEtape, IPropId } from '../../types'
+import { propValueFind } from '../utils/prop-value-find'
 
-import { titrePropEtapeFind } from './titre-prop-etape-find'
+import { titrePropTitreEtapeFind } from './titre-prop-etape-find'
 import { titreStatutIdFind } from './titre-statut-id-find'
 
-const propFind = (titreEtape: ITitreEtape, prop: ITitreEtapeProp) => {
-  const value = titreEtape[prop]
-  if (
-    value !== undefined &&
-    value !== null &&
-    (!Array.isArray(value) || value.length)
-  ) {
-    return titreEtape[prop]
-  }
-
-  return null
-}
-
 /**
- * filtre les étapes antérieures à une date
+ * Filtre les étapes antérieures à une date
  * @param titreEtapes - étapes d'une démarche
  * @param date - date
  */
@@ -26,7 +14,7 @@ const titreEtapesDateFilter = (titreEtapes: ITitreEtape[], date: string) =>
   titreEtapes.filter(titreEtape => titreEtape.date <= date)
 
 /**
- * filtre les démarches et étapes antérieures à une date
+ * Filtre les démarches et étapes antérieures à une date
  * @param titreDemarches - démarches du titre
  * @param date - date
  */
@@ -56,13 +44,13 @@ const titreDemarchesEtapesFilter = (
 
 /**
  * Trouve la propriété d'un titre à une date donnée
- * @param prop - propriété recherchée
+ * @param propId - propriété recherchée
  * @param date - date
  * @param titreDemarches - démarches du titre
  * @returns la ou les propriétés recherchées ou null
  */
 const titreEtapePropFind = (
-  prop: ITitreEtapeProp,
+  propId: IPropId,
   date: string,
   titreDemarches: ITitreDemarche[]
 ) => {
@@ -78,14 +66,14 @@ const titreEtapePropFind = (
 
   // cherche la première occurrence de la propriété
   // dans une démarche et une étape valides
-  const titreEtape = titrePropEtapeFind(
-    prop,
+  const titreEtape = titrePropTitreEtapeFind(
+    propId,
     titreDemarchesFiltered,
-    titreStatutId!
+    titreStatutId
   )
 
   if (titreEtape) {
-    return propFind(titreEtape, prop)
+    return propValueFind(titreEtape, propId)
   }
 
   return null

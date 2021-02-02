@@ -95,4 +95,4 @@ const administrationsUpdate = async (administrationsIds?: string[]) => {
   return administrationsUpdated
 }
 
-export default administrationsUpdate
+export { administrationsUpdate }

@@ -1,22 +1,22 @@
 import { IArea } from '../types'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 
-import titresActivitesUpdate from './processes/titres-activites-update'
-import titresDatesUpdate from './processes/titres-dates-update'
-import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
-import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
-import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
+import { titresActivitesUpdate } from './processes/titres-activites-update'
+import { titresDatesUpdate } from './processes/titres-dates-update'
+import { titresDemarchesPublicUpdate } from './processes/titres-demarches-public-update'
+import { titresDemarchesStatutIdUpdate } from './processes/titres-demarches-statut-ids-update'
+import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-update'
 import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
-import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
-import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
-import titresPhasesUpdate from './processes/titres-phases-update'
-import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
-import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
-import { titresPropsContenuUpdate } from './processes/titres-props-contenu-update'
+import { titresEtapesOrdreUpdate } from './processes/titres-etapes-ordre-update'
+import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
+import { titresPhasesUpdate } from './processes/titres-phases-update'
+import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
+import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
+import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etapes-ids-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
-import titresPublicUpdate from './processes/titres-public-update'
-import updatesLog from './_updates-log'
-import titresCoordonneesUpdate from './processes/titres-coordonnees-update'
+import { titresPublicUpdate } from './processes/titres-public-update'
+import { logsUpdate } from './_logs-update'
+import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -95,7 +95,9 @@ const titreEtapeUpdate = async (
     const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
       titreId
     ])
-    const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
+    const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate([
+      titreId
+    ])
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
 
@@ -105,7 +107,7 @@ const titreEtapeUpdate = async (
     if (titreIdTmp) {
       titreId = titreIdTmp
     }
-    updatesLog({
+    logsUpdate({
       titresEtapesOrdreUpdated,
       titresDemarchesStatutUpdated,
       titresDemarchesPublicUpdated,
@@ -124,7 +126,7 @@ const titreEtapeUpdate = async (
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted,
       titresPropsEtapesIdsUpdated,
-      titresPropsContenuUpdated,
+      titresContenusEtapesIdsUpdated,
       titresCoordonneesUpdated,
       titresActivitesCreated,
       titresUpdatedIndex

@@ -7,7 +7,7 @@ import {
   IEntreprise
 } from '../types'
 
-const updatesLog = ({
+const logsUpdate = ({
   titresEtapesOrdreUpdated,
   titresDemarchesStatutUpdated,
   titresDemarchesPublicUpdated,
@@ -29,7 +29,7 @@ const updatesLog = ({
   titresEtapesAdministrationsLocalesCreated,
   titresEtapesAdministrationsLocalesDeleted,
   titresPropsEtapesIdsUpdated,
-  titresPropsContenuUpdated,
+  titresContenusEtapesIdsUpdated,
   titresCoordonneesUpdated,
   titresTravauxEtapesOrdreUpdated,
   titresTravauxOrdreUpdated,
@@ -62,7 +62,7 @@ const updatesLog = ({
   titresEtapesAdministrationsLocalesCreated?: ITitreAdministrationLocale[]
   titresEtapesAdministrationsLocalesDeleted?: ITitreAdministrationLocale[]
   titresPropsEtapesIdsUpdated?: string[]
-  titresPropsContenuUpdated?: string[]
+  titresContenusEtapesIdsUpdated?: string[]
   titresCoordonneesUpdated?: string[]
   titresTravauxEtapesOrdreUpdated?: string[]
   titresTravauxOrdreUpdated?: string[]
@@ -199,9 +199,9 @@ const updatesLog = ({
     )
   }
 
-  if (titresPropsContenuUpdated?.length) {
+  if (titresContenusEtapesIdsUpdated?.length) {
     console.info(
-      `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
+      `mise à jour: ${titresContenusEtapesIdsUpdated.length} titres(s) (contenu)`
     )
   }
 
@@ -266,4 +266,4 @@ const updatesLog = ({
   }
 }
 
-export default updatesLog
+export { logsUpdate }

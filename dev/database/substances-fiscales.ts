@@ -1,17 +1,17 @@
 import 'dotenv/config'
 import knex from '../../src/init'
-import { objectClone } from '../../src/tools/index'
+import { ISubstanceFiscale, IUnite } from '../../src/types'
 
 import SubstancesFiscales from '../../src/database/models/substances-fiscales'
-import { ISubstanceFiscale, IUnite } from '../../src/types'
 import Unites from '../../src/database/models/unites'
-
 import ActivitesTypes from '../../src/database/models/activites-types'
 import {
   titresActivitesGet,
   titresActivitesUpsert
 } from '../../src/database/queries/titres-activites'
 import { activitesTypesGet } from '../../src/database/queries/metas-activites'
+import { titresGet } from '../../src/database/queries/titres'
+import { titreActiviteSectionsBuild } from '../../src/business/rules/titre-activites-build'
 
 async function main() {
   await knex.schema.alterTable('unites', table => {
@@ -94,6 +94,22 @@ async function main() {
     'super'
   )
 
+  const titresIds = titresActivites.map(ta => ta.titreId)
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        demarches: {
+          etapes: {
+            substances: { legales: { fiscales: { unite: { id: {} } } } }
+          }
+        }
+      }
+    },
+    'super'
+  )
+
   for (const ta of titresActivites) {
     if (
       ['gra', 'grx'].includes(ta.typeId) &&
@@ -110,11 +126,15 @@ async function main() {
     }
 
     const activiteType = activitesTypes.find(at => at.id === ta.typeId)!
+    const titre = titres.find(t => t.id === ta.titreId)!
 
-    ta.sections = objectClone(activiteType.sections)
-
-    // if (['grx'].includes(ta.typeId)) {
-    // }
+    ta.sections = titreActiviteSectionsBuild(
+      activiteType.id,
+      activiteType.sections,
+      ta.frequencePeriodeId,
+      ta.date,
+      titre.demarches!
+    )
   }
   await titresActivitesUpsert(titresActivites)
 

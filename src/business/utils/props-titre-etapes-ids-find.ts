@@ -3,7 +3,7 @@ import {
   IContenusTitreEtapesIds,
   IContenuId
 } from '../../types'
-import { titreContenuEtapeFind } from '../rules/titre-prop-etape-find'
+import { titreContenuTitreEtapeFind } from '../rules/titre-prop-etape-find'
 
 const contenusTitreEtapesIdsFind = (
   titreStatutId: string,
@@ -18,7 +18,7 @@ const contenusTitreEtapesIdsFind = (
       { sectionId, elementId }
     ) => {
       // trouve l'id de l'étape qui contient l'élément dans la section
-      const titreEtape = titreContenuEtapeFind(
+      const titreEtape = titreContenuTitreEtapeFind(
         { sectionId, elementId },
         titreDemarches,
         titreStatutId

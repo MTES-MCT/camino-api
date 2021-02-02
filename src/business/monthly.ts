@@ -1,6 +1,6 @@
-import administrationsUpdate from './processes/administrations-update'
-import entreprisesUpdate from './processes/entreprises-update'
-import updatesLog from './_updates-log'
+import { administrationsUpdate } from './processes/administrations-update'
+import { entreprisesUpdate } from './processes/entreprises-update'
+import { logsUpdate } from './_logs-update'
 
 const monthly = async () => {
   try {
@@ -19,7 +19,7 @@ const monthly = async () => {
     // mise à jour des administrations grâce à l'API Administration
     const administrationsUpdated = await administrationsUpdate()
 
-    updatesLog({
+    logsUpdate({
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted,

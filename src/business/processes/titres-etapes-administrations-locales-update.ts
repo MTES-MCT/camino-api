@@ -305,4 +305,4 @@ const titresEtapesAdministrationsLocalesUpdate = async (
   }
 }
 
-export default titresEtapesAdministrationsLocalesUpdate
+export { titresEtapesAdministrationsLocalesUpdate }

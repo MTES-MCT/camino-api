@@ -2,12 +2,8 @@
 // de la dernière démarche acceptée
 // pour laquelle la propriété existe
 
-import {
-  ITitreDemarche,
-  ITitreEtape,
-  ITitreEtapeProp,
-  IContenuId
-} from '../../types'
+import { ITitreDemarche, ITitreEtape, IPropId, IContenuId } from '../../types'
+import { propValueFind } from '../utils/prop-value-find'
 import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
@@ -43,20 +39,20 @@ const etapeValideCheck = (
   titreEtape: ITitreEtape,
   titreDemarcheTypeId: string,
   titreStatutId?: string,
-  prop?: ITitreEtapeProp
+  propId?: IPropId
 ) =>
   ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
   (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId
     ) ||
-    (prop &&
+    (propId &&
       titreStatutId &&
-      ['points', 'surface', 'substances', 'communes'].includes(prop) &&
+      ['points', 'surface', 'substances', 'communes'].includes(propId) &&
       titreStatutId === 'mod'))
 
-const etapePropFind = (
-  prop: ITitreEtapeProp,
+const titreDemarchePropTitreEtapeFind = (
+  propId: IPropId,
   titreDemarcheEtapes: ITitreEtape[],
   titreDemarcheTypeId: string,
   titreStatutId: string,
@@ -67,21 +63,16 @@ const etapePropFind = (
       titreEtape,
       titreDemarcheTypeId,
       titreStatutId,
-      prop
+      propId
     )
 
     if (!isEtapeValide) return false
 
-    // trouve une étape qui contient la propriété
-    const isPropFound =
-      titreEtape[prop] &&
-      (!Array.isArray(titreEtape[prop]) ||
-        // la propriété ne doit pas être vide si c'est un tableau
-        (titreEtape[prop] as []).length)
+    const prop = propValueFind(titreEtape, propId)
 
-    if (!isPropFound) return false
+    if (prop === null) return false
 
-    if (prop === 'amodiataires') {
+    if (propId === 'amodiataires') {
       return etapeAmodiataireFind(titreEtape, titreDemarches)
     }
 
@@ -89,7 +80,7 @@ const etapePropFind = (
   }) || null
 
 // retourne la première étape valide qui contient l'élément dans la section
-const etapeContenuFind = (
+const titreDemarcheContenuTitreEtapeFind = (
   { sectionId, elementId }: IContenuId,
   titreDemarcheEtapes: ITitreEtape[],
   titreDemarcheTypeId: string
@@ -123,20 +114,20 @@ const demarcheEligibleCheck = (
 
 /**
  * Trouve l'id de l'étape de référence pour une propriété
- * @param prop - nom de la propriété
+ * @param propId - nom de la propriété
  * @param titreDemarches - démarches du titre
  * @param titreStatutId - statut du titre
  * @returns id d'une etape
  */
 
-const titrePropEtapeFind = (
-  prop: ITitreEtapeProp,
+const titrePropTitreEtapeFind = (
+  propId: IPropId,
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
 ) => {
   const titreDemarchesSorted = titreDemarchesSortAsc(titreDemarches).reverse()
 
-  return titreDemarchesSorted.reduce(
+  const titreEtape = titreDemarchesSorted.reduce(
     (etape: ITitreEtape | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
       if (etape) return etape
@@ -153,8 +144,8 @@ const titrePropEtapeFind = (
         return null
       }
 
-      return etapePropFind(
-        prop,
+      return titreDemarchePropTitreEtapeFind(
+        propId,
         titreDemarche.etapes!,
         titreDemarche.typeId,
         titreStatutId,
@@ -163,6 +154,8 @@ const titrePropEtapeFind = (
     },
     null
   )
+
+  return titreEtape
 }
 
 /**
@@ -173,14 +166,14 @@ const titrePropEtapeFind = (
  * @returns une étape ou null
  */
 
-const titreContenuEtapeFind = (
+const titreContenuTitreEtapeFind = (
   { sectionId, elementId }: IContenuId,
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
 ) => {
   const titreDemarchesSorted = titreDemarchesSortAsc(titreDemarches).reverse()
 
-  return titreDemarchesSorted.reduce(
+  const titreEtape = titreDemarchesSorted.reduce(
     (etape: ITitreEtape | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
       if (etape) return etape
@@ -196,7 +189,7 @@ const titreContenuEtapeFind = (
         return null
       }
 
-      return etapeContenuFind(
+      return titreDemarcheContenuTitreEtapeFind(
         { sectionId, elementId },
         titreDemarche.etapes!,
         titreDemarche.typeId
@@ -204,6 +197,8 @@ const titreContenuEtapeFind = (
     },
     null
   )
+
+  return titreEtape
 }
 
-export { titrePropEtapeFind, titreContenuEtapeFind }
+export { titrePropTitreEtapeFind, titreContenuTitreEtapeFind }

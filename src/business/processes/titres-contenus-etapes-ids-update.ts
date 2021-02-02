@@ -4,7 +4,7 @@ import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 import { objectsDiffer } from '../../tools/index'
 
-const titresPropsContenuUpdate = async (titresIds?: string[]) => {
+const titresContenusEtapesIdsUpdate = async (titresIds?: string[]) => {
   console.info()
   console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
   const queue = new PQueue({ concurrency: 100 })
@@ -55,4 +55,4 @@ const titresPropsContenuUpdate = async (titresIds?: string[]) => {
   return titresUpdated
 }
 
-export { titresPropsContenuUpdate, contenusTitreEtapesIdsFind }
+export { titresContenusEtapesIdsUpdate }

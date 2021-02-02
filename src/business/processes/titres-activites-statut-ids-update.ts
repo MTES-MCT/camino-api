@@ -7,7 +7,7 @@ import {
 import { titreActiviteStatutIdFind } from '../rules/titre-activite-statut-id-find'
 
 // met à jour le statut des activités d'un titre
-const titreActivitesStatutIdsUpdate = async () => {
+const titresActivitesStatutIdsUpdate = async () => {
   console.info()
   console.info('statut des activités…')
   const queue = new PQueue({
@@ -44,4 +44,4 @@ const titreActivitesStatutIdsUpdate = async () => {
   return titresActivitesUpdated
 }
 
-export default titreActivitesStatutIdsUpdate
+export { titresActivitesStatutIdsUpdate }

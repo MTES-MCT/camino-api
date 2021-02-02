@@ -52,8 +52,7 @@ const titreActiviteSectionElementsFormat = (
       if (e.valeurs) {
         element.valeurs = objectClone(e.valeurs)
       } else if (e.valeursMetasNom) {
-        const valeurs = metasGet(e.valeursMetasNom)
-        element.valeurs = objectClone(valeurs)
+        element.valeurs = objectClone(metasGet(e.valeursMetasNom))
       }
 
       newElements.push(element)
@@ -291,4 +290,4 @@ const titreActivitesBuild = (
   )
 }
 
-export { titreActivitesBuild }
+export { titreActivitesBuild, titreActiviteSectionsBuild }

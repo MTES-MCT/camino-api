@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titresEtapesOrdreUpdate from './titres-etapes-ordre-update'
+import { titresEtapesOrdreUpdate } from './titres-etapes-ordre-update'
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 

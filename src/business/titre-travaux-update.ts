@@ -1,5 +1,5 @@
 import { titreGet } from '../database/queries/titres'
-import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
+import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 
 const titreTravauxUpdate = async (titreId: string) => {
   try {

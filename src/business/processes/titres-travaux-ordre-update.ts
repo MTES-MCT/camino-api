@@ -54,4 +54,4 @@ const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
   return titresTravauxIdsUpdated
 }
 
-export default titresTravauxOrdreUpdate
+export { titresTravauxOrdreUpdate }

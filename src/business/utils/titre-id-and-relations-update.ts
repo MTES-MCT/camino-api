@@ -6,7 +6,7 @@ import titreEtapesSortAsc from './titre-etapes-sort-asc'
 import { titrePropsEtapes } from '../processes/titres-props-etapes-ids-update'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 
-const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)
+const titreEtapeIdPropIds = titrePropsEtapes.map(p => p.titreEtapeIdPropId)
 
 const titreIdFind = (titre: ITitre) => {
   const { domaineId, type, nom } = titre
@@ -74,7 +74,7 @@ const titreRelation = {
           relations: [
             {
               name: 'titre',
-              props: titrePropsEtapesNames,
+              props: titreEtapeIdPropIds,
               path: []
             },
             {

@@ -1,7 +1,7 @@
-import administrationsUpdate from './processes/administrations-update'
-import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
-import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
-import updatesLog from './_updates-log'
+import { administrationsUpdate } from './processes/administrations-update'
+import { titresAdministrationsGestionnairesUpdate } from './processes/titres-administrations-gestionnaires-update'
+import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
+import { logsUpdate } from './_logs-update'
 
 const administrationUpdate = async (administrationId: string) => {
   try {
@@ -23,7 +23,7 @@ const administrationUpdate = async (administrationId: string) => {
       titresEtapesAdministrationsLocalesDeleted
     } = await titresEtapesAdministrationsLocalesUpdate()
 
-    updatesLog({
+    logsUpdate({
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted,
       titresEtapesAdministrationsLocalesCreated,

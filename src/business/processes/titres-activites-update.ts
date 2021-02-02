@@ -16,13 +16,19 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
     { ids: titresIds },
     {
       fields: {
-        demarches: { phase: { id: {} } },
+        demarches: {
+          phase: { id: {} },
+          etapes: {
+            substances: { legales: { fiscales: { unite: { id: {} } } } }
+          }
+        },
         communes: { departement: { region: { pays: { id: {} } } } },
         activites: { id: {} }
       }
     },
     'super'
   )
+
   const activitesTypes = await activitesTypesGet({}, 'super')
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
   const annee = new Date().getFullYear()
@@ -71,4 +77,4 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
   return titresActivitesCreated.map(ta => ta.id)
 }
 
-export default titresActivitesUpdate
+export { titresActivitesUpdate }
