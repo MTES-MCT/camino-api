@@ -18,7 +18,6 @@ type Activite {
   annee: Int
   sections: Json
   contenu: Json
-  frequencePeriodeId: Int
   documents: [Document]
 
   modification: Boolean

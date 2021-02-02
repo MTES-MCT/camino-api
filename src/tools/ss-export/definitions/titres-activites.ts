@@ -20,7 +20,7 @@ const tables = [
       'sections',
       'typeId',
       'statutId',
-      'frequencePeriodeId',
+      'periodeId',
       'annee'
     ],
     callbacks: {

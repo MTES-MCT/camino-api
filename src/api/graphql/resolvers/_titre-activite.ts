@@ -117,7 +117,7 @@ const titreActiviteEmailTitleFormat = (
   `${titreNom} | ${activite.type!.nom}, ${
     activite.type?.frequence?.periodesNom
       ? activite.type.frequence[activite.type.frequence.periodesNom]![
-          activite.frequencePeriodeId - 1
+          activite.periodeId - 1
         ].nom
       : ''
   } ${activite.annee}`

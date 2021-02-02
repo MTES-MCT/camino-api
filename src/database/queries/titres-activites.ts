@@ -193,7 +193,7 @@ const titresActivitesColonnes = {
     groupBy: false
   },
   annee: { id: 'annee' },
-  periode: { id: 'frequencePeriodeId' },
+  periode: { id: 'periodeId' },
   statut: { id: 'statutId' }
 } as Index<IColonne<string | Objection.RawBuilder>>
 

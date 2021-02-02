@@ -17,7 +17,7 @@ class TitresActivites extends Model {
       'date',
       'typeId',
       'statutId',
-      'frequencePeriodeId',
+      'periodeId',
       'annee'
     ],
 
@@ -30,7 +30,7 @@ class TitresActivites extends Model {
       contenu: { type: 'json' },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
-      frequencePeriodeId: { type: 'integer' },
+      periodeId: { type: 'integer' },
       annee: { type: 'integer', maxLength: 4 },
       sections: { type: 'json' }
     }
@@ -103,10 +103,10 @@ class TitresActivites extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    if (!json.id && json.titreId && json.typeId && json.frequencePeriodeId) {
+    if (!json.id && json.titreId && json.typeId && json.periodeId) {
       const id = `${json.titreId}-${json.typeId}-${
         json.annee
-      }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
+      }-${json.periodeId.toString().padStart(2, '0')}`
       json.id = id
     }
 

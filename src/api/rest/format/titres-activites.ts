@@ -47,7 +47,7 @@ const titresActivitesFormatTable = (activites: ITitreActivite[]) =>
       statut: activite.statut!.nom,
       annee: activite.annee,
       periode: activite.periode!.nom,
-      frequence_periode_id: activite.frequencePeriodeId,
+      periode_id: activite.periodeId,
       ...contenu
     }
   })

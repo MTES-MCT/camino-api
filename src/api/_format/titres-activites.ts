@@ -61,13 +61,13 @@ const titreActiviteFormat = (
   // alors la période de l'activité en cours est définie
   if (
     fields.periode &&
-    ta.frequencePeriodeId &&
+    ta.periodeId &&
     ta.type?.frequence?.periodesNom &&
     ta.type.frequence[ta.type.frequence.periodesNom] &&
     ta.type.frequence[ta.type.frequence.periodesNom]!.length
   ) {
     ta.periode = ta.type.frequence[ta.type.frequence.periodesNom]!.find(
-      p => p.id === ta.frequencePeriodeId
+      p => p.id === ta.periodeId
     ) as IAnnee | ITrimestre | IMois
   }
 

@@ -93,9 +93,7 @@
             "type": "checkboxes",
             "id": "1",
             "nom": "Janvier",
-            "frequencePeriodesIds": [
-              1
-            ],
+            "periodesIds": [1],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -124,9 +122,7 @@
             "type": "checkboxes",
             "id": "2",
             "nom": "Février",
-            "frequencePeriodesIds": [
-              1
-            ],
+            "periodesIds": [1],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -155,9 +151,7 @@
             "type": "checkboxes",
             "id": "3",
             "nom": "Mars",
-            "frequencePeriodesIds": [
-              1
-            ],
+            "periodesIds": [1],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -186,9 +180,7 @@
             "type": "checkboxes",
             "id": "4",
             "nom": "Avril",
-            "frequencePeriodesIds": [
-              2
-            ],
+            "periodesIds": [2],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -217,9 +209,7 @@
             "type": "checkboxes",
             "id": "5",
             "nom": "Mai",
-            "frequencePeriodesIds": [
-              2
-            ],
+            "periodesIds": [2],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -248,9 +238,7 @@
             "type": "checkboxes",
             "id": "6",
             "nom": "Juin",
-            "frequencePeriodesIds": [
-              2
-            ],
+            "periodesIds": [2],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -279,9 +267,7 @@
             "type": "checkboxes",
             "id": "7",
             "nom": "Juillet",
-            "frequencePeriodesIds": [
-              3
-            ],
+            "periodesIds": [3],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -310,9 +296,7 @@
             "type": "checkboxes",
             "id": "8",
             "nom": "Août",
-            "frequencePeriodesIds": [
-              3
-            ],
+            "periodesIds": [3],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -341,9 +325,7 @@
             "type": "checkboxes",
             "id": "9",
             "nom": "Septembre",
-            "frequencePeriodesIds": [
-              3
-            ],
+            "periodesIds": [3],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -372,9 +354,7 @@
             "type": "checkboxes",
             "id": "10",
             "nom": "Octobre",
-            "frequencePeriodesIds": [
-              4
-            ],
+            "periodesIds": [4],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -403,9 +383,7 @@
             "type": "checkboxes",
             "id": "11",
             "nom": "Novembre",
-            "frequencePeriodesIds": [
-              4
-            ],
+            "periodesIds": [4],
             "valeurs": [
               {
                 "id": "nonDebutes",
@@ -434,9 +412,7 @@
             "type": "checkboxes",
             "id": "12",
             "nom": "Décembre",
-            "frequencePeriodesIds": [
-              4
-            ],
+            "periodesIds": [4],
             "valeurs": [
               {
                 "id": "nonDebutes",

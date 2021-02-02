@@ -92,7 +92,6 @@ fragment activite on Activite {
   annee
   sections
   contenu
-  frequencePeriodeId
 }
 
 fragment demarche on Demarche {

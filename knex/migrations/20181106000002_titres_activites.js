@@ -23,7 +23,7 @@ exports.up = knex =>
       .references('activitesStatuts.id')
       .notNullable()
     table.integer('annee', 4)
-    table.integer('frequencePeriodeId', 2)
+    table.integer('periodeId', 2)
   })
 
 exports.down = knex => knex.schema.dropTable('titresActivites')

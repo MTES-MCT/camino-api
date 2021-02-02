@@ -104,7 +104,9 @@ interface ISectionElement {
   description?: string | null
   dateDebut?: string | null
   dateFin?: string | null
-  frequencePeriodesIds?: number[] | null
+  periodesIds?: number[] | null
+  // à supprimer après la migration
+  frequencesPeriodesIds?: number[] | null
   valeurs?: { id: string; nom: string }[] | null
   valeursMetasNom?: IValeurMetasNom
   referenceUniteRatio?: number
@@ -370,7 +372,6 @@ interface IForet {
 interface IPeriode {
   id: number
   nom: string
-  frequenceId: string
   frequence: IFrequence
 }
 
@@ -586,7 +587,7 @@ interface ITitreActivite {
   type?: IActiviteType | null
   statutId: string
   statut?: IActiviteStatut | null
-  frequencePeriodeId: number
+  periodeId: number
   annee: number
   periode?: IAnnee | ITrimestre | IMois | null
   utilisateurId?: string | null

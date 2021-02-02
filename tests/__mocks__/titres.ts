@@ -16,7 +16,7 @@ const titreWithActiviteGrp = {
       date: '2020-10-01',
       typeId: 'grp',
       statutId: 'abs',
-      frequencePeriodeId: 3,
+      periodeId: 3,
       annee: 2020,
       utilisateurId: null,
       sections: [
@@ -206,7 +206,7 @@ const titreActivites = {
       typeId: 'grp',
       date: '2020-01-01',
       statutId: 'dep',
-      frequencePeriodeId: 1,
+      periodeId: 1,
       annee: 2020,
       sections: [
         {
@@ -235,7 +235,7 @@ const titreActivites = {
       typeId: 'gra',
       date: '2020-01-01',
       statutId: 'dep',
-      frequencePeriodeId: 1,
+      periodeId: 1,
       annee: 2020,
       sections: [
         {

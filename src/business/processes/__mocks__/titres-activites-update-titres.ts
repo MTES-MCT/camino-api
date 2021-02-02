@@ -12,22 +12,10 @@ const titresToutesActivites = [
   {
     id: 'h-cx-courdemanges-1988',
     activites: [
-      {
-        annee: 2018,
-        frequencePeriodeId: 1
-      },
-      {
-        annee: 2018,
-        frequencePeriodeId: 2
-      },
-      {
-        annee: 2018,
-        frequencePeriodeId: 3
-      },
-      {
-        annee: 2018,
-        frequencePeriodeId: 4
-      }
+      { annee: 2018, periodeId: 1 },
+      { annee: 2018, periodeId: 2 },
+      { annee: 2018, periodeId: 3 },
+      { annee: 2018, periodeId: 4 }
     ]
   }
 ] as Titres[]

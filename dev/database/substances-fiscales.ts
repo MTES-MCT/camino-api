@@ -41,6 +41,7 @@ async function main() {
 
   await knex.schema.alterTable('titresActivites', table => {
     table.specificType('sections', 'jsonb[]')
+    table.renameColumn('frequencePeriodeId', 'periodeId')
   })
 
   await Unites.query().upsertGraph(unites, { insertMissing: true })
@@ -56,6 +57,7 @@ async function main() {
     'super'
   )
 
+  // activité type gra
   const activiteTypeGra = activitesTypes.find(at => at.id === 'gra')!
 
   const graSection = activiteTypeGra.sections!.find(
@@ -73,6 +75,7 @@ async function main() {
 
   console.info(`type d'activité gra modifié`)
 
+  // activité type grx
   const activiteTypeGrx = activitesTypes.find(at => at.id === 'grx')!
 
   const grxSection = activiteTypeGrx.sections!.find(
@@ -85,6 +88,23 @@ async function main() {
   await ActivitesTypes.query().patchAndFetchById('grx', activiteTypeGrx)
 
   console.info(`type d'activité grx modifié`)
+
+  // activité type grp
+  const activiteTypeGrp = activitesTypes.find(at => at.id === 'grp')!
+
+  const grpSection = activiteTypeGrp.sections!.find(
+    ({ id }) => id === 'travaux'
+  )!
+
+  grpSection.elements!.forEach(e => {
+    e.periodesIds = e.frequencesPeriodesIds
+
+    delete e.frequencesPeriodesIds
+  })
+
+  await ActivitesTypes.query().patchAndFetchById('grp', activiteTypeGrp)
+
+  console.info(`type d'activité grp modifié`)
 
   const titresActivites = await titresActivitesGet({}, { fields: {} }, 'super')
 
@@ -125,7 +145,7 @@ async function main() {
     ta.sections = titreActiviteSectionsBuild(
       activiteType.id,
       activiteType.sections,
-      ta.frequencePeriodeId,
+      ta.periodeId,
       ta.date,
       titre.demarches!
     )

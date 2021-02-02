@@ -86,9 +86,7 @@ describe("construction des activités d'un titre", () => {
       'titre-id',
       undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche],
-      [
-        { typeId: 'gra', annee: 2018, frequencePeriodeId: 1 }
-      ] as ITitreActivite[]
+      [{ typeId: 'gra', annee: 2018, periodeId: 1 }] as ITitreActivite[]
     )
 
     expect(res.length).toEqual(0)

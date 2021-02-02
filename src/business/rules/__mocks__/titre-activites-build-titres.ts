@@ -35,7 +35,7 @@ const activiteTypeGrp = ({
           valeursMetasNom: 'unites',
           dateDebut: '2018-07-01',
           description: 'Description champs 3',
-          frequencePeriodesIds: [3]
+          periodesIds: [3]
         }
       ]
     }
@@ -48,7 +48,7 @@ const titreActivitesGra = [
     date: '2019-01-01',
     typeId: 'gra',
     statutId: 'abs',
-    frequencePeriodeId: 1,
+    periodeId: 1,
     annee: 2018,
     sections: [
       {
@@ -79,7 +79,7 @@ const titreActivitesGrp = [
     date: '2018-04-01',
     typeId: 'grp',
     statutId: 'abs',
-    frequencePeriodeId: 1,
+    periodeId: 1,
     annee: 2018,
     sections: [
       {
@@ -108,7 +108,7 @@ const titreActivitesGrp = [
     date: '2018-07-01',
     typeId: 'grp',
     statutId: 'abs',
-    frequencePeriodeId: 2,
+    periodeId: 2,
     annee: 2018,
     sections: [
       {
@@ -130,7 +130,7 @@ const titreActivitesGrp = [
     date: '2018-10-01',
     typeId: 'grp',
     statutId: 'abs',
-    frequencePeriodeId: 3,
+    periodeId: 3,
     annee: 2018,
     sections: [
       {
@@ -162,7 +162,7 @@ const titreActivitesGrp = [
     date: '2019-01-01',
     typeId: 'grp',
     statutId: 'abs',
-    frequencePeriodeId: 4,
+    periodeId: 4,
     annee: 2018,
     sections: [
       {

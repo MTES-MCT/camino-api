@@ -28,7 +28,7 @@ const substancesFiscalesFind = (substances: ISubstance[]) =>
 
 const titreActiviteSectionElementsFormat = (
   elements: ISectionElement[],
-  frequencePeriodeId: number,
+  periodeId: number,
   date: string
 ) =>
   elements.reduce((newElements: ISectionElement[], e) => {
@@ -37,8 +37,7 @@ const titreActiviteSectionElementsFormat = (
     // - la date de début et la date de fin
     // correspondent à l'élément
     if (
-      (!e.frequencePeriodesIds ||
-        e.frequencePeriodesIds.find(id => frequencePeriodeId === id)) &&
+      (!e.periodesIds || e.periodesIds.find(id => periodeId === id)) &&
       (!e.dateFin || e.dateFin >= date) &&
       (!e.dateDebut || e.dateDebut < date)
     ) {
@@ -65,7 +64,7 @@ const titreActiviteSectionElementsFormat = (
  * Construit les sections d'une activité en fonction de son type
  * @param activiteTypeId - id du type d'activité
  * @param sections - modèle de sections
- * @param frequencePeriodeId - index de la période concernée (ex: 1 pour le premier trimestre)
+ * @param periodeId - id de la fréquence de la période (ex: 1 pour le premier trimestre)
  * @param date - date de l'activité
  * @param titreDemarches - démarches du titre
  */
@@ -73,7 +72,7 @@ const titreActiviteSectionElementsFormat = (
 const titreActiviteSectionsBuild = (
   activiteTypeId: string,
   sections: ISection[],
-  frequencePeriodeId: number,
+  periodeId: number,
   date: string,
   titreDemarches: ITitreDemarche[]
 ) =>
@@ -81,11 +80,7 @@ const titreActiviteSectionsBuild = (
     let elements = [] as ISectionElement[]
 
     if (s.elements) {
-      elements = titreActiviteSectionElementsFormat(
-        s.elements,
-        frequencePeriodeId,
-        date
-      )
+      elements = titreActiviteSectionElementsFormat(s.elements, periodeId, date)
     } else if (
       ['gra', 'grx'].includes(activiteTypeId) &&
       s.id === 'substancesFiscales'
@@ -104,7 +99,8 @@ const titreActiviteSectionsBuild = (
             id: sf.id,
             nom: `${sf.nom}`,
             type: 'number',
-            description: `${sf.description} (<b>${sf.unite!.nom}</b>)`
+            description: `${sf.description} (<b>${sf.unite!.nom}</b>)`,
+            uniteId: sf.uniteId
           } as ISectionElement
 
           if (sf.unite!.referenceUniteRatio) {
@@ -132,46 +128,25 @@ const titreActiviteSectionsBuild = (
     return newSections
   }, [])
 
-/**
- * Construit une activité
- * @param activiteType - type d'activité
- * @param annee - année,
- * @param frequencePeriodeId - index de la période concernée (ex: 1 pour le premier trimestre)
- * @param months - nombre de mois concernés (ex : 3 pour un trimestre)
- * @param aujourdhui - date du jour au format yyyy-mm-jj
- * @param titreId - id du titre
- * @param titreDemarches - démarches du titre
- * @param titreStatutId - id du titre
- * @returns une activité ou null
- */
-
-const titreActiviteBuild = (
-  activiteType: IActiviteType,
-  annee: number,
-  frequencePeriodeId: number,
-  months: number,
+const titreActiviteIsValideCheck = (
+  date: string,
   aujourdhui: string,
-  titreId: string,
+  periodeId: number,
+  annee: number,
+  months: number,
   titreDemarches: ITitreDemarche[],
   titreStatutId?: string | null
 ) => {
-  // la date de fin de l'activité est le premier jour du mois
-  // du début de la période suivante, en fonction de la fréquence
-  const date = dateFormat(
-    new Date(annee, frequencePeriodeId * months, 1),
-    'yyyy-mm-dd'
-  )
-
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
-  if (date > aujourdhui) return null
+  if (date > aujourdhui) return false
 
   // si le statut du titre n'est pas "modification en instance"
   // - cherche si le titre est valide pendant la durée de l'activité
 
   if (titreStatutId !== 'mod') {
     const dateDebut = dateFormat(
-      new Date(annee, (frequencePeriodeId - 1) * months, 1),
+      new Date(annee, (periodeId - 1) * months, 1),
       'yyyy-mm-dd'
     )
 
@@ -179,38 +154,13 @@ const titreActiviteBuild = (
 
     // le titre n'est pas valide pour cette période
     // on ne crée pas l'activité
-    if (!titreIsValide) return null
+    if (!titreIsValide) return false
   }
 
-  // le statut de l'activité créée est 'absente'
-  const statutId = 'abs'
-
-  const sections = titreActiviteSectionsBuild(
-    activiteType.id,
-    activiteType.sections,
-    frequencePeriodeId,
-    date,
-    titreDemarches
-  )
-
-  if (!sections.length) {
-    return null
-  }
-
-  const titreActivite = {
-    titreId,
-    date,
-    typeId: activiteType.id,
-    statutId,
-    frequencePeriodeId,
-    annee,
-    sections
-  } as ITitreActivite
-
-  return titreActivite
+  return true
 }
 
-const activiteFind = (
+const titreActiviteFind = (
   activiteTypeId: string,
   annee: number,
   periodeId: number,
@@ -221,8 +171,75 @@ const activiteFind = (
     a =>
       a.typeId === activiteTypeId &&
       a.annee === annee &&
-      a.frequencePeriodeId === periodeId
+      a.periodeId === periodeId
   )
+
+/**
+ * Construit une activité (si elle n'existe pas déjà)
+ * @param typeId - id du type d'activité
+ * @param periodeId - id de la période (exemple: 2 pour le 2ème trimestre)
+ * @param activiteTypeSections - sections du type d'activité
+ * @param annee - année
+ * @param months - nombre de mois dans la période (exemple: 3 si la période est le trimestre)
+ * @param aujourdhui - date du jour au format yyyy-mm-jj
+ * @param titreId - id du titre
+ * @param titreDemarches - démarches du titre
+ * @param titreStatutId - id du statut du titre
+ * @param titreActivites - activités existantes du titres
+ */
+
+const titreActiviteBuild = (
+  typeId: string,
+  periodeId: number,
+  activiteTypeSections: ISection[],
+  annee: number,
+  months: number,
+  aujourdhui: string,
+  titreId: string,
+  titreDemarches: ITitreDemarche[],
+  titreStatutId?: string | null,
+  titreActivites?: ITitreActivite[] | null
+) => {
+  // si l'activité existe déjà
+  // ne la créée pas
+  if (titreActiviteFind(typeId, annee, periodeId, titreActivites)) return null
+
+  // la date de fin de l'activité est le premier jour du mois
+  // du début de la période suivante, en fonction de la fréquence
+  const date = dateFormat(new Date(annee, periodeId * months, 1), 'yyyy-mm-dd')
+
+  const titreActiviteIsValide = titreActiviteIsValideCheck(
+    date,
+    aujourdhui,
+    periodeId,
+    annee,
+    months,
+    titreDemarches,
+    titreStatutId
+  )
+
+  if (!titreActiviteIsValide) return null
+
+  const sections = titreActiviteSectionsBuild(
+    typeId,
+    activiteTypeSections,
+    periodeId,
+    date,
+    titreDemarches
+  )
+
+  if (!sections.length) return null
+
+  return {
+    titreId,
+    date,
+    typeId: typeId,
+    statutId: 'abs',
+    periodeId,
+    annee,
+    sections
+  } as ITitreActivite
+}
 
 /**
  * Construit les activités à ajouter sur un titre
@@ -248,33 +265,26 @@ const titreActivitesBuild = (
   // aucune activité ne peut être créées
   if (!titreDemarches?.some(d => d.phase)) return []
 
-  const periods = activiteType.frequence![activiteType.frequence!.periodesNom!]!
-  const months = 12 / periods.length
+  const periodes = activiteType.frequence![
+    activiteType.frequence!.periodesNom!
+  ]!
+  const months = 12 / periodes.length
+  const periodesIndexes = [...new Array(periodes.length)]
 
-  const periodsIndexes = [...new Array(periods.length)]
-
-  return annees.reduce(
+  const titresActivites = annees.reduce(
     (titreActivitesNew: ITitreActivite[], annee) =>
-      periodsIndexes.reduce((acc: ITitreActivite[], _, i) => {
-        const periodeIndex = i + 1
-
-        // si l'activité existe déjà
-        // ne la créée pas
-        if (
-          activiteFind(activiteType.id, annee, periodeIndex, titreActivites)
-        ) {
-          return acc
-        }
-
+      periodesIndexes.reduce((acc: ITitreActivite[], _, i) => {
         const titreActivite = titreActiviteBuild(
-          activiteType,
+          activiteType.id,
+          i + 1,
+          activiteType.sections,
           annee,
-          periodeIndex,
           months,
           aujourdhui,
           titreId,
-          titreDemarches!,
-          titreStatutId
+          titreDemarches,
+          titreStatutId,
+          titreActivites
         )
 
         if (titreActivite) {
@@ -285,6 +295,8 @@ const titreActivitesBuild = (
       }, titreActivitesNew),
     []
   )
+
+  return titresActivites
 }
 
 export { titreActivitesBuild, titreActiviteSectionsBuild }
