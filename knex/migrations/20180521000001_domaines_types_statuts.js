@@ -24,7 +24,7 @@ exports.up = knex =>
         .index()
         .references('titresTypesTypes.id')
         .notNullable()
-      table.specificType('props_etapes_types', 'jsonb[]')
+      table.specificType('contenuIds', 'jsonb[]')
       table.boolean('archive')
       table.unique(['domaineId', 'typeId'])
     })

@@ -86,13 +86,7 @@ async function main() {
 
   console.info(`type d'activité gra modifié`)
 
-  const titresActivites = await titresActivitesGet(
-    {},
-    {
-      fields: { titre: { substances: { legales: { fiscales: { id: {} } } } } }
-    },
-    'super'
-  )
+  const titresActivites = await titresActivitesGet({}, { fields: {} }, 'super')
 
   const titresIds = titresActivites.map(ta => ta.titreId)
 

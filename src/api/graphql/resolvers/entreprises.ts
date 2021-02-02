@@ -109,6 +109,8 @@ const etapeEntreprises = async (
           titre.demarches
         ) as IEntreprise[] | null) || []
 
+      console.log('boum', titulaires)
+
       entreprises = [...titulaires, ...amodiataires]
     }
 

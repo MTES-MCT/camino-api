@@ -123,7 +123,7 @@ const metas = {
   tables: [
     { name: 'definitions' },
     { name: 'domaines' },
-    { name: 'titres_types', cb: { props_etapes_types: JSON.parse } },
+    { name: 'titres_types', cb: { contenuIds: JSON.parse } },
     { name: 'titres_types_types' },
     { name: 'titres_statuts' },
     { name: 'titres_types__titres_statuts' },
