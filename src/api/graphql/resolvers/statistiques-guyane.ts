@@ -12,7 +12,11 @@ const statistiquesGuyaneActivitesBuild = (
 ) =>
   titresActivites.reduce((acc: { [key: string]: number }, ta) => {
     acc.rapportProductionOrCount++
-    if (ta.statutId === 'dep') acc.activitesDeposesQuantiteCount++
+
+    if (ta.statutId === 'dep') {
+      acc.activitesDeposesQuantiteCount++
+    }
+
     Object.keys(acc).forEach(prop => {
       if (
         ta.contenu &&
@@ -24,7 +28,8 @@ const statistiquesGuyaneActivitesBuild = (
           ta.titre!.typeId === 'cxm')
       ) {
         const value = ta.contenu![sectionId][prop]
-        acc[prop] += Math.abs(Number(value))
+
+        acc[prop] += Number(value)
       }
     })
 
@@ -143,7 +148,7 @@ const statistiquesGuyaneAnneeBuild = (
     'substancesFiscales',
     titresActivitesGraFiltered,
     {
-      orNet: 0,
+      auru: 0,
       activitesDeposesQuantiteCount: 0,
       rapportProductionOrCount: 0
     }
@@ -168,7 +173,7 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm,
-    orNet: Math.floor(statistiquesActivitesGra.orNet / 1000),
+    orNet: Math.floor(statistiquesActivitesGra.auru),
     carburantConventionnel: Math.floor(
       statistiquesActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres
