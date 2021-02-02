@@ -209,10 +209,10 @@ type AdministrationType {
 "Unité"
 type Unite {
   id: ID!
-
   nom: String!
-
   symbole: String!
+  referenceUniteId: ID
+  referenceUniteRatio: Float
 }
 
 "Devise"
@@ -432,6 +432,8 @@ input InputUnite {
   id: ID!
   nom: String
   symbole: String
+  referenceUniteId: ID
+  referenceUniteRatio: Float
 }
 
 input InputAdministrationType {
