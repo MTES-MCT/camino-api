@@ -5,7 +5,7 @@ import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { ITitre, ITitreActivite } from '../../../types'
 import { titresSurfaceIndexBuild } from './statistiques'
 
-const statistiquesGuyaneActivitesGet = (
+const statistiquesGuyaneActivitesBuild = (
   sectionId: string,
   titresActivites: ITitreActivite[],
   init: { [key: string]: number }
@@ -122,7 +122,7 @@ const statistiquesGuyaneAnneeBuild = (
   const titresActivitesGrpFiltered = titresActivites.filter(
     ta => ta.annee === annee && ta.typeId === 'grp'
   )
-  const statistiquesActivitesGrp = statistiquesGuyaneActivitesGet(
+  const statistiquesActivitesGrp = statistiquesGuyaneActivitesBuild(
     'renseignements',
     titresActivitesGrpFiltered,
     {
@@ -139,7 +139,7 @@ const statistiquesGuyaneAnneeBuild = (
   const titresActivitesGraFiltered = titresActivites.filter(
     ta => ta.annee === annee && (ta.typeId === 'gra' || ta.typeId === 'grx')
   )
-  const statistiquesActivitesGra = statistiquesGuyaneActivitesGet(
+  const statistiquesActivitesGra = statistiquesGuyaneActivitesBuild(
     'substancesFiscales',
     titresActivitesGraFiltered,
     {
@@ -168,7 +168,7 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm,
-    orNet: Math.floor(statistiquesActivitesGra.auru / 1000), // conversion 1000g = 1kg
+    orNet: Math.floor(statistiquesActivitesGra.orNet / 1000),
     carburantConventionnel: Math.floor(
       statistiquesActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres
@@ -210,11 +210,7 @@ const statistiquesGuyane = async () => {
 
     const titresActivites = await titresActivitesGet(
       { titresTerritoires: 'guyane', annees, typesIds: ['grp', 'gra'] },
-      {
-        fields: {
-          titre: { id: {} }
-        }
-      },
+      { fields: { titre: { id: {} } } },
       'super'
     )
 
