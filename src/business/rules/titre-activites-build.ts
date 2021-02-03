@@ -131,6 +131,17 @@ const titreActiviteSectionsBuild = (
     return newSections
   }, [])
 
+/**
+ * Vérifie si une activité doit exister
+ * @param date - date de l'activité au format yyyy-mm-dd
+ * @param aujourdhui - date du jour au format yyyy-mm-dd
+ * @param periodeId - id de la période (ex: 1 pour le premier trimestre)
+ * @param annee - année
+ * @param months - nombre de mois dans la période (ex: 3 pour un trimestre)
+ * @param titreDemarches - démarches du titre
+ * @param titreStatutId - statut du titre
+ */
+
 const titreActiviteIsValideCheck = (
   date: string,
   aujourdhui: string,
@@ -302,4 +313,8 @@ const titreActivitesBuild = (
   return titresActivites
 }
 
-export { titreActivitesBuild, titreActiviteSectionsBuild }
+export {
+  titreActivitesBuild,
+  titreActiviteSectionsBuild,
+  titreActiviteIsValideCheck
+}

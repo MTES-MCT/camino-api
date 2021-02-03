@@ -3,7 +3,7 @@ import { Transaction } from 'objection'
 
 import TitresTravaux from '../models/titres-travaux'
 import options from './_options'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 
@@ -16,7 +16,7 @@ const titresTravauxGet = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
     : options.titresTravaux.graph
 
   const q = TitresTravaux.query().withGraphFetched(graph)
@@ -33,7 +33,7 @@ const titreTravauxGet = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
     : options.titresTravaux.graph
 
   const q = TitresTravaux.query()
@@ -48,7 +48,7 @@ const titreTravauxCreate = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
     : options.titresTravaux.graph
 
   return TitresTravaux.query()
@@ -62,7 +62,7 @@ const titreTravauxUpdate = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
     : options.titresTravaux.graph
 
   return TitresTravaux.query()

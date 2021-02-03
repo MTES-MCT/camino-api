@@ -11,7 +11,7 @@ import options from './_options'
 import { utilisateursPermissionQueryBuild } from './permissions/utilisateurs'
 
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { raw } from 'objection'
 
 import { stringSplit } from './_utils'
@@ -48,7 +48,7 @@ const utilisateursQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'utilisateur', graphFormat)
+    ? graphBuild(fields, 'utilisateur', fieldsFormat)
     : options.utilisateurs.graph
 
   const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
@@ -103,7 +103,7 @@ const userByEmailGet = async (
   { fields }: { fields?: IFields } = {}
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'utilisateur', graphFormat)
+    ? graphBuild(fields, 'utilisateur', fieldsFormat)
     : options.utilisateurs.graph
 
   return Utilisateurs.query()
@@ -117,7 +117,7 @@ const userByRefreshTokenGet = async (
   { fields }: { fields?: IFields } = {}
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'utilisateur', graphFormat)
+    ? graphBuild(fields, 'utilisateur', fieldsFormat)
     : options.utilisateurs.graph
 
   return Utilisateurs.query()
@@ -273,7 +273,7 @@ const utilisateurCreate = async (
     .insertGraph(utilisateur, options.utilisateurs.update)
     .withGraphFetched(
       fields
-        ? graphBuild(fields, 'utilisateur', graphFormat)
+        ? graphBuild(fields, 'utilisateur', fieldsFormat)
         : options.utilisateurs.graph
     )
     .first()
@@ -286,7 +286,7 @@ const utilisateurUpsert = async (
     .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
     .withGraphFetched(
       fields
-        ? graphBuild(fields, 'utilisateur', graphFormat)
+        ? graphBuild(fields, 'utilisateur', fieldsFormat)
         : options.utilisateurs.graph
     )
 
@@ -298,7 +298,7 @@ const utilisateurUpdate = async (
   Utilisateurs.query()
     .withGraphFetched(
       fields
-        ? graphBuild(fields, 'utilisateur', graphFormat)
+        ? graphBuild(fields, 'utilisateur', fieldsFormat)
         : options.utilisateurs.graph
     )
     .patchAndFetchById(id, props)

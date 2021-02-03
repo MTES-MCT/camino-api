@@ -16,7 +16,7 @@ import TitresAdministrationsLocales from '../models/titres-administrations-local
 import options from './_options'
 import { titreEtapesPermissionQueryBuild } from './permissions/titres-etapes'
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 import TitresForets from '../models/titres-forets'
 
@@ -34,7 +34,7 @@ const titresEtapesQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'etapes', graphFormat)
+    ? graphBuild(fields, 'etapes', fieldsFormat)
     : options.titresEtapes.graph
 
   const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)

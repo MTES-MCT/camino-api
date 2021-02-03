@@ -3,7 +3,7 @@ import { IFields, IUtilisateur, ITitreTravauxEtape } from '../../types'
 
 import options from './_options'
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 import TitresTravauxEtapes from '../models/titres-travaux-etapes'
 import { titreTravauxEtapesPermissionQueryBuild } from './permissions/titres-travaux-etapes'
@@ -22,7 +22,7 @@ const titresTravauxEtapesQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'etapes', graphFormat)
+    ? graphBuild(fields, 'etapes', fieldsFormat)
     : options.titresTravauxEtapes.graph
 
   const q = TitresTravauxEtapes.query().skipUndefined().withGraphFetched(graph)

@@ -47,7 +47,7 @@ import AdministrationsTypes from '../models/administrations-types'
 
 import options from './_options'
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 
 import { userGet } from './utilisateurs'
 
@@ -109,7 +109,7 @@ const domainesGet = async (
   const user = await userGet(userId)
 
   const graph = fields
-    ? graphBuild(fields, 'titre', graphFormat)
+    ? graphBuild(fields, 'titre', fieldsFormat)
     : options.domaines.graph
 
   const q = Domaines.query().withGraphFetched(graph).orderBy('ordre')
@@ -124,7 +124,7 @@ const domaineUpdate = async (id: string, props: Partial<IDomaine>) =>
 
 const titresTypesGet = async (_: never, { fields }: { fields?: IFields }) => {
   const graph = fields
-    ? graphBuild(fields, 'titresTypes', graphFormat)
+    ? graphBuild(fields, 'titresTypes', fieldsFormat)
     : options.titresTypes.graph
 
   return TitresTypes.query().withGraphFetched(graph).orderBy('id')
@@ -294,7 +294,7 @@ const travauxTypesGet = async (
   const user = await userGet(userId)
 
   const graph = fields
-    ? graphBuild(fields, 'travauxTypes', graphFormat)
+    ? graphBuild(fields, 'travauxTypes', fieldsFormat)
     : options.demarchesTypes.graph
 
   const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
@@ -318,7 +318,7 @@ const demarchesTypesGet = async (
   const user = await userGet(userId)
 
   const graph = fields
-    ? graphBuild(fields, 'demarchesTypes', graphFormat)
+    ? graphBuild(fields, 'demarchesTypes', fieldsFormat)
     : options.demarchesTypes.graph
 
   const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
@@ -364,7 +364,7 @@ const etapesTypesGet = async (
   const user = await userGet(userId)
 
   const graph = fields
-    ? graphBuild(fields, 'etapesTypes', graphFormat)
+    ? graphBuild(fields, 'etapesTypes', fieldsFormat)
     : options.etapesTypes.graph
 
   const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')

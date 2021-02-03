@@ -9,7 +9,7 @@ import options from './_options'
 
 import { documentsPermissionQueryBuild } from './permissions/documents'
 
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 
 const documentGet = async (
   documentId: string,
@@ -17,7 +17,7 @@ const documentGet = async (
   userId?: string
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'documents', graphFormat)
+    ? graphBuild(fields, 'documents', fieldsFormat)
     : options.documents.graph
 
   const user = await userGet(userId)
@@ -37,7 +37,7 @@ const documentsGet = async (
   userId?: string
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'documents', graphFormat)
+    ? graphBuild(fields, 'documents', fieldsFormat)
     : options.documents.graph
 
   const user = await userGet(userId)

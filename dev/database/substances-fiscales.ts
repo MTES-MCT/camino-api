@@ -41,6 +41,8 @@ async function main() {
 
   await knex.schema.alterTable('titresActivites', table => {
     table.specificType('sections', 'jsonb[]')
+
+    table.boolean('suppression')
     table.renameColumn('frequencePeriodeId', 'periodeId')
   })
 
@@ -133,10 +135,10 @@ async function main() {
       ta.contenu.substancesFiscales = {
         auru: (ta.contenu.renseignements.orNet as number) / 1000
       }
-    }
 
-    if (ta.contenu?.renseignements) {
-      delete ta.contenu.renseignements
+      if (ta.contenu?.renseignements) {
+        delete ta.contenu.renseignements
+      }
     }
 
     const activiteType = activitesTypes.find(at => at.id === ta.typeId)!

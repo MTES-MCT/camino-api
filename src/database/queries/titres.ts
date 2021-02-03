@@ -15,7 +15,7 @@ import { titrePermissionQueryBuild } from './permissions/titres'
 import { userGet } from './utilisateurs'
 
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { titresFieldsAdd } from './graph/fields-add'
 
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
@@ -62,7 +62,7 @@ const titresQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
+    ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
 
   const q = Titres.query().withGraphFetched(graph)
@@ -389,7 +389,7 @@ const titreUpsert = async (
   }
 
   const graph = fields
-    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
+    ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
 
   return Titres.query(tr)
