@@ -8,14 +8,9 @@ const datePropsNames = ['date'] as [keyof ITitreActivite]
 
 const titreActiviteInputValidate = (
   titreActivite: ITitreActivite,
-  activiteTypeSections?: ISection[] | null
+  activiteSections: ISection[]
 ) => {
   const errors = []
-
-  // 2. les sections sont présentes
-  if (!activiteTypeSections) {
-    errors.push('sections manquantes pour cette activité')
-  }
 
   // 1. le format des dates est correct
   const errorsDates = propsDatesCheck(datePropsNames, titreActivite)
@@ -23,9 +18,9 @@ const titreActiviteInputValidate = (
     errors.push(errorsDates)
   }
 
-  if (titreActivite.contenu && activiteTypeSections) {
+  if (titreActivite.contenu && activiteSections) {
     const errorsSections = contenuDatesCheck(
-      activiteTypeSections,
+      activiteSections,
       titreActivite.contenu
     )
     if (errorsSections) {
@@ -34,9 +29,9 @@ const titreActiviteInputValidate = (
   }
 
   // 3. les champs number n'ont pas de durée négative
-  if (titreActivite.contenu && activiteTypeSections) {
+  if (titreActivite.contenu && activiteSections) {
     const errorsContenu = contenuNumbersCheck(
-      activiteTypeSections,
+      activiteSections,
       titreActivite.contenu
     )
     if (errorsContenu) {

@@ -110,6 +110,7 @@ interface ISectionElement {
   valeurs?: { id: string; nom: string }[] | null
   valeursMetasNom?: IValeurMetasNom
   referenceUniteRatio?: number
+  optionnel?: boolean
 }
 
 interface IActiviteTypeDocumentType extends IDocumentType {
