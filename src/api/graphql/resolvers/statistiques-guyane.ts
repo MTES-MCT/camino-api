@@ -140,7 +140,7 @@ const statistiquesGuyaneAnneeBuild = (
       rapportProductionOrCount: 0
     }
   )
-  // les activités de type gra de l'année
+  // les activités de type gra et grx de l'année
   const titresActivitesGraFiltered = titresActivites.filter(
     ta => ta.annee === annee && (ta.typeId === 'gra' || ta.typeId === 'grx')
   )
@@ -214,7 +214,7 @@ const statistiquesGuyane = async () => {
     )
 
     const titresActivites = await titresActivitesGet(
-      { titresTerritoires: 'guyane', annees, typesIds: ['grp', 'gra'] },
+      { titresTerritoires: 'guyane', annees, typesIds: ['grp', 'gra', 'grx'] },
       { fields: { titre: { id: {} } } },
       'super'
     )
