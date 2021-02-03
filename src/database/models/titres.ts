@@ -89,7 +89,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Substances,
       join: {
-        from: 'titres.substancesTitreEtapeId',
+        from: 'titres.contenusTitreEtapesIds:fondamentales.substances',
         through: {
           from: 'titresSubstances.titreEtapeId',
           to: 'titresSubstances.substanceId',
