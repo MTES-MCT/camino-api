@@ -36,8 +36,8 @@ const titreActiviteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
 const titresActivitesFormatTable = (activites: ITitreActivite[]) =>
   activites.map(activite => {
     const contenu =
-      activite.contenu && activite.type?.sections
-        ? titreActiviteContenuFormat(activite.contenu, activite.type.sections)
+      activite.contenu?.length && activite.sections?.length
+        ? titreActiviteContenuFormat(activite.contenu, activite.sections)
         : {}
 
     return {

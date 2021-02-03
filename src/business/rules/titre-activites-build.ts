@@ -11,7 +11,6 @@ import {
 import * as dateFormat from 'dateformat'
 import { titreValideCheck } from '../utils/titre-valide-check'
 import { titreEtapePropFind } from './titre-etape-prop-find'
-import { objectClone } from '../../tools/index'
 import { metasGet } from '../../database/cache/metas'
 
 const substancesFiscalesFind = (substances: ISubstance[]) =>
@@ -48,10 +47,14 @@ const titreActiviteSectionElementsFormat = (
         description: e.description
       } as ISectionElement
 
+      if (e.optionnel) {
+        element.optionnel = true
+      }
+
       if (e.valeurs) {
-        element.valeurs = objectClone(e.valeurs)
+        element.valeurs = e.valeurs
       } else if (e.valeursMetasNom) {
-        element.valeurs = objectClone(metasGet(e.valeursMetasNom))
+        element.valeurs = metasGet(e.valeursMetasNom)
       }
 
       newElements.push(element)

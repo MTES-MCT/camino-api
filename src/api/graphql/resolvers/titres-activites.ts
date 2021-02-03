@@ -283,14 +283,17 @@ const activiteModifier = async (
 
     const inputErrors = titreActiviteInputValidate(
       activite,
-      activiteOld.type?.sections
+      activiteOld.sections
     )
 
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
     }
 
-    const rulesErrors = titreActiviteUpdationValidate(activite)
+    const rulesErrors = titreActiviteUpdationValidate(
+      activite,
+      activiteOld.sections
+    )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }

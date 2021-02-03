@@ -1,10 +1,28 @@
-import { ITitreActivite } from '../../types'
+import { ISection, ITitreActivite } from '../../types'
 
 const titreActiviteUpdationValidate = (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  titreActivite: ITitreActivite
+  titreActivite: ITitreActivite,
+  activiteSections: ISection[]
 ) => {
-  return []
+  const errors = [] as string[]
+  if (titreActivite.statutId === 'dep') {
+    activiteSections.forEach(s => {
+      s.elements?.forEach(e => {
+        if (
+          !e.optionnel &&
+          (!titreActivite.contenu ||
+            titreActivite.contenu[s.id][e.id] === undefined ||
+            titreActivite.contenu[s.id][e.id] === null)
+        ) {
+          errors.push(
+            `le champ ${e.nom} de la section ${s.nom || s.id} est obligatoire`
+          )
+        }
+      })
+    })
+  }
+
+  return errors
 }
 
 export default titreActiviteUpdationValidate
