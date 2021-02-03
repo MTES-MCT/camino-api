@@ -598,6 +598,7 @@ interface ITitreActivite {
   sections: ISection[]
   documents?: IDocument[] | null
   modification?: boolean | null
+  suppression?: boolean | null
   documentsCreation?: boolean | null
 }
 

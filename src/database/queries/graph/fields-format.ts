@@ -40,7 +40,7 @@ const graphTitreAdministrationsFormat = (fields: IFields, type: string) => {
 }
 
 // ajoute des propriétés requises par /database/queries/_format
-const graphFormat = (fields: IFields, parent: string) => {
+const fieldsFormat = (fields: IFields, parent: string) => {
   const isParentTitre = [
     'titres',
     'titre',
@@ -70,6 +70,7 @@ const graphFormat = (fields: IFields, parent: string) => {
   }
 
   // ajoute la propriété `type` sur les activités
+  // pour savoir si une activité est liée à une administration
   if (fields.activites && !fields.activites.type) {
     fields.activites.type = { id: {}, administrations: { id: {} } }
   }
@@ -187,4 +188,4 @@ const graphFormat = (fields: IFields, parent: string) => {
   return fields
 }
 
-export default graphFormat
+export { fieldsFormat }

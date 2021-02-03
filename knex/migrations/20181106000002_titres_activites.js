@@ -24,6 +24,7 @@ exports.up = knex =>
       .notNullable()
     table.integer('annee', 4)
     table.integer('periodeId', 2)
+    table.boolean('suppression')
   })
 
 exports.down = knex => knex.schema.dropTable('titresActivites')

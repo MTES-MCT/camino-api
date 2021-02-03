@@ -8,7 +8,7 @@ import Entreprises from '../models/entreprises'
 import options from './_options'
 import { entreprisePermissionQueryBuild } from './permissions/entreprises'
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 import { stringSplit } from './_utils'
 import { raw } from 'objection'
@@ -25,7 +25,7 @@ const entreprisesQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'entreprises', graphFormat)
+    ? graphBuild(fields, 'entreprises', fieldsFormat)
     : options.entreprises.graph
 
   const q = Entreprises.query().skipUndefined().withGraphFetched(graph)

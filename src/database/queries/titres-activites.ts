@@ -7,7 +7,7 @@ import {
   IColonne
 } from '../../types'
 
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { fieldsTitreAdd } from './graph/fields-add'
 import graphBuild from './graph/build'
 
@@ -75,11 +75,7 @@ const titreActivitesQueryBuild = (
   if (!user?.permissionId) return null
 
   const graph = fields
-    ? graphBuild(
-        fieldsTitreAdd(fields, { isTitreActivite: true }),
-        'activite',
-        graphFormat
-      )
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
     : options.titresActivites.graph
 
   const q = TitresActivites.query().withGraphFetched(graph)
@@ -138,6 +134,7 @@ const titreActiviteGet = async (
   const user = await userGet(userId)
 
   const q = titreActivitesQueryBuild({}, { fields }, user)
+
   if (!q) return undefined
 
   return (await q.findById(id)) as ITitreActivite
@@ -388,11 +385,7 @@ const titreActiviteUpdate = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(
-        fieldsTitreAdd(fields, { isTitreActivite: true }),
-        'activite',
-        graphFormat
-      )
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
     : options.titresActivites.graph
 
   return TitresActivites.query()
@@ -405,11 +398,7 @@ const titreActiviteDelete = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(
-        fieldsTitreAdd(fields, { isTitreActivite: true }),
-        'activite',
-        graphFormat
-      )
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
     : options.titresActivites.graph
 
   return TitresActivites.query().withGraphFetched(graph).deleteById(id)

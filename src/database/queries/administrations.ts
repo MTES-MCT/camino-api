@@ -9,7 +9,7 @@ import {
 } from '../../types'
 
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { stringSplit } from './_utils'
 import options from './_options'
 
@@ -35,7 +35,7 @@ const administrationsQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'administrations', graphFormat)
+    ? graphBuild(fields, 'administrations', fieldsFormat)
     : options.administrations.graph
 
   const q = Administrations.query().withGraphFetched(graph)

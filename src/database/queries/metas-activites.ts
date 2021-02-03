@@ -4,7 +4,7 @@ import TitresTypesActivitesTypes from '../models/titres-types--activites-types'
 
 import options from './_options'
 import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 
 import { activitesTypesPermissionQueryBuild } from './permissions/metas'
@@ -16,7 +16,7 @@ const activitesTypesGet = async (
   const user = await userGet(userId)
 
   const graph = fields
-    ? graphBuild(fields, 'activitesTypes', graphFormat)
+    ? graphBuild(fields, 'activitesTypes', fieldsFormat)
     : options.activitesTypes.graph
 
   const q = ActivitesTypes.query().withGraphFetched(graph).modify('orderAsc')
