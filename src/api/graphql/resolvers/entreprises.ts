@@ -10,8 +10,6 @@ import {
 } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
-import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
-import { titreGet } from '../../../database/queries/titres'
 
 import fieldsBuild from './_fields-build'
 
@@ -19,8 +17,6 @@ import { entrepriseFormat } from '../../_format/entreprises'
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
 import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
-
-import { titreEtapePropFind } from '../../../business/rules/titre-etape-prop-find'
 
 const entreprise = async (
   { id }: { id: string },
@@ -37,85 +33,6 @@ const entreprise = async (
     const user = context.user && (await userGet(context.user.id))
 
     return entrepriseFormat(user, entreprise)
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const etapeEntreprises = async (
-  { etapeId }: { etapeId: string },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
-  try {
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const fields = fieldsBuild(info)
-
-    const titreEtape = await titreEtapeGet(
-      etapeId,
-      { fields: { id: {} } },
-      'super'
-    )
-
-    if (!titreEtape) throw new Error("l'étape n'existe pas")
-
-    const titreDemarche = await titreDemarcheGet(
-      titreEtape.titreDemarcheId,
-      { fields: { etapes: { id: {} } } },
-      'super'
-    )
-
-    if (!titreDemarche) throw new Error("la démarche n'existe pas")
-
-    const titre = await titreGet(
-      titreDemarche.titreId,
-      {
-        fields: {
-          demarches: {
-            phase: { id: {} },
-            etapes: {
-              titulaires: fields.elements,
-              amodiataires: fields.elements
-            }
-          }
-        }
-      },
-      'super'
-    )
-
-    if (!titre) throw new Error("le titre n'existe pas")
-
-    let entreprises = [] as IEntreprise[]
-
-    if (titre.demarches) {
-      const titulaires =
-        (titreEtapePropFind('titulaires', titreEtape.date, titre.demarches) as
-          | IEntreprise[]
-          | null) || []
-
-      const amodiataires =
-        (titreEtapePropFind(
-          'amodiataires',
-          titreEtape.date,
-          titre.demarches
-        ) as IEntreprise[] | null) || []
-
-      entreprises = [...titulaires, ...amodiataires]
-    }
-
-    return {
-      elements: entreprises,
-      total: entreprises.length
-    }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -146,14 +63,13 @@ const entreprises = async (
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
-  if (etapeId) {
-    return etapeEntreprises({ etapeId }, context, info)
-  }
-
   try {
     const fields = fieldsBuild(info)
 
-    const [entreprises, total] = await Promise.all([
+    let entreprises = [] as IEntreprise[]
+    let total = 0
+
+    ;[entreprises, total] = await Promise.all([
       entreprisesGet(
         {
           page,
@@ -172,6 +88,30 @@ const entreprises = async (
         context.user?.id
       )
     ])
+
+    if (etapeId) {
+      const titreEtape = await titreEtapeGet(etapeId, {
+        fields: { titulaires: fields.elements, amodiataires: fields.elements }
+      })
+
+      if (titreEtape.titulaires?.length) {
+        titreEtape.titulaires.forEach(t => {
+          if (!entreprises.find(e => e.id === t.id)) {
+            entreprises.push(t)
+            total++
+          }
+        })
+      }
+
+      if (titreEtape.amodiataires?.length) {
+        titreEtape.amodiataires.forEach(a => {
+          if (!entreprises.find(e => e.id === a.id)) {
+            entreprises.push(a)
+            total++
+          }
+        })
+      }
+    }
 
     if (!entreprises.length) return { elements: [], total: 0 }
 
