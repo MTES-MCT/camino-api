@@ -1,6 +1,5 @@
 import { titreEtapePropFind } from '../../../business/rules/titre-etape-prop-find'
 import { debug } from '../../../config/index'
-import * as dateFormat from 'dateformat'
 
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { matomoData } from '../../../tools/api-matomo/index'
@@ -82,7 +81,7 @@ const titresSurfaceIndexBuild = (titres: ITitre[], annee: number) =>
       }[],
       titre
     ) => {
-      // titres dont le premier octroi avec une phase valide débute cette année
+      // titres dont le dernier octroi valide avec une phase valide débute cette année
       const titreDemarcheOctroiValide = titre.demarches?.find(
         demarche =>
           demarche.typeId === 'oct' &&
@@ -91,14 +90,13 @@ const titresSurfaceIndexBuild = (titres: ITitre[], annee: number) =>
           demarche.phase.dateDebut.substr(0, 4) === annee.toString()
       )
 
-      if (!titreDemarcheOctroiValide?.etapes?.length) return acc
+      if (!titreDemarcheOctroiValide) return acc
 
-      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
       const surface = titreEtapePropFind(
         'surface',
-        aujourdhui,
-        titre.demarches!
-      ) as number | null | undefined
+        titreDemarcheOctroiValide.phase!.dateDebut,
+        [titreDemarcheOctroiValide]
+      ) as number | null
 
       acc.push({
         id: titre.id,
