@@ -18,6 +18,7 @@ const activiteTypeGrp = ({
           id: 'champ-1',
           nom: 'Nom champ 1',
           type: 'number',
+          optionnel: true,
           description: 'Description champs 1'
         },
         {
@@ -58,14 +59,16 @@ const titreActivitesGra = [
             id: 'auru',
             nom: 'Or',
             type: 'number',
-            description: 'métal précieux (<b>kilogramme</b>)'
+            description: '<b>kg (kilogramme)</b> métal précieux',
+            uniteId: 'mkg'
           },
           {
             id: 'sela',
             nom: 'Sel',
             type: 'number',
-            description: 'Sel (<b>tonnes</b>)',
-            referenceUniteRatio: 0.001
+            description: '<b>t (tonne)</b> Sel',
+            referenceUniteRatio: 0.001,
+            uniteId: 'mtn'
           }
         ]
       }
@@ -88,6 +91,7 @@ const titreActivitesGrp = [
           {
             id: 'champ-1',
             nom: 'Nom champ 1',
+            optionnel: true,
             type: 'number',
             description: 'Description champs 1'
           },
@@ -117,6 +121,7 @@ const titreActivitesGrp = [
           {
             id: 'champ-1',
             nom: 'Nom champ 1',
+            optionnel: true,
             type: 'number',
             description: 'Description champs 1'
           }
@@ -139,6 +144,7 @@ const titreActivitesGrp = [
           {
             id: 'champ-1',
             nom: 'Nom champ 1',
+            optionnel: true,
             type: 'number',
             description: 'Description champs 1'
           },
@@ -171,6 +177,7 @@ const titreActivitesGrp = [
           {
             id: 'champ-1',
             nom: 'Nom champ 1',
+            optionnel: true,
             type: 'number',
             description: 'Description champs 1'
           }

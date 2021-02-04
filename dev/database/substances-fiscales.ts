@@ -303,7 +303,7 @@ const unites = [
   {
     id: 'mkg',
     nom: 'kilogramme',
-    symbole: 'Kg'
+    symbole: 'kg'
   }
 ] as IUnite[]
 

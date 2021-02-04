@@ -123,13 +123,19 @@ describe("construction des activités d'un titre", () => {
                 id: 'auru',
                 nom: 'Or',
                 description: 'métal précieux',
-                unite: { nom: 'kilogramme' }
+                unite: { nom: 'kilogramme', symbole: 'kg' },
+                uniteId: 'mkg'
               },
               {
                 id: 'sela',
                 nom: 'Sel',
                 description: 'Sel',
-                unite: { nom: 'tonnes', referenceUniteRatio: 0.001 }
+                uniteId: 'mtn',
+                unite: {
+                  nom: 'tonne',
+                  referenceUniteRatio: 0.001,
+                  symbole: 't'
+                }
               },
               null
             ]

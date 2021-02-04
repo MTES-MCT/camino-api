@@ -102,7 +102,9 @@ const titreActiviteSectionsBuild = (
             id: sf.id,
             nom: `${sf.nom}`,
             type: 'number',
-            description: `${sf.description} (<b>${sf.unite!.nom}</b>)`,
+            description: `<b>${sf.unite!.symbole} (${sf.unite!.nom})</b> ${
+              sf.description
+            }`,
             uniteId: sf.uniteId
           } as ISectionElement
 
