@@ -106,7 +106,7 @@ interface ISectionElement {
   dateFin?: string | null
   periodesIds?: number[] | null
   // à supprimer après la migration
-  frequencesPeriodesIds?: number[] | null
+  frequencePeriodesIds?: number[] | null
   valeurs?: { id: string; nom: string }[] | null
   valeursMetasNom?: IValeurMetasNom
   referenceUniteRatio?: number
@@ -130,6 +130,7 @@ interface IActiviteType {
   pays?: IPays[] | null
   administrations?: IAdministration[] | null
   satisfactionUrl: string
+  email?: string | null
   modification?: boolean | null
 }
 

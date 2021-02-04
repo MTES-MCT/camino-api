@@ -267,6 +267,7 @@ const activiteModifier = async (
       activite.id,
       {
         fields: {
+          type: { id: {} },
           titre: { titulaires: { id: {} }, amodiataires: { id: {} } }
         }
       },
@@ -344,7 +345,8 @@ const activiteModifier = async (
         activiteFormated,
         activiteFormated.titre!.nom,
         user,
-        utilisateurs
+        utilisateurs,
+        activiteOld.type!.email
       )
     }
 
