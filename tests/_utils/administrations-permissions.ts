@@ -206,6 +206,7 @@ const modificationCheck = async (
         modification: true
       })
     } else {
+      expect(res.body.errors).toBeUndefined()
       const demarches = res.body.data.titre.demarches
       const check = !demarches.length || !demarches[0].modification
       expect(check).toBeTruthy()
