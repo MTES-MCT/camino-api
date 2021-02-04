@@ -31,6 +31,7 @@ const demarcheCreate = async () => {
       nom: 'mon titre',
       domaineId: 'm',
       typeId: 'arm',
+      propsTitreEtapesIds: {},
       administrationsGestionnaires: [
         administrations.ptmg,
         administrations.dgtmGuyane
