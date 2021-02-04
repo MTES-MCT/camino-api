@@ -66,7 +66,8 @@ const titrePublicLecture = {
   nom: 'mon titre',
   domaineId: 'm',
   typeId: 'arm',
-  publicLecture: true
+  publicLecture: true,
+  propsTitreEtapesIds: {}
 }
 
 const titrePublicLectureFalse = {
@@ -74,7 +75,8 @@ const titrePublicLectureFalse = {
   nom: 'mon titre',
   domaineId: 'm',
   typeId: 'arm',
-  publicLecture: false
+  publicLecture: false,
+  propsTitreEtapesIds: {}
 }
 
 const titreEtapesPubliques = {
@@ -177,6 +179,7 @@ const titreDemarchesPubliques = {
   domaineId: 'm',
   typeId: 'arm',
   publicLecture: true,
+  propsTitreEtapesIds: {},
   demarches: [
     {
       id: 'titre-id-demarche-oct',

@@ -1,4 +1,4 @@
-import { Model, Pojo, RelationMappings } from 'objection'
+import { Model, Pojo, RelationMappings, ref } from 'objection'
 import { join } from 'path'
 import { titreInsertFormat } from './_format/titre-insert'
 
@@ -74,7 +74,7 @@ class Titres extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresEtapes,
       join: {
-        from: 'titres.propsTitreEtapesIds:surface',
+        from: ref('titres.propsTitreEtapesIds:surface').castText(),
         to: 'titresEtapes.id'
       }
     },
@@ -83,7 +83,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Substances,
       join: {
-        from: 'titres.propsTitreEtapesIds:substances',
+        from: ref('titres.propsTitreEtapesIds:substances').castText(),
         through: {
           from: 'titresSubstances.titreEtapeId',
           to: 'titresSubstances.substanceId',
@@ -106,7 +106,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
       join: {
-        from: 'titres.propsTitreEtapesIds:titulaires',
+        from: ref('titres.propsTitreEtapesIds:titulaires').castText(),
         through: {
           from: 'titresTitulaires.titreEtapeId',
           to: 'titresTitulaires.entrepriseId',
@@ -120,7 +120,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
       join: {
-        from: 'titres.propsTitreEtapesIds:amodiataires',
+        from: ref('titres.propsTitreEtapesIds:amodiataires').castText(),
         through: {
           from: 'titresAmodiataires.titreEtapeId',
           to: 'titresAmodiataires.entrepriseId',
@@ -139,7 +139,7 @@ class Titres extends Model {
       join: {
         from: 'titres.id',
         through: {
-          from: 'titresAdministrationsGestionnaires.titreId',
+          from: ref('titresAdministrationsGestionnaires.titreId').castText(),
           to: 'titresAdministrationsGestionnaires.administrationId',
           extra: ['associee']
         },
@@ -151,7 +151,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Administrations,
       join: {
-        from: 'titres.propsTitreEtapesIds:administrations',
+        from: ref('titres.propsTitreEtapesIds:administrations').castText(),
         through: {
           from: 'titresAdministrationsLocales.titreEtapeId',
           to: 'titresAdministrationsLocales.administrationId',
@@ -166,7 +166,7 @@ class Titres extends Model {
       modelClass: Communes,
       join: {
         // les communes sont générées sur les étapes qui ont des points
-        from: 'titres.propsTitreEtapesIds:points',
+        from: ref('titres.propsTitreEtapesIds:points').castText(),
         through: {
           from: 'titresCommunes.titreEtapeId',
           to: 'titresCommunes.communeId',
@@ -181,7 +181,7 @@ class Titres extends Model {
       modelClass: Forets,
       join: {
         // les forêts sont générées sur les étapes qui ont des points
-        from: 'titres.propsTitreEtapesIds:points',
+        from: ref('titres.propsTitreEtapesIds:points').castText(),
         through: {
           from: 'titresForets.titreEtapeId',
           to: 'titresForets.foretId',
