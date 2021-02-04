@@ -131,12 +131,6 @@ const titreActiviteEmailsGet = (utilisateurs: IUtilisateur[]) => {
     return res
   }, [])
 
-  // si la variable d'environnement existe,
-  // on ajoute un email générique pour recevoir une copie
-  if (process.env.ACTIVITES_RAPPORTS_EMAIL) {
-    emails.push(process.env.ACTIVITES_RAPPORTS_EMAIL)
-  }
-
   return emails
 }
 
@@ -144,11 +138,16 @@ const titreActiviteEmailsSend = async (
   activite: ITitreActivite,
   titreNom: string,
   user: IUtilisateur,
-  utilisateurs: IUtilisateur[]
+  utilisateurs: IUtilisateur[],
+  adminEmail?: string | null
 ) => {
   const subject = titreActiviteEmailTitleFormat(activite, titreNom)
   const content = titreActiviteEmailFormat(activite, subject, user)
   const emails = titreActiviteEmailsGet(utilisateurs)
+
+  if (adminEmail) {
+    emails.push(adminEmail)
+  }
 
   await emailsSend(emails, subject, content)
 }

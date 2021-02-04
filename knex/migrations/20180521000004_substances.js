@@ -52,6 +52,7 @@ exports.up = knex => {
         .references('substancesLegales.id')
         .notNullable()
       table.string('uniteId').index().references('unites.id').notNullable()
+      table.string('redevanceUniteId').index().references('unites.id')
       table.string('nom').notNullable()
       table.string('description', 2048)
     })

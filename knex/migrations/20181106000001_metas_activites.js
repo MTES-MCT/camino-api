@@ -13,6 +13,7 @@ exports.up = knex =>
       table.integer('delaiMois')
       table.string('satisfaction_url')
       table.integer('ordre').notNullable()
+      table.string('email', 128)
     })
     .createTable('titresTypes__activitesTypes', table => {
       table

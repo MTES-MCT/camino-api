@@ -12,6 +12,10 @@ import {
 import { activitesTypesGet } from '../../src/database/queries/metas-activites'
 import { titresGet } from '../../src/database/queries/titres'
 import { titreActiviteSectionsBuild } from '../../src/business/rules/titre-activites-build'
+import {
+  documentTypeGet,
+  documentTypeUpdate
+} from '../../src/database/queries/metas'
 
 async function main() {
   await knex.schema.alterTable('unites', table => {
@@ -27,6 +31,7 @@ async function main() {
       .references('substancesLegales.id')
       .notNullable()
     table.string('uniteId').index().references('unites.id').notNullable()
+    table.string('redevanceUniteId').index().references('unites.id')
     table.string('nom').notNullable()
     table.string('description', 2048)
   })
@@ -46,6 +51,10 @@ async function main() {
     table.renameColumn('frequencePeriodeId', 'periodeId')
   })
 
+  await knex.schema.alterTable('activitesTypes', table => {
+    table.string('email', 128)
+  })
+
   await Unites.query().upsertGraph(unites, { insertMissing: true })
 
   console.info(`${unites.length} unités mise à jour`)
@@ -54,6 +63,14 @@ async function main() {
 
   console.info(`${substancesFiscales.length} substancesFiscales ajoutées`)
 
+  const documentRapportAnnuel = await documentTypeGet('rgr')
+  documentRapportAnnuel.nom = 'Rapport annuel de production'
+
+  await documentTypeUpdate('rgr', documentRapportAnnuel)
+
+  console.info(`type de document "Rapport de production annuel" ajouté`)
+
+  // modification des types d'activité
   const activitesTypes = await activitesTypesGet(
     { fields: { id: {} } },
     'super'
@@ -62,18 +79,27 @@ async function main() {
   // activité type gra
   const activiteTypeGra = activitesTypes.find(at => at.id === 'gra')!
 
-  const graSection = activiteTypeGra.sections!.find(
+  activiteTypeGra.nom = 'rapport annuel de production'
+  activiteTypeGra.dateDebut = '2020-01-01'
+
+  const graSectionSubstancesFiscales = activiteTypeGra.sections!.find(
     ({ id }) => id === 'renseignements'
   )!
 
-  activiteTypeGra.nom = 'rapport annuel de production'
+  graSectionSubstancesFiscales.id = 'substancesFiscales'
+  delete graSectionSubstancesFiscales.elements
 
-  graSection.id = 'substancesFiscales'
-  delete graSection.elements
+  const graSectionComplements = activiteTypeGra.sections!.find(
+    ({ id }) => id === 'complement'
+  )!
+
+  activiteTypeGra.email = 'camino@beta.gouv.fr'
+
+  graSectionComplements.elements![0]!.description! = 'Toute information utile à la compréhension de la production déclarée.'
 
   await ActivitesTypes.query().patchAndFetchById('gra', activiteTypeGra)
 
-  await knex('activites_types__pays').where('activite_type_id', 'gra').del()
+  await knex('activitesTypes__pays').where('activiteTypeId', 'gra').del()
 
   console.info(`type d'activité gra modifié`)
 
@@ -98,15 +124,42 @@ async function main() {
     ({ id }) => id === 'travaux'
   )!
 
-  grpSection.elements!.forEach(e => {
-    e.periodesIds = e.frequencesPeriodesIds
+  activiteTypeGrp.email = 'mc.remd.deal-guyane@developpement-durable.gouv.fr'
 
-    delete e.frequencesPeriodesIds
+  grpSection.elements!.forEach(e => {
+    e.periodesIds = e.frequencePeriodesIds
+
+    delete e.frequencePeriodesIds
   })
 
   await ActivitesTypes.query().patchAndFetchById('grp', activiteTypeGrp)
 
   console.info(`type d'activité grp modifié`)
+
+  // activité type wrp
+  const activiteTypeWrp = activitesTypes.find(at => at.id === 'wrp')!
+  activiteTypeWrp.email = 'cecile.caron@developpement-durable.gouv.fr'
+
+  await ActivitesTypes.query().patchAndFetchById('wrp', activiteTypeWrp)
+
+  console.info(`type d'activité wrp modifié`)
+
+  await knex('activitesTypes__documentsTypes')
+    .where('documentTypeId', 'rie')
+    .update({ optionnel: true })
+  await knex('activitesTypes__documentsTypes')
+    .where('documentTypeId', 'rfe')
+    .update({ optionnel: true })
+  await knex('activitesTypes__documentsTypes')
+    .where('documentTypeId', 'ree')
+    .update({ optionnel: true })
+  await knex('activitesTypes__documentsTypes')
+    .where('documentTypeId', 'rse')
+    .update({ optionnel: true })
+
+  console.info(
+    `rend les documents optionnels sur les types d'activités rie, rfe, ree, rse`
+  )
 
   const titresActivites = await titresActivitesGet({}, { fields: {} }, 'super')
 
@@ -133,7 +186,7 @@ async function main() {
       (ta.contenu.renseignements.orNet || ta.contenu.renseignements.orNet === 0)
     ) {
       ta.contenu.substancesFiscales = {
-        auru: (ta.contenu.renseignements.orNet as number) / 1000
+        auru: ta.contenu.renseignements.orNet as number
       }
 
       if (ta.contenu?.renseignements) {
@@ -286,7 +339,7 @@ const substancesFiscales = [
   {
     id: 'auru',
     substanceLegaleId: 'auru',
-    uniteId: 'mkg',
+    uniteId: 'mgr',
     nom: 'or',
     description: 'contenu dans les minerais'
   },
