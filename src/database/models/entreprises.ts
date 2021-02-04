@@ -64,7 +64,7 @@ class Entreprises extends Model {
           from: 'titresTitulaires.entrepriseId',
           to: 'titresTitulaires.titreEtapeId'
         },
-        to: 'titres.titulairesTitreEtapeId'
+        to: 'titres.propsTitreEtapesIds:titulaires'
       }
     },
 
@@ -77,7 +77,7 @@ class Entreprises extends Model {
           from: 'titresAmodiataires.entrepriseId',
           to: 'titresAmodiataires.titreEtapeId'
         },
-        to: 'titres.amodiatairesTitreEtapeId'
+        to: 'titres.propsTitreEtapesIds:amodiataires'
       }
     },
 
