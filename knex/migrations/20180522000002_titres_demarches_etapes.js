@@ -75,6 +75,8 @@ exports.up = knex => {
       table.float('surface')
       table.boolean('sourceIndisponible')
       table.jsonb('contenu')
+      table.jsonb('contenusTitreEtapesIds')
+      table.jsonb('propsTitreEtapesIds')
     })
 }
 

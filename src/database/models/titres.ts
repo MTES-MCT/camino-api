@@ -36,14 +36,8 @@ class Titres extends Model {
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
       dateDemande: { type: ['string', 'null'] },
-      substancesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      pointsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      titulairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      amodiatairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      administrationsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       contenusTitreEtapesIds: { type: 'json' },
+      propsTitreEtapesIds: { type: 'json' },
       coordonnees: {
         type: ['object', 'null'],
         properties: { x: { type: 'number' }, y: { type: 'number' } }
@@ -80,7 +74,7 @@ class Titres extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresEtapes,
       join: {
-        from: 'titres.surfaceTitreEtapeId',
+        from: 'titres.propsTitreEtapesIds:surface',
         to: 'titresEtapes.id'
       }
     },
@@ -89,7 +83,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Substances,
       join: {
-        from: 'titres.contenusTitreEtapesIds:fondamentales.substances',
+        from: 'titres.propsTitreEtapesIds:substances',
         through: {
           from: 'titresSubstances.titreEtapeId',
           to: 'titresSubstances.substanceId',
@@ -103,7 +97,7 @@ class Titres extends Model {
       relation: Model.HasManyRelation,
       modelClass: TitresPoints,
       join: {
-        from: 'titres.pointsTitreEtapeId',
+        from: 'titres.propsTitreEtapesIds:points',
         to: 'titresPoints.titreEtapeId'
       }
     },
@@ -112,7 +106,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
       join: {
-        from: 'titres.titulairesTitreEtapeId',
+        from: 'titres.propsTitreEtapesIds:titulaires',
         through: {
           from: 'titresTitulaires.titreEtapeId',
           to: 'titresTitulaires.entrepriseId',
@@ -126,7 +120,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
       join: {
-        from: 'titres.amodiatairesTitreEtapeId',
+        from: 'titres.propsTitreEtapesIds:amodiataires',
         through: {
           from: 'titresAmodiataires.titreEtapeId',
           to: 'titresAmodiataires.entrepriseId',
@@ -157,7 +151,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Administrations,
       join: {
-        from: 'titres.administrationsTitreEtapeId',
+        from: 'titres.propsTitreEtapesIds:administrations',
         through: {
           from: 'titresAdministrationsLocales.titreEtapeId',
           to: 'titresAdministrationsLocales.administrationId',
@@ -171,7 +165,8 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Communes,
       join: {
-        from: 'titres.communesTitreEtapeId',
+        // les communes sont générées sur les étapes qui ont des points
+        from: 'titres.propsTitreEtapesIds:points',
         through: {
           from: 'titresCommunes.titreEtapeId',
           to: 'titresCommunes.communeId',
@@ -185,7 +180,8 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Forets,
       join: {
-        from: 'titres.pointsTitreEtapeId',
+        // les forêts sont générées sur les étapes qui ont des points
+        from: 'titres.propsTitreEtapesIds:points',
         through: {
           from: 'titresForets.titreEtapeId',
           to: 'titresForets.foretId',

@@ -38,7 +38,7 @@ const idsUpdate = (
   }
 
   // met à jour les propriétés
-  if (relation.props && parent) {
+  if (relation.props && parent && !relation.depth) {
     relation.props.forEach(prop => {
       const elementPropOld = element[prop]
 
@@ -50,22 +50,39 @@ const idsUpdate = (
     })
   }
 
-  // met à jour les contenus s'ils font référence à des ids
-  if (relation.contenus && parent) {
-    relation.contenus.forEach(prop => {
+  // met à jour les propriétés de propsTitreEtapesIds
+  if (relation.props && parent && relation.depth === '1') {
+    relation.props.forEach(prop => {
       if (!element[prop]) return
 
-      Object.keys(element[prop]).forEach(section => {
-        if (!element[prop][section]) return
+      Object.keys(element[prop]).forEach(elementId => {
+        const elementPropOld = element[prop][elementId]
 
-        Object.keys(element[prop][section]).forEach(elementId => {
-          const elementPropOld = element[prop][section][elementId]
+        if (!elementPropOld || !elementPropOld.match(parentOldId)) return
+
+        const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
+
+        element[prop][elementId] = elementPropNew
+      })
+    })
+  }
+
+  // met à jour les contenus s'ils font référence à des ids
+  if (relation.props && parent && relation.depth === '2') {
+    relation.props.forEach(prop => {
+      if (!element[prop]) return
+
+      Object.keys(element[prop]).forEach(sectionId => {
+        if (!element[prop][sectionId]) return
+
+        Object.keys(element[prop][sectionId]).forEach(elementId => {
+          const elementPropOld = element[prop][sectionId][elementId]
 
           if (!elementPropOld || !elementPropOld.match(parentOldId)) return
 
           const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
 
-          element[prop][section][elementId] = elementPropNew
+          element[prop][sectionId][elementId] = elementPropNew
         })
       })
     })
