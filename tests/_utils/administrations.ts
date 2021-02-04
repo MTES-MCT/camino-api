@@ -89,6 +89,18 @@ const jsonKeysCaseChange = (val: ITruc): ITruc => {
 const objectKeysCaseChange = (obj: IObject) =>
   Object.fromEntries(
     Object.entries(obj).map(([key, val]) => [
+      // Code/Regex                           |  signification
+      // ============================================================================================================
+      // .replace(       ,                        )  |  on remplace
+      //          /_(.)/g                            |  ce qui matche cette chaîne...
+      //            ( )                              |     un groupement référencé par #1 et contenant
+      //             .                               |     n'importe quel caractère
+      //           _                                 |     précédé d'un underscore
+      //                   g => g[1].toUpperCase()   |  ...par cette chaîne
+      //                   g                         |  pour chaque occurence trouvée précedemment
+      //                        g[1]                 |  on prend la référence #1
+      //                            .toUpperCase()   |  que l'on transforme en majuscule
+      //                     =>                      |  cette valeur remplace la valeur de l'occurence correspondante
       key.replace(/_(.)/g, g => g[1].toUpperCase()),
       jsonKeysCaseChange(val)
     ])
