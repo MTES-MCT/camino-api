@@ -15,6 +15,7 @@ interface IColonne<T> {
   groupBy?: boolean | T | T[]
 }
 
+// à supprimer après la migration
 type ITitreEtapeIdPropId =
   | 'pointsTitreEtapeId'
   | 'titulairesTitreEtapeId'
@@ -70,12 +71,12 @@ interface IContenu {
   [sectionId: string]: IContenuElement
 }
 
-interface IContenuTitreEtapesIdsValeur {
+interface IPropsTitreEtapesIds {
   [elementId: string]: string
 }
 
 interface IContenusTitreEtapesIds {
-  [sectionId: string]: IContenuTitreEtapesIdsValeur
+  [sectionId: string]: IPropsTitreEtapesIds
 }
 
 interface ISection {
@@ -577,6 +578,7 @@ interface ITitre {
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
+  propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
 }
 
@@ -732,6 +734,8 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   forets?: IForet[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
+  contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
+  propsTitreEtapeIds?: IPropsTitreEtapesIds | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -993,5 +997,6 @@ export {
   IAdministrationColonneId,
   IColonne,
   IDefinition,
-  IContenuId
+  IContenuId,
+  IPropsTitreEtapesIds
 }
