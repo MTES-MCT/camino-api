@@ -137,8 +137,7 @@ const nbEventsBySectionGet = (
     'titre-etape_supprimer',
     'titre-etape-doc_ajouter'
   ]
-  //        Code/Regex                                     |  signification
-  // ===========================================================================================
+
   //                           titre-                      |  commence par : titre-
   //                                 [    ]                |  matche les caractères qui sont...
   //                                  a-z                  |  ...ou bien une lettre minuscule
