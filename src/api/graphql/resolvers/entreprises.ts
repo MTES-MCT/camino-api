@@ -90,9 +90,13 @@ const entreprises = async (
     ])
 
     if (etapeId) {
-      const titreEtape = await titreEtapeGet(etapeId, {
-        fields: { titulaires: fields.elements, amodiataires: fields.elements }
-      })
+      const titreEtape = await titreEtapeGet(
+        etapeId,
+        {
+          fields: { titulaires: fields.elements, amodiataires: fields.elements }
+        },
+        'super'
+      )
 
       if (titreEtape.titulaires?.length) {
         titreEtape.titulaires.forEach(t => {
