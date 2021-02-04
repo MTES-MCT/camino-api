@@ -267,7 +267,7 @@ const titreBuild = (
     typeId: titreTypeId,
     statutId: 'val',
     domaineId: titreTypeId.slice(-1),
-    administrationsTitreEtapeId: `${titreId}-demarche-id-etape-id`,
+    propsTitreEtapesIds: { administrations: `${titreId}-demarche-id-etape-id` },
     demarches: [
       {
         id: `${titreId}-demarche-id`,

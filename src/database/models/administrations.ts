@@ -110,7 +110,7 @@ class Administrations extends Model {
           from: 'titresAdministrationsLocales.administrationId',
           to: 'titresAdministrationsLocales.titreEtapeId'
         },
-        to: 'titres.administrationsTitreEtapeId'
+        to: 'titres.propsTitreEtapesIds:administrations'
       }
     },
 

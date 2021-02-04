@@ -15,16 +15,6 @@ interface IColonne<T> {
   groupBy?: boolean | T | T[]
 }
 
-// à supprimer après la migration
-type ITitreEtapeIdPropId =
-  | 'pointsTitreEtapeId'
-  | 'titulairesTitreEtapeId'
-  | 'amodiatairesTitreEtapeId'
-  | 'administrationsTitreEtapeId'
-  | 'substancesTitreEtapeId'
-  | 'communesTitreEtapeId'
-  | 'surfaceTitreEtapeId'
-
 type IPropId =
   | 'points'
   | 'titulaires'
@@ -546,26 +536,19 @@ interface ITitre {
   activitesDeposees?: number | null
   activitesEnConstruction?: number | null
   activitesAbsentes?: number | null
-  substancesTitreEtapeId?: string | null
   substances?: ISubstance[] | null
-  pointsTitreEtapeId?: string | null
   points?: ITitrePoint[] | null
   coordonnees?: ICoordonnees | null
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
   geojsonCentre?: IGeoJsonCentre | null
-  titulairesTitreEtapeId?: string | null
   titulaires?: IEntreprise[] | null
-  amodiatairesTitreEtapeId?: string | null
   amodiataires?: IEntreprise[] | null
-  administrationsTitreEtapeId?: string | null
   administrationsLocales?: IAdministration[] | null
   administrationsGestionnaires?: IAdministration[] | null
   administrations?: IAdministration[] | null
-  surfaceTitreEtapeId?: string | null
   surfaceEtape?: ITitreEtape | null
   surface?: number | null
-  communesTitreEtapeId?: string | null
   communes?: ICommune[] | null
   forets?: IForet[] | null
   demarches?: ITitreDemarche[] | null
@@ -750,7 +733,6 @@ interface ITitreEtapeFiltre {
 }
 
 interface ITitreIncertitudes {
-  titreEtapeId: string
   date?: boolean | null
   dateDebut?: boolean | null
   dateFin?: boolean | null
@@ -985,7 +967,6 @@ export {
   IUser,
   IUtilisateur,
   IUtilisateurCreation,
-  ITitreEtapeIdPropId,
   IPropId,
   IToken,
   ITokenUser,

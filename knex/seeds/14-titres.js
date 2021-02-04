@@ -22,7 +22,6 @@ const files = [
   'titresAdministrationsGestionnaires',
   'titresAdministrationsLocales',
   'titresAmodiataires',
-  'titresIncertitudes',
   'titresReferences'
 ]
 
@@ -70,7 +69,6 @@ const seed = seeding(async ({ insert }) => {
     ),
     insert('titresAdministrationsLocales', data.titresAdministrationsLocales),
     insert('titresAmodiataires', data.titresAmodiataires),
-    insert('titresIncertitudes', data.titresIncertitudes),
     insert('titresSubstances', data.titresSubstances),
     insert('titresTitulaires', data.titresTitulaires),
     insert('titresCommunes', data.titresCommunes),
