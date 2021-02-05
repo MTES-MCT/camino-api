@@ -128,6 +128,7 @@ const rowsToJson = (columns: string[], rows: string[][]) =>
   )
 
 const filePathCreate = (fileName: string) =>
+  //                            /_/g             |  ce qui match un underscore (plusieurs fois dans la chaîne)
   `./sources/${fileName.replace(/_/g, '-')}.json`
 
 export default ssImport

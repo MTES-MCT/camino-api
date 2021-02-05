@@ -137,6 +137,13 @@ const nbEventsBySectionGet = (
     'titre-etape_supprimer',
     'titre-etape-doc_ajouter'
   ]
+
+  //                           titre-                      |  commence par : titre-
+  //                                 [    ]                |  matche les caractères qui sont...
+  //                                  a-z                  |  ...ou bien une lettre minuscule
+  //                                     -                 |  ...ou bien un tiret
+  //                                       *               |  0 ou n fois
+  //                                        enregistrer    |  termine par : enregistrer
   const eventNewActionRegex = /titre-[a-z-]*enregistrer/g
 
   if (monthData.label === 'titre-sections') {
