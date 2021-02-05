@@ -25,7 +25,8 @@ const tables = [
       'cedex',
       'url',
       'email',
-      'telephone'
+      'telephone',
+      'archive'
     ]
   },
   {
