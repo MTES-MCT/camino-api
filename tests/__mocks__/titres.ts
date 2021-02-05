@@ -166,7 +166,7 @@ const titreEtapesPubliques = {
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02',
-          administrationsIds: ['dea-guyane-01']
+          administrations: [{ id: 'dea-guyane-01' }] as IAdministration[]
         }
       ]
     }

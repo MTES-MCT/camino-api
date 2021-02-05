@@ -412,7 +412,13 @@ describe('titreSupprimer', () => {
 
   beforeEach(async () => {
     await titreCreate(
-      { id, nom: 'mon titre', domaineId: 'm', typeId: 'arm' },
+      {
+        id,
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm',
+        propsTitreEtapesIds: {}
+      },
       {},
       'super'
     )

@@ -99,7 +99,8 @@ describe('demarcheCreer', () => {
         domaineId: 'm',
         typeId: 'arm',
         statutId: 'ech',
-        administrationsGestionnaires: [administrations.ptmg]
+        administrationsGestionnaires: [administrations.ptmg],
+        propsTitreEtapesIds: {}
       },
       {},
       'super'
@@ -288,7 +289,8 @@ const demarcheCreate = async () => {
       administrationsGestionnaires: [
         administrations.ptmg,
         administrations.dgtmGuyane
-      ]
+      ],
+      propsTitreEtapesIds: {}
     },
     {},
     'super'

@@ -17,7 +17,7 @@ exports.up = knex =>
     table.boolean('entreprisesLecture').defaultTo(false)
     table.string('doublonTitreId', 128)
     table.jsonb('contenusTitreEtapesIds')
-    table.jsonb('propsTitreEtapesIds')
+    table.jsonb('propsTitreEtapesIds').defaultTo({})
     table.specificType('coordonnees', 'POINT').index(null, 'GIST')
   })
 
