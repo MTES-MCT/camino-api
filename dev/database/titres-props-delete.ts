@@ -47,7 +47,7 @@ interface ITitreTmp extends ITitre {
 
 async function main() {
   await knex.schema.alterTable('titres', table => {
-    table.jsonb('propsTitreEtapesIds')
+    table.jsonb('propsTitreEtapesIds').defaultTo('{}')
   })
 
   await knex.schema.alterTable('titresEtapes', table => {
@@ -121,7 +121,7 @@ async function main() {
     table.jsonb('propsTitreEtapesIds')
   })
 
-  // await knex.schema.dropTable('titresIncertitudes')
+  await knex.schema.dropTable('titresIncertitudes')
 
   process.exit(0)
 }

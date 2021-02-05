@@ -249,6 +249,7 @@ describe('entreprise', () => {
         id: titreId,
         nom: '',
         typeId: 'arm',
+        propsTitreEtapesIds: {},
         demarches: [
           {
             id: 'demarche-id',
