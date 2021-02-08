@@ -3,6 +3,7 @@ import { stringSplit } from './_utils'
 describe('sépare les groupes de mots', () => {
   test.each`
     input                                                           | output
+    ${''}                                                           | ${[]}
     ${'Bâgé-le-Châtel'}                                             | ${['Bâgé-le-Châtel']}
     ${'-Bâgé-le-Châtel'}                                            | ${['Bâgé-le-Châtel']}
     ${'- Bâgé-le-Châtel'}                                           | ${['Bâgé-le-Châtel']}
