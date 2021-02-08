@@ -63,6 +63,8 @@ type Etape {
 
   incertitudes: Incertitudes
 
+  propsTitreEtapes: PropsTitreEtapes
+
   contenu: Json
 
   modification: Boolean
@@ -85,6 +87,18 @@ type Incertitudes {
   titulaires: Boolean
   amodiataires: Boolean
   administrations: Boolean
+}
+
+type PropsTitreEtapes {
+  dateDebut: TitreEtape
+  dateFin: TitreEtape
+  duree: TitreEtape
+  surface: TitreEtape
+  points: TitreEtape
+  substances: TitreEtape
+  titulaires: TitreEtape
+  amodiataires: TitreEtape
+  administrations: TitreEtape
 }
 
 input InputEtapeCreation {

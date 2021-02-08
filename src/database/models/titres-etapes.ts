@@ -26,7 +26,9 @@ class TitresEtapes extends Model {
       duree: { type: ['integer', 'null'] },
       surface: { type: ['number', 'null'] },
       contenu: { type: 'json' },
-      incertitudes: { type: 'json' }
+      incertitudes: { type: 'json' },
+      contenusTitreEtapesIds: { type: 'json' },
+      propsTitreEtapesIds: { type: 'json' }
     }
   }
 
