@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.70](https://github.com/MTES-MCT/camino-api/compare/v0.24.67...v0.24.70) (2021-02-08)
+
+
+### Features
+
+* **activités:** ajoute une propriété suppression ([#637](https://github.com/MTES-MCT/camino-api/issues/637)) ([c722d38](https://github.com/MTES-MCT/camino-api/commit/c722d3821f651aa0dba238e6f0fdf49a7f18cb93))
+* crée des rapports pour toutes les substances légales ([#630](https://github.com/MTES-MCT/camino-api/issues/630)) ([20971cc](https://github.com/MTES-MCT/camino-api/commit/20971ccc8c693366a6bcd627f1ef384b67b09082))
+* **activités:** peut rendre les documents optionnels ([#625](https://github.com/MTES-MCT/camino-api/issues/625)) ([497bccd](https://github.com/MTES-MCT/camino-api/commit/497bccd1578d6389145945406f441c4da975ab6c))
+* **demarche:** active l’arbre d’instructions des octrois de PRM ([#626](https://github.com/MTES-MCT/camino-api/issues/626)) ([b5af3bc](https://github.com/MTES-MCT/camino-api/commit/b5af3bc812ab696e4ef5ea2864d1a975c0b182d9))
+
+
+### Bug Fixes
+
+* corrige la migration des substances fiscales ([#640](https://github.com/MTES-MCT/camino-api/issues/640)) ([da82dbb](https://github.com/MTES-MCT/camino-api/commit/da82dbb3edfac94d0626a14b8ec1ddc059d9074a))
+* corrige la requête sur la liste d'entreprises d'une étape ([6ec0f3b](https://github.com/MTES-MCT/camino-api/commit/6ec0f3b41484c7daa21e16f7d0a97a67b2c5b0fd))
+* corrige le formatage des sections d'étape ([b0071dc](https://github.com/MTES-MCT/camino-api/commit/b0071dc1c0ea91b247ab987c0cdc1aabd0e89e59))
+* corrige les imports et exports vers les spreadsheets ([71c57d9](https://github.com/MTES-MCT/camino-api/commit/71c57d9d06854c99d23b155094559eff65487dd6))
+* corrige les statistiques de guyane ([afbbb35](https://github.com/MTES-MCT/camino-api/commit/afbbb35a23c5751bae644fd08179e29855c53778))
+* corrige une erreur lors de l'édition d'une entreprise ([f21bdb9](https://github.com/MTES-MCT/camino-api/commit/f21bdb9e2a195ec0e490e373cb7d068c9f54379f))
+* **activités:** corrige les éléments optionnels des activités ([#636](https://github.com/MTES-MCT/camino-api/issues/636)) ([cae1582](https://github.com/MTES-MCT/camino-api/commit/cae15829bc14f9ec69d07d0a1227569a8cdcd48f))
+* **demarche:** corrige l’arbre d’instruction d’octroi de PRM ([#631](https://github.com/MTES-MCT/camino-api/issues/631)) ([2573c85](https://github.com/MTES-MCT/camino-api/commit/2573c8557c8f607f974597bd7d9e1b6a4dd65855))
+* **démarche:** corrige l’arbre d’instructions d’octroi d’AEX ([#633](https://github.com/MTES-MCT/camino-api/issues/633)) ([9a75fbe](https://github.com/MTES-MCT/camino-api/commit/9a75fbe3fb04c366dbd1b2097ed8c6f5fff6c20f))
+* **démarche:** corrige les droits d’édition des étapes pour les administrations ([#627](https://github.com/MTES-MCT/camino-api/issues/627)) ([23b8936](https://github.com/MTES-MCT/camino-api/commit/23b89369cbed4e2b964b835f1669631e14d23e08))
+* **export:** corrige l’export des activités ([c04b9d4](https://github.com/MTES-MCT/camino-api/commit/c04b9d4726216b7493bae140256d0ff18ca7b0ec))
+* **statistiques:** corrige la quantité de production d'or en guyane ([#635](https://github.com/MTES-MCT/camino-api/issues/635)) ([ff28dee](https://github.com/MTES-MCT/camino-api/commit/ff28dee8583440486b9743d0a1c45e8d7a0e609d))
+* **statistiques:** corrige le calcul des surfaces ([#638](https://github.com/MTES-MCT/camino-api/issues/638)) ([b5895bf](https://github.com/MTES-MCT/camino-api/commit/b5895bf1a1b1ac1e63f9aa8778ea754d8d6526e9))
+* corrige les exports ([139258d](https://github.com/MTES-MCT/camino-api/commit/139258d8a7ddfb2df60973426006ec29238c41b5))
+* expose les champs de référence des unités ([d1c1900](https://github.com/MTES-MCT/camino-api/commit/d1c1900be74c7d1cb07185244e8e01190ba1b1de))
+
 ### [0.24.69](https://github.com/MTES-MCT/camino-api/compare/v0.24.67...v0.24.69) (2021-02-05)
 
 
