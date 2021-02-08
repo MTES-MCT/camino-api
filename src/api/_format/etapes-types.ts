@@ -17,7 +17,6 @@ const etapeTypeSectionsFormat = (
   demarcheTypeEtapesTypes: IEtapeType[],
   titreTypeId: string
 ) => {
-  let sections = [] as ISection[]
   // cherche le type d'étape parmi les types d'étapes de la démarche
   // pour récupérer les sections spécifiques configurées dans t_d_e
   const demarcheEtapeType = demarcheTypeEtapesTypes.find(
@@ -30,13 +29,21 @@ const etapeTypeSectionsFormat = (
     sectionsSpecifiques = demarcheEtapeType.sectionsSpecifiques
   }
 
+  let sections = [] as ISection[]
+
   // fusion des sections par défaut de l'étape type
   // avec les sections spécifiques au type / démarche / étape
   // si deux sections ont la même id, seule la custom est conservée
-  if (sectionsSpecifiques.length) {
+  if (sectionsSpecifiques.length && etapeType.sections) {
+    sections = dupRemove(
+      'id',
+      sectionsSpecifiques,
+      etapeType.sections
+    ) as ISection[]
+  } else if (sectionsSpecifiques.length) {
+    sections = sectionsSpecifiques
+  } else if (etapeType.sections?.length) {
     sections = etapeType.sections
-      ? (dupRemove('id', sectionsSpecifiques, etapeType.sections) as ISection[])
-      : sectionsSpecifiques
   }
 
   return titreSectionsFormat(sections)

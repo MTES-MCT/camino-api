@@ -11,7 +11,7 @@ const main = async () => {
     // Entreprises inconnues créées pour Mimausa
     .orWhere('id', 'like', 'xx-2%')
 
-  console.log(`${entreprisesUpdatedCount} entreprises archivées`)
+  console.info(`${entreprisesUpdatedCount} entreprises archivées`)
 
   process.exit(0)
 }
