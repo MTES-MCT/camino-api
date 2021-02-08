@@ -325,13 +325,13 @@
     "repertoire": "demarches"
   },
   {
-    "id": "rwp",
-    "nom": "Rapport annuel de production de granulats marins",
+    "id": "rgr",
+    "nom": "Rapport annuel de production",
     "repertoire": "activites"
   },
   {
-    "id": "rgr",
-    "nom": "Rapport annuel de production d'or en Guyane",
+    "id": "rwp",
+    "nom": "Rapport annuel de production de granulats marins",
     "repertoire": "activites"
   },
   {

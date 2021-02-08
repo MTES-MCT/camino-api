@@ -7,12 +7,16 @@
   {
     "id": "gon",
     "nom": "grade",
-    "symbole": "gon"
+    "symbole": "gon",
+    "reference_unite_ratio": "0.9",
+    "reference_unite_id": "deg"
   },
   {
     "id": "km3",
     "nom": "kilomètre cube",
-    "symbole": "km³"
+    "symbole": "km³",
+    "reference_unite_ratio": "1000000000",
+    "reference_unite_id": "m3x"
   },
   {
     "id": "m3a",
@@ -30,8 +34,55 @@
     "symbole": "m"
   },
   {
+    "id": "mgr",
+    "nom": "gramme",
+    "symbole": "g",
+    "reference_unite_ratio": "0.001",
+    "reference_unite_id": "mkg"
+  },
+  {
+    "id": "mkc",
+    "nom": "quintal",
+    "symbole": "x 100 kg",
+    "reference_unite_ratio": "100",
+    "reference_unite_id": "mkg"
+  },
+  {
+    "id": "mkg",
+    "nom": "kilogramme",
+    "symbole": "kg"
+  },
+  {
+    "id": "mtc",
+    "nom": "centaine de tonnes",
+    "symbole": "x 100 t",
+    "reference_unite_ratio": "100000",
+    "reference_unite_id": "mkg"
+  },
+  {
+    "id": "mtk",
+    "nom": "millier de tonnes",
+    "symbole": "x 1000 t",
+    "reference_unite_ratio": "1000000",
+    "reference_unite_id": "mkg"
+  },
+  {
+    "id": "mtt",
+    "nom": "tonne",
+    "symbole": "t",
+    "reference_unite_ratio": "1000",
+    "reference_unite_id": "mkg"
+  },
+  {
     "id": "txa",
     "nom": "tonnes par an",
     "symbole": "t / an"
+  },
+  {
+    "id": "vmd",
+    "nom": "100 000 mètres cubes",
+    "symbole": "x 100 000 m³",
+    "reference_unite_ratio": "100000",
+    "reference_unite_id": "m3x"
   }
 ]

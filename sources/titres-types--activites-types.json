@@ -1,5 +1,9 @@
 [
   {
+    "titre_type_id": "axm",
+    "activite_type_id": "grp"
+  },
+  {
     "titre_type_id": "cxm",
     "activite_type_id": "grp"
   },
@@ -8,10 +12,6 @@
     "activite_type_id": "grp"
   },
   {
-    "titre_type_id": "axm",
-    "activite_type_id": "grp"
-  },
-  {
     "titre_type_id": "cxm",
     "activite_type_id": "gra"
   },
@@ -21,15 +21,15 @@
   },
   {
     "titre_type_id": "axm",
-    "activite_type_id": "gra"
-  },
-  {
-    "titre_type_id": "prm",
-    "activite_type_id": "pma"
+    "activite_type_id": "grx"
   },
   {
     "titre_type_id": "prm",
     "activite_type_id": "pmb"
+  },
+  {
+    "titre_type_id": "prm",
+    "activite_type_id": "pma"
   },
   {
     "titre_type_id": "prm",

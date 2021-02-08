@@ -372,7 +372,7 @@
   {
     "titre_type_id": "cxr",
     "titre_statut_id": "ech",
-    "public_lecture": "false"
+    "public_lecture": "true"
   },
   {
     "titre_type_id": "cxr",
@@ -612,7 +612,7 @@
   {
     "titre_type_id": "prr",
     "titre_statut_id": "ech",
-    "public_lecture": "false"
+    "public_lecture": "true"
   },
   {
     "titre_type_id": "prr",
@@ -792,7 +792,7 @@
   {
     "titre_type_id": "pxr",
     "titre_statut_id": "ech",
-    "public_lecture": "false"
+    "public_lecture": "true"
   },
   {
     "titre_type_id": "pxr",

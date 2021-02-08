@@ -1,26 +1,35 @@
 [
   {
-    "activite_type_id": "wrp",
-    "document_type_id": "rwp"
-  },
-  {
     "activite_type_id": "gra",
     "document_type_id": "rgr"
   },
   {
-    "activite_type_id": "pma",
-    "document_type_id": "rie"
+    "activite_type_id": "grx",
+    "document_type_id": "rgr",
+    "optionnel": "true"
   },
   {
     "activite_type_id": "pmb",
-    "document_type_id": "rfe"
+    "document_type_id": "rfe",
+    "optionnel": "true"
+  },
+  {
+    "activite_type_id": "pma",
+    "document_type_id": "rie",
+    "optionnel": "true"
   },
   {
     "activite_type_id": "pmc",
-    "document_type_id": "ree"
+    "document_type_id": "ree",
+    "optionnel": "true"
   },
   {
     "activite_type_id": "pmd",
-    "document_type_id": "rse"
+    "document_type_id": "rse",
+    "optionnel": "true"
+  },
+  {
+    "activite_type_id": "wrp",
+    "document_type_id": "rwp"
   }
 ]

@@ -12490,6 +12490,12 @@
   {
     "titre_type_id": "prh",
     "demarche_type_id": "pr1",
+    "etape_type_id": "mcr",
+    "ordre": "125"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pr1",
     "etape_type_id": "mdp",
     "ordre": "110"
   },
@@ -12631,6 +12637,12 @@
   {
     "titre_type_id": "prh",
     "demarche_type_id": "pr2",
+    "etape_type_id": "mcr",
+    "ordre": "125"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pr2",
     "etape_type_id": "mdp",
     "ordre": "110"
   },
@@ -12768,6 +12780,12 @@
         ]
       }
     ]
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pre",
+    "etape_type_id": "mcr",
+    "ordre": "115"
   },
   {
     "titre_type_id": "prh",

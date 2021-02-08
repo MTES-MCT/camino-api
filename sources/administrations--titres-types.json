@@ -24,12 +24,6 @@
     "associee": "false"
   },
   {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "gestionnaire": "false",
-    "associee": "false"
-  },
-  {
     "administration_id": "dre-aura-01",
     "titre_type_id": "cxm",
     "gestionnaire": "false",
