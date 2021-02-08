@@ -48,7 +48,7 @@
     "docs": "rm -rf docs && typedoc src --sourcefile-url-prefix \"https://github.com/MTES-MCT/camino-api/blob/master/\"",
     "documents:check": "node ./dist/scripts/documents-check.js",
     "lint": "eslint --fix .",
-    "release": "standard-version && git push --follow-tags upstream master && conventional-github-releaser",
+    "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && conventional-github-releaser",
     "ss:export": "node ./dist/scripts/ss-export.js",
     "ss:import": "rm -rf sources && mkdir sources && node ./dist/scripts/ss-import.js",
     "start": "node ./dist/index.js",
