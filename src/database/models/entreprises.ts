@@ -109,6 +109,14 @@ class Entreprises extends Model {
 
     return json
   }
+
+  public $formatDatabaseJson(json: Pojo) {
+    delete json.modification
+
+    json = super.$formatDatabaseJson(json)
+
+    return json
+  }
 }
 
 export default Entreprises
