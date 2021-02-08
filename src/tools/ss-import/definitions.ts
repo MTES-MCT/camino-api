@@ -123,7 +123,7 @@ const metas = {
   tables: [
     { name: 'definitions' },
     { name: 'domaines' },
-    { name: 'titres_types', cb: { contenuIds: JSON.parse } },
+    { name: 'titres_types', cb: { contenu_ids: JSON.parse } },
     { name: 'titres_types_types' },
     { name: 'titres_statuts' },
     { name: 'titres_types__titres_statuts' },
@@ -239,7 +239,12 @@ const metasActivites = {
 const titresActivites = {
   name: 'titres-activites',
   id: titresActivitesSpreadsheetId,
-  tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
+  tables: [
+    {
+      name: 'titres_activites',
+      cb: { contenu: JSON.parse, sections: JSON.parse }
+    }
+  ]
 } as ISpreadsheet
 
 const titresTravaux = {

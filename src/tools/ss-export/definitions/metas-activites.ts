@@ -18,7 +18,8 @@ const tables = [
       'delaiMois',
       'sections',
       'satisfactionUrl',
-      'ordre'
+      'ordre',
+      'email'
     ],
     callbacks: {
       sections: (v: ISection) => JSON.stringify(v)
@@ -37,7 +38,7 @@ const tables = [
     id: 3,
     name: 'activitesTypes__pays',
     columns: [
-      { id: 'activitesTypeId', parentKey: 'id' },
+      { id: 'activiteTypeId', parentKey: 'id' },
       { id: 'paysId', key: 'id' }
     ],
     parents: ['pays']
@@ -46,7 +47,7 @@ const tables = [
     id: 4,
     name: 'activitesTypes__administrations',
     columns: [
-      { id: 'activitesTypeId', parentKey: 'id' },
+      { id: 'activiteTypeId', parentKey: 'id' },
       { id: 'administrationId', key: 'id' },
       'modification'
     ],
@@ -56,7 +57,7 @@ const tables = [
     id: 5,
     name: 'activitesTypes__documentsTypes',
     columns: [
-      { id: 'activitesTypeId', parentKey: 'id' },
+      { id: 'activiteTypeId', parentKey: 'id' },
       { id: 'documentTypeId', key: 'id' },
       'optionnel'
     ],

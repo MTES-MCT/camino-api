@@ -203,7 +203,7 @@ const tables = [
   {
     id: 24,
     name: 'activitesStatuts',
-    columns: ['id', 'nom']
+    columns: ['id', 'nom', 'couleur']
   }
 ]
 
