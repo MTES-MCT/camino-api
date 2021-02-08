@@ -726,7 +726,8 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
-  propsTitreEtapeIds?: IPropsTitreEtapesIds | null
+  propsTitreEtapesIds: IPropsTitreEtapesIds
+  propsTitreEtapes?: { [propId: string]: ITitreEtape }
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
