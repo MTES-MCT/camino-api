@@ -34,7 +34,7 @@ const etapeTypeSectionsFormat = (
   // fusion des sections par défaut de l'étape type
   // avec les sections spécifiques au type / démarche / étape
   // si deux sections ont la même id, seule la custom est conservée
-  if (sectionsSpecifiques.length && etapeType.sections) {
+  if (sectionsSpecifiques.length && etapeType.sections?.length) {
     sections = dupRemove(
       'id',
       sectionsSpecifiques,

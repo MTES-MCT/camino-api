@@ -46,7 +46,6 @@ describe("construction des activités d'un titre", () => {
       [2020],
       aujourdhui,
       'titre-id',
-      undefined,
       undefined
     )
 
@@ -57,7 +56,6 @@ describe("construction des activités d'un titre", () => {
       [2020],
       aujourdhui,
       'titre-id',
-      undefined,
       []
     )
 
@@ -68,7 +66,6 @@ describe("construction des activités d'un titre", () => {
       [2020],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id' } as unknown) as ITitreDemarche]
     )
 
@@ -84,7 +81,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche],
       [{ typeId: 'gra', annee: 2018, periodeId: 1 }] as ITitreActivite[]
     )
@@ -99,7 +95,6 @@ describe("construction des activités d'un titre", () => {
       [2021],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
@@ -149,7 +144,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
@@ -160,7 +154,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      'mod',
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
@@ -177,7 +170,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
@@ -194,7 +186,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
@@ -207,7 +198,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 
@@ -222,7 +212,6 @@ describe("construction des activités d'un titre", () => {
       [2018],
       aujourdhui,
       'titre-id',
-      undefined,
       [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
     )
 

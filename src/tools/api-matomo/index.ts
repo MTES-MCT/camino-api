@@ -199,6 +199,9 @@ const titresModifiesCountGet = async (duree: number) => {
 }
 
 const matomoCacheInit = async () => {
+  console.info()
+  console.info('- - -')
+  console.info('rafraichissement du cache Matomo…')
   // nombre de mois pour lesquels on souhaite des stats
   const duree = 12
 

@@ -150,28 +150,24 @@ const titreActiviteIsValideCheck = (
   periodeId: number,
   annee: number,
   months: number,
-  titreDemarches: ITitreDemarche[],
-  titreStatutId?: string | null
+  titreDemarches: ITitreDemarche[]
 ) => {
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
   if (date > aujourdhui) return false
 
-  // si le statut du titre n'est pas "modification en instance"
-  // - cherche si le titre est valide pendant la durée de l'activité
+  // si le titre est valide pendant la durée de l'activité
 
-  if (titreStatutId !== 'mod') {
-    const dateDebut = dateFormat(
-      new Date(annee, (periodeId - 1) * months, 1),
-      'yyyy-mm-dd'
-    )
+  const dateDebut = dateFormat(
+    new Date(annee, (periodeId - 1) * months, 1),
+    'yyyy-mm-dd'
+  )
 
-    const titreIsValide = titreValideCheck(titreDemarches, dateDebut, date)
+  const titreIsValide = titreValideCheck(titreDemarches, dateDebut, date)
 
-    // le titre n'est pas valide pour cette période
-    // on ne crée pas l'activité
-    if (!titreIsValide) return false
-  }
+  // le titre n'est pas valide pour cette période
+  // on ne crée pas l'activité
+  if (!titreIsValide) return false
 
   return true
 }
@@ -213,7 +209,6 @@ const titreActiviteBuild = (
   aujourdhui: string,
   titreId: string,
   titreDemarches: ITitreDemarche[],
-  titreStatutId?: string | null,
   titreActivites?: ITitreActivite[] | null
 ) => {
   // si l'activité existe déjà
@@ -230,8 +225,7 @@ const titreActiviteBuild = (
     periodeId,
     annee,
     months,
-    titreDemarches,
-    titreStatutId
+    titreDemarches
   )
 
   if (!titreActiviteIsValide) return null
@@ -263,7 +257,6 @@ const titreActiviteBuild = (
  * @param activiteType - type d'activité
  * @param annees - années pour lesquelles des activités sont à créer
  * @param aujourdhui - date du jour au format yyyy-mm-dd
- * @param titreStatutId - id du statut du titre
  * @param titreDemarches - demarches du titre
  * @returns une liste d'activités
  */
@@ -273,7 +266,6 @@ const titreActivitesBuild = (
   annees: number[],
   aujourdhui: string,
   titreId: string,
-  titreStatutId?: string | null,
   titreDemarches?: ITitreDemarche[] | null,
   titreActivites?: ITitreActivite[] | null
 ) => {
@@ -299,7 +291,6 @@ const titreActivitesBuild = (
           aujourdhui,
           titreId,
           titreDemarches,
-          titreStatutId,
           titreActivites
         )
 

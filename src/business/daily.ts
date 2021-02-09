@@ -17,7 +17,6 @@ import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etape
 import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
-import { matomoCacheInit } from '../tools/api-matomo'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 
@@ -68,10 +67,6 @@ const daily = async () => {
     const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate()
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate()
-
-    console.info('')
-    console.info('rafraichissement du cache Matomo…')
-    await matomoCacheInit()
 
     logsUpdate({
       titresEtapesOrdreUpdated,
