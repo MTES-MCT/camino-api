@@ -25,13 +25,13 @@ const titreValideCheck = (
     return true
 
   // si le titre a le statut "modification en instance" au moment de dateDebut
-  const titreDemarchesFiltered = titreDemarchesEtapesRebuild(
+  const newTitreDemarches = titreDemarchesEtapesRebuild(
     dateDebut,
     titreDemarches,
     titreTypeId
   )
 
-  const titreStatutId = titreStatutIdFind(dateDebut, titreDemarchesFiltered)
+  const titreStatutId = titreStatutIdFind(dateDebut, newTitreDemarches)
 
   if (titreStatutId === 'mod') return true
 

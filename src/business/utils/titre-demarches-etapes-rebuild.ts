@@ -25,11 +25,11 @@ const titreDemarchesEtapesRebuild = (
   titreTypeId: string
 ) =>
   titreDemarches.reduce((acc: ITitreDemarche[], td) => {
-    const titreDemarche = objectClone(td) as ITitreDemarche
-    if (titreDemarche.etapes) {
-      const titreEtapesFiltered = titreEtapesFilter(titreDemarche.etapes, date)
+    if (td.etapes) {
+      const titreEtapesFiltered = titreEtapesFilter(td.etapes, date)
 
       if (titreEtapesFiltered.length) {
+        const titreDemarche = objectClone(td) as ITitreDemarche
         titreDemarche.etapes = titreEtapesFiltered
 
         titreDemarche.statutId = titreDemarcheStatutIdFind(

@@ -97,7 +97,7 @@ class Titres extends Model {
       relation: Model.HasManyRelation,
       modelClass: TitresPoints,
       join: {
-        from: 'titres.propsTitreEtapesIds:points',
+        from: ref('titres.propsTitreEtapesIds:points').castText(),
         to: 'titresPoints.titreEtapeId'
       }
     },
