@@ -1,8 +1,8 @@
 import { ITitre } from '../../types'
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import titreDateFinFind from '../rules/titre-date-fin-find'
-import titreDateDebutFind from '../rules/titre-date-debut-find'
-import titreDateDemandeFind from '../rules/titre-date-demande-find'
+import { titreDateFinFind } from '../rules/titre-date-fin-find'
+import { titreDateDebutFind } from '../rules/titre-date-debut-find'
+import { titreDateDemandeFind } from '../rules/titre-date-demande-find'
 import PQueue from 'p-queue'
 
 const titresDatesUpdate = async (titresIds?: string[]) => {

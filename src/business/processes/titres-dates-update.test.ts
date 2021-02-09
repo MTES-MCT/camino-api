@@ -1,8 +1,8 @@
 import { mocked } from 'ts-jest/utils'
 import { titresDatesUpdate } from './titres-dates-update'
-import titreDateFinFind from '../rules/titre-date-fin-find'
-import titreDateDebutFind from '../rules/titre-date-debut-find'
-import titreDateDemandeFind from '../rules/titre-date-demande-find'
+import { titreDateFinFind } from '../rules/titre-date-fin-find'
+import { titreDateDebutFind } from '../rules/titre-date-debut-find'
+import { titreDateDemandeFind } from '../rules/titre-date-demande-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
 
@@ -10,9 +10,15 @@ jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true),
   titresGet: jest.fn()
 }))
-jest.mock('../rules/titre-date-fin-find')
-jest.mock('../rules/titre-date-debut-find')
-jest.mock('../rules/titre-date-demande-find')
+jest.mock('../rules/titre-date-fin-find', () => ({
+  titreDateFinFind: jest.fn()
+}))
+jest.mock('../rules/titre-date-debut-find', () => ({
+  titreDateDebutFind: jest.fn()
+}))
+jest.mock('../rules/titre-date-demande-find', () => ({
+  titreDateDemandeFind: jest.fn()
+}))
 
 const titresGetMock = mocked(titresGet, true)
 const titreDateFinFindMock = mocked(titreDateFinFind, true)

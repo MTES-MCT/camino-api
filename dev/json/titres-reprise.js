@@ -7,7 +7,7 @@ import {
   entrepriseUpsert
 } from '../../../database/queries/entreprises'
 
-import titreDemarcheStatutIdFind from '../../../business/rules/titre-demarche-statut-id-find'
+import { titreDemarcheStatutIdFind } from '../../../business/rules/titre-demarche-statut-id-find'
 import titreIdFind from '../../../business/utils/titre-id-find'
 
 const indexify = (arr, propGet = i => i) =>

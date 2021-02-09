@@ -1,4 +1,4 @@
-import { IActiviteType } from '../../../types'
+import { IActiviteType, ITitreDemarche } from '../../../types'
 
 const activiteTypeGra = ({
   id: 'gra',
@@ -188,9 +188,57 @@ const titreActivitesGrp = [
   }
 ]
 
+const titreDemarches = [
+  {
+    id: 'demarche-id',
+    statutId: 'acc',
+    typeId: 'oct',
+    phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' },
+    etapes: [
+      {
+        id: 'etape-id',
+        date: '2018-01-01',
+        typeId: 'dpu',
+        statutId: 'fai',
+        substances: [
+          {
+            id: 'auru',
+            legales: [
+              {
+                fiscales: [
+                  {
+                    id: 'auru',
+                    nom: 'Or',
+                    description: 'métal précieux',
+                    unite: { nom: 'kilogramme', symbole: 'kg' },
+                    uniteId: 'mkg'
+                  },
+                  {
+                    id: 'sela',
+                    nom: 'Sel',
+                    description: 'Sel',
+                    uniteId: 'mtn',
+                    unite: {
+                      nom: 'tonne',
+                      referenceUniteRatio: 0.001,
+                      symbole: 't'
+                    }
+                  },
+                  null
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  } as ITitreDemarche
+]
+
 export {
   titreActivitesGra,
   titreActivitesGrp,
   activiteTypeGra,
-  activiteTypeGrp
+  activiteTypeGrp,
+  titreDemarches
 }

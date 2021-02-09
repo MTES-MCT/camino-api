@@ -159,16 +159,24 @@ const titreDemarchePublicLectureFind = (
   return publicLecture
 }
 
+/**
+ *
+ * @param demarcheTypeId - id du type de démarche
+ * @param demarcheTypeEtapesTypes - types d'étapes de ce type de démarche
+ * @param titreEtapes - étapes de la démarche
+ * @param titreTypeId - id du type de titre
+ */
+
 const titreDemarchePublicFind = (
   demarcheTypeId: string,
   demarcheTypeEtapesTypes: IEtapeType[],
-  titreDemarcheEtapes: ITitreEtape[],
+  titreEtapes: ITitreEtape[],
   titreTypeId?: string
 ) =>
   // on parcourt successivement toutes les étapes
   // pour calculer la visibilité de la démarche
   // en fonction de l'historique
-  titreDemarcheEtapes.reduce(
+  titreEtapes.reduce(
     ({ publicLecture, entreprisesLecture }, titreEtape) => {
       // on calcule la visibilité au public
       publicLecture = titreDemarchePublicLectureFind(
@@ -190,4 +198,4 @@ const titreDemarchePublicFind = (
     { publicLecture: false, entreprisesLecture: false }
   )
 
-export default titreDemarchePublicFind
+export { titreDemarchePublicFind }

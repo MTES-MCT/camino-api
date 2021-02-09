@@ -1,7 +1,7 @@
 import { ITitreEtape } from '../../types'
 
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
-import titreEtapePublicationFilter from './titre-etape-publication-filter'
+import { titreEtapePublicationCheck } from './titre-etape-publication-check'
 
 const titreEtapesDecisivesCommunesTypes = ['css', 'rtd', 'abd', 'and']
 
@@ -154,7 +154,7 @@ const titreDemarcheUnilateralStatutIdFind = (
 
 const titreDemarcheDemandeStatutIdFind = (
   titreDemarcheEtapes: ITitreEtape[],
-  titreTypeId?: string
+  titreTypeId: string
 ) => {
   // filtre les types d'étapes qui ont un impact
   // sur le statut de la démarche de demande
@@ -171,14 +171,15 @@ const titreDemarcheDemandeStatutIdFind = (
 
   // calcule le statut de démarche pour les étapes communes
   const statutId = titresDemarcheCommunesStatutIdFind(titreEtapeRecent)
+
   if (statutId) return statutId
 
+  //  - le type de l’étape est une publication
+  //  - ou une décision implicite (dim)
+  //  - ou des informations historiques incomplètes
   const titreEtapesPublication = titreDemarcheEtapes.filter(
     titreEtape =>
-      //  - le type de l’étape est une publication
-      //  - ou une décision implicite (dim)
-      //  - ou des informations historiques incomplètes
-      titreEtapePublicationFilter(titreEtape.typeId, titreTypeId) ||
+      titreEtapePublicationCheck(titreEtape.typeId, titreTypeId) ||
       ['dim', 'ihi'].includes(titreEtape.typeId)
   )
 
@@ -257,31 +258,40 @@ const titreDemarcheDemandeStatutIdFind = (
   return 'ind'
 }
 
+/**
+ * Retourne l'id du statut d'une démarche
+ * @param demarcheTypeId - id du type de la démarche
+ * @param titreDemarcheEtapes - étapes de la démarche
+ * @param titreTypeId - id du type de titre
+ */
+
 const titreDemarcheStatutIdFind = (
   demarcheTypeId: string,
   titreDemarcheEtapes: ITitreEtape[],
-  titreTypeId?: string
+  titreTypeId: string
 ) => {
   // si la démarche ne contient pas d'étapes
-  // le statut est indétrminé
+  // -> le statut est indétrminé
   if (!titreDemarcheEtapes.length) return 'ind'
 
+  //  si la démarche fait l’objet d’une demande
+  // (son type est :
+  //  - octroi ou prolongation(1, 2 ou exceptionnelle)
+  //  - renonciation ou fusion (native ou virtuelle) ou extension du périmètre
+  //  - extension de substance ou mutation (native ou virtuelle) ou amodiation
+  //  - résiliation d’amodiation ou déplacement de périmètre)
   if (titreDemarchesDemandesTypes.includes(demarcheTypeId)) {
-    //  1. la démarche fait l’objet d’une demande
-    //  - le nom de la démarche est égal à
-    //    octroi ou prolongation(1, 2 ou exceptionnelle)
-    //    ou renonciation ou fusion (native ou virtuelle) ou extension du périmètre
-    //    ou extension de substance ou mutation (native ou virtuelle) ou amodiation
-    //    ou résiliation d’amodiation ou déplacement de périmètre
     return titreDemarcheDemandeStatutIdFind(titreDemarcheEtapes, titreTypeId)
-  } else if (titreDemarchesUnilateralesTypes.includes(demarcheTypeId)) {
-    //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
-    //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
+  }
+
+  //  si la démarche ne fait pas l’objet d’une demande (unilatérale)
+  //  (son type est retrait ou abrogation ou prorogation)
+  else if (titreDemarchesUnilateralesTypes.includes(demarcheTypeId)) {
     return titreDemarcheUnilateralStatutIdFind(titreDemarcheEtapes)
   }
 
-  //  3. sinon, le statut est indéterminé
+  //  sinon, le statut est indéterminé
   return 'ind'
 }
 
-export default titreDemarcheStatutIdFind
+export { titreDemarcheStatutIdFind }

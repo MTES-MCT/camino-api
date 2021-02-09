@@ -1,4 +1,4 @@
-import titreDateFinFind from './titre-date-fin-find'
+import { titreDateFinFind } from './titre-date-fin-find'
 
 import {
   titreDemarchesProAccOctAcc,

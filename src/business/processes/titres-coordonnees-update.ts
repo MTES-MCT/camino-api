@@ -1,7 +1,7 @@
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
-import titreCoordoneesFind from '../rules/titre-coordonnees-find'
+import { titreCoordonneesFind } from '../utils/titre-coordonnees-find'
 
 const titresCoordonneesUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -17,7 +17,7 @@ const titresCoordonneesUpdate = async (titresIds?: string[]) => {
   const titresCoordonneesUpdated = [] as string[]
 
   titres.forEach(titre => {
-    const coordonnees = titreCoordoneesFind(titre.points)
+    const coordonnees = titreCoordonneesFind(titre.points)
 
     if (
       (coordonnees &&

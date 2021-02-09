@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titreCoordonneesFind from '../rules/titre-coordonnees-find'
+import { titreCoordonneesFind } from '../utils/titre-coordonnees-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
 import { titresCoordonneesUpdate } from './titres-coordonnees-update'
@@ -8,8 +8,8 @@ jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true),
   titresGet: jest.fn()
 }))
-jest.mock('../rules/titre-coordonnees-find', () => ({
-  default: jest.fn()
+jest.mock('../utils/titre-coordonnees-find', () => ({
+  titreCoordonneesFind: jest.fn()
 }))
 
 const titresGetMock = mocked(titresGet, true)

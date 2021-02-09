@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDateFinFind from './titre-date-fin-find'
+import { titreDateFinFind } from './titre-date-fin-find'
 
 const titreStatutIdFind = (
   aujourdhui: string,
@@ -9,7 +9,7 @@ const titreStatutIdFind = (
   if (!titreDemarches || !titreDemarches.length) return 'ind'
 
   // si toutes les démarches du titre ont le statut `indéfini`
-  // alors le titre a également le statut `indéfini`
+  // -> le titre a également le statut `indéfini`
   if (titreDemarches.every(d => d.statutId === 'ind')) return 'ind'
 
   // s'il y a une seule démarche (octroi)
@@ -20,32 +20,32 @@ const titreStatutIdFind = (
       titreDemarches[0].statutId!
     )
   ) {
-    // le statut de la démarche est en instruction ou déposée
+    // si le statut de la démarche est en instruction ou déposée
+    // -> le statut du titre est demande initiale
     if (['eco', 'ins', 'dep'].includes(titreDemarches[0].statutId!)) {
-      // le statut du titre est demande initiale
       return 'dmi'
     }
 
-    // le statut de la démarche est rejeté ou classé sans suite ou désisté
-    // le statut du titre est demande classée
+    // si le statut de la démarche est rejeté ou classé sans suite ou désisté
+    // -> le statut du titre est demande classée
     return 'dmc'
   }
 
-  // une démarche a le statut en instruction
+  // si une démarche a le statut en instruction
+  // -> le statut du titre est modification en instance
   if (titreDemarches.find(d => d.statutId === 'ins')) {
-    // le statut du titre est modification en instance
     return 'mod'
   }
 
-  // la date du jour est inférieure à la date d’échéance
+  // si la date du jour est inférieure à la date d’échéance
+  // -> le statut du titre est valide
   const dateFin = titreDateFinFind(titreDemarches)
 
   if (dateFin && aujourdhui < dateFin) {
-    // le statut du titre est valide
     return 'val'
   }
 
-  // le statut du titre est échu
+  // sinon le statut du titre est échu
   return 'ech'
 }
 

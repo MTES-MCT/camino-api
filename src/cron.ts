@@ -3,6 +3,7 @@ import './init'
 import { job } from 'cron'
 import daily from './business/daily'
 import documentsCheck from './tools/documents/check'
+import { matomoCacheInit } from './tools/api-matomo'
 import demarchesDefinitionsCheck from './tools/demarches/definitions-check'
 import './config/logger-cron'
 import { emailSend } from './tools/emails-send'
@@ -16,6 +17,7 @@ const tasks = async () => {
   await daily()
   await documentsCheck()
   await demarchesDefinitionsCheck()
+  await matomoCacheInit()
 
   const emailBody = readFileSync('cron.log').toString()
   await emailSend(process.env.ADMIN_EMAIL!, 'Résultats du daily', emailBody)

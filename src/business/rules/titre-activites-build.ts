@@ -77,7 +77,8 @@ const titreActiviteSectionsBuild = (
   sections: ISection[],
   periodeId: number,
   date: string,
-  titreDemarches: ITitreDemarche[]
+  titreDemarches: ITitreDemarche[],
+  titreTypeId: string
 ) =>
   sections.reduce((newSections: ISection[], s) => {
     let elements = [] as ISectionElement[]
@@ -91,7 +92,8 @@ const titreActiviteSectionsBuild = (
       const substances = titreEtapePropFind(
         'substances',
         date,
-        titreDemarches
+        titreDemarches,
+        titreTypeId
       ) as ISubstance[] | null
 
       if (substances?.length) {
@@ -141,7 +143,7 @@ const titreActiviteSectionsBuild = (
  * @param annee - année
  * @param months - nombre de mois dans la période (ex: 3 pour un trimestre)
  * @param titreDemarches - démarches du titre
- * @param titreStatutId - statut du titre
+ * @param titreTypeId - id du type de titre
  */
 
 const titreActiviteIsValideCheck = (
@@ -151,27 +153,29 @@ const titreActiviteIsValideCheck = (
   annee: number,
   months: number,
   titreDemarches: ITitreDemarche[],
-  titreStatutId?: string | null
+  titreTypeId: string
 ) => {
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
   if (date > aujourdhui) return false
 
-  // si le statut du titre n'est pas "modification en instance"
-  // - cherche si le titre est valide pendant la durée de l'activité
+  // si le titre est valide pendant la durée de l'activité
 
-  if (titreStatutId !== 'mod') {
-    const dateDebut = dateFormat(
-      new Date(annee, (periodeId - 1) * months, 1),
-      'yyyy-mm-dd'
-    )
+  const dateDebut = dateFormat(
+    new Date(annee, (periodeId - 1) * months, 1),
+    'yyyy-mm-dd'
+  )
 
-    const titreIsValide = titreValideCheck(titreDemarches, dateDebut, date)
+  const titreIsValide = titreValideCheck(
+    titreDemarches,
+    dateDebut,
+    date,
+    titreTypeId
+  )
 
-    // le titre n'est pas valide pour cette période
-    // on ne crée pas l'activité
-    if (!titreIsValide) return false
-  }
+  // le titre n'est pas valide pour cette période
+  // on ne crée pas l'activité
+  if (!titreIsValide) return false
 
   return true
 }
@@ -200,7 +204,7 @@ const titreActiviteFind = (
  * @param aujourdhui - date du jour au format yyyy-mm-jj
  * @param titreId - id du titre
  * @param titreDemarches - démarches du titre
- * @param titreStatutId - id du statut du titre
+ * @param titreTypeId - id du type de titre
  * @param titreActivites - activités existantes du titres
  */
 
@@ -213,7 +217,7 @@ const titreActiviteBuild = (
   aujourdhui: string,
   titreId: string,
   titreDemarches: ITitreDemarche[],
-  titreStatutId?: string | null,
+  titreTypeId: string,
   titreActivites?: ITitreActivite[] | null
 ) => {
   // si l'activité existe déjà
@@ -231,7 +235,7 @@ const titreActiviteBuild = (
     annee,
     months,
     titreDemarches,
-    titreStatutId
+    titreTypeId
   )
 
   if (!titreActiviteIsValide) return null
@@ -241,7 +245,8 @@ const titreActiviteBuild = (
     activiteTypeSections,
     periodeId,
     date,
-    titreDemarches
+    titreDemarches,
+    titreTypeId
   )
 
   if (!sections.length) return null
@@ -259,12 +264,13 @@ const titreActiviteBuild = (
 
 /**
  * Construit les activités à ajouter sur un titre
- * @param titreId - id du titre
  * @param activiteType - type d'activité
  * @param annees - années pour lesquelles des activités sont à créer
  * @param aujourdhui - date du jour au format yyyy-mm-dd
- * @param titreStatutId - id du statut du titre
+ * @param titreId - id du titre
+ * @param titreTypeId - id du type de titre
  * @param titreDemarches - demarches du titre
+ * @param titreActivites - activités du titre
  * @returns une liste d'activités
  */
 
@@ -273,7 +279,7 @@ const titreActivitesBuild = (
   annees: number[],
   aujourdhui: string,
   titreId: string,
-  titreStatutId?: string | null,
+  titreTypeId: string,
   titreDemarches?: ITitreDemarche[] | null,
   titreActivites?: ITitreActivite[] | null
 ) => {
@@ -299,7 +305,7 @@ const titreActivitesBuild = (
           aujourdhui,
           titreId,
           titreDemarches,
-          titreStatutId,
+          titreTypeId,
           titreActivites
         )
 
@@ -315,8 +321,4 @@ const titreActivitesBuild = (
   return titresActivites
 }
 
-export {
-  titreActivitesBuild,
-  titreActiviteSectionsBuild,
-  titreActiviteIsValideCheck
-}
+export { titreActivitesBuild, titreActiviteIsValideCheck }

@@ -1,4 +1,4 @@
-import titreDateDemandeFind from './titre-date-demande-find'
+import { titreDateDemandeFind } from './titre-date-demande-find'
 
 import {
   titreDemarcheOctEtapeMen,

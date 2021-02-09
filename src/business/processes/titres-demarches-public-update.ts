@@ -1,7 +1,7 @@
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
-import titreDemarchePublicFind from '../rules/titre-demarche-public-find'
+import { titreDemarchePublicFind } from '../rules/titre-demarche-public-find'
 import { titresGet } from '../../database/queries/titres'
 
 type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }

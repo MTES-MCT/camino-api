@@ -44,4 +44,4 @@ const titreDateDemandeFind = (
   return titreEtapeMen.date
 }
 
-export default titreDateDemandeFind
+export { titreDateDemandeFind }
