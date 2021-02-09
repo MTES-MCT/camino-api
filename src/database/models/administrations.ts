@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, ref } from 'objection'
 import { join } from 'path'
 
 import { IAdministration } from '../../types'
@@ -110,7 +110,7 @@ class Administrations extends Model {
           from: 'titresAdministrationsLocales.administrationId',
           to: 'titresAdministrationsLocales.titreEtapeId'
         },
-        to: 'titres.administrationsTitreEtapeId'
+        to: ref('titres.propsTitreEtapesIds:administrations').castText()
       }
     },
 

@@ -1,8 +1,9 @@
-import { ITitre, ITitreEtapeIdPropId, IPropId } from '../../types'
+import { IPropId, IPropsTitreEtapesIds } from '../../types'
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { titrePropTitreEtapeFind } from '../rules/titre-prop-etape-find'
+import { objectsDiffer } from '../../tools'
 
 const titrePropsEtapes = [
   'points',
@@ -10,15 +11,8 @@ const titrePropsEtapes = [
   'amodiataires',
   'administrations',
   'substances',
-  'communes',
   'surface'
-].map(propId => ({
-  propId,
-  titreEtapeIdPropId: `${propId}TitreEtapeId`
-})) as {
-  propId: IPropId
-  titreEtapeIdPropId: ITitreEtapeIdPropId
-}[]
+] as IPropId[]
 
 const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -36,8 +30,7 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
             titulaires: { id: {} },
             amodiataires: { id: {} },
             administrations: { id: {} },
-            substances: { id: {} },
-            communes: { id: {} }
+            substances: { id: {} }
           }
         }
       }
@@ -49,25 +42,15 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
 
   titres.forEach(titre => {
     const propsTitreEtapesIds = titrePropsEtapes.reduce(
-      (
-        propsTitreEtapesIds: Partial<ITitre>,
-        { propId, titreEtapeIdPropId }
-      ) => {
+      (propsTitreEtapesIds: IPropsTitreEtapesIds, propId) => {
         const titreEtape = titrePropTitreEtapeFind(
           propId,
           titre.demarches!,
           titre.statutId!
         )
 
-        // si
-        // - l'id de l'étape est différente de celle du titre
-        // - l'id de l'étape existe ou elle existe dans le titre
-        if (
-          titreEtape &&
-          titreEtape.id !== titre[titreEtapeIdPropId] &&
-          (titre[titreEtapeIdPropId] || titreEtape.id)
-        ) {
-          propsTitreEtapesIds[titreEtapeIdPropId] = titreEtape.id
+        if (titreEtape) {
+          propsTitreEtapesIds[propId] = titreEtape.id
         }
 
         return propsTitreEtapesIds
@@ -75,9 +58,9 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
       {}
     )
 
-    if (Object.keys(propsTitreEtapesIds).length) {
+    if (objectsDiffer(propsTitreEtapesIds, titre.propsTitreEtapesIds)) {
       queue.add(async () => {
-        await titreUpdate(titre.id, propsTitreEtapesIds)
+        await titreUpdate(titre.id, { propsTitreEtapesIds })
 
         const log = {
           type: "titre : ids d'étapes des props (mise à jour) ->",

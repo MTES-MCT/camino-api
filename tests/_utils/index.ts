@@ -27,7 +27,7 @@ const tokenCreate = (user: Partial<IUtilisateur>) =>
 const graphQLCall = async (
   query: string,
   variables: Index<
-    string | boolean | Index<string | boolean | Index<string>[]>
+    string | boolean | Index<string | boolean | Index<string>[] | any>
   >,
   permissionId?: IPermissionId,
   administration?: IAdministration

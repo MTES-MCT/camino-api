@@ -15,15 +15,6 @@ interface IColonne<T> {
   groupBy?: boolean | T | T[]
 }
 
-type ITitreEtapeIdPropId =
-  | 'pointsTitreEtapeId'
-  | 'titulairesTitreEtapeId'
-  | 'amodiatairesTitreEtapeId'
-  | 'administrationsTitreEtapeId'
-  | 'substancesTitreEtapeId'
-  | 'communesTitreEtapeId'
-  | 'surfaceTitreEtapeId'
-
 type IPropId =
   | 'points'
   | 'titulaires'
@@ -70,12 +61,12 @@ interface IContenu {
   [sectionId: string]: IContenuElement
 }
 
-interface IContenuTitreEtapesIdsValeur {
+interface IPropsTitreEtapesIds {
   [elementId: string]: string
 }
 
 interface IContenusTitreEtapesIds {
-  [sectionId: string]: IContenuTitreEtapesIdsValeur
+  [sectionId: string]: IPropsTitreEtapesIds
 }
 
 interface ISection {
@@ -545,26 +536,19 @@ interface ITitre {
   activitesDeposees?: number | null
   activitesEnConstruction?: number | null
   activitesAbsentes?: number | null
-  substancesTitreEtapeId?: string | null
   substances?: ISubstance[] | null
-  pointsTitreEtapeId?: string | null
   points?: ITitrePoint[] | null
   coordonnees?: ICoordonnees | null
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
   geojsonCentre?: IGeoJsonCentre | null
-  titulairesTitreEtapeId?: string | null
   titulaires?: IEntreprise[] | null
-  amodiatairesTitreEtapeId?: string | null
   amodiataires?: IEntreprise[] | null
-  administrationsTitreEtapeId?: string | null
   administrationsLocales?: IAdministration[] | null
   administrationsGestionnaires?: IAdministration[] | null
   administrations?: IAdministration[] | null
-  surfaceTitreEtapeId?: string | null
   surfaceEtape?: ITitreEtape | null
   surface?: number | null
-  communesTitreEtapeId?: string | null
   communes?: ICommune[] | null
   forets?: IForet[] | null
   demarches?: ITitreDemarche[] | null
@@ -577,6 +561,7 @@ interface ITitre {
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
+  propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
 }
 
@@ -732,6 +717,8 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   forets?: IForet[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
+  contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
+  propsTitreEtapeIds?: IPropsTitreEtapesIds | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -746,7 +733,6 @@ interface ITitreEtapeFiltre {
 }
 
 interface ITitreIncertitudes {
-  titreEtapeId: string
   date?: boolean | null
   dateDebut?: boolean | null
   dateFin?: boolean | null
@@ -981,7 +967,6 @@ export {
   IUser,
   IUtilisateur,
   IUtilisateurCreation,
-  ITitreEtapeIdPropId,
   IPropId,
   IToken,
   ITokenUser,
@@ -993,5 +978,6 @@ export {
   IAdministrationColonneId,
   IColonne,
   IDefinition,
-  IContenuId
+  IContenuId,
+  IPropsTitreEtapesIds
 }

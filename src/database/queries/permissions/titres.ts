@@ -1,5 +1,8 @@
 import { IFields, IUtilisateur } from '../../../types'
 
+// import * as sqlFormatter from 'sql-formatter'
+// import fileCreate from '../../../tools/file-create'
+
 import { QueryBuilder, raw } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
@@ -124,6 +127,8 @@ const titrePermissionQueryBuild = (
         })
       }
     })
+
+    // fileCreate('test.sql', sqlFormatter.format(q.toKnexQuery().toString()))
   }
 
   if (permissionCheck(user?.permissionId, ['super'])) {

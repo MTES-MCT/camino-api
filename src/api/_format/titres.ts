@@ -134,14 +134,14 @@ const titreFormat = (
     t.geojsonPoints = geojsonFeatureCollectionPoints(t.points) as IGeoJson
   }
 
-  if (fields.geojsonCentre && t.coordonnees && t.pointsTitreEtapeId) {
+  if (fields.geojsonCentre && t.coordonnees && t.propsTitreEtapesIds.points) {
     t.geojsonCentre = {
       type: 'Feature',
       geometry: {
         type: 'Point',
         coordinates: [t.coordonnees.x, t.coordonnees.y]
       },
-      properties: { etapeId: t.pointsTitreEtapeId }
+      properties: { etapeId: t.propsTitreEtapesIds.points }
     }
   }
 

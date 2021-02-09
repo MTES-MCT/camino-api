@@ -1,5 +1,5 @@
 import { administrations } from './administrations'
-import { ITitre } from '../../src/types'
+import { IAdministration, ITitre } from '../../src/types'
 
 const titreWithActiviteGrp = {
   id: 'titre-id',
@@ -7,7 +7,7 @@ const titreWithActiviteGrp = {
   domaineId: 'm',
   typeId: 'axm',
   publicLecture: true,
-  administrationsTitreEtapeId: 'titre-id-demarche-id-dpu',
+  propsTitreEtapesIds: { administrations: 'titre-id-demarche-id-dpu' },
   administrationsGestionnaires: [administrations.ptmg],
   activites: [
     {
@@ -54,7 +54,7 @@ const titreWithActiviteGrp = {
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02',
-          administrations: [{ id: 'dea-guyane-01' }]
+          administrations: [{ id: 'dea-guyane-01' }] as IAdministration[]
         }
       ]
     }
@@ -66,7 +66,8 @@ const titrePublicLecture = {
   nom: 'mon titre',
   domaineId: 'm',
   typeId: 'arm',
-  publicLecture: true
+  publicLecture: true,
+  propsTitreEtapesIds: {}
 }
 
 const titrePublicLectureFalse = {
@@ -74,7 +75,8 @@ const titrePublicLectureFalse = {
   nom: 'mon titre',
   domaineId: 'm',
   typeId: 'arm',
-  publicLecture: false
+  publicLecture: false,
+  propsTitreEtapesIds: {}
 }
 
 const titreEtapesPubliques = {
@@ -84,7 +86,7 @@ const titreEtapesPubliques = {
   typeId: 'arm',
   publicLecture: true,
   administrationsGestionnaires: [administrations.onf],
-  administrationsTitreEtapeId: 'titre-id-demarche-id-dpu',
+  propsTitreEtapesIds: { administrations: 'titre-id-demarche-id-dpu' },
   demarches: [
     {
       id: 'titre-id-demarche-id',
@@ -164,7 +166,7 @@ const titreEtapesPubliques = {
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02',
-          administrationsIds: ['dea-guyane-01']
+          administrations: [{ id: 'dea-guyane-01' }] as IAdministration[]
         }
       ]
     }
@@ -177,6 +179,7 @@ const titreDemarchesPubliques = {
   domaineId: 'm',
   typeId: 'arm',
   publicLecture: true,
+  propsTitreEtapesIds: {},
   demarches: [
     {
       id: 'titre-id-demarche-oct',

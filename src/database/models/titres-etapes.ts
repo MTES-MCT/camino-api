@@ -25,7 +25,8 @@ class TitresEtapes extends Model {
       dateFin: { type: ['string', 'null'] },
       duree: { type: ['integer', 'null'] },
       surface: { type: ['number', 'null'] },
-      contenu: { type: 'json' }
+      contenu: { type: 'json' },
+      incertitudes: { type: 'json' }
     }
   }
 
@@ -169,15 +170,6 @@ class TitresEtapes extends Model {
           extra: ['surface']
         },
         to: 'forets.id'
-      }
-    },
-
-    incertitudes: {
-      relation: Model.HasOneRelation,
-      modelClass: join(__dirname, 'titres-incertitudes'),
-      join: {
-        from: 'titresEtapes.id',
-        to: 'titresIncertitudes.titreEtapeId'
       }
     }
   }

@@ -3,10 +3,7 @@ import * as slugify from '@sindresorhus/slugify'
 import idsUpdate from './ids-update'
 import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
 import titreEtapesSortAsc from './titre-etapes-sort-asc'
-import { titrePropsEtapes } from '../processes/titres-props-etapes-ids-update'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
-
-const titreEtapeIdPropIds = titrePropsEtapes.map(p => p.titreEtapeIdPropId)
 
 const titreIdFind = (titre: ITitre) => {
   const { domaineId, type, nom } = titre
@@ -72,14 +69,28 @@ const titreRelation = {
           props: ['titreDemarcheId'],
           idFind: titreEtapeIdFind,
           relations: [
+            // {
+            //   name: 'etapes',
+            //   props: ['propsTitreEtapesIds'],
+            //   depth: 1,
+            //   path: []
+            // },
+            // {
+            //   name: 'etapes',
+            //   props: ['contenusTitreEtapesIds'],
+            //   depth: 2,
+            //   path: []
+            // },
             {
               name: 'titre',
-              props: titreEtapeIdPropIds,
+              props: ['propsTitreEtapesIds'],
+              depth: 1,
               path: []
             },
             {
               name: 'titre',
-              contenus: ['contenusTitreEtapesIds'],
+              props: ['contenusTitreEtapesIds'],
+              depth: 2,
               path: []
             },
             {

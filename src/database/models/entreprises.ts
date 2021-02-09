@@ -1,4 +1,4 @@
-import { Model, Pojo } from 'objection'
+import { Model, Pojo, ref } from 'objection'
 import { join } from 'path'
 
 import { IEntreprise } from '../../types'
@@ -64,7 +64,7 @@ class Entreprises extends Model {
           from: 'titresTitulaires.entrepriseId',
           to: 'titresTitulaires.titreEtapeId'
         },
-        to: 'titres.titulairesTitreEtapeId'
+        to: ref('titres.propsTitreEtapesIds:titulaires').castText()
       }
     },
 
@@ -77,7 +77,7 @@ class Entreprises extends Model {
           from: 'titresAmodiataires.entrepriseId',
           to: 'titresAmodiataires.titreEtapeId'
         },
-        to: 'titres.amodiatairesTitreEtapeId'
+        to: ref('titres.propsTitreEtapesIds:amodiataires').castText()
       }
     },
 

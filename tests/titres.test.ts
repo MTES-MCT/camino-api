@@ -282,6 +282,7 @@ describe('titreModifier', () => {
         nom: 'mon titre',
         domaineId: 'm',
         typeId: 'arm',
+        propsTitreEtapesIds: {},
         administrationsGestionnaires: [
           administrations.ptmg,
           administrations.dgtmGuyane
@@ -359,6 +360,7 @@ describe('titreModifier', () => {
         domaineId: 'm',
         typeId: 'arm',
         statutId: 'ech',
+        propsTitreEtapesIds: {},
         administrationsGestionnaires: [
           administrations.ptmg,
           administrations.dgtmGuyane
@@ -410,7 +412,13 @@ describe('titreSupprimer', () => {
 
   beforeEach(async () => {
     await titreCreate(
-      { id, nom: 'mon titre', domaineId: 'm', typeId: 'arm' },
+      {
+        id,
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm',
+        propsTitreEtapesIds: {}
+      },
       {},
       'super'
     )

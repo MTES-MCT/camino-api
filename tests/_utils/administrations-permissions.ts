@@ -206,6 +206,7 @@ const modificationCheck = async (
         modification: true
       })
     } else {
+      expect(res.body.errors).toBeUndefined()
       const demarches = res.body.data.titre.demarches
       const check = !demarches.length || !demarches[0].modification
       expect(check).toBeTruthy()
@@ -267,7 +268,7 @@ const titreBuild = (
     typeId: titreTypeId,
     statutId: 'val',
     domaineId: titreTypeId.slice(-1),
-    administrationsTitreEtapeId: `${titreId}-demarche-id-etape-id`,
+    propsTitreEtapesIds: { administrations: `${titreId}-demarche-id-etape-id` },
     demarches: [
       {
         id: `${titreId}-demarche-id`,

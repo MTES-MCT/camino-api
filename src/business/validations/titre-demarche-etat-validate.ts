@@ -95,13 +95,13 @@ const titreDemarcheEtatValidate = (
 
     const contenusTitreEtapesIds = contenusTitreEtapesIdsFind(
       titre.statutId!,
-      titreDemarches!,
+      [titreDemarche],
       titre.type!.contenuIds
     )
 
     let contenu = null
     if (contenusTitreEtapesIds) {
-      contenu = titreContenuFormat(contenusTitreEtapesIds, titre.demarches)
+      contenu = titreContenuFormat(contenusTitreEtapesIds, [titreDemarche])
     }
 
     const titreEtapeErrors = titreEtapeEtatValidate(

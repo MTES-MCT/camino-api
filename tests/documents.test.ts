@@ -86,6 +86,7 @@ describe('documentSupprimer', () => {
         id: titreId,
         nom: '',
         typeId: 'arm',
+        propsTitreEtapesIds: {},
         demarches: [
           {
             id: 'demarche-id',
@@ -146,6 +147,7 @@ describe('documentSupprimer', () => {
         id: titreId,
         nom: '',
         typeId: 'arm',
+        propsTitreEtapesIds: {},
         demarches: [
           {
             id: 'demarche-id',

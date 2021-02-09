@@ -99,31 +99,35 @@ const titresEtapesRelateTrue = [
   'type',
   'statut',
   'titulaires',
+  'amodiataires',
+  'administrations',
+  'substances',
+  'points',
+  'points.references',
+  'communes',
+  'forets',
+  'documents',
+  'justificatifs'
+]
+
+const titresEtapesRelateFalse = [
+  ...titresEtapesRelateTrue,
   'titulaires.etablissements',
   'titulaires.utilisateurs',
   'titulaires.utilisateurs.permission',
   'titulaires.documents',
   'titulaires.documents.type',
-  'amodiataires',
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
   'amodiataires.utilisateurs.permission',
-  'administrations',
   'administrations.titresTypes',
   'administrations.type',
   'administrations.utilisateurs',
   'administrations.utilisateurs.permission',
-  'substances',
   'substances.legales',
   'points.references.geoSysteme',
   'points.references.geoSysteme.unite',
-  'communes',
-  'communes.departement',
-  'communes.departement.region',
-  'communes.departement.region.pays',
-  'forets',
   ...documents.update.relate.map(k => `documents.${k}`),
-  'justificatifs',
   ...documents.update.relate.map(k => `justificatifs.${k}`)
 ]
 
@@ -139,13 +143,15 @@ const titresEtapes = {
     amodiataires.${entreprises.graph},
     administrations.${administrations.graph},
     communes.${communes.graph},
-    forets,
-    incertitudes
+    forets
   ]`,
 
   update: {
     relate: titresEtapesRelateTrue,
     unrelate: titresEtapesRelateTrue,
+    noInsert: titresEtapesRelateFalse,
+    noUpdate: titresEtapesRelateFalse,
+    noDelete: titresEtapesRelateFalse,
     insertMissing: true
   }
 }
@@ -372,9 +378,6 @@ const titres = {
     travaux(orderDesc).${titresTravaux.graph},
     references(orderAsc).type
    ]`,
-  // ne pas récupèrer la relation `surfaceEtape`
-  // car dans le cas d'une mise à jour d'id
-  // cette relation écrase `surfaceTitreEtapeId` contenu dans le titre mis à jour
 
   update: {
     relate: titresRelateTrue,

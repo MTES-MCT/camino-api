@@ -2,7 +2,9 @@ import {
   ITitre,
   ICoordonnees,
   IContenu,
-  IContenusTitreEtapesIds
+  IContenusTitreEtapesIds,
+  IPropsTitreEtapesIds,
+  ITitreIncertitudes
 } from '../../../types'
 import { ISpreadsheet } from '../_types'
 import { titresGet } from '../../../database/queries/titres'
@@ -51,19 +53,14 @@ const tables = [
       'dateFin',
       'dateDemande',
       'coordonnees',
-      'pointsTitreEtapeId',
-      'titulairesTitreEtapeId',
-      'amodiatairesTitreEtapeId',
-      'administrationsTitreEtapeId',
-      'substancesTitreEtapeId',
-      'communesTitreEtapeId',
-      'surfaceTitreEtapeId',
+      'propsTitreEtapeId',
       'contenusTitreEtapesIds',
       'publicLecture',
       'entreprisesLecture'
     ],
     callbacks: {
       contenusTitreEtapesIds: (v: IContenusTitreEtapesIds) => JSON.stringify(v),
+      propsTitreEtapesIds: (v: IPropsTitreEtapesIds) => JSON.stringify(v),
       coordonnees: (v: ICoordonnees) => `${v.x},${v.y}`
     }
   },
@@ -116,11 +113,17 @@ const tables = [
       'dateFin',
       'duree',
       'surface',
-      'contenu'
+      'contenu',
+      'incertitudes',
+      'contenusTitreEtapesIds',
+      'propsTitreEtapesIds'
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {
-      contenu: (v: IContenu) => JSON.stringify(v)
+      contenu: (v: IContenu) => JSON.stringify(v),
+      incertitudes: (v: ITitreIncertitudes) => JSON.stringify(v),
+      contenusTitreEtapesIds: (v: IContenusTitreEtapesIds) => JSON.stringify(v),
+      propsTitreEtapesIds: (v: IPropsTitreEtapesIds) => JSON.stringify(v)
     }
   },
   {
@@ -248,24 +251,6 @@ const tables = [
       'surface'
     ],
     parents: ['demarches', 'etapes', 'forets']
-  },
-  {
-    id: 18,
-    name: 'titresIncertitudes',
-    columns: [
-      { id: 'titreEtapeId', parentKey: 'id' },
-      'date',
-      'dateDebut',
-      'dateFin',
-      'duree',
-      'surface',
-      'points',
-      'substances',
-      'titulaires',
-      'amodiataires',
-      'administrations'
-    ],
-    parents: ['demarches', 'etapes', 'incertitudes']
   }
 ]
 

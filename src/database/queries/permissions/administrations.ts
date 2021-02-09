@@ -105,8 +105,9 @@ const administrationsLocalesModifier = (
 
   q.leftJoin(
     'titresAdministrationsLocales as t_al',
-    raw(`?? = ?? and ?? in (${administrationsIdsReplace})`, [
-      `${titreAlias}.administrationsTitreEtapeId`,
+    raw(`?? ->> ? = ?? and ?? in (${administrationsIdsReplace})`, [
+      `${titreAlias}.propsTitreEtapesIds`,
+      'administrations',
       't_al.titreEtapeId',
       't_al.administrationId',
       ...administrationsIds
