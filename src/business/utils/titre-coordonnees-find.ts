@@ -11,4 +11,4 @@ const titreCoordonneesFind = (titrePoints?: ITitrePoint[] | null) => {
   return { x, y }
 }
 
-export default titreCoordonneesFind
+export { titreCoordonneesFind }

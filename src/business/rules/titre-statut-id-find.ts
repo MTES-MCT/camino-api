@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDateFinFind from './titre-date-fin-find'
+import { titreDateFinFind } from './titre-date-fin-find'
 
 const titreStatutIdFind = (
   aujourdhui: string,

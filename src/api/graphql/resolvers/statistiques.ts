@@ -95,7 +95,8 @@ const titresSurfaceIndexBuild = (titres: ITitre[], annee: number) =>
       const surface = titreEtapePropFind(
         'surface',
         titreDemarcheOctroiValide.phase!.dateDebut,
-        [titreDemarcheOctroiValide]
+        [titreDemarcheOctroiValide],
+        titre.typeId
       ) as number | null
 
       acc.push({

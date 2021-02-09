@@ -1,31 +1,31 @@
-import titreEtapePublicationFilter from './titre-etape-publication-filter'
+import { titreEtapePublicationCheck } from './titre-etape-publication-check'
 
 describe("étape de publication d'une étape", () => {
   test('une étape de dpu est une étape de publication', () => {
-    expect(titreEtapePublicationFilter('dpu')).toEqual(true)
+    expect(titreEtapePublicationCheck('dpu', 'pxm')).toEqual(true)
   })
 
   test("une étape de mdp n'est pas une étape de publication", () => {
-    expect(titreEtapePublicationFilter('mdp')).toEqual(false)
+    expect(titreEtapePublicationCheck('mdp', 'pxm')).toEqual(false)
   })
 
   test("une étape de dex n'est pas une étape de publication pour un titre non-spécifique", () => {
-    expect(titreEtapePublicationFilter('dex')).toEqual(false)
+    expect(titreEtapePublicationCheck('dex', 'pxm')).toEqual(false)
   })
 
   test('une étape de dex est une étape de publication pour un titre AXM', () => {
-    expect(titreEtapePublicationFilter('dex', 'axm')).toEqual(true)
+    expect(titreEtapePublicationCheck('dex', 'axm')).toEqual(true)
   })
 
   test('une étape de sco est une étape de publication pour un titre ARM', () => {
-    expect(titreEtapePublicationFilter('sco', 'arm')).toEqual(true)
+    expect(titreEtapePublicationCheck('sco', 'arm')).toEqual(true)
   })
 
   test('une étape de rpu est une étape de publication pour un titre PRM', () => {
-    expect(titreEtapePublicationFilter('rpu', 'prm')).toEqual(true)
+    expect(titreEtapePublicationCheck('rpu', 'prm')).toEqual(true)
   })
 
   test("un titre non reconnu n'est pas géré", () => {
-    expect(titreEtapePublicationFilter('rpu', 'xxx')).toEqual(false)
+    expect(titreEtapePublicationCheck('rpu', 'xxx')).toEqual(false)
   })
 })

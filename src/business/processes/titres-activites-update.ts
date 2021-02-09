@@ -48,6 +48,7 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
               annees,
               aujourdhui,
               titre.id,
+              titre.typeId,
               titre.demarches,
               titre.activites
             )

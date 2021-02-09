@@ -48,7 +48,9 @@ const etapeValideCheck = (
     ) ||
     (propId &&
       titreStatutId &&
-      ['points', 'surface', 'substances', 'communes'].includes(propId) &&
+      ['points', 'surface', 'substances', 'communes', 'forets'].includes(
+        propId
+      ) &&
       titreStatutId === 'mod'))
 
 const titreDemarchePropTitreEtapeFind = (

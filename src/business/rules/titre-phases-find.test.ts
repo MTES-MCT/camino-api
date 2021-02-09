@@ -13,7 +13,9 @@ import {
 describe("phases d'une démarche", () => {
   const aujourdhui = '2020-12-01'
   test("un titre qui a une démarche d'octroi avec une dpu a une phase", () => {
-    expect(titrePhasesFind([titreDemarcheOctDpuAcc], aujourdhui)).toEqual([
+    expect(
+      titrePhasesFind([titreDemarcheOctDpuAcc], aujourdhui, 'cxh')
+    ).toEqual([
       {
         dateDebut: '2200-01-01',
         dateFin: '2202-01-01',
@@ -25,7 +27,7 @@ describe("phases d'une démarche", () => {
 
   test("un titre qui a une démarche d'octroi sans dpu n'a pas de phase", () => {
     expect(
-      titrePhasesFind([titreDemarcheOctDpuInexistante], aujourdhui)
+      titrePhasesFind([titreDemarcheOctDpuInexistante], aujourdhui, 'cxh')
     ).toEqual([])
   })
 
@@ -56,20 +58,22 @@ describe("phases d'une démarche", () => {
   })
 
   test("un titre qui a une démarche d'octroi avec une dpu dont la date de début est renseignée a une phase", () => {
-    expect(titrePhasesFind([titreDemarcheOctDpuDateDebut], aujourdhui)).toEqual(
-      [
-        {
-          dateDebut: '2200-01-02',
-          dateFin: '2202-01-02',
-          statutId: 'val',
-          titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
-        }
-      ]
-    )
+    expect(
+      titrePhasesFind([titreDemarcheOctDpuDateDebut], aujourdhui, 'cxh')
+    ).toEqual([
+      {
+        dateDebut: '2200-01-02',
+        dateFin: '2202-01-02',
+        statutId: 'val',
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
+      }
+    ])
   })
 
   test('un titre qui a une démarche de prolongation avec une dpu a une phase', () => {
-    expect(titrePhasesFind(titreDemarchesOctProlongation, aujourdhui)).toEqual([
+    expect(
+      titrePhasesFind(titreDemarchesOctProlongation, aujourdhui, 'cxh')
+    ).toEqual([
       {
         dateDebut: '2200-01-01',
         dateFin: '2500-01-01',
@@ -86,7 +90,9 @@ describe("phases d'une démarche", () => {
   })
 
   test("la phase d'un titre concernée par une démarche d'annulation a une date de fin qui est celle de cette démarche d'annulation", () => {
-    expect(titrePhasesFind(titreDemarchesOctAnnulation, aujourdhui)).toEqual([
+    expect(
+      titrePhasesFind(titreDemarchesOctAnnulation, aujourdhui, 'cxh')
+    ).toEqual([
       {
         dateDebut: '2000-01-02',
         dateFin: '2019-01-02',
@@ -98,7 +104,7 @@ describe("phases d'une démarche", () => {
 
   test("la phase d'un titre concernée par une démarche de renonciation partielle n'est pas affectée par la renonciation", () => {
     expect(
-      titrePhasesFind(titreDemarchesOctAnnulationSansPoints, aujourdhui)
+      titrePhasesFind(titreDemarchesOctAnnulationSansPoints, aujourdhui, 'cxh')
     ).toEqual([
       {
         dateDebut: '2000-01-02',

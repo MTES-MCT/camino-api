@@ -17,4 +17,4 @@ const titreDateFinFind = (titreDemarches: ITitreDemarche[]) => {
     .dateFin
 }
 
-export default titreDateFinFind
+export { titreDateFinFind }

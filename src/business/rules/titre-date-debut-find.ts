@@ -3,18 +3,18 @@ import { ITitreDemarche } from '../../types'
 import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
-import titreEtapePublicationFilter from './titre-etape-publication-filter'
+import { titreEtapePublicationCheck } from './titre-etape-publication-check'
 
 const titreDemarcheDateDebutFind = (
   titreDemarche: ITitreDemarche,
-  titreTypeId?: string
+  titreTypeId: string
 ) => {
   // retourne la dernière étape de publication si celle-ci possède une date de début
   const etapePublicationHasDateDebut = titreEtapesSortDesc(
     titreDemarche.etapes!
   ).find(
     titreEtape =>
-      titreEtapePublicationFilter(titreEtape.typeId, titreTypeId) &&
+      titreEtapePublicationCheck(titreEtape.typeId, titreTypeId) &&
       titreEtape.dateDebut
   )
 
@@ -27,7 +27,7 @@ const titreDemarcheDateDebutFind = (
   // retourne la première étape de publication de la démarche
   const titreEtapePublicationFirst = titreEtapesSortAsc(
     titreDemarche.etapes!
-  ).find(te => titreEtapePublicationFilter(te.typeId, titreTypeId))
+  ).find(te => titreEtapePublicationCheck(te.typeId, titreTypeId))
 
   // si la démarche n'a pas d'étape de publication
   if (!titreEtapePublicationFirst) {
@@ -38,9 +38,15 @@ const titreDemarcheDateDebutFind = (
   return titreEtapePublicationFirst.date || null
 }
 
+/**
+ * Retourne la date de début du titre
+ * @param titreDemarches - démarches du titre
+ * @param titreTypeId - id du type du titre
+ */
+
 const titreDateDebutFind = (
   titreDemarches: ITitreDemarche[],
-  titreTypeId?: string
+  titreTypeId: string
 ) => {
   // la première démarche d'octroi dont le statut est acceptée ou terminée
   const titreDemarchesSorted = titreDemarchesSortAsc(
@@ -57,4 +63,4 @@ const titreDateDebutFind = (
   return titreDemarcheDateDebutFind(titreDemarche, titreTypeId)
 }
 
-export default titreDateDebutFind
+export { titreDateDebutFind }

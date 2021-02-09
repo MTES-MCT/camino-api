@@ -2,7 +2,7 @@ import PQueue from 'p-queue'
 
 import { titresGet } from '../../database/queries/titres'
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
-import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
+import { titreDemarcheStatutIdFind } from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
 const titresDemarchesStatutIdUpdate = async (titresIds?: string[]) => {

@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titreCoordonneesFind from './titre-coordonnees-find'
+import { titreCoordonneesFind } from './titre-coordonnees-find'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 
 import { titrePoints, titreGeojson } from './__mocks__/titre-coordonnees-find'

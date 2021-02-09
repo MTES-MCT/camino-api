@@ -1,10 +1,10 @@
 import { ITitreDemarche, ITitrePhase } from '../../types'
 
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
-import titreDemarchePhasesFilter from './titre-demarche-phases-filter'
+import { titreDemarchePhaseCheck } from './titre-demarche-phase-check'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
-import titreEtapePublicationFilter from './titre-etape-publication-filter'
+import { titreEtapePublicationCheck } from './titre-etape-publication-check'
 
 import { titreDemarcheAnnulationDateFinFind } from './titre-demarche-annulation-date-fin-find'
 
@@ -25,15 +25,25 @@ const titreDemarcheAnnulationFind = (titreDemarches: ITitreDemarche[]) =>
           !titreDemarche.etapes!.find(te => te.points?.length)))
   )
 
-// retourne un tableau contenant les phases d'un titre
+/**
+ * Retourne les phases d'un titre
+ * @param titreDemarches - démarches d'un titre
+ * @param aujourdhui - date du jour
+ * @param titreTypeId - id du type de titre
+ */
 const titrePhasesFind = (
   titreDemarches: ITitreDemarche[],
   aujourdhui: string,
-  titreTypeId?: string
+  titreTypeId: string
 ) => {
   // filtre les démarches qui donnent lieu à des phases
   const titreDemarchesFiltered = titreDemarches.filter(titreDemarche =>
-    titreDemarchePhasesFilter(titreDemarche, titreTypeId)
+    titreDemarchePhaseCheck(
+      titreDemarche.typeId,
+      titreDemarche.statutId!,
+      titreTypeId,
+      titreDemarche.etapes
+    )
   )
 
   const titreDemarcheAnnulation = titreDemarcheAnnulationFind(titreDemarches)
@@ -96,7 +106,7 @@ const titrePhaseDateDebutFind = (
   titreDemarche: ITitreDemarche,
   titrePhases: ITitrePhase[],
   index: number,
-  titreTypeId?: string
+  titreTypeId: string
 ) => {
   // si
   // - la démarche est un octroi
@@ -106,7 +116,7 @@ const titrePhaseDateDebutFind = (
       titreDemarche.etapes!
     ).find(
       titreEtape =>
-        titreEtapePublicationFilter(titreEtape.typeId, titreTypeId) &&
+        titreEtapePublicationCheck(titreEtape.typeId, titreTypeId) &&
         titreEtape.dateDebut
     )
 
@@ -128,7 +138,7 @@ const titrePhaseDateDebutFind = (
   // retourne la première étape de publication de la démarche
   const titreEtapePublicationFirst = titreEtapesSortAsc(
     titreDemarche.etapes!
-  ).find(te => titreEtapePublicationFilter(te.typeId, titreTypeId))
+  ).find(te => titreEtapePublicationCheck(te.typeId, titreTypeId))
 
   // sinon la date de début est égale à la date de la première étape de publication
   return titreEtapePublicationFirst!.date
