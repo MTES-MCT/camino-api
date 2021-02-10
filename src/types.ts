@@ -22,6 +22,7 @@ type IPropId =
   | 'administrations'
   | 'substances'
   | 'communes'
+  | 'forets'
   | 'surface'
 
 type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activites'

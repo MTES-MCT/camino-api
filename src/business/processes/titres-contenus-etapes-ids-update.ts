@@ -6,7 +6,7 @@ import { objectsDiffer } from '../../tools/index'
 
 const titresContenusEtapesIdsUpdate = async (titresIds?: string[]) => {
   console.info()
-  console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
+  console.info(`contenus des titres (liens vers les contenus d'étapes)…`)
   const queue = new PQueue({ concurrency: 100 })
 
   const titres = await titresGet(
