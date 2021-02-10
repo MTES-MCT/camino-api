@@ -1,48 +1,47 @@
+const documentsRelateTrue = ['type']
+const documentsRelateFalse = [...documentsRelateTrue]
+
 const documents = {
   graph: `[type, etapesAssociees]`,
   update: {
     insertMissing: true,
-    relate: ['type'],
-    unrelate: ['type']
+    relate: documentsRelateTrue,
+    unrelate: documentsRelateFalse
   }
 }
 
 const entreprisesEtablissements = {
-  update: {
-    insertMissing: true
-  }
+  update: { insertMissing: true }
 }
+
+const entreprisesRelateTrue = [] as string[]
+const entreprisesRelateFalse = [
+  ...entreprisesRelateTrue,
+  ...documentsRelateFalse.map(k => `documents.${k}`)
+]
 
 const entreprises = {
   graph: `[utilisateurs.permission, etablissements(orderDesc), documents.${documents.graph}]`,
   update: {
     insertMissing: true,
-    relate: [...documents.update.relate.map(k => `documents.${k}`)],
-    unrelate: [...documents.update.unrelate.map(k => `documents.${k}`)]
+    relate: entreprisesRelateTrue,
+    unrelate: entreprisesRelateFalse
   }
 }
+
+const utilisateursRelateTrue = ['permission', 'administrations', 'entreprises']
+
+const utilisateursRelateFalse = [
+  ...utilisateursRelateTrue,
+  ...entreprisesRelateFalse.map(k => `entreprises.${k}`)
+]
 
 const utilisateurs = {
   graph: `[permission, administrations.[titresTypes, activitesTypes], entreprises.etablissements]`,
   update: {
-    relate: [
-      'permission',
-      'administrations',
-      'entreprises',
-      ...entreprises.update.relate.map(k => `entreprises.${k}`)
-    ],
-    unrelate: [
-      'permission',
-      'administrations',
-      'entreprises',
-      ...entreprises.update.unrelate.map(k => `entreprises.${k}`)
-    ],
-    noDelete: [
-      'permission',
-      'administrations',
-      'entreprises',
-      ...entreprises.update.relate
-    ]
+    relate: utilisateursRelateTrue,
+    unrelate: utilisateursRelateFalse,
+    noDelete: utilisateursRelateFalse
   }
 }
 
@@ -86,12 +85,20 @@ const titresTypes = {
   graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
 }
 
+const administrationsRelateTrue = [
+  'administrationsTypes',
+  'departement',
+  'region'
+]
+
+const administrationsRelateFalse = [...administrationsRelateTrue]
+
 const administrations = {
   graph: `[utilisateurs.permission, titresTypes.${titresTypes.graph}, titresTypesTitresStatuts, titresTypesEtapesTypes, type, departement, region]`,
   update: {
     insertMissing: true,
-    relate: ['administrationsTypes', 'departement', 'region'],
-    unrelate: ['administrationsTypes', 'departement', 'region']
+    relate: administrationsRelateTrue,
+    unrelate: administrationsRelateFalse
   }
 }
 
@@ -124,8 +131,8 @@ const titresEtapesRelateFalse = [
   'substances.legales',
   'points.references.geoSysteme',
   'points.references.geoSysteme.unite',
-  ...documents.update.relate.map(k => `documents.${k}`),
-  ...documents.update.relate.map(k => `justificatifs.${k}`)
+  ...documentsRelateFalse.map(k => `documents.${k}`),
+  ...documentsRelateFalse.map(k => `justificatifs.${k}`)
 ]
 
 const titresEtapes = {
@@ -153,10 +160,11 @@ const titresEtapes = {
   }
 }
 
-const titresTravauxEtapesRelateTrue = [
-  'type',
-  'statut',
-  ...documents.update.relate.map(k => `documents.${k}`)
+const titresTravauxEtapesRelateTrue = ['type', 'statut']
+
+const titreTravauxEtapesRelateFalse = [
+  ...titresTravauxEtapesRelateTrue,
+  ...documentsRelateFalse.map(k => `documents.${k}`)
 ]
 
 const titresTravauxEtapes = {
@@ -168,7 +176,7 @@ const titresTravauxEtapes = {
 
   update: {
     relate: titresTravauxEtapesRelateTrue,
-    unrelate: titresTravauxEtapesRelateTrue,
+    unrelate: titreTravauxEtapesRelateFalse,
     insertMissing: true
   }
 }
