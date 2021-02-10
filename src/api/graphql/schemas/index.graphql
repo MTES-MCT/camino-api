@@ -195,6 +195,7 @@ type Query {
     noms: String
     etapeId: ID
     archive: Boolean
+    etapeUniquement: Boolean
   ): Entreprises
 
   "Administration en fonction de son id"
