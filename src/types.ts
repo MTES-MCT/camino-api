@@ -704,6 +704,7 @@ interface ITitreEtapeOrTitreTravauxEtape {
 
 interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   titreDemarcheId: string
+  demarche?: ITitreDemarche
   dateDebut?: string | null
   dateFin?: string | null
   substances?: ISubstance[] | null
