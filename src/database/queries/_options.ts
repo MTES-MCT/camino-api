@@ -102,11 +102,8 @@ const titresEtapesRelateTrue = [
   'amodiataires',
   'administrations',
   'substances',
-  'points',
-  'points.references',
   'communes',
   'forets',
-  'documents',
   'justificatifs'
 ]
 
@@ -255,10 +252,10 @@ const activitesTypes = {
   }
 }
 
-const titresActivitesUpdateTrue = ['type', 'statut', 'utilisateur', 'documents']
+const titresActivitesRelateTrue = ['type', 'statut', 'utilisateur', 'documents']
 
-const titresActivitesUpdateFalse = [
-  ...titresActivitesUpdateTrue,
+const titresActivitesRelateFalse = [
+  ...titresActivitesRelateTrue,
   ...activitesTypesRelateFalse.map(k => `type.${k}`),
   ...documents.update.relate.map(k => `documents.${k}`)
 ]
@@ -266,11 +263,11 @@ const titresActivitesUpdateFalse = [
 const titresActivites = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur]`,
   update: {
-    relate: titresActivitesUpdateTrue,
-    unrelate: titresActivitesUpdateTrue,
-    noInsert: titresActivitesUpdateFalse,
-    noUpdate: titresActivitesUpdateFalse,
-    noDelete: titresActivitesUpdateFalse,
+    relate: titresActivitesRelateTrue,
+    unrelate: titresActivitesRelateTrue,
+    noInsert: titresActivitesRelateFalse,
+    noUpdate: titresActivitesRelateFalse,
+    noDelete: titresActivitesRelateFalse,
     insertMissing: true
   }
 }
@@ -281,7 +278,7 @@ const titresTravauxRelateTrue = [
   ...titresTravauxEtapesRelateTrue.map(k => `etapes.${k}`)
 ]
 
-const titresTravauxUpdateFalse = [...titresTravauxRelateTrue]
+const titresTravauxRelateFalse = [...titresTravauxRelateTrue]
 
 const titresTravaux = {
   graph: `[type.${travauxTypes.graph}, statut, 
@@ -290,9 +287,9 @@ const titresTravaux = {
   update: {
     relate: titresTravauxRelateTrue,
     unrelate: titresTravauxRelateTrue,
-    noInsert: titresTravauxUpdateFalse,
-    noUpdate: titresTravauxUpdateFalse,
-    noDelete: titresTravauxUpdateFalse,
+    noInsert: titresTravauxRelateFalse,
+    noUpdate: titresTravauxRelateFalse,
+    noDelete: titresTravauxRelateFalse,
     insertMissing: true
   }
 }
@@ -311,7 +308,7 @@ const titresRelateTrue = [
   ...titresTravauxRelateTrue.map(k => `travaux.${k}`)
 ]
 
-const titresUpdateFalse = [
+const titresRelateFalse = [
   ...titresRelateTrue,
   ...titresTypesRelateFalse.map(k => `type.${k}`),
   'domaine.titresTypes',
@@ -355,9 +352,9 @@ const titresUpdateFalse = [
   'administrationsLocales.utilisateurs',
   'administrationsLocales.utilisateurs.permission',
   'surfaceEtape',
-  ...titresActivitesUpdateFalse.map(k => `activites.${k}`),
+  ...titresActivitesRelateFalse.map(k => `activites.${k}`),
   ...titresDemarchesRelateFalse.map(k => `demarches.${k}`),
-  ...titresTravauxUpdateFalse.map(k => `travaux.${k}`)
+  ...titresTravauxRelateFalse.map(k => `travaux.${k}`)
 ]
 
 const titres = {
@@ -382,9 +379,9 @@ const titres = {
   update: {
     relate: titresRelateTrue,
     unrelate: titresRelateTrue,
-    noInsert: titresUpdateFalse,
-    noUpdate: titresUpdateFalse,
-    noDelete: titresUpdateFalse,
+    noInsert: titresRelateFalse,
+    noUpdate: titresRelateFalse,
+    noDelete: titresRelateFalse,
     insertMissing: true
   }
 }

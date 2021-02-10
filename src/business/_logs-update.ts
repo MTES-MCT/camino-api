@@ -207,7 +207,7 @@ const logsUpdate = ({
 
   if (titresCoordonneesUpdated?.length) {
     console.info(
-      `mise à jour: ${titresCoordonneesUpdated.length} titres(s) (propriétés-étapes)`
+      `mise à jour: ${titresCoordonneesUpdated.length} titres(s) (coordonnées)`
     )
   }
 

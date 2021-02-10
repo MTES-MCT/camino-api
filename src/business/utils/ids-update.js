@@ -90,18 +90,18 @@ const idsUpdate = (
 
   // met à jour les relations
   if (relation.relations) {
-    relation.relations.forEach(relation => {
+    relation.relations.forEach(r => {
       // si l'id du parent n'a pas changé
       // ou que l'id de la relation n'est pas calculé
       // alors on ne parcourt pas les relations
-      if (!hasChanged && !relation.idFind) return
+      if (!hasChanged && !r.idFind) return
 
-      const elementPointer = relation.path
-        ? elementFromPathFind(relation.path, root)
+      const elementPointer = r.path
+        ? elementFromPathFind(r.path, root)
         : element
 
-      if (elementPointer[relation.name]) {
-        let elements = elementPointer[relation.name]
+      if (elementPointer[r.name]) {
+        let elements = elementPointer[r.name]
 
         if (!Array.isArray(elements)) {
           elements = [elements]
@@ -113,7 +113,7 @@ const idsUpdate = (
               idsUpdate(
                 relationsIdsUpdatedIndex,
                 e,
-                relation,
+                r,
                 root,
                 element,
                 elementOldId

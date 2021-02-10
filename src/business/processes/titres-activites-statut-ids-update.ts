@@ -1,4 +1,5 @@
 import PQueue from 'p-queue'
+import * as dateFormat from 'dateformat'
 
 import {
   titreActiviteUpdate,
@@ -16,10 +17,12 @@ const titresActivitesStatutIdsUpdate = async () => {
 
   const titresActivites = await titresActivitesGet({}, {}, 'super')
 
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+
   const titresActivitesUpdated = [] as string[]
 
   titresActivites.forEach(titreActivite => {
-    const statutId = titreActiviteStatutIdFind(titreActivite)
+    const statutId = titreActiviteStatutIdFind(titreActivite, aujourdhui)
 
     if (titreActivite.statutId !== statutId) {
       queue.add(async () => {

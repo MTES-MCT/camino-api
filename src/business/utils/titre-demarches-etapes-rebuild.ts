@@ -17,6 +17,7 @@ const titreEtapesFilter = (titreEtapes: ITitreEtape[], date: string) =>
  * @param date - date
  * @param titreDemarches - démarches du titre
  * @param titreTypeId - id du type du titre
+ * @returns démarches du titre
  */
 
 const titreDemarchesEtapesRebuild = (

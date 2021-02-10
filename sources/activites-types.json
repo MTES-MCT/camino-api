@@ -478,7 +478,8 @@
       }
     ],
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2467?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "1"
+    "ordre": "1",
+    "email": "mc.remd.deal-guyane@developpement-durable.gouv.fr"
   },
   {
     "id": "gra",
@@ -505,7 +506,8 @@
       }
     ],
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2657?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "2"
+    "ordre": "2",
+    "email": "camino@beta.gouv.fr"
   },
   {
     "id": "grx",
@@ -1582,6 +1584,7 @@
       }
     ],
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2655?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "7"
+    "ordre": "7",
+    "email": "cecile.caron@developpement-durable.gouv.fr"
   }
 ]

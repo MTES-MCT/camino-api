@@ -17,7 +17,7 @@ import Types from './titres-types'
 
 import { ITitre } from '../../types'
 import Forets from './forets'
-import { titreContenuFormat } from './_format/titres-contenu'
+import { titreContenuFormat } from './_format/titre-contenu'
 
 interface Titres extends ITitre {}
 

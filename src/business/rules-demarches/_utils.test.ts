@@ -15,7 +15,7 @@ import {
 } from '../../types'
 import { titreDemarcheEtatValidate } from '../validations/titre-demarche-etat-validate'
 import { demarcheDefinitionFind } from './definitions'
-import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
+import { titreContenuFormat } from '../../database/models/_format/titre-contenu'
 import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 
 test('teste EtatsValidate', () => {
@@ -28,7 +28,7 @@ test('teste EtatsValidate', () => {
   ])
 })
 
-jest.mock('../../database/models/_format/titres-contenu', () => ({
+jest.mock('../../database/models/_format/titre-contenu', () => ({
   __esModule: true,
   titreContenuFormat: jest.fn()
 }))

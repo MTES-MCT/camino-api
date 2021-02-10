@@ -64,7 +64,9 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
 
         const log = {
           type: "titre : ids d'étapes des props (mise à jour) ->",
-          value: `${titre.id} : ${JSON.stringify(propsTitreEtapesIds)}`
+          value: `${titre.id} : ${JSON.stringify(
+            propsTitreEtapesIds
+          )} | ${JSON.stringify(titre.propsTitreEtapesIds)}`
         }
 
         console.info(log.type, log.value)
