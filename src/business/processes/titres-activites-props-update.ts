@@ -1,10 +1,10 @@
 import { ITitreActivite } from '../../types'
 import * as dateFormat from 'dateformat'
 
-import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
-import { titreActiviteIsValideCheck } from '../rules/titre-activites-build'
 import { titresGet } from '../../database/queries/titres'
+import { anneesBuild } from '../../tools/annees-build'
+import { titreActiviteValideCheck } from '../utils/titre-activite-valide-check'
 
 const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -22,15 +22,15 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
   )
 
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
-  const annee = new Date().getFullYear()
+  const annee = new Date(aujourdhui).getFullYear()
 
   const titresActivitesUpdated = titres.reduce(
     (acc: ITitreActivite[], titre) => {
-      if (!titre.activites?.length || !titre.demarches?.length) return acc
+      if (!titre.activites?.length) return acc
 
       return titre.activites.reduce((acc, titreActivite) => {
         const activiteType = titreActivite.type!
-        const annees = activiteTypeAnneesFind(activiteType, annee)
+        const annees = anneesBuild(activiteType.dateDebut, aujourdhui)
 
         if (!annees.length) return acc
 
@@ -39,15 +39,17 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
         ]!
         const months = 12 / periodes.length
 
-        const activiteIsValide = titreActiviteIsValideCheck(
-          titreActivite.date,
-          aujourdhui,
-          titreActivite.periodeId,
-          annee,
-          months,
-          titre.demarches!,
-          titre.typeId
-        )
+        const activiteIsValide =
+          titre.demarches?.length &&
+          titreActiviteValideCheck(
+            titreActivite.date,
+            aujourdhui,
+            annee,
+            titreActivite.periodeId,
+            months,
+            titre.demarches!,
+            titre.typeId
+          )
 
         if (activiteIsValide && titreActivite.suppression) {
           titreActivite.suppression = null

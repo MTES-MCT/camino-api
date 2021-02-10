@@ -2,7 +2,7 @@ import { ITitreActivite } from '../../types'
 import * as dateFormat from 'dateformat'
 
 import { titreActiviteTypeCheck } from '../utils/titre-activite-type-check'
-import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
+import { anneesBuild } from '../../tools/annees-build'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titreActivitesBuild } from '../rules/titre-activites-build'
 import { titresGet } from '../../database/queries/titres'
@@ -31,11 +31,10 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
 
   const activitesTypes = await activitesTypesGet({}, 'super')
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
-  const annee = new Date().getFullYear()
 
   const titresActivitesCreated = activitesTypes.reduce(
     (acc: ITitreActivite[], activiteType) => {
-      const annees = activiteTypeAnneesFind(activiteType, annee)
+      const annees = anneesBuild(activiteType.dateDebut, aujourdhui)
       if (!annees.length) return acc
 
       acc.push(

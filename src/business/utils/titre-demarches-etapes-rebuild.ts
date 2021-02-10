@@ -26,32 +26,32 @@ const titreDemarchesEtapesRebuild = (
   titreTypeId: string
 ) =>
   titreDemarches.reduce((acc: ITitreDemarche[], td) => {
-    if (td.etapes) {
-      const titreEtapesFiltered = titreEtapesFilter(td.etapes, date)
+    if (!td.etapes) return acc
 
-      if (titreEtapesFiltered.length) {
-        const titreDemarche = objectClone(td) as ITitreDemarche
-        titreDemarche.etapes = titreEtapesFiltered
+    const titreDemarche = objectClone(td) as ITitreDemarche
+    const titreEtapesFiltered = titreEtapesFilter(titreDemarche.etapes!, date)
 
-        titreDemarche.statutId = titreDemarcheStatutIdFind(
+    if (titreEtapesFiltered.length) {
+      titreDemarche.etapes = titreEtapesFiltered
+
+      titreDemarche.statutId = titreDemarcheStatutIdFind(
+        titreDemarche.typeId,
+        titreDemarche.etapes,
+        titreTypeId
+      )
+
+      if (
+        !titreDemarchePhaseCheck(
           titreDemarche.typeId,
-          titreDemarche.etapes,
-          titreTypeId
+          titreDemarche.statutId,
+          titreTypeId,
+          titreDemarche.etapes
         )
-
-        if (
-          !titreDemarchePhaseCheck(
-            titreDemarche.typeId,
-            titreDemarche.statutId,
-            titreTypeId,
-            titreDemarche.etapes
-          )
-        ) {
-          delete titreDemarche.phase
-        }
-
-        acc.push(titreDemarche)
+      ) {
+        delete titreDemarche.phase
       }
+
+      acc.push(titreDemarche)
     }
 
     return acc
