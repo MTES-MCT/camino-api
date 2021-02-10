@@ -3,7 +3,10 @@ import { debug } from '../../../config/index'
 import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { ITitre, ITitreActivite } from '../../../types'
-import { titresSurfaceIndexBuild } from './statistiques'
+import {
+  concessionsValidesBuild,
+  titresSurfaceIndexBuild
+} from './statistiques'
 
 const statistiquesGranulatsMarinsActivitesGet = (
   titresActivites: ITitreActivite[],
@@ -144,6 +147,8 @@ const statistiquesGranulatsMarinsAnneeBuild = (
       )
     : 0
 
+  const concessionsValides = concessionsValidesBuild(titres, annee)
+
   return {
     annee,
     titresPrw,
@@ -162,7 +167,8 @@ const statistiquesGranulatsMarinsAnneeBuild = (
     },
     activitesDeposesQuantite:
       statistiquesActivites.activitesDeposesQuantiteCount,
-    activitesDeposesRatio
+    activitesDeposesRatio,
+    concessionsValides
   }
 }
 

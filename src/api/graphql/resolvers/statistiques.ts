@@ -1,6 +1,7 @@
 import { titreEtapePropFind } from '../../../business/rules/titre-etape-prop-find'
+import { titreValideCheck } from '../../../business/utils/titre-valide-check'
 import { debug } from '../../../config/index'
-
+import * as dateFormat from 'dateformat'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { matomoData } from '../../../tools/api-matomo/index'
 import { ITitre } from '../../../types'
@@ -110,4 +111,31 @@ const titresSurfaceIndexBuild = (titres: ITitre[], annee: number) =>
     []
   )
 
-export { statistiquesGlobales, titresSurfaceIndexBuild }
+const concessionsValidesBuild = (titres: ITitre[], annee: number) => {
+  const dateDebut = dateFormat(`01/01/${annee}`, 'yyyy-mm-dd')
+  const dateFin = dateFormat(`12/31/${annee}`, 'yyyy-mm-dd')
+
+  return titres
+    .filter(
+      titre =>
+        titre.typeId === 'cxw' &&
+        titreValideCheck(titre.demarches!, dateDebut, dateFin, titre.typeId)
+    )
+    .reduce(
+      (acc: { quantite: number; surface: number }, concession) => {
+        acc.quantite++
+        acc.surface += concession.surfaceEtape?.surface
+          ? concession.surfaceEtape.surface * 100
+          : 0
+
+        return acc
+      },
+      { quantite: 0, surface: 0 }
+    )
+}
+
+export {
+  statistiquesGlobales,
+  titresSurfaceIndexBuild,
+  concessionsValidesBuild
+}
