@@ -63,6 +63,7 @@ type StatistiquesGranulatsMarinsAnnee {
   granulatsExtrait: GranulatsExtrait
   activitesDeposesQuantite: Int
   activitesDeposesRatio: Int
+  concessionsValides: StatistiqueAnneeTitre
 }
 
 type StatistiquesGranulatsMarins {
