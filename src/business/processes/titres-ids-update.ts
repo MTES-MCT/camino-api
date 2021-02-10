@@ -130,8 +130,7 @@ const titresIdsUpdate = async (titresIds?: string[]) => {
             substances: { id: {} },
             communes: { id: {} },
             forets: { id: {} },
-            justificatifs: { id: {} },
-            incertitudes: { id: {} }
+            justificatifs: { id: {} }
           },
           phase: { id: {} }
         },
