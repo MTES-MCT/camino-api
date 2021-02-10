@@ -13,6 +13,7 @@ interface IColonne<T> {
   id: T
   relation?: string
   groupBy?: boolean | T | T[]
+  orderBy?: boolean | T | T[]
 }
 
 type IPropId =
