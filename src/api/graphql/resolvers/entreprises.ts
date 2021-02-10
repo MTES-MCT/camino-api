@@ -50,7 +50,8 @@ const entreprises = async (
     ordre,
     colonne,
     noms,
-    archive
+    archive,
+    etapeUniquement
   }: {
     etapeId?: string | null
     page?: number | null
@@ -59,6 +60,7 @@ const entreprises = async (
     colonne?: IEntrepriseColonneId | null
     noms?: string | null
     archive?: boolean | null
+    etapeUniquement?: boolean | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -69,25 +71,27 @@ const entreprises = async (
     let entreprises = [] as IEntreprise[]
     let total = 0
 
-    ;[entreprises, total] = await Promise.all([
-      entreprisesGet(
-        {
-          page,
-          intervalle,
-          ordre,
-          colonne,
-          noms,
-          archive
-        },
-        { fields: fields.elements },
-        context.user?.id
-      ),
-      entreprisesCount(
-        { noms, archive },
-        { fields: { id: {} } },
-        context.user?.id
-      )
-    ])
+    if (!etapeUniquement) {
+      ;[entreprises, total] = await Promise.all([
+        entreprisesGet(
+          {
+            page,
+            intervalle,
+            ordre,
+            colonne,
+            noms,
+            archive
+          },
+          { fields: fields.elements },
+          context.user?.id
+        ),
+        entreprisesCount(
+          { noms, archive },
+          { fields: { id: {} } },
+          context.user?.id
+        )
+      ])
+    }
 
     if (etapeId) {
       const titreEtape = await titreEtapeGet(
@@ -95,10 +99,10 @@ const entreprises = async (
         {
           fields: { titulaires: fields.elements, amodiataires: fields.elements }
         },
-        'super'
+        context.user?.id
       )
 
-      if (titreEtape.titulaires?.length) {
+      if (titreEtape?.titulaires?.length) {
         titreEtape.titulaires.forEach(t => {
           if (!entreprises.find(e => e.id === t.id)) {
             entreprises.push(t)
@@ -107,7 +111,7 @@ const entreprises = async (
         })
       }
 
-      if (titreEtape.amodiataires?.length) {
+      if (titreEtape?.amodiataires?.length) {
         titreEtape.amodiataires.forEach(a => {
           if (!entreprises.find(e => e.id === a.id)) {
             entreprises.push(a)
