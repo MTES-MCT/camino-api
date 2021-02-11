@@ -276,4 +276,4 @@ const titreActivitesBuild = (
   return titresActivites
 }
 
-export { titreActivitesBuild }
+export { titreActivitesBuild, titreActiviteSectionsBuild }
