@@ -15,8 +15,8 @@ const main = async () => {
     if (
       !ta.contenu?.renseignements ||
       (ta.typeId === 'grp' &&
-        !Object.keys(ta.contenu.renseignements).some(
-          propId => ta.contenu!.renseignements![propId]
+        Object.keys(ta.contenu.renseignements).every(
+          propId => !ta.contenu!.renseignements![propId]
         ))
     ) {
       titresActivitesSupprimeesIds.push(ta.id)
