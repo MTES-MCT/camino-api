@@ -36,16 +36,7 @@ const demarchesDefinitionsCheck = async () => {
             titreDemarcheDepotDemandeDateFind(d.etapes) >
               demarcheDefinition.dateDebut
         )
-        // .filter(d => ['oct'].includes(d.typeId) && demarcheDefinition.titreTypeId === 'axm')
-        // On garde seulement les octroi d’AXM non terminées
-        .filter(
-          d =>
-            demarcheDefinition.titreTypeId !== 'axm' ||
-            (['oct'].includes(d.typeId) &&
-              ['dep', 'aco', 'ins'].includes(d.statutId!))
-        )
         .forEach(demarche => {
-          // .some(demarche => {
           try {
             const errors = titreDemarcheEtatValidate(
               demarcheDefinition.restrictions,
@@ -56,31 +47,18 @@ const demarchesDefinitionsCheck = async () => {
 
             if (errors.length) {
               errorsNb++
-              // console.info(
-              //   demarche.etapes!.map(e => ({
-              //     etapeTypeId: e.typeId,
-              //     date: e.date,
-              //     statutId: e.statutId
-              //   }))
-              // )
               console.error(
                 `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errors}`
               )
-
-              return true
             }
           } catch (e) {
             console.error(`${demarche.id} démarche invalide =>\n\t${e}`)
             errorsNb++
-
-            return true
           }
-
-          return false
         })
     }
   }
-  console.error(`erreurs : ${errorsNb}`)
+  console.info(`erreurs : ${errorsNb}`)
 }
 
 export default demarchesDefinitionsCheck

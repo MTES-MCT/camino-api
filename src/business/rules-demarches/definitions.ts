@@ -74,7 +74,7 @@ const demarchesDefinitions: IDemarcheDefinition[] = [
     titreTypeId: 'axm',
     demarcheTypeIds: ['oct'],
     restrictions: restrictionsAxmOct,
-    dateDebut: '2019-10-31'
+    dateDebut: '2020-08-21'
   }
 ]
 
