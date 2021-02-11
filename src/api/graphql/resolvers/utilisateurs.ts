@@ -368,11 +368,7 @@ const utilisateurCreer = async (
     emailSend(
       process.env.ADMIN_EMAIL!,
       `Nouvel utilisateur ${utilisateurUpdated.email} créé`,
-      `L'utilisateur ${utilisateurUpdated.nom?.toUpperCase()} ${
-        utilisateurUpdated.prenom
-      } vient de se créer un compte : ${process.env.UI_URL}/utilisateurs/${
-        utilisateurUpdated.id
-      }`
+      `L'utilisateur ${utilisateurUpdated.nom} ${utilisateurUpdated.prenom} vient de se créer un compte : ${process.env.UI_URL}/utilisateurs/${utilisateurUpdated.id}`
     )
 
     return utilisateurUpdated
