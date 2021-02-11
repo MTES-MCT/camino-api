@@ -35,6 +35,7 @@ const logsUpdate = ({
   titresTravauxOrdreUpdated,
   titresActivitesCreated,
   titresActivitesStatutIdsUpdated,
+  titresActivitesPropsUpdated,
   titresUpdatedIndex,
   entreprisesUpdated,
   etablissementsUpdated,
@@ -68,6 +69,7 @@ const logsUpdate = ({
   titresTravauxOrdreUpdated?: string[]
   titresActivitesCreated?: string[]
   titresActivitesStatutIdsUpdated?: string[]
+  titresActivitesPropsUpdated?: string[]
   titresUpdatedIndex?: Index<string>
   entreprisesUpdated?: IEntreprise[]
   etablissementsUpdated?: IEntrepriseEtablissement[]
@@ -232,6 +234,12 @@ const logsUpdate = ({
   if (titresActivitesStatutIdsUpdated?.length) {
     console.info(
       `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
+    )
+  }
+
+  if (titresActivitesPropsUpdated?.length) {
+    console.info(
+      `mise à jour: ${titresActivitesPropsUpdated.length} activité(s) (propriété suppression)`
     )
   }
 

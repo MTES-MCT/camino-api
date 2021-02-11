@@ -4,7 +4,7 @@ import { titreDemarchesEtapesRebuild } from './titre-demarches-etapes-rebuild'
 
 /**
  * Vérifie la validité du titre pendant la période
- * @param titreDemarches - démarche du titre
+ * @param titreDemarches - démarches du titre
  * @param dateDebut - date de début
  * @param dateFin - date de fin
  * @param titreTypeId - id du type de titre

@@ -1,6 +1,5 @@
 import Titres from '../../../database/models/titres'
 const activiteType = {
-  dateDebut: '2020-01-01',
   frequence: {
     periodesNom: 'trimestres',
     trimestres: [
@@ -9,8 +8,7 @@ const activiteType = {
       { id: 3, nom: '3e trimestre', frequenceId: 'tri' },
       { id: 4, nom: '4e trimestre', frequenceId: 'tri' }
     ]
-  },
-  delaiMois: 3
+  }
 }
 
 const titresActivitesToUpdate = ([
@@ -22,7 +20,7 @@ const titresActivitesToUpdate = ([
       {
         id: 'titre-activite-id-2019-03',
         date: '2019-10-01',
-        statutId: 'abs',
+        annee: 2019,
         periodeId: 3,
         type: activiteType,
         suppression: true
@@ -30,14 +28,14 @@ const titresActivitesToUpdate = ([
       {
         id: 'titre-activite-id-2019-04',
         date: '2020-01-01',
-        statutId: 'abs',
+        annee: 2019,
         periodeId: 4,
         type: activiteType
       },
       {
         id: 'titre-activite-id-2020-01',
         date: '2020-04-01',
-        statutId: 'abs',
+        annee: 2020,
         periodeId: 1,
         type: activiteType,
         suppression: true
@@ -45,7 +43,7 @@ const titresActivitesToUpdate = ([
       {
         id: 'titre-activite-id-2020-02',
         date: '2020-07-01',
-        statutId: 'abs',
+        annee: 2020,
         periodeId: 2,
         type: activiteType
       }
@@ -70,21 +68,7 @@ const titresActivitesNotToUpdate = ([
       {
         id: 'titre-activite-id-2019-03',
         date: '2019-10-01',
-        statutId: 'abs',
-        periodeId: 3,
-        type: { dateDebut: '2030-01-01' },
-        suppression: true
-      }
-    ]
-  },
-  {
-    id: 'titre-id',
-    typeId: 'axm',
-    activites: [
-      {
-        id: 'titre-activite-id-2019-03',
-        date: '2019-10-01',
-        statutId: 'abs',
+        annee: 2019,
         periodeId: 3,
         type: activiteType,
         suppression: true
@@ -99,6 +83,7 @@ const titresActivitesNotToUpdate = ([
       {
         id: 'titre-activite-id-2019-03',
         date: '2019-10-01',
+        annee: 2019,
         statutId: 'abs',
         periodeId: 3,
         type: activiteType,

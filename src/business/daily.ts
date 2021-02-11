@@ -8,7 +8,6 @@ import { titresDemarchesStatutIdUpdate } from './processes/titres-demarches-stat
 import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
 import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import { titresEtapesOrdreUpdate } from './processes/titres-etapes-ordre-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
 import { titresPhasesUpdate } from './processes/titres-phases-update'
 import { titresPointsReferencesCreate } from './processes/titres-points-references-create'
 import { titresPublicUpdate } from './processes/titres-public-update'
@@ -17,8 +16,10 @@ import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etape
 import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
-import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
+import { titresIdsUpdate } from './processes/titres-ids-update'
+import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
+import { logsUpdate } from './_logs-update'
 
 const daily = async () => {
   try {
@@ -65,6 +66,7 @@ const daily = async () => {
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate()
     const titresActivitesCreated = await titresActivitesUpdate()
     const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate()
+    const titresActivitesPropsUpdated = await titresActivitesPropsUpdate()
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate()
 
@@ -96,6 +98,7 @@ const daily = async () => {
       titresTravauxOrdreUpdated,
       titresActivitesCreated,
       titresActivitesStatutIdsUpdated,
+      titresActivitesPropsUpdated,
       titresUpdatedIndex
     })
   } catch (e) {

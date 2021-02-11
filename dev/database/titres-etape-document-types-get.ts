@@ -30,7 +30,7 @@ const main = async () => {
     })
   })
 
-  console.log(result)
+  console.info(result)
   process.exit(0)
 }
 

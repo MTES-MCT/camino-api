@@ -3,8 +3,7 @@ import * as dateFormat from 'dateformat'
 
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titresGet } from '../../database/queries/titres'
-import { anneesBuild } from '../../tools/annees-build'
-import { titreActiviteValideCheck } from '../utils/titre-activite-valide-check'
+import { titreValideCheck } from '../utils/titre-valide-check'
 
 const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -14,15 +13,20 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
     { ids: titresIds },
     {
       fields: {
-        demarches: { phase: { id: {} } },
-        activites: { type: { frequence: { id: {} } } }
+        demarches: { phase: { id: {} }, etapes: { id: {} } },
+        activites: {
+          type: {
+            frequence: {
+              mois: { id: {} },
+              trimestres: { id: {} },
+              annees: { id: {} }
+            }
+          }
+        }
       }
     },
     'super'
   )
-
-  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
-  const annee = new Date(aujourdhui).getFullYear()
 
   const titresActivitesUpdated = titres.reduce(
     (acc: ITitreActivite[], titre) => {
@@ -30,34 +34,36 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
 
       return titre.activites.reduce((acc, titreActivite) => {
         const activiteType = titreActivite.type!
-        const annees = anneesBuild(activiteType.dateDebut, aujourdhui)
-
-        if (!annees.length) return acc
-
         const periodes = activiteType.frequence![
           activiteType.frequence!.periodesNom!
         ]!
-        const months = 12 / periodes.length
 
-        const activiteIsValide =
+        const periodeMonths = 12 / periodes.length
+        const dateDebut = dateFormat(
+          new Date(
+            titreActivite.annee,
+            (titreActivite.periodeId - 1) * periodeMonths,
+            1
+          ),
+          'yyyy-mm-dd'
+        )
+
+        const titreIsValide =
           titre.demarches?.length &&
-          titreActiviteValideCheck(
-            titreActivite.date,
-            aujourdhui,
-            annee,
-            titreActivite.periodeId,
-            months,
+          titreValideCheck(
             titre.demarches!,
+            dateDebut,
+            titreActivite.date,
             titre.typeId
           )
 
-        if (activiteIsValide && titreActivite.suppression) {
+        if (titreIsValide && titreActivite.suppression) {
           titreActivite.suppression = null
 
           acc.push(titreActivite)
         }
 
-        if (!activiteIsValide && !titreActivite.suppression) {
+        if (!titreIsValide && !titreActivite.suppression) {
           titreActivite.suppression = true
 
           acc.push(titreActivite)

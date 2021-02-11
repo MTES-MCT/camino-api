@@ -12,6 +12,7 @@ import { titresPublicUpdate } from './processes/titres-public-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
+import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
 
 const titreDemarcheUpdate = async (
   titreDemarcheId: string | null,
@@ -60,6 +61,9 @@ const titreDemarcheUpdate = async (
     ])
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
+    const titresActivitesPropsUpdated = await titresActivitesPropsUpdate([
+      titreId
+    ])
 
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate([titreId])
@@ -80,6 +84,7 @@ const titreDemarcheUpdate = async (
       titresContenusEtapesIdsUpdated,
       titresCoordonneesUpdated,
       titresActivitesCreated,
+      titresActivitesPropsUpdated,
       titresUpdatedIndex
     })
 
