@@ -159,17 +159,7 @@ const titresColonnes = {
         ' ; '
       )`),
     relation: 'communes.departement.region',
-    groupBy: [],
-    orderBy: [
-      raw(`STRING_AGG(distinct(
-        "communes:departement:region"."nom"),
-        ' ; '
-      )`),
-      raw(`STRING_AGG(distinct(
-        "communes:departement"."nom"),
-        ' ; '
-      )`)
-    ]
+    groupBy: []
   },
   departements: {
     id: raw(`STRING_AGG(distinct(
@@ -258,7 +248,6 @@ const titresGet = async (
     }
 
     const groupBy = titresColonnes[colonne].groupBy as string[]
-    const orderBy = titresColonnes[colonne].orderBy as string[]
 
     q.groupBy('titres.id')
 
@@ -280,13 +269,7 @@ const titresGet = async (
         }`
       )
     } else {
-      if (orderBy) {
-        orderBy.forEach(ob => {
-          q.orderBy(ob as string, ordre || 'asc')
-        })
-      } else {
-        q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
-      }
+      q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
     }
   } else {
     q.orderBy('titres.nom')
