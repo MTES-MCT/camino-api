@@ -13,8 +13,9 @@ const main = async () => {
   const titresActivitesConserveesIds = [] as string[]
   for (const ta of titresActivites) {
     if (
-      !ta.contenu?.renseignements ||
+      !ta.contenu ||
       (ta.typeId === 'grp' &&
+        ta.contenu?.renseignements &&
         Object.keys(ta.contenu.renseignements).every(
           propId => !ta.contenu!.renseignements![propId]
         ))

@@ -39,6 +39,7 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
         ]!
 
         const periodeMonths = 12 / periodes.length
+
         const dateDebut = dateFormat(
           new Date(
             titreActivite.annee,

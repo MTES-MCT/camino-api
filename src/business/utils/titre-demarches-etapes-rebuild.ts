@@ -1,4 +1,3 @@
-import { objectClone } from '../../tools'
 import { ITitreDemarche, ITitreEtape } from '../../types'
 import { titreDemarchePhaseCheck } from '../rules/titre-demarche-phase-check'
 import { titreDemarcheStatutIdFind } from '../rules/titre-demarche-statut-id-find'
@@ -28,10 +27,11 @@ const titreDemarchesEtapesRebuild = (
   titreDemarches.reduce((acc: ITitreDemarche[], td) => {
     if (!td.etapes) return acc
 
-    const titreDemarche = objectClone(td) as ITitreDemarche
-    const titreEtapesFiltered = titreEtapesFilter(titreDemarche.etapes!, date)
+    const titreEtapesFiltered = titreEtapesFilter(td.etapes!, date)
 
     if (titreEtapesFiltered.length) {
+      const titreDemarche = { ...td }
+
       titreDemarche.etapes = titreEtapesFiltered
 
       titreDemarche.statutId = titreDemarcheStatutIdFind(
