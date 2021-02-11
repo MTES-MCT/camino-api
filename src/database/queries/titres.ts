@@ -153,6 +153,22 @@ const titresColonnes = {
     relation: 'titulaires',
     groupBy: []
   },
+  regions: {
+    id: raw(`STRING_AGG(distinct(
+        "communes:departement:region"."nom"),
+        ' ; '
+      )`),
+    relation: 'communes.departement.region',
+    groupBy: []
+  },
+  departements: {
+    id: raw(`STRING_AGG(distinct(
+        "communes:departement"."nom"),
+        ' ; '
+      )`),
+    relation: 'communes.departement',
+    groupBy: []
+  },
   references: {
     id: raw(`STRING_AGG(concat("references"."type_id",
         "references"."nom"),
