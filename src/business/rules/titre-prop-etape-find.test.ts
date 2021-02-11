@@ -122,7 +122,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     ).toBeNull()
   })
 
-  test.each(['points', 'surface', 'substances', 'communes'] as IPropId[])(
+  test.each(['points', 'surface', 'communes'] as IPropId[])(
     "trouve l'id de la dernière étape de n’importe quel type d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient la propriété %s et le titre a le statut 'modification en instance' et aucune phase n'est valide",
     propId => {
       expect(
@@ -135,7 +135,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     }
   )
 
-  test.each(['titulaires', 'administrations'] as IPropId[])(
+  test.each(['titulaires', 'administrations', 'substances'] as IPropId[])(
     "ne trouve pas l'id de la mod car la propriété %s n’est pas modifiée par cette étape",
     propId => {
       expect(

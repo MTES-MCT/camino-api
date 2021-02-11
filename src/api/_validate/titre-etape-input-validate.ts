@@ -59,4 +59,4 @@ const titreEtapeInputValidate = async (
   return errors
 }
 
-export default titreEtapeInputValidate
+export { titreEtapeInputValidate }

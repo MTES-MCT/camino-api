@@ -325,6 +325,9 @@ type Mutation {
   "Crée ou modifie une activité"
   activiteModifier(activite: InputActiviteModification!): Activite
 
+  "Supprime une activité"
+  activiteSupprimer(id: ID!): Activite
+
   "Crée une entreprise"
   entrepriseCreer(entreprise: InputEntrepriseCreation!): Entreprise
 

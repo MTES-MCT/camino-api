@@ -14,4 +14,4 @@ const documentUpdationValidate = async (document: IDocument) => {
   return errors
 }
 
-export default documentUpdationValidate
+export { documentUpdationValidate }

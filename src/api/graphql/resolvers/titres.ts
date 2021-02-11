@@ -22,7 +22,7 @@ import { titreFichiersDelete } from './_titre-document'
 
 import titreUpdateTask from '../../../business/titre-update'
 
-import titreUpdationValidate from '../../../business/validations/titre-updation-validate'
+import { titreUpdationValidate } from '../../../business/validations/titre-updation-validate'
 
 const titre = async (
   { id }: { id: string },
@@ -36,9 +36,7 @@ const titre = async (
 
     if (!titre) return null
 
-    const user = context.user && (await userGet(context.user.id))
-
-    return titreFormat(user, titre, fields)
+    return titreFormat(titre, fields)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -122,8 +120,7 @@ const titres = async (
       )
     ])
 
-    const user = context.user && (await userGet(context.user.id))
-    const titresFormatted = titres && titresFormat(user, titres, fields)
+    const titresFormatted = titres && titresFormat(titres, fields)
 
     return {
       elements: titresFormatted,
@@ -159,7 +156,7 @@ const titreCreer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -196,7 +193,7 @@ const titreModifier = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)

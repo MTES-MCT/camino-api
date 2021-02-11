@@ -26,4 +26,4 @@ const titreEtapePointsValidate = (titrePoints: ITitrePoint[]) => {
   return null
 }
 
-export default titreEtapePointsValidate
+export { titreEtapePointsValidate }

@@ -145,7 +145,8 @@ import {
   activite,
   activites,
   activitesAnnees,
-  activiteModifier
+  activiteModifier,
+  activiteSupprimer
 } from './resolvers/titres-activites'
 import { statistiquesGlobales } from './resolvers/statistiques'
 import { statistiquesGuyane } from './resolvers/statistiques-guyane'
@@ -236,6 +237,7 @@ export default {
   documentModifier,
   documentSupprimer,
   activiteModifier,
+  activiteSupprimer,
   utilisateurTokenCreer,
   utilisateurTokenRafraichir,
   utilisateurCerbereTokenCreer,

@@ -35,8 +35,6 @@ const administration = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = await userGet(context.user?.id)
-
     const fields = fieldsBuild(info)
 
     const administration = await administrationGet(
@@ -45,7 +43,7 @@ const administration = async (
       context.user?.id
     )
 
-    return administrationFormat(user, administration)
+    return administrationFormat(administration)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -75,8 +73,6 @@ const administrations = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-
     const fields = fieldsBuild(info)
 
     const [administrations, total] = await Promise.all([
@@ -95,7 +91,7 @@ const administrations = async (
     if (!administrations.length) return { elements: [], total: 0 }
 
     return {
-      elements: administrations.map(a => administrationFormat(user, a)),
+      elements: administrations.map(administrationFormat),
       page,
       intervalle,
       ordre,

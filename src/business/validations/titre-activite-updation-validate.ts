@@ -25,4 +25,4 @@ const titreActiviteUpdationValidate = (
   return errors
 }
 
-export default titreActiviteUpdationValidate
+export { titreActiviteUpdationValidate }

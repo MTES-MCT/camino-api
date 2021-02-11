@@ -30,9 +30,7 @@ const entreprise = async (
 
     if (!entreprise) return null
 
-    const user = context.user && (await userGet(context.user.id))
-
-    return entrepriseFormat(user, entreprise)
+    return entrepriseFormat(entreprise)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -123,10 +121,8 @@ const entreprises = async (
 
     if (!entreprises.length) return { elements: [], total: 0 }
 
-    const user = context.user && (await userGet(context.user.id))
-
     return {
-      elements: entreprises.map(e => entrepriseFormat(user, e)),
+      elements: entreprises.map(entrepriseFormat),
       page,
       intervalle,
       ordre,

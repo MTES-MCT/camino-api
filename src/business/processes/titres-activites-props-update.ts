@@ -1,10 +1,9 @@
 import { ITitreActivite } from '../../types'
 import * as dateFormat from 'dateformat'
 
-import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
-import { titreActiviteIsValideCheck } from '../rules/titre-activites-build'
 import { titresGet } from '../../database/queries/titres'
+import { titreValideCheck } from '../utils/titre-valide-check'
 
 const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -14,48 +13,58 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
     { ids: titresIds },
     {
       fields: {
-        demarches: { phase: { id: {} } },
-        activites: { type: { frequence: { id: {} } } }
+        demarches: { phase: { id: {} }, etapes: { id: {} } },
+        activites: {
+          type: {
+            frequence: {
+              mois: { id: {} },
+              trimestres: { id: {} },
+              annees: { id: {} }
+            }
+          }
+        }
       }
     },
     'super'
   )
 
-  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
-  const annee = new Date().getFullYear()
-
   const titresActivitesUpdated = titres.reduce(
     (acc: ITitreActivite[], titre) => {
-      if (!titre.activites?.length || !titre.demarches?.length) return acc
+      if (!titre.activites?.length) return acc
 
       return titre.activites.reduce((acc, titreActivite) => {
         const activiteType = titreActivite.type!
-        const annees = activiteTypeAnneesFind(activiteType, annee)
-
-        if (!annees.length) return acc
-
         const periodes = activiteType.frequence![
           activiteType.frequence!.periodesNom!
         ]!
-        const months = 12 / periodes.length
 
-        const activiteIsValide = titreActiviteIsValideCheck(
-          titreActivite.date,
-          aujourdhui,
-          titreActivite.periodeId,
-          annee,
-          months,
-          titre.demarches!,
-          titre.typeId
+        const periodeMonths = 12 / periodes.length
+
+        const dateDebut = dateFormat(
+          new Date(
+            titreActivite.annee,
+            (titreActivite.periodeId - 1) * periodeMonths,
+            1
+          ),
+          'yyyy-mm-dd'
         )
 
-        if (activiteIsValide && titreActivite.suppression) {
+        const titreIsValide =
+          titre.demarches?.length &&
+          titreValideCheck(
+            titre.demarches!,
+            dateDebut,
+            titreActivite.date,
+            titre.typeId
+          )
+
+        if (titreIsValide && titreActivite.suppression) {
           titreActivite.suppression = null
 
           acc.push(titreActivite)
         }
 
-        if (!activiteIsValide && !titreActivite.suppression) {
+        if (!titreIsValide && !titreActivite.suppression) {
           titreActivite.suppression = true
 
           acc.push(titreActivite)

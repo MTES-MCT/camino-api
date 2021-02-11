@@ -20,4 +20,4 @@ const titreUpdationValidate = async (titreNew: ITitre, titreOld: ITitre) => {
   return errors
 }
 
-export default titreUpdationValidate
+export { titreUpdationValidate }

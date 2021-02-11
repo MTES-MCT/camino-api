@@ -2,7 +2,7 @@ import { IDocument } from '../../types'
 
 import { dateValidate } from '../../tools/date-validate'
 
-const documentUpdationValidate = async (document: IDocument) => {
+const documentInputValidate = async (document: IDocument) => {
   const errors = [] as string[]
 
   if (!document.typeId) {
@@ -21,4 +21,4 @@ const documentUpdationValidate = async (document: IDocument) => {
   return errors
 }
 
-export default documentUpdationValidate
+export { documentInputValidate }

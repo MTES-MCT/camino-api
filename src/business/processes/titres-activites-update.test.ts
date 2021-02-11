@@ -4,7 +4,7 @@ import { ITitreActivite } from '../../types'
 import { titresActivitesUpdate } from './titres-activites-update'
 
 import { titreActiviteTypeCheck } from '../utils/titre-activite-type-check'
-import { activiteTypeAnneesFind } from '../utils/activite-type-annees-find'
+import { anneesBuild } from '../../tools/annees-build'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titresGet } from '../../database/queries/titres'
 import { activitesTypesGet } from '../../database/queries/metas-activites'
@@ -29,9 +29,9 @@ jest.mock('../utils/titre-activite-type-check', () => ({
   titreActiviteTypeCheck: jest.fn()
 }))
 
-jest.mock('../utils/activite-type-annees-find', () => ({
+jest.mock('../../tools/annees-build', () => ({
   __esModule: true,
-  activiteTypeAnneesFind: jest.fn()
+  anneesBuild: jest.fn()
 }))
 
 jest.mock('../../database/queries/titres-activites', () => ({
@@ -47,7 +47,7 @@ jest.mock('../rules/titre-activites-build', () => ({
 const titresGetMock = mocked(titresGet, true)
 const activitesTypesGetMock = mocked(activitesTypesGet, true)
 const titreActiviteTypeCheckMock = mocked(titreActiviteTypeCheck, true)
-const activiteTypeAnneesFindMock = mocked(activiteTypeAnneesFind, true)
+const anneesBuildMock = mocked(anneesBuild, true)
 const titreActivitesBuildMock = mocked(titreActivitesBuild, true)
 
 console.info = jest.fn()
@@ -57,7 +57,7 @@ describe("activités d'un titre", () => {
     titresGetMock.mockResolvedValue(titresSansActivite)
     activitesTypesGetMock.mockResolvedValue(titreActivitesTypes)
     titreActiviteTypeCheckMock.mockReturnValue(true)
-    activiteTypeAnneesFindMock.mockReturnValue([2018])
+    anneesBuildMock.mockReturnValue([2018])
     titreActivitesBuildMock.mockReturnValue([{}] as ITitreActivite[])
 
     const titresActivitesNew = await titresActivitesUpdate()
@@ -75,7 +75,7 @@ describe("activités d'un titre", () => {
     titresGetMock.mockResolvedValue(titresToutesActivites)
     activitesTypesGetMock.mockResolvedValue(titreActivitesTypes)
     titreActiviteTypeCheckMock.mockReturnValue(true)
-    activiteTypeAnneesFindMock.mockReturnValue([2018])
+    anneesBuildMock.mockReturnValue([2018])
     titreActivitesBuildMock.mockReturnValue([])
 
     const titresActivitesNew = await titresActivitesUpdate()
@@ -91,7 +91,7 @@ describe("activités d'un titre", () => {
     titresGetMock.mockResolvedValue(titresSansActivite)
     activitesTypesGetMock.mockResolvedValue(titreActivitesTypes)
     titreActiviteTypeCheckMock.mockReturnValue(false)
-    activiteTypeAnneesFindMock.mockReturnValue([2018])
+    anneesBuildMock.mockReturnValue([2018])
 
     const titresActivitesNew = await titresActivitesUpdate()
 
@@ -106,7 +106,7 @@ describe("activités d'un titre", () => {
     titresGetMock.mockResolvedValue(titresSansActivite)
     activitesTypesGetMock.mockResolvedValue(titreActivitesTypes)
     titreActiviteTypeCheckMock.mockReturnValue(false)
-    activiteTypeAnneesFindMock.mockReturnValue([])
+    anneesBuildMock.mockReturnValue([])
 
     const titresActivitesNew = await titresActivitesUpdate()
 

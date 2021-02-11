@@ -57,7 +57,7 @@ const travauxEtapeCreer = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -103,7 +103,7 @@ const travauxEtapeModifier = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -141,7 +141,7 @@ const travauxEtapeSupprimer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)

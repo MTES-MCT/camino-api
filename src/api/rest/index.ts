@@ -10,7 +10,7 @@ import { titresGet } from '../../database/queries/titres'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import { entreprisesGet } from '../../database/queries/entreprises'
-import { utilisateursGet, userGet } from '../../database/queries/utilisateurs'
+import { utilisateursGet } from '../../database/queries/utilisateurs'
 
 import { titresFormat } from '../_format/titres'
 import { titreDemarcheFormat } from '../_format/titres-demarches'
@@ -100,8 +100,7 @@ const titres = async (
     userId
   )
 
-  const user = await userGet(userId)
-  const titresFormatted = titresFormat(user, titres)
+  const titresFormatted = titresFormat(titres)
 
   let contenu
 
@@ -223,10 +222,8 @@ const demarches = async (
     userId
   )
 
-  const user = await userGet(userId)
-
   const demarchesFormatted = titresDemarches.map(titreDemarche =>
-    titreDemarcheFormat(user, titreDemarche, titreDemarche.titre!.typeId)
+    titreDemarcheFormat(titreDemarche, titreDemarche.titre!.typeId)
   )
 
   let contenu = ''
@@ -415,9 +412,7 @@ const entreprises = async (
 
   const entreprises = await entreprisesGet({ noms }, {}, userId)
 
-  const user = await userGet(userId)
-
-  const entreprisesFormatted = entreprises.map(e => entrepriseFormat(user, e))
+  const entreprisesFormatted = entreprises.map(entrepriseFormat)
 
   let contenu
 

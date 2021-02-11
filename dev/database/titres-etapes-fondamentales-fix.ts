@@ -132,7 +132,7 @@ const main = async () => {
     .patch({ dateFin: latestEtapeDef.date, fondamentale: true })
     .orWhere('id', 'def')
 
-  console.log(
+  console.info(
     `L’étape type « def » est redevenu fondamentale et sa date de fin à été mis à jour: ${latestEtapeDef.date}`
   )
 
@@ -172,7 +172,7 @@ const main = async () => {
         etapeEofMaxDate = etapeEOF.dateFin
       }
 
-      console.log(`date de fin de l’étape ${etapeEOF.id} migrée`)
+      console.info(`date de fin de l’étape ${etapeEOF.id} migrée`)
     }
   }
 
@@ -197,7 +197,7 @@ const main = async () => {
     sections: etapeTypeEOF.sections
   })
 
-  console.log('Ajout d’une section pour l’eof des octrois d’ARM')
+  console.info('Ajout d’une section pour l’eof des octrois d’ARM')
 
   let etapes = await titresEtapesGet(
     {},
@@ -220,7 +220,7 @@ const main = async () => {
   )
   etapes = etapes.filter(e => !e.type!.fondamentale)
 
-  console.log(
+  console.info(
     'Démarrage de la suppression des données fondamentales des étapes non fondamentales'
   )
 
@@ -307,7 +307,7 @@ const main = async () => {
       }
 
       if (errors.length) {
-        console.log(
+        console.info(
           `https://camino.beta.gouv.fr/titres/${etape.demarche.titreId}; ${etape.id};`,
           errors.join('\n  - ')
         )
@@ -426,11 +426,11 @@ const main = async () => {
       if (etapeFondamentale) {
         await titreEtapeUpsert(etapeFondamentale)
       }
-      console.log(`migration de l’étape ${etape.id} terminée`)
+      console.info(`migration de l’étape ${etape.id} terminée`)
     }
   }
 
-  console.log(
+  console.info(
     'Suppression des données fondamentales des étapes non fondamentales terminée'
   )
   process.exit(0)
