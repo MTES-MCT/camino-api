@@ -35,6 +35,9 @@ type Titre {
   "Substances concernées par le titre dans son dernier état de validité"
   substances: [TitreSubstance]
 
+  "Coordonnées x,y du titre"
+  coordonnees: Coordonnees
+
   "Coordonnées des points du périmètre géographique du titre dans son dernier état de validité"
   points: [Point]
 
