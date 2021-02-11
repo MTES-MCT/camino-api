@@ -30,13 +30,10 @@ import {
 
 import globales from '../../../database/cache/globales'
 
-import utilisateurUpdationValidate from '../../../business/validations/utilisateur-updation-validate'
-
+import { utilisateurUpdationValidate } from '../../../business/validations/utilisateur-updation-validate'
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
-
 import { utilisateurEditionCheck } from '../../_permissions/utilisateur'
-
 import { utilisateurFormat } from '../../_format/utilisateurs'
 import { userFormat } from '../../_format/users'
 

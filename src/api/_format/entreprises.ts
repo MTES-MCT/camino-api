@@ -1,4 +1,4 @@
-import { IEntreprise, IUtilisateur } from '../../types'
+import { IEntreprise } from '../../types'
 
 import { titresFormat } from './titres'
 import { utilisateurFormat } from './utilisateurs'
@@ -12,16 +12,12 @@ import { utilisateurFormat } from './utilisateurs'
  *
  */
 
-const entrepriseFormat = (
-  user: IUtilisateur | undefined,
-  entreprise: IEntreprise
-) => {
+const entrepriseFormat = (entreprise: IEntreprise) => {
   entreprise.titulaireTitres =
-    entreprise.titulaireTitres && titresFormat(user, entreprise.titulaireTitres)
+    entreprise.titulaireTitres && titresFormat(entreprise.titulaireTitres)
 
   entreprise.amodiataireTitres =
-    entreprise.amodiataireTitres &&
-    titresFormat(user, entreprise.amodiataireTitres)
+    entreprise.amodiataireTitres && titresFormat(entreprise.amodiataireTitres)
 
   entreprise.utilisateurs = entreprise.utilisateurs?.map(utilisateurFormat)
 

@@ -1,7 +1,7 @@
 import { ITitreEtape, ITitreDemarche, ITitre } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
-import titreEtapePointsValidate from './titre-etape-points-validate'
+import { titreEtapePointsValidate } from './titre-etape-points-validate'
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
 
 const titreEtapeUpdationValidate = async (
@@ -45,4 +45,4 @@ const titreEtapeUpdationValidate = async (
   return errors
 }
 
-export default titreEtapeUpdationValidate
+export { titreEtapeUpdationValidate }

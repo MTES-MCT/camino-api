@@ -1,3 +1,5 @@
+// TODO: ce fichier n'est utilisé nulle part. à supprimer ?
+
 import { ITitreEtape, ISection, IContenu } from '../../types'
 
 const numberProps = (['duree', 'surface'] as unknown) as [keyof ITitreEtape]
@@ -47,4 +49,4 @@ const titreEtapeNumbersValidate = (
   return null
 }
 
-export default titreEtapeNumbersValidate
+export { titreEtapeNumbersValidate }

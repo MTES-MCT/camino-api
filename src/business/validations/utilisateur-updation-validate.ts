@@ -93,4 +93,4 @@ const utilisateurUpdationValidate = async (
   return []
 }
 
-export default utilisateurUpdationValidate
+export { utilisateurUpdationValidate }

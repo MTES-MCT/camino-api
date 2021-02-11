@@ -128,11 +128,8 @@ const demarches = async (
       )
     ])
 
-    const user = context.user && (await userGet(context.user.id))
-
     const demarchesFormatted = titresDemarches.map(titreDemarche =>
       titreDemarcheFormat(
-        user,
         titreDemarche,
         titreDemarche.titre!.typeId,
         fields.elements
@@ -179,7 +176,7 @@ const demarcheCreer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -244,7 +241,7 @@ const demarcheModifier = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -286,7 +283,7 @@ const demarcheSupprimer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)

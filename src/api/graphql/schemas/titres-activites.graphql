@@ -21,6 +21,7 @@ type Activite {
   documents: [Document]
 
   modification: Boolean
+  suppression: Boolean
   documentsCreation: Boolean
 }
 

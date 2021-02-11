@@ -1,4 +1,4 @@
-import titreEtapePointsValidate from './titre-etape-points-validate'
+import { titreEtapePointsValidate } from './titre-etape-points-validate'
 
 import {
   titreEtapePointsValides,

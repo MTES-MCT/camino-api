@@ -38,7 +38,7 @@ const travauxCreer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -78,7 +78,7 @@ const travauxModifier = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -117,7 +117,7 @@ const travauxSupprimer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreUpdated && titreFormat(user, titreUpdated)
+    return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)

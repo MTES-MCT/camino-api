@@ -2,7 +2,6 @@ import {
   ITitre,
   IAdministration,
   IGeoJson,
-  IUtilisateur,
   IFields,
   ISection,
   IContenusTitreEtapesIds,
@@ -119,11 +118,7 @@ const titreTypeSectionsFormat = (
 // remplacer le contenu de ce fichier
 // par des requêtes SQL (dans /database/queries/titres)
 // qui retournent les données directement formatées
-const titreFormat = (
-  user: IUtilisateur | undefined,
-  t: ITitre,
-  fields: IFields = titreFormatFields
-) => {
+const titreFormat = (t: ITitre, fields: IFields = titreFormatFields) => {
   if (!fields) return t
 
   if (fields.geojsonMultiPolygon && t.points?.length) {
@@ -147,7 +142,7 @@ const titreFormat = (
 
   if (fields.demarches && t.demarches?.length) {
     t.demarches = t.demarches.map(td =>
-      titreDemarcheFormat(user, td, t.typeId, fields.demarches)
+      titreDemarcheFormat(td, t.typeId, fields.demarches)
     )
   }
 
@@ -189,9 +184,7 @@ const titreFormat = (
         (a, b) => a.type!.ordre - b.type!.ordre
       )
 
-      t.administrations = t.administrations.map(a =>
-        administrationFormat(user, a)
-      )
+      t.administrations = t.administrations.map(administrationFormat)
 
       delete t.administrationsGestionnaires
       delete t.administrationsLocales
@@ -200,21 +193,17 @@ const titreFormat = (
     }
   }
 
-  t.titulaires = t.titulaires?.map(e => entrepriseFormat(user, e))
+  t.titulaires = t.titulaires?.map(entrepriseFormat)
 
-  t.amodiataires = t.amodiataires?.map(e => entrepriseFormat(user, e))
+  t.amodiataires = t.amodiataires?.map(entrepriseFormat)
 
   return t
 }
 
-const titresFormat = (
-  user: IUtilisateur | undefined,
-  titres: ITitre[],
-  fields = titreFormatFields
-) =>
+const titresFormat = (titres: ITitre[], fields = titreFormatFields) =>
   titres &&
   titres.reduce((acc: ITitre[], titre) => {
-    const titreFormated = titreFormat(user, titre, fields)
+    const titreFormated = titreFormat(titre, fields)
 
     if (titreFormated) {
       acc.push(titreFormated)

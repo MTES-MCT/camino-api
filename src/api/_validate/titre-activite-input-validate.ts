@@ -42,4 +42,4 @@ const titreActiviteInputValidate = (
   return errors
 }
 
-export default titreActiviteInputValidate
+export { titreActiviteInputValidate }

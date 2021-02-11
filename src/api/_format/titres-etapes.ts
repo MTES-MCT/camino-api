@@ -1,10 +1,4 @@
-import {
-  ITitreEtape,
-  IDemarcheType,
-  IGeoJson,
-  IUtilisateur,
-  IFields
-} from '../../types'
+import { ITitreEtape, IDemarcheType, IGeoJson, IFields } from '../../types'
 
 import {
   geojsonFeatureMultiPolygon,
@@ -22,7 +16,6 @@ const titreEtapeFormatFields = {
 } as IFields
 
 const titreEtapeFormat = (
-  user: IUtilisateur | undefined,
   titreEtape: ITitreEtape,
   titreTypeId: string,
   titreDemarcheType: IDemarcheType,
@@ -52,17 +45,13 @@ const titreEtapeFormat = (
     }
   }
 
-  titreEtape.administrations = titreEtape.administrations?.map(a =>
-    administrationFormat(user, a)
+  titreEtape.administrations = titreEtape.administrations?.map(
+    administrationFormat
   )
 
-  titreEtape.titulaires = titreEtape.titulaires?.map(e =>
-    entrepriseFormat(user, e)
-  )
+  titreEtape.titulaires = titreEtape.titulaires?.map(entrepriseFormat)
 
-  titreEtape.amodiataires = titreEtape.amodiataires?.map(e =>
-    entrepriseFormat(user, e)
-  )
+  titreEtape.amodiataires = titreEtape.amodiataires?.map(entrepriseFormat)
 
   return titreEtape
 }

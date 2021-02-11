@@ -1,4 +1,4 @@
-import { IAdministration, IUtilisateur } from '../../types'
+import { IAdministration } from '../../types'
 
 import { titresFormat } from './titres'
 import { utilisateurFormat } from './utilisateurs'
@@ -12,17 +12,13 @@ import { utilisateurFormat } from './utilisateurs'
  *
  */
 
-const administrationFormat = (
-  user: IUtilisateur | undefined,
-  administration: IAdministration
-) => {
+const administrationFormat = (administration: IAdministration) => {
   administration.gestionnaireTitres =
     administration.gestionnaireTitres &&
-    titresFormat(user, administration.gestionnaireTitres)
+    titresFormat(administration.gestionnaireTitres)
 
   administration.localeTitres =
-    administration.localeTitres &&
-    titresFormat(user, administration.localeTitres)
+    administration.localeTitres && titresFormat(administration.localeTitres)
 
   administration.utilisateurs = administration.utilisateurs?.map(
     utilisateurFormat

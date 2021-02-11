@@ -117,7 +117,7 @@ const titreActivitesQueryBuild = (
 }
 
 /**
- * Retourne une activité au resolver
+ * Retourne une activité
  *
  * @param id - id de l'activité
  * @param fields - propriétés demandées
@@ -141,7 +141,7 @@ const titreActiviteGet = async (
 }
 
 /**
- * Retourne les années des activités au resolver
+ * Retourne les années des activités
  *
  * @param userId - utilisateur
  * @returns une liste d'année(s)
@@ -195,7 +195,7 @@ const titresActivitesColonnes = {
 } as Index<IColonne<string | Objection.RawBuilder>>
 
 /**
- * Retourne les activités au resolver
+ * Retourne les activités
  *
  * @param page - numéro de page
  * @param intervalle - nombre d'éléments par page
@@ -300,7 +300,7 @@ const titresActivitesGet = async (
 }
 
 /**
- * Retourne un total d'activités au resolver
+ * Retourne un total d'activités
  *
  * @param typesIds - tableau de type(s) d'activité
  * @param statutsIds - tableau de statut(s) d'activité
@@ -401,7 +401,10 @@ const titreActiviteDelete = async (
     ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
     : options.titresActivites.graph
 
-  return TitresActivites.query().withGraphFetched(graph).deleteById(id)
+  return TitresActivites.query()
+    .withGraphFetched(graph)
+    .deleteById(id)
+    .returning('*')
 }
 
 export {

@@ -22,8 +22,8 @@ import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { titreEtapePointsCalc } from './_titre-etape'
-import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
-import titreEtapeUpdationValidate from '../../../business/validations/titre-etape-updation-validate'
+import { titreEtapeInputValidate } from '../../_validate/titre-etape-input-validate'
+import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
@@ -107,7 +107,7 @@ const etapeCreer = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -193,7 +193,7 @@ const etapeModifier = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -264,7 +264,7 @@ const etapeSupprimer = async (
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -341,7 +341,7 @@ const etapeJustificatifsAssocier = async (
 
     const titreUpdated = await titreGet(titre.id, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -409,7 +409,7 @@ const etapeJustificatifDissocier = async (
 
     const titreUpdated = await titreGet(titre.id, { fields }, user.id)
 
-    return titreFormat(user, titreUpdated)
+    return titreFormat(titreUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -22,15 +22,17 @@ import {
   titresActivitesCount,
   titresActivitesGet,
   activitesAnneesGet,
-  titreActiviteUpdate as titreActiviteUpdateQuery
+  titreActiviteUpdate as titreActiviteUpdateQuery,
+  titreActiviteDelete
 } from '../../../database/queries/titres-activites'
 import {
   userGet,
   utilisateursGet
 } from '../../../database/queries/utilisateurs'
 
-import titreActiviteInputValidate from '../../_validate/titre-activite-input-validate'
-import titreActiviteUpdationValidate from '../../../business/validations/titre-activite-updation-validate'
+import { titreActiviteInputValidate } from '../../_validate/titre-activite-input-validate'
+import { titreActiviteUpdationValidate } from '../../../business/validations/titre-activite-updation-validate'
+import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
 
 /**
  * Retourne une activité
@@ -263,7 +265,7 @@ const activiteModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const activiteOld = await titreActiviteGet(
+    const oldTitreActivite = await titreActiviteGet(
       activite.id,
       {
         fields: {
@@ -274,17 +276,17 @@ const activiteModifier = async (
       context.user?.id
     )
 
-    if (!activiteOld) throw new Error("l'activité n'existe pas")
+    if (!oldTitreActivite) throw new Error("l'activité n'existe pas")
 
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !activitePermissionCheck(activiteOld, user)) {
+    if (!user || !activitePermissionCheck(oldTitreActivite, user)) {
       throw new Error('cette activité ne peut pas être modifiée')
     }
 
     const inputErrors = titreActiviteInputValidate(
       activite,
-      activiteOld.sections
+      oldTitreActivite.sections
     )
 
     if (inputErrors.length) {
@@ -293,7 +295,7 @@ const activiteModifier = async (
 
     const rulesErrors = titreActiviteUpdationValidate(
       activite,
-      activiteOld.sections
+      oldTitreActivite.sections
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -306,7 +308,7 @@ const activiteModifier = async (
 
     if (activite.contenu) {
       activite.contenu = titreActiviteContenuFormat(
-        activiteOld.sections,
+        oldTitreActivite.sections,
         activite.contenu,
         'write'
       )
@@ -346,7 +348,7 @@ const activiteModifier = async (
         activiteFormated.titre!.nom,
         user,
         utilisateurs,
-        activiteOld.type!.email
+        oldTitreActivite.type!.email
       )
     }
 
@@ -360,4 +362,44 @@ const activiteModifier = async (
   }
 }
 
-export { activite, activites, activitesAnnees, activiteModifier }
+const activiteSupprimer = async ({ id }: { id: string }, context: IToken) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour supprimer une activité')
+    }
+
+    const oldTitreActivite = await titreActiviteGet(
+      id,
+      { fields: {} },
+      context.user?.id
+    )
+
+    if (!oldTitreActivite) {
+      throw new Error('aucune activité avec cette id')
+    }
+
+    const rulesErrors = titreActiviteDeletionValidate(oldTitreActivite)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
+    return titreActiviteDelete(id, {})
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export {
+  activite,
+  activites,
+  activitesAnnees,
+  activiteModifier,
+  activiteSupprimer
+}
