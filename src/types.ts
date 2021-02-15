@@ -25,7 +25,13 @@ type IPropId =
   | 'forets'
   | 'surface'
 
-type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activites'
+type ITitreColonneId =
+  | 'nom'
+  | 'domaine'
+  | 'coordonnees'
+  | 'type'
+  | 'statut'
+  | 'activites'
 
 type ITitreDemarcheColonneId =
   | 'titreNom'
