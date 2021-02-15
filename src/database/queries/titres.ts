@@ -134,7 +134,7 @@ const titreFromIdGet = async (
 const titresColonnes = {
   nom: { id: 'nom', groupBy: ['titres.nom'] },
   domaine: { id: 'domaineId', groupBy: ['titres.domaineId'] },
-  perimetre: { id: 'perimetre', groupBy: [] },
+  coordonnees: { id: 'coordonnees', groupBy: [] },
   type: { id: 'type:type.nom', relation: 'type.type' },
   statut: { id: 'statutId', groupBy: ['titres.statutId'] },
   activites: { id: 'activites', groupBy: [] },
@@ -269,7 +269,7 @@ const titresGet = async (
           ordre === 'asc' ? 'asc nulls first' : 'desc nulls last'
         }`
       )
-    } else if (colonne === 'perimetre') {
+    } else if (colonne === 'coordonnees') {
       q.orderByRaw(`"coordonnees" notnull ${ordre}`)
     } else {
       q.orderBy(titresColonnes[colonne].id, ordre || 'asc')

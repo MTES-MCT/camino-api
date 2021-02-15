@@ -28,7 +28,7 @@ type IPropId =
 type ITitreColonneId =
   | 'nom'
   | 'domaine'
-  | 'perimetre'
+  | 'coordonnees'
   | 'type'
   | 'statut'
   | 'activites'
