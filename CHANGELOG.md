@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.71](https://github.com/MTES-MCT/camino-api/compare/v0.24.70...v0.24.71) (2021-02-15)
+
+
+### Features
+
+* **titres:** ajoutes les régions et les départements dans la liste ([#652](https://github.com/MTES-MCT/camino-api/issues/652)) ([c19cb7a](https://github.com/MTES-MCT/camino-api/commit/c19cb7a4030a9def864817d7cb52a0c50f4d2ca6))
+* ajoute une propriété suppression sur les activités invalides ([#651](https://github.com/MTES-MCT/camino-api/issues/651)) ([537ffae](https://github.com/MTES-MCT/camino-api/commit/537ffaea3bf103a6ff66b81976da79142a45462e))
+* **liste:** ajoute les references dans le tri dans la requête sur les titres ([#649](https://github.com/MTES-MCT/camino-api/issues/649)) ([a7d6c60](https://github.com/MTES-MCT/camino-api/commit/a7d6c60b0c04dfb58981955aa57956477b39f1a9))
+* **statistiques:** ajoute le graph des stocks de concessions granulats marins ([#645](https://github.com/MTES-MCT/camino-api/issues/645)) ([684636e](https://github.com/MTES-MCT/camino-api/commit/684636e8eed566cfacc5dcec18502c3213d2f14a))
+
+
+### Bug Fixes
+
+* corrige les sections des activités gra dont les substances ont changé ([#655](https://github.com/MTES-MCT/camino-api/issues/655)) ([3bd1df9](https://github.com/MTES-MCT/camino-api/commit/3bd1df981048c79a98f7f133bbe7cc323867d8e3))
+* ne convertit pas le nom en majuscule ([6721b11](https://github.com/MTES-MCT/camino-api/commit/6721b11b2ec1b923ed72614f1712584293f280e7))
+* **démarche:** active l’arbre d’instructions sur les octrois d’AEX à partir du 21/08/2020 ([#653](https://github.com/MTES-MCT/camino-api/issues/653)) ([d2297da](https://github.com/MTES-MCT/camino-api/commit/d2297da3dc343d5cd0b211de1311b849eaa0df53))
+* **statistiques:** corrige le format de date pour les concessions valides ([#654](https://github.com/MTES-MCT/camino-api/issues/654)) ([3e6785e](https://github.com/MTES-MCT/camino-api/commit/3e6785ef100698632c65cac55ec3f4f7bc24922d))
+* corrige la jointure sur les points ([6521622](https://github.com/MTES-MCT/camino-api/commit/6521622565f8c7aaf3015f1058d31e1328494ed0))
+* limite la liste des entreprises lors de l'ajout de justificatifs ([#648](https://github.com/MTES-MCT/camino-api/issues/648)) ([a161fbf](https://github.com/MTES-MCT/camino-api/commit/a161fbfbccf1d4ac37531ccf676f664745c262de))
+* **étapes:** supprimes les données des étapes non fondamentales ([#650](https://github.com/MTES-MCT/camino-api/issues/650)) ([b3683d0](https://github.com/MTES-MCT/camino-api/commit/b3683d0099f9566de82948dfbb910a95401c4a07))
+* corrige l'insertion des points d'une étape ([#646](https://github.com/MTES-MCT/camino-api/issues/646)) ([75691e3](https://github.com/MTES-MCT/camino-api/commit/75691e38c32d1344bf3b174c0f12c20f5b82a674))
+* renomme les id d'étapes dans les propriétés du titre ([#647](https://github.com/MTES-MCT/camino-api/issues/647)) ([dcdef31](https://github.com/MTES-MCT/camino-api/commit/dcdef313112708df5da782f7bff6c3129eebe55a))
+
 ### [0.24.70](https://github.com/MTES-MCT/camino-api/compare/v0.24.67...v0.24.70) (2021-02-08)
 
 
