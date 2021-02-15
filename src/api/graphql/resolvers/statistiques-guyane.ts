@@ -173,7 +173,7 @@ const statistiquesGuyaneAnneeBuild = (
     titresAxm,
     titresPxm,
     titresCxm,
-    orNet: Math.floor(statistiquesActivitesGra.auru),
+    orNet: Math.floor(statistiquesActivitesGra.auru / 1000),
     carburantConventionnel: Math.floor(
       statistiquesActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres
