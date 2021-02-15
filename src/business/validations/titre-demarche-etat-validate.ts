@@ -142,10 +142,10 @@ const titreDemarcheUpdatedEtatValidate = (
     titreDemarcheEtapes
   )
 
-  // pas de validation si la démarche est antérieure au 31 octobre 2019
+  // pas de validation si la démarche est antérieure ou égale au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
   if (
-    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapesNew) <
+    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapesNew) <=
     demarcheDefinition.dateDebut
   )
     return []
