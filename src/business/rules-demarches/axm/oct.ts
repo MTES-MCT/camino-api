@@ -37,14 +37,10 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
     etapeTypeId: 'mom',
     justeApres: [[{ etapeTypeId: 'dae', statutId: 'def' }]]
   },
-
   {
     etapeTypeId: 'mdp',
     avant: [[{ etapeTypeId: 'mdp' }]],
-    justeApres: [
-      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'dae', statutId: 'fav' }],
-      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'mom' }]
-    ]
+    justeApres: [[{ etapeTypeId: 'mfr' }]]
   },
   {
     etapeTypeId: 'nis',
@@ -65,12 +61,36 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
   {
     etapeTypeId: 'mcr',
     justeApres: [
-      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'mod' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'mod' }]
+      [
+        { etapeTypeId: 'mdp' },
+        { etapeTypeId: 'asl', statutId: 'fav' },
+        { etapeTypeId: 'dae', statutId: 'fav' }
+      ],
+      [
+        { etapeTypeId: 'mdp' },
+        { etapeTypeId: 'asl', statutId: 'fav' },
+        { etapeTypeId: 'mom' }
+      ],
+      [
+        { etapeTypeId: 'rca' },
+        { etapeTypeId: 'asl', statutId: 'fav' },
+        { etapeTypeId: 'dae', statutId: 'fav' }
+      ],
+      [
+        { etapeTypeId: 'rca' },
+        { etapeTypeId: 'asl', statutId: 'fav' },
+        { etapeTypeId: 'mom' }
+      ],
+      [
+        { etapeTypeId: 'mod' },
+        { etapeTypeId: 'asl', statutId: 'fav' },
+        { etapeTypeId: 'dae', statutId: 'fav' }
+      ],
+      [
+        { etapeTypeId: 'mod' },
+        { etapeTypeId: 'asl', statutId: 'fav' },
+        { etapeTypeId: 'mom' }
+      ]
     ],
     separation: ['apd']
   },
