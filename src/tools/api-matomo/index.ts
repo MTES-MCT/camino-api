@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { cacheGet, cacheUpsert } from '../../database/queries/caches'
 
 interface IMatomoSectionData {
   label: string
@@ -26,7 +27,7 @@ interface IMatomoResult {
   }
 }
 
-let matomoCache: {
+interface IMatomoCache {
   recherches: { mois: string; quantite: string }[]
   titresModifies: { mois: string; quantite: number }[]
   actions: string
@@ -226,7 +227,7 @@ const matomoCacheInit = async () => {
 
   const titresModifies = matomoResults[3]
 
-  matomoCache = {
+  const matomoCacheValue = {
     recherches,
     titresModifies,
     actions,
@@ -234,15 +235,24 @@ const matomoCacheInit = async () => {
     telechargements,
     signalements,
     reutilisations
-  }
+  } as IMatomoCache
+
+  await cacheUpsert({
+    id: 'matomo',
+    valeur: matomoCacheValue
+  })
+
+  return matomoCacheValue
 }
 
 const matomoData = async () => {
+  const matomoCache = await cacheGet('matomo')
+
   if (!matomoCache) {
-    await matomoCacheInit()
+    return matomoCacheInit()
   }
 
-  return matomoCache
+  return matomoCache.valeur as IMatomoCache
 }
 
 const timeFormat = (time: string) => {

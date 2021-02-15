@@ -796,6 +796,13 @@ interface ITrimestre extends IPeriode {
   mois?: IMois[]
 }
 
+type ICacheId = 'matomo'
+
+interface ICache {
+  id: ICacheId
+  valeur: any
+}
+
 interface ITitreType {
   id: string
   domaineId: string
@@ -987,5 +994,7 @@ export {
   IColonne,
   IDefinition,
   IContenuId,
-  IPropsTitreEtapesIds
+  IPropsTitreEtapesIds,
+  ICache,
+  ICacheId
 }
