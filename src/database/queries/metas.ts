@@ -130,6 +130,8 @@ const titresTypesGet = async (_: never, { fields }: { fields?: IFields }) => {
   return TitresTypes.query().withGraphFetched(graph).orderBy('id')
 }
 
+const titreTypeGet = async (id: string) => TitresTypes.query().findById(id)
+
 const titreTypeUpdate = async (id: string, props: Partial<ITitreType>) =>
   TitresTypes.query().patchAndFetchById(id, props)
 
@@ -504,6 +506,7 @@ export {
   geoSystemeUpdate,
   documentTypeUpdate,
   referenceTypeUpdate,
+  titreTypeGet,
   titreTypeUpdate,
   titreTypeCreate,
   titreTypeDelete,
