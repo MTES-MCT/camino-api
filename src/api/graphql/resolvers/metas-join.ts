@@ -38,8 +38,10 @@ import {
   travauxTypesEtapesTypesGet,
   travauxTypeEtapeTypeUpdate,
   travauxTypeEtapeTypeCreate,
-  travauxTypeEtapeTypeDelete
+  travauxTypeEtapeTypeDelete,
+  titreTypeGet
 } from '../../../database/queries/metas'
+import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 
 const titresTypes = async (_: never, context: IToken) => {
   try {
@@ -437,6 +439,27 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
+    }
+
+    const titreType = await titreTypeGet(
+      titreTypeDemarcheTypeEtapeType.titreTypeId
+    )
+
+    const demarches = await titresDemarchesGet(
+      {
+        titresTypesIds: [titreType.typeId],
+        titresDomainesIds: [titreType.domaineId],
+        typesIds: [titreTypeDemarcheTypeEtapeType.demarcheTypeId],
+        etapesInclues: [{ typeId: titreTypeDemarcheTypeEtapeType.etapeTypeId }]
+      },
+      { fields: { id: {} } },
+      'super'
+    )
+
+    if (demarches.length) {
+      throw new Error(
+        `impossible de supprimer cette ligne car elle est utilisée par au moins une démarche ${demarches[0].id}`
+      )
     }
 
     await titreTypeDemarcheTypeEtapeTypeDelete(
