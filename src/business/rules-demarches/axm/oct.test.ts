@@ -39,7 +39,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
         { typeId: 'mca', date: '2020-01-03' },
         { typeId: 'mdp', date: '2020-01-04' }
       ])
-    ).toEqual(['l’étape "mdp" n’est plus possible après "mfr", "dae", "mca"'])
+    ).toEqual(['l’étape "mdp" n’est plus possible après "mfr", "mca"'])
   })
 
   test('ne peut pas avoir juste une étape "Décision de l’administration"', () => {
@@ -48,23 +48,23 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     ])
   })
 
-  test('peut créer une "mdp" sans une "dae"', () => {
+  test('ne peut pas créer une "mdp" sans une "dae"', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' }
       ])
-    ).toHaveLength(0)
+    ).toContain('l’étape "mdp" n’est pas possible juste après "mfr"')
   })
 
-  test('peut créer une "mdp" avec une "dae" défavorable', () => {
+  test('ne peut pas créer une "mdp" sans une "dae" défavorable', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'def', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' }
       ])
-    ).toHaveLength(0)
+    ).toContain('l’étape "mdp" n’est pas possible juste après "mfr", "dae"')
   })
 
   test('peut créer une faire une "mno", une "rpu" et une "pqr" à la fin de la démarche', () => {
