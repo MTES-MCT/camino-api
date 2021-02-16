@@ -11,7 +11,7 @@ async function main() {
     'super'
   )
 
-  console.log('migration des étapes d’oct d’AXM')
+  console.info('migration des étapes d’oct d’AXM')
   for (const d of demarches) {
     const etapes = d.etapes!.filter(
       e => e.typeId === 'rco' || e.typeId === 'mco'
@@ -19,7 +19,7 @@ async function main() {
     for (const e of etapes) {
       const typeId = e.typeId === 'rco' ? 'rca' : 'mca'
       await TitresEtapes.query().patch({ typeId }).where('id', e.id)
-      console.log(`migration du type de l’étape ${e.id} => ${typeId}`)
+      console.info(`migration du type de l’étape ${e.id} => ${typeId}`)
     }
   }
 
@@ -29,13 +29,13 @@ async function main() {
     'super'
   )
 
-  console.log('migration des étapes d’oct d’ARM')
+  console.info('migration des étapes d’oct d’ARM')
   for (const d of demarches) {
     const etapes = d.etapes!.filter(e => e.typeId === 'rco')
     for (const e of etapes) {
       const typeId = 'rcm'
       await TitresEtapes.query().patch({ typeId }).where('id', e.id)
-      console.log(`migration du type de l’étape ${e.id} => ${typeId}`)
+      console.info(`migration du type de l’étape ${e.id} => ${typeId}`)
     }
   }
 

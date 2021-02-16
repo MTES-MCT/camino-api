@@ -1,22 +1,30 @@
 import 'dotenv/config'
-import '../../src/init'
 import { ITitreEtape } from '../../src/types'
+
+import knex from '../../src/init'
 
 import { titresGet } from '../../src/database/queries/titres'
 import TitresEtapes from '../../src/database/models/titres-etapes'
 
-const titrePropsEtapes = [
+const titreEtapeProps = [
   'points',
   'titulaires',
   'amodiataires',
-  'administrations',
   'substances',
   'surface',
   'dateFin',
-  'dateDebut'
+  'dateDebut',
+  'duree'
 ] as (keyof ITitreEtape)[]
 
 async function main() {
+  await knex.schema.alterTable('titresEtapes', table => {
+    table.dropColumn('propsTitreEtapesIds')
+    table.jsonb('propsHeritage')
+    table.dropColumn('contenusTitreEtapesIds')
+    table.jsonb('contenuHeritage')
+  })
+
   const titres = await titresGet(
     {},
     {
@@ -44,31 +52,27 @@ async function main() {
           for (let i = 0; i < etapes.length; i++) {
             const te = etapes[i]
 
-            if (!te.propsTitreEtapesIds) {
-              te.propsTitreEtapesIds = {}
+            const tePrecedenteId = i > 0 ? etapes[i - 1].id : null
+
+            if (!te.propsHeritage) {
+              te.propsHeritage = {}
             }
 
-            titrePropsEtapes.forEach(prop => {
-              if (
-                te[prop] &&
-                (!Array.isArray(te[prop]) || (te[prop] as any[]).length)
-              ) {
-                te.propsTitreEtapesIds[prop] = te.id
+            titreEtapeProps.forEach(prop => {
+              te.propsHeritage![prop] = {
+                etapeId: tePrecedenteId,
+                actif: false
               }
             })
 
             await TitresEtapes.query()
-              .patch({
-                propsTitreEtapesIds: te.propsTitreEtapesIds
-              })
+              .patch({ propsHeritage: te.propsHeritage })
               .where('id', te.id)
           }
         }
       }
     }
   }
-
-  const res = {}
 
   process.exit(0)
 }

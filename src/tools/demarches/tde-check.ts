@@ -41,7 +41,7 @@ const titreTypeDemarcheTypeEtapeTypeCheck = async () => {
             t.etapeTypeId === etapeType!.id
         )
       ) {
-        console.log(
+        console.info(
           `erreur sur le titre https://camino.beta.gouv.fr/titres/${
             d.titre!.id
           }, TDE inconnu ${d.titre!.typeId} ${d.typeId} ${etapeType!.id} (${

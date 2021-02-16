@@ -9,6 +9,7 @@ import {
 
 const logsUpdate = ({
   titresEtapesOrdreUpdated,
+  titresEtapesHeritageUpdated,
   titresDemarchesStatutUpdated,
   titresDemarchesPublicUpdated,
   titresDemarchesOrdreUpdated,
@@ -43,6 +44,7 @@ const logsUpdate = ({
   administrationsUpdated
 }: {
   titresEtapesOrdreUpdated?: string[]
+  titresEtapesHeritageUpdated?: string[]
   titresDemarchesStatutUpdated?: string[]
   titresDemarchesPublicUpdated?: string[]
   titresDemarchesOrdreUpdated?: string[]
@@ -82,6 +84,12 @@ const logsUpdate = ({
   if (titresEtapesOrdreUpdated?.length) {
     console.info(
       `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
+    )
+  }
+
+  if (titresEtapesHeritageUpdated?.length) {
+    console.info(
+      `mise à jour: ${titresEtapesHeritageUpdated.length} étape(s) (héritage)`
     )
   }
 

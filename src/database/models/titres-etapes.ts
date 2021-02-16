@@ -3,6 +3,7 @@ import { join } from 'path'
 import { ITitreEtape, ITitrePoint } from '../../types'
 
 import { paysFormat } from './_format/pays'
+import { propsHeritageFormat } from './_format/titre-etape-props-heritage'
 
 interface TitresEtapes extends ITitreEtape {}
 
@@ -27,8 +28,8 @@ class TitresEtapes extends Model {
       surface: { type: ['number', 'null'] },
       contenu: { type: 'json' },
       incertitudes: { type: 'json' },
-      contenusTitreEtapesIds: { type: 'json' },
-      propsTitreEtapesIds: { type: 'json' }
+      contenuHeritage: { type: 'json' },
+      propsHeritage: { type: 'json' }
     }
   }
 
@@ -182,8 +183,12 @@ class TitresEtapes extends Model {
     }
   }
 
-  $afterFind() {
+  async $afterFind(context: any) {
     this.pays = paysFormat(this.communes || [])
+
+    if (context.fetchHeritage && this.propsHeritage) {
+      this.propsHeritage = await propsHeritageFormat(this.propsHeritage)
+    }
 
     return this
   }

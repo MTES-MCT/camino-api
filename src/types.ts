@@ -76,6 +76,14 @@ interface IContenusTitreEtapesIds {
   [sectionId: string]: IPropsTitreEtapesIds
 }
 
+interface IPropsHeritage {
+  [elementId: string]: {
+    actif: boolean
+    etapeId?: string | null
+    etape?: ITitreEtape
+  }
+}
+
 interface ISection {
   id: string
   nom?: string
@@ -726,8 +734,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
-  propsTitreEtapesIds: IPropsTitreEtapesIds
-  propsTitreEtapes?: { [propId: string]: ITitreEtape }
+  propsHeritage?: IPropsHeritage | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -996,6 +1003,7 @@ export {
   IDefinition,
   IContenuId,
   IPropsTitreEtapesIds,
+  IPropsHeritage,
   ICache,
   ICacheId
 }

@@ -63,7 +63,7 @@ type Etape {
 
   incertitudes: Incertitudes
 
-  propsTitreEtapes: PropsTitreEtapes
+  heritages: Heritages
 
   contenu: Json
 
@@ -89,15 +89,20 @@ type Incertitudes {
   administrations: Boolean
 }
 
-type PropsTitreEtapes {
-  dateDebut: TitreEtape
-  dateFin: TitreEtape
-  duree: TitreEtape
-  surface: TitreEtape
-  points: TitreEtape
-  substances: TitreEtape
-  titulaires: TitreEtape
-  amodiataires: TitreEtape
+type Heritages {
+  dateDebut: Heritage
+  dateFin: Heritage
+  duree: Heritage
+  surface: Heritage
+  points: Heritage
+  substances: Heritage
+  titulaires: Heritage
+  amodiataires: Heritage
+}
+
+type Heritage {
+  etape: Etape
+  actif: Boolean
 }
 
 input InputEtapeCreation {
@@ -116,7 +121,7 @@ input InputEtapeCreation {
   titulaires: [InputId!]
   amodiataires: [InputId!]
   incertitudes: InputIncertitudes
-  propsTitreEtapes: InputPropsTitreEtape
+  heritages: InputHeritages
   contenu: Json
 }
 
@@ -137,7 +142,7 @@ input InputEtapeModification {
   titulaires: [InputId!]
   amodiataires: [InputId!]
   incertitudes: InputIncertitudes
-  propsTitreEtapes: InputPropsTitreEtape
+  heritages: InputHeritages
   contenu: Json
 }
 
@@ -161,7 +166,7 @@ input InputIncertitudes {
   administrations: Boolean
 }
 
-input InputPropsTitreEtape {
+input InputHeritages {
   dateDebut: Boolean
   dateFin: Boolean
   duree: Boolean

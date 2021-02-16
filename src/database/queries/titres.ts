@@ -102,11 +102,14 @@ const titresQueryBuild = (
  */
 const titreGet = async (
   id: string,
-  { fields }: { fields?: IFields },
+
+  { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
   userId?: string
 ) => {
   const user = await userGet(userId)
   const q = titresQueryBuild({}, { fields }, user)
+
+  q.context({ fetchHeritage })
 
   return q.findById(id)
 }

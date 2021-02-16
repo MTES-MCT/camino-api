@@ -11,7 +11,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "debug:daily"
+                "dev:daily"
             ],
             "port": 8080
         },
