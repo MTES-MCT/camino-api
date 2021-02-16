@@ -8,7 +8,13 @@ import {
   IUtilisateur,
   ITitre
 } from '../../types'
-import { transaction, Transaction, QueryBuilder } from 'objection'
+import {
+  transaction,
+  Transaction,
+  QueryBuilder,
+  raw,
+  RawBuilder
+} from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import { userGet } from './utilisateurs'
 import options from './_options'
@@ -211,8 +217,16 @@ const titresDemarchesColonnes = {
   titreType: { id: 'titre:type:type.nom', relation: 'titre.type.type' },
   titreStatut: { id: 'titre.statutId', relation: 'titre' },
   type: { id: 'titresDemarches.typeId' },
-  statut: { id: 'titresDemarches.statutId' }
-} as Index<IColonne<string>>
+  statut: { id: 'titresDemarches.statutId' },
+  references: {
+    id: raw(`STRING_AGG(concat("titre:references"."type_id",
+        "titre:references"."nom"),
+        ' ; '
+      )`),
+    relation: 'titre.references',
+    groupBy: []
+  }
+} as Index<IColonne<string | RawBuilder>>
 
 const titresDemarchesGet = async (
   {
@@ -281,12 +295,21 @@ const titresDemarchesGet = async (
       throw new Error(`Colonne « ${colonne} » inconnue`)
     }
 
+    const groupBy = titresDemarchesColonnes[colonne].groupBy as string[]
+
     if (titresDemarchesColonnes[colonne].relation) {
       q.leftJoinRelated(titresDemarchesColonnes[colonne].relation!)
     }
     q.orderBy(titresDemarchesColonnes[colonne].id, ordre || 'asc')
-    q.groupBy(titresDemarchesColonnes[colonne].id)
     q.groupBy('titresDemarches.id')
+
+    if (groupBy) {
+      groupBy.forEach(gb => {
+        q.groupBy(gb as string)
+      })
+    } else {
+      q.groupBy(titresDemarchesColonnes[colonne].id)
+    }
   } else {
     q.orderBy('titresDemarches.ordre')
   }
