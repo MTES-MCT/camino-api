@@ -139,42 +139,29 @@ const titresColonnes = {
   statut: { id: 'statutId', groupBy: ['titres.statutId'] },
   activites: { id: 'activites', groupBy: [] },
   substances: {
-    id: raw(`STRING_AGG(
-        "substances"."nom",
-        ' ; '
-      )`),
+    id: raw(`STRING_AGG("substances"."nom", ' ; ')`),
     relation: 'substances',
     groupBy: []
   },
   titulaires: {
-    id: raw(`STRING_AGG(
-        "titulaires"."nom",
-        ' ; '
-      )`),
+    id: raw(`STRING_AGG("titulaires"."nom", ' ; ')`),
     relation: 'titulaires',
     groupBy: []
   },
   regions: {
-    id: raw(`STRING_AGG(distinct(
-        "communes:departement:region"."nom"),
-        ' ; '
-      )`),
+    id: raw(`STRING_AGG(distinct("communes:departement:region"."nom"), ' ; ')`),
     relation: 'communes.departement.region',
     groupBy: []
   },
   departements: {
-    id: raw(`STRING_AGG(distinct(
-        "communes:departement"."nom"),
-        ' ; '
-      )`),
+    id: raw(`STRING_AGG(distinct("communes:departement"."nom"), ' ; ')`),
     relation: 'communes.departement',
     groupBy: []
   },
   references: {
-    id: raw(`STRING_AGG(concat("references"."type_id",
-        "references"."nom"),
-        ' ; '
-      )`),
+    id: raw(
+      `STRING_AGG(concat("references"."type_id", "references"."nom"), ' ; ')`
+    ),
     relation: 'references',
     groupBy: []
   }
@@ -254,7 +241,7 @@ const titresGet = async (
 
     if (groupBy) {
       groupBy.forEach(gb => {
-        q.groupBy(gb as string)
+        q.groupBy(gb)
       })
     } else {
       q.groupBy(titresColonnes[colonne].id)

@@ -529,7 +529,7 @@ const utilisateurSupprimer = async (
       throw new Error('aucun utilisateur avec cet id')
     }
 
-    utilisateur.email = ''
+    utilisateur.email = null
     utilisateur.motDePasse = 'suppression'
     utilisateur.telephoneFixe = ''
     utilisateur.telephoneMobile = ''
