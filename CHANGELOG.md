@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.72](https://github.com/MTES-MCT/camino-api/compare/v0.24.71...v0.24.72) (2021-02-18)
+
+
+### Features
+
+* **demarches:** ajoute les references du titre dans la requête sur les démarches ([#662](https://github.com/MTES-MCT/camino-api/issues/662)) ([07fcf31](https://github.com/MTES-MCT/camino-api/commit/07fcf3100d0cd90fcf758dfa792a9279f4a6fac9))
+* **liste:** ajoute les coordonnées aux titres ([#656](https://github.com/MTES-MCT/camino-api/issues/656)) ([1256e49](https://github.com/MTES-MCT/camino-api/commit/1256e4990118c9d40895539a6b66062c501cce63))
+* **tde:** ajoute un script qui corrige des incohérences ([#660](https://github.com/MTES-MCT/camino-api/issues/660)) ([de912d2](https://github.com/MTES-MCT/camino-api/commit/de912d2385965d4c418d13bcaccef1ad5d743ac4))
+* **tde:** ajoute un script qui vérifie la cohérence de TDE avec la base de données ([#658](https://github.com/MTES-MCT/camino-api/issues/658)) ([f56cc58](https://github.com/MTES-MCT/camino-api/commit/f56cc58afc36d25d0fe3429edadfce7fd350d6ab))
+
+
+### Bug Fixes
+
+* corrige une erreur lors de la suppression de compte utilisateur ([a7666d1](https://github.com/MTES-MCT/camino-api/commit/a7666d16e2ce58ef6b8b1ef584dd3b8807f28116))
+* **axm:** permet de déposer la demande d’octroi avant d’avoir une DAE ([#657](https://github.com/MTES-MCT/camino-api/issues/657)) ([7765cfb](https://github.com/MTES-MCT/camino-api/commit/7765cfb97ff3e296c5e1e7aadb96fd0836ec6013))
+* **matomo:** stocke le cache Matomo en base de données ([#659](https://github.com/MTES-MCT/camino-api/issues/659)) ([588706d](https://github.com/MTES-MCT/camino-api/commit/588706d6034321b866a3874c50f978b120fcf68d))
+* **statistiques:** corrige l’unité de la production d’or nette en Guyane ([#661](https://github.com/MTES-MCT/camino-api/issues/661)) ([d38a318](https://github.com/MTES-MCT/camino-api/commit/d38a3189bb313495434a486e586a0fc430f66683))
+
 ### [0.24.71](https://github.com/MTES-MCT/camino-api/compare/v0.24.70...v0.24.71) (2021-02-15)
 
 
