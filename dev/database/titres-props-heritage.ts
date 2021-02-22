@@ -20,7 +20,7 @@ const titreEtapeProps = [
 async function main() {
   await knex.schema.alterTable('titresEtapes', table => {
     table.dropColumn('propsTitreEtapesIds')
-    table.jsonb('propsHeritage')
+    table.jsonb('heritageProps')
     table.dropColumn('contenusTitreEtapesIds')
     table.jsonb('contenuHeritage')
   })
@@ -54,19 +54,19 @@ async function main() {
 
             const tePrecedenteId = i > 0 ? etapes[i - 1].id : null
 
-            if (!te.propsHeritage) {
-              te.propsHeritage = {}
+            if (!te.heritageProps) {
+              te.heritageProps = {}
             }
 
             titreEtapeProps.forEach(prop => {
-              te.propsHeritage![prop] = {
+              te.heritageProps![prop] = {
                 etapeId: tePrecedenteId,
                 actif: false
               }
             })
 
             await TitresEtapes.query()
-              .patch({ propsHeritage: te.propsHeritage })
+              .patch({ heritageProps: te.heritageProps })
               .where('id', te.id)
           }
         }

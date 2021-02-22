@@ -1,27 +1,27 @@
-import { IPropsHeritage, IFields } from '../../../types'
+import { IHeritageProps, IFields } from '../../../types'
 import { titreEtapeGet } from '../../queries/titres-etapes'
 
 const propsRelations = ['titulaires']
 
-const propsHeritageFormat = async (propsHeritage: IPropsHeritage) => {
-  for (const propId of Object.keys(propsHeritage)) {
-    if (propsHeritage[propId]?.etapeId) {
-      const fields = { id: {} } as IFields
+const heritagePropsFormat = async (heritageProps: IHeritageProps) => {
+  for (const propId of Object.keys(heritageProps)) {
+    if (heritageProps[propId]?.etapeId) {
+      const fields = { type: { id: {} }, statut: { id: {} } } as IFields
       if (propsRelations.includes(propId)) {
         fields[propId] = { id: {} }
       }
 
       const titreEtape = await titreEtapeGet(
-        propsHeritage[propId].etapeId!,
+        heritageProps[propId].etapeId!,
         { fields },
         'super'
       )
 
-      propsHeritage[propId].etape = titreEtape
+      heritageProps[propId].etape = titreEtape
     }
   }
 
-  return propsHeritage
+  return heritageProps
 }
 
-export { propsHeritageFormat }
+export { heritagePropsFormat }

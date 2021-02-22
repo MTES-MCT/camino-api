@@ -96,8 +96,8 @@ const titreEtapePropsHeritageFind = (
   let newTitreEtape = titreEtape
 
   titreEtapePropsIds.forEach(propId => {
-    const titreEtapePropHeritage = titreEtape.propsHeritage![propId]
-    const prevTitreEtapePropHeritage = prevTitreEtape?.propsHeritage![propId]
+    const titreEtapePropHeritage = titreEtape.heritageProps![propId]
+    const prevTitreEtapePropHeritage = prevTitreEtape?.heritageProps![propId]
     const etapeId =
       prevTitreEtapePropHeritage?.etapeId && prevTitreEtapePropHeritage?.actif
         ? prevTitreEtapePropHeritage.etapeId
@@ -135,7 +135,7 @@ const titreEtapePropsHeritageFind = (
     ) {
       hasChanged = true
       newTitreEtape = objectClone(newTitreEtape)
-      newTitreEtape.propsHeritage![propId].etapeId = etapeId
+      newTitreEtape.heritageProps![propId].etapeId = etapeId
     }
   })
 

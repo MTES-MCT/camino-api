@@ -46,7 +46,7 @@ const titreEtapeFormat = (
   }
 
   if (!titreEtape.modification) {
-    delete titreEtape.propsHeritage
+    delete titreEtape.heritageProps
   }
 
   titreEtape.administrations = titreEtape.administrations?.map(

@@ -71,7 +71,7 @@ const titreRelation = {
           relations: [
             {
               name: 'etapes',
-              props: ['propsHeritage'],
+              props: ['heritageProps'],
               path: ['demarches']
             },
             // {

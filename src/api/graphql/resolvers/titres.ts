@@ -32,7 +32,11 @@ const titre = async (
   try {
     const fields = fieldsBuild(info)
 
-    const titre = await titreGet(id, { fields }, context.user?.id)
+    const titre = await titreGet(
+      id,
+      { fields, fetchHeritage: true },
+      context.user?.id
+    )
 
     if (!titre) return null
 

@@ -36,8 +36,7 @@ const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
 
     if (titreEtapes) {
       titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
-        const titreEtapePrecedente =
-          index > 0 ? titreEtapes[index - 1] : undefined
+        const titreEtapePrecedente = index > 0 ? titreEtapes[index - 1] : null
         const {
           hasChanged,
           titreEtape: newTitreEtape
@@ -56,6 +55,9 @@ const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
 
             titresEtapesIdsUpdated.push(titreEtape.id)
           })
+
+          // met à jour l'étape pour l'itération suivante
+          titreEtape = newTitreEtape
         }
       })
     }

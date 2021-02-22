@@ -51,7 +51,7 @@ const idsUpdate = (
   }
 
   // met à jour les propriétés qui utilisent une id qui a changée
-  // - propsHeritage sur les étapes
+  // - heritageProps sur les étapes
   // - propsTitreEtapesIds sur le titre
   if (relation.props && parent) {
     relation.props

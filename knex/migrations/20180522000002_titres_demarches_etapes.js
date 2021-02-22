@@ -76,7 +76,7 @@ exports.up = knex => {
       table.boolean('sourceIndisponible')
       table.jsonb('contenu')
       table.jsonb('contenuHeritage')
-      table.jsonb('propsHeritage')
+      table.jsonb('heritageProps')
     })
 }
 

@@ -3,7 +3,7 @@ import { join } from 'path'
 import { ITitreEtape, ITitrePoint } from '../../types'
 
 import { paysFormat } from './_format/pays'
-import { propsHeritageFormat } from './_format/titre-etape-props-heritage'
+import { heritagePropsFormat } from './_format/titre-etape-props-heritage'
 
 interface TitresEtapes extends ITitreEtape {}
 
@@ -29,7 +29,7 @@ class TitresEtapes extends Model {
       contenu: { type: 'json' },
       incertitudes: { type: 'json' },
       contenuHeritage: { type: 'json' },
-      propsHeritage: { type: 'json' }
+      heritageProps: { type: 'json' }
     }
   }
 
@@ -186,8 +186,8 @@ class TitresEtapes extends Model {
   async $afterFind(context: any) {
     this.pays = paysFormat(this.communes || [])
 
-    if (context.fetchHeritage && this.propsHeritage) {
-      this.propsHeritage = await propsHeritageFormat(this.propsHeritage)
+    if (context.fetchHeritage && this.heritageProps) {
+      this.heritageProps = await heritagePropsFormat(this.heritageProps)
     }
 
     return this

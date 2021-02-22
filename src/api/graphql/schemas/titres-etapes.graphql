@@ -63,13 +63,45 @@ type Etape {
 
   incertitudes: Incertitudes
 
-  heritages: Heritages
+  heritageProps: HeritageProps
 
   contenu: Json
 
   modification: Boolean
   suppression: Boolean
   justificatifsAssociation: Boolean
+}
+
+"Étape d'une démarche effectuée sur un titre minier"
+type EtapeNouvelle {
+  "Date de l'étape"
+  date: String!
+
+  "Durée de la démarche"
+  duree: Int
+
+  "Date de début de la démarche"
+  dateDebut: String
+
+  "Date de fin de la démarche"
+  dateFin: String
+
+  "Surface en Km² du titre"
+  surface: Float
+
+  "Substances concernées par le titre"
+  substances: [TitreSubstance]
+
+  "Coordonnées des points du périmètre géographique du titre"
+  points: [Point]
+
+  "Titulaires du titre dans son dernier état de validité"
+  titulaires: [Entreprise]
+
+  "Amodiataires du titre dans son dernier état de validité"
+  amodiataires: [Entreprise]
+
+  heritageProps: HeritageProps
 }
 
 type EtapeId {
@@ -86,21 +118,20 @@ type Incertitudes {
   substances: Boolean
   titulaires: Boolean
   amodiataires: Boolean
-  administrations: Boolean
 }
 
-type Heritages {
-  dateDebut: Heritage
-  dateFin: Heritage
-  duree: Heritage
-  surface: Heritage
-  points: Heritage
-  substances: Heritage
-  titulaires: Heritage
-  amodiataires: Heritage
+type HeritageProps {
+  dateDebut: HeritageProp
+  dateFin: HeritageProp
+  duree: HeritageProp
+  surface: HeritageProp
+  points: HeritageProp
+  substances: HeritageProp
+  titulaires: HeritageProp
+  amodiataires: HeritageProp
 }
 
-type Heritage {
+type HeritageProp {
   etape: Etape
   actif: Boolean
 }
@@ -121,7 +152,7 @@ input InputEtapeCreation {
   titulaires: [InputId!]
   amodiataires: [InputId!]
   incertitudes: InputIncertitudes
-  heritages: InputHeritages
+  heritageProps: InputHeritageProps
   contenu: Json
 }
 
@@ -142,7 +173,7 @@ input InputEtapeModification {
   titulaires: [InputId!]
   amodiataires: [InputId!]
   incertitudes: InputIncertitudes
-  heritages: InputHeritages
+  heritageProps: InputHeritageProps
   contenu: Json
 }
 
@@ -166,15 +197,19 @@ input InputIncertitudes {
   administrations: Boolean
 }
 
-input InputHeritages {
-  dateDebut: Boolean
-  dateFin: Boolean
-  duree: Boolean
-  surface: Boolean
-  points: Boolean
-  substances: Boolean
-  titulaires: Boolean
-  amodiataires: Boolean
+input InputHeritageProps {
+  dateDebut: InputHeritageProp
+  dateFin: InputHeritageProp
+  duree: InputHeritageProp
+  surface: InputHeritageProp
+  points: InputHeritageProp
+  substances: InputHeritageProp
+  titulaires: InputHeritageProp
+  amodiataires: InputHeritageProp
+}
+
+input InputHeritageProp {
+  actif: Boolean
 }
 
 input InputSubstances {
