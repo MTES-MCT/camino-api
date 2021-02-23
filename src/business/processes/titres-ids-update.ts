@@ -135,7 +135,7 @@ const titresIdsUpdate = async (titresIds?: string[]) => {
           phase: { id: {} }
         },
         travaux: { etapes: { id: {} } },
-        activites: { id: {} }
+        activites: { documents: { id: {} } }
       }
     },
     'super'
