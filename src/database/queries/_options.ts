@@ -261,7 +261,7 @@ const activitesTypes = {
   }
 }
 
-const titresActivitesRelateTrue = ['type', 'statut', 'utilisateur', 'documents']
+const titresActivitesRelateTrue = ['type', 'statut', 'utilisateur']
 
 const titresActivitesRelateFalse = [
   ...titresActivitesRelateTrue,
@@ -313,6 +313,7 @@ const titresRelateTrue = [
   'domaine',
   'administrationsGestionnaires',
   'references.type',
+  ...titresActivitesRelateTrue.map(k => `activites.${k}`),
   ...titresDemarchesRelateTrue.map(k => `demarches.${k}`),
   ...titresTravauxRelateTrue.map(k => `travaux.${k}`)
 ]
