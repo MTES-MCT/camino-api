@@ -10,6 +10,8 @@ import {
 } from './resolvers/titres'
 
 import {
+  etape,
+  etapeNouvelle,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
@@ -170,6 +172,8 @@ export default {
   FileUpload: GraphQLUpload,
 
   //  queries
+  etape,
+  etapeNouvelle,
   demarches,
   demarchesTypes,
   demarchesStatuts,

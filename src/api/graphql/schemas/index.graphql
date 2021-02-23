@@ -83,6 +83,11 @@ type Query {
     titresTerritoires: String
   ): Demarches
 
+  "Étape en fonction de son id"
+  etape(id: ID!): Etape
+
+  etapeNouvelle(date: String!, titreDemarcheId: ID!): EtapeNouvelle
+
   "Activité en fonction de son id"
   activite(id: ID!): Activite
 

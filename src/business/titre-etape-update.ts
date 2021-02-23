@@ -5,6 +5,7 @@ import { titresActivitesUpdate } from './processes/titres-activites-update'
 import { titresDatesUpdate } from './processes/titres-dates-update'
 import { titresDemarchesPublicUpdate } from './processes/titres-demarches-public-update'
 import { titresDemarchesStatutIdUpdate } from './processes/titres-demarches-statut-ids-update'
+import { titresEtapesHeritageUpdate } from './processes/titres-etapes-heritage-update'
 import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-update'
 import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import { titresEtapesOrdreUpdate } from './processes/titres-etapes-ordre-update'
@@ -49,6 +50,10 @@ const titreEtapeUpdate = async (
       titreDemarcheId
     ])
 
+    const titresEtapesHeritageUpdated = await titresEtapesHeritageUpdate([
+      titreDemarcheId
+    ])
+
     titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
       titreId
@@ -72,6 +77,7 @@ const titreEtapeUpdate = async (
     let foretsUpdated = [] as IArea[]
     let titresEtapesForetsUpdated = [] as string[]
     let titresEtapesForetsDeleted = [] as string[]
+
     // si l'étape est supprimée, pas de mise à jour
     if (titreEtapeId) {
       const { titresCommunes, titresForets } = await titresEtapesAreasUpdate([
@@ -89,16 +95,20 @@ const titreEtapeUpdate = async (
         titresEtapesAreasDeleted: titresEtapesForetsDeleted = []
       } = titresForets)
     }
+
     const {
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
     } = await titresEtapesAdministrationsLocalesUpdate([titreId])
+
     const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
       titreId
     ])
+
     const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate([
       titreId
     ])
+
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
     const titresActivitesPropsUpdated = await titresActivitesPropsUpdate([
@@ -108,11 +118,14 @@ const titreEtapeUpdate = async (
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate([titreId])
     const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
+
     if (titreIdTmp) {
       titreId = titreIdTmp
     }
+
     logsUpdate({
       titresEtapesOrdreUpdated,
+      titresEtapesHeritageUpdated,
       titresDemarchesStatutUpdated,
       titresDemarchesPublicUpdated,
       titresDemarchesOrdreUpdated,

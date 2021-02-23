@@ -28,6 +28,81 @@ import { titreEtapeUpdationValidate } from '../../../business/validations/titre-
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
+import { titreEtapeBuild } from '../../../business/titre-etape-build'
+
+const etape = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    return await titreEtapeGet(
+      id,
+      { fields, fetchHeritage: true },
+      context?.user?.id
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeNouvelle = async (
+  { date, titreDemarcheId }: { date: string; titreDemarcheId: string },
+  context: IToken
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    let demarche = await titreDemarcheGet(
+      titreDemarcheId,
+      { fields: { id: {} } },
+      user && user.id
+    )
+
+    if (!demarche) throw new Error("la démarche n'existe pas")
+
+    demarche = await titreDemarcheGet(
+      titreDemarcheId,
+      {
+        fields: {
+          etapes: {
+            type: { id: {} },
+            statut: { id: {} },
+            titulaires: { id: {} },
+            amodiataires: { id: {} },
+            substances: { legales: { code: { id: {} } } },
+            points: { references: { geoSysteme: { unite: { id: {} } } } }
+          }
+        }
+      },
+      'super'
+    )
+
+    return titreEtapeBuild(date, demarche.etapes)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
 
 // TODO à re-factoriser, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
@@ -420,6 +495,8 @@ const etapeJustificatifDissocier = async (
 }
 
 export {
+  etape,
+  etapeNouvelle,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,

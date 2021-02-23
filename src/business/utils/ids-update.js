@@ -1,11 +1,24 @@
 const elementFromPathFind = (path, root) =>
-  path.reduce((acc, elementName) => {
-    if (elementName) {
-      acc = acc[elementName]
+  path.reduce((acc, name) => acc.flatMap(a => a[name]), [root])
+
+const objectIdsUpdate = (element, parentOldId, parentId) =>
+  Object.keys(element).forEach(prop => {
+    const elementPropOld = element[prop]
+
+    if (typeof elementPropOld === 'object' && elementPropOld !== null) {
+      return objectIdsUpdate(elementPropOld, parentOldId, parentId)
     }
 
-    return acc
-  }, root)
+    if (
+      elementPropOld &&
+      typeof elementPropOld === 'string' &&
+      elementPropOld.match(parentOldId)
+    ) {
+      const elementPropNew = elementPropOld.replace(parentOldId, parentId)
+
+      element[prop] = elementPropNew
+    }
+  })
 
 const idsUpdate = (
   relationsIdsUpdatedIndex,
@@ -37,55 +50,15 @@ const idsUpdate = (
     }
   }
 
-  // met à jour les propriétés
-  if (relation.props && parent && !relation.depth) {
-    relation.props.forEach(prop => {
-      const elementPropOld = element[prop]
-
-      if (!elementPropOld || !elementPropOld.match(parentOldId)) return
-
-      const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
-
-      element[prop] = elementPropNew
-    })
-  }
-
-  // met à jour les propriétés de propsTitreEtapesIds
-  if (relation.props && parent && relation.depth === 1) {
-    relation.props.forEach(prop => {
-      if (!element[prop]) return
-
-      Object.keys(element[prop]).forEach(propId => {
-        const elementPropOld = element[prop][propId]
-
-        if (!elementPropOld || !elementPropOld.match(parentOldId)) return
-
-        const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
-
-        element[prop][propId] = elementPropNew
+  // met à jour les propriétés qui utilisent une id qui a changée
+  // - heritageProps sur les étapes
+  // - propsTitreEtapesIds sur le titre
+  if (relation.props && parent) {
+    relation.props
+      .filter(prop => element[prop])
+      .forEach(prop => {
+        objectIdsUpdate(element[prop], parentOldId, parent.id)
       })
-    })
-  }
-
-  // met à jour les contenus s'ils font référence à des ids
-  if (relation.props && parent && relation.depth === 2) {
-    relation.props.forEach(prop => {
-      if (!element[prop]) return
-
-      Object.keys(element[prop]).forEach(sectionId => {
-        if (!element[prop][sectionId]) return
-
-        Object.keys(element[prop][sectionId]).forEach(propId => {
-          const elementPropOld = element[prop][sectionId][propId]
-
-          if (!elementPropOld || !elementPropOld.match(parentOldId)) return
-
-          const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
-
-          element[prop][sectionId][propId] = elementPropNew
-        })
-      })
-    })
   }
 
   // met à jour les relations
@@ -96,31 +69,29 @@ const idsUpdate = (
       // alors on ne parcourt pas les relations
       if (!hasChanged && !r.idFind) return
 
-      const elementPointer = r.path
-        ? elementFromPathFind(r.path, root)
-        : element
+      let parentElements = []
 
-      if (elementPointer[r.name]) {
-        let elements = elementPointer[r.name]
-
-        if (!Array.isArray(elements)) {
-          elements = [elements]
-        }
-
-        hasChanged =
-          elements.reduce(
-            (hasChanged, e) =>
-              idsUpdate(
-                relationsIdsUpdatedIndex,
-                e,
-                r,
-                root,
-                element,
-                elementOldId
-              ) || hasChanged,
-            false
-          ) || hasChanged
+      if (r.path) {
+        parentElements = elementFromPathFind(r.path, root)
+      } else if (r.name && element[r.name]) {
+        parentElements = element[r.name]
       }
+
+      if (!Array.isArray(parentElements)) {
+        parentElements = [parentElements]
+      }
+
+      parentElements.forEach(parentElement => {
+        hasChanged =
+          idsUpdate(
+            relationsIdsUpdatedIndex,
+            parentElement,
+            r,
+            root,
+            element,
+            elementOldId
+          ) || hasChanged
+      })
     })
   }
 

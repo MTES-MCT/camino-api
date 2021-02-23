@@ -2,7 +2,7 @@ import 'dotenv/config'
 import '../../src/init'
 import fileCreate from '../../src/tools/file-create'
 
-import { titreEtapeGet } from '../../src/database/queries/titres-etapes'
+import { titreGet } from '../../src/database/queries/titres'
 
 async function main() {
   // const userId = 'super'
@@ -35,7 +35,7 @@ async function main() {
   // const userId = undefined
 
   // titre echu public
-  const titreEtapeId = 'm-ax-crique-carla-2003-oct01-mfr01'
+  const titreId = 'w-cx-chassiron-d-2002'
 
   // titre non-public
   // const titreId =
@@ -44,26 +44,42 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  console.info({ userId, titreEtapeId })
+  console.info({ userId, titreId })
 
-  const res = await titreEtapeGet(
-    titreEtapeId,
+  console.time('toto')
+  const res = await titreGet(
+    titreId,
     {
       fields: {
-        propsTitreEtapes: { surface: { id: {} } }
-      }
+        demarches: {
+          etapes: { id: {} }
+        }
+      },
+      fetchHeritage: true
     },
     userId
   )
+  console.timeEnd('toto')
 
-  console.info(res && res.propsTitreEtapes)
+  // const res = await TitresEtapes.query()
+  //   .alias('te')
+  //   .where('te.id', titreEtapeId)
+  //   .select(
+  //     raw('false').as('modification'),
+  //     raw('CASE WHEN (te.modification is not null) THEN ?? END as tutu', [
+  //       'te.id'
+  //     ])
+  //   )
 
-  await fileCreate(
-    'dev/tmp/test-titre-etape.json',
-    JSON.stringify(res, null, 2)
-  )
+  console.info(res)
+
+  await fileCreate('test-titre-etape.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }
 
-main()
+main().catch(e => {
+  console.error(e)
+
+  process.exit(1)
+})

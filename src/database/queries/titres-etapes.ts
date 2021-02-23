@@ -61,12 +61,14 @@ const titresEtapesQueryBuild = (
 // utilisé dans le daily et le résolver des documents uniquement
 const titreEtapeGet = async (
   titreEtapeId: string,
-  { fields }: { fields?: IFields },
+  { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
   userId?: string
 ) => {
   const user = userId ? await userGet(userId) : undefined
 
   const q = titresEtapesQueryBuild({}, { fields }, user)
+
+  q.context({ fetchHeritage })
 
   return (await q.findById(titreEtapeId)) as ITitreEtape
 }
