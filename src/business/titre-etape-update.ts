@@ -95,16 +95,20 @@ const titreEtapeUpdate = async (
         titresEtapesAreasDeleted: titresEtapesForetsDeleted = []
       } = titresForets)
     }
+
     const {
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
     } = await titresEtapesAdministrationsLocalesUpdate([titreId])
+
     const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
       titreId
     ])
+
     const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate([
       titreId
     ])
+
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
     const titresActivitesPropsUpdated = await titresActivitesPropsUpdate([
@@ -114,9 +118,11 @@ const titreEtapeUpdate = async (
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate([titreId])
     const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
+
     if (titreIdTmp) {
       titreId = titreIdTmp
     }
+
     logsUpdate({
       titresEtapesOrdreUpdated,
       titresEtapesHeritageUpdated,

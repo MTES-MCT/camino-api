@@ -69,32 +69,28 @@ const idsUpdate = (
       // alors on ne parcourt pas les relations
       if (!hasChanged && !r.idFind) return
 
-      const parentElements = r.path
-        ? elementFromPathFind(r.path, root)
-        : [element]
+      let parentElements = []
+
+      if (r.path) {
+        parentElements = elementFromPathFind(r.path, root)
+      } else if (r.name && element[r.name]) {
+        parentElements = element[r.name]
+      }
+
+      if (!Array.isArray(parentElements)) {
+        parentElements = [parentElements]
+      }
 
       parentElements.forEach(parentElement => {
-        if (parentElement[r.name]) {
-          let elements = parentElement[r.name]
-
-          if (!Array.isArray(elements)) {
-            elements = [elements]
-          }
-
-          hasChanged =
-            elements.reduce(
-              (hasChanged, e) =>
-                idsUpdate(
-                  relationsIdsUpdatedIndex,
-                  e,
-                  r,
-                  root,
-                  element,
-                  elementOldId
-                ) || hasChanged,
-              false
-            ) || hasChanged
-        }
+        hasChanged =
+          idsUpdate(
+            relationsIdsUpdatedIndex,
+            parentElement,
+            r,
+            root,
+            element,
+            elementOldId
+          ) || hasChanged
       })
     })
   }

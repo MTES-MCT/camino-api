@@ -17,10 +17,10 @@ import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
-import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
-import { logsUpdate } from './_logs-update'
 import { titresEtapesHeritageUpdate } from './processes/titres-etapes-heritage-update'
+import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
+import { titresIdsUpdate } from './processes/titres-ids-update'
+import { logsUpdate } from './_logs-update'
 
 const daily = async () => {
   try {

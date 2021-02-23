@@ -3,6 +3,7 @@ import { administrationsWithRelations } from './administrations'
 import { IAdministration, IPermissionId, ITitre } from '../../src/types'
 import Titres from '../../src/database/models/titres'
 import options from '../../src/database/queries/_options'
+import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-props-heritage-find'
 
 const visibiliteCheck = async (
   administrationId: string,
@@ -138,7 +139,17 @@ const creationCheck = async (
           typeId: 'mfr',
           statutId: 'fai',
           titreDemarcheId: `${demarcheCreated.body.data.demarcheCreer.id}-oct01`,
-          date: ''
+          date: '',
+          heritageProps: titreEtapePropsIds.reduce(
+            (acc, prop) => {
+              acc[prop] = { actif: false }
+
+              return acc
+            },
+            {} as {
+              [key: string]: { actif: boolean }
+            }
+          )
         }
       },
       'super'

@@ -1,13 +1,15 @@
 import { IHeritageProps, IFields } from '../../../types'
 import { titreEtapeGet } from '../../queries/titres-etapes'
 
-const propsRelations = ['titulaires']
-
 const heritagePropsFormat = async (heritageProps: IHeritageProps) => {
   for (const propId of Object.keys(heritageProps)) {
     if (heritageProps[propId]?.etapeId) {
       const fields = { type: { id: {} }, statut: { id: {} } } as IFields
-      if (propsRelations.includes(propId)) {
+      if (propId === 'points') {
+        fields.points = { references: { geoSysteme: { unite: { id: {} } } } }
+      } else if (propId === 'substances') {
+        fields.substances = { legales: { code: { id: {} } } }
+      } else if (['titulaires', 'amodiataires'].includes(propId)) {
         fields[propId] = { id: {} }
       }
 

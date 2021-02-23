@@ -20,7 +20,7 @@ const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
           titulaires: { id: {} },
           amodiataires: { id: {} },
           substances: { id: {} },
-          points: { id: {} }
+          points: { references: { id: {} } }
         }
       }
     },
@@ -57,7 +57,7 @@ const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
           })
 
           // met à jour l'étape pour l'itération suivante
-          titreEtape = newTitreEtape
+          titreEtapes[index] = newTitreEtape
         }
       })
     }

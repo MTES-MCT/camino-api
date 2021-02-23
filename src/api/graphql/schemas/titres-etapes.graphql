@@ -194,7 +194,6 @@ input InputIncertitudes {
   substances: Boolean
   titulaires: Boolean
   amodiataires: Boolean
-  administrations: Boolean
 }
 
 input InputHeritageProps {

@@ -83,10 +83,11 @@ const etapeNouvelle = async (
         fields: {
           etapes: {
             type: { id: {} },
+            statut: { id: {} },
             titulaires: { id: {} },
             amodiataires: { id: {} },
-            substances: { id: {} },
-            points: { id: {} }
+            substances: { legales: { code: { id: {} } } },
+            points: { references: { geoSysteme: { unite: { id: {} } } } }
           }
         }
       },

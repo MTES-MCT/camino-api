@@ -5,19 +5,17 @@ import {
 } from './utils/titre-etape-props-heritage-find'
 
 const titreEtapeBuild = (date: string, titreEtapes?: ITitreEtape[] | null) => {
-  const titreEtape = {
-    date,
-    heritageProps: titreEtapePropsIds.reduce((acc: IHeritageProps, id) => {
-      acc[id] = { actif: !!titreEtapesFiltered.length }
-
-      return acc
-    }, {})
-  } as ITitreEtape
-
   const titreEtapesFiltered =
-    titreEtapes
-      ?.filter(e => e.type?.fondamentale && e.date <= date)
-      .reverse() || []
+    titreEtapes?.filter(e => e.type?.fondamentale && e.date < date).reverse() ||
+    []
+
+  const heritageProps = titreEtapePropsIds.reduce((acc: IHeritageProps, id) => {
+    acc[id] = { actif: !!titreEtapesFiltered.length }
+
+    return acc
+  }, {})
+
+  const titreEtape = { date, heritageProps } as ITitreEtape
 
   titreEtapesFiltered.push(titreEtape)
 
@@ -27,7 +25,7 @@ const titreEtapeBuild = (date: string, titreEtapes?: ITitreEtape[] | null) => {
 
     const { titreEtape } = titreEtapePropsHeritageFind(te, titreEtapePrecedente)
 
-    te = titreEtape
+    titreEtapesFiltered[index] = titreEtape
   })
 
   const newTitreEtape = titreEtapesFiltered[titreEtapesFiltered.length - 1]
@@ -36,8 +34,6 @@ const titreEtapeBuild = (date: string, titreEtapes?: ITitreEtape[] | null) => {
     Object.keys(newTitreEtape.heritageProps).forEach(id => {
       const etapeId =
         newTitreEtape.heritageProps && newTitreEtape.heritageProps[id].etapeId
-
-      console.log(etapeId)
 
       if (etapeId) {
         newTitreEtape.heritageProps![id].etape = titreEtapesFiltered.find(

@@ -1,4 +1,11 @@
-import { ITitre, ITitreDemarche, ITitreEtape, ITitreTravaux } from '../../types'
+import {
+  ITitre,
+  ITitreDemarche,
+  ITitreEtape,
+  ITitrePoint,
+  ITitrePointReference,
+  ITitreTravaux
+} from '../../types'
 import * as slugify from '@sindresorhus/slugify'
 import idsUpdate from './ids-update'
 import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
@@ -55,6 +62,18 @@ const titreEtapeIdFind = (
   }${titreEtapeTypeOrder.toString().padStart(2, '0')}`
 }
 
+const titrePointIdFind = (titrePoint: ITitrePoint, titreEtape: ITitreEtape) =>
+  `${titreEtape.id}-g${titrePoint.groupe
+    .toString()
+    .padStart(2, '0')}-c${titrePoint.contour
+    .toString()
+    .padStart(2, '0')}-p${titrePoint.point.toString().padStart(3, '0')}`
+
+const titrePointReferenceIdFind = (
+  titrePointReference: ITitrePointReference,
+  titrePoint: ITitrePoint
+) => `${titrePoint.id}-${titrePointReference.geoSystemeId}`
+
 const titreRelation = {
   name: 'titre',
   idFind: titreIdFind,
@@ -70,31 +89,29 @@ const titreRelation = {
           idFind: titreEtapeIdFind,
           relations: [
             {
-              name: 'etapes',
               props: ['heritageProps'],
-              path: ['demarches']
+              path: ['demarches', 'etapes']
             },
             // {
-            //   name: 'etapes',
             //   props: ['contenusTitreEtapesIds'],
-            //   path: []
+            //   path: ['demarches', 'etapes']
             // },
             {
-              name: 'titre',
               props: ['propsTitreEtapesIds'],
               path: []
             },
             {
-              name: 'titre',
               props: ['contenusTitreEtapesIds'],
               path: []
             },
             {
               name: 'points',
               props: ['id', 'titreEtapeId'],
+              idFind: titrePointIdFind,
               relations: [
                 {
                   name: 'references',
+                  idFind: titrePointReferenceIdFind,
                   props: ['id', 'titrePointId']
                 }
               ]
@@ -104,10 +121,6 @@ const titreRelation = {
         {
           name: 'phase',
           props: ['titreDemarcheId']
-        },
-        {
-          name: 'demarches',
-          path: []
         }
       ]
     },

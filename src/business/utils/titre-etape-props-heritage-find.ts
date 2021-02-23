@@ -42,7 +42,8 @@ const propertyArrayCheck = (
 
   if (prevValue?.length && newValue?.length) {
     if (propId === 'points') {
-      const comparator = ({ coordonnees }: ITitrePoint) => coordonnees
+      const comparator = ({ coordonnees }: ITitrePoint) =>
+        `(${coordonnees.x}, ${coordonnees.y})`
 
       return (
         (newValue as ITitrePoint[]).map(comparator).sort().toString() ===

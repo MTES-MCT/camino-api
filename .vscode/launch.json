@@ -18,32 +18,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\index.js",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ]
-        },
-        {
-			"name": "Node Inspector",
-			"type": "node",
-			"request": "launch",
-			"args": ["${workspaceRoot}/src/business/daily.ts"],
-			"runtimeArgs": ["-r", "ts-node/register"],
-			"cwd": "${workspaceRoot}",
-			"protocol": "inspector",
-			"internalConsoleOptions": "openOnSessionStart",
-			"env": {
-				"TS_NODE_IGNORE": "false"
-			}
-        },
-        {
-            "name": "Launch TypeScript",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceRoot}/src/business/daily.ts",
-            "outFiles": [ "${workspaceFolder}/bin/**/*.js" ]
+            "name": "debug:dev",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "dev"
+            ],
+            "port": 8080
         }
     ]
 }

@@ -2,7 +2,12 @@ import {
   titreEtapePropsHeritageFind,
   titreEtapePropsIds
 } from './titre-etape-props-heritage-find'
-import { IEntreprise, IHeritageProps, ITitreEtape } from '../../types'
+import {
+  IEntreprise,
+  IHeritageProps,
+  ITitreEtape,
+  ITitrePoint
+} from '../../types'
 import { objectClone } from '../../tools'
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -190,6 +195,71 @@ describe('retourne l’étape en fonction de son héritage', () => {
     ).toEqual({
       hasChanged: true,
       titreEtape: titreEtapeNew
+    })
+  })
+
+  test('l’étape n’est pas modifiée si pas de changement sur les points', () => {
+    const titreEtapePrecedente = {
+      id: 'titreEtapePrecedenteId',
+      points: ([
+        { coordonnees: { x: 1, y: 2 } },
+        { coordonnees: { x: 2, y: 3 } }
+      ] as unknown) as ITitrePoint[],
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: false, etapeId: null }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const titreEtape = objectClone(titreEtapePrecedente)
+    titreEtape.heritageProps.points.actif = true
+    titreEtape.id = 'titreEtapeId'
+    titreEtapePropsIds.forEach(
+      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+    )
+
+    expect(
+      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+    ).toEqual({
+      hasChanged: false,
+      titreEtape
+    })
+  })
+
+  test('l’étape est modifiée si changement sur les points', () => {
+    const titreEtapePrecedente = {
+      id: 'titreEtapePrecedenteId',
+      points: ([
+        { id: '1', coordonnees: { x: 1, y: 2 }, references: [{ id: '23' }] },
+        { id: '2', coordonnees: { x: 2, y: 3 }, references: [] }
+      ] as unknown) as ITitrePoint[],
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: false, etapeId: null }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const titreEtape = objectClone(titreEtapePrecedente)
+    titreEtape.heritageProps.points.actif = true
+    titreEtape.id = 'titreEtapeId'
+    titreEtape.points = ([
+      { id: '3', coordonnees: { x: 1, y: 2 } },
+      { id: '4', coordonnees: { x: 2, y: 4 } }
+    ] as unknown) as ITitrePoint[]
+    titreEtapePropsIds.forEach(
+      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+    )
+
+    const newTitreEtape = objectClone(titreEtape)
+    newTitreEtape.points = titreEtapePrecedente.points
+
+    expect(
+      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+    ).toEqual({
+      hasChanged: true,
+      titreEtape: newTitreEtape
     })
   })
 })

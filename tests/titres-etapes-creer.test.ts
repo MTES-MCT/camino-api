@@ -6,6 +6,7 @@ import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
+import { titreEtapePropsIds } from '../src/business/utils/titre-etape-props-heritage-find'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -84,7 +85,24 @@ describe('etapeCreer', () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'mfr', statutId: 'fai', titreDemarcheId, date: '' } },
+      {
+        etape: {
+          typeId: 'mfr',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: '',
+          heritageProps: titreEtapePropsIds.reduce(
+            (acc, prop) => {
+              acc[prop] = { actif: false }
+
+              return acc
+            },
+            {} as {
+              [key: string]: { actif: boolean }
+            }
+          )
+        }
+      },
       'super'
     )
 

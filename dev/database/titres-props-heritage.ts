@@ -35,8 +35,7 @@ async function main() {
             points: { id: {} },
             titulaires: { id: {} },
             amodiataires: { id: {} },
-            substances: { id: {} },
-            administrations: { id: {} }
+            substances: { id: {} }
           }
         }
       }
