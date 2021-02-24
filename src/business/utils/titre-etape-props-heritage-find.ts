@@ -1,4 +1,10 @@
-import { ITitreEtape, IEntreprise, ITitrePoint, ISubstance } from '../../types'
+import {
+  ITitreEtape,
+  IEntreprise,
+  ITitrePoint,
+  ISubstance,
+  ITitreIncertitudes
+} from '../../types'
 import { objectClone } from '../../tools'
 
 const titreEtapePropsIds: (keyof ITitreEtape)[] = [
@@ -127,6 +133,31 @@ const titreEtapePropsHeritageFind = (
         } else if (propId === 'duree' || propId === 'surface') {
           newTitreEtape[propId] = newValue as number
         }
+      }
+
+      const incertitudePropId = propId as keyof ITitreIncertitudes
+      // si l’incertitude est déjà présente, on la supprime
+      if (
+        newTitreEtape.incertitudes &&
+        newTitreEtape.incertitudes[incertitudePropId]
+      ) {
+        hasChanged = true
+        newTitreEtape = objectClone(newTitreEtape)
+        delete newTitreEtape.incertitudes![incertitudePropId]
+      }
+      // si il y a une incertitude sur l’étape précédente, alors on la recopie
+      if (
+        prevTitreEtape.incertitudes &&
+        prevTitreEtape.incertitudes[incertitudePropId]
+      ) {
+        hasChanged = true
+        newTitreEtape = objectClone(newTitreEtape)
+        if (!newTitreEtape.incertitudes) {
+          newTitreEtape.incertitudes = {}
+        }
+
+        newTitreEtape.incertitudes![incertitudePropId] =
+          prevTitreEtape.incertitudes[incertitudePropId]
       }
     }
 

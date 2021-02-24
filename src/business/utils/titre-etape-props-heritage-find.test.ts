@@ -262,4 +262,93 @@ describe('retourne l’étape en fonction de son héritage', () => {
       titreEtape: newTitreEtape
     })
   })
+
+  test('l’étape est modifiée si changement d’incertitude', () => {
+    const titreEtapePrecedente = {
+      id: 'titreEtapePrecedenteId',
+      incertitudes: { surface: true },
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: false, etapeId: null }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const titreEtape = objectClone(titreEtapePrecedente)
+    titreEtape.heritageProps.surface.actif = true
+    titreEtape.incertitudes = {}
+    titreEtape.id = 'titreEtapeId'
+    titreEtapePropsIds.forEach(
+      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+    )
+
+    const newTitreEtape = objectClone(titreEtape)
+    newTitreEtape.incertitudes = { surface: true }
+
+    expect(
+      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+    ).toEqual({
+      hasChanged: true,
+      titreEtape: newTitreEtape
+    })
+  })
+
+  test('l’étape est modifiée si suppression de l’incertitude', () => {
+    const titreEtapePrecedente = {
+      id: 'titreEtapePrecedenteId',
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: false, etapeId: null }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const titreEtape = objectClone(titreEtapePrecedente)
+    titreEtape.heritageProps.surface.actif = true
+    titreEtape.incertitudes = { surface: true }
+    titreEtape.id = 'titreEtapeId'
+    titreEtapePropsIds.forEach(
+      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+    )
+
+    const newTitreEtape = objectClone(titreEtape)
+    newTitreEtape.incertitudes = {}
+
+    expect(
+      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+    ).toEqual({
+      hasChanged: true,
+      titreEtape: newTitreEtape
+    })
+  })
+
+  test('l’étape est modifiée si ajout de l’incertitude', () => {
+    const titreEtapePrecedente = {
+      id: 'titreEtapePrecedenteId',
+      incertitudes: { surface: true },
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: false, etapeId: null }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const titreEtape = objectClone(titreEtapePrecedente)
+    titreEtape.heritageProps.surface.actif = true
+    titreEtape.incertitudes = null
+    titreEtape.id = 'titreEtapeId'
+    titreEtapePropsIds.forEach(
+      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+    )
+
+    const newTitreEtape = objectClone(titreEtape)
+    newTitreEtape.incertitudes = { surface: true }
+
+    expect(
+      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+    ).toEqual({
+      hasChanged: true,
+      titreEtape: newTitreEtape
+    })
+  })
 })
