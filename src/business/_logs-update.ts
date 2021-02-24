@@ -9,7 +9,8 @@ import {
 
 const logsUpdate = ({
   titresEtapesOrdreUpdated,
-  titresEtapesHeritageUpdated,
+  titresEtapesHeritagePropsUpdated,
+  titresEtapesHeritageContenuUpdated,
   titresDemarchesStatutUpdated,
   titresDemarchesPublicUpdated,
   titresDemarchesOrdreUpdated,
@@ -44,7 +45,8 @@ const logsUpdate = ({
   administrationsUpdated
 }: {
   titresEtapesOrdreUpdated?: string[]
-  titresEtapesHeritageUpdated?: string[]
+  titresEtapesHeritagePropsUpdated?: string[]
+  titresEtapesHeritageContenuUpdated?: string[]
   titresDemarchesStatutUpdated?: string[]
   titresDemarchesPublicUpdated?: string[]
   titresDemarchesOrdreUpdated?: string[]
@@ -87,9 +89,15 @@ const logsUpdate = ({
     )
   }
 
-  if (titresEtapesHeritageUpdated?.length) {
+  if (titresEtapesHeritagePropsUpdated?.length) {
     console.info(
-      `mise à jour: ${titresEtapesHeritageUpdated.length} étape(s) (héritage)`
+      `mise à jour: ${titresEtapesHeritagePropsUpdated.length} étape(s) (héritage des propriétés)`
+    )
+  }
+
+  if (titresEtapesHeritageContenuUpdated?.length) {
+    console.info(
+      `mise à jour: ${titresEtapesHeritageContenuUpdated.length} étape(s) (héritage du contenu)`
     )
   }
 

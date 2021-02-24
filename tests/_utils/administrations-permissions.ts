@@ -3,7 +3,7 @@ import { administrationsWithRelations } from './administrations'
 import { IAdministration, IPermissionId, ITitre } from '../../src/types'
 import Titres from '../../src/database/models/titres'
 import options from '../../src/database/queries/_options'
-import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-props-heritage-find'
+import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-heritage-props-find'
 
 const visibiliteCheck = async (
   administrationId: string,

@@ -92,10 +92,10 @@ const titreRelation = {
               props: ['heritageProps'],
               path: ['demarches', 'etapes']
             },
-            // {
-            //   props: ['contenusTitreEtapesIds'],
-            //   path: ['demarches', 'etapes']
-            // },
+            {
+              props: ['heritageContenu'],
+              path: ['demarches', 'etapes']
+            },
             {
               props: ['propsTitreEtapesIds'],
               path: []

@@ -103,7 +103,7 @@ const titreEtapePropCheck = (
   return oldValue === newValue
 }
 
-const titreEtapePropsHeritageFind = (
+const titreEtapeHeritagePropsFind = (
   titreEtape: ITitreEtape,
   prevTitreEtape?: ITitreEtape | null
 ) => {
@@ -183,4 +183,4 @@ const titreEtapePropsHeritageFind = (
   return { hasChanged, titreEtape: newTitreEtape }
 }
 
-export { titreEtapePropsHeritageFind, titreEtapePropsIds }
+export { titreEtapeHeritagePropsFind, titreEtapePropsIds }

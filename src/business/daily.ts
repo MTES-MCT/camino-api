@@ -17,7 +17,8 @@ import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
-import { titresEtapesHeritageUpdate } from './processes/titres-etapes-heritage-update'
+import { titresEtapesHeritagePropsUpdate } from './processes/titres-etapes-heritage-props-update'
+import { titresEtapesHeritageContenuUpdate } from './processes/titres-etapes-heritage-contenu-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import { logsUpdate } from './_logs-update'
@@ -29,7 +30,8 @@ const daily = async () => {
     console.info('mise à jour quotidienne')
 
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate()
-    const titresEtapesHeritageUpdated = await titresEtapesHeritageUpdate()
+    const titresEtapesHeritagePropsUpdated = await titresEtapesHeritagePropsUpdate()
+    const titresEtapesHeritageContenuUpdated = await titresEtapesHeritageContenuUpdate()
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate()
     const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate()
@@ -74,7 +76,8 @@ const daily = async () => {
 
     logsUpdate({
       titresEtapesOrdreUpdated,
-      titresEtapesHeritageUpdated,
+      titresEtapesHeritagePropsUpdated,
+      titresEtapesHeritageContenuUpdated,
       titresDemarchesStatutUpdated,
       titresDemarchesPublicUpdated,
       titresDemarchesOrdreUpdated,

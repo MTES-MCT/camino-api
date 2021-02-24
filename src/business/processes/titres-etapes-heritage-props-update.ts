@@ -4,11 +4,13 @@ import PQueue from 'p-queue'
 
 import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { titreEtapePropsHeritageFind } from '../utils/titre-etape-props-heritage-find'
+import { titreEtapeHeritagePropsFind } from '../utils/titre-etape-heritage-props-find'
 
-const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
+const titresEtapesHeritagePropsUpdate = async (
+  titresDemarchesIds?: string[]
+) => {
   console.info()
-  console.info('héritage des étapes…')
+  console.info('héritage des propriétés des étapes…')
   const queue = new PQueue({ concurrency: 100 })
 
   const titresDemarches = await titresDemarchesGet(
@@ -40,14 +42,15 @@ const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
         const {
           hasChanged,
           titreEtape: newTitreEtape
-        } = titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+        } = titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
 
         if (hasChanged) {
           queue.add(async () => {
             await titreEtapeUpsert(newTitreEtape)
 
             const log = {
-              type: 'titre / démarche / étape : héritage (mise à jour) ->',
+              type:
+                'titre / démarche / étape : héritage des propriétés (mise à jour) ->',
               value: `${titreEtape.id}`
             }
 
@@ -68,4 +71,4 @@ const titresEtapesHeritageUpdate = async (titresDemarchesIds?: string[]) => {
   return titresEtapesIdsUpdated
 }
 
-export { titresEtapesHeritageUpdate }
+export { titresEtapesHeritagePropsUpdate }

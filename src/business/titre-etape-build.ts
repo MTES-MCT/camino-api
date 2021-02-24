@@ -1,8 +1,8 @@
 import { IHeritageProps, ITitreEtape } from '../types'
 import {
-  titreEtapePropsHeritageFind,
+  titreEtapeHeritagePropsFind,
   titreEtapePropsIds
-} from './utils/titre-etape-props-heritage-find'
+} from './utils/titre-etape-heritage-props-find'
 
 const titreEtapeBuild = (date: string, titreEtapes?: ITitreEtape[] | null) => {
   const titreEtapesFiltered =
@@ -23,7 +23,7 @@ const titreEtapeBuild = (date: string, titreEtapes?: ITitreEtape[] | null) => {
     const titreEtapePrecedente =
       index > 0 ? titreEtapesFiltered[index - 1] : null
 
-    const { titreEtape } = titreEtapePropsHeritageFind(te, titreEtapePrecedente)
+    const { titreEtape } = titreEtapeHeritagePropsFind(te, titreEtapePrecedente)
 
     titreEtapesFiltered[index] = titreEtape
   })

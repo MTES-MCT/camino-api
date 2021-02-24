@@ -84,6 +84,10 @@ interface IHeritageProps {
   }
 }
 
+interface IHeritageContenu {
+  [sectionId: string]: IHeritageProps
+}
+
 interface ISection {
   id: string
   nom?: string
@@ -739,6 +743,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   pays?: IPays[] | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   heritageProps?: IHeritageProps | null
+  heritageContenu?: IHeritageContenu | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -1009,6 +1014,7 @@ export {
   IContenuId,
   IPropsTitreEtapesIds,
   IHeritageProps,
+  IHeritageContenu,
   ICache,
   ICacheId
 }

@@ -7,7 +7,7 @@ import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
 import { titreEtapeCreate } from '../src/database/queries/titres-etapes'
 import { IPermissionId } from '../src/types'
-import { titreEtapePropsIds } from '../src/business/utils/titre-etape-props-heritage-find'
+import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 const each = require('jest-each').default
 
 console.info = jest.fn()

@@ -3,10 +3,12 @@ import { join } from 'path'
 import { ITitreEtape, ITitrePoint } from '../../types'
 
 import { paysFormat } from './_format/pays'
-import { heritagePropsFormat } from './_format/titre-etape-props-heritage'
+import {
+  heritagePropsFormat,
+  heritageContenuFormat
+} from './_format/titre-etape-heritage'
 
 interface TitresEtapes extends ITitreEtape {}
-
 class TitresEtapes extends Model {
   public static tableName = 'titresEtapes'
 
@@ -28,7 +30,7 @@ class TitresEtapes extends Model {
       surface: { type: ['number', 'null'] },
       contenu: { type: 'json' },
       incertitudes: { type: 'json' },
-      contenuHeritage: { type: 'json' },
+      heritageContenu: { type: 'json' },
       heritageProps: { type: 'json' }
     }
   }
@@ -188,6 +190,10 @@ class TitresEtapes extends Model {
 
     if (context.fetchHeritage && this.heritageProps) {
       this.heritageProps = await heritagePropsFormat(this.heritageProps)
+    }
+
+    if (context.fetchHeritage && this.heritageContenu) {
+      this.heritageContenu = await heritageContenuFormat(this.heritageContenu)
     }
 
     return this

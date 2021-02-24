@@ -22,7 +22,7 @@ async function main() {
     table.dropColumn('propsTitreEtapesIds')
     table.jsonb('heritageProps')
     table.dropColumn('contenusTitreEtapesIds')
-    table.jsonb('contenuHeritage')
+    table.jsonb('heritageContenu')
   })
 
   await knex.schema.alterTable('titresSubstances', table => {
