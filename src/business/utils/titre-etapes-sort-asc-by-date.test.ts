@@ -141,4 +141,26 @@ describe('trie les étapes', () => {
     expect(result[1].typeId).toEqual('bof')
     expect(result[2].typeId).toEqual('mcr')
   })
+
+  test('sur un otroi d’ARM la rcm est après la mcp', () => {
+    const etapes = [
+      { typeId: 'rcm', date: '2018-01-01' },
+      { typeId: 'mcp', date: '2018-01-01' }
+    ] as ITitreEtape[]
+
+    const result = titreEtapesSortAscByDate(
+      etapes,
+      'demarches',
+      {
+        id: 'oct',
+        etapesTypes: [
+          { id: 'rcm', ordre: 1006, titreTypeId: 'arm' },
+          { id: 'mcp', ordre: 1000, titreTypeId: 'arm' }
+        ]
+      } as IDemarcheType,
+      'arm'
+    )
+    expect(result[0].typeId).toEqual('mcp')
+    expect(result[1].typeId).toEqual('rcm')
+  })
 })
