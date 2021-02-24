@@ -10,12 +10,23 @@ const main = async () => {
 
   activiteTypeGra.nom = "rapport annuel d'exploitation"
 
+  const sectionGra = activiteTypeGra.sections.find(
+    s => s.id === 'substancesFiscales'
+  )!
+
+  sectionGra.nom = 'Production annuelle'
+
   await ActivitesTypes.query().patch(activiteTypeGra).where('id', 'gra')
 
   const activiteTypeGrx = await ActivitesTypes.query()
     .where('id', 'grx')
     .first()
   activiteTypeGrx.nom = "rapport annuel d'exploitation"
+
+  const sectionGrx = activiteTypeGrx.sections.find(
+    s => s.id === 'substancesFiscales'
+  )!
+  sectionGrx.nom = 'Production annuelle'
 
   await ActivitesTypes.query().patch(activiteTypeGrx).where('id', 'grx')
 
