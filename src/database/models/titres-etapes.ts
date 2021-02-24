@@ -240,10 +240,6 @@ class TitresEtapes extends Model {
       delete json.substancesIds
     }
 
-    if (json.incertitudes && !json.incertitudes.titreEtapeId) {
-      json.incertitudes.titreEtapeId = json.id
-    }
-
     delete json.geojsonMultiPolygon
     delete json.geojsonPoints
     delete json.modification
