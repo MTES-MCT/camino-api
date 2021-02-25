@@ -73,9 +73,8 @@ exports.up = knex => {
       table.string('dateFin', 10)
       table.integer('duree')
       table.float('surface')
-      table.boolean('sourceIndisponible')
       table.jsonb('contenu')
-      table.jsonb('contenuHeritage')
+      table.jsonb('heritageContenu')
       table.jsonb('heritageProps')
     })
 }

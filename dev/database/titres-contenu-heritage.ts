@@ -11,6 +11,7 @@ import { objectClone } from '../../src/tools'
 async function main() {
   await knex.schema.alterTable('titresEtapes', table => {
     table.dropColumn('contenuHeritage')
+    table.dropColumn('sourceIndisponible')
     table.jsonb('heritageContenu')
   })
 

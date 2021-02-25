@@ -293,6 +293,7 @@ const etapeModifier = async (
       titreDemarche,
       titreDemarche.titre
     )
+
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }

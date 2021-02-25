@@ -246,6 +246,18 @@ class TitresEtapes extends Model {
       delete json.substancesIds
     }
 
+    if (json.incertitudes) {
+      Object.keys(json.incertitudes).forEach(id => {
+        if (!json.incertitudes[id] || !(json[id] || json[id] === 0)) {
+          delete json.incertitudes[id]
+        }
+      })
+
+      if (!Object.keys(json.incertitudes).length) {
+        delete json.incertitudes
+      }
+    }
+
     delete json.geojsonMultiPolygon
     delete json.geojsonPoints
     delete json.modification
