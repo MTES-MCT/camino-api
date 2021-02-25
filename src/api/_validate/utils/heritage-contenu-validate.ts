@@ -32,7 +32,7 @@ const heritageContenuValidate = (
               errors.push(
                 `le champ "${attribute}" de l’élement "${element.id}" de la section "${section.id}" est inconnu`
               )
-            } else if (heritageElement.actif !== !!heritageElement) {
+            } else if (typeof heritageElement.actif !== 'boolean') {
               errors.push(
                 `le champ "actif" de l’élement "${element.id}" de la section "${section.id}" doit être un booléen`
               )

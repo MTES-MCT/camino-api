@@ -13,6 +13,12 @@ describe('vérifie la structure json de heritageContenu', () => {
         { section: { element: { actif: true } } }
       )
     ).toHaveLength(0)
+    expect(
+      heritageContenuValidate(
+        [{ id: 'section', elements: [{ id: 'element' }] as ISectionElement[] }],
+        { section: { element: { actif: false } } }
+      )
+    ).toHaveLength(0)
   })
 
   test('la structure n’est pas correcte car il y a une section manquante', () => {
