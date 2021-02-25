@@ -7,7 +7,7 @@ const heritageContenuValidate = (
   const errors = [] as string[]
 
   if (
-    (!heritageContenu || !Object.keys(heritageContenu)?.length) &&
+    (!heritageContenu || !Object.keys(heritageContenu).length) &&
     !sections?.length
   ) {
     return errors

@@ -127,7 +127,13 @@ describe('etapeModifier', () => {
             {} as {
               [key: string]: { actif: boolean }
             }
-          )
+          ),
+          heritageContenu: {
+            arm: {
+              mecanise: { actif: false },
+              franchissements: { actif: false }
+            }
+          }
         }
       },
       'super'

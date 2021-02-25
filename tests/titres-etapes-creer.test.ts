@@ -100,7 +100,13 @@ describe('etapeCreer', () => {
             {} as {
               [key: string]: { actif: boolean }
             }
-          )
+          ),
+          heritageContenu: {
+            arm: {
+              mecanise: { actif: true },
+              franchissements: { actif: true }
+            }
+          }
         }
       },
       'super'

@@ -7,6 +7,7 @@ describe('vérifie la structure json de heritageContenu', () => {
   test('la structure est correcte', () => {
     expect(heritageContenuValidate([], {})).toHaveLength(0)
     expect(heritageContenuValidate(null, {})).toHaveLength(0)
+    expect(heritageContenuValidate([], null)).toHaveLength(0)
     expect(
       heritageContenuValidate(
         [{ id: 'section', elements: [{ id: 'element' }] as ISectionElement[] }],
@@ -19,6 +20,15 @@ describe('vérifie la structure json de heritageContenu', () => {
         { section: { element: { actif: false } } }
       )
     ).toHaveLength(0)
+  })
+
+  test('la structure n’est pas correcte car l’héritage est absent', () => {
+    expect(
+      heritageContenuValidate(
+        [{ id: 'section', elements: [{ id: 'element' }] as ISectionElement[] }],
+        null
+      )
+    ).toContain('la section "section" n’a pas d’héritage de défini')
   })
 
   test('la structure n’est pas correcte car il y a une section manquante', () => {
