@@ -142,7 +142,6 @@ type HeritageProp {
 
 input InputEtapeCreation {
   typeId: ID!
-  etapeTypeId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!
@@ -164,7 +163,6 @@ input InputEtapeCreation {
 input InputEtapeModification {
   id: ID!
   typeId: ID!
-  etapeTypeId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!

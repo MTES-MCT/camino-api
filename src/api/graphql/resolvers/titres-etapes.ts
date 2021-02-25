@@ -30,6 +30,7 @@ import fieldsBuild from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
 import { titreEtapeBuild } from '../../../business/titre-etape-build'
 import { titreEtapeFormat } from '../../_format/titres-etapes'
+import { etapeTypeGet } from '../../../database/queries/metas'
 
 const etape = async (
   { id }: { id: string },
@@ -177,7 +178,16 @@ const etapeCreer = async (
       throw new Error('droits insuffisants pour créer cette étape')
     }
 
-    const inputErrors = await titreEtapeInputValidate(etape, titreDemarche)
+    const etapeType = await etapeTypeGet(etape.typeId)
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    const inputErrors = await titreEtapeInputValidate(
+      etape,
+      titreDemarche,
+      etapeType
+    )
 
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
@@ -264,7 +274,16 @@ const etapeModifier = async (
       throw new Error('droits insuffisants pour modifier cette étape')
     }
 
-    const inputErrors = await titreEtapeInputValidate(etape, titreDemarche)
+    const etapeType = await etapeTypeGet(etape.typeId)
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    const inputErrors = await titreEtapeInputValidate(
+      etape,
+      titreDemarche,
+      etapeType
+    )
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
     }
