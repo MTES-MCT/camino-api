@@ -7,25 +7,21 @@ const titreEtapeHeritageContenuFind = (
   prevTitreEtape?: ITitreEtape | null
 ) => {
   let hasChanged = false
-  let value
+  let value =
+    titreEtape.contenu &&
+    titreEtape.contenu[sectionId] &&
+    titreEtape.contenu[sectionId][elementId]
 
-  const contenuSectionElement = titreEtape.heritageContenu![sectionId][
-    elementId
-  ]
-  const prevContenuSectionElement = prevTitreEtape?.heritageContenu![sectionId][
-    elementId
-  ]
+  const heritage = titreEtape.heritageContenu![sectionId][elementId]
+  const prevHeritage = prevTitreEtape?.heritageContenu![sectionId][elementId]
 
   const etapeId =
-    prevContenuSectionElement?.etapeId && prevContenuSectionElement?.actif
-      ? prevContenuSectionElement.etapeId
+    prevHeritage?.etapeId && prevHeritage?.actif
+      ? prevHeritage.etapeId
       : prevTitreEtape?.id
 
-  if (contenuSectionElement.actif && prevTitreEtape) {
-    const oldValue =
-      titreEtape.contenu &&
-      titreEtape.contenu[sectionId] &&
-      titreEtape.contenu[sectionId][elementId]
+  if (heritage.actif && prevTitreEtape) {
+    const oldValue = value
     value =
       prevTitreEtape.contenu &&
       prevTitreEtape.contenu[sectionId] &&
@@ -36,10 +32,7 @@ const titreEtapeHeritageContenuFind = (
     }
   }
 
-  if (
-    (etapeId || contenuSectionElement.etapeId) &&
-    etapeId !== contenuSectionElement.etapeId
-  ) {
+  if ((etapeId || heritage.etapeId) && etapeId !== heritage.etapeId) {
     hasChanged = true
   }
 
