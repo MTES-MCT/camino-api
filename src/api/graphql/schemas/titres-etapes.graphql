@@ -75,10 +75,7 @@ type Etape {
 }
 
 "Étape d'une démarche effectuée sur un titre minier"
-type EtapeNouvelle {
-  "Date de l'étape"
-  date: String!
-
+type EtapeHeritage {
   "Durée de la démarche"
   duree: Int
 
@@ -102,6 +99,8 @@ type EtapeNouvelle {
 
   "Amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
+
+  contenu: Json
 
   heritageProps: HeritageProps
 

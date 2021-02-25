@@ -21,14 +21,13 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
-import { titreEtapePointsCalc } from './_titre-etape'
+import { titreEtapeBuild, titreEtapePointsCalc } from './_titre-etape'
 import { titreEtapeInputValidate } from '../../_validate/titre-etape-input-validate'
 import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
-import { titreEtapeBuild } from '../../../business/titre-etape-build'
 import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'
 
@@ -83,8 +82,12 @@ const etape = async (
   }
 }
 
-const etapeNouvelle = async (
-  { date, titreDemarcheId }: { date: string; titreDemarcheId: string },
+const etapeHeritage = async (
+  {
+    date,
+    titreDemarcheId,
+    typeId
+  }: { date: string; titreDemarcheId: string; typeId: string },
   context: IToken
 ) => {
   try {
@@ -106,6 +109,8 @@ const etapeNouvelle = async (
       titreDemarcheId,
       {
         fields: {
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} },
           etapes: {
             type: { id: {} },
             statut: { id: {} },
@@ -119,7 +124,9 @@ const etapeNouvelle = async (
       'super'
     )
 
-    return titreEtapeBuild(date, titreDemarche.etapes)
+    const etapeType = await etapeTypeGet(typeId)
+
+    return titreEtapeBuild(date, etapeType, titreDemarche)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -540,7 +547,7 @@ const etapeJustificatifDissocier = async (
 
 export {
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
