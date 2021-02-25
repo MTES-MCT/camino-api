@@ -29,6 +29,10 @@ const titresEtapesHeritagePropsUpdate = async (
     'super'
   )
 
+  // lorsqu'une étape est mise à jour par un utilisateur,
+  // l'objet heritageProps reçu ne contient pas d'id d'étape
+  // l'étape est donc toujours mise à jour
+
   const titresEtapesIdsUpdated = [] as string[]
 
   titresDemarches.forEach(titreDemarche => {
@@ -39,6 +43,7 @@ const titresEtapesHeritagePropsUpdate = async (
     if (titreEtapes) {
       titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
         const titreEtapePrecedente = index > 0 ? titreEtapes[index - 1] : null
+
         const {
           hasChanged,
           titreEtape: newTitreEtape

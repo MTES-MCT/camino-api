@@ -5,7 +5,6 @@ import PQueue from 'p-queue'
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
-import { objectClone } from '../../tools'
 import { titreEtapeHeritageContenuFind } from '../utils/titre-etape-heritage-contenu-find'
 
 const titresEtapesHeritageContenuUpdate = async (
@@ -20,14 +19,16 @@ const titresEtapesHeritageContenuUpdate = async (
     {
       fields: {
         type: { etapesTypes: { id: {} } },
-        etapes: {
-          type: { id: {} }
-        },
+        etapes: { type: { id: {} } },
         titre: { id: {} }
       }
     },
     'super'
   )
+
+  // lorsqu'une étape est mise à jour par un utilisateur,
+  // l'objet heritageContenu reçu ne contient pas d'id d'étape
+  // l'étape est donc toujours mise à jour
 
   const titresEtapesIdsUpdated = [] as string[]
 
@@ -58,36 +59,25 @@ const titresEtapesHeritageContenuUpdate = async (
         titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
           const sections = etapeSectionsIndex[titreEtape.id]
 
-          const { hasChanged, contenu, heritageContenu } = sections.reduce(
-            (
-              acc: {
-                hasChanged: boolean
-                contenu?: IContenu | null
-                heritageContenu: IHeritageContenu
-              },
-              section
-            ) => {
-              if (!section.elements) return acc
+          const hasChanged = false
+          const contenu = titreEtape.contenu as IContenu
+          const heritageContenu = titreEtape.heritageContenu as IHeritageContenu
 
+          sections.forEach(section => {
+            if (section.elements) {
               section.elements.forEach(element => {
-                const prevEtapes = objectClone(
-                  titreEtapes.slice(0, index)
-                ) as ITitreEtape[]
-
-                const tePrecedente = prevEtapes.reverse().find(e => {
-                  // si etapeSectionsIndex de l'étape contient section / element
-                  if (
+                // parmi les étapes précédentes,
+                // trouve l'étape qui contient section / element
+                const tePrecedente = titreEtapes
+                  .slice(0, index)
+                  .reverse()
+                  .find(e =>
                     etapeSectionsIndex[e.id]?.find(
                       s =>
                         s.id === section.id &&
                         s.elements!.find(e => e.id === element.id)
                     )
-                  ) {
-                    return true
-                  }
-
-                  return false
-                })
+                  )
 
                 const {
                   hasChanged,
@@ -102,32 +92,20 @@ const titresEtapesHeritageContenuUpdate = async (
 
                 if (hasChanged) {
                   if (value || value === 0) {
-                    if (!acc.contenu) {
-                      acc.contenu = {}
+                    if (!contenu[section.id]) {
+                      contenu[section.id] = {}
                     }
 
-                    if (!acc.contenu[section.id]) {
-                      acc.contenu[section.id] = {}
-                    }
-
-                    acc.contenu![section.id][element.id] = value
-                  } else if (acc.contenu && acc.contenu[section.id]) {
-                    delete acc.contenu[section.id][element.id]
+                    contenu![section.id][element.id] = value
+                  } else if (contenu && contenu[section.id]) {
+                    delete contenu[section.id][element.id]
                   }
 
-                  acc.hasChanged = acc.hasChanged || hasChanged
-                  acc.heritageContenu[section.id][element.id].etapeId = etapeId
+                  heritageContenu[section.id][element.id].etapeId = etapeId
                 }
               })
-
-              return acc
-            },
-            {
-              hasChanged: false,
-              contenu: titreEtape.contenu,
-              heritageContenu: titreEtape.heritageContenu!
             }
-          )
+          })
 
           if (hasChanged) {
             queue.add(async () => {
