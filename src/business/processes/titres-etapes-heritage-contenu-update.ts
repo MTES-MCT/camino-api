@@ -59,16 +59,16 @@ const titresEtapesHeritageContenuUpdate = async (
         titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
           const sections = etapeSectionsIndex[titreEtape.id]
 
-          const hasChanged = false
-          const contenu = titreEtape.contenu as IContenu
+          let titreEtapeHasChanged = false
+          let contenu = titreEtape.contenu as IContenu
           const heritageContenu = titreEtape.heritageContenu as IHeritageContenu
 
           sections.forEach(section => {
-            if (section.elements) {
+            if (section.elements?.length) {
               section.elements.forEach(element => {
                 // parmi les étapes précédentes,
                 // trouve l'étape qui contient section / element
-                const tePrecedente = titreEtapes
+                const prevTitreEtape = titreEtapes
                   .slice(0, index)
                   .reverse()
                   .find(e =>
@@ -87,11 +87,15 @@ const titresEtapesHeritageContenuUpdate = async (
                   section.id,
                   element.id,
                   titreEtape,
-                  tePrecedente
+                  prevTitreEtape
                 )
 
                 if (hasChanged) {
                   if (value || value === 0) {
+                    if (!contenu) {
+                      contenu = {}
+                    }
+
                     if (!contenu[section.id]) {
                       contenu[section.id] = {}
                     }
@@ -102,12 +106,14 @@ const titresEtapesHeritageContenuUpdate = async (
                   }
 
                   heritageContenu[section.id][element.id].etapeId = etapeId
+
+                  titreEtapeHasChanged = true
                 }
               })
             }
           })
 
-          if (hasChanged) {
+          if (titreEtapeHasChanged) {
             queue.add(async () => {
               await titreEtapeUpdate(titreEtape.id, {
                 contenu,
