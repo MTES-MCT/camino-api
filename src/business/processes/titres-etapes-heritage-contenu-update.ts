@@ -109,10 +109,13 @@ const titresEtapesHeritageContenuUpdate = async (
                     if (!acc.contenu[section.id]) {
                       acc.contenu[section.id] = {}
                     }
+
+                    acc.contenu![section.id][element.id] = value
+                  } else if (acc.contenu && acc.contenu[section.id]) {
+                    delete acc.contenu[section.id][element.id]
                   }
 
                   acc.hasChanged = acc.hasChanged || hasChanged
-                  acc.contenu![section.id][element.id] = value
                   acc.heritageContenu[section.id][element.id].etapeId = etapeId
                 }
               })
