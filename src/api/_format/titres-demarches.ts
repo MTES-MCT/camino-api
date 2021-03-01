@@ -21,7 +21,12 @@ const titreDemarcheFormat = (
 
   if (fields.etapes && titreDemarche.etapes && titreDemarche.etapes.length) {
     const titreEtapes = titreDemarche.etapes.map(te =>
-      titreEtapeFormat(te, titreTypeId, titreDemarche.type!, fields.etapes)
+      titreEtapeFormat(
+        te,
+        titreTypeId,
+        titreDemarche.type!.etapesTypes!,
+        fields.etapes
+      )
     )
 
     titreDemarche.etapes = titreEtapes

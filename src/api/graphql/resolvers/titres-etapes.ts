@@ -29,6 +29,7 @@ import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
 import { titreEtapeBuild } from '../../../business/titre-etape-build'
+import { titreEtapeFormat } from '../../_format/titres-etapes'
 
 const etape = async (
   { id }: { id: string },
@@ -44,10 +45,33 @@ const etape = async (
 
     const fields = fieldsBuild(info)
 
-    return await titreEtapeGet(
+    if (!fields.type) {
+      fields.type = { id: {} }
+    }
+
+    const titreEtape = await titreEtapeGet(
       id,
       { fields, fetchHeritage: true },
       context?.user?.id
+    )
+
+    const titreDemarche = await titreDemarcheGet(
+      titreEtape.titreDemarcheId,
+      {
+        fields: {
+          titre: { id: {} },
+          type: { etapesTypes: { id: {} } }
+        }
+      },
+      user && user.id
+    )
+
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+    return titreEtapeFormat(
+      titreEtape,
+      titreDemarche.titre!.typeId,
+      titreDemarche.type!.etapesTypes!
     )
   } catch (e) {
     if (debug) {
@@ -69,15 +93,15 @@ const etapeNouvelle = async (
       throw new Error('droits insuffisants')
     }
 
-    let demarche = await titreDemarcheGet(
+    let titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       { fields: { id: {} } },
       user && user.id
     )
 
-    if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
-    demarche = await titreDemarcheGet(
+    titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       {
         fields: {
@@ -94,7 +118,7 @@ const etapeNouvelle = async (
       'super'
     )
 
-    return titreEtapeBuild(date, demarche.etapes)
+    return titreEtapeBuild(date, titreDemarche.etapes)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -117,15 +141,15 @@ const etapeCreer = async (
       throw new Error('droits insuffisants')
     }
 
-    let demarche = await titreDemarcheGet(
+    let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       { fields: { id: {} } },
       user && user.id
     )
 
-    if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
-    demarche = await titreDemarcheGet(
+    titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       {
         fields: {
@@ -140,11 +164,11 @@ const etapeCreer = async (
       'super'
     )
 
-    if (!demarche.titre) throw new Error("le titre n'existe pas")
+    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
     const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
       user,
-      demarche.titre.id,
+      titreDemarche.titre.id,
       etape.typeId,
       'creation'
     )
@@ -153,7 +177,7 @@ const etapeCreer = async (
       throw new Error('droits insuffisants pour créer cette étape')
     }
 
-    const inputErrors = await titreEtapeInputValidate(etape, demarche)
+    const inputErrors = await titreEtapeInputValidate(etape, titreDemarche)
 
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
@@ -161,8 +185,8 @@ const etapeCreer = async (
 
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
-      demarche,
-      demarche.titre
+      titreDemarche,
+      titreDemarche.titre
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -204,15 +228,15 @@ const etapeModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    let demarche = await titreDemarcheGet(
+    let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       { fields: { id: {} } },
       user && user.id
     )
 
-    if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
-    demarche = await titreDemarcheGet(
+    titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       {
         fields: {
@@ -227,11 +251,11 @@ const etapeModifier = async (
       'super'
     )
 
-    if (!demarche.titre) throw new Error("le titre n'existe pas")
+    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
     const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
       user,
-      demarche.titre.id,
+      titreDemarche.titre.id,
       etape.typeId,
       'modification'
     )
@@ -240,15 +264,15 @@ const etapeModifier = async (
       throw new Error('droits insuffisants pour modifier cette étape')
     }
 
-    const inputErrors = await titreEtapeInputValidate(etape, demarche)
+    const inputErrors = await titreEtapeInputValidate(etape, titreDemarche)
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
-      demarche,
-      demarche.titre
+      titreDemarche,
+      titreDemarche.titre
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -298,7 +322,7 @@ const etapeSupprimer = async (
     )
     if (!titreEtape) throw new Error("l'étape n'existe pas")
 
-    const demarche = await titreDemarcheGet(
+    const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
       {
         fields: {
@@ -312,15 +336,15 @@ const etapeSupprimer = async (
       },
       'super'
     )
-    if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
-    if (!demarche.titre) throw new Error("le titre n'existe pas")
+    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
     const rulesErrors = await titreDemarcheUpdatedEtatValidate(
-      demarche.type!,
-      demarche.titre,
+      titreDemarche.type!,
+      titreDemarche.titre,
       titreEtape,
-      demarche.etapes!,
+      titreDemarche.etapes!,
       true
     )
 
@@ -368,16 +392,16 @@ const etapeJustificatifsAssocier = async (
     )
     if (!etape) throw new Error("l'étape n'existe pas")
 
-    const demarche = await titreDemarcheGet(
+    const titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       {},
       user && user.id
     )
 
-    if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
     const titre = await titreGet(
-      demarche.titreId,
+      titreDemarche.titreId,
       {
         fields: {
           administrationsGestionnaires: { id: {} },
@@ -446,16 +470,16 @@ const etapeJustificatifDissocier = async (
 
     if (!etape) throw new Error("l'étape n'existe pas")
 
-    const demarche = await titreDemarcheGet(
+    const titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       {},
       user && user.id
     )
 
-    if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
     const titre = await titreGet(
-      demarche.titreId,
+      titreDemarche.titreId,
       {
         fields: {
           administrationsGestionnaires: { id: {} },

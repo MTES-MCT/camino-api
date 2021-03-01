@@ -1,4 +1,4 @@
-import { ITitreEtape, IDemarcheType, IGeoJson, IFields } from '../../types'
+import { ITitreEtape, IGeoJson, IFields, IEtapeType } from '../../types'
 
 import {
   geojsonFeatureMultiPolygon,
@@ -18,13 +18,13 @@ const titreEtapeFormatFields = {
 const titreEtapeFormat = (
   titreEtape: ITitreEtape,
   titreTypeId: string,
-  titreDemarcheType: IDemarcheType,
+  demarcheTypeEtapesTypes: IEtapeType[],
   fields = titreEtapeFormatFields
 ) => {
   if (titreEtape.type) {
     titreEtape.type.sections = etapeTypeSectionsFormat(
       titreEtape.type,
-      titreDemarcheType.etapesTypes,
+      demarcheTypeEtapesTypes,
       titreTypeId
     )
   }
