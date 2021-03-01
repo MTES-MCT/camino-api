@@ -1,11 +1,13 @@
-import { IContenu, IHeritageContenu, ISection, ITitreEtape } from '../../types'
+import { ITitreEtape } from '../../types'
 
 import PQueue from 'p-queue'
 
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
-import { titreEtapeHeritageContenuFind } from '../utils/titre-etape-heritage-contenu-find'
+import {
+  etapeSectionsDictionaryBuild,
+  titreEtapeHeritageContenuFind
+} from '../utils/titre-etape-heritage-contenu-find'
 
 const titresEtapesHeritageContenuUpdate = async (
   titresDemarchesIds?: string[]
@@ -34,86 +36,31 @@ const titresEtapesHeritageContenuUpdate = async (
 
   titresDemarches.forEach(titreDemarche => {
     if (titreDemarche.etapes?.length) {
-      const etapeSectionsIndex = titreDemarche.etapes.reduce(
-        (acc: { [id: string]: ISection[] }, e) => {
-          const sections = etapeTypeSectionsFormat(
-            e.type!,
-            titreDemarche.type!.etapesTypes!,
-            titreDemarche.titre!.typeId
-          )
-
-          if (sections.length) {
-            acc[e.id] = sections
-          }
-
-          return acc
-        },
-        {}
+      const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
+        titreDemarche.etapes,
+        titreDemarche.type!.etapesTypes!,
+        titreDemarche.titre!.typeId
       )
 
       const titreEtapes = titreDemarche.etapes
-        ?.filter(e => etapeSectionsIndex[e.id])
+        ?.filter(e => etapeSectionsDictionary[e.id])
         .reverse()
 
       if (titreEtapes) {
         titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
-          const sections = etapeSectionsIndex[titreEtape.id]
+          const titreEtapesFiltered = titreEtapes.slice(0, index).reverse()
 
-          let titreEtapeHasChanged = false
-          let contenu = titreEtape.contenu as IContenu
-          const heritageContenu = titreEtape.heritageContenu as IHeritageContenu
+          const {
+            contenu,
+            heritageContenu,
+            hasChanged
+          } = titreEtapeHeritageContenuFind(
+            titreEtapesFiltered,
+            titreEtape,
+            etapeSectionsDictionary
+          )
 
-          sections.forEach(section => {
-            if (section.elements?.length) {
-              section.elements.forEach(element => {
-                // parmi les étapes précédentes,
-                // trouve l'étape qui contient section / element
-                const prevTitreEtape = titreEtapes
-                  .slice(0, index)
-                  .reverse()
-                  .find(e =>
-                    etapeSectionsIndex[e.id]?.find(
-                      s =>
-                        s.id === section.id &&
-                        s.elements!.find(e => e.id === element.id)
-                    )
-                  )
-
-                const {
-                  hasChanged,
-                  value,
-                  etapeId
-                } = titreEtapeHeritageContenuFind(
-                  section.id,
-                  element.id,
-                  titreEtape,
-                  prevTitreEtape
-                )
-
-                if (hasChanged) {
-                  if (value || value === 0) {
-                    if (!contenu) {
-                      contenu = {}
-                    }
-
-                    if (!contenu[section.id]) {
-                      contenu[section.id] = {}
-                    }
-
-                    contenu![section.id][element.id] = value
-                  } else if (contenu && contenu[section.id]) {
-                    delete contenu[section.id][element.id]
-                  }
-
-                  heritageContenu[section.id][element.id].etapeId = etapeId
-
-                  titreEtapeHasChanged = true
-                }
-              })
-            }
-          })
-
-          if (titreEtapeHasChanged) {
+          if (hasChanged) {
             queue.add(async () => {
               await titreEtapeUpdate(titreEtape.id, {
                 contenu,

@@ -21,7 +21,7 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
-import { titreEtapeBuild, titreEtapePointsCalc } from './_titre-etape'
+import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
 import { titreEtapeInputValidate } from '../../_validate/titre-etape-input-validate'
 import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
@@ -126,7 +126,7 @@ const etapeHeritage = async (
 
     const etapeType = await etapeTypeGet(typeId)
 
-    return titreEtapeBuild(date, etapeType, titreDemarche)
+    return titreEtapeHeritageBuild(date, etapeType, titreDemarche)
   } catch (e) {
     if (debug) {
       console.error(e)

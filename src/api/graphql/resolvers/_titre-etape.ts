@@ -5,7 +5,9 @@ import {
   IEtapeType,
   IHeritageProps,
   ITitreDemarche,
-  ITitreEtape
+  ITitreEtape,
+  IHeritageContenu,
+  ISection
 } from '../../../types'
 
 import geoConvert from '../../../tools/geo-convert'
@@ -15,6 +17,10 @@ import {
   titreEtapeHeritagePropsFind,
   titreEtapePropsIds
 } from '../../../business/utils/titre-etape-heritage-props-find'
+import {
+  etapeSectionsDictionaryBuild,
+  titreEtapeHeritageContenuFind
+} from '../../../business/utils/titre-etape-heritage-contenu-find'
 import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
 
 const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
@@ -51,58 +57,138 @@ const uniteRatioFind = (pointReference: ITitrePointReference | 0) => {
     : 1
 }
 
-const titreEtapeBuild = (
+const titreEtapeHeritagePropsBuild = (
+  date: string,
+  titreEtapes?: ITitreEtape[] | null
+) => {
+  const titreEtapesFiltered =
+    titreEtapes?.filter(e => e.type?.fondamentale && e.date < date).reverse() ||
+    []
+
+  const heritageProps = titreEtapePropsIds.reduce((acc: IHeritageProps, id) => {
+    acc[id] = { actif: !!titreEtapesFiltered.length }
+
+    return acc
+  }, {})
+
+  const titreEtape = { date, heritageProps } as ITitreEtape
+
+  titreEtapesFiltered.push(titreEtape)
+
+  titreEtapesFiltered.forEach((te: ITitreEtape, index: number) => {
+    const titreEtapePrecedente =
+      index > 0 ? titreEtapesFiltered[index - 1] : null
+
+    const { titreEtape } = titreEtapeHeritagePropsFind(te, titreEtapePrecedente)
+
+    titreEtapesFiltered[index] = titreEtape
+  })
+
+  const newTitreEtape = titreEtapesFiltered[titreEtapesFiltered.length - 1]
+
+  if (newTitreEtape.heritageProps) {
+    Object.keys(newTitreEtape.heritageProps).forEach(id => {
+      const etapeId =
+        newTitreEtape.heritageProps && newTitreEtape.heritageProps[id].etapeId
+
+      if (etapeId) {
+        newTitreEtape.heritageProps![id].etape = titreEtapesFiltered.find(
+          ({ id }) => id === etapeId
+        )
+      }
+    })
+  }
+
+  return newTitreEtape
+}
+
+const titreEtapeHeritageContenuBuild = (
+  date: string,
+  etapeType: IEtapeType,
+  sections: ISection[],
+  etapesTypes: IEtapeType[],
+  titreTypeId: string,
+  titreEtapes?: ITitreEtape[] | null
+) => {
+  if (!titreEtapes) {
+    titreEtapes = []
+  }
+  const titreEtape = {
+    id: 'new-titre-etape',
+    date,
+    type: etapeType,
+    typeId: etapeType.id
+  } as ITitreEtape
+
+  let titreEtapesFiltered = titreEtapes.filter(te => te.date < date).reverse()
+
+  titreEtape.heritageContenu = sections.reduce(
+    (heritageContenu: IHeritageContenu, section) => {
+      if (!section.elements?.length) return heritageContenu
+
+      heritageContenu[section.id] = section.elements?.reduce(
+        (acc: IHeritageProps, element) => {
+          acc[element.id] = { actif: !!titreEtapesFiltered.length }
+
+          return acc
+        },
+        {}
+      )
+
+      return heritageContenu
+    },
+    {}
+  )
+
+  titreEtapesFiltered.push(titreEtape)
+
+  const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
+    titreEtapesFiltered,
+    etapesTypes,
+    titreTypeId
+  )
+
+  titreEtapesFiltered = titreEtapesFiltered.filter(
+    e => etapeSectionsDictionary[e.id]
+  )
+
+  const { contenu, heritageContenu } = titreEtapeHeritageContenuFind(
+    titreEtapesFiltered,
+    titreEtape,
+    etapeSectionsDictionary
+  )
+
+  if (heritageContenu) {
+    Object.keys(heritageContenu).forEach(sectionId => {
+      Object.keys(heritageContenu![sectionId]).forEach(elementId => {
+        const etapeId =
+          heritageContenu &&
+          heritageContenu[sectionId] &&
+          heritageContenu[sectionId][elementId].etapeId
+
+        if (etapeId) {
+          heritageContenu![sectionId][
+            elementId
+          ].etape = titreEtapesFiltered.find(({ id }) => id === etapeId)
+        }
+      })
+    })
+  }
+
+  return { contenu, heritageContenu }
+}
+
+const titreEtapeHeritageBuild = (
   date: string,
   etapeType: IEtapeType,
   titreDemarche: ITitreDemarche
 ) => {
-  const newTitreEtape = {} as ITitreEtape
+  let newTitreEtape = {} as ITitreEtape
 
   if (etapeType.fondamentale) {
-    const titreEtapesFiltered =
-      titreDemarche.etapes
-        ?.filter(e => e.type?.fondamentale && e.date < date)
-        .reverse() || []
+    // renseigne les propriétés fondamentales et heritageProps
 
-    const heritageProps = titreEtapePropsIds.reduce(
-      (acc: IHeritageProps, id) => {
-        acc[id] = { actif: !!titreEtapesFiltered.length }
-
-        return acc
-      },
-      {}
-    )
-
-    const titreEtape = { date, heritageProps } as ITitreEtape
-
-    titreEtapesFiltered.push(titreEtape)
-
-    titreEtapesFiltered.forEach((te: ITitreEtape, index: number) => {
-      const titreEtapePrecedente =
-        index > 0 ? titreEtapesFiltered[index - 1] : null
-
-      const { titreEtape } = titreEtapeHeritagePropsFind(
-        te,
-        titreEtapePrecedente
-      )
-
-      titreEtapesFiltered[index] = titreEtape
-    })
-
-    const newTitreEtape = titreEtapesFiltered[titreEtapesFiltered.length - 1]
-
-    if (newTitreEtape.heritageProps) {
-      Object.keys(newTitreEtape.heritageProps).forEach(id => {
-        const etapeId =
-          newTitreEtape.heritageProps && newTitreEtape.heritageProps[id].etapeId
-
-        if (etapeId) {
-          newTitreEtape.heritageProps![id].etape = titreEtapesFiltered.find(
-            ({ id }) => id === etapeId
-          )
-        }
-      })
-    }
+    newTitreEtape = titreEtapeHeritagePropsBuild(date, titreDemarche.etapes)
   }
 
   const sections = etapeTypeSectionsFormat(
@@ -111,14 +197,21 @@ const titreEtapeBuild = (
     titreDemarche.titre!.typeId
   )
 
-  if (Object.keys(sections).length) {
-    // trouver le contenu
-    newTitreEtape.contenu = {}
+  if (sections.length) {
+    const { contenu, heritageContenu } = titreEtapeHeritageContenuBuild(
+      date,
+      etapeType,
+      sections,
+      titreDemarche.type!.etapesTypes,
+      titreDemarche.titre!.typeId,
+      titreDemarche.etapes
+    )
 
-    newTitreEtape.heritageContenu = {}
+    newTitreEtape.contenu = contenu
+    newTitreEtape.heritageContenu = heritageContenu
   }
 
   return newTitreEtape
 }
 
-export { titreEtapeBuild, titreEtapePointsCalc }
+export { titreEtapeHeritageBuild, titreEtapePointsCalc }

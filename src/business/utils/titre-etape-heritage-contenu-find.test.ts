@@ -1,4 +1,4 @@
-import { titreEtapeHeritageContenuFind } from './titre-etape-heritage-contenu-find'
+import { heritageContenuFind } from './titre-etape-heritage-contenu-find'
 import { IContenu, IHeritageContenu, ITitreEtape } from '../../types'
 
 describe('retourne le contenu en fonction de son héritage', () => {
@@ -10,9 +10,7 @@ describe('retourne le contenu en fonction de son héritage', () => {
       heritageContenu
     } as ITitreEtape
 
-    expect(
-      titreEtapeHeritageContenuFind('section', 'element', titreEtape)
-    ).toEqual({
+    expect(heritageContenuFind('section', 'element', titreEtape)).toEqual({
       hasChanged: false,
       value: undefined,
       etapeId: undefined
@@ -34,7 +32,7 @@ describe('retourne le contenu en fonction de son héritage', () => {
     } as ITitreEtape
 
     expect(
-      titreEtapeHeritageContenuFind(
+      heritageContenuFind(
         'section',
         'element',
         titreEtape,
@@ -67,7 +65,7 @@ describe('retourne le contenu en fonction de son héritage', () => {
     titreEtape.heritageContenu!.section.element.actif = true
 
     expect(
-      titreEtapeHeritageContenuFind(
+      heritageContenuFind(
         'section',
         'element',
         titreEtape,
