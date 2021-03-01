@@ -20,6 +20,14 @@ const main = async () => {
             }
           })
         }
+        if (s.id === 'prx' && s.elements?.length) {
+          s.elements.forEach(e => {
+            if (e.id === 'engagement') {
+              delete e.description
+              hasChanged = true
+            }
+          })
+        }
       })
 
       if (hasChanged) {
