@@ -2,8 +2,8 @@ import {
   ITitreEtape,
   IEntreprise,
   ITitrePoint,
-  ISubstance,
-  ITitreIncertitudes
+  ITitreIncertitudes,
+  ITitreSubstance
 } from '../../types'
 import { objectClone } from '../../tools'
 
@@ -56,12 +56,21 @@ const propertyArrayCheck = (
         (prevValue as ITitrePoint[]).map(comparator).sort().toString()
       )
     } else {
-      const comparator = ((propValueArray: { id: string }) =>
-        propValueArray.id) as (obj: { id: string }) => string
+      const comparator = ((propValueArray: { id: string; ordre: number }) =>
+        propValueArray.id + propValueArray.ordre) as (obj: {
+        id: string
+        ordre: number
+      }) => string
 
       return (
-        (newValue as { id: string }[]).map(comparator).sort().toString() ===
-        (prevValue as { id: string }[]).map(comparator).sort().toString()
+        (newValue as { id: string; ordre: number }[])
+          .map(comparator)
+          .sort()
+          .toString() ===
+        (prevValue as { id: string; ordre: number }[])
+          .map(comparator)
+          .sort()
+          .toString()
       )
     }
   }
@@ -74,7 +83,7 @@ type IPropValueArray =
   | null
   | IEntreprise[]
   | ITitrePoint[]
-  | ISubstance[]
+  | ITitreSubstance[]
 
 type IPropValue = number | string | IPropValueArray
 
@@ -127,7 +136,7 @@ const titreEtapePropsHeritageFind = (
         } else if (propId === 'amodiataires' || propId === 'titulaires') {
           newTitreEtape[propId] = newValue as IEntreprise[]
         } else if (propId === 'substances') {
-          newTitreEtape[propId] = newValue as ISubstance[]
+          newTitreEtape[propId] = newValue as ITitreSubstance[]
         } else if (propId === 'dateDebut' || propId === 'dateFin') {
           newTitreEtape[propId] = newValue as string
         } else if (propId === 'duree' || propId === 'surface') {

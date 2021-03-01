@@ -177,8 +177,7 @@ const tables = [
     columns: [
       { id: 'titreEtapeId', parentKey: 'id' },
       { id: 'substanceId', key: 'id' },
-      'ordre',
-      'connexe'
+      'ordre'
     ],
     parents: ['demarches', 'etapes', 'substances']
   },

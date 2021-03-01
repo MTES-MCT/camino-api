@@ -535,6 +535,10 @@ interface ISubstance {
   legales: ISubstanceLegale[]
 }
 
+interface ITitreSubstance extends ISubstance {
+  ordre?: number
+}
+
 interface ITitre {
   id: string
   nom: string
@@ -551,7 +555,7 @@ interface ITitre {
   activitesDeposees?: number | null
   activitesEnConstruction?: number | null
   activitesAbsentes?: number | null
-  substances?: ISubstance[] | null
+  substances?: ITitreSubstance[] | null
   points?: ITitrePoint[] | null
   coordonnees?: ICoordonnees | null
   geojsonMultiPolygon?: IGeoJson | null
@@ -721,7 +725,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   demarche?: ITitreDemarche
   dateDebut?: string | null
   dateFin?: string | null
-  substances?: ISubstance[] | null
+  substances?: ITitreSubstance[] | null
   points?: ITitrePoint[] | null
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
@@ -960,6 +964,7 @@ export {
   ISubstanceLegale,
   ISubstanceLegaleCode,
   ISubstanceFiscale,
+  ITitreSubstance,
   ITitre,
   ITitreActivite,
   ITitreAdministrationGestionnaire,

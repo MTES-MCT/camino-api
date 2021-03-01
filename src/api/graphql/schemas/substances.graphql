@@ -14,7 +14,6 @@ type TitreSubstance {
   gerep: Int
   description: String
   legales: [SubstanceLegale!]!
-  connexe: Boolean
   ordre: Int
 }
 

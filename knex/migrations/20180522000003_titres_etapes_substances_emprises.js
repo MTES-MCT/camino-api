@@ -11,7 +11,6 @@ exports.up = knex => {
       .index()
       .references('substances.id')
       .notNullable()
-    table.boolean('connexe')
     table.integer('ordre')
     table.primary(['titreEtapeId', 'substanceId'])
   })
