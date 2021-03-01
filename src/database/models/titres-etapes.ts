@@ -69,7 +69,7 @@ class TitresEtapes extends Model {
         through: {
           from: 'titresSubstances.titreEtapeId',
           to: 'titresSubstances.substanceId',
-          extra: ['ordre', 'connexe']
+          extra: ['ordre']
         },
         to: 'substances.id'
       }

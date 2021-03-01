@@ -25,6 +25,10 @@ async function main() {
     table.jsonb('contenuHeritage')
   })
 
+  await knex.schema.alterTable('titresSubstances', table => {
+    table.dropColumn('connexe')
+  })
+
   const titres = await titresGet(
     {},
     {

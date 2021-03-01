@@ -139,7 +139,6 @@ fragment geojsonMultiPolygon on GeojsonMultiPolygon {
 fragment substance on TitreSubstance {
   id
   nom
-  connexe
   gerep
   description
   legales {

@@ -1,5 +1,5 @@
 const documentsRelateTrue = ['type']
-const documentsRelateFalse = [...documentsRelateTrue]
+const documentsRelateFalse = [] as string[]
 
 const documents = {
   graph: `[type, etapesAssociees]`,
@@ -16,7 +16,6 @@ const entreprisesEtablissements = {
 
 const entreprisesRelateTrue = [] as string[]
 const entreprisesRelateFalse = [
-  ...entreprisesRelateTrue,
   ...documentsRelateFalse.map(k => `documents.${k}`)
 ]
 
@@ -32,7 +31,6 @@ const entreprises = {
 const utilisateursRelateTrue = ['permission', 'administrations', 'entreprises']
 
 const utilisateursRelateFalse = [
-  ...utilisateursRelateTrue,
   ...entreprisesRelateFalse.map(k => `entreprises.${k}`)
 ]
 
@@ -113,7 +111,6 @@ const titresEtapesRelateTrue = [
 ]
 
 const titresEtapesRelateFalse = [
-  ...titresEtapesRelateTrue,
   'titulaires.etablissements',
   'titulaires.utilisateurs',
   'titulaires.utilisateurs.permission',
@@ -161,7 +158,6 @@ const titresEtapes = {
 const titresTravauxEtapesRelateTrue = ['type', 'statut']
 
 const titreTravauxEtapesRelateFalse = [
-  ...titresTravauxEtapesRelateTrue,
   ...documentsRelateFalse.map(k => `documents.${k}`)
 ]
 
@@ -201,7 +197,6 @@ const titresDemarchesRelateTrue = [
 ]
 
 const titresDemarchesRelateFalse = [
-  ...titresDemarchesRelateTrue,
   'type.etapesTypes',
   'type.etapesTypes.etapesStatuts',
   'type.etapesTypes',
@@ -239,7 +234,6 @@ const activitesTypesRelateTrue = [
 ]
 
 const activitesTypesRelateFalse = [
-  ...activitesTypesRelateTrue,
   'frequence.mois',
   'frequence.trimestres',
   'frequence.trimestres.mois',
@@ -264,7 +258,6 @@ const activitesTypes = {
 const titresActivitesRelateTrue = ['type', 'statut', 'utilisateur']
 
 const titresActivitesRelateFalse = [
-  ...titresActivitesRelateTrue,
   ...activitesTypesRelateFalse.map(k => `type.${k}`),
   ...documents.update.relate.map(k => `documents.${k}`)
 ]
@@ -287,7 +280,7 @@ const titresTravauxRelateTrue = [
   ...titresTravauxEtapesRelateTrue.map(k => `etapes.${k}`)
 ]
 
-const titresTravauxRelateFalse = [...titresTravauxRelateTrue]
+const titresTravauxRelateFalse = [] as string[]
 
 const titresTravaux = {
   graph: `[type.${travauxTypes.graph}, statut, 
@@ -319,7 +312,6 @@ const titresRelateTrue = [
 ]
 
 const titresRelateFalse = [
-  ...titresRelateTrue,
   ...titresTypesRelateFalse.map(k => `type.${k}`),
   'domaine.titresTypes',
   ...titresTypesRelateFalse.map(k => `domaine.titresTypes.${k}`),
