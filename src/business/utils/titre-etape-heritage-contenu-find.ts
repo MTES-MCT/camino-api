@@ -57,12 +57,14 @@ const titreEtapeHeritageContenuFind = (
         section.elements.forEach(element => {
           // parmi les étapes précédentes,
           // trouve l'étape qui contient section / element
-          const prevTitreEtape = titreEtapes.find(e =>
-            etapeSectionsDictionary[e.id].find(
-              s =>
-                s.id === section.id &&
-                s.elements!.find(e => e.id === element.id)
-            )
+          const prevTitreEtape = titreEtapes.find(
+            e =>
+              e.id !== titreEtape.id &&
+              etapeSectionsDictionary[e.id].find(
+                s =>
+                  s.id === section.id &&
+                  s.elements!.find(e => e.id === element.id)
+              )
           )
 
           const {
