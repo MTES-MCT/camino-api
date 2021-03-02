@@ -125,8 +125,13 @@ const etapeHeritage = async (
     )
 
     const etapeType = await etapeTypeGet(typeId)
+    const titreEtape = titreEtapeHeritageBuild(date, etapeType, titreDemarche)
 
-    return titreEtapeHeritageBuild(date, etapeType, titreDemarche)
+    return titreEtapeFormat(
+      titreEtape,
+      titreDemarche.titre!.typeId,
+      titreDemarche.type!.etapesTypes
+    )
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -183,13 +183,13 @@ const titreEtapeHeritageBuild = (
   etapeType: IEtapeType,
   titreDemarche: ITitreDemarche
 ) => {
-  let newTitreEtape = {} as ITitreEtape
+  let titreEtape = {} as ITitreEtape
 
   if (etapeType.fondamentale) {
-    // renseigne les propriétés fondamentales et heritageProps
-
-    newTitreEtape = titreEtapeHeritagePropsBuild(date, titreDemarche.etapes)
+    titreEtape = titreEtapeHeritagePropsBuild(date, titreDemarche.etapes)
   }
+
+  titreEtape.modification = true
 
   const sections = etapeTypeSectionsFormat(
     etapeType,
@@ -207,11 +207,11 @@ const titreEtapeHeritageBuild = (
       titreDemarche.etapes
     )
 
-    newTitreEtape.contenu = contenu
-    newTitreEtape.heritageContenu = heritageContenu
+    titreEtape.contenu = contenu
+    titreEtape.heritageContenu = heritageContenu
   }
 
-  return newTitreEtape
+  return titreEtape
 }
 
 export { titreEtapeHeritageBuild, titreEtapePointsCalc }
