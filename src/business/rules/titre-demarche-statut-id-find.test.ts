@@ -134,7 +134,7 @@ describe("statut d'une démarche", () => {
   test("une démarche d'octroi dont l'étape est men a le statut “en instruction”", () => {
     expect(
       titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'men' }]), 'pxm')
-    ).toEqual('ins')
+    ).toEqual('ind')
   })
 
   test("une démarche d'octroi d'un titre ARM dont l'étape de mdp a le statut “en instruction”", () => {

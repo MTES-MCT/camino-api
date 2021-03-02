@@ -3,33 +3,27 @@ import { ITitreDemarche } from '../../types'
 import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
 
-const titreDateDemandeFind = (
-  titreDemarches: ITitreDemarche[],
-  titreStatutId: string
-) => {
-  // si
-  // - le statut du titre n'est ni "demande initiale", ni "demande classée"
-  // alors retourne null
-  if (!['dmi', 'dmc'].includes(titreStatutId)) return null
-
-  // sinon
-  // trouve la première démarche d'octroi
+const titreDateDemandeFind = (titreDemarches: ITitreDemarche[]) => {
+  // trouve la démarche génératrice du titre
+  // - première démarche d'octroi ou mutation partielle
   const titreDemarchesSorted = titreDemarchesSortAsc(
     titreDemarches
   ) as ITitreDemarche[]
   const titreDemarche = titreDemarchesSorted.find(titreDemarche =>
-    ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
+    ['oct', 'vut'].includes(titreDemarche.typeId)
   )
 
   // si
-  // - il n'y a pas de démarche d'octroi
-  // - la démarche d'octroi n'a pas d'étapes
+  // - il n'y a pas de démarche génératrice
+  // - la démarche génératrice n'a pas d'étapes
   // alors retourne null
   if (!titreDemarche || !titreDemarche.etapes!.length) return null
 
-  // trouve la première étape de dépôt ou d'enregistrement de la demande
+  // dans la démarche génratrice, trouve
+  // - la première étape de dépôt
+  // - ou l'enregistrement de la demande (pour les anciennes ARM)
   const titreEtapesSorted = titreEtapesSortAsc(titreDemarche.etapes!)
-  const titreEtapeMen = titreEtapesSorted.find(te =>
+  const titreEtape = titreEtapesSorted.find(te =>
     ['mdp', 'men'].includes(te.typeId)
   )
 
@@ -37,11 +31,11 @@ const titreDateDemandeFind = (
   // - il n'y a pas d'étape de dépôt ou d'enregistrement de la demande
   // - l'étape n'a pas de date
   // alors retourne null
-  if (!titreEtapeMen || !titreEtapeMen.date) return null
+  if (!titreEtape || !titreEtape.date) return null
 
   // sinon
   // retourne la date de l'étape
-  return titreEtapeMen.date
+  return titreEtape.date
 }
 
 export { titreDateDemandeFind }
