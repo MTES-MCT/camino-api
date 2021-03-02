@@ -18,7 +18,8 @@ const elementHtmlBuild = (
 ) =>
   contenu[sectionId] &&
   ((contenu[sectionId][element.id] as IContenuValeur) ||
-    (contenu[sectionId][element.id] as IContenuValeur) === 0)
+    (contenu[sectionId][element.id] as IContenuValeur) === 0 ||
+    (contenu[sectionId][element.id] as IContenuValeur) === false)
     ? `<li>${element.nom ? element.nom + ' : ' : ''}${
         element.type === 'checkboxes'
           ? (contenu[sectionId][element.id] as string[])

@@ -79,7 +79,7 @@ const titreEtapeHeritageContenuFind = (
           )
 
           if (contenuHasChanged) {
-            if (value || value === 0) {
+            if (value || value === 0 || value === false) {
               if (!contenu) {
                 contenu = {}
               }
