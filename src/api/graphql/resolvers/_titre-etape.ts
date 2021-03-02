@@ -122,13 +122,32 @@ const titreEtapeHeritageContenuBuild = (
 
   let titreEtapesFiltered = titreEtapes.filter(te => te.date < date).reverse()
 
+  titreEtapesFiltered.push(titreEtape)
+
+  const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
+    titreEtapesFiltered,
+    etapesTypes,
+    titreTypeId
+  )
+
   titreEtape.heritageContenu = sections.reduce(
     (heritageContenu: IHeritageContenu, section) => {
       if (!section.elements?.length) return heritageContenu
 
       heritageContenu[section.id] = section.elements?.reduce(
         (acc: IHeritageProps, element) => {
-          acc[element.id] = { actif: !!titreEtapesFiltered.length }
+          acc[element.id] = {
+            actif: !!titreEtapesFiltered.find(
+              e =>
+                e.id !== titreEtape.id &&
+                etapeSectionsDictionary[e.id] &&
+                etapeSectionsDictionary[e.id].find(
+                  s =>
+                    s.id === section.id &&
+                    s.elements?.find(el => el.id === element.id)
+                )
+            )
+          }
 
           return acc
         },
@@ -138,14 +157,6 @@ const titreEtapeHeritageContenuBuild = (
       return heritageContenu
     },
     {}
-  )
-
-  titreEtapesFiltered.push(titreEtape)
-
-  const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
-    titreEtapesFiltered,
-    etapesTypes,
-    titreTypeId
   )
 
   titreEtapesFiltered = titreEtapesFiltered.filter(
