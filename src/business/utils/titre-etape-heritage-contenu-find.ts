@@ -1,4 +1,3 @@
-import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 import {
   IContenuValeur,
   IEtapeType,
@@ -6,6 +5,7 @@ import {
   ISection,
   ITitreEtape
 } from '../../types'
+import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 
 const heritageContenuFind = (
   sectionId: string,
@@ -58,7 +58,7 @@ const titreEtapeHeritageContenuFind = (
           // parmi les étapes précédentes,
           // trouve l'étape qui contient section / element
           const prevTitreEtape = titreEtapes.find(e =>
-            etapeSectionsDictionary[e.id]?.find(
+            etapeSectionsDictionary[e.id].find(
               s =>
                 s.id === section.id &&
                 s.elements!.find(e => e.id === element.id)
