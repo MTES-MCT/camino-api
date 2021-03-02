@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.73](https://github.com/MTES-MCT/camino-api/compare/v0.24.72...v0.24.73) (2021-03-02)
+
+
+### Features
+
+* renomme les rapports d'exploitation ([#669](https://github.com/MTES-MCT/camino-api/issues/669)) ([e5a4676](https://github.com/MTES-MCT/camino-api/commit/e5a4676fc507798fea28e39c13523f7eca75aee6))
+* **étapes:** hérite les propriétés entre étapes :smiling_imp: ([#666](https://github.com/MTES-MCT/camino-api/issues/666)) ([47798a1](https://github.com/MTES-MCT/camino-api/commit/47798a165bd0cc54dfde048e402cd23cd1805275))
+
+
+### Bug Fixes
+
+* retire des descriptions dans les sections d'étape ([#672](https://github.com/MTES-MCT/camino-api/issues/672)) ([4d162b9](https://github.com/MTES-MCT/camino-api/commit/4d162b967132e1bfbb752b1fd13f240d71900cc2))
+* **documents:** corrige les documents qui disparaissent des activités ([#667](https://github.com/MTES-MCT/camino-api/issues/667)) ([229441f](https://github.com/MTES-MCT/camino-api/commit/229441fcec197c989e3c68398ff971b4c32fcb68))
+* **étape:** conserve l’ordre des substances héritées ([#673](https://github.com/MTES-MCT/camino-api/issues/673)) ([f0d14a8](https://github.com/MTES-MCT/camino-api/commit/f0d14a835f592bfdea58ec9278d9bf8c780afd88))
+* **héritage:** hérite l’incertitude si l’héritage est actif entre 2 étapes fondamentales ([#670](https://github.com/MTES-MCT/camino-api/issues/670)) ([2d53c61](https://github.com/MTES-MCT/camino-api/commit/2d53c61a8b3df8282557f58a577ac2164f9c0441))
+* ajoute un nom de section ([eed198d](https://github.com/MTES-MCT/camino-api/commit/eed198d788da64046398a95b60d58d94ef1fb451))
+* **incertitudes:** corrige les incertitudes non cohérentes ([#668](https://github.com/MTES-MCT/camino-api/issues/668)) ([792b5af](https://github.com/MTES-MCT/camino-api/commit/792b5affdbd26020962843824918081035f2e67a))
+* supprime les champs description des sections "volume" ([#664](https://github.com/MTES-MCT/camino-api/issues/664)) ([75e05c4](https://github.com/MTES-MCT/camino-api/commit/75e05c43cfae695517900cef0a6722d38377cfe2))
+
 ### [0.24.72](https://github.com/MTES-MCT/camino-api/compare/v0.24.71...v0.24.72) (2021-02-18)
 
 
