@@ -233,9 +233,11 @@ const titreDemarcheDemandeStatutIdFind = (
   //  - le type de l’étape est avis de la commission ARM (aca) (non défavorable)
   //  - le type de l’étape est décision de l'ONF (def) (non défavorable)
   if (
-    ['mcr', 'men', 'dex', 'dux'].includes(titreEtapeRecent.typeId) ||
+    ['mcr', 'dex', 'dux'].includes(titreEtapeRecent.typeId) ||
     (titreTypeId === 'arm' &&
-      ['mdp', 'meo', 'mcp', 'def', 'aca'].includes(titreEtapeRecent.typeId))
+      ['mdp', 'men', 'meo', 'mcp', 'def', 'aca'].includes(
+        titreEtapeRecent.typeId
+      ))
   ) {
     //  - le statut de la démarche est “en instruction”
     return 'ins'

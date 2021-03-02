@@ -37,7 +37,7 @@ const titresDatesUpdate = async (titresIds?: string[]) => {
       props.dateDebut = dateDebut
     }
 
-    const dateDemande = titreDateDemandeFind(titre.demarches!, titre.statutId!)
+    const dateDemande = titreDateDemandeFind(titre.demarches!)
 
     if (titre.dateDemande !== dateDemande) {
       props.dateDemande = dateDemande
