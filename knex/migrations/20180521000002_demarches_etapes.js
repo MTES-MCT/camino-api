@@ -88,7 +88,6 @@ exports.up = knex => {
       table.string('nom', 32).notNullable()
       table.text('description')
       table.string('couleur', 16).notNullable()
-      table.integer('ordre').notNullable()
     })
     .createTable('etapesTypes__etapesStatuts', table => {
       table

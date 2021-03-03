@@ -446,10 +446,10 @@ const activitesStatutsGet = async () => {
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
-const etapesStatutsGet = async () => EtapesStatuts.query().orderBy('ordre')
+const etapesStatutsGet = async () => EtapesStatuts.query()
 
 const etapeStatutUpdate = async (id: string, props: Partial<IEtapeStatut>) =>
-  EtapesStatuts.query().patchAndFetchById(id, props).orderBy('ordre')
+  EtapesStatuts.query().patchAndFetchById(id, props)
 
 const substancesLegalesCodesGet = async () =>
   SubstancesLegalesCodes.query().orderBy('ordre')

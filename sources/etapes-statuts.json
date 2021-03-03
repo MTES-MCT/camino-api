@@ -2,76 +2,64 @@
   {
     "id": "fai",
     "nom": "fait",
-    "couleur": "success",
-    "ordre": "1"
+    "couleur": "success"
   },
   {
     "id": "acc",
     "nom": "accepté",
     "description": "La demande a fait l’objet d’une décision favorable de l'administration.",
-    "couleur": "success",
-    "ordre": "2"
+    "couleur": "success"
   },
   {
     "id": "rej",
     "nom": "rejeté",
     "description": "La demande a fait l’objet d’une décision défavorable de l'administration. Les textes d’applications du code minier prévoient que les décisions de rejet ne font pas l’objet d’une publication. En conséquence, les démarches qui passent au statut “rejeté” dans Camino sont dé-publiées et rendues inaccessibles aux tiers.\n",
-    "couleur": "error",
-    "ordre": "3"
+    "couleur": "error"
   },
   {
     "id": "fav",
     "nom": "favorable",
-    "couleur": "success",
-    "ordre": "4"
+    "couleur": "success"
   },
   {
     "id": "fre",
     "nom": "favorable avec réserves",
-    "couleur": "warning",
-    "ordre": "5"
+    "couleur": "warning"
   },
   {
     "id": "def",
     "nom": "défavorable",
-    "couleur": "error",
-    "ordre": "6"
+    "couleur": "error"
   },
   {
     "id": "dre",
     "nom": "défavorable avec réserves",
-    "couleur": "warning",
-    "ordre": "7"
+    "couleur": "warning"
   },
   {
     "id": "pro",
     "nom": "programmé",
-    "couleur": "warning",
-    "ordre": "8"
+    "couleur": "warning"
   },
   {
     "id": "enc",
     "nom": "en cours",
-    "couleur": "success",
-    "ordre": "9"
+    "couleur": "success"
   },
   {
     "id": "ajo",
     "nom": "ajourné",
-    "couleur": "warning",
-    "ordre": "10"
+    "couleur": "warning"
   },
   {
     "id": "ter",
     "nom": "terminé",
     "description": "La démarche engagée unilatéralement par l’administration qui a fait l’objet d’une décision de l’administration. Celle-ci n’a pas fait l’objet d’une demande de la part du titulaire du titre ou de l’autorisation.\n",
-    "couleur": "neutral",
-    "ordre": "11"
+    "couleur": "neutral"
   },
   {
     "id": "nul",
     "nom": "non applicable",
-    "couleur": "neutral",
-    "ordre": "12"
+    "couleur": "neutral"
   }
 ]

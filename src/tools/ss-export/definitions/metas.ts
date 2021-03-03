@@ -148,7 +148,7 @@ const tables = [
   {
     id: 13,
     name: 'etapesStatuts',
-    columns: ['id', 'nom', 'description', 'couleur', 'ordre']
+    columns: ['id', 'nom', 'description', 'couleur']
   },
   {
     id: 14,

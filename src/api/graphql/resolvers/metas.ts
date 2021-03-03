@@ -849,12 +849,6 @@ const etapeStatutModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    if (etapeStatut.ordre) {
-      const etapesStatuts = await etapesStatutsGet()
-
-      await ordreUpdate(etapeStatut, etapesStatuts, etapeStatutUpdate)
-    }
-
     await etapeStatutUpdate(etapeStatut.id!, etapeStatut)
 
     const etapesStatuts = await etapesStatutsGet()
