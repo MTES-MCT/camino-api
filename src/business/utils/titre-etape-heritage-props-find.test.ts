@@ -351,4 +351,27 @@ describe('retourne l’étape en fonction de son héritage', () => {
       titreEtape: newTitreEtape
     })
   })
+
+  test('l’héritage est désactivé si l’étape précédente n’existe plus', () => {
+    const titreEtape = {
+      id: 'titreEtapeId',
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: true, etapeId: 'prevTitreEtapeId' }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const newTitreEtape = objectClone(titreEtape)
+    newTitreEtape.heritageProps = titreEtapePropsIds.reduce((acc, prop) => {
+      acc[prop] = { actif: false, etapeId: undefined }
+
+      return acc
+    }, {} as IHeritageProps)
+
+    expect(titreEtapeHeritagePropsFind(titreEtape, null)).toEqual({
+      hasChanged: true,
+      titreEtape: newTitreEtape
+    })
+  })
 })

@@ -119,54 +119,61 @@ const titreEtapeHeritagePropsFind = (
         ? prevHeritage.etapeId
         : prevTitreEtape?.id
 
-    if (heritage.actif && prevTitreEtape) {
-      const oldValue = titreEtape[propId] as IPropValue | undefined | null
-      const newValue = prevTitreEtape[propId] as IPropValue | undefined | null
+    if (heritage.actif) {
+      if (prevTitreEtape) {
+        const oldValue = titreEtape[propId] as IPropValue | undefined | null
+        const newValue = prevTitreEtape[propId] as IPropValue | undefined | null
 
-      if (!titreEtapePropCheck(propId, oldValue, newValue)) {
-        hasChanged = true
-        newTitreEtape = objectClone(newTitreEtape)
+        if (!titreEtapePropCheck(propId, oldValue, newValue)) {
+          hasChanged = true
+          newTitreEtape = objectClone(newTitreEtape)
 
-        if (propId === 'points') {
-          newTitreEtape.points = titrePointsIdsUpdate(
-            newValue as ITitrePoint[],
-            prevTitreEtape.id,
-            newTitreEtape.id
-          )
-        } else if (propId === 'amodiataires' || propId === 'titulaires') {
-          newTitreEtape[propId] = newValue as IEntreprise[]
-        } else if (propId === 'substances') {
-          newTitreEtape[propId] = newValue as ITitreSubstance[]
-        } else if (propId === 'dateDebut' || propId === 'dateFin') {
-          newTitreEtape[propId] = newValue as string
-        } else if (propId === 'duree' || propId === 'surface') {
-          newTitreEtape[propId] = newValue as number
-        }
-      }
-
-      const incertitudePropId = propId as keyof ITitreIncertitudes
-      // si l’incertitude est déjà présente, on la supprime
-      if (
-        newTitreEtape.incertitudes &&
-        newTitreEtape.incertitudes[incertitudePropId]
-      ) {
-        hasChanged = true
-        newTitreEtape = objectClone(newTitreEtape)
-        delete newTitreEtape.incertitudes![incertitudePropId]
-      }
-      // si il y a une incertitude sur l’étape précédente, alors on la recopie
-      if (
-        prevTitreEtape.incertitudes &&
-        prevTitreEtape.incertitudes[incertitudePropId]
-      ) {
-        hasChanged = true
-        newTitreEtape = objectClone(newTitreEtape)
-        if (!newTitreEtape.incertitudes) {
-          newTitreEtape.incertitudes = {}
+          if (propId === 'points') {
+            newTitreEtape.points = titrePointsIdsUpdate(
+              newValue as ITitrePoint[],
+              prevTitreEtape.id,
+              newTitreEtape.id
+            )
+          } else if (propId === 'amodiataires' || propId === 'titulaires') {
+            newTitreEtape[propId] = newValue as IEntreprise[]
+          } else if (propId === 'substances') {
+            newTitreEtape[propId] = newValue as ITitreSubstance[]
+          } else if (propId === 'dateDebut' || propId === 'dateFin') {
+            newTitreEtape[propId] = newValue as string
+          } else if (propId === 'duree' || propId === 'surface') {
+            newTitreEtape[propId] = newValue as number
+          }
         }
 
-        newTitreEtape.incertitudes![incertitudePropId] =
+        const incertitudePropId = propId as keyof ITitreIncertitudes
+        // si l’incertitude est déjà présente, on la supprime
+        if (
+          newTitreEtape.incertitudes &&
+          newTitreEtape.incertitudes[incertitudePropId]
+        ) {
+          hasChanged = true
+          newTitreEtape = objectClone(newTitreEtape)
+          delete newTitreEtape.incertitudes![incertitudePropId]
+        }
+        // si il y a une incertitude sur l’étape précédente, alors on la recopie
+        if (
+          prevTitreEtape.incertitudes &&
           prevTitreEtape.incertitudes[incertitudePropId]
+        ) {
+          hasChanged = true
+          newTitreEtape = objectClone(newTitreEtape)
+          if (!newTitreEtape.incertitudes) {
+            newTitreEtape.incertitudes = {}
+          }
+
+          newTitreEtape.incertitudes![incertitudePropId] =
+            prevTitreEtape.incertitudes[incertitudePropId]
+        }
+      } else {
+        // l’étape précédente a été supprimée, il faut donc désactiver l’héritage
+        hasChanged = true
+        newTitreEtape = objectClone(newTitreEtape)
+        newTitreEtape.heritageProps![propId].actif = false
       }
     }
 

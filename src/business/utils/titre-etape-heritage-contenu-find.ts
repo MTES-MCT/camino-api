@@ -21,18 +21,26 @@ const heritageContenuFind = (
   const heritage = titreEtape.heritageContenu![sectionId][elementId]
   const prevHeritage = prevTitreEtape?.heritageContenu![sectionId][elementId]
 
+  let actif = heritage.actif
+
   const etapeId =
     prevHeritage?.etapeId && prevHeritage?.actif
       ? prevHeritage.etapeId
       : prevTitreEtape?.id
 
-  if (heritage.actif && prevTitreEtape) {
-    const oldValue = value
-    value = (prevTitreEtape.contenu &&
-      prevTitreEtape.contenu[sectionId] &&
-      prevTitreEtape.contenu[sectionId][elementId]) as IContenuValeur
+  if (heritage.actif) {
+    if (prevTitreEtape) {
+      const oldValue = value
+      value = (prevTitreEtape.contenu &&
+        prevTitreEtape.contenu[sectionId] &&
+        prevTitreEtape.contenu[sectionId][elementId]) as IContenuValeur
 
-    if (oldValue !== value) {
+      if (oldValue !== value) {
+        hasChanged = true
+      }
+    } else {
+      // si l’étape précédente a été supprimée il faut désactiver l’héritage
+      actif = false
       hasChanged = true
     }
   }
@@ -41,7 +49,7 @@ const heritageContenuFind = (
     hasChanged = true
   }
 
-  return { hasChanged, value, etapeId }
+  return { hasChanged, value, etapeId, actif }
 }
 
 const titreEtapeHeritageContenuFind = (
@@ -69,6 +77,7 @@ const titreEtapeHeritageContenuFind = (
 
           const {
             hasChanged: contenuHasChanged,
+            actif,
             value,
             etapeId
           } = heritageContenuFind(
@@ -94,6 +103,7 @@ const titreEtapeHeritageContenuFind = (
             }
 
             heritageContenu![section.id][element.id].etapeId = etapeId
+            heritageContenu![section.id][element.id].actif = actif
 
             hasChanged = true
           }

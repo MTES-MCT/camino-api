@@ -31,6 +31,7 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
     } as ITitreEtape
 
     expect(heritageContenuFind('section', 'element', titreEtape)).toEqual({
+      actif: false,
       hasChanged: false,
       value: undefined,
       etapeId: undefined
@@ -59,6 +60,7 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
         titreEtapePrecedente
       )
     ).toEqual({
+      actif: false,
       hasChanged: true,
       value: undefined,
       etapeId: titreEtapePrecedente.id
@@ -93,6 +95,7 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       )
     ).toEqual({
       hasChanged: true,
+      actif: true,
       value: contenu.section.element,
       etapeId: titreEtapePrecedente.id
     })
@@ -127,9 +130,30 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       )
     ).toEqual({
       hasChanged: true,
+      actif: true,
       value: contenu.section.element,
       etapeId: 'firstEtapeId'
     })
+  })
+
+  test('l’héritage est désactivé si l’étape précédente n’existe plus', () => {
+    const titreEtape = {
+      contenu: {
+        section: { element: 'toto' }
+      } as IContenu,
+      heritageContenu: {
+        section: { element: { actif: true, etapeId: 'prevEtapeId' } }
+      } as IHeritageContenu
+    } as ITitreEtape
+
+    expect(heritageContenuFind('section', 'element', titreEtape, null)).toEqual(
+      {
+        hasChanged: true,
+        actif: false,
+        value: titreEtape.contenu!.section.element,
+        etapeId: undefined
+      }
+    )
   })
 })
 
