@@ -34,7 +34,7 @@ const elementHtmlBuild = (
               }, [])
               .join(', ')
           : contenu[sectionId][element.id]
-      }</li>`
+      } ${element.description}</li>`
     : `<li>–</li>`
 
 const elementsHtmlBuild = (
