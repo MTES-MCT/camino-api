@@ -6,7 +6,6 @@ RUN npm ci --only=prod
 
 COPY tsconfig.json ./
 COPY src src/
-COPY dev dev/
 COPY knex knex/
 RUN npm run build
 
@@ -22,7 +21,6 @@ COPY --from=build-stage /app/package.json ./
 COPY --from=build-stage /app/dist ./dist
 COPY --from=build-stage /app/node_modules ./node_modules
 COPY --from=build-stage /app/knex ./knex
-COPY --from=build-stage /app/dev ./dev
 # nous avons besoin des sources pour lancer certains scripts manuellement
 COPY --from=build-stage /app/src ./src
 COPY --from=build-stage /app/tsconfig.json ./
