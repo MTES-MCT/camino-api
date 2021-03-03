@@ -21,15 +21,15 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
-import { titreEtapePointsCalc } from './_titre-etape'
+import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
 import { titreEtapeInputValidate } from '../../_validate/titre-etape-input-validate'
 import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
-import { titreEtapeBuild } from '../../../business/titre-etape-build'
 import { titreEtapeFormat } from '../../_format/titres-etapes'
+import { etapeTypeGet } from '../../../database/queries/metas'
 
 const etape = async (
   { id }: { id: string },
@@ -82,8 +82,12 @@ const etape = async (
   }
 }
 
-const etapeNouvelle = async (
-  { date, titreDemarcheId }: { date: string; titreDemarcheId: string },
+const etapeHeritage = async (
+  {
+    date,
+    titreDemarcheId,
+    typeId
+  }: { date: string; titreDemarcheId: string; typeId: string },
   context: IToken
 ) => {
   try {
@@ -105,6 +109,8 @@ const etapeNouvelle = async (
       titreDemarcheId,
       {
         fields: {
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} },
           etapes: {
             type: { id: {} },
             statut: { id: {} },
@@ -118,7 +124,14 @@ const etapeNouvelle = async (
       'super'
     )
 
-    return titreEtapeBuild(date, titreDemarche.etapes)
+    const etapeType = await etapeTypeGet(typeId)
+    const titreEtape = titreEtapeHeritageBuild(date, etapeType, titreDemarche)
+
+    return titreEtapeFormat(
+      titreEtape,
+      titreDemarche.titre!.typeId,
+      titreDemarche.type!.etapesTypes
+    )
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -177,7 +190,16 @@ const etapeCreer = async (
       throw new Error('droits insuffisants pour créer cette étape')
     }
 
-    const inputErrors = await titreEtapeInputValidate(etape, titreDemarche)
+    const etapeType = await etapeTypeGet(etape.typeId)
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    const inputErrors = await titreEtapeInputValidate(
+      etape,
+      titreDemarche,
+      etapeType
+    )
 
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
@@ -264,7 +286,16 @@ const etapeModifier = async (
       throw new Error('droits insuffisants pour modifier cette étape')
     }
 
-    const inputErrors = await titreEtapeInputValidate(etape, titreDemarche)
+    const etapeType = await etapeTypeGet(etape.typeId)
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    const inputErrors = await titreEtapeInputValidate(
+      etape,
+      titreDemarche,
+      etapeType
+    )
     if (inputErrors.length) {
       throw new Error(inputErrors.join(', '))
     }
@@ -274,6 +305,7 @@ const etapeModifier = async (
       titreDemarche,
       titreDemarche.titre
     )
+
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -520,7 +552,7 @@ const etapeJustificatifDissocier = async (
 
 export {
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,

@@ -11,7 +11,7 @@ import {
 
 import {
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
@@ -173,7 +173,7 @@ export default {
 
   //  queries
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   demarches,
   demarchesTypes,
   demarchesStatuts,

@@ -3,7 +3,10 @@ import { administrationsWithRelations } from './administrations'
 import { IAdministration, IPermissionId, ITitre } from '../../src/types'
 import Titres from '../../src/database/models/titres'
 import options from '../../src/database/queries/_options'
-import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-props-heritage-find'
+import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-heritage-props-find'
+import { etapeTypeGet } from '../../src/database/queries/metas'
+import { etapeTypeSectionsFormat } from '../../src/api/_format/etapes-types'
+import DemarchesTypes from '../../src/database/models/demarches-types'
 
 const visibiliteCheck = async (
   administrationId: string,
@@ -132,11 +135,38 @@ const creationCheck = async (
       'super'
     )
 
+    expect(demarcheCreated.body.errors).toBeUndefined()
+
+    const etapeTypeId = 'mfr'
+    const etapeType = await etapeTypeGet(etapeTypeId)
+
+    const demarcheType = await DemarchesTypes.query()
+      .withGraphFetched(options.demarchesTypes.graph)
+      .findById(demarcheCreated.body.data.demarcheCreer.demarches[0].type!.id)
+
+    const sections = etapeTypeSectionsFormat(
+      etapeType,
+      demarcheType.etapesTypes,
+      titreTypeId
+    )
+
+    const heritageContenu = sections.reduce((acc, section) => {
+      if (!acc[section.id]) {
+        acc[section.id] = {}
+      }
+
+      section.elements?.forEach(e => {
+        acc[section.id][e.id] = { actif: false }
+      })
+
+      return acc
+    }, {} as any)
+
     const res = await graphQLCall(
       queryImport('titres-etapes-creer'),
       {
         etape: {
-          typeId: 'mfr',
+          typeId: etapeTypeId,
           statutId: 'fai',
           titreDemarcheId: `${demarcheCreated.body.data.demarcheCreer.id}-oct01`,
           date: '',
@@ -149,7 +179,8 @@ const creationCheck = async (
             {} as {
               [key: string]: { actif: boolean }
             }
-          )
+          ),
+          heritageContenu
         }
       },
       'super'

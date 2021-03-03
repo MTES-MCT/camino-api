@@ -5,7 +5,8 @@ import { titresActivitesUpdate } from './processes/titres-activites-update'
 import { titresDatesUpdate } from './processes/titres-dates-update'
 import { titresDemarchesPublicUpdate } from './processes/titres-demarches-public-update'
 import { titresDemarchesStatutIdUpdate } from './processes/titres-demarches-statut-ids-update'
-import { titresEtapesHeritageUpdate } from './processes/titres-etapes-heritage-update'
+import { titresEtapesHeritagePropsUpdate } from './processes/titres-etapes-heritage-props-update'
+import { titresEtapesHeritageContenuUpdate } from './processes/titres-etapes-heritage-contenu-update'
 import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-update'
 import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import { titresEtapesOrdreUpdate } from './processes/titres-etapes-ordre-update'
@@ -50,9 +51,12 @@ const titreEtapeUpdate = async (
       titreDemarcheId
     ])
 
-    const titresEtapesHeritageUpdated = await titresEtapesHeritageUpdate([
-      titreDemarcheId
-    ])
+    const titresEtapesHeritagePropsUpdated = await titresEtapesHeritagePropsUpdate(
+      [titreDemarcheId]
+    )
+    const titresEtapesHeritageContenuUpdated = await titresEtapesHeritageContenuUpdate(
+      [titreDemarcheId]
+    )
 
     titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
@@ -125,7 +129,8 @@ const titreEtapeUpdate = async (
 
     logsUpdate({
       titresEtapesOrdreUpdated,
-      titresEtapesHeritageUpdated,
+      titresEtapesHeritagePropsUpdated,
+      titresEtapesHeritageContenuUpdated,
       titresDemarchesStatutUpdated,
       titresDemarchesPublicUpdated,
       titresDemarchesOrdreUpdated,

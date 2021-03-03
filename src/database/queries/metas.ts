@@ -389,6 +389,8 @@ const etapesTypesGet = async (
   return q
 }
 
+const etapeTypeGet = async (id: string) => EtapesTypes.query().findById(id)
+
 const etapeTypeUpdate = async (id: string, props: Partial<IEtapeType>) =>
   EtapesTypes.query().patchAndFetchById(id, props)
 
@@ -480,6 +482,7 @@ export {
   demarchesStatutsGet,
   demarcheStatutUpdate,
   etapesTypesGet,
+  etapeTypeGet,
   etapeTypeUpdate,
   devisesGet,
   deviseUpdate,

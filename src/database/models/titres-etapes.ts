@@ -3,10 +3,12 @@ import { join } from 'path'
 import { ITitreEtape, ITitrePoint } from '../../types'
 
 import { paysFormat } from './_format/pays'
-import { heritagePropsFormat } from './_format/titre-etape-props-heritage'
+import {
+  heritagePropsFormat,
+  heritageContenuFormat
+} from './_format/titre-etape-heritage'
 
 interface TitresEtapes extends ITitreEtape {}
-
 class TitresEtapes extends Model {
   public static tableName = 'titresEtapes'
 
@@ -28,7 +30,7 @@ class TitresEtapes extends Model {
       surface: { type: ['number', 'null'] },
       contenu: { type: 'json' },
       incertitudes: { type: 'json' },
-      contenuHeritage: { type: 'json' },
+      heritageContenu: { type: 'json' },
       heritageProps: { type: 'json' }
     }
   }
@@ -190,6 +192,10 @@ class TitresEtapes extends Model {
       this.heritageProps = await heritagePropsFormat(this.heritageProps)
     }
 
+    if (context.fetchHeritage && this.heritageContenu) {
+      this.heritageContenu = await heritageContenuFormat(this.heritageContenu)
+    }
+
     return this
   }
 
@@ -238,6 +244,18 @@ class TitresEtapes extends Model {
       json.substances = json.substancesIds.map((id: string) => ({ id }))
 
       delete json.substancesIds
+    }
+
+    if (json.incertitudes) {
+      Object.keys(json.incertitudes).forEach(id => {
+        if (!json.incertitudes[id] || !(json[id] || json[id] === 0)) {
+          delete json.incertitudes[id]
+        }
+      })
+
+      if (!Object.keys(json.incertitudes).length) {
+        delete json.incertitudes
+      }
     }
 
     delete json.geojsonMultiPolygon

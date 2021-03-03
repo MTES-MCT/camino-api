@@ -9,6 +9,9 @@ fragment titre on Titre {
   id
   demarches {
     id
+    type {
+      id
+    }
   }
 }
 

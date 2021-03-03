@@ -1,7 +1,7 @@
 import {
-  titreEtapePropsHeritageFind,
+  titreEtapeHeritagePropsFind,
   titreEtapePropsIds
-} from './titre-etape-props-heritage-find'
+} from './titre-etape-heritage-props-find'
 import {
   IEntreprise,
   IHeritageProps,
@@ -22,7 +22,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    expect(titreEtapePropsHeritageFind(titreEtape)).toEqual({
+    expect(titreEtapeHeritagePropsFind(titreEtape)).toEqual({
       hasChanged: false,
       titreEtape
     })
@@ -69,7 +69,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
       )
 
       expect(
-        titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+        titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
       ).toEqual({
         hasChanged: true,
         titreEtape: titreEtapeNew
@@ -96,7 +96,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     )
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: false,
       titreEtape
@@ -130,7 +130,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
       titreEtapeNew[propId] = [{ id: 'toto' }, { id: 'tata' }]
 
       expect(
-        titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+        titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
       ).toEqual({
         hasChanged: true,
         titreEtape: titreEtapeNew
@@ -161,7 +161,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     titreEtapeNew.titulaires = [{ id: 'toto' }] as IEntreprise[]
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: true,
       titreEtape: titreEtapeNew
@@ -191,7 +191,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     )
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: true,
       titreEtape: titreEtapeNew
@@ -220,7 +220,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     )
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: false,
       titreEtape
@@ -256,7 +256,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     newTitreEtape.points = titreEtapePrecedente.points
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: true,
       titreEtape: newTitreEtape
@@ -286,7 +286,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     newTitreEtape.incertitudes = { surface: true }
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: true,
       titreEtape: newTitreEtape
@@ -315,7 +315,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     newTitreEtape.incertitudes = {}
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
       hasChanged: true,
       titreEtape: newTitreEtape
@@ -345,8 +345,31 @@ describe('retourne l’étape en fonction de son héritage', () => {
     newTitreEtape.incertitudes = { surface: true }
 
     expect(
-      titreEtapePropsHeritageFind(titreEtape, titreEtapePrecedente)
+      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
     ).toEqual({
+      hasChanged: true,
+      titreEtape: newTitreEtape
+    })
+  })
+
+  test('l’héritage est désactivé si l’étape précédente n’existe plus', () => {
+    const titreEtape = {
+      id: 'titreEtapeId',
+      heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
+        acc[prop] = { actif: true, etapeId: 'prevTitreEtapeId' }
+
+        return acc
+      }, {} as IHeritageProps)
+    } as ITitreEtape
+
+    const newTitreEtape = objectClone(titreEtape)
+    newTitreEtape.heritageProps = titreEtapePropsIds.reduce((acc, prop) => {
+      acc[prop] = { actif: false, etapeId: undefined }
+
+      return acc
+    }, {} as IHeritageProps)
+
+    expect(titreEtapeHeritagePropsFind(titreEtape, null)).toEqual({
       hasChanged: true,
       titreEtape: newTitreEtape
     })

@@ -1,4 +1,4 @@
-import { IHeritageProps, IFields } from '../../../types'
+import { IHeritageProps, IFields, IHeritageContenu } from '../../../types'
 import { titreEtapeGet } from '../../queries/titres-etapes'
 
 const heritagePropsFormat = async (heritageProps: IHeritageProps) => {
@@ -26,4 +26,25 @@ const heritagePropsFormat = async (heritageProps: IHeritageProps) => {
   return heritageProps
 }
 
-export { heritagePropsFormat }
+const heritageContenuFormat = async (heritageContenu: IHeritageContenu) => {
+  const fields = { type: { id: {} }, statut: { id: {} } } as IFields
+  for (const sectionId of Object.keys(heritageContenu)) {
+    if (heritageContenu[sectionId]) {
+      for (const elementId of Object.keys(heritageContenu[sectionId])) {
+        if (heritageContenu[sectionId][elementId].etapeId) {
+          const titreEtape = await titreEtapeGet(
+            heritageContenu[sectionId][elementId].etapeId!,
+            { fields },
+            'super'
+          )
+
+          heritageContenu[sectionId][elementId].etape = titreEtape
+        }
+      }
+    }
+  }
+
+  return heritageContenu
+}
+
+export { heritagePropsFormat, heritageContenuFormat }

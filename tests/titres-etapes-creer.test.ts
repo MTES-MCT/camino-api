@@ -6,7 +6,7 @@ import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
-import { titreEtapePropsIds } from '../src/business/utils/titre-etape-props-heritage-find'
+import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -100,7 +100,13 @@ describe('etapeCreer', () => {
             {} as {
               [key: string]: { actif: boolean }
             }
-          )
+          ),
+          heritageContenu: {
+            arm: {
+              mecanise: { actif: true },
+              franchissements: { actif: true }
+            }
+          }
         }
       },
       'super'

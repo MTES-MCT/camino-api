@@ -65,6 +65,8 @@ type Etape {
 
   heritageProps: HeritageProps
 
+  heritageContenu: Json
+
   contenu: Json
 
   modification: Boolean
@@ -73,10 +75,7 @@ type Etape {
 }
 
 "Étape d'une démarche effectuée sur un titre minier"
-type EtapeNouvelle {
-  "Date de l'étape"
-  date: String!
-
+type EtapeHeritage {
   "Durée de la démarche"
   duree: Int
 
@@ -101,7 +100,11 @@ type EtapeNouvelle {
   "Amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
 
+  contenu: Json
+
   heritageProps: HeritageProps
+
+  heritageContenu: Json
 }
 
 type EtapeId {
@@ -138,7 +141,6 @@ type HeritageProp {
 
 input InputEtapeCreation {
   typeId: ID!
-  etapeTypeId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!
@@ -153,13 +155,13 @@ input InputEtapeCreation {
   amodiataires: [InputId!]
   incertitudes: InputIncertitudes
   heritageProps: InputHeritageProps
+  heritageContenu: Json
   contenu: Json
 }
 
 input InputEtapeModification {
   id: ID!
   typeId: ID!
-  etapeTypeId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!
@@ -174,6 +176,7 @@ input InputEtapeModification {
   amodiataires: [InputId!]
   incertitudes: InputIncertitudes
   heritageProps: InputHeritageProps
+  heritageContenu: Json
   contenu: Json
 }
 
