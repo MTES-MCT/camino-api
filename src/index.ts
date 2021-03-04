@@ -34,7 +34,10 @@ init()
 const app = express()
 
 if (process.env.SENTRY_DSN) {
-  Sentry.init({ dsn: process.env.SENTRY_DSN })
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    environment: process.env.ENV === 'prod' ? 'production' : process.env.ENV
+  })
   app.use(Sentry.Handlers.requestHandler())
 }
 
