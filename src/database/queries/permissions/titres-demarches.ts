@@ -140,7 +140,6 @@ const titreDemarchePermissionQueryBuild = (
       titreDemarcheModificationQueryBuild('titresDemarches').as('modification')
     )
     q.select(raw('true').as('suppression'))
-    q.select(raw('true').as('etapesCreation'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
@@ -158,27 +157,20 @@ const titreDemarchePermissionQueryBuild = (
         titreDemarcheModificationQueryBuild('titresDemarches')
       ])
 
-    q.select(titresModificationQuery.as('modification'))
     // propriété 'modification'
     // récupère les types d'étape autorisés
     // pour tous les titres et démarches sur lesquels l'utilisateur a des droits
+    q.select(titresModificationQuery.as('modification'))
 
-    const etapesCreationQuery = etapesTypesModificationQueryBuild(
-      administrationsIds,
-      'creation'
-    )
-      // filtre selon la démarche
-      .whereRaw('?? = ??', ['demarchesModification.id', 'titresDemarches.id'])
-      .groupBy('demarchesModification.id')
-
-    // propriété 'etapesCreation'
-    q.select(etapesCreationQuery.as('etapesCreation'))
     q.select(raw('false').as('suppression'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
-    q.select(raw('false').as('etapesCreation'))
   }
+
+  q.select(
+    titreEtapesCreationQueryBuild('titresDemarches', user).as('etapesCreation')
+  )
 
   q.modifyGraph('etapes', te => {
     titreEtapesPermissionQueryBuild(
@@ -212,5 +204,43 @@ const titreDemarcheModificationQueryBuild = (demarcheAlias: string) =>
         `${demarcheAlias}.id`
       ])
   ])
+
+const titreEtapesCreationQueryBuild = (
+  demarcheAlias: string,
+  user?: IUtilisateur
+) => {
+  // si il existe une seule étape « en construction » on ne peut pas créer d’autres étapes
+  const etapeEnConstructionQuery = raw('(not exists(?))', [
+    TitresEtapes.query()
+      .alias('titresDemarchesEtapesCreation')
+      .whereRaw('?? = ??', [
+        'titresDemarchesEtapesCreation.titreDemarcheId',
+        `${demarcheAlias}.id`
+      ])
+      .whereRaw('?? = ?', ['titresDemarchesEtapesCreation.statutId', 'aco'])
+  ])
+
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    return etapeEnConstructionQuery
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
+    user?.administrations?.length
+  ) {
+    const administrationsIds = user.administrations.map(e => e.id)
+
+    return (
+      etapesTypesModificationQueryBuild(administrationsIds, 'creation')
+        // filtre selon la démarche
+        .whereRaw('?? = ??', [
+          'demarchesModification.id',
+          `${demarcheAlias}.id`
+        ])
+        .andWhere(etapeEnConstructionQuery)
+        .groupBy('demarchesModification.id')
+    )
+  } else {
+    return raw('false')
+  }
+}
 
 export { titreDemarchePermissionQueryBuild }

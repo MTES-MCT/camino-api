@@ -289,7 +289,6 @@ interface IEntreprise {
 interface IEtapeStatut {
   id: string
   nom: string
-  ordre: number
   description?: string
   couleur: string
 }

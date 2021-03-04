@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 
 import { IEtapeStatut } from '../../types'
 
@@ -15,6 +15,12 @@ class EtapesStatuts extends Model {
       id: { type: 'string', maxLength: 3 },
       nom: { type: ['string', 'null'] },
       couleur: { type: ['string', 'null'], maxLength: 8 }
+    }
+  }
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
     }
   }
 }
