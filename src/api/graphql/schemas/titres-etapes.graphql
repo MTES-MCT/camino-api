@@ -151,8 +151,8 @@ input InputEtapeCreation {
   surface: Float
   substances: [InputSubstances!]
   points: [InputPoint]
-  titulaires: [InputId!]
-  amodiataires: [InputId!]
+  titulaires: [InputEtapeEntreprise!]
+  amodiataires: [InputEtapeEntreprise!]
   incertitudes: InputIncertitudes
   heritageProps: InputHeritageProps
   heritageContenu: Json
@@ -172,8 +172,8 @@ input InputEtapeModification {
   surface: Float
   substances: [InputSubstances!]
   points: [InputPoint]
-  titulaires: [InputId!]
-  amodiataires: [InputId!]
+  titulaires: [InputEtapeEntreprise!]
+  amodiataires: [InputEtapeEntreprise!]
   incertitudes: InputIncertitudes
   heritageProps: InputHeritageProps
   heritageContenu: Json
@@ -217,4 +217,9 @@ input InputHeritageProp {
 input InputSubstances {
   id: ID!
   ordre: Int
+}
+
+input InputEtapeEntreprise {
+  id: ID!
+  operateur: Boolean
 }

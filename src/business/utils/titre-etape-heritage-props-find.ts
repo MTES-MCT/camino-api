@@ -3,7 +3,8 @@ import {
   IEntreprise,
   ITitrePoint,
   ITitreIncertitudes,
-  ITitreSubstance
+  ITitreSubstance,
+  ITitreEntreprise
 } from '../../types'
 import { objectClone } from '../../tools'
 
@@ -55,12 +56,9 @@ const propertyArrayCheck = (
         (newValue as ITitrePoint[]).map(comparator).sort().toString() ===
         (prevValue as ITitrePoint[]).map(comparator).sort().toString()
       )
-    } else {
-      const comparator = ((propValueArray: { id: string; ordre: number }) =>
-        propValueArray.id + propValueArray.ordre) as (obj: {
-        id: string
-        ordre: number
-      }) => string
+    } else if (propId === 'substances') {
+      const comparator = (propValueArray: { id: string; ordre: number }) =>
+        propValueArray.id + propValueArray.ordre
 
       return (
         (newValue as { id: string; ordre: number }[])
@@ -71,6 +69,14 @@ const propertyArrayCheck = (
           .map(comparator)
           .sort()
           .toString()
+      )
+    } else if (['titulaires', 'amodiataires'].includes(propId)) {
+      const comparator = (propValueArray: ITitreEntreprise) =>
+        propValueArray.id + propValueArray.operateur
+
+      return (
+        (newValue as ITitreEntreprise[]).map(comparator).sort().toString() ===
+        (prevValue as ITitreEntreprise[]).map(comparator).sort().toString()
       )
     }
   }

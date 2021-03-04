@@ -286,6 +286,10 @@ interface IEntreprise {
   archive?: boolean | null
 }
 
+interface ITitreEntreprise extends IEntreprise {
+  operateur?: boolean
+}
+
 interface IEtapeStatut {
   id: string
   nom: string
@@ -564,8 +568,8 @@ interface ITitre {
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
   geojsonCentre?: IGeoJsonCentre | null
-  titulaires?: IEntreprise[] | null
-  amodiataires?: IEntreprise[] | null
+  titulaires?: ITitreEntreprise[] | null
+  amodiataires?: ITitreEntreprise[] | null
   administrationsLocales?: IAdministration[] | null
   administrationsGestionnaires?: IAdministration[] | null
   administrations?: IAdministration[] | null
@@ -732,8 +736,8 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   points?: ITitrePoint[] | null
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
-  titulaires?: IEntreprise[] | null
-  amodiataires?: IEntreprise[] | null
+  titulaires?: ITitreEntreprise[] | null
+  amodiataires?: ITitreEntreprise[] | null
   administrations?: IAdministration[] | null
   justificatifs?: IDocument[] | null
   communes?: ICommune[] | null
@@ -993,6 +997,7 @@ export {
   ITitreType,
   ITitreTypeType,
   ITitreTypeDemarcheTypeEtapeType,
+  ITitreEntreprise,
   ITravauxType,
   ITrimestre,
   IUnite,
