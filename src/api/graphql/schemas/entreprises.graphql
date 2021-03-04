@@ -29,6 +29,7 @@ type Entreprise {
   amodiataireTitres: [Titre]
   documents: [Document]
   archive: Boolean
+  operateur: Boolean
 
   modification: Boolean
 }
