@@ -30,6 +30,13 @@ const main = async () => {
 
   await ActivitesTypes.query().patch(activiteTypeGrx).where('id', 'grx')
 
+  const activiteTypeWrp = await ActivitesTypes.query()
+    .where('id', 'wrp')
+    .first()
+  activiteTypeWrp.nom = "rapport annuel d'exploitation de granulats marins"
+
+  await ActivitesTypes.query().patch(activiteTypeWrp).where('id', 'wrp')
+
   const documentTypeRgr = await DocumentsTypes.query()
     .where('id', 'rgr')
     .first()
