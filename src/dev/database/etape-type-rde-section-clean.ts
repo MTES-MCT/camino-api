@@ -5,32 +5,48 @@ import TitresEtapes from '../../database/models/titres-etapes'
 import { IContenuElement, ISectionElement } from '../../types'
 
 const main = async () => {
-  // const etapeTypeRde = await EtapesTypes.query().where('id', 'rde').first()
+  const etapeTypeRde = await EtapesTypes.query().where('id', 'rde').first()
 
-  // const numeroRecepisseSectionDeal = etapeTypeRde.sections
-  //   ?.find(s => s.id === 'deal')!
-  //   .elements?.find(e => e.id === 'numero-recepice') as ISectionElement
+  const numeroRecepisseSectionDeal = etapeTypeRde.sections
+    ?.find(s => s.id === 'deal')!
+    .elements?.find(e => e.id === 'numero-recepice') as ISectionElement
 
-  // numeroRecepisseSectionDeal.id = 'numero-recepisse'
-  // numeroRecepisseSectionDeal.nom = 'Numéro de récépissé'
-  // numeroRecepisseSectionDeal.description =
-  //   'Numéro de récépissé émis par la DEAL Service eau'
+  numeroRecepisseSectionDeal.id = 'numero-recepisse'
+  numeroRecepisseSectionDeal.nom = 'Numéro de récépissé'
+  numeroRecepisseSectionDeal.description =
+    'Numéro de récépissé émis par la DEAL Service eau'
 
-  // await EtapesTypes.query().patch(etapeTypeRde).where('id', 'rde')
+  await EtapesTypes.query().patch(etapeTypeRde).where('id', 'rde')
 
   const titresEtapesRde = await (
     await TitresEtapes.query().where('typeId', 'rde')
   ).filter(te => te.contenu && te.contenu && te.contenu.deal)
 
-  titresEtapesRde.forEach(te => {
-    console.log('te :>> ', te)
+  for (const te of titresEtapesRde) {
+    const contenu = te.contenu
 
-    const deal = te.contenu?.deal as IContenuElement
-    deal['numero-recepisse'] = deal['numero-recepice']
-    delete deal['numero-recepice']
+    if (contenu) {
+      const deal = contenu.deal as IContenuElement
+      deal['numero-recepisse'] = deal['numero-recepice']
+      delete deal['numero-recepice']
 
-    TitresEtapes.query().patch(te).where('id', te.id)
-  })
+      contenu.deal = deal
+      te.contenu = contenu
+    }
+
+    const heritageContenu = te.heritageContenu
+
+    if (heritageContenu) {
+      const deal = heritageContenu.deal
+      deal['numero-recepisse'] = deal['numero-recepice']
+      delete deal['numero-recepice']
+
+      heritageContenu.deal = deal
+      te.heritageContenu = heritageContenu
+    }
+
+    await TitresEtapes.query().patch(te).where('id', te.id)
+  }
 
   process.exit(0)
 }
