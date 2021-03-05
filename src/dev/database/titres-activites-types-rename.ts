@@ -30,13 +30,6 @@ const main = async () => {
 
   await ActivitesTypes.query().patch(activiteTypeGrx).where('id', 'grx')
 
-  const activiteTypeWrp = await ActivitesTypes.query()
-    .where('id', 'wrp')
-    .first()
-  activiteTypeWrp.nom = "rapport annuel d'exploitation de granulats marins"
-
-  await ActivitesTypes.query().patch(activiteTypeWrp).where('id', 'wrp')
-
   const documentTypeRgr = await DocumentsTypes.query()
     .where('id', 'rgr')
     .first()
@@ -44,6 +37,21 @@ const main = async () => {
   documentTypeRgr.nom = "rapport annuel d'exploitation"
 
   await DocumentsTypes.query().patch(documentTypeRgr).where('id', 'rgr')
+
+  const activiteTypeWrp = await ActivitesTypes.query()
+    .where('id', 'wrp')
+    .first()
+  activiteTypeWrp.nom = "rapport annuel d'exploitation de granulats marins"
+
+  await ActivitesTypes.query().patch(activiteTypeWrp).where('id', 'wrp')
+
+  const documentTypeRwp = await DocumentsTypes.query()
+    .where('id', 'rwp')
+    .first()
+
+  documentTypeRwp.nom = "rapport annuel d'exploitation de granulats marins"
+
+  await DocumentsTypes.query().patch(documentTypeRwp).where('id', 'rwp')
 
   process.exit(0)
 }
