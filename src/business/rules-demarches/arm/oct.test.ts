@@ -21,14 +21,20 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
 
   test('peut créer une étape "mdp" juste après une "mfr"', () => {
     expect(
-      octEtatsValidate([{ typeId: 'mfr' }, { typeId: 'mdp' }])
+      octEtatsValidate([{ typeId: 'mfr', statutId: 'fai' }, { typeId: 'mdp' }])
     ).toHaveLength(0)
+  })
+
+  test('ne peut pas créer une étape "mdp" juste après une "mfr" en construction', () => {
+    expect(
+      octEtatsValidate([{ typeId: 'mfr', statutId: 'aco' }, { typeId: 'mdp' }])
+    ).toEqual(['l’étape "mdp" n’est pas possible juste après "mfr"'])
   })
 
   test('ne peut pas créer 2 "mfr"', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'mfr', date: '2020-01-03' }
       ])
@@ -38,9 +44,9 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test('ne peut pas créer une étape "mfr" si il y a déjà une "mfr"', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr' },
+        { typeId: 'mfr', statutId: 'fai' },
         { typeId: 'mdp' },
-        { typeId: 'mfr' }
+        { typeId: 'mfr', statutId: 'fai' }
       ])
     ).toEqual(['l’étape "mfr" existe déjà'])
   })
@@ -49,7 +55,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mdp', date: '2020-02-02' },
-        { typeId: 'mfr', date: '2020-02-03' }
+        { typeId: 'mfr', statutId: 'fai', date: '2020-02-03' }
       ])
     ).toEqual(['l’étape "mdp" n’est pas possible juste après '])
   })
@@ -60,7 +66,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       expect(
         octEtatsValidate(
           [
-            { typeId: 'mfr', date: '2020-01-01' },
+            { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
             { typeId: 'mdp', date: '2020-01-02' },
             { typeId, date: '2020-01-02' }
           ],
@@ -77,7 +83,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       octEtatsValidate([
         { typeId: 'mcp', date: '2020-02-03' },
         { typeId: 'mdp', date: '2020-02-02' },
-        { typeId: 'mfr', date: '2020-01-01' }
+        { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' }
       ])
     ).toHaveLength(0)
   })
@@ -85,7 +91,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test('peut créer une "des" après "mdp"', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-01' },
         { typeId: 'des', date: '2020-01-04' }
       ])
@@ -95,7 +101,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test('ne peut pas créer deux "des"', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-01' },
         { typeId: 'des', date: '2020-01-04' },
         { typeId: 'des', date: '2020-01-04' }
@@ -106,7 +112,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test('ne peut pas créer une "css" après une "des"', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-01' },
         { typeId: 'des', date: '2020-01-04' },
         { typeId: 'css', date: '2020-01-05' }
@@ -118,7 +124,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     expect(
       octEtatsValidate(
         [
-          { typeId: 'mfr', date: '2020-01-01' },
+          { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
           { typeId: 'mdp', date: '2020-01-01' },
           { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
           { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
@@ -142,7 +148,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test('ne peut pas créer une "mno" après la "aca" si le titre n’est pas mécanisé', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-01' },
         { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
         { typeId: 'vfd', date: '2020-01-01' },
