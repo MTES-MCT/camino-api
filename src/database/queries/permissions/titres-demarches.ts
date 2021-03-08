@@ -209,19 +209,8 @@ const titreEtapesCreationQueryBuild = (
   demarcheAlias: string,
   user?: IUtilisateur
 ) => {
-  // si il existe une seule étape « en construction » on ne peut pas créer d’autres étapes
-  const etapeEnConstructionQuery = raw('(not exists(?))', [
-    TitresEtapes.query()
-      .alias('titresDemarchesEtapesCreation')
-      .whereRaw('?? = ??', [
-        'titresDemarchesEtapesCreation.titreDemarcheId',
-        `${demarcheAlias}.id`
-      ])
-      .whereRaw('?? = ?', ['titresDemarchesEtapesCreation.statutId', 'aco'])
-  ])
-
   if (permissionCheck(user?.permissionId, ['super'])) {
-    return etapeEnConstructionQuery
+    return raw('true')
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
@@ -235,7 +224,6 @@ const titreEtapesCreationQueryBuild = (
           'demarchesModification.id',
           `${demarcheAlias}.id`
         ])
-        .andWhere(etapeEnConstructionQuery)
         .groupBy('demarchesModification.id')
     )
   } else {
