@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.74](https://github.com/MTES-MCT/camino-api/compare/v0.24.73...v0.24.74) (2021-03-08)
+
+
+### Features
+
+* expose la propriété "opérateur" sur les entreprises ([#681](https://github.com/MTES-MCT/camino-api/issues/681)) ([19c2bbd](https://github.com/MTES-MCT/camino-api/commit/19c2bbdab01a70153b2f061e6efc26b21bbe2787))
+* **étape:** ajoute le statut « En construction » sur les demande d’octroi d’ARM ([#678](https://github.com/MTES-MCT/camino-api/issues/678)) ([9638132](https://github.com/MTES-MCT/camino-api/commit/96381328d00b8f50b54754b6c239128a6eaa1859))
+* **rapports:** ajout des unités dans les rapports ([e8635a3](https://github.com/MTES-MCT/camino-api/commit/e8635a33779f657dac6e9dfe1623fb1b0ea084c6))
+* hérite le contenu entre les étapes ([#671](https://github.com/MTES-MCT/camino-api/issues/671)) ([263412f](https://github.com/MTES-MCT/camino-api/commit/263412fb96cce50d269c10a40975cd8d5268c7ab))
+
+
+### Bug Fixes
+
+* **étape:**  corrige le libellé "récépissé" dans les déclarations loi sur l'eau ([#685](https://github.com/MTES-MCT/camino-api/issues/685)) ([f0c077a](https://github.com/MTES-MCT/camino-api/commit/f0c077af1587345abea34fa7d43bc404048abbbf))
+* corrige le calcul de la date de demande ([#674](https://github.com/MTES-MCT/camino-api/issues/674)) ([db224f9](https://github.com/MTES-MCT/camino-api/commit/db224f93fbe00aa5a873aa860786c2bf52c94008))
+* renomme les rapports d'exploitation de granulats marins ([#682](https://github.com/MTES-MCT/camino-api/issues/682)) ([b9a36e3](https://github.com/MTES-MCT/camino-api/commit/b9a36e326ecfefa7470f0589dae0fcf77f7a3a88))
+* renomme les rapports d'exploitation de granulats marins ([#684](https://github.com/MTES-MCT/camino-api/issues/684)) ([ad1e2fc](https://github.com/MTES-MCT/camino-api/commit/ad1e2fc8be556ae6d6c4940319f186384e8acd43))
+* simplifie l'initulé des rapports de granulats marins ([56283e5](https://github.com/MTES-MCT/camino-api/commit/56283e578196cb061247271615589df101b82ad3))
+* **activités:** converti les anciennes production d’or en kg ([#676](https://github.com/MTES-MCT/camino-api/issues/676)) ([12294ce](https://github.com/MTES-MCT/camino-api/commit/12294ce0fcbdecfcd8f615ed29f1add9f1c03f67))
+
 ### [0.24.73](https://github.com/MTES-MCT/camino-api/compare/v0.24.72...v0.24.73) (2021-03-02)
 
 
