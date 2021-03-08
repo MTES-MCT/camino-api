@@ -41,7 +41,7 @@ const main = async () => {
   const activiteTypeWrp = await ActivitesTypes.query()
     .where('id', 'wrp')
     .first()
-  activiteTypeWrp.nom = "rapport annuel d'exploitation de granulats marins"
+  activiteTypeWrp.nom = "rapport annuel d'exploitation"
 
   await ActivitesTypes.query().patch(activiteTypeWrp).where('id', 'wrp')
 
@@ -49,7 +49,7 @@ const main = async () => {
     .where('id', 'rwp')
     .first()
 
-  documentTypeRwp.nom = "rapport annuel d'exploitation de granulats marins"
+  documentTypeRwp.nom = "rapport annuel d'exploitation"
 
   await DocumentsTypes.query().patch(documentTypeRwp).where('id', 'rwp')
 
