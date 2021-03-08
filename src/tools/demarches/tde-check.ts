@@ -1,6 +1,5 @@
 import { titresTypesDemarchesTypesEtapesTypesGet } from '../../database/queries/metas'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { ITitreTypeDemarcheTypeEtapeType } from '../../types'
 
 const titreTypeDemarcheTypeEtapeTypeCheck = async () => {
   console.info()
@@ -22,19 +21,12 @@ const titreTypeDemarcheTypeEtapeTypeCheck = async () => {
   )
 
   let errorsNb = 0
-  const errorsTDE = [] as ITitreTypeDemarcheTypeEtapeType[]
 
   demarches.forEach(d => {
     const etapesTypes = d.etapes?.map(({ type }) => type)
     etapesTypes?.forEach(etapeType => {
       if (
         !tde.find(
-          t =>
-            t.titreTypeId === d.titre!.typeId &&
-            t.demarcheTypeId === d.typeId &&
-            t.etapeTypeId === etapeType!.id
-        ) &&
-        !errorsTDE.find(
           t =>
             t.titreTypeId === d.titre!.typeId &&
             t.demarcheTypeId === d.typeId &&
@@ -48,12 +40,6 @@ const titreTypeDemarcheTypeEtapeTypeCheck = async () => {
             etapeType!.nom
           })`
         )
-        errorsTDE.push({
-          titreTypeId: d.titre!.typeId,
-          demarcheTypeId: d.typeId,
-          etapeTypeId: etapeType!.id,
-          ordre: 0
-        })
         errorsNb++
       }
     })

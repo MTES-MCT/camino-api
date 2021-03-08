@@ -11,6 +11,7 @@ const etapeStatutCheck = async () => {
     {
       fields: {
         type: { etapesStatuts: { id: {} } },
+        statut: { id: {} },
         demarche: { type: { id: {} } }
       }
     },
@@ -29,7 +30,11 @@ const etapeStatutCheck = async () => {
       // console.log(
       //   `https://camino.beta.gouv.fr/titres/${etape.demarche!.titreId}, ${
       //     etape.demarche!.type!.nom
-      //   }, ${etape.type!.nom}`
+      //   }, ${etape.type!.nom} (${etape.typeId}),${etape.statut!.nom} (${
+      //     etape.statutId
+      //   }),${etape
+      //     .type!.etapesStatuts!.map(s => `${s.nom} (${s.id})`)
+      //     .join(' | ')}`
       // )
       errorsNb++
     }
