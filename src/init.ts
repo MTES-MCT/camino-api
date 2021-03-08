@@ -1,10 +1,10 @@
 import * as Knex from 'knex'
 import { Model } from 'objection'
 
-import knexConfig from './config/knex'
+import { knexConfig } from './config/knex'
 
-const knex = Knex(knexConfig)
+const knexInstance = Knex(knexConfig)
 
-Model.knex(knex)
+Model.knex(knexInstance)
 
-export default knex
+export default knexInstance

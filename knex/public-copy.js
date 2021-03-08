@@ -5,7 +5,7 @@
 const chalk = require('chalk')
 const Knex = require('knex')
 const { knexSnakeCaseMappers } = require('objection')
-const dbManagerConfig = require('./config-db-manager')
+const { dbManagerConfig } = require('./config-db-manager')
 const dbManager = require('knex-db-manager').databaseManagerFactory(
   dbManagerConfig
 )

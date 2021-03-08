@@ -3,6 +3,7 @@ import { join } from 'path'
 import { titreInsertFormat } from './_format/titre-insert'
 
 import { paysFormat } from './_format/pays'
+import { titreContenuFormat } from './_format/titre-contenu'
 import Administrations from './administrations'
 import Communes from './communes'
 import Domaines from './domaines'
@@ -17,7 +18,6 @@ import Types from './titres-types'
 
 import { ITitre } from '../../types'
 import Forets from './forets'
-import { titreContenuFormat } from './_format/titre-contenu'
 
 interface Titres extends ITitre {}
 
@@ -219,8 +219,6 @@ class Titres extends Model {
         this.demarches
       )
     }
-
-    return this
   }
 
   public $parseJson(json: Pojo) {

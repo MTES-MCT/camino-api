@@ -1,12 +1,12 @@
 require('dotenv').config()
-const knex = require('./config')
+const { knexConfig, connection } = require('./config')
 
 const dbManagerConfig = {
-  knex,
+  knex: knexConfig,
   dbManager: {
-    superUser: knex.connection.user,
-    superPassword: knex.connection.password
+    superUser: connection.user,
+    superPassword: connection.password
   }
 }
 
-module.exports = dbManagerConfig
+module.exports = { dbManagerConfig }

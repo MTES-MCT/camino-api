@@ -8,11 +8,11 @@ const connection = {
   password: process.env.PGPASSWORD
 }
 
-const knex = {
+const knexConfig = {
   client: 'pg',
   // debug: true,
   connection,
   ...knexSnakeCaseMappers()
 }
 
-export default knex
+export { knexConfig }

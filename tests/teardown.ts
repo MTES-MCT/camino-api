@@ -1,6 +1,6 @@
 import { dbManager } from './init'
 
-import * as knexConfig from '../knex/config'
+import { knexConfig } from '../knex/config'
 
 export default async () => {
   if (process.env.TESTS_INTEGRATION) {

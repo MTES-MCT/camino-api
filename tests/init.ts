@@ -6,7 +6,7 @@ import * as express from 'express'
 import { graphql } from '../src/server/graphql'
 import { authJwt } from '../src/server/auth-jwt'
 
-import * as knexConfig from '../knex/config'
+import { knexConfig } from '../knex/config'
 
 const dbManager = knexDbManager.databaseManagerFactory({
   knex: knexConfig,
