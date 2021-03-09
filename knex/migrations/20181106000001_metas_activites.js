@@ -38,7 +38,7 @@ exports.up = knex =>
         .onDelete('CASCADE')
       table.primary(['paysId', 'activiteTypeId'])
     })
-    .createTable('activitesTypes__administrations', table => {
+    .createTable('administrations__activitesTypes', table => {
       table
         .string('activiteTypeId', 3)
         .index()
@@ -51,7 +51,8 @@ exports.up = knex =>
         .index()
         .references('administrations.id')
         .onDelete('CASCADE')
-      table.boolean('modification').defaultTo(false)
+      table.boolean('modificationInterdit')
+      table.boolean('lectureInterdit')
       table.primary(['administrationId', 'activiteTypeId'])
     })
     .createTable('activitesTypes__documentsTypes', table => {
@@ -80,6 +81,6 @@ exports.down = knex =>
     .dropTable('activitesTypes__pays')
     .dropTable('activitesTypes__documentsTypes')
     .dropTable('titresTypes__activitesTypes')
-    .dropTable('activitesTypes__administrations')
+    .dropTable('administrations__activitesTypes')
     .dropTable('activitesTypes')
     .dropTable('activitesStatuts')

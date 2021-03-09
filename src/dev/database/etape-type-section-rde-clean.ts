@@ -34,8 +34,6 @@ const main = async () => {
     }
 
     if (hasChanged) {
-      console.log('étpae mise à jour', te.id)
-
       await TitresEtapes.query().patch(te).where('id', te.id)
     }
   }

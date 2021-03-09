@@ -187,7 +187,9 @@ describe('demarcheModifier', () => {
       administrations.dgtmGuyane
     )
 
-    expect(res.body.errors[0].message).toBe('la démarche n’existe pas')
+    expect(res.body.errors[0].message).toBe(
+      'droits insuffisants pour modifier cette démarche'
+    )
   })
 
   test('ne peut modifier une démarche inexistante', async () => {

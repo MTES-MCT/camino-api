@@ -23,7 +23,8 @@ import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titreTravauxPermissionQueryBuild } from './titres-travaux'
 import {
   administrationsTitresTypesTitresStatutsModifier,
-  administrationsGestionnairesModifier
+  administrationsTitresTypesModifier,
+  titreAdministrationQuery
 } from './administrations'
 
 const titresModificationQueryBuild = (
@@ -41,9 +42,10 @@ const titresModificationQueryBuild = (
           'titresModification'
         )
         .modify(
-          administrationsGestionnairesModifier,
+          administrationsTitresTypesModifier,
           administrationsIds,
-          'titresModification'
+          'titresModification',
+          { isGestionnaire: true }
         )
         .whereNotNull('a_tt.administrationId')
     )
@@ -55,9 +57,10 @@ const titrePermissionQueryBuild = (
 ) => {
   q.select('titres.*')
 
-  const administrationMinistereCheck = user?.administrations?.some(
-    a => a.typeId === 'min'
-  )
+  const administrationMinistereCheck = false
+  // user?.administrations?.some(
+  //   a => a.typeId === 'min'
+  // )
 
   // si
   // - l'utilisateur n'est pas connecté
@@ -106,25 +109,18 @@ const titrePermissionQueryBuild = (
         permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
         user?.administrations?.length
       ) {
-        // titres dont il est administrationsGestionnaire ou administrationsLocale
+        // titres dont l'administration de l'utilisateur est
+        // - administrationsGestionnaire
+        // - ou administrationsLocale
+        // - ou administration associée
         const administrationsIds = user.administrations.map(a => a.id)
 
-        b.orWhere(c => {
-          c.whereExists(
-            (Titres.relatedQuery(
-              'administrationsGestionnaires'
-            ) as QueryBuilder<
-              Administrations,
-              Administrations | Administrations[]
-            >).whereIn('administrationsGestionnaires.id', administrationsIds)
-          )
-          c.orWhereExists(
-            (Titres.relatedQuery('administrationsLocales') as QueryBuilder<
-              Administrations,
-              Administrations | Administrations[]
-            >).whereIn('administrationsLocales.id', administrationsIds)
-          )
-        })
+        b.orWhereExists(
+          titreAdministrationQuery(administrationsIds, 'titres', {
+            isGestionnaire: true,
+            isAssociee: true
+          })
+        )
       }
     })
 
@@ -163,7 +159,24 @@ const titrePermissionQueryBuild = (
     q.select(raw('false').as('travauxCreation'))
   }
 
-  titreActivitesCalc(q, fields, user)
+  // masque les administrations associées
+  if (
+    !user ||
+    !permissionCheck(user?.permissionId, [
+      'super',
+      'admin',
+      'editeur',
+      'lecteur'
+    ])
+  ) {
+    q.modifyGraph('administrationsGestionnaires', b => {
+      b.whereRaw('?? is not true', ['associee'])
+    })
+
+    q.modifyGraph('administrationsLocales', b => {
+      b.whereRaw('?? is not true', ['associee'])
+    })
+  }
 
   // visibilité des étapes
   q.modifyGraph('demarches', b => {
@@ -183,6 +196,8 @@ const titrePermissionQueryBuild = (
     )
   })
 
+  titreActivitesCalc(q, fields, user)
+
   // visibilité des activités
   q.modifyGraph('activites', b => {
     titreActivitePermissionQueryBuild(
@@ -194,25 +209,6 @@ const titrePermissionQueryBuild = (
       user
     )
   })
-
-  // masque les administrations associées
-  if (
-    !user ||
-    !permissionCheck(user?.permissionId, [
-      'super',
-      'admin',
-      'editeur',
-      'lecteur'
-    ])
-  ) {
-    q.modifyGraph('administrationsGestionnaires', b => {
-      b.whereRaw('?? is not true', ['associee'])
-    })
-
-    q.modifyGraph('administrationsLocales', b => {
-      b.whereRaw('?? is not true', ['associee'])
-    })
-  }
 
   return q
 }

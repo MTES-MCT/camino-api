@@ -15,11 +15,7 @@ import {
   titresModificationQueryBuild
 } from './titres'
 import { etapesTypesModificationQueryBuild } from './metas'
-import Administrations from '../../models/administrations'
-import {
-  administrationsGestionnairesModifier,
-  administrationsLocalesModifier
-} from './administrations'
+import { titreAdministrationQuery } from './administrations'
 
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
@@ -29,7 +25,7 @@ const titreDemarchePermissionQueryBuild = (
   q.select('titresDemarches.*').leftJoinRelated('[titre]')
 
   // seuls les super-admins peuvent voir toutes les démarches
-  if (!user || !permissionCheck(user?.permissionId, ['super'])) {
+  if (!user || !permissionCheck(user.permissionId, ['super'])) {
     // l'utilisateur peut voir le titre
 
     q.whereExists(
@@ -56,19 +52,10 @@ const titreDemarchePermissionQueryBuild = (
         const administrationsIds = user.administrations.map(e => e.id)
 
         b.orWhereExists(
-          Administrations.query()
-            .modify(
-              administrationsGestionnairesModifier,
-              administrationsIds,
-              'titre'
-            )
-            .modify(administrationsLocalesModifier, administrationsIds, 'titre')
-            .whereIn('administrations.id', administrationsIds)
-            .where(c => {
-              c.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
-                't_al.administrationId'
-              )
-            })
+          titreAdministrationQuery(administrationsIds, 'titre', {
+            isGestionnaire: true,
+            isAssociee: true
+          })
         )
       }
 

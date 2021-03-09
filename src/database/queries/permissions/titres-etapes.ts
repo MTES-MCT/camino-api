@@ -11,11 +11,9 @@ import TitresEtapes from '../../models/titres-etapes'
 import { documentsPermissionQueryBuild } from './documents'
 import { etapesTypesModificationQueryBuild } from './metas'
 import Titres from '../../models/titres'
-import Administrations from '../../models/administrations'
 import {
   administrationsTitresTypesEtapesTypesModifier,
-  administrationsGestionnairesModifier,
-  administrationsLocalesModifier
+  titreAdministrationQuery
 } from './administrations'
 
 const titreEtapeModificationQueryBuild = (
@@ -81,29 +79,15 @@ const titreEtapesPermissionQueryBuild = (
       const administrationsIds = user.administrations.map(a => a.id) || []
 
       b.orWhereExists(
-        Administrations.query()
-          .modify(
-            administrationsGestionnairesModifier,
-            administrationsIds,
-            'demarche:titre'
-          )
-          .modify(
-            administrationsLocalesModifier,
-            administrationsIds,
-            'demarche:titre'
-          )
-          .modify(
-            administrationsTitresTypesEtapesTypesModifier,
-            'lecture',
-            'demarche:titre.typeId',
-            'titresEtapes.typeId'
-          )
-          .whereIn('administrations.id', administrationsIds)
-          .where(c => {
-            c.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
-              't_al.administrationId'
-            )
-          })
+        titreAdministrationQuery(administrationsIds, 'demarche:titre', {
+          isGestionnaire: true,
+          isAssociee: true
+        }).modify(
+          administrationsTitresTypesEtapesTypesModifier,
+          'lecture',
+          'demarche:titre.typeId',
+          'titresEtapes.typeId'
+        )
       )
     } else if (
       user?.entreprises?.length &&

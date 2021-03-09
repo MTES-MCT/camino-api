@@ -209,7 +209,8 @@ const administrations = {
     { name: 'administrations' },
     { name: 'administrations__titres_types' },
     { name: 'administrations__titres_types__titres_statuts' },
-    { name: 'administrations__titres_types__etapes_types' }
+    { name: 'administrations__titres_types__etapes_types' },
+    { name: 'administrations__activites_types' }
   ]
 } as ISpreadsheet
 
@@ -230,7 +231,6 @@ const metasActivites = {
     { name: 'activites_types', cb: { sections: JSON.parse } },
     { name: 'titres_types__activites_types' },
     { name: 'activites_types__pays' },
-    { name: 'activites_types__administrations' },
     { name: 'activites_types__documents_types' }
   ]
 } as ISpreadsheet

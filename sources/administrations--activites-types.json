@@ -1,0 +1,50 @@
+[
+  {
+    "activiteTypeId": "gra",
+    "administrationId": "ope-brgm-02",
+    "modificationInterdit": true
+  },
+  {
+    "activiteTypeId": "gra",
+    "administrationId": "pre-97302-01",
+    "modificationInterdit": true
+  },
+  {
+    "activiteTypeId": "gra",
+    "administrationId": "ope-onf-973-01",
+    "modificationInterdit": true,
+    "lectureInterdit": true
+  },
+  {
+    "activiteTypeId": "grp",
+    "administrationId": "ope-brgm-02",
+    "modificationInterdit": true
+  },
+  {
+    "activiteTypeId": "grp",
+    "administrationId": "pre-97302-01",
+    "modificationInterdit": true
+  },
+  {
+    "activiteTypeId": "grp",
+    "administrationId": "ope-onf-973-01",
+    "modificationInterdit": true,
+    "lectureInterdit": true
+  },
+  {
+    "activiteTypeId": "grx",
+    "administrationId": "ope-brgm-02",
+    "modificationInterdit": true
+  },
+  {
+    "activiteTypeId": "grx",
+    "administrationId": "pre-97302-01",
+    "modificationInterdit": true
+  },
+  {
+    "activiteTypeId": "grx",
+    "administrationId": "ope-onf-973-01",
+    "modificationInterdit": true,
+    "lectureInterdit": true
+  }
+]

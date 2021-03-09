@@ -65,9 +65,9 @@ class ActivitesTypes extends Model {
       join: {
         from: 'activitesTypes.id',
         through: {
-          from: 'activitesTypes__administrations.activiteTypeId',
-          to: 'activitesTypes__administrations.administrationId',
-          extra: ['modification']
+          from: 'administrations__activitesTypes.activiteTypeId',
+          to: 'administrations__activitesTypes.administrationId',
+          extra: ['modificationInterdit', 'lectureInterdit']
         },
         to: 'administrations.id'
       }

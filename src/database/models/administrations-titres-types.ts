@@ -9,7 +9,7 @@ class AdministrationsTitresTypes extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['titreTypeId', 'administrationId', 'gestionnaire', 'associee'],
+    required: ['titreTypeId', 'administrationId'],
 
     properties: {
       administrationId: { type: 'string', maxLength: 64 },

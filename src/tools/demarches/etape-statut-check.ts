@@ -27,7 +27,7 @@ const etapeStatutCheck = async () => {
           etape.demarche!.titreId
         }, étape « ${etape.type!.nom} » a un statut inconnu`
       )
-      // console.log(
+      // console.infos(
       //   `https://camino.beta.gouv.fr/titres/${etape.demarche!.titreId}, ${
       //     etape.demarche!.type!.nom
       //   }, ${etape.type!.nom} (${etape.typeId}),${etape.statut!.nom} (${
