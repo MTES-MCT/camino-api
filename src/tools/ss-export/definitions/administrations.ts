@@ -64,6 +64,17 @@ const tables = [
       'modificationInterdit'
     ],
     parents: ['titresTypesEtapesTypes']
+  },
+  {
+    id: 5,
+    name: 'administrations__activitesTypes',
+    columns: [
+      { id: 'activiteTypeId', parentKey: 'id' },
+      { id: 'administrationId', key: 'id' },
+      'modificationInterdit',
+      'lectureInterdit'
+    ],
+    parents: ['activitesTypes']
   }
 ]
 

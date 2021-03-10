@@ -499,6 +499,13 @@ interface IAdministrationTitreTypeEtapeType extends ITitreTypeEtapeType {
   modificationInterdit: boolean
 }
 
+interface IAdministrationActiviteType {
+  administrationId: string
+  activiteTypeId: string
+  lectureInterdit: boolean
+  modificationInterdit: boolean
+}
+
 interface ITitreStatut {
   id: string
   nom: string
@@ -967,6 +974,7 @@ export {
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
+  IAdministrationActiviteType,
   ITitreStatut,
   ISubstance,
   ISubstanceLegale,

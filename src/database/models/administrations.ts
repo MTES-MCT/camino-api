@@ -120,9 +120,9 @@ class Administrations extends Model {
       join: {
         from: 'administrations.id',
         through: {
-          from: 'activitesTypes__administrations.administrationId',
-          to: 'activitesTypes__administrations.activiteTypeId',
-          extra: ['modification']
+          from: 'administrations__activitesTypes.administrationId',
+          to: 'administrations__activitesTypes.activiteTypeId',
+          extra: ['modificationInterdit', 'lectureInterdit']
         },
         to: 'activitesTypes.id'
       }

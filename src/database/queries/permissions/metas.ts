@@ -24,10 +24,8 @@ import { titresModificationQueryBuild } from './titres'
 import {
   administrationsTitresTypesTitresStatutsModifier,
   administrationsTitresTypesEtapesTypesModifier,
-  administrationsGestionnairesModifier,
-  administrationsLocalesModifier
+  titreAdministrationQuery
 } from './administrations'
-import Administrations from '../../models/administrations'
 
 // récupère les types d'étapes qui ont
 // - les autorisations sur le titre
@@ -40,8 +38,6 @@ const etapesTypesModificationQueryBuild = (
   administrationsIds: string[],
   type: 'modification' | 'creation'
 ) => {
-  // const administrationsIds = administrations.map(a => a.id) || []
-
   const q = TitresTypesDemarchesTypesEtapesTypes.query()
     .alias('t_d_e')
     .select(raw('true'))
@@ -59,17 +55,9 @@ const etapesTypesModificationQueryBuild = (
       ])
     )
     .whereExists(
-      Administrations.query()
-        .modify(
-          administrationsGestionnairesModifier,
-          administrationsIds,
-          'titresModification'
-        )
-        .modify(
-          administrationsLocalesModifier,
-          administrationsIds,
-          'titresModification'
-        )
+      titreAdministrationQuery(administrationsIds, 'titresModification', {
+        isGestionnaire: true
+      })
         .modify(
           administrationsTitresTypesTitresStatutsModifier,
           'etapes',
@@ -81,12 +69,6 @@ const etapesTypesModificationQueryBuild = (
           't_d_e.titreTypeId',
           't_d_e.etapeTypeId'
         )
-        .whereIn('administrations.id', administrationsIds)
-        .where(b => {
-          b.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
-            't_al.administrationId'
-          )
-        })
     )
 
   // fileCreate('test-1.sql', format(q.toKnexQuery().toString()))

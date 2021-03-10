@@ -39,18 +39,6 @@ const seed = seeding(async ({ del }) => {
   await del('titresDemarches')
   await del('titres')
 
-  // 13
-  await del('travauxTypes__etapesTypes')
-  await del('travauxTypes')
-
-  // 12
-  await del('activitesTypes__documentsTypes')
-  await del('activitesTypes__pays')
-  await del('titresTypes__activitesTypes')
-  await del('activitesTypes__administrations')
-  await del('activitesTypes')
-  await del('activitesStatuts')
-
   // 11
   await del('utilisateurs__administrations')
   await del('utilisateurs__entreprises')
@@ -60,14 +48,28 @@ const seed = seeding(async ({ del }) => {
   await del('entreprisesEtablissements')
   await del('entreprises')
 
-  // 05
+  // 08
   await Promise.all([
-    del('administrations__titres_types'),
-    del('administrations__titres_types__titres_statuts'),
-    del('administrations__titres_types__etapes_types')
+    del('administrations__titresTypes'),
+    del('administrations__titresTypes__titresStatuts'),
+    del('administrations__titresTypes__etapesTypes'),
+    del('administrations__activitesTypes')
   ])
+
+  // 07
   await del('administrations')
   await del('administrationsTypes')
+
+  // 06
+  await del('activitesTypes__documentsTypes')
+  await del('activitesTypes__pays')
+  await del('titresTypes__activitesTypes')
+  await del('activitesTypes')
+  await del('activitesStatuts')
+
+  // 05
+  await del('travauxTypes__etapesTypes')
+  await del('travauxTypes')
 
   // 04
   await del('substances')

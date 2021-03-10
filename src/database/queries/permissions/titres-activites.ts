@@ -8,6 +8,7 @@ import Documents from '../../models/documents'
 import TitresActivites from '../../models/titres-activites'
 import DocumentsTypes from '../../models/documents-types'
 import { documentsPermissionQueryBuild } from './documents'
+import { titreAdministrationQuery } from './administrations'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
@@ -52,6 +53,7 @@ const titreActivitesCalc = (
     const titresActivitesCountQuery = TitresActivites.query()
       .alias('activitesCount')
       .select('activitesCount.titreId')
+      .leftJoinRelated('titre')
 
     activiteStatutsRequested.forEach(({ id, name }) => {
       q.select(`activitesCountJoin.${name}`)
@@ -72,16 +74,22 @@ const titreActivitesCalc = (
       ) {
         const administrationsIds = user.administrations.map(e => e.id)
 
-        // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
+        // l'utilisateur fait partie d'une administrations qui a les droits sur le titre
         titresActivitesCountQuery.whereExists(
-          TitresActivites.query()
-            .alias('titresActivitesAdministrations')
-            .joinRelated('type.administrations')
-            .whereRaw('?? = ??', [
-              'titresActivitesAdministrations.id',
-              'activitesCount.id'
-            ])
-            .whereIn('type:administrations.id', administrationsIds)
+          titreAdministrationQuery(administrationsIds, 'titre', {
+            isGestionnaire: true,
+            isAssociee: true
+          })
+            .leftJoin(
+              'administrations__activitesTypes as a_at',
+              raw('?? = ?? and ?? = ?? ', [
+                'a_at.administrationId',
+                'administrations.id',
+                'a_at.activiteTypeId',
+                'activitesCount.typeId'
+              ])
+            )
+            .whereRaw('?? is not true', ['a_at.lectureInterdit'])
         )
       } else if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
@@ -136,35 +144,35 @@ const titreActivitesCalc = (
   return q
 }
 
-const titresActivitesAdministrationsQueryBuild = (
-  administrationsIds: string[]
-) =>
-  TitresActivites.query()
-    .alias('titresActivitesAdministrations')
-    .joinRelated('type.administrations')
-    .whereRaw('?? = ??', [
-      'titresActivitesAdministrations.id',
-      'titresActivites.id'
-    ])
-    .whereIn('type:administrations.id', administrationsIds)
-
-// édition d'une activité
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur,
   grouped = false
 ) => {
+  q.select('titresActivites.*').leftJoinRelated('titre')
+
   if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     const administrationsIds = user.administrations!.map(a => a.id)
-    const titresActivitesAdministrationQuery = titresActivitesAdministrationsQueryBuild(
-      administrationsIds
-    )
 
-    // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
-    q.whereExists(titresActivitesAdministrationQuery)
+    q.whereExists(
+      titreAdministrationQuery(administrationsIds, 'titre', {
+        isGestionnaire: true,
+        isAssociee: true
+      })
+        .leftJoin(
+          'administrations__activitesTypes as a_at',
+          raw('?? = ?? and ?? = ?? ', [
+            'a_at.administrationId',
+            'administrations.id',
+            'a_at.activiteTypeId',
+            'titresActivites.typeId'
+          ])
+        )
+        .whereRaw('?? is not true', ['a_at.lectureInterdit'])
+    )
   } else if (
     permissionCheck(user?.permissionId, ['entreprise']) &&
     user?.entreprises?.length
@@ -238,15 +246,26 @@ const titreActiviteQueryPropsBuild = (
   ) {
     if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
       const administrationsIds = user.administrations!.map(a => a.id)
-      const titresActivitesAdministrationQuery = titresActivitesAdministrationsQueryBuild(
-        administrationsIds
-      )
 
       q.select(
-        titresActivitesAdministrationQuery
+        titreAdministrationQuery(administrationsIds, 'titre', {
+          isGestionnaire: true
+        })
+          .leftJoinRelated('activitesTypes')
+          .leftJoin(
+            'administrations__activitesTypes as a_at',
+            raw('?? = ?? and ?? = ?? ', [
+              'a_at.administrationId',
+              'administrations.id',
+              'a_at.activiteTypeId',
+              'titresActivites.typeId'
+            ])
+          )
+          .whereRaw('?? is not true and ?? is not true', [
+            'a_at.lectureInterdit',
+            'a_at.modificationInterdit'
+          ])
           .select(raw('true'))
-          // TODO: supprimer `_join` cf: https://github.com/Vincit/objection.js/issues/1883
-          .where('type:administrations_join.modification', true)
           .as('modification')
       )
     } else {

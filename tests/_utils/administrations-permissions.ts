@@ -8,9 +8,9 @@ import { etapeTypeGet } from '../../src/database/queries/metas'
 import { etapeTypeSectionsFormat } from '../../src/api/_format/etapes-types'
 import DemarchesTypes from '../../src/database/models/demarches-types'
 
-const visibiliteCheck = async (
+const visibleCheck = async (
   administrationId: string,
-  voir: boolean,
+  visible: boolean,
   cible: 'titres' | 'demarches' | 'etapes',
   titreTypeId: string,
   locale: boolean,
@@ -25,6 +25,7 @@ const visibiliteCheck = async (
   const gestionnaire = administration.titresTypes?.some(
     tt => tt.id === titreTypeId && tt.gestionnaire
   )
+
   const titre = titreBuild(
     {
       titreId: `${titreTypeId}${
@@ -36,6 +37,7 @@ const visibiliteCheck = async (
     locale ? administrationId : undefined,
     etapeTypeId
   )
+
   await Titres.query().insertGraph(titre, options.titres.update)
 
   const res = await graphQLCall(
@@ -46,24 +48,26 @@ const visibiliteCheck = async (
   )
 
   if (cible === 'titres') {
-    if (voir) {
+    if (visible) {
       expect(res.body.data.titre).not.toBeNull()
       expect(res.body.data.titre.id).toEqual(titre.id)
     } else {
       expect(res.body.data.titre).toBeNull()
     }
   } else if (cible === 'demarches') {
-    if (voir) {
+    if (visible) {
       expect(res.body.data.titre.demarches).not.toBeNull()
       expect(res.body.data.titre.demarches![0]).not.toBeNull()
       expect(res.body.data.titre.demarches![0]!.id).toEqual(
         titre.demarches![0]!.id
       )
     } else {
-      expect(res.body.data.titre.demarches).toEqual([])
+      expect(res.body.data.titre ? res.body.data.titre.demarches : []).toEqual(
+        []
+      )
     }
   } else if (cible === 'etapes') {
-    if (voir) {
+    if (visible) {
       expect(res.body.data.titre.demarches![0]!.etapes).not.toBeNull()
       expect(res.body.data.titre.demarches![0]!.etapes![0]!.id).toEqual(
         titre.demarches![0]!.etapes![0]!.id
@@ -239,7 +243,9 @@ const modificationCheck = async (
         modification: true
       })
     } else {
-      expect(res.body.data.titre.modification).toBeNull()
+      expect(
+        res.body.data.titre ? res.body.data.titre.modification : null
+      ).toBeNull()
     }
   } else if (cible === 'demarches') {
     if (modifier) {
@@ -343,4 +349,4 @@ const titreBuild = (
   return titre
 }
 
-export { visibiliteCheck, creationCheck, modificationCheck }
+export { visibleCheck, creationCheck, modificationCheck }

@@ -20,19 +20,16 @@ const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocales: ITitreAdministrationLocale[]
 ) =>
   titreEtapeAdministrationsLocales.reduce(
-    (
-      queries: ITitreAdministrationLocale[],
-      titreEtapeAdministrationGestionnaire
-    ) => {
+    (queries: ITitreAdministrationLocale[], titreEtapeAdministrationLocale) => {
       if (
         !titreEtapeAdministrationsLocalesOld ||
         !titreEtapeAdministrationsLocalesOld.find(
           ({ id: idOld, associee }) =>
-            idOld === titreEtapeAdministrationGestionnaire.administrationId &&
-            associee === titreEtapeAdministrationGestionnaire.associee
+            idOld === titreEtapeAdministrationLocale.administrationId &&
+            associee === titreEtapeAdministrationLocale.associee
         )
       ) {
-        queries.push(titreEtapeAdministrationGestionnaire)
+        queries.push(titreEtapeAdministrationLocale)
       }
 
       return queries

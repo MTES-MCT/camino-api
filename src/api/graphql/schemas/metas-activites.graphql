@@ -11,4 +11,7 @@ type ActiviteType {
   frequence: Frequence!
   pays: [Pays!]
   documentsTypes: [DocumentType]
+
+  lectureInterdit: Boolean
+  modificationInterdit: Boolean
 }

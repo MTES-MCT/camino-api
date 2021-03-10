@@ -1,6 +1,8 @@
 const seeding = require('../seeding')
 
 // eslint-disable-next-line camelcase
+const administrations_activitesTypes = require('../../sources/administrations--activites-types.json')
+// eslint-disable-next-line camelcase
 const administrations__titresTypes = require('../../sources/administrations--titres-types.json')
 // eslint-disable-next-line camelcase
 const administrations__titresTypes__titresStatuts = require('../../sources/administrations--titres-types--titres-statuts.json')
@@ -17,7 +19,8 @@ const seed = seeding(async ({ insert }) => {
     insert(
       'administrations__titresTypes__etapesTypes',
       administrations__titresTypes__etapesTypes
-    )
+    ),
+    insert('administrations__activitesTypes', administrations_activitesTypes)
   ])
 })
 

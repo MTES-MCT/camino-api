@@ -44,16 +44,6 @@ const tables = [
     parents: ['pays']
   },
   {
-    id: 4,
-    name: 'activitesTypes__administrations',
-    columns: [
-      { id: 'activiteTypeId', parentKey: 'id' },
-      { id: 'administrationId', key: 'id' },
-      'modification'
-    ],
-    parents: ['administrations']
-  },
-  {
     id: 5,
     name: 'activitesTypes__documentsTypes',
     columns: [
