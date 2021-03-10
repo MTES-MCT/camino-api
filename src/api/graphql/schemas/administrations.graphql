@@ -28,6 +28,7 @@ type Administration {
   titresTypes: [TitreType]
   titresTypesTitresStatuts: [TitreTypeTitreStatut]
   titresTypesEtapesTypes: [TitreTypeEtapeType]
+  activitesTypes: [ActiviteType]
   departement: Departement
   region: Region
   modification: Boolean
@@ -74,4 +75,11 @@ input InputAdministrationTitreTypeEtapeType {
   lectureInterdit: Boolean
   modificationInterdit: Boolean
   creationInterdit: Boolean
+}
+
+input InputAdministrationActiviteType {
+  administrationId: ID!
+  titreTypeId: ID!
+  lectureInterdit: Boolean
+  modificationInterdit: Boolean
 }

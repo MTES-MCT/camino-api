@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import {
-  visibiliteCheck,
+  visibleCheck,
   creationCheck,
   modificationCheck
 } from './_utils/administrations-permissions'
@@ -21,15 +21,15 @@ afterAll(async () => {
 
 describe('Visibilité des étapes', () => {
   test.each`
-    administrationId       | voir    | etapeTypeId
+    administrationId       | visible | etapeTypeId
     ${'ope-onf-973-01'}    | ${true} | ${'mcr'}
     ${'min-mtes-dgaln-01'} | ${true} | ${'mcr'}
   `(
-    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre ARM : $voir",
-    async ({ administrationId, voir, etapeTypeId }) =>
-      visibiliteCheck(
+    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre ARM : $visible",
+    async ({ administrationId, visible, etapeTypeId }) =>
+      visibleCheck(
         administrationId,
-        voir,
+        visible,
         'etapes',
         'arm',
         false,
@@ -38,16 +38,16 @@ describe('Visibilité des étapes', () => {
   )
 
   test.each`
-    administrationId       | voir    | etapeTypeId
+    administrationId       | visible | etapeTypeId
     ${'ope-onf-973-01'}    | ${true} | ${'mcr'}
     ${'dea-guyane-01'}     | ${true} | ${'mcr'}
     ${'min-mtes-dgaln-01'} | ${true} | ${'mcr'}
   `(
-    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre AXM : $voir",
-    async ({ administrationId, voir, etapeTypeId }) =>
-      visibiliteCheck(
+    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre AXM : $visible",
+    async ({ administrationId, visible, etapeTypeId }) =>
+      visibleCheck(
         administrationId,
-        voir,
+        visible,
         'etapes',
         'axm',
         false,
@@ -56,14 +56,14 @@ describe('Visibilité des étapes', () => {
   )
 
   test.each`
-    administrationId       | voir    | etapeTypeId
+    administrationId       | visible | etapeTypeId
     ${'min-mtes-dgaln-01'} | ${true} | ${'mcr'}
   `(
-    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre CXM : $voir",
-    async ({ administrationId, voir, etapeTypeId }) =>
-      visibiliteCheck(
+    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre CXM : $visible",
+    async ({ administrationId, visible, etapeTypeId }) =>
+      visibleCheck(
         administrationId,
-        voir,
+        visible,
         'etapes',
         'cxm',
         false,
@@ -72,14 +72,14 @@ describe('Visibilité des étapes', () => {
   )
 
   test.each`
-    administrationId       | voir    | etapeTypeId
+    administrationId       | visible | etapeTypeId
     ${'min-mtes-dgaln-01'} | ${true} | ${'mcr'}
   `(
-    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre PRM : $voir",
-    async ({ administrationId, voir, etapeTypeId }) =>
-      visibiliteCheck(
+    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre PRM : $visible",
+    async ({ administrationId, visible, etapeTypeId }) =>
+      visibleCheck(
         administrationId,
-        voir,
+        visible,
         'etapes',
         'prm',
         false,
@@ -88,14 +88,14 @@ describe('Visibilité des étapes', () => {
   )
 
   test.each`
-    administrationId       | voir    | etapeTypeId
+    administrationId       | visible | etapeTypeId
     ${'min-mtes-dgaln-01'} | ${true} | ${'mcr'}
   `(
-    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre PXM : $voir",
-    async ({ administrationId, voir, etapeTypeId }) =>
-      visibiliteCheck(
+    "un utilisateur admin de l’administration $administrationId peut voir l'étape $etapeTypeId d'un titre PXM : $visible",
+    async ({ administrationId, visible, etapeTypeId }) =>
+      visibleCheck(
         administrationId,
-        voir,
+        visible,
         'etapes',
         'pxm',
         false,

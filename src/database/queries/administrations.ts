@@ -4,6 +4,7 @@ import {
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
+  IAdministrationActiviteType,
   IFields,
   IUtilisateur
 } from '../../types'
@@ -20,6 +21,7 @@ import AdministrationsTitresTypes from '../models/administrations-titres-types'
 import { administrationsPermissionQueryBuild } from './permissions/administrations'
 import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
+import AdministrationsActivitesTypes from '../models/administrations-activites-types'
 
 const administrationsQueryBuild = (
   {
@@ -229,6 +231,25 @@ const administrationTitreTypeEtapeTypeDelete = async (
     etapeTypeId
   ])
 
+const administrationActiviteTypeUpsert = async (
+  administrationActiviteType: IAdministrationActiviteType
+) =>
+  AdministrationsActivitesTypes.query().upsertGraph(
+    administrationActiviteType,
+    {
+      insertMissing: true
+    }
+  )
+
+const administrationActiviteTypeDelete = async (
+  administrationId: string,
+  ActiviteTypeId: string
+) =>
+  AdministrationsActivitesTypes.query().deleteById([
+    administrationId,
+    ActiviteTypeId
+  ])
+
 export {
   administrationGet,
   administrationsGet,
@@ -240,5 +261,7 @@ export {
   administrationTitreTypeTitreStatutUpsert,
   administrationTitreTypeTitreStatutDelete,
   administrationTitreTypeEtapeTypeUpsert,
-  administrationTitreTypeEtapeTypeDelete
+  administrationTitreTypeEtapeTypeDelete,
+  administrationActiviteTypeUpsert,
+  administrationActiviteTypeDelete
 }

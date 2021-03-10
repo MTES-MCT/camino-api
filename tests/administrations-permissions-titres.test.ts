@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import {
-  visibiliteCheck,
+  visibleCheck,
   creationCheck,
   modificationCheck
 } from './_utils/administrations-permissions'
@@ -19,25 +19,25 @@ afterAll(async () => {
   await dbManager.closeKnex()
 })
 
-describe('Visibilité des titres', () => {
+describe('Visibilité des titres par les administrations gestionnaires ou associées', () => {
   test.each`
-    administrationId        | voir
+    administrationId        | visible
     ${'ope-onf-973-01'}     | ${true}
-    ${'dea-guyane-01'}      | ${false}
+    ${'dea-guyane-01'}      | ${true}
     ${'dre-grand-est-01'}   | ${false}
-    ${'pre-97302-01'}       | ${false}
-    ${'aut-mrae-guyane-01'} | ${false}
+    ${'pre-97302-01'}       | ${true}
+    ${'aut-mrae-guyane-01'} | ${true}
     ${'min-mtes-dgec-01'}   | ${true}
     ${'min-mtes-dgaln-01'}  | ${true}
     ${'min-dajb-01'}        | ${true}
   `(
-    'un utilisateur admin de l’administration $administrationId peut voir un titre ARM : $voir',
-    async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'arm', false)
+    'un utilisateur admin de l’administration $administrationId peut voir un titre ARM : $visible',
+    async ({ administrationId, visible }) =>
+      visibleCheck(administrationId, visible, 'titres', 'arm', false)
   )
 
   test.each`
-    administrationId        | voir
+    administrationId        | visible
     ${'ope-onf-973-01'}     | ${true}
     ${'dea-guyane-01'}      | ${true}
     ${'dre-grand-est-01'}   | ${false}
@@ -47,13 +47,13 @@ describe('Visibilité des titres', () => {
     ${'min-mtes-dgaln-01'}  | ${true}
     ${'min-dajb-01'}        | ${true}
   `(
-    'un utilisateur admin de l’administration $administrationId peut voir un titre AXM : $voir',
-    async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'axm', false)
+    'un utilisateur admin de l’administration $administrationId peut voir un titre AXM : $visible',
+    async ({ administrationId, visible }) =>
+      visibleCheck(administrationId, visible, 'titres', 'axm', false)
   )
 
   test.each`
-    administrationId        | voir
+    administrationId        | visible
     ${'ope-onf-973-01'}     | ${false}
     ${'dea-guyane-01'}      | ${false}
     ${'dre-grand-est-01'}   | ${false}
@@ -63,13 +63,13 @@ describe('Visibilité des titres', () => {
     ${'min-mtes-dgaln-01'}  | ${true}
     ${'min-dajb-01'}        | ${true}
   `(
-    'un utilisateur admin de l’administration $administrationId peut voir un titre CXM : $voir',
-    async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'cxm', false)
+    'un utilisateur admin de l’administration $administrationId peut voir un titre CXM : $visible',
+    async ({ administrationId, visible }) =>
+      visibleCheck(administrationId, visible, 'titres', 'cxm', false)
   )
 
   test.each`
-    administrationId        | voir
+    administrationId        | visible
     ${'ope-onf-973-01'}     | ${false}
     ${'dea-guyane-01'}      | ${false}
     ${'dre-grand-est-01'}   | ${false}
@@ -79,9 +79,9 @@ describe('Visibilité des titres', () => {
     ${'min-mtes-dgaln-01'}  | ${true}
     ${'min-dajb-01'}        | ${true}
   `(
-    'un utilisateur admin de l’administration $administrationId peut voir un titre PRM : $voir',
-    async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'prm', false)
+    'un utilisateur admin de l’administration $administrationId peut voir un titre PRM : $visible',
+    async ({ administrationId, visible }) =>
+      visibleCheck(administrationId, visible, 'titres', 'prm', false)
   )
 
   test.each`
@@ -97,11 +97,11 @@ describe('Visibilité des titres', () => {
   `(
     'un utilisateur admin de l’administration $administrationId peut voir un titre PXM : $voir',
     async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'pxm', false)
+      visibleCheck(administrationId, voir, 'titres', 'pxm', false)
   )
 })
 
-describe('Visibilité des titres "locaux"', () => {
+describe('Visibilité des titres par les administrations locales', () => {
   test.each`
     administrationId        | voir
     ${'ope-onf-973-01'}     | ${true}
@@ -109,13 +109,10 @@ describe('Visibilité des titres "locaux"', () => {
     ${'dre-grand-est-01'}   | ${true}
     ${'pre-97302-01'}       | ${true}
     ${'aut-mrae-guyane-01'} | ${true}
-    ${'min-mtes-dgec-01'}   | ${true}
-    ${'min-mtes-dgaln-01'}  | ${true}
-    ${'min-dajb-01'}        | ${true}
   `(
     'un utilisateur admin de l’administration $administrationId peut voir un titre ARM : $voir',
     async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'arm', true)
+      visibleCheck(administrationId, voir, 'titres', 'arm', true)
   )
 
   test.each`
@@ -125,13 +122,10 @@ describe('Visibilité des titres "locaux"', () => {
     ${'dre-grand-est-01'}   | ${true}
     ${'pre-97302-01'}       | ${true}
     ${'aut-mrae-guyane-01'} | ${true}
-    ${'min-mtes-dgec-01'}   | ${true}
-    ${'min-mtes-dgaln-01'}  | ${true}
-    ${'min-dajb-01'}        | ${true}
   `(
     'un utilisateur admin de l’administration $administrationId peut voir un titre AXM : $voir',
     async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'axm', true)
+      visibleCheck(administrationId, voir, 'titres', 'axm', true)
   )
 
   test.each`
@@ -141,13 +135,10 @@ describe('Visibilité des titres "locaux"', () => {
     ${'dre-grand-est-01'}   | ${true}
     ${'pre-97302-01'}       | ${true}
     ${'aut-mrae-guyane-01'} | ${true}
-    ${'min-mtes-dgec-01'}   | ${true}
-    ${'min-mtes-dgaln-01'}  | ${true}
-    ${'min-dajb-01'}        | ${true}
   `(
     'un utilisateur admin de l’administration $administrationId peut voir un titre CXM : $voir',
     async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'cxm', true)
+      visibleCheck(administrationId, voir, 'titres', 'cxm', true)
   )
 
   test.each`
@@ -157,13 +148,10 @@ describe('Visibilité des titres "locaux"', () => {
     ${'dre-grand-est-01'}   | ${true}
     ${'pre-97302-01'}       | ${true}
     ${'aut-mrae-guyane-01'} | ${true}
-    ${'min-mtes-dgec-01'}   | ${true}
-    ${'min-mtes-dgaln-01'}  | ${true}
-    ${'min-dajb-01'}        | ${true}
   `(
     'un utilisateur admin de l’administration $administrationId peut voir un titre PRM : $voir',
     async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'prm', true)
+      visibleCheck(administrationId, voir, 'titres', 'prm', true)
   )
 
   test.each`
@@ -173,13 +161,10 @@ describe('Visibilité des titres "locaux"', () => {
     ${'dre-grand-est-01'}   | ${true}
     ${'pre-97302-01'}       | ${true}
     ${'aut-mrae-guyane-01'} | ${true}
-    ${'min-mtes-dgec-01'}   | ${true}
-    ${'min-mtes-dgaln-01'}  | ${true}
-    ${'min-dajb-01'}        | ${true}
   `(
     'un utilisateur admin de l’administration $administrationId peut voir un titre PXM : $voir',
     async ({ administrationId, voir }) =>
-      visibiliteCheck(administrationId, voir, 'titres', 'pxm', true)
+      visibleCheck(administrationId, voir, 'titres', 'pxm', true)
   )
 })
 

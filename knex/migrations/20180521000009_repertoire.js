@@ -120,6 +120,23 @@ exports.up = knex =>
       table.boolean('modificationInterdit')
       table.primary(['administrationId', 'titreTypeId', 'etapeTypeId'])
     })
+    .createTable('administrations__activitesTypes', table => {
+      table
+        .string('activiteTypeId', 3)
+        .index()
+        .references('activitesTypes.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table
+        .string('administrationId', 64)
+        .notNullable()
+        .index()
+        .references('administrations.id')
+        .onDelete('CASCADE')
+      table.boolean('modificationInterdit')
+      table.boolean('lectureInterdit')
+      table.primary(['administrationId', 'activiteTypeId'])
+    })
     .createTable('permissions', table => {
       table.string('id', 12).primary()
       table.string('nom').notNullable()
@@ -178,5 +195,6 @@ exports.down = knex =>
     .dropTable('administrations__titresTypes')
     .dropTable('administrations__titresTypes__titresStatuts')
     .dropTable('administrations__titresTypes__etapesTypes')
+    .dropTable('administrations__activitesTypes')
     .dropTable('administrations')
     .dropTable('administrationsTypes')

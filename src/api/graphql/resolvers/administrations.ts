@@ -1,4 +1,5 @@
 import {
+  IAdministrationActiviteType,
   IAdministrationColonneId,
   IAdministrationTitreType,
   IAdministrationTitreTypeEtapeType,
@@ -17,7 +18,9 @@ import {
   administrationTitreTypeTitreStatutUpsert,
   administrationTitreTypeTitreStatutDelete,
   administrationTitreTypeEtapeTypeDelete,
-  administrationTitreTypeEtapeTypeUpsert
+  administrationTitreTypeEtapeTypeUpsert,
+  administrationActiviteTypeDelete,
+  administrationActiviteTypeUpsert
 } from '../../../database/queries/administrations'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -322,11 +325,54 @@ const administrationTitreTypeEtapeTypeModifier = async (
   }
 }
 
+const administrationActiviteTypeModifier = async (
+  {
+    administrationActiviteType
+  }: { administrationActiviteType: IAdministrationActiviteType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (
+      !administrationActiviteType.lectureInterdit &&
+      !administrationActiviteType.modificationInterdit
+    ) {
+      await administrationActiviteTypeDelete(
+        administrationActiviteType.administrationId,
+        administrationActiviteType.activiteTypeId
+      )
+    } else {
+      await administrationActiviteTypeUpsert(administrationActiviteType)
+    }
+
+    return await administrationGet(
+      administrationActiviteType.administrationId,
+      { fields },
+      context.user?.id
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   administration,
   administrations,
   administrationModifier,
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,
-  administrationTitreTypeEtapeTypeModifier
+  administrationTitreTypeEtapeTypeModifier,
+  administrationActiviteTypeModifier
 }

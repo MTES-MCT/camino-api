@@ -141,7 +141,8 @@ import {
   administrationModifier,
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,
-  administrationTitreTypeEtapeTypeModifier
+  administrationTitreTypeEtapeTypeModifier,
+  administrationActiviteTypeModifier
 } from './resolvers/administrations'
 import {
   activite,
@@ -261,6 +262,7 @@ export default {
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
+  administrationActiviteTypeModifier,
   travauxCreer,
   travauxModifier,
   travauxSupprimer,

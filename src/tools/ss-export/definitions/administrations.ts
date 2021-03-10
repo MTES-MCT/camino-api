@@ -66,7 +66,7 @@ const tables = [
     parents: ['titresTypesEtapesTypes']
   },
   {
-    id: 4,
+    id: 5,
     name: 'administrations__activitesTypes',
     columns: [
       { id: 'activiteTypeId', parentKey: 'id' },

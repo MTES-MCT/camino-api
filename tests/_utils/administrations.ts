@@ -11,6 +11,7 @@ import {
 
 import { readFileSync } from 'fs'
 import { join } from 'path'
+import { objectClone } from '../../src/tools'
 
 interface ISources {
   administrations: {
@@ -108,10 +109,8 @@ const administrationsWithRelations = sources.administrations.data.map(
     a.titresTypes = sources.administrations__titresTypes.data
       .filter(att => att.administrationId === a.id)
       .map(att => {
-        const titreType = JSON.parse(
-          JSON.stringify(
-            sources.titresTypes.data.find(tt => att.titreTypeId === tt.id)!
-          )
+        const titreType = objectClone(
+          sources.titresTypes.data.find(tt => att.titreTypeId === tt.id)!
         ) as ITitreType & IAdministrationTitreType
 
         titreType.administrationId = att.administrationId

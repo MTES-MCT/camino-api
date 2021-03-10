@@ -151,6 +151,18 @@
   },
   {
     "administration_id": "min-dajb-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "false",
+    "associee": "true"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "axm",
+    "gestionnaire": "false",
+    "associee": "true"
+  },
+  {
+    "administration_id": "min-dajb-01",
     "titre_type_id": "cxm",
     "gestionnaire": "false",
     "associee": "true"
@@ -223,6 +235,12 @@
   },
   {
     "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "false",
+    "associee": "true"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
     "titre_type_id": "cxr",
     "gestionnaire": "true",
     "associee": "false"
@@ -253,6 +271,12 @@
   },
   {
     "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "false",
+    "associee": "true"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
     "titre_type_id": "prr",
     "gestionnaire": "true",
     "associee": "false"
@@ -274,6 +298,12 @@
     "titre_type_id": "pxh",
     "gestionnaire": "true",
     "associee": "false"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "pxm",
+    "gestionnaire": "false",
+    "associee": "true"
   },
   {
     "administration_id": "min-mtes-dgec-01",

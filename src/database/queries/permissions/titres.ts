@@ -57,10 +57,9 @@ const titrePermissionQueryBuild = (
 ) => {
   q.select('titres.*')
 
-  const administrationMinistereCheck = false
-  // user?.administrations?.some(
-  //   a => a.typeId === 'min'
-  // )
+  const administrationMinistereCheck = user?.administrations?.some(
+    a => a.typeId === 'min'
+  )
 
   // si
   // - l'utilisateur n'est pas connecté
