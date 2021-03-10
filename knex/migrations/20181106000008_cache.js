@@ -4,4 +4,4 @@ exports.up = knex =>
     table.jsonb('valeur')
   })
 
-exports.down = knex => knex.schema.dropTable('cache')
+exports.down = knex => knex.schema.dropTable('caches')

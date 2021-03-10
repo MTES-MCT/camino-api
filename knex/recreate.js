@@ -1,18 +1,18 @@
-const { configDbManager } = require('./config-db-manager')
+const { dbManagerConfig } = require('./config-db-manager')
 const chalk = require('chalk')
 const dbManager = require('knex-db-manager').databaseManagerFactory(
-  configDbManager
+  dbManagerConfig
 )
 
 const run = async () => {
   try {
     console.info('supprime la base de données…')
-    await dbManager.dropDb(configDbManager.knex.connection.database)
+    await dbManager.dropDb(dbManagerConfig.knex.connection.database)
     console.info('base de données supprimée')
 
     console.info('')
     console.info('crée la base de données…')
-    await dbManager.createDb(configDbManager.knex.connection.database)
+    await dbManager.createDb(dbManagerConfig.knex.connection.database)
     console.info('base de données créée')
 
     console.info('')
