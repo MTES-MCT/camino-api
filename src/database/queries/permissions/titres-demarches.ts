@@ -12,17 +12,18 @@ import TitresDemarches from '../../models/titres-demarches'
 import { titreEtapesPermissionQueryBuild } from './titres-etapes'
 import {
   titrePermissionQueryBuild,
-  titresModificationQueryBuild
+  titresAdministrationsModificationQuery
 } from './titres'
 import { etapesTypesModificationQueryBuild } from './metas'
-import { titreAdministrationQuery } from './administrations'
+import { administrationsTitresQuery } from './administrations'
+import { entreprisesTitresQuery } from './entreprises'
 
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   fields?: IFields,
   user?: IUtilisateur
 ) => {
-  q.select('titresDemarches.*').leftJoinRelated('[titre]')
+  q.select('titresDemarches.*').leftJoinRelated('titre')
 
   // seuls les super-admins peuvent voir toutes les démarches
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
@@ -52,9 +53,10 @@ const titreDemarchePermissionQueryBuild = (
         const administrationsIds = user.administrations.map(e => e.id)
 
         b.orWhereExists(
-          titreAdministrationQuery(administrationsIds, 'titre', {
+          administrationsTitresQuery(administrationsIds, 'titre', {
             isGestionnaire: true,
-            isAssociee: true
+            isAssociee: true,
+            isLocale: true
           })
         )
       }
@@ -71,92 +73,29 @@ const titreDemarchePermissionQueryBuild = (
         b.orWhere(c => {
           c.where('titresDemarches.entreprisesLecture', true)
 
-          c.where(d => {
-            d.whereExists(
-              Titres.query()
-                .alias('titulaireTitres')
-                .joinRelated('titulaires')
-                .whereRaw('?? = ??', [
-                  'titulaireTitres.id',
-                  'titresDemarches.titreId'
-                ])
-                .whereIn('titulaires.id', entreprisesIds)
-            )
-            d.orWhereExists(
-              Titres.query()
-                .alias('amodiataireTitres')
-                .joinRelated('amodiataires')
-                .whereRaw('?? = ??', [
-                  'amodiataireTitres.id',
-                  'titresDemarches.titreId'
-                ])
-                .whereIn('amodiataires.id', entreprisesIds)
-            )
-
-            // On devrait pouvoir faire le lien directement sur la related query
-            // comme dans titrePermissionQueryBuild
-            // mais objection.js s'embrouille dans les alias
-            // à creuser
-            //
-            // d.whereExists(
-            //   (Titres.relatedQuery('titulaires') as QueryBuilder<
-            //     Entreprises,
-            //     Entreprises | Entreprises[]
-            //   >)
-            //     .as('toto')
-            //     .whereIn('toto.id', entreprisesIds)
-            //     .for('titresDemarches.titreId')
-            // )
-            // d.orWhereExists(
-            //   (Titres.relatedQuery('amodiataires') as QueryBuilder<
-            //     Entreprises,
-            //     Entreprises | Entreprises[]
-            //   >)
-            //     .as('titi')
-            //     .whereIn('titi.id', entreprisesIds)
-            //     .for('titresDemarches.titreId')
-            // )
-          })
+          c.whereExists(
+            entreprisesTitresQuery(entreprisesIds, 'titre', {
+              isTitulaire: true,
+              isAmodiataire: true
+            })
+          )
         })
       }
     })
   }
 
-  if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(
-      titreDemarcheModificationQueryBuild('titresDemarches').as('modification')
+  q.select(
+    raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(
+      'suppression'
     )
-    q.select(raw('true').as('suppression'))
-  } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
-    user?.administrations?.length
-  ) {
-    // TODO: conditionner aux fields
-
-    const administrationsIds = user.administrations.map(a => a.id) || []
-    // propriété 'titresModification'
-    const titresModificationQuery = titresModificationQueryBuild(
-      administrationsIds,
-      'demarches'
-    )
-      .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
-      .andWhereRaw('?? = true', [
-        titreDemarcheModificationQueryBuild('titresDemarches')
-      ])
-
-    // propriété 'modification'
-    // récupère les types d'étape autorisés
-    // pour tous les titres et démarches sur lesquels l'utilisateur a des droits
-    q.select(titresModificationQuery.as('modification'))
-
-    q.select(raw('false').as('suppression'))
-  } else {
-    q.select(raw('false').as('modification'))
-    q.select(raw('false').as('suppression'))
-  }
+  )
 
   q.select(
-    titreEtapesCreationQueryBuild('titresDemarches', user).as('etapesCreation')
+    titreDemarcheModificationQuery('titresDemarches', user).as('modification')
+  )
+
+  q.select(
+    titreEtapesCreationQuery('titresDemarches', user).as('etapesCreation')
   )
 
   q.modifyGraph('etapes', te => {
@@ -182,17 +121,40 @@ const titreDemarchePermissionQueryBuild = (
   return q
 }
 
-const titreDemarcheModificationQueryBuild = (demarcheAlias: string) =>
-  raw('(not exists(?))', [
-    TitresEtapes.query()
-      .alias('titresDemarchesEtapes')
-      .whereRaw('?? = ??', [
-        'titresDemarchesEtapes.titreDemarcheId',
-        `${demarcheAlias}.id`
-      ])
-  ])
+const titreDemarcheModificationQuery = (
+  demarcheAlias: string,
+  user?: IUtilisateur
+) => {
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    return raw('(not exists(?))', [titreDemarcheEtapesQuery(demarcheAlias)])
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
+    user?.administrations?.length
+  ) {
+    // TODO: conditionner aux fields
 
-const titreEtapesCreationQueryBuild = (
+    const administrationsIds = user.administrations.map(a => a.id) || []
+
+    return titresAdministrationsModificationQuery(
+      administrationsIds,
+      'demarches'
+    )
+      .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
+      .whereNotExists(titreDemarcheEtapesQuery(demarcheAlias))
+  }
+
+  return raw('false')
+}
+
+const titreDemarcheEtapesQuery = (demarcheAlias: string) =>
+  TitresEtapes.query()
+    .alias('titresDemarchesEtapes')
+    .whereRaw('?? = ??', [
+      'titresDemarchesEtapes.titreDemarcheId',
+      `${demarcheAlias}.id`
+    ])
+
+const titreEtapesCreationQuery = (
   demarcheAlias: string,
   user?: IUtilisateur
 ) => {

@@ -77,15 +77,16 @@ const documentsPermissionQueryBuild = (
     })
   }
 
-  q.select(documentsModificationQueryBuild().as('modification'))
-  q.select(documentsModificationQueryBuild().as('suppression'))
+  q.select(
+    raw('(not exists(?))', [titreEtapeJustificatifsQuery]).as('modification')
+  )
+  q.select(
+    raw('(not exists(?))', [titreEtapeJustificatifsQuery]).as('suppression')
+  )
 }
 
-const documentsModificationQueryBuild = () =>
-  raw('(not exists(?))', [
-    TitresEtapesJustificatifs.query()
-      .alias('documentsModification')
-      .whereRaw('?? = ??', ['documentsModification.documentId', 'documents.id'])
-  ])
+const titreEtapeJustificatifsQuery = TitresEtapesJustificatifs.query()
+  .alias('documentsModification')
+  .whereRaw('?? = ??', ['documentsModification.documentId', 'documents.id'])
 
 export { documentsPermissionQueryBuild }

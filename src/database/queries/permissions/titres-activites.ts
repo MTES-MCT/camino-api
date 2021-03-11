@@ -8,7 +8,11 @@ import Documents from '../../models/documents'
 import TitresActivites from '../../models/titres-activites'
 import DocumentsTypes from '../../models/documents-types'
 import { documentsPermissionQueryBuild } from './documents'
-import { titreAdministrationQuery } from './administrations'
+import {
+  administrationsTitresQuery,
+  administrationsActivitesModifier
+} from './administrations'
+import { entreprisesTitresQuery } from './entreprises'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
@@ -76,9 +80,10 @@ const titreActivitesCalc = (
 
         // l'utilisateur fait partie d'une administrations qui a les droits sur le titre
         titresActivitesCountQuery.whereExists(
-          titreAdministrationQuery(administrationsIds, 'titre', {
+          administrationsTitresQuery(administrationsIds, 'titre', {
             isGestionnaire: true,
-            isAssociee: true
+            isAssociee: true,
+            isLocale: true
           })
             .leftJoin(
               'administrations__activitesTypes as a_at',
@@ -158,20 +163,11 @@ const titreActivitePermissionQueryBuild = (
     const administrationsIds = user.administrations!.map(a => a.id)
 
     q.whereExists(
-      titreAdministrationQuery(administrationsIds, 'titre', {
+      administrationsTitresQuery(administrationsIds, 'titre', {
         isGestionnaire: true,
-        isAssociee: true
-      })
-        .leftJoin(
-          'administrations__activitesTypes as a_at',
-          raw('?? = ?? and ?? = ?? ', [
-            'a_at.administrationId',
-            'administrations.id',
-            'a_at.activiteTypeId',
-            'titresActivites.typeId'
-          ])
-        )
-        .whereRaw('?? is not true', ['a_at.lectureInterdit'])
+        isAssociee: true,
+        isLocale: true
+      }).modify(administrationsActivitesModifier, { lecture: true })
     )
   } else if (
     permissionCheck(user?.permissionId, ['entreprise']) &&
@@ -180,28 +176,12 @@ const titreActivitePermissionQueryBuild = (
     // vérifie que l'utilisateur a les permissions sur les titres
     const entreprisesIds = user.entreprises.map(e => e.id)
 
-    const titulairesPermissionQuery = TitresActivites.query()
-      .alias('titresActivitesTitulaires')
-      .joinRelated('titre.titulaires')
-      .whereRaw('?? = ??', [
-        'titresActivitesTitulaires.id',
-        'titresActivites.id'
-      ])
-      .whereIn('titre:titulaires.id', entreprisesIds)
-
-    const amodiatairesPermissionQuery = TitresActivites.query()
-      .alias('titresActivitesAmodiataires')
-      .joinRelated('titre.amodiataires')
-      .whereRaw('?? = ??', [
-        'titresActivitesAmodiataires.id',
-        'titresActivites.id'
-      ])
-      .whereIn('titre:amodiataires.id', entreprisesIds)
-
-    q.where(b => {
-      b.whereExists(titulairesPermissionQuery)
-      b.orWhereExists(amodiatairesPermissionQuery)
-    })
+    q.whereExists(
+      entreprisesTitresQuery(entreprisesIds, 'titre', {
+        isTitulaire: true,
+        isAmodiataire: true
+      })
+    )
   } else if (!permissionCheck(user?.permissionId, ['super'])) {
     // sinon, aucune activité n'est visible
     q.where(false)
@@ -250,23 +230,14 @@ const titreActiviteQueryPropsBuild = (
       const administrationsIds = user.administrations!.map(a => a.id)
 
       q.select(
-        titreAdministrationQuery(administrationsIds, 'titre', {
-          isGestionnaire: true
+        administrationsTitresQuery(administrationsIds, 'titre', {
+          isGestionnaire: true,
+          isLocale: true
         })
-          .leftJoinRelated('activitesTypes')
-          .leftJoin(
-            'administrations__activitesTypes as a_at',
-            raw('?? = ?? and ?? = ?? ', [
-              'a_at.administrationId',
-              'administrations.id',
-              'a_at.activiteTypeId',
-              'titresActivites.typeId'
-            ])
-          )
-          .whereRaw('?? is not true and ?? is not true', [
-            'a_at.lectureInterdit',
-            'a_at.modificationInterdit'
-          ])
+          .modify(administrationsActivitesModifier, {
+            lecture: true,
+            modification: true
+          })
           .select(raw('true'))
           .as('modification')
       )

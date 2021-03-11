@@ -11,9 +11,6 @@ import TitresDemarches from '../../models/titres-demarches'
 import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
 
-import Administrations from '../../models/administrations'
-import Entreprises from '../../models/entreprises'
-
 import {
   titreActivitePermissionQueryBuild,
   titreActiviteQueryPropsBuild,
@@ -23,11 +20,11 @@ import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titreTravauxPermissionQueryBuild } from './titres-travaux'
 import {
   administrationsTitresTypesTitresStatutsModifier,
-  administrationsTitresTypesModifier,
-  titreAdministrationQuery
+  administrationsTitresQuery
 } from './administrations'
+import { entreprisesTitresQuery } from './entreprises'
 
-const titresModificationQueryBuild = (
+const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
   type: 'titres' | 'demarches' | 'etapes'
 ) =>
@@ -35,19 +32,13 @@ const titresModificationQueryBuild = (
     .alias('titresModification')
     .select(raw('true'))
     .whereExists(
-      Administrations.query()
-        .modify(
-          administrationsTitresTypesTitresStatutsModifier,
-          type,
-          'titresModification'
-        )
-        .modify(
-          administrationsTitresTypesModifier,
-          administrationsIds,
-          'titresModification',
-          { isGestionnaire: true }
-        )
-        .whereNotNull('a_tt.administrationId')
+      administrationsTitresQuery(administrationsIds, 'titresModification', {
+        isGestionnaire: true
+      }).modify(
+        administrationsTitresTypesTitresStatutsModifier,
+        type,
+        'titresModification'
+      )
     )
 
 const titrePermissionQueryBuild = (
@@ -86,20 +77,12 @@ const titrePermissionQueryBuild = (
         b.orWhere(c => {
           c.where('titres.entreprisesLecture', true)
 
-          c.where(d => {
-            d.whereExists(
-              (Titres.relatedQuery('titulaires') as QueryBuilder<
-                Entreprises,
-                Entreprises | Entreprises[]
-              >).whereIn('titulaires.id', entreprisesIds)
-            )
-            d.orWhereExists(
-              (Titres.relatedQuery('amodiataires') as QueryBuilder<
-                Entreprises,
-                Entreprises | Entreprises[]
-              >).whereIn('amodiataires.id', entreprisesIds)
-            )
-          })
+          c.whereExists(
+            entreprisesTitresQuery(entreprisesIds, 'titres', {
+              isTitulaire: true,
+              isAmodiataire: true
+            })
+          )
         })
       }
 
@@ -115,9 +98,10 @@ const titrePermissionQueryBuild = (
         const administrationsIds = user.administrations.map(a => a.id)
 
         b.orWhereExists(
-          titreAdministrationQuery(administrationsIds, 'titres', {
+          administrationsTitresQuery(administrationsIds, 'titres', {
             isGestionnaire: true,
-            isAssociee: true
+            isAssociee: true,
+            isLocale: true
           })
         )
       }
@@ -137,12 +121,12 @@ const titrePermissionQueryBuild = (
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
-    const titresModificationQuery = titresModificationQueryBuild(
+    const titresModificationQuery = titresAdministrationsModificationQuery(
       administrationsIds,
       'titres'
     ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
 
-    const demarchesCreationQuery = titresModificationQueryBuild(
+    const demarchesCreationQuery = titresAdministrationsModificationQuery(
       administrationsIds,
       'demarches'
     ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
@@ -212,4 +196,4 @@ const titrePermissionQueryBuild = (
   return q
 }
 
-export { titrePermissionQueryBuild, titresModificationQueryBuild }
+export { titrePermissionQueryBuild, titresAdministrationsModificationQuery }
