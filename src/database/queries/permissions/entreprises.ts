@@ -25,7 +25,7 @@ const entreprisePermissionQueryBuild = (
     permissionCheck(user?.permissionId, ['entreprise']) &&
     user?.entreprises?.length
   ) {
-    q.leftJoin(
+    const utilisateurEntreprise = Utilisateurs.query().leftJoin(
       'utilisateurs__entreprises as u_e',
       raw('?? = ?? and ?? = ?', [
         'u_e.entrepriseId',
@@ -35,12 +35,7 @@ const entreprisePermissionQueryBuild = (
       ])
     )
 
-    q.select(
-      raw('(case when ?? = ? then true else false end)', [
-        'u_e.utilisateurId',
-        user.id
-      ]).as('modification')
-    )
+    q.select(raw('exists (?)', [utilisateurEntreprise]).as('modification'))
   } else {
     q.select(raw('false').as('modification'))
   }

@@ -79,7 +79,7 @@ input InputAdministrationTitreTypeEtapeType {
 
 input InputAdministrationActiviteType {
   administrationId: ID!
-  titreTypeId: ID!
+  activiteTypeId: ID!
   lectureInterdit: Boolean
   modificationInterdit: Boolean
 }

@@ -207,19 +207,21 @@ const titreActivitePermissionQueryBuild = (
     q.where(false)
   }
 
-  if (!grouped) {
-    if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
-      const documentsTypesQuery = DocumentsTypes.query()
-        .alias('documentsTypesQuery')
-        .select(raw('true'))
-        .joinRelated('activitesTypes')
-        .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
-        .groupBy('documentsTypesQuery.id')
+  if (grouped) {
+    q.groupBy('titresActivites.id')
+  }
 
-      q.select(documentsTypesQuery.as('documentsCreation'))
-    } else {
-      q.select(raw('false').as('documentsCreation'))
-    }
+  if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
+    const documentsTypesQuery = DocumentsTypes.query()
+      .alias('documentsTypesQuery')
+      .select(raw('true'))
+      .joinRelated('activitesTypes')
+      .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
+      .groupBy('documentsTypesQuery.id')
+
+    q.select(documentsTypesQuery.as('documentsCreation'))
+  } else {
+    q.select(raw('false').as('documentsCreation'))
   }
 
   q.modifyGraph('documents', ed => {
