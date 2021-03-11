@@ -47,6 +47,20 @@ class EtapesTypes extends Model {
         from: 'etapesTypes.id',
         to: 'administrations__titresTypes__etapesTypes.etapeTypeId'
       }
+    },
+
+    documentsTypes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'documents-types'),
+      join: {
+        from: 'etapesTypes.id',
+        through: {
+          from: 'etapesTypes__documentsTypes.etapeTypeId',
+          to: 'etapesTypes__documentsTypes.documentTypeId',
+          extra: ['optionnel']
+        },
+        to: 'documentsTypes.id'
+      }
     }
   }
 

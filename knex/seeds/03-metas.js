@@ -1,23 +1,22 @@
 const seeding = require('../seeding')
 
+/* eslint-disable camelcase */
+
 const definitions = require('../../sources/definitions.json')
 const domaines = require('../../sources/domaines.json')
 const titresTypesTypes = require('../../sources/titres-types-types.json')
 const titresTypes = require('../../sources/titres-types.json')
 const titresStatuts = require('../../sources/titres-statuts.json')
-// eslint-disable-next-line camelcase
 const titresTypes_titresStatuts = require('../../sources/titres-types--titres-statuts.json')
 const phasesStatuts = require('../../sources/phases-statuts.json')
 const demarchesTypes = require('../../sources/demarches-types.json')
-// eslint-disable-next-line camelcase
 const titresTypes__demarchesTypes = require('../../sources/titres-types--demarches-types.json')
 const demarchesStatuts = require('../../sources/demarches-statuts.json')
 const etapesTypes = require('../../sources/etapes-types.json')
-// eslint-disable-next-line camelcase
 const titresTypes_demarchesTypes_etapesTypes = require('../../sources/titres-types--demarches-types--etapes-types.json')
 const etapesStatuts = require('../../sources/etapes-statuts.json')
-// eslint-disable-next-line camelcase
 const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
+const etapesTypes_documentsTypes = require('../../sources/etapes-types--documents-types.json')
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
 const unites = require('../../sources/unites.json')
@@ -53,6 +52,7 @@ const seed = (module.exports = seeding(async ({ insert }) => {
       'titresTypes__demarchesTypes__etapesTypes',
       titresTypes_demarchesTypes_etapesTypes
     ),
+    insert('etapesTypes__documentsTypes', etapesTypes_documentsTypes),
     insert('etapesTypes__etapesStatuts', etapesTypes_etapesStatuts)
   ])
 }))

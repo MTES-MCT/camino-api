@@ -172,6 +172,8 @@ type EtapeType {
   etapesStatuts: [EtapeStatut]
 
   etapesCreation: Boolean
+
+  documentsTypes: [DocumentType]
 }
 
 "Statut d'une étape de démarche de titre minier"
