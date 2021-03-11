@@ -196,7 +196,7 @@ const titreActivitePermissionQueryBuild = (
       .alias('documentsTypesQuery')
       .select(raw('true'))
       .joinRelated('activitesTypes')
-      .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
+      .where('activitesTypes.id', '=', 'titresActivites.typeId')
       .groupBy('documentsTypesQuery.id')
 
     q.select(documentsTypesQuery.as('documentsCreation'))
