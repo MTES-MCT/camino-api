@@ -27,9 +27,9 @@ const titreTravauxPermissionQueryBuild = (
     q.select(raw('false').as('etapesCreation'))
   }
 
-  q.modifyGraph('etapes', te => {
+  q.modifyGraph('etapes', b => {
     titreTravauxEtapesPermissionQueryBuild(
-      te as QueryBuilder<
+      b as QueryBuilder<
         TitresTravauxEtapes,
         TitresTravauxEtapes | TitresTravauxEtapes[]
       >,

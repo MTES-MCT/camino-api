@@ -98,9 +98,9 @@ const titreDemarchePermissionQueryBuild = (
     titreEtapesCreationQuery('titresDemarches', user).as('etapesCreation')
   )
 
-  q.modifyGraph('etapes', te => {
+  q.modifyGraph('etapes', b => {
     titreEtapesPermissionQueryBuild(
-      te as QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
+      b as QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
       user
     )
   })

@@ -106,8 +106,6 @@ const titresDemarchesQueryBuild = (
 
   titreDemarchePermissionQueryBuild(q, fields, user)
 
-  // q.groupBy('titresDemarches.id')
-
   if (titresDemarchesIds) {
     q.whereIn('titresDemarches.id', titresDemarchesIds)
   }
