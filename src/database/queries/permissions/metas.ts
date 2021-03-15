@@ -22,8 +22,8 @@ import TitresTravaux from '../../models/titres-travaux'
 
 import { titresAdministrationsModificationQuery } from './titres'
 import {
-  administrationsTitresTypesTitresStatutsModifier,
-  administrationsTitresTypesEtapesTypesModifier,
+  administrationsTitresTypesTitresStatutsModify,
+  administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
 } from './administrations'
 
@@ -60,12 +60,12 @@ const etapesTypesModificationQueryBuild = (
         isLocale: true
       })
         .modify(
-          administrationsTitresTypesTitresStatutsModifier,
+          administrationsTitresTypesTitresStatutsModify,
           'etapes',
           'titresModification'
         )
         .modify(
-          administrationsTitresTypesEtapesTypesModifier,
+          administrationsTitresTypesEtapesTypesModify,
           type,
           't_d_e.titreTypeId',
           't_d_e.etapeTypeId'
@@ -77,7 +77,7 @@ const etapesTypesModificationQueryBuild = (
   return q
 }
 
-const titresTypesPermissionsQueryBuild = (
+const titresTypesQueryModify = (
   q: QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
   user?: IUtilisateur
 ) => {
@@ -119,7 +119,7 @@ const titresTypesPermissionsQueryBuild = (
   }
 }
 
-const domainesPermissionQueryBuild = (
+const domainesQueryModify = (
   q: QueryBuilder<Domaines, Domaines | Domaines[]>,
   user?: IUtilisateur
 ) => {
@@ -162,14 +162,14 @@ const domainesPermissionQueryBuild = (
   }
 
   q.modifyGraph('titresTypes', b => {
-    titresTypesPermissionsQueryBuild(
+    titresTypesQueryModify(
       b as QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
       user
     )
   })
 }
 
-const etapesTypesPermissionQueryBuild = (
+const etapesTypesQueryModify = (
   q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
   user?: IUtilisateur,
   {
@@ -272,7 +272,7 @@ const etapesTypesPermissionQueryBuild = (
   // fileCreate('dev/tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
 
-const travauxEtapesTypesPermissionQueryBuild = (
+const travauxEtapesTypesQueryModify = (
   q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
   user?: IUtilisateur,
   {
@@ -311,7 +311,7 @@ const travauxEtapesTypesPermissionQueryBuild = (
   }
 }
 
-const activitesTypesPermissionQueryBuild = (
+const activitesTypesQueryModify = (
   q: QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
   user?: IUtilisateur
 ) => {
@@ -356,7 +356,7 @@ const activitesTypesPermissionQueryBuild = (
   }
 }
 
-const demarchesTypesPermissionQueryBuild = (
+const demarchesTypesQueryModify = (
   q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
   user?: IUtilisateur,
   {
@@ -408,7 +408,7 @@ const demarchesTypesPermissionQueryBuild = (
   }
 }
 
-const travauxTypesPermissionQueryBuild = (
+const travauxTypesQueryModify = (
   q: QueryBuilder<TravauxTypes, TravauxTypes | TravauxTypes[]>,
   user?: IUtilisateur,
   {
@@ -428,7 +428,7 @@ const travauxTypesPermissionQueryBuild = (
   }
 }
 
-const permissionsPermissionQueryBuild = (
+const permissionsQueryModify = (
   q: QueryBuilder<Permissions, Permissions | Permissions[]>,
   user?: IUtilisateur
 ) => {
@@ -447,13 +447,13 @@ const permissionsPermissionQueryBuild = (
 }
 
 export {
-  activitesTypesPermissionQueryBuild,
-  demarchesTypesPermissionQueryBuild,
-  domainesPermissionQueryBuild,
+  activitesTypesQueryModify,
+  demarchesTypesQueryModify,
+  domainesQueryModify,
   etapesTypesModificationQueryBuild,
-  etapesTypesPermissionQueryBuild,
-  permissionsPermissionQueryBuild,
-  titresTypesPermissionsQueryBuild,
-  travauxTypesPermissionQueryBuild,
-  travauxEtapesTypesPermissionQueryBuild
+  etapesTypesQueryModify,
+  permissionsQueryModify,
+  titresTypesQueryModify,
+  travauxTypesQueryModify,
+  travauxEtapesTypesQueryModify
 }

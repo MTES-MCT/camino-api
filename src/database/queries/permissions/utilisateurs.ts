@@ -6,9 +6,9 @@ import Utilisateurs from '../../models/utilisateurs'
 
 import Administrations from '../../models/administrations'
 import Entreprises from '../../models/entreprises'
-import { entreprisePermissionQueryBuild } from './entreprises'
+import { entreprisesQueryModify } from './entreprises'
 
-const utilisateursPermissionQueryBuild = (
+const utilisateursQueryModify = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
   fields?: IFields,
   user?: IUtilisateur
@@ -123,7 +123,7 @@ const utilisateursPermissionQueryBuild = (
   }
 
   q.modifyGraph('entreprises', u =>
-    entreprisePermissionQueryBuild(
+    entreprisesQueryModify(
       u as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
       fields,
       user
@@ -135,4 +135,4 @@ const utilisateursPermissionQueryBuild = (
   return q
 }
 
-export { utilisateursPermissionQueryBuild }
+export { utilisateursQueryModify }

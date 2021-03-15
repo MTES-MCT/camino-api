@@ -12,14 +12,14 @@ import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
 
 import {
-  titreActivitePermissionQueryBuild,
-  titreActiviteQueryPropsBuild,
+  titresActivitesQueryModify,
+  titresActivitesPropsQueryModify,
   titreActivitesCalc
 } from './titres-activites'
-import { titreDemarchePermissionQueryBuild } from './titres-demarches'
-import { titreTravauxPermissionQueryBuild } from './titres-travaux'
+import { titresDemarchesQueryModify } from './titres-demarches'
+import { titresTravauxQueryModify } from './titres-travaux'
 import {
-  administrationsTitresTypesTitresStatutsModifier,
+  administrationsTitresTypesTitresStatutsModify,
   administrationsTitresQuery
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
@@ -35,34 +35,25 @@ const titresAdministrationsModificationQuery = (
       administrationsTitresQuery(administrationsIds, 'titresModification', {
         isGestionnaire: true
       }).modify(
-        administrationsTitresTypesTitresStatutsModifier,
+        administrationsTitresTypesTitresStatutsModify,
         type,
         'titresModification'
       )
     )
 
-const titrePermissionQueryBuild = (
+const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   fields?: IFields,
   user?: IUtilisateur
 ) => {
   q.select('titres.*')
 
-  const administrationMinistereCheck = user?.administrations?.some(
-    a => a.typeId === 'min'
-  )
-
   // si
   // - l'utilisateur n'est pas connecté
-  // - ou l'utilisateur appartient à une entreprise
-  // - ou l'utilisateur appartient à une administration (autre qu'un ministère)
+  // - ou l'utilisateur n'est pas super
   // alors il ne voit que les titres publics et ceux auxquels son entité est reliée
-  if (
-    !user ||
-    permissionCheck(user?.permissionId, ['entreprise', 'defaut']) ||
-    (permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-      !administrationMinistereCheck)
-  ) {
+
+  if (!user || !permissionCheck(user?.permissionId, ['super'])) {
     q.where(b => {
       b.where('titres.publicLecture', true)
 
@@ -163,7 +154,7 @@ const titrePermissionQueryBuild = (
 
   // visibilité des étapes
   q.modifyGraph('demarches', b => {
-    titreDemarchePermissionQueryBuild(
+    titresDemarchesQueryModify(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
       fields,
       user
@@ -172,7 +163,7 @@ const titrePermissionQueryBuild = (
 
   // visibilité des travaux
   q.modifyGraph('travaux', b => {
-    titreTravauxPermissionQueryBuild(
+    titresTravauxQueryModify(
       b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
       fields,
       user
@@ -183,11 +174,11 @@ const titrePermissionQueryBuild = (
 
   // visibilité des activités
   q.modifyGraph('activites', b => {
-    titreActivitePermissionQueryBuild(
+    titresActivitesQueryModify(
       b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
-    titreActiviteQueryPropsBuild(
+    titresActivitesPropsQueryModify(
       b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
@@ -196,4 +187,4 @@ const titrePermissionQueryBuild = (
   return q
 }
 
-export { titrePermissionQueryBuild, titresAdministrationsModificationQuery }
+export { titresQueryModify, titresAdministrationsModificationQuery }

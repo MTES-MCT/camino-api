@@ -7,10 +7,10 @@ import Titres from '../../models/titres'
 import Documents from '../../models/documents'
 import TitresActivites from '../../models/titres-activites'
 import DocumentsTypes from '../../models/documents-types'
-import { documentsPermissionQueryBuild } from './documents'
+import { documentsQueryModify } from './documents'
 import {
   administrationsTitresQuery,
-  administrationsActivitesModifier
+  administrationsActivitesModify
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
 // import fileCreate from '../../../tools/file-create'
@@ -149,7 +149,7 @@ const titreActivitesCalc = (
   return q
 }
 
-const titreActivitePermissionQueryBuild = (
+const titresActivitesQueryModify = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur,
   select = true
@@ -159,6 +159,7 @@ const titreActivitePermissionQueryBuild = (
   }
 
   q.leftJoinRelated('titre')
+
   if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
@@ -170,7 +171,7 @@ const titreActivitePermissionQueryBuild = (
         isGestionnaire: true,
         isAssociee: true,
         isLocale: true
-      }).modify(administrationsActivitesModifier, { lecture: true })
+      }).modify(administrationsActivitesModify, { lecture: true })
     )
   } else if (
     permissionCheck(user?.permissionId, ['entreprise']) &&
@@ -195,7 +196,7 @@ const titreActivitePermissionQueryBuild = (
       .alias('documentsTypesQuery')
       .select(raw('true'))
       .joinRelated('activitesTypes')
-      .where('activitesTypes.id', '=', 'titresActivites.typeId')
+      .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
       .groupBy('documentsTypesQuery.id')
 
     q.select(documentsTypesQuery.as('documentsCreation'))
@@ -204,7 +205,7 @@ const titreActivitePermissionQueryBuild = (
   }
 
   q.modifyGraph('documents', b => {
-    documentsPermissionQueryBuild(
+    documentsQueryModify(
       b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
@@ -213,7 +214,7 @@ const titreActivitePermissionQueryBuild = (
   return q
 }
 
-const titreActiviteQueryPropsBuild = (
+const titresActivitesPropsQueryModify = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur
 ) => {
@@ -233,7 +234,7 @@ const titreActiviteQueryPropsBuild = (
           isGestionnaire: true,
           isLocale: true
         })
-          .modify(administrationsActivitesModifier, {
+          .modify(administrationsActivitesModify, {
             lecture: true,
             modification: true
           })
@@ -268,7 +269,7 @@ const titreActiviteQueryPropsBuild = (
 }
 
 export {
-  titreActivitePermissionQueryBuild,
-  titreActiviteQueryPropsBuild,
+  titresActivitesQueryModify,
+  titresActivitesPropsQueryModify,
   titreActivitesCalc
 }

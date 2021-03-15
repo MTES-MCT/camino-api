@@ -7,7 +7,7 @@ import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 
-import { activitesTypesPermissionQueryBuild } from './permissions/metas'
+import { activitesTypesQueryModify } from './permissions/metas'
 
 const activitesTypesGet = async (
   { fields }: { fields?: IFields },
@@ -21,7 +21,7 @@ const activitesTypesGet = async (
 
   const q = ActivitesTypes.query().withGraphFetched(graph).modify('orderAsc')
 
-  activitesTypesPermissionQueryBuild(q, user)
+  activitesTypesQueryModify(q, user)
 
   return q
 }

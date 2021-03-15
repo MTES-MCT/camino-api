@@ -18,7 +18,7 @@ import { userGet } from './utilisateurs'
 
 import Administrations from '../models/administrations'
 import AdministrationsTitresTypes from '../models/administrations-titres-types'
-import { administrationsPermissionQueryBuild } from './permissions/administrations'
+import { administrationsQueryModify } from './permissions/administrations'
 import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
 import AdministrationsActivitesTypes from '../models/administrations-activites-types'
@@ -42,7 +42,7 @@ const administrationsQueryBuild = (
 
   const q = Administrations.query().withGraphFetched(graph)
 
-  administrationsPermissionQueryBuild(q, fields, user)
+  administrationsQueryModify(q, fields, user)
 
   if (administrationsIds) {
     q.whereIn('administrations.id', administrationsIds)

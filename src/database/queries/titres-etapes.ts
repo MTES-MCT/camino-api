@@ -14,7 +14,7 @@ import TitresCommunes from '../models/titres-communes'
 import TitresEtapesJustificatifs from '../models/titres-etapes-justificatifs'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
 import options from './_options'
-import { titreEtapesPermissionQueryBuild } from './permissions/titres-etapes'
+import { titresEtapesQueryModify } from './permissions/titres-etapes'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
@@ -39,7 +39,7 @@ const titresEtapesQueryBuild = (
 
   const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)
 
-  titreEtapesPermissionQueryBuild(q, user)
+  titresEtapesQueryModify(q, user)
 
   if (titresEtapesIds) {
     q.whereIn('titresEtapes.id', titresEtapesIds)

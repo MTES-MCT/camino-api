@@ -7,10 +7,10 @@ import Titres from '../../models/titres'
 import TitresTravauxEtapes from '../../models/titres-travaux-etapes'
 import TitresTravaux from '../../models/titres-travaux'
 
-import { titreTravauxEtapesPermissionQueryBuild } from './titres-travaux-etapes'
-import { titrePermissionQueryBuild } from './titres'
+import { titresTravauxEtapesQueryModify } from './titres-travaux-etapes'
+import { titresQueryModify } from './titres'
 
-const titreTravauxPermissionQueryBuild = (
+const titresTravauxQueryModify = (
   q: QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
   fields?: IFields,
   user?: IUtilisateur
@@ -28,7 +28,7 @@ const titreTravauxPermissionQueryBuild = (
   }
 
   q.modifyGraph('etapes', b => {
-    titreTravauxEtapesPermissionQueryBuild(
+    titresTravauxEtapesQueryModify(
       b as QueryBuilder<
         TitresTravauxEtapes,
         TitresTravauxEtapes | TitresTravauxEtapes[]
@@ -38,7 +38,7 @@ const titreTravauxPermissionQueryBuild = (
   })
 
   q.modifyGraph('titre', a =>
-    titrePermissionQueryBuild(
+    titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       fields,
       user
@@ -51,4 +51,4 @@ const titreTravauxPermissionQueryBuild = (
   return q
 }
 
-export { titreTravauxPermissionQueryBuild }
+export { titresTravauxQueryModify }

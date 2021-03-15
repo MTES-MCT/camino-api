@@ -14,8 +14,8 @@ import graphBuild from './graph/build'
 import TitresActivites from '../models/titres-activites'
 import options from './_options'
 import {
-  titreActivitePermissionQueryBuild,
-  titreActiviteQueryPropsBuild
+  titresActivitesQueryModify,
+  titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
 import { userGet } from './utilisateurs'
 import { raw } from 'objection'
@@ -80,8 +80,8 @@ const titreActivitesQueryBuild = (
 
   const q = TitresActivites.query().withGraphFetched(graph)
 
-  titreActivitePermissionQueryBuild(q, user)
-  titreActiviteQueryPropsBuild(q, user)
+  titresActivitesQueryModify(q, user)
+  titresActivitesPropsQueryModify(q, user)
 
   if (typesIds) {
     q.whereIn('titresActivites.typeId', typesIds)
@@ -153,10 +153,10 @@ const activitesAnneesGet = async (userId?: string) => {
 
   const q = TitresActivites.query()
 
-  titreActivitePermissionQueryBuild(q, user, false)
+  titresActivitesQueryModify(q, user, false)
 
   q.select('annee')
-  q.groupBy('annee')
+  q.groupBy('annee', 'titresActivites.id')
   q.orderBy('annee', 'desc')
 
   const titreActivites = await q

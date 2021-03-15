@@ -6,7 +6,7 @@ import {
 } from '../../types'
 import Entreprises from '../models/entreprises'
 import options from './_options'
-import { entreprisePermissionQueryBuild } from './permissions/entreprises'
+import { entreprisesQueryModify } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
@@ -30,7 +30,7 @@ const entreprisesQueryBuild = (
 
   const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
 
-  entreprisePermissionQueryBuild(q, fields, user)
+  entreprisesQueryModify(q, fields, user)
 
   if (noms) {
     const nomsArray = stringSplit(noms)
