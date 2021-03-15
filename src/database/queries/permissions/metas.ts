@@ -20,11 +20,11 @@ import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
 import TitresTravaux from '../../models/titres-travaux'
 
-import { titresModificationQueryBuild } from './titres'
+import { titresAdministrationsModificationQuery } from './titres'
 import {
   administrationsTitresTypesTitresStatutsModifier,
   administrationsTitresTypesEtapesTypesModifier,
-  titreAdministrationQuery
+  administrationsTitresQuery
 } from './administrations'
 
 // récupère les types d'étapes qui ont
@@ -55,8 +55,9 @@ const etapesTypesModificationQueryBuild = (
       ])
     )
     .whereExists(
-      titreAdministrationQuery(administrationsIds, 'titresModification', {
-        isGestionnaire: true
+      administrationsTitresQuery(administrationsIds, 'titresModification', {
+        isGestionnaire: true,
+        isLocale: true
       })
         .modify(
           administrationsTitresTypesTitresStatutsModifier,
@@ -395,7 +396,7 @@ const demarchesTypesPermissionQueryBuild = (
     const administrationsIds = user.administrations.map(a => a.id) || []
 
     if (titreId) {
-      const titresModificationQuery = titresModificationQueryBuild(
+      const titresModificationQuery = titresAdministrationsModificationQuery(
         administrationsIds,
         'demarches'
       ).where('titresModification.id', titreId)

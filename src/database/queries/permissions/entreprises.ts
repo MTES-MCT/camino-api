@@ -80,4 +80,73 @@ const entreprisePermissionQueryBuild = (
   return q
 }
 
-export { entreprisePermissionQueryBuild }
+const entreprisesTitresQuery = (
+  entreprisesIds: string[],
+  titreAlias: string,
+  {
+    isTitulaire,
+    isAmodiataire
+  }: { isTitulaire?: boolean; isAmodiataire?: boolean } = {}
+) => {
+  const q = Entreprises.query().whereIn('entreprises.id', entreprisesIds)
+
+  if (isTitulaire) {
+    q.modify(entreprisesTitulairesModifier, entreprisesIds, titreAlias)
+  }
+
+  if (isAmodiataire) {
+    q.modify(entreprisesAmodiatairesModifier, entreprisesIds, titreAlias)
+  }
+
+  q.where(c => {
+    if (isTitulaire) {
+      c.orWhereNotNull('t_t.entrepriseId')
+    }
+
+    if (isAmodiataire) {
+      c.orWhereNotNull('t_a.entrepriseId')
+    }
+  })
+
+  return q
+}
+
+const entreprisesTitulairesModifier = (
+  q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+  entreprisesIds: string[],
+  titreAlias: string
+) => {
+  const entreprisesIdsReplace = entreprisesIds.map(() => '?').join(',')
+
+  q.leftJoin(
+    'titresTitulaires as t_t',
+    raw(`?? ->> ? = ?? and ?? in (${entreprisesIdsReplace})`, [
+      `${titreAlias}.propsTitreEtapesIds`,
+      'titulaires',
+      't_t.titreEtapeId',
+      't_t.entrepriseId',
+      ...entreprisesIds
+    ])
+  )
+}
+
+const entreprisesAmodiatairesModifier = (
+  q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+  entreprisesIds: string[],
+  titreAlias: string
+) => {
+  const entreprisesIdsReplace = entreprisesIds.map(() => '?').join(',')
+
+  q.leftJoin(
+    'titresAmodiataires as t_a',
+    raw(`?? ->> ? = ?? and ?? in (${entreprisesIdsReplace})`, [
+      `${titreAlias}.propsTitreEtapesIds`,
+      'amodiataires',
+      't_a.titreEtapeId',
+      't_a.entrepriseId',
+      ...entreprisesIds
+    ])
+  )
+}
+
+export { entreprisePermissionQueryBuild, entreprisesTitresQuery }

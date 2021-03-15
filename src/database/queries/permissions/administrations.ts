@@ -95,12 +95,12 @@ const administrationsTitresTypesModifier = (
   ]
 
   if (isGestionnaire) {
-    query = `${query} and ${isAssociee ? '(' : ''} ?? = true`
+    query = `${query} and ${isAssociee ? '(' : ''} ?? is true`
     bindings.push('a_tt.gestionnaire')
   }
 
   if (isAssociee) {
-    query = `${query} ${isGestionnaire ? 'or' : 'and'} ?? = true ${
+    query = `${query} ${isGestionnaire ? 'or' : 'and'} ?? is true ${
       isGestionnaire ? ')' : ''
     }`
     bindings.push('a_tt.associee')
@@ -128,28 +128,71 @@ const administrationsLocalesModifier = (
   )
 }
 
-const titreAdministrationQuery = (
+const administrationsActivitesModifier = (
+  q: QueryBuilder<Administrations, Administrations | Administrations[]>,
+
+  { lecture, modification }: { lecture?: boolean; modification?: boolean }
+) => {
+  let query = '?? = ?? and ?? = ??'
+  const bindings = [
+    'a_at.administrationId',
+    'administrations.id',
+    'a_at.activiteTypeId',
+    'titresActivites.typeId'
+  ]
+
+  if (lecture) {
+    query = `${query} and ?? is not true`
+    bindings.push('a_at.lectureInterdit')
+  }
+
+  if (modification) {
+    query = `${query} and ?? is not true`
+    bindings.push('a_at.modificationInterdit')
+  }
+
+  q.leftJoin('administrations__activitesTypes as a_at', raw(query, bindings))
+}
+
+const administrationsTitresQuery = (
   administrationsIds: string[],
   titreAlias: string,
   {
     isGestionnaire,
-    isAssociee
-  }: { isGestionnaire?: boolean; isAssociee?: boolean } = {}
-) =>
-  Administrations.query()
-    .modify(
+    isAssociee,
+    isLocale
+  }: { isGestionnaire?: boolean; isAssociee?: boolean; isLocale?: boolean } = {}
+) => {
+  const q = Administrations.query().whereIn(
+    'administrations.id',
+    administrationsIds
+  )
+
+  if (isGestionnaire || isAssociee) {
+    q.modify(
       administrationsTitresTypesModifier,
       administrationsIds,
       titreAlias,
       { isGestionnaire, isAssociee }
     )
-    .modify(administrationsLocalesModifier, administrationsIds, titreAlias)
-    .whereIn('administrations.id', administrationsIds)
-    .where(c => {
-      c.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
-        't_al.administrationId'
-      )
-    })
+  }
+
+  if (isLocale) {
+    q.modify(administrationsLocalesModifier, administrationsIds, titreAlias)
+  }
+
+  q.where(c => {
+    if (isGestionnaire || isAssociee) {
+      c.orWhereNotNull('a_tt.administrationId')
+    }
+
+    if (isLocale) {
+      c.orWhereNotNull('t_al.administrationId')
+    }
+  })
+
+  return q
+}
 
 const administrationsTitresTypesTitresStatutsModifier = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
@@ -180,7 +223,7 @@ const administrationsTitresTypesEtapesTypesModifier = (
 ) => {
   q.leftJoin(
     'administrations__titresTypes__etapesTypes as a_tt_et',
-    raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
+    raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
       'a_tt_et.administrationId',
       'administrations.id',
       'a_tt_et.titreTypeId',
@@ -194,9 +237,9 @@ const administrationsTitresTypesEtapesTypesModifier = (
 
 export {
   administrationsPermissionQueryBuild,
-  administrationsTitresTypesModifier,
   administrationsLocalesModifier,
   administrationsTitresTypesTitresStatutsModifier,
   administrationsTitresTypesEtapesTypesModifier,
-  titreAdministrationQuery
+  administrationsTitresQuery,
+  administrationsActivitesModifier
 }

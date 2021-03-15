@@ -1,7 +1,7 @@
 import { IUtilisateur } from '../../types'
 
 import { permissionCheck } from '../../tools/permission'
-import { titresModificationQueryBuild } from '../../database/queries/permissions/titres'
+import { titresAdministrationsModificationQuery } from '../../database/queries/permissions/titres'
 import { etapesTypesModificationQueryBuild } from '../../database/queries/permissions/metas'
 
 type EditionType = 'titres' | 'demarches' | 'etapes'
@@ -33,7 +33,7 @@ const titreTypeStatutPermissionAdministrationCheck = async (
 
   const administrationsIds = user.administrations.map(a => a.id) || []
 
-  const titresModifiables = await titresModificationQueryBuild(
+  const titresModifiables = await titresAdministrationsModificationQuery(
     administrationsIds,
     type
   )
