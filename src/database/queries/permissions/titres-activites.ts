@@ -152,10 +152,13 @@ const titreActivitesCalc = (
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur,
-  grouped = false
+  select = true
 ) => {
-  q.select('titresActivites.*').leftJoinRelated('titre')
+  if (select) {
+    q.select('titresActivites.*')
+  }
 
+  q.leftJoinRelated('titre')
   if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
@@ -187,10 +190,6 @@ const titreActivitePermissionQueryBuild = (
     q.where(false)
   }
 
-  if (grouped) {
-    q.groupBy('titresActivites.id')
-  }
-
   if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
     const documentsTypesQuery = DocumentsTypes.query()
       .alias('documentsTypesQuery')
@@ -204,9 +203,9 @@ const titreActivitePermissionQueryBuild = (
     q.select(raw('false').as('documentsCreation'))
   }
 
-  q.modifyGraph('documents', ed => {
+  q.modifyGraph('documents', b => {
     documentsPermissionQueryBuild(
-      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })

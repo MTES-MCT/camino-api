@@ -61,13 +61,13 @@ const administrationsPermissionQueryBuild = (
       .groupBy('titres.id', 'titresAdministrationsLocales.administrationId')
   )
 
-  q.modifyGraph('utilisateurs', u =>
+  q.modifyGraph('utilisateurs', b => {
     utilisateursPermissionQueryBuild(
-      u as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
+      b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
       fields,
       user
     )
-  )
+  })
 
   return q
 }

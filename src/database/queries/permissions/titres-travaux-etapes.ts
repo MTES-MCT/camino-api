@@ -32,9 +32,9 @@ const titreTravauxEtapesPermissionQueryBuild = (
     q.select(raw('false').as('suppression'))
   }
 
-  q.modifyGraph('documents', ed => {
+  q.modifyGraph('documents', b => {
     documentsPermissionQueryBuild(
-      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })

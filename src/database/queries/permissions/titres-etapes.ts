@@ -92,7 +92,7 @@ const titreEtapesPermissionQueryBuild = (
         c.where('type.entreprisesLecture', true)
 
         c.whereExists(
-          entreprisesTitresQuery(entreprisesIds, 'titres', {
+          entreprisesTitresQuery(entreprisesIds, 'demarche:titre', {
             isTitulaire: true,
             isAmodiataire: true
           })
@@ -117,16 +117,16 @@ const titreEtapesPermissionQueryBuild = (
 
   q.select(titreEtapeModificationQueryBuild(user).as('modification'))
 
-  q.modifyGraph('documents', ed => {
+  q.modifyGraph('documents', b => {
     documentsPermissionQueryBuild(
-      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })
 
-  q.modifyGraph('justificatifs', ed => {
+  q.modifyGraph('justificatifs', b => {
     documentsPermissionQueryBuild(
-      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })

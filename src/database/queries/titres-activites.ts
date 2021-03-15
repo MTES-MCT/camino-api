@@ -83,8 +83,6 @@ const titreActivitesQueryBuild = (
   titreActivitePermissionQueryBuild(q, user)
   titreActiviteQueryPropsBuild(q, user)
 
-  q.groupBy('titresActivites.id')
-
   if (typesIds) {
     q.whereIn('titresActivites.typeId', typesIds)
   }
@@ -155,7 +153,7 @@ const activitesAnneesGet = async (userId?: string) => {
 
   const q = TitresActivites.query()
 
-  titreActivitePermissionQueryBuild(q, user, true)
+  titreActivitePermissionQueryBuild(q, user, false)
 
   q.select('annee')
   q.groupBy('annee')
@@ -163,7 +161,9 @@ const activitesAnneesGet = async (userId?: string) => {
 
   const titreActivites = await q
 
-  return titreActivites.map(ta => ta.annee)
+  const annees = titreActivites.map(ta => ta.annee)
+
+  return annees
 }
 
 const titresActivitesColonnes = {
@@ -274,6 +274,7 @@ const titresActivitesGet = async (
     { fields },
     user
   )
+
   if (!q) return []
 
   if (colonne) {
