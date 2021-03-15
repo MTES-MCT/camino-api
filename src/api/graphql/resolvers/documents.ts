@@ -386,4 +386,43 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   }
 }
 
-export { documents, documentCreer, documentModifier, documentSupprimer }
+const documentsLink = async (
+  context: IToken,
+  parent: { id: string; documents?: IDocument[] | null },
+  propParentId: 'titreActiviteId' | 'titreEtapeId',
+  oldParent?: { documents?: IDocument[] | null }
+) => {
+  const documents = parent.documents || []
+  if (oldParent?.documents?.length) {
+    // supprime les anciens documents ou ceux qui n'ont pas de fichier
+    const oldDocumentsIds = oldParent.documents.map(d => d.id)
+    for (const oldDocumentId of oldDocumentsIds) {
+      const document = documents.find(d => d.id === oldDocumentId)
+
+      if (!document || !(document.fichier || document.fichierNouveau)) {
+        await documentSupprimer({ id: oldDocumentId }, context)
+      }
+    }
+  }
+
+  // met à jour ou ajoute les documents
+  for (const document of documents) {
+    document[propParentId] = parent.id
+    if ((document.fichier || document.fichierNouveau) && document.date) {
+      if (document.id) {
+        await documentModifier({ document }, context)
+      } else {
+        await documentCreer({ document }, context)
+      }
+    }
+  }
+  delete parent.documents
+}
+
+export {
+  documents,
+  documentCreer,
+  documentModifier,
+  documentSupprimer,
+  documentsLink
+}

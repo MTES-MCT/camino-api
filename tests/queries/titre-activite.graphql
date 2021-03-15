@@ -1,5 +1,5 @@
-mutation Activite($activite: InputActiviteModification!) {
-  activiteModifier(activite: $activite) {
+mutation Activite($activite: InputActiviteModification!, $deposer: Boolean) {
+  activiteModifier(activite: $activite, deposer: $deposer) {
     ...Activite
   }
 }

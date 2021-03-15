@@ -157,6 +157,7 @@ input InputEtapeCreation {
   heritageProps: InputHeritageProps
   heritageContenu: Json
   contenu: Json
+  documents: [InputDocument]
 }
 
 input InputEtapeModification {

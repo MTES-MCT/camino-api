@@ -1,5 +1,5 @@
-import 'dotenv/config'
-import knex from '../../init'
+import '../../init'
+import { knex } from '../../knex'
 
 const main = async () => {
   await knex.schema.createTable('etapesTypes__documentsTypes', table => {

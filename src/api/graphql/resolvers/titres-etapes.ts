@@ -28,6 +28,7 @@ import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
+import { documentsLink } from './documents'
 
 const etape = async (
   { id }: { id: string },
@@ -135,7 +136,6 @@ const etapeHeritage = async (
   }
 }
 
-// TODO à re-factoriser, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
   { etape }: { etape: ITitreEtape },
   context: IToken,
@@ -200,7 +200,16 @@ const etapeCreer = async (
       etape.points = titreEtapePointsCalc(etape.points)
     }
 
+    const documents = etape.documents || []
+    delete etape.documents
+
     const etapeUpdated = await titreEtapeUpsert(etape)
+
+    await documentsLink(
+      context,
+      { id: etapeUpdated.id, documents },
+      'titreEtapeId'
+    )
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -285,6 +294,9 @@ const etapeModifier = async (
     if (etape.points) {
       etape.points = titreEtapePointsCalc(etape.points)
     }
+
+    // TODO documents, ajouter le old
+    await documentsLink(context, etape, 'titreEtapeId')
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
