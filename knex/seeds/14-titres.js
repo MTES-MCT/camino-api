@@ -1,81 +1,53 @@
-const chalk = require('chalk')
-const decamelize = require('decamelize')
 const communes = require('../../sources/communes.json')
 const forets = require('../../sources/forets.json')
+const titres = require('../../sources/titres.json')
+const titresAdministrationsGestionnaires = require('../../sources/titres-administrations-gestionnaires.json')
+const titresAdministrationsLocales = require('../../sources/titres-administrations-locales.json')
+const titresAmodiataires = require('../../sources/titres-amodiataires.json')
+const titresCommunes = require('../../sources/titres-communes.json')
+const titresDemarches = require('../../sources/titres-demarches.json')
+const titresDemarchesLiens = require('../../sources/titres-demarches-liens.json')
+const titresEtapes = require('../../sources/titres-etapes.json')
+const titresForets = require('../../sources/titres-forets.json')
+const titresPhases = require('../../sources/titres-phases.json')
+const titresPoints = require('../../sources/titres-points.json')
+const titresPointsReferences = require('../../sources/titres-points-references.json')
+const titresReferences = require('../../sources/titres-references.json')
+const titresSubstances = require('../../sources/titres-substances.json')
+const titresTitulaires = require('../../sources/titres-titulaires.json')
 
 const seeding = require('../seeding')
-
-const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
-
-const files = [
-  'titres',
-  'titresDemarches',
-  'titresDemarchesLiens',
-  'titresPhases',
-  'titresEtapes',
-  'titresPoints',
-  'titresPointsReferences',
-  'titresSubstances',
-  'titresTitulaires',
-  'titresCommunes',
-  'titresForets',
-  'titresAdministrationsGestionnaires',
-  'titresAdministrationsLocales',
-  'titresAmodiataires',
-  'titresReferences'
-]
-
-const data = files.reduce((d, file) => {
-  d[file] = domainesIds.reduce((res, domaineId) => {
-    const fileName = decamelize(`titres-${domaineId}-${file}`, {
-      separator: '-'
-    })
-
-    let content
-    try {
-      content = require(`../../sources/${fileName}.json`)
-
-      return res.concat(content)
-    } catch (e) {
-      console.info(chalk.red(e.message.split('\n')[0]))
-    }
-
-    return res
-  }, [])
-
-  return d
-}, {})
 
 const seed = seeding(async ({ insert }) => {
   await insert('communes', communes)
   await insert('forets', forets)
-  await insert('titres', data.titres)
+  await insert('titres', titres)
 
   await Promise.all([
-    insert('titresDemarches', data.titresDemarches),
-    insert('titresReferences', data.titresReferences)
+    insert('titresDemarches', titresDemarches),
+    insert('titresReferences', titresReferences)
   ])
 
   await Promise.all([
-    insert('titresEtapes', data.titresEtapes),
-    insert('titresPhases', data.titresPhases),
-    insert('titresDemarchesLiens', data.titresDemarchesLiens)
+    insert('titresEtapes', titresEtapes),
+    insert('titresPhases', titresPhases),
+    insert('titresDemarchesLiens', titresDemarchesLiens)
   ])
 
   await Promise.all([
     insert(
       'titresAdministrationsGestionnaires',
-      data.titresAdministrationsGestionnaires
+      titresAdministrationsGestionnaires
     ),
-    insert('titresAdministrationsLocales', data.titresAdministrationsLocales),
-    insert('titresAmodiataires', data.titresAmodiataires),
-    insert('titresSubstances', data.titresSubstances),
-    insert('titresTitulaires', data.titresTitulaires),
-    insert('titresCommunes', data.titresCommunes),
-    insert('titresForets', data.titresForets),
-    insert('titresPoints', data.titresPoints)
+    insert('titresAdministrationsLocales', titresAdministrationsLocales),
+    insert('titresAmodiataires', titresAmodiataires),
+    insert('titresSubstances', titresSubstances),
+    insert('titresTitulaires', titresTitulaires),
+    insert('titresCommunes', titresCommunes),
+    insert('titresForets', titresForets),
+    insert('titresPoints', titresPoints)
   ])
-  await insert('titresPointsReferences', data.titresPointsReferences)
+  await insert('titresPointsReferences', titresPointsReferences)
 })
 
 module.exports = seed
