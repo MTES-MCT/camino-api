@@ -7,10 +7,10 @@ import Titres from '../../models/titres'
 import TitresTravauxEtapes from '../../models/titres-travaux-etapes'
 import TitresTravaux from '../../models/titres-travaux'
 
-import { titreTravauxEtapesPermissionQueryBuild } from './titres-travaux-etapes'
-import { titrePermissionQueryBuild } from './titres'
+import { titreTravauxEtapeQueryModify } from './titres-travaux-etapes'
+import { titreQueryModify } from './titres'
 
-const titreTravauxPermissionQueryBuild = (
+const titreTravauxQueryModify = (
   q: QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
   fields?: IFields,
   user?: IUtilisateur
@@ -28,7 +28,7 @@ const titreTravauxPermissionQueryBuild = (
   }
 
   q.modifyGraph('etapes', b => {
-    titreTravauxEtapesPermissionQueryBuild(
+    titreTravauxEtapeQueryModify(
       b as QueryBuilder<
         TitresTravauxEtapes,
         TitresTravauxEtapes | TitresTravauxEtapes[]
@@ -38,11 +38,7 @@ const titreTravauxPermissionQueryBuild = (
   })
 
   q.modifyGraph('titre', a =>
-    titrePermissionQueryBuild(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
-      user
-    )
+    titreQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, fields, user)
       // on group by titreId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id')
@@ -51,4 +47,4 @@ const titreTravauxPermissionQueryBuild = (
   return q
 }
 
-export { titreTravauxPermissionQueryBuild }
+export { titreTravauxQueryModify }

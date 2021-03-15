@@ -8,11 +8,11 @@ import Utilisateurs from '../../models/utilisateurs'
 import Titres from '../../models/titres'
 import Documents from '../../models/documents'
 
-import { titrePermissionQueryBuild } from './titres'
-import { utilisateursPermissionQueryBuild } from './utilisateurs'
-import { documentsPermissionQueryBuild } from './documents'
+import { titreQueryModify } from './titres'
+import { utilisateurQueryModify } from './utilisateurs'
+import { documentQueryModify } from './documents'
 
-const entreprisePermissionQueryBuild = (
+const entrepriseQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
   fields?: IFields,
   user?: IUtilisateur
@@ -41,7 +41,7 @@ const entreprisePermissionQueryBuild = (
   }
 
   q.modifyGraph('titulaireTitres', a =>
-    titrePermissionQueryBuild(
+    titreQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       fields?.titulaireTitres,
       user
@@ -52,7 +52,7 @@ const entreprisePermissionQueryBuild = (
   )
 
   q.modifyGraph('amodiataireTitres', a =>
-    titrePermissionQueryBuild(
+    titreQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       fields?.amodiataireTitres,
       user
@@ -63,7 +63,7 @@ const entreprisePermissionQueryBuild = (
   )
 
   q.modifyGraph('utilisateurs', b => {
-    utilisateursPermissionQueryBuild(
+    utilisateurQueryModify(
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
       fields,
       user
@@ -71,7 +71,7 @@ const entreprisePermissionQueryBuild = (
   })
 
   q.modifyGraph('documents', b => {
-    documentsPermissionQueryBuild(
+    documentQueryModify(
       b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
@@ -91,11 +91,11 @@ const entreprisesTitresQuery = (
   const q = Entreprises.query().whereIn('entreprises.id', entreprisesIds)
 
   if (isTitulaire) {
-    q.modify(entreprisesTitulairesModifier, entreprisesIds, titreAlias)
+    q.modify(entreprisesTitulairesModify, entreprisesIds, titreAlias)
   }
 
   if (isAmodiataire) {
-    q.modify(entreprisesAmodiatairesModifier, entreprisesIds, titreAlias)
+    q.modify(entreprisesAmodiatairesModify, entreprisesIds, titreAlias)
   }
 
   q.where(c => {
@@ -111,7 +111,7 @@ const entreprisesTitresQuery = (
   return q
 }
 
-const entreprisesTitulairesModifier = (
+const entreprisesTitulairesModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
   entreprisesIds: string[],
   titreAlias: string
@@ -130,7 +130,7 @@ const entreprisesTitulairesModifier = (
   )
 }
 
-const entreprisesAmodiatairesModifier = (
+const entreprisesAmodiatairesModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
   entreprisesIds: string[],
   titreAlias: string
@@ -149,4 +149,4 @@ const entreprisesAmodiatairesModifier = (
   )
 }
 
-export { entreprisePermissionQueryBuild, entreprisesTitresQuery }
+export { entrepriseQueryModify, entreprisesTitresQuery }

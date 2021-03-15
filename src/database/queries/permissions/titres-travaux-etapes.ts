@@ -6,7 +6,7 @@ import { permissionCheck } from '../../../tools/permission'
 import Documents from '../../models/documents'
 import TitresTravauxEtapes from '../../models/titres-travaux-etapes'
 
-import { documentsPermissionQueryBuild } from './documents'
+import { documentQueryModify } from './documents'
 
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
@@ -15,7 +15,7 @@ import { documentsPermissionQueryBuild } from './documents'
  * @params user - utilisateur connecté
  * @returns une requête d'étape(s)
  */
-const titreTravauxEtapesPermissionQueryBuild = (
+const titreTravauxEtapeQueryModify = (
   q: QueryBuilder<
     TitresTravauxEtapes,
     TitresTravauxEtapes | TitresTravauxEtapes[]
@@ -33,7 +33,7 @@ const titreTravauxEtapesPermissionQueryBuild = (
   }
 
   q.modifyGraph('documents', b => {
-    documentsPermissionQueryBuild(
+    documentQueryModify(
       b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
@@ -42,4 +42,4 @@ const titreTravauxEtapesPermissionQueryBuild = (
   return q
 }
 
-export { titreTravauxEtapesPermissionQueryBuild }
+export { titreTravauxEtapeQueryModify }

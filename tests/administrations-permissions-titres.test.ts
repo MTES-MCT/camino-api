@@ -27,7 +27,7 @@ describe('Visibilité des titres par les administrations gestionnaires ou associ
     ${'dre-grand-est-01'}   | ${false}
     ${'pre-97302-01'}       | ${true}
     ${'aut-mrae-guyane-01'} | ${true}
-    ${'min-mtes-dgec-01'}   | ${true}
+    ${'min-mtes-dgec-01'}   | ${false}
     ${'min-mtes-dgaln-01'}  | ${true}
     ${'min-dajb-01'}        | ${true}
   `(
@@ -43,7 +43,7 @@ describe('Visibilité des titres par les administrations gestionnaires ou associ
     ${'dre-grand-est-01'}   | ${false}
     ${'pre-97302-01'}       | ${false}
     ${'aut-mrae-guyane-01'} | ${false}
-    ${'min-mtes-dgec-01'}   | ${true}
+    ${'min-mtes-dgec-01'}   | ${false}
     ${'min-mtes-dgaln-01'}  | ${true}
     ${'min-dajb-01'}        | ${true}
   `(

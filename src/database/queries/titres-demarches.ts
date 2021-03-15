@@ -22,7 +22,7 @@ import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 
-import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
+import { titreDemarcheQueryModify } from './permissions/titres-demarches'
 import { titresFiltersQueryBuild } from './_titres-filters'
 import { permissionCheck } from '../../tools/permission'
 import { titreGet } from './titres'
@@ -104,7 +104,7 @@ const titresDemarchesQueryBuild = (
 
   const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
 
-  titreDemarchePermissionQueryBuild(q, fields, user)
+  titreDemarcheQueryModify(q, fields, user)
 
   if (titresDemarchesIds) {
     q.whereIn('titresDemarches.id', titresDemarchesIds)

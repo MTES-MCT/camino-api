@@ -7,10 +7,10 @@ import Administrations from '../../models/administrations'
 import Utilisateurs from '../../models/utilisateurs'
 import Titres from '../../models/titres'
 
-import { titrePermissionQueryBuild } from './titres'
-import { utilisateursPermissionQueryBuild } from './utilisateurs'
+import { titreQueryModify } from './titres'
+import { utilisateurQueryModify } from './utilisateurs'
 
-const administrationsPermissionQueryBuild = (
+const administrationQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   fields?: IFields,
   user?: IUtilisateur
@@ -37,11 +37,7 @@ const administrationsPermissionQueryBuild = (
   }
 
   q.modifyGraph('gestionnaireTitres', a =>
-    titrePermissionQueryBuild(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
-      user
-    )
+    titreQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, fields, user)
       // on group by administrationId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy(
@@ -51,18 +47,14 @@ const administrationsPermissionQueryBuild = (
   )
 
   q.modifyGraph('localeTitres', a =>
-    titrePermissionQueryBuild(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
-      user
-    )
+    titreQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, fields, user)
       // on group by administrationId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id', 'titresAdministrationsLocales.administrationId')
   )
 
   q.modifyGraph('utilisateurs', b => {
-    utilisateursPermissionQueryBuild(
+    utilisateurQueryModify(
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
       fields,
       user
@@ -72,7 +64,7 @@ const administrationsPermissionQueryBuild = (
   return q
 }
 
-const administrationsTitresTypesModifier = (
+const administrationsTitresTypesModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   administrationsIds: string[],
   titreAlias: string,
@@ -109,7 +101,7 @@ const administrationsTitresTypesModifier = (
   q.leftJoin('administrations__titresTypes as a_tt', raw(query, bindings))
 }
 
-const administrationsLocalesModifier = (
+const administrationsLocalesModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   administrationsIds: string[],
   titreAlias: string
@@ -128,7 +120,7 @@ const administrationsLocalesModifier = (
   )
 }
 
-const administrationsActivitesModifier = (
+const administrationsActivitesModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
 
   { lecture, modification }: { lecture?: boolean; modification?: boolean }
@@ -169,16 +161,14 @@ const administrationsTitresQuery = (
   )
 
   if (isGestionnaire || isAssociee) {
-    q.modify(
-      administrationsTitresTypesModifier,
-      administrationsIds,
-      titreAlias,
-      { isGestionnaire, isAssociee }
-    )
+    q.modify(administrationsTitresTypesModify, administrationsIds, titreAlias, {
+      isGestionnaire,
+      isAssociee
+    })
   }
 
   if (isLocale) {
-    q.modify(administrationsLocalesModifier, administrationsIds, titreAlias)
+    q.modify(administrationsLocalesModify, administrationsIds, titreAlias)
   }
 
   q.where(c => {
@@ -194,7 +184,7 @@ const administrationsTitresQuery = (
   return q
 }
 
-const administrationsTitresTypesTitresStatutsModifier = (
+const administrationsTitresTypesTitresStatutsModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   type: 'titres' | 'demarches' | 'etapes',
   titreAlias: string
@@ -215,7 +205,7 @@ const administrationsTitresTypesTitresStatutsModifier = (
 
 // l'utilisateur est dans au moins une administration
 // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
-const administrationsTitresTypesEtapesTypesModifier = (
+const administrationsTitresTypesEtapesTypesModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   type: 'lecture' | 'modification' | 'creation',
   titreTypeIdColumn: string,
@@ -236,10 +226,10 @@ const administrationsTitresTypesEtapesTypesModifier = (
 }
 
 export {
-  administrationsPermissionQueryBuild,
-  administrationsLocalesModifier,
-  administrationsTitresTypesTitresStatutsModifier,
-  administrationsTitresTypesEtapesTypesModifier,
+  administrationQueryModify,
+  administrationsLocalesModify,
+  administrationsTitresTypesTitresStatutsModify,
+  administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery,
-  administrationsActivitesModifier
+  administrationsActivitesModify
 }

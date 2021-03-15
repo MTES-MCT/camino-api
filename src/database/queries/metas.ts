@@ -52,12 +52,12 @@ import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 
 import {
-  domainesPermissionQueryBuild,
-  etapesTypesPermissionQueryBuild,
-  demarchesTypesPermissionQueryBuild,
-  permissionsPermissionQueryBuild,
-  travauxTypesPermissionQueryBuild,
-  travauxEtapesTypesPermissionQueryBuild
+  domaineQueryModify,
+  etapeTypeQueryModify,
+  demarcheTypeQueryModify,
+  permissionsQueryModify,
+  travauxTypeQueryModify,
+  travauxetapeTypeQueryModify
 } from './permissions/metas'
 import PhasesStatuts from '../models/phases-statuts'
 import TitresTypes from '../models/titres-types'
@@ -72,7 +72,7 @@ const permissionsGet = async (_a: never, _b: never, userId?: string) => {
 
   const q = Permissions.query().skipUndefined().orderBy('ordre')
 
-  permissionsPermissionQueryBuild(q, user)
+  permissionsQueryModify(q, user)
 
   return q
 }
@@ -114,7 +114,7 @@ const domainesGet = async (
 
   const q = Domaines.query().withGraphFetched(graph).orderBy('ordre')
 
-  domainesPermissionQueryBuild(q, user)
+  domaineQueryModify(q, user)
 
   return q
 }
@@ -301,7 +301,7 @@ const travauxTypesGet = async (
 
   const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  travauxTypesPermissionQueryBuild(q, user, {
+  travauxTypeQueryModify(q, user, {
     titreId,
     titreTravauxId
   })
@@ -325,7 +325,7 @@ const demarchesTypesGet = async (
 
   const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  demarchesTypesPermissionQueryBuild(q, user, { titreId, titreDemarcheId })
+  demarcheTypeQueryModify(q, user, { titreId, titreDemarcheId })
 
   return q
 }
@@ -372,7 +372,7 @@ const etapesTypesGet = async (
   const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
   if (titreDemarcheId) {
-    etapesTypesPermissionQueryBuild(q, user, {
+    etapeTypeQueryModify(q, user, {
       titreDemarcheId,
       titreEtapeId,
       uniqueCheck
@@ -380,7 +380,7 @@ const etapesTypesGet = async (
   }
 
   if (titreTravauxId) {
-    travauxEtapesTypesPermissionQueryBuild(q, user, {
+    travauxetapeTypeQueryModify(q, user, {
       titreTravauxId,
       titreTravauxEtapeId
     })

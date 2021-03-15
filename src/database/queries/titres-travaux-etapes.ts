@@ -6,7 +6,7 @@ import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { userGet } from './utilisateurs'
 import TitresTravauxEtapes from '../models/titres-travaux-etapes'
-import { titreTravauxEtapesPermissionQueryBuild } from './permissions/titres-travaux-etapes'
+import { titreTravauxEtapeQueryModify } from './permissions/titres-travaux-etapes'
 
 const titresTravauxEtapesQueryBuild = (
   {
@@ -27,7 +27,7 @@ const titresTravauxEtapesQueryBuild = (
 
   const q = TitresTravauxEtapes.query().skipUndefined().withGraphFetched(graph)
 
-  titreTravauxEtapesPermissionQueryBuild(q, user)
+  titreTravauxEtapeQueryModify(q, user)
 
   if (etapesIds) {
     q.whereIn('titresTravauxEtapes.id', etapesIds)

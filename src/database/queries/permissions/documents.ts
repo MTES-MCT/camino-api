@@ -6,7 +6,7 @@ import { permissionCheck } from '../../../tools/permission'
 import Documents from '../../models/documents'
 import TitresEtapesJustificatifs from '../../models/titres-etapes-justificatifs'
 
-const documentsPermissionQueryBuild = (
+const documentQueryModify = (
   q: QueryBuilder<Documents, Documents | Documents[]>,
   user?: IUtilisateur
 ) => {
@@ -89,4 +89,4 @@ const titreEtapeJustificatifsQuery = TitresEtapesJustificatifs.query()
   .alias('documentsModification')
   .whereRaw('?? = ??', ['documentsModification.documentId', 'documents.id'])
 
-export { documentsPermissionQueryBuild }
+export { documentQueryModify }

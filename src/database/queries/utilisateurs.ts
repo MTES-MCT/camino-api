@@ -8,7 +8,7 @@ import {
 
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
-import { utilisateursPermissionQueryBuild } from './permissions/utilisateurs'
+import { utilisateurQueryModify } from './permissions/utilisateurs'
 
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
@@ -53,7 +53,7 @@ const utilisateursQueryBuild = (
 
   const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
 
-  utilisateursPermissionQueryBuild(q, fields, user)
+  utilisateurQueryModify(q, fields, user)
 
   if (permissionIds) {
     q.whereIn('permissionId', permissionIds)

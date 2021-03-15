@@ -8,10 +8,10 @@ import { permissionCheck } from '../../../tools/permission'
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
 
-import { documentsPermissionQueryBuild } from './documents'
+import { documentQueryModify } from './documents'
 import { etapesTypesModificationQueryBuild } from './metas'
 import {
-  administrationsTitresTypesEtapesTypesModifier,
+  administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
@@ -46,7 +46,7 @@ const titreEtapeModificationQueryBuild = (user?: IUtilisateur) => {
  * @params user - utilisateur connecté
  * @returns une requête d'étape(s)
  */
-const titreEtapesPermissionQueryBuild = (
+const titreEtapeQueryModify = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user?: IUtilisateur
 ) => {
@@ -73,7 +73,7 @@ const titreEtapesPermissionQueryBuild = (
           isAssociee: true,
           isLocale: true
         }).modify(
-          administrationsTitresTypesEtapesTypesModifier,
+          administrationsTitresTypesEtapesTypesModify,
           'lecture',
           'demarche:titre.typeId',
           'titresEtapes.typeId'
@@ -118,14 +118,14 @@ const titreEtapesPermissionQueryBuild = (
   q.select(titreEtapeModificationQueryBuild(user).as('modification'))
 
   q.modifyGraph('documents', b => {
-    documentsPermissionQueryBuild(
+    documentQueryModify(
       b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })
 
   q.modifyGraph('justificatifs', b => {
-    documentsPermissionQueryBuild(
+    documentQueryModify(
       b as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
@@ -136,4 +136,4 @@ const titreEtapesPermissionQueryBuild = (
   return q
 }
 
-export { titreEtapesPermissionQueryBuild }
+export { titreEtapeQueryModify }

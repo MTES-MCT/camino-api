@@ -9,16 +9,16 @@ import Titres from '../../models/titres'
 import TitresEtapes from '../../models/titres-etapes'
 import TitresDemarches from '../../models/titres-demarches'
 
-import { titreEtapesPermissionQueryBuild } from './titres-etapes'
+import { titreEtapeQueryModify } from './titres-etapes'
 import {
-  titrePermissionQueryBuild,
+  titreQueryModify,
   titresAdministrationsModificationQuery
 } from './titres'
 import { etapesTypesModificationQueryBuild } from './metas'
 import { administrationsTitresQuery } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
 
-const titreDemarchePermissionQueryBuild = (
+const titreDemarcheQueryModify = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   fields?: IFields,
   user?: IUtilisateur
@@ -30,7 +30,7 @@ const titreDemarchePermissionQueryBuild = (
     // l'utilisateur peut voir le titre
 
     q.whereExists(
-      titrePermissionQueryBuild(
+      titreQueryModify(
         (TitresDemarches.relatedQuery('titre') as QueryBuilder<
           Titres,
           Titres | Titres[]
@@ -99,18 +99,14 @@ const titreDemarchePermissionQueryBuild = (
   )
 
   q.modifyGraph('etapes', b => {
-    titreEtapesPermissionQueryBuild(
+    titreEtapeQueryModify(
       b as QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
       user
     )
   })
 
   q.modifyGraph('titre', a =>
-    titrePermissionQueryBuild(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
-      user
-    )
+    titreQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, fields, user)
       // on group by titreId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id')
@@ -126,13 +122,11 @@ const titreDemarcheModificationQuery = (
   user?: IUtilisateur
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
-    return raw('(not exists(?))', [titreDemarcheEtapesQuery(demarcheAlias)])
+    return raw('not exists(?)', [titreDemarcheEtapesQuery(demarcheAlias)])
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
-    // TODO: conditionner aux fields
-
     const administrationsIds = user.administrations.map(a => a.id) || []
 
     return titresAdministrationsModificationQuery(
@@ -180,4 +174,4 @@ const titreEtapesCreationQuery = (
   }
 }
 
-export { titreDemarchePermissionQueryBuild }
+export { titreDemarcheQueryModify }

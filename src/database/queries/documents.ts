@@ -7,7 +7,7 @@ import { userGet } from './utilisateurs'
 import graphBuild from './graph/build'
 import options from './_options'
 
-import { documentsPermissionQueryBuild } from './permissions/documents'
+import { documentQueryModify } from './permissions/documents'
 
 import { fieldsFormat } from './graph/fields-format'
 
@@ -24,7 +24,7 @@ const documentGet = async (
 
   const q = Document.query().withGraphFetched(graph)
 
-  documentsPermissionQueryBuild(q, user)
+  documentQueryModify(q, user)
 
   const document = await q.findById(documentId)
 
@@ -48,7 +48,7 @@ const documentsGet = async (
     q.whereIn('entrepriseId', entreprisesIds)
   }
 
-  documentsPermissionQueryBuild(q, user)
+  documentQueryModify(q, user)
 
   return q
 }

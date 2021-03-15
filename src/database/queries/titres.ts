@@ -10,7 +10,7 @@ import {
 import { transaction, Transaction, raw, RawBuilder } from 'objection'
 
 import Titres from '../models/titres'
-import { titrePermissionQueryBuild } from './permissions/titres'
+import { titreQueryModify } from './permissions/titres'
 
 import { userGet } from './utilisateurs'
 
@@ -67,7 +67,7 @@ const titresQueryBuild = (
 
   const q = Titres.query().withGraphFetched(graph)
 
-  titrePermissionQueryBuild(q, fields, user)
+  titreQueryModify(q, fields, user)
 
   if (ids) {
     q.whereIn('titres.id', ids)
