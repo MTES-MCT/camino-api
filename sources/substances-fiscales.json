@@ -1,0 +1,233 @@
+[
+  {
+    "id": "aloh",
+    "substance_legale_id": "aloh",
+    "unite_id": "mtk",
+    "nom": "bauxite",
+    "description": "bauxite nettes livrées"
+  },
+  {
+    "id": "anti",
+    "substance_legale_id": "anti",
+    "unite_id": "mtt",
+    "nom": "antimoine",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "arge",
+    "substance_legale_id": "arge",
+    "unite_id": "mkc",
+    "nom": "argent",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "arse",
+    "substance_legale_id": "arse",
+    "unite_id": "mtk",
+    "nom": "arsenic",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "auru",
+    "substance_legale_id": "auru",
+    "unite_id": "mgr",
+    "nom": "or",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "bism",
+    "substance_legale_id": "bism",
+    "unite_id": "mtt",
+    "nom": "bismuth",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "cfxa",
+    "substance_legale_id": "cfxx",
+    "unite_id": "mtc",
+    "nom": "charbon",
+    "description": "net extrait"
+  },
+  {
+    "id": "cfxb",
+    "substance_legale_id": "cfxx",
+    "unite_id": "mtk",
+    "nom": "lignites",
+    "description": "net livré pour les lignites d'un pouvoir calorifique égal ou supérieur à 13 MJ/kg"
+  },
+  {
+    "id": "cfxc",
+    "substance_legale_id": "cfxx",
+    "unite_id": "mtk",
+    "nom": "lignites",
+    "description": "net livré pour les lignites d'un pouvoir calorifique inférieur à 13 MJ/kg"
+  },
+  {
+    "id": "coox",
+    "substance_legale_id": "coox",
+    "unite_id": "vmd",
+    "nom": "gaz carbonique",
+    "description": "extrait à 1 bar et 15 °C"
+  },
+  {
+    "id": "cuiv",
+    "substance_legale_id": "cuiv",
+    "unite_id": "mtt",
+    "nom": "cuivre",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "etai",
+    "substance_legale_id": "etai",
+    "unite_id": "mtt",
+    "nom": "étain",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "fera",
+    "substance_legale_id": "ferx",
+    "unite_id": "mtt",
+    "nom": "pyrite de fer",
+    "description": "net livré"
+  },
+  {
+    "id": "ferb",
+    "substance_legale_id": "ferx",
+    "unite_id": "mtt",
+    "nom": "minerais de fer",
+    "description": "net livré"
+  },
+  {
+    "id": "fluo",
+    "substance_legale_id": "fluo",
+    "unite_id": "mtk",
+    "nom": "fluorine",
+    "description": "net livré"
+  },
+  {
+    "id": "hyda",
+    "substance_legale_id": "hydm",
+    "unite_id": "mtk",
+    "nom": "calcaires et grès bitumineux ou asphaltiques",
+    "description": "net livré (non destinés à la distillation pour production d'huiles ou d'essences)"
+  },
+  {
+    "id": "hydb",
+    "substance_legale_id": "hydm",
+    "unite_id": "mtt",
+    "nom": "schistes carbobitumineux et schistes bitumineux",
+    "description": "net livré (à traiter par distillation pour en extraire des huiles et des essences)"
+  },
+  {
+    "id": "hydc",
+    "substance_legale_id": "hydx",
+    "unite_id": "mtc",
+    "nom": "pétrole brut",
+    "description": "net extrait"
+  },
+  {
+    "id": "hydd",
+    "substance_legale_id": "hydx",
+    "unite_id": "mtt",
+    "nom": "propane et le butane",
+    "description": "net livré"
+  },
+  {
+    "id": "hyde",
+    "substance_legale_id": "hydx",
+    "unite_id": "mtt",
+    "nom": "essence de dégazolinage",
+    "description": "net livré"
+  },
+  {
+    "id": "hydf",
+    "substance_legale_id": "hydx",
+    "unite_id": "vmd",
+    "nom": "gaz naturel",
+    "description": "extrait des gisements"
+  },
+  {
+    "id": "kclx",
+    "substance_legale_id": "kclx",
+    "unite_id": "mtc",
+    "nom": "oxyde de potassium",
+    "description": "K2O contenu dans les sels de potassium"
+  },
+  {
+    "id": "lith",
+    "substance_legale_id": "lith",
+    "unite_id": "mtt",
+    "nom": "oxyde de lithium",
+    "description": "Li2O contenu dans les minerais de lithium"
+  },
+  {
+    "id": "mang",
+    "substance_legale_id": "mang",
+    "unite_id": "mtc",
+    "nom": "manganèse",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "moly",
+    "substance_legale_id": "moly",
+    "unite_id": "mtt",
+    "nom": "molybdène",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "naca",
+    "substance_legale_id": "nacl",
+    "unite_id": "mtk",
+    "nom": "sel (chlorure de sodium)",
+    "description": "extrait par abattage net livré"
+  },
+  {
+    "id": "nacb",
+    "substance_legale_id": "nacl",
+    "unite_id": "mtk",
+    "nom": "sel (chlorure de sodium)",
+    "description": "extrait en dissolution par sondage et livré raffiné"
+  },
+  {
+    "id": "nacc",
+    "substance_legale_id": "nacl",
+    "unite_id": "mtk",
+    "nom": "sel (chlorure de sodium contenu)",
+    "description": "extrait en dissolution par sondage et livré en dissolution"
+  },
+  {
+    "id": "plom",
+    "substance_legale_id": "plom",
+    "unite_id": "mtc",
+    "nom": "plomb",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "souf",
+    "substance_legale_id": "souf",
+    "unite_id": "mtt",
+    "nom": "soufre",
+    "description": "contenu dans les minerais de soufre autres que les pyrites de fer"
+  },
+  {
+    "id": "uran",
+    "substance_legale_id": "uran",
+    "unite_id": "mkc",
+    "nom": "uranium",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "wolf",
+    "substance_legale_id": "wolf",
+    "unite_id": "mtt",
+    "nom": "oxyde de tungstène (WO3)",
+    "description": "contenu dans les minerais"
+  },
+  {
+    "id": "zinc",
+    "substance_legale_id": "zinc",
+    "unite_id": "mtc",
+    "nom": "zinc",
+    "description": "contenu dans les minerais"
+  }
+]

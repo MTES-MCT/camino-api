@@ -1,8 +1,7 @@
 import 'dotenv/config'
-import '../init'
-import ssExport from '../tools/ss-export'
+import { databaseToJsonExport } from '../tools/database-to-json'
 
-ssExport()
+databaseToJsonExport()
   .then(() => {
     process.exit()
   })

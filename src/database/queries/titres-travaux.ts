@@ -6,6 +6,7 @@ import options from './_options'
 import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
+import { titresTravauxQueryModify } from './permissions/titres-travaux'
 
 const titresTravauxGet = async (
   {
@@ -20,6 +21,8 @@ const titresTravauxGet = async (
     : options.titresTravaux.graph
 
   const q = TitresTravaux.query().withGraphFetched(graph)
+
+  titresTravauxQueryModify(q, fields)
 
   if (titresTravauxIds) {
     q.whereIn('titresTravaux.id', titresTravauxIds)

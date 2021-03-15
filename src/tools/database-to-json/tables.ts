@@ -1,13 +1,5 @@
-import 'dotenv/config'
-import { rmdir, writeFileSync } from 'fs'
-import knex from '../init'
-import * as makeDir from 'make-dir'
-import { ICoordonnees } from '../types'
-
-const repSources = 'sources'
-
 // Liste des noms des tables à sauvegarder au format json
-const tablesNames = [
+const tables = [
   'activites_statuts',
   'activites_types',
   'activites_types__documents_types',
@@ -19,7 +11,6 @@ const tablesNames = [
   'administrations__titres_types__titres_statuts',
   'administrations_types',
   'annees',
-  'caches',
   'communes',
   'definitions',
   'demarches_statuts',
@@ -38,8 +29,6 @@ const tablesNames = [
   'frequences',
   'geo_systemes',
   'globales',
-  'knex_migrations',
-  'knex_migrations_lock',
   'mois',
   'pays',
   'permissions',
@@ -86,66 +75,4 @@ const tablesNames = [
   'utilisateurs__entreprises'
 ]
 
-const databaseToJsonExport = async () => {
-  const dir = `./${repSources}`
-
-  await rmdir(dir, { recursive: true }, err => {
-    if (err) {
-      throw err
-    }
-    makeDir(dir)
-  })
-
-  for (const tableName of tablesNames) {
-    const jsonFileName = `${tableName.replace(/_/g, '-')}.json`
-    const filePath = `${repSources}/${jsonFileName}`
-
-    const res = format(await knex.from(tableName))
-
-    if (res) {
-      writeFileSync(filePath, JSON.stringify(res))
-    }
-  }
-
-  process.exit(0)
-}
-
-interface IFields {
-  [key: string]: IFields | string
-}
-
-const format = (elements: IFields[]) =>
-  elements.map(e =>
-    Object.keys(e).reduce((acc: IFields, k: string) => {
-      if (e[k]) {
-        acc[camelToSnakeCase(k) as string] = formatField(e, k)
-      }
-
-      return acc
-    }, {})
-  )
-
-const formatField = (field: IFields, key: string) => {
-  if (key === 'coordonnees') {
-    const coordonnees = (field[key] as unknown) as ICoordonnees
-
-    return `${coordonnees.x},${coordonnees.y}`
-  }
-  if (typeof field[key] === 'boolean') {
-    return String(field[key])
-  }
-
-  return field[key]
-}
-
-const camelToSnakeCase = (field: string) =>
-  (field.match(/([A-Z])/g) || []).reduce(
-    (acc, m) => (acc = acc.replace(m, `_${m.toLowerCase()}`)),
-    field
-  )
-
-const main = () => databaseToJsonExport()
-
-main()
-
-export default databaseToJsonExport
+export { tables }
