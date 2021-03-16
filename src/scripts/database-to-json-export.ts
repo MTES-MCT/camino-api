@@ -1,7 +1,9 @@
 import 'dotenv/config'
+
+import knex from '../init'
 import { databaseToJsonExport } from '../tools/database-to-json'
 
-databaseToJsonExport()
+databaseToJsonExport(knex)
   .then(() => {
     process.exit()
   })

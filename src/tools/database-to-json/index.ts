@@ -1,27 +1,25 @@
 import 'dotenv/config'
 import { rmdir, writeFileSync } from 'fs'
+import * as Knex from 'knex'
 import * as makeDir from 'make-dir'
 import * as decamelize from 'decamelize'
 
 import { ICoordonnees } from '../../types'
-import knex from '../../init'
 import { tables } from './tables'
 
-const repSources = 'sources'
+const dir = 'sources'
 
-const databaseToJsonExport = async () => {
-  const dir = `./${repSources}`
-
-  await rmdir(dir, { recursive: true }, err => {
+const databaseToJsonExport = async (knex: Knex<any, unknown[]>) => {
+  await rmdir(`./${dir}`, { recursive: true }, err => {
     if (err) {
       throw err
     }
-    makeDir(dir)
+    makeDir(`./${dir}`)
   })
 
   for (const table of tables) {
     const fileName = `${table.replace(/_/g, '-')}.json`
-    const filePath = `${repSources}/${fileName}`
+    const filePath = `${dir}/${fileName}`
 
     const json = format(await knex.from(table))
 
