@@ -25,10 +25,7 @@ const titresDemarchesQueryModify = (
 ) => {
   q.select('titresDemarches.*').leftJoinRelated('titre')
 
-  // seuls les super-admins peuvent voir toutes les démarches
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
-    // l'utilisateur peut voir le titre
-
     q.whereExists(
       titresQueryModify(
         (TitresDemarches.relatedQuery('titre') as QueryBuilder<
@@ -41,11 +38,8 @@ const titresDemarchesQueryModify = (
     )
 
     q.where(b => {
-      // la démarche est publique
       b.orWhere('titresDemarches.publicLecture', true)
 
-      // les administrations peuvent voir toutes les démarches
-      // des titres pour dont elles sont gestionnaires ou locales
       if (
         permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
         user?.administrations?.length

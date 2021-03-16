@@ -1,6 +1,6 @@
 const Knex = require('knex')
-const config = require('./config')
-const knex = Knex(config)
+const { knexConfig } = require('./config')
+const knex = Knex(knexConfig)
 const chalk = require('chalk')
 
 const run = async () => {

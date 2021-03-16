@@ -76,6 +76,7 @@ exports.up = knex => {
       table.jsonb('contenu')
       table.jsonb('heritageContenu')
       table.jsonb('heritageProps')
+      table.jsonb('incertitudes')
     })
 }
 

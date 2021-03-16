@@ -24,7 +24,6 @@ const seed = seeding(async ({ del }) => {
     del('titresAdministrationsGestionnaires'),
     del('titresAdministrationsLocales'),
     del('titresAmodiataires'),
-    del('titresIncertitudes'),
     del('titresEtapesJustificatifs'),
     del('communes'),
     del('forets')

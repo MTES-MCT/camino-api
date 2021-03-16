@@ -1,28 +1,7 @@
 const seeding = require('../seeding')
 
-const chalk = require('chalk')
-const decamelize = require('decamelize')
-
 const documents = require('../../sources/documents.json')
-
-const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
-
-const titresEtapesJustificatifs = domainesIds.reduce((res, domaineId) => {
-  const fileName = decamelize(`titres-${domaineId}-titresEtapesJustificatifs`, {
-    separator: '-'
-  })
-
-  let content
-  try {
-    content = require(`../../sources/${fileName}.json`)
-
-    return res.concat(content)
-  } catch (e) {
-    console.info(chalk.red(e.message.split('\n')[0]))
-  }
-
-  return res
-}, [])
+const titresEtapesJustificatifs = require('../../sources/titres-etapes-justificatifs.json')
 
 const seed = seeding(async ({ insert }) => {
   await insert('documents', documents)
