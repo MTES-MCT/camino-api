@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../init'
 import { etapeStatutCheck } from '../tools/demarches/etape-statut-check'
 

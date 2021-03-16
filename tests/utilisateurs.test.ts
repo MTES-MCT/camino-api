@@ -1,6 +1,5 @@
-import 'dotenv/config'
-
-import { knex, dbManager, app } from './init'
+import { dbManager, app } from './init'
+import { knex } from '../src/knex'
 import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
 import * as userAdd from '../knex/user-add'
 import * as request from 'supertest'

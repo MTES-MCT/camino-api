@@ -1,5 +1,5 @@
-import 'dotenv/config'
-import knex from '../../init'
+import '../../init'
+import { knex } from '../../knex'
 
 async function main() {
   await knex.schema.dropTable('activitesTypes__administrations')

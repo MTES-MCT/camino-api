@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import TitresActivites from '../../database/models/titres-activites'

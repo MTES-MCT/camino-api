@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 import { titreActivitesRowUpdate } from '..//tools/export/titre-activites'
 

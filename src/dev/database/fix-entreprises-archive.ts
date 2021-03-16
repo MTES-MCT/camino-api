@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 
 import Entreprises from '../../database/models/entreprises'

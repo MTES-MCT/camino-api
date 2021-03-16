@@ -1,7 +1,6 @@
-import 'dotenv/config'
 import { ISection, ITitreEtape } from '../../types'
-
-import knex from '../../init'
+import '../../init'
+import { knex } from '../../knex'
 
 import { titresGet } from '../../database/queries/titres'
 import TitresEtapes from '../../database/models/titres-etapes'

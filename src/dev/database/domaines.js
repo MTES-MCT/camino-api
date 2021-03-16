@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../database/init'
 import fileCreate from '../../tools/file-create'
 

@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../init'
 import { titreTypeDemarcheTypeEtapeTypeCheck } from '../tools/demarches/tde-check'
 

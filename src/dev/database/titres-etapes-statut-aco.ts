@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 
 import EtapesTypesEtapesStatuts from '../../database/models/etapes-types--etapes-statuts'

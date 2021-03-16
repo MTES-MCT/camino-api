@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 import fileCreate from '../../tools/file-create'
 
