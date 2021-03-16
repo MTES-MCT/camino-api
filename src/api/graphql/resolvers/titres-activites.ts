@@ -1,9 +1,4 @@
-import {
-  IToken,
-  ITitreActivite,
-  ITitreActiviteColonneId,
-  IUtilisateur
-} from '../../../types'
+import { IToken, ITitreActivite, ITitreActiviteColonneId } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../../config/index'
 import * as dateFormat from 'dateformat'
@@ -228,37 +223,6 @@ const activitesAnnees = async (_: never, context: IToken) => {
   }
 }
 
-const activitePermissionCheck = (
-  activite: ITitreActivite,
-  user: IUtilisateur
-) => {
-  if (
-    permissionCheck(user?.permissionId, ['super']) ||
-    (permissionCheck(user?.permissionId, ['admin']) &&
-      user.administrations?.some(a =>
-        a.activitesTypes?.some(
-          at => at.id === activite.typeId && at.modification
-        )
-      ))
-  ) {
-    return true
-  }
-
-  if (
-    permissionCheck(user?.permissionId, ['entreprise']) &&
-    ['enc', 'abs'].includes(activite.statutId) &&
-    user.entreprises?.some(
-      e =>
-        activite.titre?.titulaires?.some(t => t.id === e.id) ||
-        activite.titre?.amodiataires?.some(t => t.id === e.id)
-    )
-  ) {
-    return true
-  }
-
-  return false
-}
-
 const activiteModifier = async (
   { activite }: { activite: ITitreActivite },
   context: IToken,
@@ -268,10 +232,7 @@ const activiteModifier = async (
     const oldTitreActivite = await titreActiviteGet(
       activite.id,
       {
-        fields: {
-          type: { id: {} },
-          titre: { titulaires: { id: {} }, amodiataires: { id: {} } }
-        }
+        fields: { id: {} }
       },
       context.user?.id
     )
@@ -280,7 +241,7 @@ const activiteModifier = async (
 
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !activitePermissionCheck(oldTitreActivite, user)) {
+    if (!user || !oldTitreActivite.modification) {
       throw new Error('cette activité ne peut pas être modifiée')
     }
 
