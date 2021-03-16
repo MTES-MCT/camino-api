@@ -124,6 +124,14 @@ const utilisateursQueryModify = (
 
   if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
     q.select(raw('true').as('entreprisesCreation'))
+  } else {
+    q.select(raw('false').as('entreprisesCreation'))
+  }
+
+  if (permissionCheck(user?.permissionId, ['super', 'admin'])) {
+    q.select(raw('true').as('utilisateursCreation'))
+  } else {
+    q.select(raw('false').as('utilisateursCreation'))
   }
 
   q.modifyGraph('entreprises', u =>

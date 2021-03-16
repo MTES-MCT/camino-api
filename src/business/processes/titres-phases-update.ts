@@ -8,6 +8,7 @@ import {
 import { titrePhasesFind } from '../rules/titre-phases-find'
 import PQueue from 'p-queue'
 import { titresGet } from '../../database/queries/titres'
+import { userSuper } from '../../database/user-super'
 
 // retourne une phase parmi les titrePhases en fonction de son id
 const titrePhaseEqualFind = (
@@ -98,7 +99,7 @@ const titresPhasesUpdate = async (titresIds?: string[]) => {
         demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
       }
     },
-    'super'
+    userSuper
   )
 
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')

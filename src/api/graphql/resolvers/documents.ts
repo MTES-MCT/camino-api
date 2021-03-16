@@ -2,9 +2,9 @@ import {
   IDocument,
   IToken,
   IDocumentRepertoire,
-  IUtilisateur,
   IDocumentType,
-  ITitreEtape
+  ITitreEtape,
+  IUtilisateur
 } from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
@@ -25,7 +25,6 @@ import {
   documentIdUpdate
 } from '../../../database/queries/documents'
 
-import { userGet } from '../../../database/queries/utilisateurs'
 import { documentTypeGet } from '../../../database/queries/metas'
 
 import fieldsBuild from './_fields-build'
@@ -38,6 +37,7 @@ import { documentInputValidate } from '../../_validate/document-input-validate'
 import { documentUpdationValidate } from '../../../business/validations/document-updation-validate'
 import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
 import { entrepriseGet } from '../../../database/queries/entreprises'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const documentFileDirPathFind = (
   document: IDocument,
@@ -85,14 +85,10 @@ const documents = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const fields = fieldsBuild(info)
-    const documents = await documentsGet(
-      { entreprisesIds },
-      { fields },
-      user?.id
-    )
+    const documents = await documentsGet({ entreprisesIds }, { fields }, user)
 
     return documents
   } catch (e) {
@@ -143,7 +139,7 @@ const documentPermissionsCheck = async (
     const titreEtape = await titreEtapeGet(
       document.titreEtapeId,
       { fields: {} },
-      user?.id
+      user
     )
 
     if (!titreEtape) throw new Error("l’étape n'existe pas")
@@ -153,7 +149,7 @@ const documentPermissionsCheck = async (
     const entreprise = await entrepriseGet(
       document.entrepriseId,
       { fields: {} },
-      user?.id
+      user
     )
 
     if (!entreprise) throw new Error("l'entreprise n'existe pas")
@@ -165,7 +161,7 @@ const documentPermissionsCheck = async (
     const activite = await titreActiviteGet(
       document.titreActiviteId,
       { fields: { type: { titresTypes: { id: {} } }, titre: { id: {} } } },
-      user.id
+      user
     )
 
     if (!activite) throw new Error("l'activité n'existe pas")
@@ -175,7 +171,7 @@ const documentPermissionsCheck = async (
     const titreTravauxEtape = await titreTravauxEtapeGet(
       document.titreTravauxEtapeId,
       { fields: {} },
-      user?.id
+      user
     )
 
     if (!titreTravauxEtape) throw new Error("l’étape de travaux n'existe pas")
@@ -189,7 +185,7 @@ const documentCreer = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     await documentPermissionsCheck(document, user)
 
@@ -242,14 +238,12 @@ const documentModifier = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     await documentPermissionsCheck(document, user)
 
-    const documentOld = await documentGet(document.id, {}, user!.id)
-    if (!documentOld) {
-      throw new Error('aucun document avec cette id')
-    }
+    const documentOld = await documentGet(document.id, {}, user)
+    if (!documentOld) throw new Error("le document n'exsite pas")
 
     if (documentOld.etapesAssociees && documentOld.etapesAssociees.length > 0) {
       throw new Error(
@@ -349,16 +343,12 @@ const documentModifier = async (
 
 const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    if (!user) {
-      throw new Error('droits insuffisants')
-    }
+    if (!user) throw new Error('droits insuffisants')
 
-    const documentOld = await documentGet(id, {}, user!.id)
-    if (!documentOld) {
-      throw new Error('aucun document avec cette id')
-    }
+    const documentOld = await documentGet(id, {}, user)
+    if (!documentOld) throw new Error("le document n'existe pas")
 
     if (documentOld.etapesAssociees && documentOld.etapesAssociees.length > 0) {
       throw new Error(

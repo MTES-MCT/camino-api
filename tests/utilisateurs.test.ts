@@ -83,9 +83,7 @@ describe('utilisateursCreer', () => {
       }
     })
 
-    expect(res.body.errors[0].message).toMatch(
-      /droits insuffisants pour créer un utilisateur/
-    )
+    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test('crée un compte utilisateur si le token contient son email', async () => {
@@ -127,9 +125,7 @@ describe('utilisateursCreer', () => {
       'defaut'
     )
 
-    expect(res.body.errors[0].message).toMatch(
-      /droits insuffisants pour créer un super utilisateur/
-    )
+    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test("en tant que 'defaut', ne peut pas créer de compte avec un email différent", async () => {
@@ -150,9 +146,7 @@ describe('utilisateursCreer', () => {
       })
       .set('Authorization', `Bearer ${token}`)
 
-    expect(res.body.errors[0].message).toMatch(
-      /droits insuffisants pour créer un utilisateur/
-    )
+    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test("en tant que 'super', peut créer un compte utilisateur 'super'", async () => {
@@ -191,9 +185,7 @@ describe('utilisateursCreer', () => {
       'defaut'
     )
 
-    expect(res.body.errors[0].message).toMatch(
-      /les permissions de cet utilisateur ne permettent pas de l'associer à une administration/
-    )
+    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test("en tant qu'admin', peut être associé à une administrations", async () => {

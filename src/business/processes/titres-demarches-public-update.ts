@@ -3,6 +3,7 @@ import PQueue from 'p-queue'
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import { titreDemarchePublicFind } from '../rules/titre-demarche-public-find'
 import { titresGet } from '../../database/queries/titres'
+import { userSuper } from '../../database/user-super'
 
 type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }
 
@@ -22,7 +23,7 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
         }
       }
     },
-    'super'
+    userSuper
   )
 
   // TODO: forcer la présence des démarches sur le titre
@@ -61,8 +62,7 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
             titreDemarche.id,
             publicUpdate,
             { fields: { id: {} } },
-            'super',
-            titre
+            userSuper
           )
 
           const log = {

@@ -9,6 +9,7 @@ import EtapesTypes from '../../database/models/etapes-types'
 import TitresTypesDemarchesTypesEtapesTypes from '../../database/models/titres-types--demarches-types-etapes-types'
 import TitresEtapes from '../../database/models/titres-etapes'
 import TitresPoints from '../../database/models/titres-points'
+import { userSuper } from '../../database/user-super'
 
 const propertyValidate = (
   etape: ITitreEtape,
@@ -121,7 +122,7 @@ const main = async () => {
         id: {}
       }
     },
-    'super'
+    userSuper
   )
   const latestEtapeDef = etapesDef.sort((a, b) =>
     b.date.localeCompare(a.date)
@@ -144,7 +145,7 @@ const main = async () => {
         demarche: { id: {} }
       }
     },
-    'super'
+    userSuper
   )
   let etapeEofMinDate = undefined as undefined | string
   let etapeEofMaxDate = undefined as undefined | string
@@ -215,7 +216,7 @@ const main = async () => {
         }
       }
     },
-    'super'
+    userSuper
   )
   etapes = etapes.filter(e => !e.type!.fondamentale)
 
@@ -259,7 +260,7 @@ const main = async () => {
             }
           }
         },
-        'super'
+        userSuper
       )
 
       if (!etape.demarche?.etapes) {

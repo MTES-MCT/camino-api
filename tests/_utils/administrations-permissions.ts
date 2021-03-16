@@ -112,9 +112,7 @@ const creationCheck = async (
         titreCreer: { nom: titre.nom }
       })
     } else {
-      expect(res.body.errors[0].message).toMatch(
-        /droits insuffisants pour créer ce type de titre/
-      )
+      expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
     }
   } else if (cible === 'demarches') {
     const titreCreated = await titreCreerSuper(administrationId, titreTypeId)
@@ -128,12 +126,11 @@ const creationCheck = async (
       expect(res.body.errors).toBeUndefined()
       expect(res.body.data).toMatchObject({ demarcheCreer: {} })
     } else {
-      expect(res.body.errors[0].message).toBe(
-        'droits insuffisants pour créer cette démarche'
-      )
+      expect(res.body.errors[0].message).toBe('droits insuffisants')
     }
   } else if (cible === 'etapes') {
     const titreCreated = await titreCreerSuper(administrationId, titreTypeId)
+
     const demarcheCreated = await demarcheCreerProfil(
       titreCreated.body.data.titreCreer.id,
       'super'
@@ -166,13 +163,16 @@ const creationCheck = async (
       return acc
     }, {} as any)
 
+    const titreDemarcheId =
+      demarcheCreated.body.data.demarcheCreer.demarches[0].id
+
     const res = await graphQLCall(
       queryImport('titres-etapes-creer'),
       {
         etape: {
           typeId: etapeTypeId,
           statutId: 'fai',
-          titreDemarcheId: `${demarcheCreated.body.data.demarcheCreer.id}-oct01`,
+          titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {

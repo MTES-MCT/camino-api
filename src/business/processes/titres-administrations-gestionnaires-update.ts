@@ -14,6 +14,7 @@ import {
 
 import titreAdministrationsGestionnairesBuild from '../rules/titre-administrations-gestionnaires-build'
 import { administrationsGet } from '../../database/queries/administrations'
+import { userSuper } from '../../database/user-super'
 
 const titreAsGsToCreatedFind = (
   titreAsGsOldIds: string[],
@@ -125,10 +126,10 @@ const titresAdministrationsGestionnairesUpdate = async (
   const titres = await titresGet(
     { ids: titresIds },
     { fields: { administrationsGestionnaires: { id: {} } } },
-    'super'
+    userSuper
   )
 
-  const administrations = await administrationsGet({}, {}, 'super')
+  const administrations = await administrationsGet({}, {}, userSuper)
 
   const {
     titresAsGsToCreate,

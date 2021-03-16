@@ -22,7 +22,6 @@ import {
   administrationActiviteTypeDelete,
   administrationActiviteTypeUpsert
 } from '../../../database/queries/administrations'
-import { userGet } from '../../../database/queries/utilisateurs'
 
 import administrationUpdateTask from '../../../business/administration-update'
 
@@ -31,6 +30,7 @@ import fieldsBuild from './_fields-build'
 import { administrationFormat } from '../../_format/administrations'
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const administration = async (
   { id }: { id: string },
@@ -38,13 +38,10 @@ const administration = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const administration = await administrationGet(
-      id,
-      { fields },
-      context.user?.id
-    )
+    const administration = await administrationGet(id, { fields }, user)
 
     return administrationFormat(administration)
   } catch (e) {
@@ -76,18 +73,19 @@ const administrations = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     const [administrations, total] = await Promise.all([
       administrationsGet(
         { page, intervalle, ordre, colonne, noms, typesIds },
         { fields: fields.elements },
-        context.user?.id
+        user
       ),
       administrationsCount(
         { noms, typesIds },
         { fields: fields.elements },
-        context.user?.id
+        user
       )
     ])
 
@@ -136,12 +134,12 @@ const administrationModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const administrationOld = await administrationGet(
       administration.id,
       { fields: {} },
-      user?.id
+      user
     )
 
     if (!administrationOld) throw new Error("l'administration n'existe pas")
@@ -169,11 +167,7 @@ const administrationModifier = async (
 
     const fields = fieldsBuild(info)
 
-    return await administrationGet(
-      administrationId,
-      { fields },
-      context.user?.id
-    )
+    return await administrationGet(administrationId, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -191,7 +185,7 @@ const administrationTitreTypeModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
@@ -214,7 +208,7 @@ const administrationTitreTypeModifier = async (
     return await administrationGet(
       administrationTitreType.administrationId,
       { fields },
-      context.user?.id
+      user
     )
   } catch (e) {
     if (debug) {
@@ -235,7 +229,7 @@ const administrationTitreTypeTitreStatutModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
@@ -262,7 +256,7 @@ const administrationTitreTypeTitreStatutModifier = async (
     return await administrationGet(
       administrationTitreTypeTitreStatut.administrationId,
       { fields },
-      context.user?.id
+      user
     )
   } catch (e) {
     if (debug) {
@@ -283,7 +277,7 @@ const administrationTitreTypeEtapeTypeModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
@@ -310,7 +304,7 @@ const administrationTitreTypeEtapeTypeModifier = async (
     return await administrationGet(
       administrationTitreTypeEtapeType.administrationId,
       { fields },
-      context.user?.id
+      user
     )
   } catch (e) {
     if (debug) {
@@ -329,7 +323,7 @@ const administrationActiviteTypeModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
@@ -352,7 +346,7 @@ const administrationActiviteTypeModifier = async (
     return await administrationGet(
       administrationActiviteType.administrationId,
       { fields },
-      context.user?.id
+      user
     )
   } catch (e) {
     if (debug) {

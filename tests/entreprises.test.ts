@@ -15,6 +15,7 @@ import { titreCreate } from '../src/database/queries/titres'
 import { documentCreate } from '../src/database/queries/documents'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
 import { ITitreEtapeJustificatif } from '../src/types'
+import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -53,9 +54,7 @@ describe('entrepriseCreer', () => {
       entreprise: { legalSiren: 'test', paysId: 'fr' }
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("peut créer une entreprise (un utilisateur 'super')", async () => {
@@ -175,9 +174,7 @@ describe('entrepriseModifier', () => {
       entreprise: { id: entrepriseId, email: 'toto@gmail.com' }
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("peut modifier une entreprise (un utilisateur 'super')", async () => {
@@ -266,7 +263,7 @@ describe('entreprise', () => {
         ]
       },
       {},
-      'super'
+      userSuper
     )
 
     const documentId = 'document-id'

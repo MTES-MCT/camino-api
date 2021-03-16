@@ -53,8 +53,9 @@ const utilisateur = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
-    const utilisateur = await utilisateurGet(id, { fields }, context.user?.id)
+    const utilisateur = await utilisateurGet(id, { fields }, user)
 
     return utilisateur && utilisateurFormat(utilisateur)
   } catch (e) {
@@ -92,6 +93,7 @@ const utilisateurs = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     const [utilisateurs, total] = await Promise.all([
@@ -108,7 +110,7 @@ const utilisateurs = async (
           emails
         },
         { fields: fields.elements },
-        context.user?.id
+        user
       ),
       utilisateursCount(
         {
@@ -119,7 +121,7 @@ const utilisateurs = async (
           emails
         },
         { fields: { id: {} } },
-        context.user?.id
+        user
       )
     ])
 
@@ -149,7 +151,7 @@ const moi = async (_: never, context: IToken) => {
       await init()
     }
 
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     return userFormat(user)
   } catch (e) {
@@ -295,29 +297,20 @@ const utilisateurCreer = async (
   context: IToken
 ) => {
   try {
-    if (!context.user) {
-      throw new Error('droits insuffisants pour créer un utilisateur')
-    }
-
     const user = await userGet(context.user?.id)
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
+    if (
+      !context.user ||
+      (context.user.email !== utilisateur.email &&
+        !user?.utilisateursCreation) ||
+      (!permissionCheck(user?.permissionId, ['super']) &&
+        utilisateur.permissionId === 'super')
+    )
+      throw new Error('droits insuffisants')
+
     const errors = utilisateurEditionCheck(utilisateur)
-
-    if (
-      !permissionCheck(user?.permissionId, ['super']) &&
-      utilisateur.permissionId === 'super'
-    ) {
-      errors.push('droits insuffisants pour créer un super utilisateur')
-    }
-
-    if (
-      !permissionCheck(user?.permissionId, ['super', 'admin']) &&
-      context.user.email !== utilisateur.email
-    ) {
-      errors.push('droits insuffisants pour créer un utilisateur')
-    }
 
     if (utilisateur.motDePasse!.length < 8) {
       errors.push('le mot de passe doit contenir au moins 8 caractères')
@@ -389,16 +382,12 @@ const utilisateurCreationMessageEnvoyer = async ({
   try {
     email = email.toLowerCase()
 
-    if (!emailCheck(email)) {
-      throw new Error('adresse email invalide')
-    }
+    if (!emailCheck(email)) throw new Error('adresse email invalide')
 
     const user = await userByEmailGet(email)
 
     if (user) {
-      throw new Error(
-        'un utilisateur est déjà enregistré avec cette adresse email'
-      )
+      throw new Error('un utilisateur est déjà enregistré avec cet email')
     }
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
@@ -445,28 +434,19 @@ const utilisateurModifier = async (
     const isSuper = permissionCheck(user?.permissionId, ['super'])
     const isAdmin = permissionCheck(user?.permissionId, ['admin'])
 
-    if (!user || (!isSuper && !isAdmin && user.id !== utilisateur.id)) {
-      throw new Error('droits insuffisants pour modifier cet utilisateur')
+    if (
+      !user ||
+      (!user.utilisateursCreation &&
+        (user.id !== utilisateur.id || user.email !== utilisateur.email)) ||
+      (utilisateur.permissionId &&
+        !isSuper &&
+        (!isAdmin ||
+          permissionCheck(utilisateur.permissionId, ['super', 'admin'])))
+    ) {
+      throw new Error('droits insuffisants')
     }
 
     const errors = utilisateurEditionCheck(utilisateur)
-
-    if (
-      utilisateur.permissionId &&
-      !isSuper &&
-      (!isAdmin ||
-        permissionCheck(utilisateur.permissionId, ['super', 'admin']))
-    ) {
-      errors.push(
-        'droits insuffisants pour affecter ces permissions à cet utilisateur'
-      )
-    }
-
-    if (!isSuper && !isAdmin && user.email !== utilisateur.email) {
-      errors.push(
-        "droits insuffisants pour modifier l'adresse email de cet utilisateur"
-      )
-    }
 
     const errorsValidate = await utilisateurUpdationValidate(
       user,
@@ -517,14 +497,12 @@ const utilisateurSupprimer = async (
 ) => {
   try {
     const user = await userGet(context.user?.id)
-    if (
-      !user ||
-      (!['super', 'admin'].includes(user.permissionId) && user.id !== id)
-    ) {
-      throw new Error('droits insuffisants pour mettre à jour cet utilisateur')
-    }
 
-    const utilisateur = await utilisateurGet(id, {}, context.user?.id)
+    if (!user || (!user.utilisateursCreation && user.id !== id))
+      throw new Error('droits insuffisants')
+
+    const utilisateur = await utilisateurGet(id, { fields: {} }, user)
+
     if (!utilisateur) {
       throw new Error('aucun utilisateur avec cet id')
     }
@@ -584,7 +562,7 @@ const utilisateurMotDePasseModifier = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(id, {}, context.user?.id)
+    const utilisateur = await utilisateurGet(id, {}, user)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -625,9 +603,7 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
   email: string
 }) => {
   try {
-    if (!emailCheck(email)) {
-      throw new Error('adresse email invalide')
-    }
+    if (!emailCheck(email)) throw new Error('adresse email invalide')
 
     const utilisateur = await userByEmailGet(email)
 
@@ -662,6 +638,8 @@ const utilisateurMotDePasseInitialiser = async (
   context: IToken
 ) => {
   try {
+    const user = await userGet(context.user?.id)
+
     if (!context.user || !context.user.id) {
       throw new Error('aucun utilisateur identifié')
     }
@@ -683,11 +661,7 @@ const utilisateurMotDePasseInitialiser = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(
-      context.user.id,
-      {},
-      context.user?.id
-    )
+    const utilisateur = await utilisateurGet(context.user.id, {}, user)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -776,9 +750,9 @@ const utilisateurEmailModifier = async (
   context: IToken
 ) => {
   try {
-    if (!context.user || !context.user.id) {
-      throw new Error('aucun utilisateur identifié')
-    }
+    const user = await userGet(context.user?.id)
+
+    if (!user) throw new Error("l'utilisateur n'existe pas")
 
     let emailTokenDecoded: { id: string; email: string }
     try {
@@ -790,15 +764,11 @@ const utilisateurEmailModifier = async (
       throw new Error('lien expiré')
     }
 
-    if (context.user.id !== emailTokenDecoded.id) {
+    if (user.id !== emailTokenDecoded.id) {
       throw new Error('droits insuffisants')
     }
 
-    const utilisateur = await utilisateurGet(
-      context.user.id,
-      {},
-      context.user?.id
-    )
+    const utilisateur = await utilisateurGet(user.id, {}, user)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -806,7 +776,7 @@ const utilisateurEmailModifier = async (
 
     const utilisateurUpdated = await utilisateurUpsert(
       {
-        id: context.user.id,
+        id: user.id,
         email: emailTokenDecoded.email
       } as IUtilisateur,
       {}

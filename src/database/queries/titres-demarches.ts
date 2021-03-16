@@ -5,8 +5,7 @@ import {
   IColonne,
   IFields,
   Index,
-  IUtilisateur,
-  ITitre
+  IUtilisateur
 } from '../../types'
 import {
   transaction,
@@ -16,7 +15,6 @@ import {
   RawBuilder
 } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
-import { userGet } from './utilisateurs'
 import options from './_options'
 import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
@@ -24,9 +22,6 @@ import { fieldsTitreAdd } from './graph/fields-add'
 
 import { titresDemarchesQueryModify } from './permissions/titres-demarches'
 import { titresFiltersQueryBuild } from './_titres-filters'
-import { permissionCheck } from '../../tools/permission'
-import { titreGet } from './titres'
-import { titreTypeStatutPermissionAdministrationCheck } from '../../api/_permissions/titre-edition'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -180,10 +175,8 @@ const titresDemarchesCount = async (
     titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titresDemarchesQueryBuild(
     {
       typesIds,
@@ -265,9 +258,8 @@ const titresDemarchesGet = async (
     titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
   const q = titresDemarchesQueryBuild(
     {
       typesIds,
@@ -326,13 +318,11 @@ const titresDemarchesGet = async (
 const titreDemarcheGet = async (
   titreDemarcheId: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titresDemarchesQueryBuild({}, { fields }, user)
 
-  return (await q.findById(titreDemarcheId)) as ITitreDemarche
+  return q.findById(titreDemarcheId)
 }
 
 /**
@@ -345,35 +335,11 @@ const titreDemarcheGet = async (
 const titreDemarcheCreate = async (
   titreDemarche: ITitreDemarche,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-  if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-    throw new Error('droits insuffisants')
-  }
+  const q = titresDemarchesQueryBuild({}, { fields }, user)
 
-  if (permissionCheck(user.permissionId, ['admin'])) {
-    const titre = await titreGet(titreDemarche.titreId, {}, user.id)
-    if (!titre) throw new Error("le titre n'existe pas")
-
-    const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
-      user,
-      titre.typeId,
-      titre.statutId!,
-      'demarches'
-    )
-
-    if (!titreTypeStatutPermission) {
-      throw new Error('droits insuffisants pour créer cette démarche')
-    }
-  }
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'demarches', fieldsFormat)
-    : options.titresDemarches.graph
-
-  return TitresDemarches.query()
-    .insertAndFetch(titreDemarche)
-    .withGraphFetched(graph)
+  return q.insertAndFetch(titreDemarche)
 }
 
 const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
@@ -386,35 +352,11 @@ const titreDemarcheUpdate = async (
   id: string,
   props: Partial<ITitreDemarche>,
   { fields }: { fields?: IFields },
-  userId: string,
-  titre: ITitre
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
+  const q = titresDemarchesQueryBuild({}, { fields }, user)
 
-  if (!user) {
-    throw new Error('droits insuffisants')
-  }
-
-  if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
-    const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
-      user,
-      titre.typeId,
-      titre.statutId!,
-      'demarches'
-    )
-
-    if (!titreTypeStatutPermission) {
-      throw new Error('droits insuffisants')
-    }
-  }
-
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'demarches', fieldsFormat)
-    : options.titresDemarches.graph
-
-  return TitresDemarches.query()
-    .patchAndFetchById(id, props)
-    .withGraphFetched(graph)
+  return q.patchAndFetchById(id, props)
 }
 
 const titreDemarcheUpsert = async (

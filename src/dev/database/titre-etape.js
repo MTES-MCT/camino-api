@@ -2,6 +2,7 @@ import '../../init'
 import fileCreate from '../../tools/file-create'
 
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
+import { userGet } from '../../database/queries/utilisateurs'
 
 async function main() {
   // const userId = 'super'
@@ -45,6 +46,7 @@ async function main() {
 
   console.info({ userId, titreEtapeId })
 
+  const user = await userGet(userId)
   const res = await titreEtapeGet(
     titreEtapeId,
     {
@@ -52,7 +54,7 @@ async function main() {
         propsTitreEtapes: { surface: { id: {} } }
       }
     },
-    userId
+    user
   )
 
   console.info(res && res.propsTitreEtapes)

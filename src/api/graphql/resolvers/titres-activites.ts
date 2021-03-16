@@ -27,6 +27,7 @@ import {
 import { titreActiviteInputValidate } from '../../_validate/titre-activite-input-validate'
 import { titreActiviteUpdationValidate } from '../../../business/validations/titre-activite-updation-validate'
 import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
+import { userSuper } from '../../../database/user-super'
 
 /**
  * Retourne une activité
@@ -44,13 +45,10 @@ const activite = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const titreActivite = await titreActiviteGet(
-      id,
-      { fields },
-      context.user?.id
-    )
+    const titreActivite = await titreActiviteGet(id, { fields }, user)
 
     if (!titreActivite) return null
 
@@ -126,6 +124,7 @@ const activites = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     if (!intervalle) {
@@ -156,7 +155,7 @@ const activites = async (
           titresStatutsIds
         },
         { fields: fields.elements },
-        context.user?.id
+        user
       ),
       titresActivitesCount(
         {
@@ -173,7 +172,7 @@ const activites = async (
           titresStatutsIds
         },
         { fields: { id: {} } },
-        context.user?.id
+        user
       )
     ])
 
@@ -208,7 +207,8 @@ const activites = async (
 
 const activitesAnnees = async (_: never, context: IToken) => {
   try {
-    const annees = await activitesAnneesGet(context.user?.id)
+    const user = await userGet(context.user?.id)
+    const annees = await activitesAnneesGet(user)
 
     if (!annees || !annees.length) return []
 
@@ -228,12 +228,14 @@ const activiteModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const userId = context.user?.id
+    const user = await userGet(context.user?.id)
+
+    if (!user) throw new Error('droits insuffisants')
 
     const oldTitreActivite = await titreActiviteGet(
       activite.id,
       { fields: { id: {} } },
-      userId
+      user
     )
 
     if (!oldTitreActivite) throw new Error("l'activité n'existe pas")
@@ -258,7 +260,7 @@ const activiteModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    activite.utilisateurId = userId
+    activite.utilisateurId = user.id
 
     const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
     activite.dateSaisie = aujourdhui
@@ -280,7 +282,6 @@ const activiteModifier = async (
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
     if (activiteRes.statutId === 'dep') {
-      const user = (await userGet(userId))!
       const titre = activiteFormated.titre!
 
       const isAmodiataire = titre.amodiataires?.some(t =>
@@ -299,7 +300,7 @@ const activiteModifier = async (
           permissionIds: undefined
         },
         {},
-        'super'
+        userSuper
       )
 
       await titreActiviteEmailsSend(
@@ -323,11 +324,8 @@ const activiteModifier = async (
 
 const activiteSupprimer = async ({ id }: { id: string }, context: IToken) => {
   try {
-    const oldTitreActivite = await titreActiviteGet(
-      id,
-      { fields: {} },
-      context.user?.id
-    )
+    const user = await userGet(context.user?.id)
+    const oldTitreActivite = await titreActiviteGet(id, { fields: {} }, user)
 
     if (!oldTitreActivite) throw new Error("l'activité n'existe pas")
 

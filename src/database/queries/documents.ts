@@ -1,9 +1,8 @@
-import { IDocument, IFields } from '../../types'
+import { IDocument, IFields, IUtilisateur } from '../../types'
 
 import { transaction, Transaction } from 'objection'
 
 import Document from '../models/documents'
-import { userGet } from './utilisateurs'
 import graphBuild from './graph/build'
 import options from './_options'
 
@@ -14,13 +13,11 @@ import { fieldsFormat } from './graph/fields-format'
 const documentGet = async (
   documentId: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
   const graph = fields
     ? graphBuild(fields, 'documents', fieldsFormat)
     : options.documents.graph
-
-  const user = await userGet(userId)
 
   const q = Document.query().withGraphFetched(graph)
 
@@ -34,13 +31,11 @@ const documentGet = async (
 const documentsGet = async (
   { entreprisesIds }: { entreprisesIds?: string[] },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
   const graph = fields
     ? graphBuild(fields, 'documents', fieldsFormat)
     : options.documents.graph
-
-  const user = await userGet(userId)
 
   const q = Document.query().withGraphFetched(graph)
 

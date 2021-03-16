@@ -2,6 +2,7 @@ import '../../init'
 import fileCreate from '../../tools/file-create'
 
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
+import { userGet } from '../../database/queries/utilisateurs'
 
 async function main() {
   const userId = 'super'
@@ -47,11 +48,11 @@ async function main() {
     console.time('demarches')
 
     console.info({ userId })
-
+    const user = await userGet(userId)
     const res = await titresDemarchesGet(
       { titresDomainesIds: ['m'], titresStatutsIds: ['ech'] },
       { fields: { id: {} } },
-      userId
+      user
     )
 
     console.timeEnd('demarches')

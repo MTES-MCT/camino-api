@@ -1,6 +1,7 @@
 import { IDevise, IUnite, IEtapeType } from '../../types'
 
 import { devisesGet, unitesGet, etapesTypesGet } from '../queries/metas'
+import { userSuper } from '../user-super'
 
 const metas = {
   devises: [] as IDevise[],
@@ -16,7 +17,7 @@ const metasInit = async () => {
   metas.etapesTypes = await etapesTypesGet(
     {},
     { fields: { etapesStatuts: { id: {} } } },
-    'super'
+    userSuper
   )
 }
 

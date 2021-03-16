@@ -1,5 +1,4 @@
 import { IToken, ITitreTravaux } from '../../../types'
-import { userGet } from '../../../database/queries/utilisateurs'
 import {
   titreTravauxGet,
   titreTravauxCreate,
@@ -14,6 +13,7 @@ import titreTravauxUpdateTask from '../../../business/titre-travaux-update'
 
 import { GraphQLResolveInfo } from 'graphql'
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const travauxCreer = async (
   { travaux }: { travaux: ITitreTravaux },
@@ -21,23 +21,27 @@ const travauxCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    const titre = await titreGet(travaux.titreId, { fields: {} }, user?.id)
+    const titre = await titreGet(travaux.titreId, { fields: {} }, user)
 
     if (!titre) throw new Error("le titre n'exsite pas")
 
     if (!titre.travauxCreation) throw new Error('droits insuffisants')
 
-    const travauxUpdated = await titreTravauxCreate(travaux, {
-      fields: { id: {} }
-    })
+    const travauxUpdated = await titreTravauxCreate(
+      travaux,
+      {
+        fields: { id: {} }
+      },
+      user
+    )
 
     const titreUpdatedId = await titreTravauxUpdateTask(travauxUpdated.titreId)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -55,23 +59,19 @@ const travauxModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const oldTitreTravaux = await titreTravauxGet(
       travaux.titreId,
       { fields: { id: {} } },
-      user?.id
+      user
     )
 
     if (!oldTitreTravaux) throw new Error("Les travaux n'existent pas")
 
     if (!oldTitreTravaux.modification) throw new Error('droits insuffisants')
 
-    const titre = await titreGet(
-      travaux.titreId,
-      { fields: { id: {} } },
-      user?.id
-    )
+    const titre = await titreGet(travaux.titreId, { fields: { id: {} } }, user)
 
     if (!titre) throw new Error("le titre n'existe pas")
 
@@ -83,7 +83,7 @@ const travauxModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -101,12 +101,12 @@ const travauxSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const oldTitreTravaux = await titreTravauxGet(
       id,
       { fields: { id: {} } },
-      user?.id
+      user
     )
 
     if (!oldTitreTravaux) throw new Error("Les travaux n'existent pas")
@@ -126,7 +126,7 @@ const travauxSupprimer = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {

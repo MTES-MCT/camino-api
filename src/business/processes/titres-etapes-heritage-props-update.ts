@@ -5,6 +5,7 @@ import PQueue from 'p-queue'
 import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titreEtapeHeritagePropsFind } from '../utils/titre-etape-heritage-props-find'
+import { userSuper } from '../../database/user-super'
 
 const titresEtapesHeritagePropsUpdate = async (
   titresDemarchesIds?: string[]
@@ -26,7 +27,7 @@ const titresEtapesHeritagePropsUpdate = async (
         }
       }
     },
-    'super'
+    userSuper
   )
 
   // lorsqu'une étape est mise à jour par un utilisateur,

@@ -7,6 +7,7 @@ import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titreActivitesBuild } from '../rules/titre-activites-build'
 import { titresGet } from '../../database/queries/titres'
 import { activitesTypesGet } from '../../database/queries/metas-activites'
+import { userSuper } from '../../database/user-super'
 
 const titresActivitesUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -26,10 +27,10 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
         activites: { id: {} }
       }
     },
-    'super'
+    userSuper
   )
 
-  const activitesTypes = await activitesTypesGet({}, 'super')
+  const activitesTypes = await activitesTypesGet({}, userSuper)
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
   const titresActivitesCreated = activitesTypes.reduce(

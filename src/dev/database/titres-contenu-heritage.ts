@@ -6,6 +6,7 @@ import { titresGet } from '../../database/queries/titres'
 import TitresEtapes from '../../database/models/titres-etapes'
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 import { objectClone } from '../../tools'
+import { userSuper } from '../../database/user-super'
 
 async function main() {
   await knex.schema.alterTable('titresEtapes', table => {
@@ -26,7 +27,7 @@ async function main() {
         }
       }
     },
-    'super'
+    userSuper
   )
 
   for (const t of titres) {

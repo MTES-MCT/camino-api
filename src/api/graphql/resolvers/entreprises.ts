@@ -8,7 +8,6 @@ import {
   entreprisesGet,
   entrepriseUpsert
 } from '../../../database/queries/entreprises'
-import { userGet } from '../../../database/queries/utilisateurs'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 
 import fieldsBuild from './_fields-build'
@@ -16,6 +15,7 @@ import fieldsBuild from './_fields-build'
 import { entrepriseFormat } from '../../_format/entreprises'
 import { emailCheck } from '../../../tools/email-check'
 import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const entreprise = async (
   { id }: { id: string },
@@ -23,9 +23,10 @@ const entreprise = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const entreprise = await entrepriseGet(id, { fields }, context.user?.id)
+    const entreprise = await entrepriseGet(id, { fields }, user)
 
     if (!entreprise) return null
 
@@ -63,6 +64,7 @@ const entreprises = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     let entreprises = [] as IEntreprise[]
@@ -80,13 +82,9 @@ const entreprises = async (
             archive
           },
           { fields: fields.elements },
-          context.user?.id
+          user
         ),
-        entreprisesCount(
-          { noms, archive },
-          { fields: { id: {} } },
-          context.user?.id
-        )
+        entreprisesCount({ noms, archive }, { fields: { id: {} } }, user)
       ])
     }
 
@@ -96,7 +94,7 @@ const entreprises = async (
         {
           fields: { titulaires: fields.elements, amodiataires: fields.elements }
         },
-        context.user?.id
+        user
       )
 
       if (titreEtape?.titulaires?.length) {
@@ -143,7 +141,7 @@ const entrepriseCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (!user?.entreprisesCreation) throw new Error('droits insuffisants')
 
@@ -158,7 +156,7 @@ const entrepriseCreer = async (
     const entrepriseOld = await entrepriseGet(
       `${entreprise.paysId}-${entreprise.legalSiren}`,
       { fields },
-      context.user?.id
+      user
     )
 
     if (entrepriseOld) {
@@ -199,7 +197,7 @@ const entrepriseModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (!user?.entreprisesCreation) throw new Error('droits insuffisants')
 
@@ -210,11 +208,7 @@ const entrepriseModifier = async (
     }
 
     const fields = fieldsBuild(info)
-    const entrepriseOld = await entrepriseGet(
-      entreprise.id,
-      { fields },
-      context.user?.id
-    )
+    const entrepriseOld = await entrepriseGet(entreprise.id, { fields }, user)
     if (!entrepriseOld) {
       errors.push('entreprise inconnue')
     }
@@ -228,7 +222,7 @@ const entrepriseModifier = async (
       ...entreprise
     })
 
-    return entrepriseGet(entrepriseUpserted.id, { fields }, context.user?.id)
+    return entrepriseGet(entrepriseUpserted.id, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)

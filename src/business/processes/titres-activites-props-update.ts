@@ -4,6 +4,7 @@ import * as dateFormat from 'dateformat'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titresGet } from '../../database/queries/titres'
 import { titreValideCheck } from '../utils/titre-valide-check'
+import { userSuper } from '../../database/user-super'
 
 const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -25,7 +26,7 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
         }
       }
     },
-    'super'
+    userSuper
   )
 
   const titresActivitesUpdated = titres.reduce(

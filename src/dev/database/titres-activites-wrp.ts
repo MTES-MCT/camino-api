@@ -5,6 +5,7 @@ import TitresActivites from '../../database/models/titres-activites'
 import { titreActiviteSectionsBuild } from '../../business/rules/titre-activites-build'
 import ActivitesTypes from '../../database/models/activites-types'
 import { titresGet } from '../../database/queries/titres'
+import { userSuper } from '../../database/user-super'
 
 const titreGraIds = [
   'm-pr-beauvoir-2015',
@@ -68,7 +69,7 @@ const main = async () => {
         activites: { id: {} }
       }
     },
-    'super'
+    userSuper
   )
 
   const activitesTypeGra = await ActivitesTypes.query()

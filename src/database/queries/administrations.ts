@@ -14,8 +14,6 @@ import { fieldsFormat } from './graph/fields-format'
 import { stringSplit } from './_utils'
 import options from './_options'
 
-import { userGet } from './utilisateurs'
-
 import Administrations from '../models/administrations'
 import AdministrationsTitresTypes from '../models/administrations-titres-types'
 import { administrationsQueryModify } from './permissions/administrations'
@@ -76,10 +74,8 @@ const administrationsQueryBuild = (
 const administrationGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = administrationsQueryBuild({}, { fields }, user)
 
   return q.findById(id)
@@ -96,9 +92,8 @@ const administrationsCount = async (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
   const q = administrationsQueryBuild(
     { noms, typesIds, administrationsIds },
     { fields },
@@ -131,10 +126,8 @@ const administrationsGet = async (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = administrationsQueryBuild(
     { noms, typesIds, administrationsIds },
     { fields },

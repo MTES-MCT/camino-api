@@ -24,9 +24,9 @@ const travauxEtapeCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    const titreTravaux = await titreTravauxGet(etape.titreTravauxId, {})
+    const titreTravaux = await titreTravauxGet(etape.titreTravauxId, {}, user)
 
     if (!titreTravaux) throw new Error("les travaux n'existent pas")
 
@@ -40,7 +40,7 @@ const travauxEtapeCreer = async (
           administrationsLocales: { id: {} }
         }
       },
-      user?.id
+      user
     )
 
     if (!titre) throw new Error("le titre n'existe pas")
@@ -52,7 +52,7 @@ const travauxEtapeCreer = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -70,12 +70,12 @@ const travauxEtapeModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const titreTravaux = await titreTravauxGet(
       etape.titreTravauxId,
       { fields: {} },
-      user?.id
+      user
     )
 
     if (!titreTravaux) throw new Error("les titreTravaux n'existent pas")
@@ -92,7 +92,7 @@ const travauxEtapeModifier = async (
           administrationsLocales: { id: {} }
         }
       },
-      user.id
+      user
     )
     if (!titre) throw new Error("le titre n'existe pas")
 
@@ -103,7 +103,7 @@ const travauxEtapeModifier = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -122,14 +122,14 @@ const travauxEtapeSupprimer = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const oldTitreTravauxEtape = await titreTravauxEtapeGet(
       id,
       {
         fields: { documents: { type: { id: {} } } }
       },
-      user?.id
+      user
     )
 
     if (!oldTitreTravauxEtape)
@@ -146,7 +146,7 @@ const travauxEtapeSupprimer = async (
       oldTitreTravauxEtape.titreTravauxId
     )
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {

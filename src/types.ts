@@ -594,6 +594,7 @@ interface ITitre {
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   travauxCreation?: boolean | null
+  demarchesCreation?: boolean | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
@@ -893,6 +894,7 @@ interface IUtilisateur {
   suppression?: boolean | null
   permissionModification?: boolean | null
   entreprisesCreation?: boolean | null
+  utilisateursCreation?: boolean | null
   refreshToken?: string | null
 }
 

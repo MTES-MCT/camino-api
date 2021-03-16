@@ -2,6 +2,7 @@ import '../../init'
 import fileCreate from '../../tools/file-create'
 
 import { titreGet } from '../../database/queries/titres'
+import { userGet } from '../../database/queries/utilisateurs'
 
 async function main() {
   // const userId = 'super'
@@ -45,6 +46,8 @@ async function main() {
 
   console.info({ userId, titreId })
 
+  const user = await userGet(userId)
+
   console.time('toto')
   const res = await titreGet(
     titreId,
@@ -56,7 +59,7 @@ async function main() {
       },
       fetchHeritage: true
     },
-    userId
+    user
   )
   console.timeEnd('toto')
 

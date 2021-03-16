@@ -23,7 +23,8 @@ import {
   ITitreTypeDemarcheType,
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
-  ITravauxTypeEtapeType
+  ITravauxTypeEtapeType,
+  IUtilisateur
 } from '../../types'
 
 import DemarchesTypes from '../models/demarches-types'
@@ -49,8 +50,6 @@ import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 
-import { userGet } from './utilisateurs'
-
 import {
   domainesQueryModify,
   etapesTypesQueryModify,
@@ -67,9 +66,7 @@ import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import TravauxTypesEtapesTypes from '../models/travaux-types--etapes-types'
 
-const permissionsGet = async (_a: never, _b: never, userId?: string) => {
-  const user = await userGet(userId)
-
+const permissionsGet = async (_a: never, _b: never, user?: IUtilisateur) => {
   const q = Permissions.query().skipUndefined().orderBy('ordre')
 
   permissionsQueryModify(q, user)
@@ -104,10 +101,8 @@ const titreTypeTypeUpdate = async (
 const domainesGet = async (
   _: never,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const graph = fields
     ? graphBuild(fields, 'titre', fieldsFormat)
     : options.domaines.graph
@@ -269,11 +264,11 @@ const travauxTypeEtapeTypeDelete = async (
  * @param userId - id de l’utilisateur
  * @returns liste de statuts
  */
-const titresStatutsGet = async (userId?: string) => {
+const titresStatutsGet = async (user?: IUtilisateur) => {
   let query = TitresStatuts.query().orderBy('ordre')
 
   // si l’utilisateur n’est pas connecté on filtre les statuts non visibles pour le public
-  if (!userId) {
+  if (!user) {
     query = query.whereIn(
       'id',
       TitresTypesTitresStatuts.query()
@@ -291,10 +286,8 @@ const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
 const travauxTypesGet = async (
   { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const graph = fields
     ? graphBuild(fields, 'travauxTypes', fieldsFormat)
     : options.demarchesTypes.graph
@@ -315,10 +308,8 @@ const travauxTypeUpdate = async (id: string, props: Partial<ITravauxType>) =>
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const graph = fields
     ? graphBuild(fields, 'demarchesTypes', fieldsFormat)
     : options.demarchesTypes.graph
@@ -361,10 +352,8 @@ const etapesTypesGet = async (
     uniqueCheck?: boolean
   } = { uniqueCheck: true },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const graph = fields
     ? graphBuild(fields, 'etapesTypes', fieldsFormat)
     : options.etapesTypes.graph

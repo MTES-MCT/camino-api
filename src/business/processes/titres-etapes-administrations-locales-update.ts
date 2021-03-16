@@ -14,6 +14,7 @@ import {
 } from '../../database/queries/titres-etapes'
 import { titresGet } from '../../database/queries/titres'
 import { administrationsGet } from '../../database/queries/administrations'
+import { userSuper } from '../../database/user-super'
 
 const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined,
@@ -231,10 +232,10 @@ const titresEtapesAdministrationsLocalesUpdate = async (
         }
       }
     },
-    'super'
+    userSuper
   )
 
-  const administrations = await administrationsGet({}, {}, 'super')
+  const administrations = await administrationsGet({}, {}, userSuper)
 
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId

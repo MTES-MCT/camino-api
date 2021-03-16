@@ -36,9 +36,7 @@ describe('administrationModifier', () => {
       administration: Object.assign({}, administration, { adresse1: 'adresse' })
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("modifie une administration (un utilisateur 'super')", async () => {
@@ -78,9 +76,7 @@ describe('administrationTitreTypeModifier', () => {
       }
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("modifie les types de titre d'une administration (un utilisateur 'super')", async () => {
@@ -128,9 +124,7 @@ describe('administrationTitreTypeModifier', () => {
       }
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("modifie les types de titre d'une administration (un utilisateur 'super')", async () => {
@@ -183,9 +177,7 @@ describe('administrationTitreTypeTitreStatutModifier', () => {
       }
     )
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("modifie les types de titre / statuts de titre d'une administration (un utilisateur 'super')", async () => {
@@ -248,9 +240,7 @@ describe('administrationTitreTypeEtapeTypeModifier', () => {
       }
     )
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("modifie les types de titre / types d'étape d'une administration (un utilisateur 'super')", async () => {

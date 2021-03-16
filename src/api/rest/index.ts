@@ -10,7 +10,7 @@ import { titresGet } from '../../database/queries/titres'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import { entreprisesGet } from '../../database/queries/entreprises'
-import { utilisateursGet } from '../../database/queries/utilisateurs'
+import { userGet, utilisateursGet } from '../../database/queries/utilisateurs'
 
 import { titresFormat } from '../_format/titres'
 import { titreDemarcheFormat } from '../_format/titres-demarches'
@@ -65,6 +65,8 @@ const titres = async (
   }: ITitresQueryInput,
   userId?: string
 ) => {
+  const user = await userGet(userId)
+
   formatCheck(['json', 'xlsx', 'csv', 'ods', 'geojson'], format)
 
   const titres = await titresGet(
@@ -97,7 +99,7 @@ const titres = async (
         administrationsGestionnaires: { type: { id: {} } }
       }
     },
-    userId
+    user
   )
 
   const titresFormatted = titresFormat(titres)
@@ -188,6 +190,8 @@ const demarches = async (
   }: ITitresDemarchesQueryInput,
   userId?: string
 ) => {
+  const user = await userGet(userId)
+
   formatCheck(['json', 'csv', 'ods', 'xlsx'], format)
 
   const titresDemarches = await titresDemarchesGet(
@@ -219,7 +223,7 @@ const demarches = async (
         etapes: { type: { etapesStatuts: { id: {} } } }
       }
     },
-    userId
+    user
   )
 
   const demarchesFormatted = titresDemarches.map(titreDemarche =>
@@ -281,6 +285,8 @@ const activites = async (
   }: ITitresActivitesQueryInput,
   userId?: string
 ) => {
+  const user = await userGet(userId)
+
   formatCheck(['json', 'xlsx', 'csv', 'ods'], format)
 
   const titresActivites = await titresActivitesGet(
@@ -312,7 +318,7 @@ const activites = async (
         titre: { id: {} }
       }
     },
-    userId
+    user
   )
 
   const titresActivitesFormatted = titresActivites.map(a =>
@@ -362,6 +368,8 @@ const utilisateurs = async (
   }: IUtilisateursQueryInput,
   userId?: string
 ) => {
+  const user = await userGet(userId)
+
   formatCheck(['json', 'csv', 'ods', 'xlsx'], format)
 
   const utilisateurs = await utilisateursGet(
@@ -375,7 +383,7 @@ const utilisateurs = async (
       emails
     },
     {},
-    userId
+    user
   )
 
   const utilisateursFormatted = utilisateurs.map(utilisateurFormat)
@@ -408,9 +416,11 @@ const entreprises = async (
   { format = 'json', noms }: IEntreprisesQueryInput,
   userId?: string
 ) => {
+  const user = await userGet(userId)
+
   formatCheck(['json', 'csv', 'xlsx', 'ods'], format)
 
-  const entreprises = await entreprisesGet({ noms }, {}, userId)
+  const entreprises = await entreprisesGet({ noms }, {}, user)
 
   const entreprisesFormatted = entreprises.map(entrepriseFormat)
 

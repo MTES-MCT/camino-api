@@ -42,6 +42,7 @@ import {
   titreTypeGet
 } from '../../../database/queries/metas'
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
+import { userSuper } from '../../../database/user-super'
 
 const titresTypes = async (_: never, context: IToken) => {
   try {
@@ -453,7 +454,7 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
         etapesInclues: [{ typeId: titreTypeDemarcheTypeEtapeType.etapeTypeId }]
       },
       { fields: { id: {} } },
-      'super'
+      userSuper
     )
 
     if (demarches.length) {

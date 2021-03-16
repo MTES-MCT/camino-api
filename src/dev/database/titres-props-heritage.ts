@@ -4,6 +4,7 @@ import { knex } from '../../knex'
 
 import { titresGet } from '../../database/queries/titres'
 import TitresEtapes from '../../database/models/titres-etapes'
+import { userSuper } from '../../database/user-super'
 
 const titreEtapeProps = [
   'points',
@@ -43,7 +44,7 @@ async function main() {
         }
       }
     },
-    'super'
+    userSuper
   )
 
   for (const t of titres) {

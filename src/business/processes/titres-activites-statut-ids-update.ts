@@ -6,6 +6,7 @@ import {
   titresActivitesGet
 } from '../../database/queries/titres-activites'
 import { titreActiviteStatutIdFind } from '../rules/titre-activite-statut-id-find'
+import { userSuper } from '../../database/user-super'
 
 // met à jour le statut des activités d'un titre
 const titresActivitesStatutIdsUpdate = async () => {
@@ -15,7 +16,7 @@ const titresActivitesStatutIdsUpdate = async () => {
     concurrency: 100
   })
 
-  const titresActivites = await titresActivitesGet({}, {}, 'super')
+  const titresActivites = await titresActivitesGet({}, {}, userSuper)
 
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 

@@ -4,7 +4,6 @@ import { IFields, IUtilisateur, ITitreTravauxEtape } from '../../types'
 import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
-import { userGet } from './utilisateurs'
 import TitresTravauxEtapes from '../models/titres-travaux-etapes'
 import { titresTravauxEtapesQueryModify } from './permissions/titres-travaux-etapes'
 
@@ -49,10 +48,8 @@ const titresTravauxEtapesQueryBuild = (
 const titreTravauxEtapeGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = titresTravauxEtapesQueryBuild({}, { fields }, user)
 
   return (await q.findById(id)) as ITitreTravauxEtape
@@ -69,10 +66,8 @@ const titresTravauxEtapesGet = async (
     titresTravauxIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = titresTravauxEtapesQueryBuild(
     { etapesIds, etapesTypesIds, titresTravauxIds },
     { fields },

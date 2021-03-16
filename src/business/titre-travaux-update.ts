@@ -1,4 +1,5 @@
 import { titreGet } from '../database/queries/titres'
+import { userSuper } from '../database/user-super'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 
 const titreTravauxUpdate = async (titreId: string) => {
@@ -11,7 +12,7 @@ const titreTravauxUpdate = async (titreId: string) => {
     const titre = await titreGet(
       titreId,
       { fields: { travaux: { etapes: { id: {} } } } },
-      'super'
+      userSuper
     )
 
     if (!titre) {

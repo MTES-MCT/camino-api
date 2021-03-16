@@ -83,7 +83,7 @@ async function main() {
         activites: { id: {} }
       }
     },
-    userId
+    user
   )
 
   console.info(`titre: ${res.id}, type: ${res.typeId}, statut: ${res.statutId}`)

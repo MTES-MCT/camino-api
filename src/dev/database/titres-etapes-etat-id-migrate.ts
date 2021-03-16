@@ -4,6 +4,7 @@ import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { ITitreDemarche, ITitreEtape } from '../../types'
 import { demarchesDefinitions } from '../../business/rules-demarches/definitions'
 import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
+import { userSuper } from '../../database/user-super'
 
 const armOctEtapeTypeIdGet = (
   etape: ITitreEtape,
@@ -92,7 +93,7 @@ const main = async () => {
             type: { id: {} }
           }
         },
-        'super'
+        userSuper
       )
 
       const demarchesValid = demarches

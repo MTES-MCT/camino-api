@@ -14,6 +14,7 @@ import {
   apiInseeEntreprisesEtablissementsGet,
   apiInseeEntreprisesGet
 } from '../../tools/api-insee'
+import { userSuper } from '../../database/user-super'
 
 const entreprisesEtablissementsToUpdateBuild = (
   entreprisesEtablissementsOld: IEntrepriseEtablissement[],
@@ -98,7 +99,7 @@ const entreprisesUpdate = async () => {
   console.info()
   console.info('entreprises (Api Insee)…')
 
-  const entreprisesOld = await entreprisesGet({}, {}, 'super')
+  const entreprisesOld = await entreprisesGet({}, {}, userSuper)
   const entreprisesEtablissementsOld = await entreprisesEtablissementsGet()
 
   const sirens = sirensFind(entreprisesOld)

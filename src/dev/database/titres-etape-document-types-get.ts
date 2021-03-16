@@ -1,5 +1,6 @@
 import '../../init'
 import { titresEtapesGet } from '../../database/queries/titres-etapes'
+import { userSuper } from '../../database/user-super'
 
 const main = async () => {
   let etapes = await titresEtapesGet(
@@ -10,7 +11,7 @@ const main = async () => {
         documents: { type: { id: {} } }
       }
     },
-    'super'
+    userSuper
   )
 
   etapes = etapes.filter(d => d.documents?.length)

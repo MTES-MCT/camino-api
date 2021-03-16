@@ -17,7 +17,6 @@ import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
-import { userGet } from './utilisateurs'
 import { raw } from 'objection'
 import { titresFiltersQueryBuild } from './_titres-filters'
 
@@ -127,10 +126,8 @@ const titreActivitesQueryBuild = (
 const titreActiviteGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titreActivitesQueryBuild({}, { fields }, user)
 
   if (!q) return undefined
@@ -146,9 +143,7 @@ const titreActiviteGet = async (
  *
  */
 
-const activitesAnneesGet = async (userId?: string) => {
-  const user = await userGet(userId)
-
+const activitesAnneesGet = async (user?: IUtilisateur) => {
   if (!user?.permissionId) return []
 
   const q = TitresActivites.query()
@@ -253,10 +248,8 @@ const titresActivitesGet = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titreActivitesQueryBuild(
     {
       typesIds,
@@ -347,10 +340,8 @@ const titresActivitesCount = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titreActivitesQueryBuild(
     {
       typesIds,

@@ -13,6 +13,7 @@ import { titresIdsUpdate } from './processes/titres-ids-update'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
+import { userSuper } from '../database/user-super'
 
 const titreDemarcheUpdate = async (
   titreDemarcheId: string | null,
@@ -26,7 +27,7 @@ const titreDemarcheUpdate = async (
     const titre = await titreGet(
       titreId,
       { fields: { demarches: { etapes: { id: {} } } } },
-      'super'
+      userSuper
     )
 
     if (!titre) {

@@ -2,6 +2,7 @@ import PQueue from 'p-queue'
 
 import { titresGet } from '../../database/queries/titres'
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
+import { userSuper } from '../../database/user-super'
 import { titreDemarcheStatutIdFind } from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
@@ -13,7 +14,7 @@ const titresDemarchesStatutIdUpdate = async (titresIds?: string[]) => {
   const titres = await titresGet(
     { ids: titresIds },
     { fields: { demarches: { etapes: { id: {} } } } },
-    'super'
+    userSuper
   )
 
   // TODO: forcer la présence des démarches sur le titre
@@ -36,8 +37,7 @@ const titresDemarchesStatutIdUpdate = async (titresIds?: string[]) => {
             titreDemarche.id,
             { statutId },
             { fields: { id: {} } },
-            'super',
-            titre
+            userSuper
           )
 
           const log = {

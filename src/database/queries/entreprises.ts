@@ -9,7 +9,6 @@ import options from './_options'
 import { entreprisesQueryModify } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
-import { userGet } from './utilisateurs'
 import { stringSplit } from './_utils'
 import { raw } from 'objection'
 
@@ -72,9 +71,8 @@ const entreprisesCount = async (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
   const q = entreprisesQueryBuild({ noms, archive }, { fields }, user)
   if (!q) return 0
 
@@ -86,10 +84,8 @@ const entreprisesCount = async (
 const entrepriseGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = entreprisesQueryBuild({}, { fields }, user)
 
   return (await q.findById(id)) as IEntreprise
@@ -112,10 +108,8 @@ const entreprisesGet = async (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = entreprisesQueryBuild({ noms, archive }, { fields }, user)
   if (!q) return []
 

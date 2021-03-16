@@ -1,20 +1,17 @@
-import { IActiviteType, IFields } from '../../types'
+import { IActiviteType, IFields, IUtilisateur } from '../../types'
 import ActivitesTypes from '../models/activites-types'
 import TitresTypesActivitesTypes from '../models/titres-types--activites-types'
 
 import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
-import { userGet } from './utilisateurs'
 
 import { activitesTypesQueryModify } from './permissions/metas'
 
 const activitesTypesGet = async (
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const graph = fields
     ? graphBuild(fields, 'activitesTypes', fieldsFormat)
     : options.activitesTypes.graph

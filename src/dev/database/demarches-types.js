@@ -2,6 +2,7 @@ import '../../init'
 import fileCreate from '../../tools/file-create'
 
 import { demarchesTypesGet } from '../../database/queries/metas'
+import { userGet } from '../../database/queries/utilisateurs'
 
 async function main() {
   // const userId = 'super'
@@ -48,13 +49,15 @@ async function main() {
 
   console.info({ userId, titreId })
 
+  const user = await userGet(userId)
+
   const res = await demarchesTypesGet(
     {
       titreId,
       titreDemarcheId: `${titreId}-oct01`
     },
     { fields: { id: {} } },
-    userId
+    user
   )
 
   res.forEach(dt => {

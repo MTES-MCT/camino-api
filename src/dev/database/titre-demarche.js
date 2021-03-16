@@ -2,6 +2,7 @@ import '../../init'
 import fileCreate from '../../tools/file-create'
 
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
+import { userGet } from '../../database/queries/utilisateurs'
 
 async function main() {
   // const userId = 'super'
@@ -47,7 +48,7 @@ async function main() {
   // const titreId = 'm-ax-auror-2018'
 
   console.info({ userId, titreId })
-
+  const user = await userGet(userId)
   const res = await titreDemarcheGet(
     `${titreId}-oct01`,
     {
@@ -59,7 +60,7 @@ async function main() {
         }
       }
     },
-    userId
+    user
   )
 
   console.info('demarche.modification:', res.modification)

@@ -21,6 +21,7 @@ import { titreFichiersDelete } from './_titre-document'
 import titreUpdateTask from '../../../business/titre-update'
 
 import { titreUpdationValidate } from '../../../business/validations/titre-updation-validate'
+import { domainesGet } from '../../../database/queries/metas'
 
 const titre = async (
   { id }: { id: string },
@@ -28,13 +29,10 @@ const titre = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const titre = await titreGet(
-      id,
-      { fields, fetchHeritage: true },
-      context.user?.id
-    )
+    const titre = await titreGet(id, { fields, fetchHeritage: true }, user)
 
     if (!titre) return null
 
@@ -82,9 +80,8 @@ const titres = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info).elements
-
-    const userId = context.user?.id
 
     const [titres, total] = await Promise.all([
       titresGet(
@@ -104,7 +101,7 @@ const titres = async (
           territoires
         },
         { fields },
-        userId
+        user
       ),
       titresCount(
         {
@@ -118,7 +115,7 @@ const titres = async (
           territoires
         },
         { fields: { id: {} } },
-        userId
+        user
       )
     ])
 
@@ -147,16 +144,21 @@ const titreCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
+
+    const domaines = await domainesGet(null as never, { fields: {} }, user)
+
+    if (!user || !domaines.find(d => d.id === titre.domaineId)?.titresCreation)
+      throw new Error('droits insuffisants')
 
     // insert le titre dans la base
-    titre = await titreCreate(titre, {}, user?.id)
+    titre = await titreCreate(titre, {}, user)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -174,10 +176,13 @@ const titreModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    const titreOld = await titreGet(titre.id, {}, user?.id)
+    const titreOld = await titreGet(titre.id, {}, user)
+
     if (!titreOld) throw new Error("le titre n'existe pas")
+
+    if (!titreOld.modification) throw new Error('droits insuffisants')
 
     const rulesErrors = await titreUpdationValidate(titre, titreOld)
 
@@ -189,11 +194,11 @@ const titreModifier = async (
 
     // on doit utiliser upsert (plutôt qu'un simple update)
     // car le titre contient des références (tableau d'objet)
-    await titreUpsert(titre, { fields, titreOld }, user?.id)
+    await titreUpsert(titre, { fields }, user)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -210,13 +215,14 @@ const titreSupprimer = async (
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
-  const user = context.user && (await userGet(context.user.id))
+  const user = await userGet(context.user?.id)
 
   const fields = titreFichiersDeleteFieldsAdd(fieldsBuild(info))
 
-  const titreOld = await titreGet(id, { fields }, user?.id)
+  const titreOld = await titreGet(id, { fields }, user)
 
   if (!titreOld) throw new Error("le titre n'existe pas")
+
   if (!titreOld.suppression) throw new Error('droits insuffisants')
 
   await titreFichiersDelete(titreOld)

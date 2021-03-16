@@ -15,16 +15,18 @@ const heritageContenuValidate = (
 
   sections!.forEach(section => {
     const heritageSection = heritageContenu ? heritageContenu[section.id] : null
+
     if (!heritageSection) {
-      errors.push(`la section "${section.id}" n’a pas d’héritage de défini`)
+      errors.push(`la section "${section.id}" n’a pas d’héritage`)
     } else {
       const elements = section.elements ? section.elements : []
 
       elements.forEach(element => {
         const heritageElement = heritageSection[element.id]
+
         if (!heritageElement) {
           errors.push(
-            `l’élement "${element.id}" de la section "${section.id}" n’a pas d’héritage de défini`
+            `l’élement "${element.id}" de la section "${section.id}" n’a pas d’héritage`
           )
         } else {
           Object.keys(heritageElement).forEach(attribute => {

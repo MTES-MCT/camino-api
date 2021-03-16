@@ -26,10 +26,10 @@ import {
 } from '../../../database/queries/titres-demarches'
 
 import { titreGet } from '../../../database/queries/titres'
-import { userGet } from '../../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
 import { titreDemarcheUpdationValidate } from '../../../business/validations/titre-demarche-updation-validate'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const demarches = async (
   {
@@ -81,7 +81,7 @@ const demarches = async (
       page = 1
     }
 
-    const userId = context.user?.id
+    const user = await userGet(context.user?.id)
 
     const [titresDemarches, total] = await Promise.all([
       titresDemarchesGet(
@@ -104,7 +104,7 @@ const demarches = async (
           titresTerritoires
         },
         { fields: fields.elements },
-        userId
+        user
       ),
       titresDemarchesCount(
         {
@@ -122,7 +122,7 @@ const demarches = async (
           titresTerritoires
         },
         { fields: { id: {} } },
-        userId
+        user
       )
     ])
 
@@ -157,12 +157,18 @@ const demarcheCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
+
+    const titre = await titreGet(demarche.titreId, {}, user)
+
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    if (!titre.demarchesCreation) throw new Error('droits insuffisants')
 
     const demarcheCreated = await titreDemarcheCreate(
       demarche,
       { fields: { id: {} } },
-      user?.id
+      user
     )
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
@@ -172,7 +178,7 @@ const demarcheCreer = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -190,25 +196,23 @@ const demarcheModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
+
+    if (!user) throw new Error('droits insuffisants')
 
     const demarcheOld = await titreDemarcheGet(
       demarche.id,
       {
         fields: { etapes: { id: {} } }
       },
-      user?.id
+      user
     )
 
     if (!demarcheOld) throw new Error('la démarche n’existe pas')
 
     if (!demarcheOld.modification) throw new Error('droits insuffisants')
 
-    const titre = await titreGet(
-      demarche.titreId,
-      { fields: { id: {} } },
-      user?.id
-    )
+    const titre = await titreGet(demarche.titreId, { fields: { id: {} } }, user)
 
     if (!titre) throw new Error('le titre n’existe pas')
 
@@ -225,8 +229,7 @@ const demarcheModifier = async (
       demarche.id,
       demarche,
       { fields: { id: {} } },
-      user!.id,
-      titre
+      user
     )
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
@@ -236,7 +239,7 @@ const demarcheModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -254,12 +257,12 @@ const demarcheSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     const demarcheOld = await titreDemarcheGet(
       id,
       { fields: { etapes: { documents: { type: { id: {} } } } } },
-      user?.id
+      user
     )
 
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
@@ -277,7 +280,7 @@ const demarcheSupprimer = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {

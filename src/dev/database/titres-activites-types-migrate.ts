@@ -10,13 +10,14 @@ import {
   titresActivitesGet,
   titreActiviteDelete
 } from '../../database/queries/titres-activites'
+import { userSuper } from '../../database/user-super'
 
 const main = async () => {
   await knex.schema.alterTable('activitesTypes__documentsTypes', table => {
     table.boolean('optionnel')
   })
 
-  const activitesTypes = await activitesTypesGet({}, 'super')
+  const activitesTypes = await activitesTypesGet({}, userSuper)
   const activiteTypeNew = activitesTypes.find(at => at.id === 'gra')!
   activiteTypeNew.id = 'grx'
   activiteTypeNew.nom =
@@ -38,7 +39,7 @@ const main = async () => {
   const titresActivites = await titresActivitesGet(
     { typesIds: ['gra'], titresTypesIds: ['ax'] },
     {},
-    'super'
+    userSuper
   )
 
   const oldIds = []
