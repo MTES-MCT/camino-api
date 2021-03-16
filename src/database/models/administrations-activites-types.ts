@@ -19,7 +19,7 @@ class AdministrationsActivitesTypes extends Model {
     }
   }
 
-  public static idColumn = ['administrationId', 'ActiviteTypeId']
+  public static idColumn = ['administrationId', 'activiteTypeId']
 }
 
 export default AdministrationsActivitesTypes

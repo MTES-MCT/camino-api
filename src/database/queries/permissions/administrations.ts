@@ -9,6 +9,7 @@ import Titres from '../../models/titres'
 
 import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
+import { knex } from '../../../knex'
 
 const administrationsQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
@@ -133,25 +134,21 @@ const administrationsActivitesModify = (
 
   { lecture, modification }: { lecture?: boolean; modification?: boolean }
 ) => {
-  let query = '?? = ?? and ?? = ??'
-  const bindings = [
-    'a_at.administrationId',
-    'administrations.id',
-    'a_at.activiteTypeId',
-    'titresActivites.typeId'
-  ]
-
-  if (lecture) {
-    query = `${query} and ?? is not true`
-    bindings.push('a_at.lectureInterdit')
-  }
-
-  if (modification) {
-    query = `${query} and ?? is not true`
-    bindings.push('a_at.modificationInterdit')
-  }
-
-  q.leftJoin('administrations__activitesTypes as a_at', raw(query, bindings))
+  q.leftJoin('administrations__activitesTypes as a_at', b => {
+    b.on(knex.raw('?? = ??', ['a_at.administrationId', 'administrations.id']))
+      .andOn(
+        knex.raw('?? = ??', ['a_at.activiteTypeId', 'titresActivites.typeId'])
+      )
+      .on(c => {
+        if (lecture) {
+          c.orOn(knex.raw('?? is true', ['a_at.lectureInterdit']))
+        }
+        if (modification) {
+          c.orOn(knex.raw('?? is true', ['a_at.modificationInterdit']))
+        }
+      })
+  })
+  q.whereNull('a_at.administrationId')
 }
 
 const administrationsTitresQuery = (
