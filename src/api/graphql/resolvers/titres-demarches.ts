@@ -10,8 +10,6 @@ import { debug } from '../../../config/index'
 
 import fieldsBuild from './_fields-build'
 
-import { permissionCheck } from '../../../tools/permission'
-
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 
 import { titreFormat } from '../../_format/titres'
@@ -194,26 +192,25 @@ const demarcheModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const titre = await titreGet(
-      demarche.titreId,
-      { fields: { id: {} } },
-      user.id
-    )
-    if (!titre) throw new Error('le titre n’existe pas')
-
     const demarcheOld = await titreDemarcheGet(
       demarche.id,
       {
         fields: { etapes: { id: {} } }
       },
-      user.id
+      user?.id
     )
 
     if (!demarcheOld) throw new Error('la démarche n’existe pas')
+
+    if (!demarcheOld.modification) throw new Error('droits insuffisants')
+
+    const titre = await titreGet(
+      demarche.titreId,
+      { fields: { id: {} } },
+      user?.id
+    )
+
+    if (!titre) throw new Error('le titre n’existe pas')
 
     const rulesErrors = await titreDemarcheUpdationValidate(
       demarche,
@@ -228,7 +225,7 @@ const demarcheModifier = async (
       demarche.id,
       demarche,
       { fields: { id: {} } },
-      user.id,
+      user!.id,
       titre
     )
 
@@ -259,16 +256,15 @@ const demarcheSupprimer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
     const demarcheOld = await titreDemarcheGet(
       id,
       { fields: { etapes: { documents: { type: { id: {} } } } } },
-      user.id
+      user?.id
     )
+
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
+
+    if (!demarcheOld.suppression) throw new Error('droits insuffisants')
 
     await titreDemarcheDelete(id)
 

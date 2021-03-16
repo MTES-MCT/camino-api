@@ -47,7 +47,7 @@ const titresTravauxEtapesQueryBuild = (
 }
 
 const titreTravauxEtapeGet = async (
-  etapeId: string,
+  id: string,
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
@@ -55,7 +55,7 @@ const titreTravauxEtapeGet = async (
 
   const q = titresTravauxEtapesQueryBuild({}, { fields }, user)
 
-  return (await q.findById(etapeId)) as ITitreTravauxEtape
+  return (await q.findById(id)) as ITitreTravauxEtape
 }
 
 const titresTravauxEtapesGet = async (

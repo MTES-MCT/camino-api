@@ -7,6 +7,7 @@ import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 import { titresTravauxQueryModify } from './permissions/titres-travaux'
+import { userGet } from './utilisateurs'
 
 const titresTravauxGet = async (
   {
@@ -14,15 +15,18 @@ const titresTravauxGet = async (
   }: {
     titresTravauxIds?: string[] | null
   } = {},
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  userId?: string
 ) => {
+  const user = await userGet(userId)
+
   const graph = fields
     ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
     : options.titresTravaux.graph
 
   const q = TitresTravaux.query().withGraphFetched(graph)
 
-  titresTravauxQueryModify(q, fields)
+  titresTravauxQueryModify(q, fields, user)
 
   if (titresTravauxIds) {
     q.whereIn('titresTravaux.id', titresTravauxIds)
@@ -33,8 +37,11 @@ const titresTravauxGet = async (
 
 const titreTravauxGet = async (
   titreTravauxId: string,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  userId?: string
 ) => {
+  const user = await userGet(userId)
+
   const graph = fields
     ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
     : options.titresTravaux.graph
@@ -42,6 +49,8 @@ const titreTravauxGet = async (
   const q = TitresTravaux.query()
     .findById(titreTravauxId)
     .withGraphFetched(graph)
+
+  titresTravauxQueryModify(q, fields, user)
 
   return q
 }

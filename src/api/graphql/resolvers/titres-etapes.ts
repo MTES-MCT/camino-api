@@ -4,9 +4,6 @@ import { debug } from '../../../config/index'
 
 import { titreFormat } from '../../_format/titres'
 
-import { permissionCheck } from '../../../tools/permission'
-import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
-
 import {
   titreEtapeDelete,
   titreEtapeGet,
@@ -39,10 +36,6 @@ const etape = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
     const fields = fieldsBuild(info)
 
     if (!fields.type) {
@@ -54,6 +47,10 @@ const etape = async (
       { fields, fetchHeritage: true },
       context?.user?.id
     )
+
+    if (!titreEtape) {
+      throw new Error("l'étape' n'existe pas")
+    }
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
@@ -93,17 +90,15 @@ const etapeHeritage = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
     let titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       { fields: { id: {} } },
-      user && user.id
+      user?.id
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+    if (!titreDemarche.etapesCreation) throw new Error('droits insuffisants')
 
     titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
@@ -150,10 +145,6 @@ const etapeCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
     let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       { fields: { id: {} } },
@@ -161,6 +152,8 @@ const etapeCreer = async (
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+    if (!titreDemarche.etapesCreation) throw new Error('droits insuffisants')
 
     titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
@@ -178,17 +171,6 @@ const etapeCreer = async (
     )
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
-
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titreDemarche.titre.id,
-      etape.typeId,
-      'creation'
-    )
-
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour créer cette étape')
-    }
 
     const etapeType = await etapeTypeGet(etape.typeId)
     if (!etapeType) {
@@ -226,7 +208,7 @@ const etapeCreer = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -246,9 +228,13 @@ const etapeModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
+    const titreEtapeOld = await titreEtapeGet(
+      etape.id,
+      { fields: { id: {} } },
+      user?.id
+    )
+
+    if (!titreEtapeOld.modification) throw new Error('droits insuffisants')
 
     let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
@@ -274,17 +260,6 @@ const etapeModifier = async (
     )
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
-
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titreDemarche.titre.id,
-      etape.typeId,
-      'modification'
-    )
-
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour modifier cette étape')
-    }
 
     const etapeType = await etapeTypeGet(etape.typeId)
     if (!etapeType) {
@@ -343,16 +318,15 @@ const etapeSupprimer = async (
     const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
     const titreEtape = await titreEtapeGet(
       id,
       { fields: { documents: { type: { id: {} } } } },
       context.user?.id
     )
+
     if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape.suppression) throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
@@ -368,6 +342,7 @@ const etapeSupprimer = async (
       },
       'super'
     )
+
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
@@ -413,21 +388,21 @@ const etapeJustificatifsAssocier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const etape = await titreEtapeGet(
+    const titreEtape = await titreEtapeGet(
       id,
       { fields: { justificatifs: { id: {} } } },
-      context.user?.id
+      user?.id
     )
-    if (!etape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape.justificatifsAssociation)
+      throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
+      titreEtape.titreDemarcheId,
       {},
-      user && user.id
+      user?.id
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -440,24 +415,14 @@ const etapeJustificatifsAssocier = async (
           administrationsLocales: { id: {} }
         }
       },
-      user.id
+      user?.id
     )
+
     if (!titre) throw new Error("le titre n'existe pas")
 
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titre.id,
-      etape.typeId,
-      'modification'
-    )
+    await titreEtapeJustificatifsDelete(titreEtape.id)
 
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour modifier cette étape')
-    }
-
-    await titreEtapeJustificatifsDelete(etape.id)
-
-    const titreEtapeId = etape.id
+    const titreEtapeId = titreEtape.id
 
     if (documentsIds.length) {
       await titresEtapesJustificatifsUpsert(
@@ -490,20 +455,19 @@ const etapeJustificatifDissocier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const etape = await titreEtapeGet(
+    const titreEtape = await titreEtapeGet(
       id,
       { fields: { justificatifs: { id: {} } } },
       context.user?.id
     )
 
-    if (!etape) throw new Error("l'étape n'existe pas")
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape.justificatifsAssociation)
+      throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
+      titreEtape.titreDemarcheId,
       {},
       user && user.id
     )
@@ -518,27 +482,16 @@ const etapeJustificatifDissocier = async (
           administrationsLocales: { id: {} }
         }
       },
-      user.id
+      user?.id
     )
 
     if (!titre) throw new Error("le titre n'existe pas")
 
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titre.id,
-      etape.typeId,
-      'modification'
-    )
-
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour modifier cette étape')
-    }
-
-    await titreEtapeJustificatifsDelete(etape.id, documentId)
+    await titreEtapeJustificatifsDelete(titreEtape.id, documentId)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titre.id, { fields }, user.id)
+    const titreUpdated = await titreGet(titre.id, { fields }, user?.id)
 
     return titreFormat(titreUpdated)
   } catch (e) {

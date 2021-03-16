@@ -2,8 +2,6 @@ import { IToken, ITitre, ITitreColonneId, IFields } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
-
-import { permissionCheck } from '../../../tools/permission'
 import { titreFormat, titresFormat } from '../../_format/titres'
 
 import fieldsBuild from './_fields-build'
@@ -214,17 +212,12 @@ const titreSupprimer = async (
 ) => {
   const user = context.user && (await userGet(context.user.id))
 
-  if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-    throw new Error('droits insuffisants')
-  }
-
   const fields = titreFichiersDeleteFieldsAdd(fieldsBuild(info))
 
-  const titreOld = await titreGet(id, { fields }, user.id)
+  const titreOld = await titreGet(id, { fields }, user?.id)
 
-  if (!titreOld) {
-    throw new Error('aucun titre avec cet id')
-  }
+  if (!titreOld) throw new Error("le titre n'existe pas")
+  if (!titreOld.suppression) throw new Error('droits insuffisants')
 
   await titreFichiersDelete(titreOld)
 

@@ -138,26 +138,20 @@ const administrationModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
-    }
+    const administrationOld = await administrationGet(
+      administration.id,
+      { fields: {} },
+      user?.id
+    )
+
+    if (!administrationOld) throw new Error("l'administration n'existe pas")
+
+    if (!administrationOld.modification) throw new Error('droits insuffisants')
 
     const errors = []
 
     if (administration.email && !emailCheck(administration.email)) {
       errors.push('adresse email invalide')
-    }
-
-    const fields = fieldsBuild(info)
-
-    const administrationOld = await administrationGet(
-      administration.id,
-      { fields },
-      context.user?.id
-    )
-
-    if (!administrationOld) {
-      errors.push('administration inconnue')
     }
 
     if (errors.length) {
@@ -172,6 +166,8 @@ const administrationModifier = async (
     const administrationId = await administrationUpdateTask(
       administrationUpdated.id
     )
+
+    const fields = fieldsBuild(info)
 
     return await administrationGet(
       administrationId,
@@ -198,7 +194,7 @@ const administrationTitreTypeModifier = async (
     const user = context.user && (await userGet(context.user.id))
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -242,7 +238,7 @@ const administrationTitreTypeTitreStatutModifier = async (
     const user = context.user && (await userGet(context.user.id))
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -290,7 +286,7 @@ const administrationTitreTypeEtapeTypeModifier = async (
     const user = context.user && (await userGet(context.user.id))
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -336,7 +332,7 @@ const administrationActiviteTypeModifier = async (
     const user = context.user && (await userGet(context.user.id))
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)

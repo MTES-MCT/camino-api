@@ -1,7 +1,6 @@
 import { IToken, ITitreTravauxEtape } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../../config/index'
-import { permissionCheck } from '../../../tools/permission'
 import fieldsBuild from './_fields-build'
 
 import { titreTravauxGet } from '../../../database/queries/titres-travaux'
@@ -27,23 +26,21 @@ const travauxEtapeCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const titreTravaux = await titreTravauxGet(etape.titreTravauxId, {})
 
-    const travaux = await titreTravauxGet(etape.titreTravauxId, {})
+    if (!titreTravaux) throw new Error("les travaux n'existent pas")
 
-    if (!travaux) throw new Error("les travaux n'existent pas")
+    if (!titreTravaux.etapesCreation) throw new Error('droits insuffisants')
 
     const titre = await titreGet(
-      travaux.titreId,
+      titreTravaux.titreId,
       {
         fields: {
           administrationsGestionnaires: { id: {} },
           administrationsLocales: { id: {} }
         }
       },
-      user.id
+      user?.id
     )
 
     if (!titre) throw new Error("le titre n'existe pas")
@@ -75,15 +72,20 @@ const travauxEtapeModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
+    const titreTravaux = await titreTravauxGet(
+      etape.titreTravauxId,
+      { fields: {} },
+      user?.id
+    )
+
+    if (!titreTravaux) throw new Error("les titreTravaux n'existent pas")
+
+    if (!titreTravaux.etapesCreation) {
       throw new Error('droits insuffisants')
     }
 
-    const travaux = await titreTravauxGet(etape.titreTravauxId, {})
-    if (!travaux) throw new Error("les travaux n'existent pas")
-
     const titre = await titreGet(
-      travaux.titreId,
+      titreTravaux.titreId,
       {
         fields: {
           administrationsGestionnaires: { id: {} },
@@ -122,24 +124,29 @@ const travauxEtapeSupprimer = async (
     const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const oldTitreTravauxEtape = await titreTravauxEtapeGet(
+      id,
+      {
+        fields: { documents: { type: { id: {} } } }
+      },
+      user?.id
+    )
 
-    const etapeOld = await titreTravauxEtapeGet(id, {
-      fields: { documents: { type: { id: {} } } }
-    })
-    if (!etapeOld) throw new Error("l'étape de travaux n'existe pas")
+    if (!oldTitreTravauxEtape)
+      throw new Error("l'étape de travaux n'existe pas")
+
+    if (!oldTitreTravauxEtape.suppression)
+      throw new Error('droits insuffisants')
 
     await titreTravauxEtapeDelete(id)
 
-    await fichiersDelete(etapeOld.documents)
+    await fichiersDelete(oldTitreTravauxEtape.documents)
 
     const titreUpdatedId = await titreTravauxEtapeUpdateTask(
-      etapeOld.titreTravauxId
+      oldTitreTravauxEtape.titreTravauxId
     )
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
     return titreFormat(titreUpdated)
   } catch (e) {

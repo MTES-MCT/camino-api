@@ -14,7 +14,6 @@ import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../../config/index'
 import fileDelete from '../../../tools/file-delete'
 import fileStreamCreate from '../../../tools/file-stream-create'
-import { permissionCheck } from '../../../tools/permission'
 import dirCreate from '../../../tools/dir-create'
 
 import {
@@ -32,16 +31,13 @@ import { documentTypeGet } from '../../../database/queries/metas'
 import fieldsBuild from './_fields-build'
 import { GraphQLResolveInfo } from 'graphql'
 import fileRename from '../../../tools/file-rename'
-import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
-import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
-import { titreGet } from '../../../database/queries/titres'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
 import { documentInputValidate } from '../../_validate/document-input-validate'
 import { documentUpdationValidate } from '../../../business/validations/document-updation-validate'
 import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
-import { titreTravauxGet } from '../../../database/queries/titres-travaux'
+import { entrepriseGet } from '../../../database/queries/entreprises'
 
 const documentFileDirPathFind = (
   document: IDocument,
@@ -90,15 +86,12 @@ const documents = async (
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
 
     const fields = fieldsBuild(info)
     const documents = await documentsGet(
       { entreprisesIds },
       { fields },
-      user.id
+      user?.id
     )
 
     return documents
@@ -129,7 +122,7 @@ const documentRepertoireCheck = (
   }
 }
 
-const documentPermisssionsCheck = async (
+const documentPermissionsCheck = async (
   document: IDocument,
   user?: IUtilisateur
 ) => {
@@ -147,56 +140,25 @@ const documentPermisssionsCheck = async (
   if (!user) throw new Error('droits insuffisants')
 
   if (document.titreEtapeId) {
-    if (!permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const etape = await titreEtapeGet(
+    const titreEtape = await titreEtapeGet(
       document.titreEtapeId,
       { fields: {} },
-      user && user.id
-    )
-    if (!etape) throw new Error("l’étape n'existe pas")
-
-    const demarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
-      { fields: {} },
-      user && user.id
-    )
-    if (!demarche) throw new Error("la démarche n'existe pas")
-
-    const titre = await titreGet(
-      demarche.titreId,
-      {
-        fields: {
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
-      },
-      user.id
-    )
-    if (!titre) throw new Error("le titre n'existe pas")
-
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titre.id,
-      etape.typeId,
-      'modification'
+      user?.id
     )
 
-    if (!titreEtapePermission) {
-      throw new Error("droits insuffisants pour modifier ce document d'étape")
-    }
+    if (!titreEtape) throw new Error("l’étape n'existe pas")
+
+    if (!titreEtape.modification) throw new Error('droits insuffisants')
   } else if (document.entrepriseId) {
-    if (
-      !permissionCheck(user?.permissionId, ['super', 'admin', 'editeur']) &&
-      permissionCheck(user?.permissionId, ['entreprise']) &&
-      !user.entreprises?.find(e => e.id === document.entrepriseId)
-    ) {
-      throw new Error(
-        "droits insuffisants pour modifier ce document d'entreprise"
-      )
-    }
+    const entreprise = await entrepriseGet(
+      document.entrepriseId,
+      { fields: {} },
+      user?.id
+    )
+
+    if (!entreprise) throw new Error("l'entreprise n'existe pas")
+
+    if (!entreprise.modification) throw new Error('droits insuffisants')
   } else if (document.titreActiviteId) {
     // si l'activité est récupérée depuis la base
     // alors on a le droit de la visualiser, donc de l'éditer
@@ -205,42 +167,20 @@ const documentPermisssionsCheck = async (
       { fields: { type: { titresTypes: { id: {} } }, titre: { id: {} } } },
       user.id
     )
+
     if (!activite) throw new Error("l'activité n'existe pas")
 
-    if (
-      !permissionCheck(user?.permissionId, ['super', 'admin']) &&
-      activite.statutId === 'dep'
-    ) {
-      throw new Error(
-        'cette activité a été validée et ne peux plus être modifiée'
-      )
-    }
+    if (!activite.modification) throw new Error('droits insuffisants')
   } else if (document.titreTravauxEtapeId) {
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const etape = await titreTravauxEtapeGet(
+    const titreTravauxEtape = await titreTravauxEtapeGet(
       document.titreTravauxEtapeId,
       { fields: {} },
-      user && user.id
+      user?.id
     )
-    if (!etape) throw new Error("l’étape de travaux n'existe pas")
 
-    const travaux = await titreTravauxGet(etape.titreTravauxId, { fields: {} })
-    if (!travaux) throw new Error("la démarche n'existe pas")
+    if (!titreTravauxEtape) throw new Error("l’étape de travaux n'existe pas")
 
-    const titre = await titreGet(
-      travaux.titreId,
-      {
-        fields: {
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
-      },
-      user.id
-    )
-    if (!titre) throw new Error("le titre n'existe pas")
+    if (!titreTravauxEtape.modification) throw new Error('droits insuffisants')
   }
 }
 
@@ -251,7 +191,7 @@ const documentCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    await documentPermisssionsCheck(document, user)
+    await documentPermissionsCheck(document, user)
 
     const documentType = await documentTypeGet(document.typeId)
 
@@ -304,7 +244,7 @@ const documentModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    await documentPermisssionsCheck(document, user)
+    await documentPermissionsCheck(document, user)
 
     const documentOld = await documentGet(document.id, {}, user!.id)
     if (!documentOld) {
@@ -426,7 +366,7 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
       )
     }
 
-    await documentPermisssionsCheck(documentOld, user)
+    await documentPermissionsCheck(documentOld, user)
 
     if (documentOld.fichier) {
       const dirPath = documentFileDirPathFind(

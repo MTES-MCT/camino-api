@@ -14,7 +14,6 @@ import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import fieldsBuild from './_fields-build'
 
 import { entrepriseFormat } from '../../_format/entreprises'
-import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
 import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
 
@@ -146,9 +145,7 @@ const entrepriseCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
-    }
+    if (!user?.entreprisesCreation) throw new Error('droits insuffisants')
 
     const errors = []
 
@@ -204,9 +201,7 @@ const entrepriseModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
-    }
+    if (!user?.entreprisesCreation) throw new Error('droits insuffisants')
 
     const errors = []
 

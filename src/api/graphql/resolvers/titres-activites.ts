@@ -4,7 +4,6 @@ import { debug } from '../../../config/index'
 import * as dateFormat from 'dateformat'
 
 import { titreActiviteEmailsSend } from './_titre-activite'
-import { permissionCheck } from '../../../tools/permission'
 import {
   titreActiviteContenuFormat,
   titreActiviteFormat
@@ -229,21 +228,17 @@ const activiteModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const userId = context.user?.id
+
     const oldTitreActivite = await titreActiviteGet(
       activite.id,
-      {
-        fields: { id: {} }
-      },
-      context.user?.id
+      { fields: { id: {} } },
+      userId
     )
 
     if (!oldTitreActivite) throw new Error("l'activité n'existe pas")
 
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !oldTitreActivite.modification) {
-      throw new Error('cette activité ne peut pas être modifiée')
-    }
+    if (!oldTitreActivite.modification) throw new Error('droits insuffisants')
 
     const inputErrors = titreActiviteInputValidate(
       activite,
@@ -258,11 +253,12 @@ const activiteModifier = async (
       activite,
       oldTitreActivite.sections
     )
+
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
 
-    activite.utilisateurId = user.id
+    activite.utilisateurId = userId
 
     const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
     activite.dateSaisie = aujourdhui
@@ -284,11 +280,13 @@ const activiteModifier = async (
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
     if (activiteRes.statutId === 'dep') {
+      const user = (await userGet(userId))!
       const titre = activiteFormated.titre!
 
       const isAmodiataire = titre.amodiataires?.some(t =>
         user.entreprises?.some(e => e.id === t.id)
       )
+
       const entrepriseIds = isAmodiataire
         ? titre.amodiataires?.map(t => t.id)
         : titre.titulaires?.map(t => t.id)
@@ -325,21 +323,15 @@ const activiteModifier = async (
 
 const activiteSupprimer = async ({ id }: { id: string }, context: IToken) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour supprimer une activité')
-    }
-
     const oldTitreActivite = await titreActiviteGet(
       id,
       { fields: {} },
       context.user?.id
     )
 
-    if (!oldTitreActivite) {
-      throw new Error('aucune activité avec cette id')
-    }
+    if (!oldTitreActivite) throw new Error("l'activité n'existe pas")
+
+    if (!oldTitreActivite.suppression) throw new Error('droits insuffisants')
 
     const rulesErrors = titreActiviteDeletionValidate(oldTitreActivite)
 

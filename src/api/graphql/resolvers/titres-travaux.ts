@@ -7,7 +7,6 @@ import {
   titreTravauxDelete
 } from '../../../database/queries/titres-travaux'
 import fieldsBuild from './_fields-build'
-import { permissionCheck } from '../../../tools/permission'
 import { titreGet } from '../../../database/queries/titres'
 import { debug } from '../../../config/index'
 import { titreFormat } from '../../_format/titres'
@@ -24,9 +23,11 @@ const travauxCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const titre = await titreGet(travaux.titreId, { fields: {} }, user?.id)
+
+    if (!titre) throw new Error("le titre n'exsite pas")
+
+    if (!titre.travauxCreation) throw new Error('droits insuffisants')
 
     const travauxUpdated = await titreTravauxCreate(travaux, {
       fields: { id: {} }
@@ -56,14 +57,20 @@ const travauxModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const oldTitreTravaux = await titreTravauxGet(
+      travaux.titreId,
+      { fields: { id: {} } },
+      user?.id
+    )
+
+    if (!oldTitreTravaux) throw new Error("Les travaux n'existent pas")
+
+    if (!oldTitreTravaux.modification) throw new Error('droits insuffisants')
 
     const titre = await titreGet(
       travaux.titreId,
       { fields: { id: {} } },
-      user.id
+      user?.id
     )
 
     if (!titre) throw new Error("le titre n'existe pas")
@@ -96,11 +103,15 @@ const travauxSupprimer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const oldTitreTravaux = await titreTravauxGet(
+      id,
+      { fields: { id: {} } },
+      user?.id
+    )
 
-    // TODO: ajouter une validation ?
+    if (!oldTitreTravaux) throw new Error("Les travaux n'existent pas")
+
+    if (!oldTitreTravaux.suppression) throw new Error('droits insuffisants')
 
     const travauxOld = await titreTravauxGet(id, {
       fields: { etapes: { documents: { type: { id: {} } } } }

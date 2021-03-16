@@ -395,7 +395,7 @@ const titreDemarcheUpdate = async (
     throw new Error('droits insuffisants')
   }
 
-  if (permissionCheck(user?.permissionId, ['admin'])) {
+  if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
     const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
       user,
       titre.typeId,
@@ -404,7 +404,7 @@ const titreDemarcheUpdate = async (
     )
 
     if (!titreTypeStatutPermission) {
-      throw new Error('droits insuffisants pour modifier cette démarche')
+      throw new Error('droits insuffisants')
     }
   }
 

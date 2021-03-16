@@ -593,6 +593,7 @@ interface ITitre {
   doublonTitreId?: string | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
+  travauxCreation?: boolean | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
@@ -754,6 +755,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
+  justificatifsAssociation?: boolean | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -890,6 +892,7 @@ interface IUtilisateur {
   modification?: boolean | null
   suppression?: boolean | null
   permissionModification?: boolean | null
+  entreprisesCreation?: boolean | null
   refreshToken?: string | null
 }
 
