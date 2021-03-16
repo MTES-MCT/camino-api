@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import './init'
 import { job } from 'cron'
 import daily from './business/daily'

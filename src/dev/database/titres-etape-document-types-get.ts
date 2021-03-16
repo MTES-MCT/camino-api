@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 import { titresEtapesGet } from '../../database/queries/titres-etapes'
 

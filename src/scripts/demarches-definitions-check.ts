@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../init'
 import demarchesDefinitionsCheck from '../tools/demarches/definitions-check'
 

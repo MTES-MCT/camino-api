@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../init'
 import documentsCheck from '../tools/documents/check'
 

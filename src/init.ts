@@ -1,10 +1,5 @@
-import * as Knex from 'knex'
-import { Model } from 'objection'
-
+import 'dotenv/config'
 import { knexConfig } from './config/knex'
+import { knexInit } from './knex'
 
-const knexInstance = Knex(knexConfig)
-
-Model.knex(knexInstance)
-
-export default knexInstance
+knexInit(knexConfig)

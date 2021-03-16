@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 
 import TitresActivites from '../../database/models/titres-activites'

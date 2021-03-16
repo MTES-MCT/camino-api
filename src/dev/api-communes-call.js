@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import api from '..//tools/api-geo'
 
 const geojson = {

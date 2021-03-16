@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils/index'
 import Utilisateurs from '../src/database/models/utilisateurs'

@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import * as Knex from 'knex'
 import { Model } from 'objection'
 import * as path from 'path'
@@ -7,6 +8,7 @@ import { graphql } from '../src/server/graphql'
 import { authJwt } from '../src/server/auth-jwt'
 
 import { knexConfig } from '../knex/config'
+import { knexInstanceSet } from '../src/knex'
 
 const dbManager = knexDbManager.databaseManagerFactory({
   knex: knexConfig,
@@ -17,13 +19,11 @@ const dbManager = knexDbManager.databaseManagerFactory({
   }
 })
 
-const knex = (dbManager.knexInstance() as unknown) as Knex<any, unknown[]>
-
-Model.knex(knex)
+knexInstanceSet((dbManager.knexInstance() as unknown) as Knex<any, unknown[]>)
 
 const app = express()
 
 app.use(authJwt)
 app.use('/', graphql)
 
-export { knex, dbManager, app, Model }
+export { dbManager, app, Model }

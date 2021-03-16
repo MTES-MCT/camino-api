@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '../../init'
 import ActivitesTypes from '../../database/models/activites-types'
 import DocumentsTypes from '../../database/models/documents-types'

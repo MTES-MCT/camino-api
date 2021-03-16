@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 import { dbManager } from './init'
 import {
   visibleCheck,

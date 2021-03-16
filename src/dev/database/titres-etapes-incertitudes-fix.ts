@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import 'dotenv/config'
 import '../../init'
 import { ITitreIncertitudes } from '../../types'
 
