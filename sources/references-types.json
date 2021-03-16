@@ -1,15 +1,7 @@
 [
   {
-    "id": "brg",
-    "nom": "BRGM"
-  },
-  {
-    "id": "dea",
-    "nom": "DEAL"
-  },
-  {
-    "id": "deb",
-    "nom": "DEB"
+    "id": "nus",
+    "nom": "Nom d'usage"
   },
   {
     "id": "dge",
@@ -20,12 +12,12 @@
     "nom": "Ifremer"
   },
   {
-    "id": "irs",
-    "nom": "IRSN"
+    "id": "brg",
+    "nom": "BRGM"
   },
   {
-    "id": "nus",
-    "nom": "Nom d'usage"
+    "id": "deb",
+    "nom": "DEB"
   },
   {
     "id": "onf",
@@ -38,5 +30,13 @@
   {
     "id": "rnt",
     "nom": "RNTM"
+  },
+  {
+    "id": "irs",
+    "nom": "IRSN"
+  },
+  {
+    "id": "dea",
+    "nom": "DEAL"
   }
 ]

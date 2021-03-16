@@ -2,9 +2,6 @@
   {
     "id": "grp",
     "nom": "rapport trimestriel d'exploitation d'or en Guyane",
-    "frequence_id": "tri",
-    "date_debut": "2018-01-01",
-    "delai_mois": "19",
     "sections": [
       {
         "id": "renseignements",
@@ -477,47 +474,20 @@
         ]
       }
     ],
+    "frequence_id": "tri",
+    "date_debut": "2018-01-01",
+    "delai_mois": 19,
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2467?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "1",
+    "ordre": 1,
     "email": "mc.remd.deal-guyane@developpement-durable.gouv.fr"
   },
   {
-    "id": "gra",
-    "nom": "rapport annuel de production",
-    "frequence_id": "ann",
-    "date_debut": "2020-01-01",
-    "delai_mois": "11",
-    "sections": [
-      {
-        "id": "substancesFiscales"
-      },
-      {
-        "id": "complement",
-        "nom": "Informations complémentaires",
-        "elements": [
-          {
-            "id": "texte",
-            "type": "textarea",
-            "dateDebut": "2018-01-01",
-            "optionnel": true,
-            "description": "Toute information utile à la compréhension de la production déclarée."
-          }
-        ]
-      }
-    ],
-    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2657?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "2",
-    "email": "camino@beta.gouv.fr"
-  },
-  {
     "id": "grx",
-    "nom": "rapport annuel de production d'or en Guyane (autorisation d'exploitation)",
-    "frequence_id": "ann",
-    "date_debut": "2018-01-01",
-    "delai_mois": "11",
+    "nom": "rapport annuel d'exploitation",
     "sections": [
       {
-        "id": "substancesFiscales"
+        "id": "substancesFiscales",
+        "nom": "Production annuelle"
       },
       {
         "id": "complement",
@@ -533,15 +503,86 @@
         ]
       }
     ],
+    "frequence_id": "ann",
+    "date_debut": "2018-01-01",
+    "delai_mois": 11,
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2657?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "2"
+    "ordre": 2
+  },
+  {
+    "id": "wrp",
+    "nom": "rapport annuel d'exploitation",
+    "sections": [
+      {
+        "id": "renseignementsProduction",
+        "nom": "Production annuelle",
+        "elements": [
+          {
+            "id": "volumeGranulatsExtrait",
+            "nom": "Volume de granulats marins extrait (m3)",
+            "type": "number",
+            "description": "Volume de granulats marins extrait, en mètre cube, au cours de l'année."
+          },
+          {
+            "id": "masseGranulatsExtrait",
+            "nom": "Masse de granulats marins extraite (t)",
+            "type": "number",
+            "description": "Masse de granulats marins extraite, en tonne, au cours de l'année."
+          }
+        ]
+      },
+      {
+        "id": "complementInformation",
+        "nom": "Informations complémentaires",
+        "elements": [
+          {
+            "id": "texte",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "Toute information sur les événements marquants de l'année (arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, accident, incident, etc.)."
+          }
+        ]
+      }
+    ],
+    "frequence_id": "ann",
+    "date_debut": "2010-01-01",
+    "delai_mois": 12,
+    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2655?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
+    "ordre": 7,
+    "email": "cecile.caron@developpement-durable.gouv.fr"
+  },
+  {
+    "id": "gra",
+    "nom": "rapport annuel d'exploitation",
+    "sections": [
+      {
+        "id": "substancesFiscales",
+        "nom": "Production annuelle"
+      },
+      {
+        "id": "complement",
+        "nom": "Informations complémentaires",
+        "elements": [
+          {
+            "id": "texte",
+            "type": "textarea",
+            "dateDebut": "2018-01-01",
+            "optionnel": true,
+            "description": "Toute information utile à la compréhension de la production déclarée."
+          }
+        ]
+      }
+    ],
+    "frequence_id": "ann",
+    "date_debut": "2020-01-01",
+    "delai_mois": 11,
+    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2657?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
+    "ordre": 2,
+    "email": "camino@beta.gouv.fr"
   },
   {
     "id": "pmb",
     "nom": "rapport financier d'exploration",
-    "frequence_id": "ann",
-    "date_debut": "2019-01-01",
-    "delai_mois": "24",
     "sections": [
       {
         "id": "indicateursFinanciersDepensesTotales",
@@ -763,15 +804,15 @@
         ]
       }
     ],
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": 24,
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2656?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f55111",
-    "ordre": "3"
+    "ordre": 3
   },
   {
     "id": "pma",
     "nom": "rapport d’intensité d’exploration",
-    "frequence_id": "ann",
-    "date_debut": "2019-01-01",
-    "delai_mois": "24",
     "sections": [
       {
         "id": "levesTopographiques",
@@ -1326,15 +1367,15 @@
         ]
       }
     ],
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": 24,
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2656?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "4"
+    "ordre": 4
   },
   {
     "id": "pmc",
     "nom": "rapport environnemental d'exploration",
-    "frequence_id": "ann",
-    "date_debut": "2019-01-01",
-    "delai_mois": "24",
     "sections": [
       {
         "id": "indicateursEnvironnement",
@@ -1395,15 +1436,15 @@
         ]
       }
     ],
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": 24,
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2656?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "5"
+    "ordre": 5
   },
   {
     "id": "pmd",
     "nom": "rapport social et économique d'exploration",
-    "frequence_id": "ann",
-    "date_debut": "2019-01-01",
-    "delai_mois": "24",
     "sections": [
       {
         "id": "indicateursSocialEconomiqueDirect",
@@ -1542,49 +1583,10 @@
         ]
       }
     ],
-    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2656?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "6"
-  },
-  {
-    "id": "wrp",
-    "nom": "rapport annuel de production de granulats marins",
     "frequence_id": "ann",
-    "date_debut": "2010-01-01",
-    "delai_mois": "12",
-    "sections": [
-      {
-        "id": "renseignementsProduction",
-        "nom": "Production annuelle",
-        "elements": [
-          {
-            "id": "volumeGranulatsExtrait",
-            "nom": "Volume de granulats marins extrait (m3)",
-            "type": "number",
-            "description": "Volume de granulats marins extrait, en mètre cube, au cours de l'année."
-          },
-          {
-            "id": "masseGranulatsExtrait",
-            "nom": "Masse de granulats marins extraite (t)",
-            "type": "number",
-            "description": "Masse de granulats marins extraite, en tonne, au cours de l'année."
-          }
-        ]
-      },
-      {
-        "id": "complementInformation",
-        "nom": "Informations complémentaires",
-        "elements": [
-          {
-            "id": "texte",
-            "type": "textarea",
-            "optionnel": true,
-            "description": "Toute information sur les événements marquants de l'année (arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, accident, incident, etc.)."
-          }
-        ]
-      }
-    ],
-    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2655?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": "7",
-    "email": "cecile.caron@developpement-durable.gouv.fr"
+    "date_debut": "2019-01-01",
+    "delai_mois": 24,
+    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2656?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
+    "ordre": 6
   }
 ]

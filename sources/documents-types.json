@@ -50,8 +50,13 @@
     "repertoire": "demarches"
   },
   {
-    "id": "avi",
-    "nom": "Avis",
+    "id": "aep",
+    "nom": "Avis d'enquête publique",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "aac",
+    "nom": "Avis d'un service de l'administration centrale",
     "repertoire": "demarches"
   },
   {
@@ -62,11 +67,6 @@
   {
     "id": "avc",
     "nom": "Avis de mise en concurrence",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "aep",
-    "nom": "Avis d'enquête publique",
     "repertoire": "demarches"
   },
   {
@@ -85,28 +85,8 @@
     "repertoire": "demarches"
   },
   {
-    "id": "adr",
-    "nom": "Avis du directeur régional chargé des mines",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "aac",
-    "nom": "Avis d'un service de l'administration centrale",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "apf",
-    "nom": "Avis du préfet",
-    "repertoire": "demarches"
-  },
-  {
     "id": "cdc",
     "nom": "Cahier des charges",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "car",
-    "nom": "Carte",
     "repertoire": "demarches"
   },
   {
@@ -165,13 +145,13 @@
     "repertoire": "demarches"
   },
   {
-    "id": "dom",
-    "nom": "Dossier de demande",
+    "id": "doe",
+    "nom": "Dossier \"Loi sur l'eau\"",
     "repertoire": "demarches"
   },
   {
-    "id": "doe",
-    "nom": "Dossier \"Loi sur l'eau\"",
+    "id": "dom",
+    "nom": "Dossier de demande",
     "repertoire": "demarches"
   },
   {
@@ -195,28 +175,8 @@
     "repertoire": "demarches"
   },
   {
-    "id": "for",
-    "nom": "Formulaire de demande",
-    "repertoire": "demarches"
-  },
-  {
     "id": "idm",
     "nom": "Identification de matériel",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "jpa",
-    "nom": "Justificatif de paiement",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "jcf",
-    "nom": "Justificatif des capacités financières",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "jct",
-    "nom": "Justificatif des capacités techniques",
     "repertoire": "entreprises"
   },
   {
@@ -225,14 +185,19 @@
     "repertoire": "entreprises"
   },
   {
-    "id": "kbi",
-    "nom": "Kbis",
+    "id": "jpa",
+    "nom": "Justificatif de paiement",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "jct",
+    "nom": "Justificatif des capacités techniques",
     "repertoire": "entreprises"
   },
   {
-    "id": "let",
-    "nom": "Lettre",
-    "repertoire": "demarches"
+    "id": "kbi",
+    "nom": "Kbis",
+    "repertoire": "entreprises"
   },
   {
     "id": "lem",
@@ -320,19 +285,9 @@
     "repertoire": "demarches"
   },
   {
-    "id": "pub",
-    "nom": "Publication au JORF",
+    "id": "rac",
+    "nom": "Rapport de l’administration centrale chargé des mines",
     "repertoire": "demarches"
-  },
-  {
-    "id": "rgr",
-    "nom": "Rapport annuel de production",
-    "repertoire": "activites"
-  },
-  {
-    "id": "rwp",
-    "nom": "Rapport annuel de production de granulats marins",
-    "repertoire": "activites"
   },
   {
     "id": "rdr",
@@ -340,19 +295,9 @@
     "repertoire": "demarches"
   },
   {
-    "id": "rac",
-    "nom": "Rapport de l’administration centrale chargé des mines",
-    "repertoire": "demarches"
-  },
-  {
     "id": "rcr",
     "nom": "Rapport de recevabilité",
     "repertoire": "demarches"
-  },
-  {
-    "id": "rie",
-    "nom": "Rapport d’intensité d’exploration",
-    "repertoire": "activites"
   },
   {
     "id": "rce",
@@ -375,13 +320,68 @@
     "repertoire": "activites"
   },
   {
+    "id": "rec",
+    "nom": "Récépissé \"Loi sur l'eau\"",
+    "repertoire": "demarches"
+  },
+  {
     "id": "rdt",
     "nom": "Récépissé de déclaration d'ouverture des travaux miniers",
     "repertoire": "travaux"
   },
   {
-    "id": "rec",
-    "nom": "Récépissé \"Loi sur l'eau\"",
+    "id": "jcf",
+    "nom": "Justificatif des capacités financières",
+    "repertoire": "entreprises"
+  },
+  {
+    "id": "rie",
+    "nom": "Rapport d’intensité d’exploration",
+    "repertoire": "activites"
+  },
+  {
+    "id": "pub",
+    "nom": "Publication au JORF",
     "repertoire": "demarches"
+  },
+  {
+    "id": "let",
+    "nom": "Lettre",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "apf",
+    "nom": "Avis du préfet",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "adr",
+    "nom": "Avis du directeur régional chargé des mines",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "for",
+    "nom": "Formulaire de demande",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "car",
+    "nom": "Carte",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "avi",
+    "nom": "Avis",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "rgr",
+    "nom": "rapport annuel d'exploitation",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rwp",
+    "nom": "rapport annuel d'exploitation",
+    "repertoire": "activites"
   }
 ]

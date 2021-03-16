@@ -23,7 +23,7 @@ describe('Visibilité des démarches', () => {
   test.each`
     administrationId       | visible
     ${'ope-onf-973-01'}    | ${true}
-    ${'min-mtes-dgec-01'}  | ${false}
+    ${'min-mtes-dgec-01'}  | ${true}
     ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${true}
   `(
@@ -36,7 +36,7 @@ describe('Visibilité des démarches', () => {
     administrationId       | visible
     ${'ope-onf-973-01'}    | ${true}
     ${'dea-guyane-01'}     | ${true}
-    ${'min-mtes-dgec-01'}  | ${false}
+    ${'min-mtes-dgec-01'}  | ${true}
     ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${true}
   `(

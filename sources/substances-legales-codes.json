@@ -1,174 +1,174 @@
 [
   {
     "id": "l111_1a",
-    "code": "l111_1a",
     "nom": "substance de mines",
+    "code": "l111_1a",
     "description": "Substances minérales ou fossiles listées à l’article L.111-1 du code minier et contenus dans les gîtes renfermés dans le sein de la terre ou existant à sa surface.",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504020",
-    "ordre": "1"
+    "ordre": 1
   },
   {
     "id": "l100_2",
-    "code": "L100-2",
     "nom": "substance de carrières",
+    "code": "L100-2",
     "description": "Substance minérale ou fossile qui n’est pas qualifiée de substance de mine par l’article L.111-1 du code minier. Certaines d’entres elles sont ajoutées ou retirées de la liste des substances de mine selon leur utilisation dans l’économie.",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504020",
-    "ordre": "2"
+    "ordre": 2
   },
   {
     "id": "l111_1b",
-    "code": "l111_1b",
     "nom": "substance principale",
+    "code": "l111_1b",
     "description": "Substance dûment visée par l’autorisation ou le titre miniers.",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "3"
+    "ordre": 3
   },
   {
     "id": "l111_1c",
-    "code": "L111-1c",
     "nom": "substance connexe",
+    "code": "L111-1c",
     "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "4"
+    "ordre": 4
   },
   {
     "id": "l111_1-1",
-    "code": "L111-1, 1°",
     "nom": "hydrocarbures et combustibles fossiles, la tourbe exceptée, qu'ils soient sous forme solide, liquide ou gazeuse, graphite, diamant",
+    "code": "L111-1, 1°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "5"
+    "ordre": 5
   },
   {
     "id": "l111_1-10",
-    "code": "L111-1, 10°",
     "nom": "hélium, lithium, rubidium, césium, radium, thorium, uranium et autres éléments radioactifs",
+    "code": "L111-1, 10°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "6"
+    "ordre": 6
   },
   {
     "id": "l111_1-11",
-    "code": "L111-1, 11°",
     "nom": "soufre, sélénium, tellure",
+    "code": "L111-1, 11°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "7"
+    "ordre": 7
   },
   {
     "id": "l111_1-12",
-    "code": "L111-1, 12°",
     "nom": "arsenic, antimoine, bismuth",
+    "code": "L111-1, 12°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "8"
+    "ordre": 8
   },
   {
     "id": "l111_1-13",
-    "code": "L111-1, 13°",
     "nom": "gaz carbonique, à l'exception du gaz naturellement contenu dans les eaux qui sont ou qui viendraient à être utilisées pour l'alimentation humaine ou à des fins thérapeutiques",
+    "code": "L111-1, 13°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "9"
+    "ordre": 9
   },
   {
     "id": "l111_1-14",
-    "code": "L111-1, 14°",
     "nom": "phosphates",
+    "code": "L111-1, 14°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "10"
+    "ordre": 10
   },
   {
     "id": "l111_1-15",
-    "code": "L111-1, 15°",
     "nom": "béryllium, gallium, thallium",
+    "code": "L111-1, 15°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "11"
+    "ordre": 11
   },
   {
     "id": "l111_1-2",
-    "code": "L111-1, 2°",
     "nom": "sels de sodium et de potassium à l'état solide ou en dissolution, à l'exception de ceux contenus dans les eaux salées utilisées à des fins thérapeutiques ou de loisirs",
+    "code": "L111-1, 2°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "12"
+    "ordre": 12
   },
   {
     "id": "l111_1-3",
-    "code": "L111-1, 3°",
     "nom": "alun, sulfates autres que les sulfates alcalino-terreux",
+    "code": "L111-1, 3°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "13"
+    "ordre": 13
   },
   {
     "id": "l111_1-4",
-    "code": "L111-1, 4°",
     "nom": "bauxite, fluorine",
+    "code": "L111-1, 4°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "14"
+    "ordre": 14
   },
   {
     "id": "l111_1-5",
-    "code": "L111-1, 5°",
     "nom": "fer, cobalt, nickel, chrome, manganèse, vanadium, titane, zirconium, molybdène, tungstène, hafnium, rhénium",
+    "code": "L111-1, 5°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "15"
+    "ordre": 15
   },
   {
     "id": "l111_1-6",
-    "code": "L111-1, 6°",
     "nom": "cuivre, plomb, zinc, cadmium, germanium, étain, indium",
+    "code": "L111-1, 6°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "16"
+    "ordre": 16
   },
   {
     "id": "l111_1-7",
-    "code": "L111-1, 7°",
     "nom": "cérium, scandium et autres éléments des terres rares",
+    "code": "L111-1, 7°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "17"
+    "ordre": 17
   },
   {
     "id": "l111_1-8",
-    "code": "L111-1, 8°",
     "nom": "niobium, tantale",
+    "code": "L111-1, 8°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "18"
+    "ordre": 18
   },
   {
     "id": "l111_1-9",
-    "code": "L111-1, 9°",
     "nom": "mercure, argent, or, platine, métaux de la mine du platine",
+    "code": "L111-1, 9°",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000036435815&cidTexte=LEGITEXT000023501962",
-    "ordre": "19"
+    "ordre": 19
   },
   {
     "id": "l112_2",
-    "code": "L112-2",
     "nom": "gîtes géothermiques basse température",
+    "code": "L112-2",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000023504069&cidTexte=LEGITEXT000023501962",
-    "ordre": "20"
+    "ordre": 20
   },
   {
     "id": "l112_3",
-    "code": "L112-3",
     "nom": "activités géothermiques de minime importance",
+    "code": "L112-3",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000025557131",
-    "ordre": "21"
+    "ordre": 21
   },
   {
     "id": "l133_1",
-    "code": "L133-1",
     "nom": "granulats marins",
+    "code": "L133-1",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504020",
-    "ordre": "22"
+    "ordre": 22
   },
   {
     "id": "l211_1",
-    "code": "L211-1",
     "nom": "stockages souterrains",
+    "code": "L211-1",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000023505383&cidTexte=LEGITEXT000023501962",
-    "ordre": "23"
+    "ordre": 23
   },
   {
     "id": "l212_2",
-    "code": "L212-2",
     "nom": "gîtes géothermiques haute température",
+    "code": "L212-2",
     "lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000023504069&cidTexte=LEGITEXT000023501962",
-    "ordre": "24"
+    "ordre": 24
   }
 ]

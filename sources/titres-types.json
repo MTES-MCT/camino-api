@@ -30,54 +30,74 @@
     "type_id": "ar"
   },
   {
-    "id": "arm",
-    "domaine_id": "m",
-    "type_id": "ar",
-    "contenu_ids": [
-      {
-        "elementId": "mecanise",
-        "sectionId": "arm"
-      },
-      {
-        "elementId": "franchissements",
-        "sectionId": "arm"
-      }
-    ]
-  },
-  {
-    "id": "axm",
-    "domaine_id": "m",
-    "type_id": "ax"
-  },
-  {
-    "id": "cxf",
-    "domaine_id": "f",
-    "type_id": "cx"
-  },
-  {
-    "id": "cxg",
-    "domaine_id": "g",
-    "type_id": "cx"
-  },
-  {
-    "id": "cxh",
-    "domaine_id": "h",
-    "type_id": "cx"
-  },
-  {
     "id": "cxi",
     "domaine_id": "i",
     "type_id": "cx"
   },
   {
-    "id": "cxm",
-    "domaine_id": "m",
-    "type_id": "cx"
+    "id": "prs",
+    "domaine_id": "s",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
   },
   {
-    "id": "cxr",
-    "domaine_id": "r",
-    "type_id": "cx"
+    "id": "pri",
+    "domaine_id": "i",
+    "type_id": "pr"
+  },
+  {
+    "id": "pxi",
+    "domaine_id": "i",
+    "type_id": "px"
+  },
+  {
+    "id": "ini",
+    "domaine_id": "i",
+    "type_id": "in"
+  },
+  {
+    "id": "inh",
+    "domaine_id": "h",
+    "type_id": "in"
+  },
+  {
+    "id": "prh",
+    "domaine_id": "h",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "pxw",
+    "domaine_id": "w",
+    "type_id": "px",
+    "contenu_ids": [
+      {
+        "elementId": "volume",
+        "sectionId": "pxx"
+      },
+      {
+        "elementId": "volumeUniteId",
+        "sectionId": "pxx"
+      }
+    ]
   },
   {
     "id": "cxs",
@@ -91,6 +111,21 @@
       {
         "elementId": "volumeUniteId",
         "sectionId": "cxx"
+      }
+    ]
+  },
+  {
+    "id": "prf",
+    "domaine_id": "f",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
       }
     ]
   },
@@ -110,44 +145,19 @@
     ]
   },
   {
-    "id": "inh",
+    "id": "pxg",
+    "domaine_id": "g",
+    "type_id": "px"
+  },
+  {
+    "id": "pxh",
     "domaine_id": "h",
-    "type_id": "in"
+    "type_id": "px"
   },
   {
-    "id": "ini",
-    "domaine_id": "i",
-    "type_id": "in"
-  },
-  {
-    "id": "inm",
-    "domaine_id": "m",
-    "type_id": "in"
-  },
-  {
-    "id": "inr",
-    "domaine_id": "r",
-    "type_id": "in"
-  },
-  {
-    "id": "pcc",
-    "domaine_id": "c",
-    "type_id": "pc"
-  },
-  {
-    "id": "prf",
-    "domaine_id": "f",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
+    "id": "cxh",
+    "domaine_id": "h",
+    "type_id": "cx"
   },
   {
     "id": "prg",
@@ -165,69 +175,14 @@
     ]
   },
   {
-    "id": "prh",
-    "domaine_id": "h",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
+    "id": "cxg",
+    "domaine_id": "g",
+    "type_id": "cx"
   },
   {
-    "id": "pri",
-    "domaine_id": "i",
-    "type_id": "pr"
-  },
-  {
-    "id": "prm",
-    "domaine_id": "m",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
-  },
-  {
-    "id": "prr",
-    "domaine_id": "r",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
-  },
-  {
-    "id": "prs",
-    "domaine_id": "s",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
+    "id": "pxf",
+    "domaine_id": "f",
+    "type_id": "px"
   },
   {
     "id": "prw",
@@ -245,29 +200,34 @@
     ]
   },
   {
-    "id": "pxf",
-    "domaine_id": "f",
-    "type_id": "px"
+    "id": "pcc",
+    "domaine_id": "c",
+    "type_id": "pc"
   },
   {
-    "id": "pxg",
-    "domaine_id": "g",
-    "type_id": "px"
-  },
-  {
-    "id": "pxh",
-    "domaine_id": "h",
-    "type_id": "px"
-  },
-  {
-    "id": "pxi",
-    "domaine_id": "i",
-    "type_id": "px"
-  },
-  {
-    "id": "pxm",
+    "id": "inm",
     "domaine_id": "m",
-    "type_id": "px"
+    "type_id": "in"
+  },
+  {
+    "id": "arm",
+    "domaine_id": "m",
+    "type_id": "ar",
+    "contenu_ids": [
+      {
+        "elementId": "mecanise",
+        "sectionId": "arm"
+      },
+      {
+        "elementId": "franchissements",
+        "sectionId": "arm"
+      }
+    ]
+  },
+  {
+    "id": "cxr",
+    "domaine_id": "r",
+    "type_id": "cx"
   },
   {
     "id": "pxr",
@@ -275,18 +235,58 @@
     "type_id": "px"
   },
   {
-    "id": "pxw",
-    "domaine_id": "w",
-    "type_id": "px",
+    "id": "prr",
+    "domaine_id": "r",
+    "type_id": "pr",
     "contenu_ids": [
       {
-        "elementId": "volume",
-        "sectionId": "pxx"
+        "elementId": "engagement",
+        "sectionId": "prx"
       },
       {
-        "elementId": "volumeUniteId",
-        "sectionId": "pxx"
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
       }
     ]
+  },
+  {
+    "id": "prm",
+    "domaine_id": "m",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "pxm",
+    "domaine_id": "m",
+    "type_id": "px"
+  },
+  {
+    "id": "cxf",
+    "domaine_id": "f",
+    "type_id": "cx"
+  },
+  {
+    "id": "cxm",
+    "domaine_id": "m",
+    "type_id": "cx"
+  },
+  {
+    "id": "inr",
+    "domaine_id": "r",
+    "type_id": "in"
+  },
+  {
+    "id": "axm",
+    "domaine_id": "m",
+    "type_id": "ax"
   }
 ]

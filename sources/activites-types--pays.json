@@ -1,10 +1,10 @@
 [
   {
-    "activite_type_id": "grp",
-    "pays_id": "GF"
+    "pays_id": "GF",
+    "activite_type_id": "grp"
   },
   {
-    "activite_type_id": "grx",
-    "pays_id": "GF"
+    "pays_id": "GF",
+    "activite_type_id": "grx"
   }
 ]

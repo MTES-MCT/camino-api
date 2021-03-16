@@ -2,31 +2,31 @@
   {
     "id": "min",
     "nom": "Ministère",
-    "ordre": "1"
+    "ordre": 1
   },
   {
     "id": "dre",
     "nom": "Dréal",
-    "ordre": "2"
+    "ordre": 2
   },
   {
     "id": "dea",
     "nom": "Déal",
-    "ordre": "3"
+    "ordre": 3
   },
   {
     "id": "pre",
     "nom": "Préfecture",
-    "ordre": "4"
+    "ordre": 4
   },
   {
     "id": "ope",
     "nom": "Opérateur",
-    "ordre": "5"
+    "ordre": 5
   },
   {
     "id": "aut",
     "nom": "Autorité",
-    "ordre": "6"
+    "ordre": 6
   }
 ]

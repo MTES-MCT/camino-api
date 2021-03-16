@@ -1,74 +1,74 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "nom": "janvier",
-    "trimestre_id": "1",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 1
   },
   {
-    "id": "2",
+    "id": 2,
     "nom": "février",
-    "trimestre_id": "1",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 1
   },
   {
-    "id": "3",
+    "id": 3,
     "nom": "mars",
-    "trimestre_id": "1",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 1
   },
   {
-    "id": "4",
+    "id": 4,
     "nom": "avril",
-    "trimestre_id": "2",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 2
   },
   {
-    "id": "5",
+    "id": 5,
     "nom": "mai",
-    "trimestre_id": "2",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 2
   },
   {
-    "id": "6",
+    "id": 6,
     "nom": "juin",
-    "trimestre_id": "2",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 2
   },
   {
-    "id": "7",
+    "id": 7,
     "nom": "juillet",
-    "trimestre_id": "3",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 3
   },
   {
-    "id": "8",
+    "id": 8,
     "nom": "août",
-    "trimestre_id": "3",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 3
   },
   {
-    "id": "9",
+    "id": 9,
     "nom": "septembre",
-    "trimestre_id": "3",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 3
   },
   {
-    "id": "10",
+    "id": 10,
     "nom": "octobre",
-    "trimestre_id": "4",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 4
   },
   {
-    "id": "11",
+    "id": 11,
     "nom": "novembre",
-    "trimestre_id": "4",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 4
   },
   {
-    "id": "12",
+    "id": 12,
     "nom": "décembre",
-    "trimestre_id": "4",
-    "frequence_id": "men"
+    "frequence_id": "men",
+    "trimestre_id": 4
   }
 ]

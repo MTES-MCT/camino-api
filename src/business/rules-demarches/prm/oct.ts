@@ -223,6 +223,12 @@ const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions[] = [
     ],
     final: true,
     apres: [[{ etapeTypeId: 'mdp' }]]
+  },
+  {
+    etapeTypeId: 'edm',
+    justeApres: [[]],
+    avant: [[{ etapeTypeId: 'mfr' }]],
+    apres: [[{ etapeTypeId: 'mfr' }]]
   }
 ]
 

@@ -1,21 +1,21 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "nom": "1er trimestre",
     "frequence_id": "tri"
   },
   {
-    "id": "2",
+    "id": 2,
     "nom": "2e trimestre",
     "frequence_id": "tri"
   },
   {
-    "id": "3",
+    "id": 3,
     "nom": "3e trimestre",
     "frequence_id": "tri"
   },
   {
-    "id": "4",
+    "id": 4,
     "nom": "4e trimestre",
     "frequence_id": "tri"
   }

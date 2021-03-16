@@ -2,16 +2,16 @@
   {
     "id": "EUR",
     "nom": "Euros",
-    "ordre": "1"
-  },
-  {
-    "id": "FRF",
-    "nom": "Francs",
-    "ordre": "3"
+    "ordre": 1
   },
   {
     "id": "XPF",
     "nom": "Francs Pacifique",
-    "ordre": "2"
+    "ordre": 2
+  },
+  {
+    "id": "FRF",
+    "nom": "Francs",
+    "ordre": 3
   }
 ]

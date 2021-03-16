@@ -1,6 +1,6 @@
 [
   {
     "id": "chargement",
-    "valeur": "TRUE"
+    "valeur": true
   }
 ]
