@@ -13,8 +13,8 @@ const titreEtapesSortAscByDate = (
   demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
   titreTypeId?: string
 ) => {
-  let demarcheDefinitionRestrictions = [] as
-    | IDemarcheDefinitionRestrictions[]
+  let demarcheDefinitionRestrictions = undefined as
+    | IDemarcheDefinitionRestrictions
     | undefined
 
   let demarcheDefinition = undefined as IDemarcheDefinition | undefined
@@ -47,9 +47,7 @@ const titreEtapesSortAscByDate = (
       demarcheDefinitionRestrictions &&
       dateEtapeFirst > demarcheDefinition.dateDebut
     ) {
-      const bRestriction = demarcheDefinitionRestrictions.find(
-        r => r.etapeTypeId === b.typeId
-      )
+      const bRestriction = demarcheDefinitionRestrictions[b.typeId]
 
       if (!bRestriction) {
         console.error(
@@ -65,9 +63,7 @@ const titreEtapesSortAscByDate = (
         return -1
       }
 
-      const aRestriction = demarcheDefinitionRestrictions.find(
-        r => r.etapeTypeId === a.typeId
-      )
+      const aRestriction = demarcheDefinitionRestrictions[a.typeId]
 
       if (!aRestriction) {
         console.error(

@@ -5,7 +5,8 @@ import {
   ITitreCondition,
   IContenuElementCondition,
   IEtapeTypeIdCondition,
-  IDemarcheDefinitionRestrictions
+  IDemarcheDefinitionRestrictions,
+  IDemarcheDefinitionRestrictionsProps
 } from '../rules-demarches/definitions'
 
 const contenuConditionMatch = (
@@ -52,14 +53,10 @@ const sameContenuCheck = (
   )
 
 const titreEtapeTypeIdRestrictionsFind = (
-  demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions[],
+  demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions,
   etapeTypeId: string
 ) => {
-  const etapeTypeIdDefinitions = demarcheDefinitionRestrictions.find(
-    restriction => {
-      return restriction.etapeTypeId === etapeTypeId
-    }
-  )
+  const etapeTypeIdDefinitions = demarcheDefinitionRestrictions[etapeTypeId]
 
   if (etapeTypeIdDefinitions) {
     return etapeTypeIdDefinitions
@@ -71,7 +68,7 @@ const titreEtapeTypeIdRestrictionsFind = (
 }
 
 const etapesEnAttenteGet = (
-  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions[],
+  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions,
   titreDemarcheEtapes: ITitreEtape[]
 ) => {
   return etapesSuivantesEnAttenteGet(
@@ -86,7 +83,7 @@ const etapesSuivantesEnAttenteGet = (
   titreDemarcheEtapes: ITitreEtape[],
   titreDemarcheEtapesSuivantes: ITitreEtape[],
   etapesEnAttente: ITitreEtape[],
-  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions[]
+  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions
 ): ITitreEtape[] => {
   if (!titreDemarcheEtapesSuivantes || !titreDemarcheEtapesSuivantes.length) {
     return etapesEnAttente
@@ -104,9 +101,9 @@ const etapesSuivantesEnAttenteGet = (
     )
   }
 
-  const etapeCouranteConditions = etapeTypeIdDefinitions.find(
-    definition => definition.etapeTypeId === etapeCourante.typeId
-  ) as IDemarcheDefinitionRestrictions
+  const etapeCouranteConditions = etapeTypeIdDefinitions[
+    etapeCourante.typeId
+  ] as IDemarcheDefinitionRestrictionsProps
 
   // on cherche quelles étapes en attente ont permis d’atteindre cette étape
   if (etapeCouranteConditions.justeApres) {
@@ -118,12 +115,9 @@ const etapesSuivantesEnAttenteGet = (
       if (predicatCheck) {
         // si cette étape a permis d’atteindre l’étape courante, alors on la remplace dans les étapes en attente
         etapesEnAttente = etapesEnAttente.filter(e => {
-          const etapeSeparationHas = etapeTypeIdDefinitions.find(
-            definition =>
-              definition.etapeTypeId === e.typeId && definition.separation
-          )
+          const etapeSeparationHas = etapeTypeIdDefinitions[e.typeId]
 
-          if (etapeSeparationHas) {
+          if (etapeSeparationHas && etapeSeparationHas.separation) {
             return !etapeSeparationHas.separation!.includes(
               etapeCourante.typeId!
             )
@@ -204,7 +198,7 @@ const etapesEnAttenteToString = (titreEtapesEnAttente: ITitreEtape[]) =>
     .join(', ')
 
 const titreEtapeEtatValidate = (
-  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions[],
+  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions,
   etapeTypeId: string,
   titreDemarcheEtapes: ITitreEtape[],
   contenu: IContenu | null

@@ -19,9 +19,12 @@ const etapeTypeIdsGet = (contraintes?: IEtapeTypeIdCondition[][]) => {
 describe('vérifie la cohérence de tous les arbres', () => {
   demarchesDefinitions.forEach(demarcheDefinition => {
     demarcheDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
-      const demarcheEtatsEtapeTypeIds = demarcheDefinition.restrictions
-        .reduce((acc, restriction) => {
-          acc.push(restriction.etapeTypeId)
+      const demarcheEtatsEtapeTypeIds = Object.keys(
+        demarcheDefinition.restrictions
+      )
+        .reduce((acc, etapeTypeId) => {
+          acc.push(etapeTypeId)
+          const restriction = demarcheDefinition.restrictions[etapeTypeId]
           if (restriction.separation) {
             acc.push(...restriction.separation)
           }
@@ -56,8 +59,8 @@ describe('vérifie la cohérence de tous les arbres', () => {
 
   demarchesDefinitions.forEach(demarcheDefinition => {
     demarcheDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
-      const demarcheEtatsEtapeTypeIds = demarcheDefinition.restrictions.map(
-        r => r.etapeTypeId.split('-')[0]
+      const demarcheEtatsEtapeTypeIds = Object.keys(
+        demarcheDefinition.restrictions
       )
 
       const tdeEtapeTypeIds = etapesTypesGet(
@@ -74,16 +77,4 @@ describe('vérifie la cohérence de tous les arbres', () => {
       )
     })
   })
-
-  test.each(demarchesDefinitions)(
-    '%# vérifie que chaque arbre contient une seule fois chaque étape',
-    demarcheDefinition => {
-      demarcheDefinition.restrictions.reduce((acc, restriction) => {
-        expect(acc).not.toContain(restriction.etapeTypeId)
-        acc.push(restriction.etapeTypeId)
-
-        return acc
-      }, [] as string[])
-    }
-  )
 })
