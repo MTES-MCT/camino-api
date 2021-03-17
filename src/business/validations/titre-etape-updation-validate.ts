@@ -1,13 +1,20 @@
-import { ITitreEtape, ITitreDemarche, ITitre } from '../../types'
+import {
+  ITitreEtape,
+  ITitreDemarche,
+  ITitre,
+  IEtapeTypeDocumentType
+} from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
 import { titreEtapePointsValidate } from './titre-etape-points-validate'
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
+import { documentsTypesValidate } from './documents-types-validate'
 
 const titreEtapeUpdationValidate = async (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
-  titre: ITitre
+  titre: ITitre,
+  documentsTypes: IEtapeTypeDocumentType[]
 ) => {
   const errors = []
 
@@ -39,6 +46,17 @@ const titreEtapeUpdationValidate = async (
     const error = titreEtapePointsValidate(titreEtape.points)
     if (error) {
       errors.push(error)
+    }
+  }
+
+  // 4. les fichiers obligatoires sont tous renseignés et complets
+  if (documentsTypes!.length) {
+    const documentsErrors = documentsTypesValidate(
+      titreEtape.documents,
+      documentsTypes
+    )
+    if (documentsErrors.length) {
+      errors.push(...documentsErrors)
     }
   }
 

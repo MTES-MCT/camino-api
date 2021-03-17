@@ -396,7 +396,13 @@ const etapesTypesGet = async (
   return q
 }
 
-const etapeTypeGet = async (id: string) => EtapesTypes.query().findById(id)
+const etapeTypeGet = async (id: string, { fields }: { fields?: IFields }) => {
+  const graph = fields
+    ? graphBuild(fields, 'etapesTypes', fieldsFormat)
+    : options.etapesTypes.graph
+
+  return EtapesTypes.query().withGraphFetched(graph).findById(id)
+}
 
 const etapeTypeUpdate = async (id: string, props: Partial<IEtapeType>) =>
   EtapesTypes.query().patchAndFetchById(id, props)

@@ -179,6 +179,7 @@ input InputEtapeModification {
   heritageProps: InputHeritageProps
   heritageContenu: Json
   contenu: Json
+  documents: [InputDocument]
 }
 
 input InputEtapeFiltre {

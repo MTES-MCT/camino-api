@@ -139,7 +139,7 @@ const creationCheck = async (
     expect(demarcheCreated.body.errors).toBeUndefined()
 
     const etapeTypeId = 'mfr'
-    const etapeType = await etapeTypeGet(etapeTypeId)
+    const etapeType = await etapeTypeGet(etapeTypeId, { fields: { id: {} } })
 
     const demarcheType = await DemarchesTypes.query()
       .withGraphFetched(options.demarchesTypes.graph)

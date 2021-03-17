@@ -1,8 +1,14 @@
-import { ISection, ITitreActivite } from '../../types'
+import {
+  IActiviteTypeDocumentType,
+  ISection,
+  ITitreActivite
+} from '../../types'
+import { documentsTypesValidate } from './documents-types-validate'
 
 const titreActiviteCompleteCheck = (
   titreActivite: ITitreActivite,
-  activiteSections: ISection[]
+  activiteSections: ISection[],
+  documentsTypes?: IActiviteTypeDocumentType[]
 ) => {
   const activiteComplete = activiteSections.every(s =>
     s.elements?.every(
@@ -18,21 +24,12 @@ const titreActiviteCompleteCheck = (
     return false
   }
 
-  return titreActivite
-    .type!.documentsTypes.filter(dt => dt.optionnel)
-    .every(dt => {
-      if (dt.optionnel) {
-        return true
-      }
+  const documentsErrors = documentsTypesValidate(
+    titreActivite.documents,
+    documentsTypes
+  )
 
-      return titreActivite.documents?.find(
-        d =>
-          d.typeId === dt.id &&
-          !!(d.fichier || d.fichierNouveau) &&
-          d.fichierTypeId &&
-          d.date
-      )
-    })
+  return !documentsErrors.length
 }
 
 export { titreActiviteCompleteCheck }

@@ -332,7 +332,7 @@ type Mutation {
   documentSupprimer(id: ID!): Boolean
 
   "Crée ou modifie une activité"
-  activiteModifier(activite: InputActiviteModification!, deposer: Boolean): Activite
+  activiteModifier(activite: InputActiviteModification!, depose: Boolean): Activite
 
   "Supprime une activité"
   activiteSupprimer(id: ID!): Activite

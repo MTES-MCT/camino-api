@@ -21,6 +21,7 @@ input InputTravauxEtapeCreation {
   duree: Int
   surface: Float
   contenu: Json
+  documents: [InputDocument]
 }
 
 input InputTravauxEtapeModification {
@@ -33,4 +34,5 @@ input InputTravauxEtapeModification {
   duree: Int
   surface: Float
   contenu: Json
+  documents: [InputDocument]
 }

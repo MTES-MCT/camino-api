@@ -306,6 +306,10 @@ interface IEtapeStatut {
   couleur: ICouleur
 }
 
+interface IEtapeTypeDocumentType extends IDocumentType {
+  optionnel: boolean
+}
+
 interface IEtapeType {
   id: string
   nom: string
@@ -321,6 +325,7 @@ interface IEtapeType {
   demarcheTypeId?: string | null
   etapesCreation?: boolean | null
   unique?: boolean | null
+  documentsTypes?: IEtapeTypeDocumentType[]
 }
 
 interface IForet extends IArea {}
@@ -941,6 +946,7 @@ export {
   IFormat,
   IActiviteStatut,
   IActiviteType,
+  IActiviteTypeDocumentType,
   ISection,
   ISectionElement,
   IAdministration,
@@ -985,6 +991,7 @@ export {
   ITitreTypeDemarcheType,
   IActiviteTypeTitreType,
   IEtapeTypeEtapeStatut,
+  IEtapeTypeDocumentType,
   ITravauxTypeEtapeType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,

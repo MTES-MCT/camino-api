@@ -28,7 +28,7 @@ import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
-import { documentsLink } from './documents'
+import { documentsModifier } from './documents'
 
 const etape = async (
   { id }: { id: string },
@@ -119,7 +119,7 @@ const etapeHeritage = async (
       userSuper
     )
 
-    const etapeType = await etapeTypeGet(typeId)
+    const etapeType = await etapeTypeGet(typeId, { fields: { id: {} } })
     const titreEtape = titreEtapeHeritageBuild(date, etapeType, titreDemarche)
 
     return titreEtapeFormat(
@@ -171,7 +171,9 @@ const etapeCreer = async (
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
-    const etapeType = await etapeTypeGet(etape.typeId)
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
 
     if (!etapeType) {
       throw new Error(`etape type "${etape.typeId}" inconnu `)
@@ -190,7 +192,8 @@ const etapeCreer = async (
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
-      titreDemarche.titre
+      titreDemarche.titre,
+      etapeType.documentsTypes!
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -205,7 +208,7 @@ const etapeCreer = async (
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
-    await documentsLink(
+    await documentsModifier(
       context,
       { id: etapeUpdated.id, documents },
       'titreEtapeId'
@@ -267,7 +270,9 @@ const etapeModifier = async (
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
-    const etapeType = await etapeTypeGet(etape.typeId)
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
     if (!etapeType) {
       throw new Error(`etape type "${etape.typeId}" inconnu `)
     }
@@ -284,7 +289,8 @@ const etapeModifier = async (
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
-      titreDemarche.titre
+      titreDemarche.titre,
+      etapeType.documentsTypes!
     )
 
     if (rulesErrors.length) {
@@ -296,7 +302,7 @@ const etapeModifier = async (
     }
 
     // TODO documents, ajouter le old
-    await documentsLink(context, etape, 'titreEtapeId')
+    await documentsModifier(context, etape, 'titreEtapeId')
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 

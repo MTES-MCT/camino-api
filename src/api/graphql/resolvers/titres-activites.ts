@@ -28,7 +28,7 @@ import { titreActiviteInputValidate } from '../../_validate/titre-activite-input
 import { titreActiviteCompleteCheck } from '../../../business/validations/titre-activite-complete-check'
 import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
 import { userSuper } from '../../../database/user-super'
-import { documentsLink } from './documents'
+import { documentsModifier } from './documents'
 
 /**
  * Retourne une activité
@@ -225,7 +225,7 @@ const activitesAnnees = async (_: never, context: IToken) => {
 }
 
 const activiteModifier = async (
-  { activite, deposer }: { activite: ITitreActivite; deposer: boolean },
+  { activite, depose }: { activite: ITitreActivite; depose: boolean },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -236,7 +236,12 @@ const activiteModifier = async (
 
     const oldTitreActivite = await titreActiviteGet(
       activite.id,
-      { fields: { documents: { id: {} } } },
+      {
+        fields: {
+          documents: { id: {} },
+          type: { documentsTypes: { id: {} } }
+        }
+      },
       user
     )
 
@@ -268,22 +273,28 @@ const activiteModifier = async (
 
     const fields = fieldsBuild(info)
 
-    if (oldTitreActivite.statutId !== 'dep' && deposer) {
+    if (oldTitreActivite.statutId !== 'dep' && depose) {
       const complete = titreActiviteCompleteCheck(
         activite,
-        oldTitreActivite.sections
+        oldTitreActivite.sections,
+        oldTitreActivite.type!.documentsTypes
       )
-      activite.statutId = deposer && complete ? 'dep' : 'enc'
-    } else {
-      throw new Error('activité déjà déposée')
+      activite.statutId = depose && complete ? 'dep' : 'enc'
     }
+
+    await documentsModifier(
+      context,
+      activite,
+      'titreActiviteId',
+      oldTitreActivite
+    )
 
     await documentsLink(context, activite, 'titreActiviteId', oldTitreActivite)
 
     await titreActiviteUpdateQuery(activite.id, activite)
       const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
 
-      if (!activiteRes) throw new Error("l'activité n'existe pas")
+    if (!activiteRes) throw new Error("l'activité n'existe pas")
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
     if (activiteRes.statutId === 'dep') {

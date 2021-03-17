@@ -347,8 +347,24 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
     if (!user) throw new Error('droits insuffisants')
 
-    const documentOld = await documentGet(id, {}, user)
-    if (!documentOld) throw new Error("le document n'existe pas")
+    const documentOld = await documentGet(
+      id,
+      {
+        fields: {
+          type: {
+            activitesTypes: { id: {} },
+            etapesTypes: { id: {} }
+          },
+          etapesAssociees: { id: {} }
+        }
+      },
+      user
+    )
+
+    // TODO gérer le boolean « suppression »
+    if (!documentOld) {
+      throw new Error('aucun document avec cette id')
+    }
 
     if (documentOld.etapesAssociees && documentOld.etapesAssociees.length > 0) {
       throw new Error(
@@ -386,7 +402,7 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   }
 }
 
-const documentsLink = async (
+const documentsModifier = async (
   context: IToken,
   parent: { id: string; documents?: IDocument[] | null },
   propParentId: 'titreActiviteId' | 'titreEtapeId',
@@ -424,5 +440,5 @@ export {
   documentCreer,
   documentModifier,
   documentSupprimer,
-  documentsLink
+  documentsModifier
 }

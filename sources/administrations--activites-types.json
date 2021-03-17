@@ -6,11 +6,6 @@
   },
   {
     "activite_type_id": "gra",
-    "administration_id": "pre-97302-01",
-    "modification_interdit": true
-  },
-  {
-    "activite_type_id": "gra",
     "administration_id": "ope-onf-973-01",
     "modification_interdit": true,
     "lecture_interdit": true
@@ -22,11 +17,6 @@
   },
   {
     "activite_type_id": "grp",
-    "administration_id": "pre-97302-01",
-    "modification_interdit": true
-  },
-  {
-    "activite_type_id": "grp",
     "administration_id": "ope-onf-973-01",
     "modification_interdit": true,
     "lecture_interdit": true
@@ -34,11 +24,6 @@
   {
     "activite_type_id": "grx",
     "administration_id": "ope-brgm-02",
-    "modification_interdit": true
-  },
-  {
-    "activite_type_id": "grx",
-    "administration_id": "pre-97302-01",
     "modification_interdit": true
   },
   {

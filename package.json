@@ -49,7 +49,7 @@
     "documents:check": "node ./dist/scripts/documents-check.js",
     "lint": "eslint --fix .",
     "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && conventional-github-releaser",
-    "json:export": "node ./dist/scripts/database-to-json-export.js",
+    "json:export": "rm -rf sources && node ./dist/scripts/database-to-json-export.js",
     "start": "node ./dist/index.js",
     "test": "eslint . && npm run build && jest --testPathIgnorePatterns=tests",
     "test:unit": "npm run lint && jest --testPathIgnorePatterns=tests --watch",
