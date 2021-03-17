@@ -114,6 +114,22 @@ const domainesGet = async (
   return q
 }
 
+const domaineGet = async (
+  id: string,
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'titre', fieldsFormat)
+    : options.domaines.graph
+
+  const q = Domaines.query().withGraphFetched(graph).findById(id)
+
+  domainesQueryModify(q, user)
+
+  return q
+}
+
 const domaineUpdate = async (id: string, props: Partial<IDomaine>) =>
   Domaines.query().patchAndFetchById(id, props)
 
@@ -457,6 +473,7 @@ const administrationTypeUpdate = async (
 ) => AdministrationsTypes.query().patchAndFetchById(id, props)
 
 export {
+  domaineGet,
   domainesGet,
   domaineUpdate,
   titresTypesTypesGet,

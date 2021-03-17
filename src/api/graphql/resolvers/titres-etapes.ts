@@ -99,8 +99,6 @@ const etapeHeritage = async (
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
-    if (!titreDemarche.etapesCreation) throw new Error('droits insuffisants')
-
     titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       {

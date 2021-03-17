@@ -275,7 +275,11 @@ const activiteModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const activiteRes = await titreActiviteUpdateQuery(activite.id, activite)
+    await titreActiviteUpdateQuery(activite)
+
+    const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
+
+    if (!activiteRes) throw new Error("l'activité n'existe pas")
 
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 

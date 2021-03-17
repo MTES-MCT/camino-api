@@ -21,7 +21,7 @@ import { titreFichiersDelete } from './_titre-document'
 import titreUpdateTask from '../../../business/titre-update'
 
 import { titreUpdationValidate } from '../../../business/validations/titre-updation-validate'
-import { domainesGet } from '../../../database/queries/metas'
+import { domaineGet } from '../../../database/queries/metas'
 
 const titre = async (
   { id }: { id: string },
@@ -146,14 +146,12 @@ const titreCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const domaines = await domainesGet(
-      null as never,
+    const domaine = await domaineGet(
+      titre.domaineId,
       { fields: { titresTypes: { id: {} } } },
       user
     )
-    const titreType = domaines
-      .find(d => d.id === titre.domaineId)
-      ?.titresTypes.find(tt => tt.id === titre.typeId)
+    const titreType = domaine.titresTypes.find(tt => tt.id === titre.typeId)
 
     if (!user || !titreType?.titresCreation)
       throw new Error('droits insuffisants')

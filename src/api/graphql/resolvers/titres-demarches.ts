@@ -212,9 +212,8 @@ const demarcheModifier = async (
 
     if (!demarcheOld.modification) throw new Error('droits insuffisants')
 
-    const titre = await titreGet(demarche.titreId, { fields: { id: {} } }, user)
-
-    if (!titre) throw new Error('le titre n’existe pas')
+    if (demarcheOld.titreId !== demarche.titreId)
+      throw new Error('le titre n’existe pas')
 
     const rulesErrors = await titreDemarcheUpdationValidate(
       demarche,

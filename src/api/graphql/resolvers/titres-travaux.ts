@@ -25,7 +25,7 @@ const travauxCreer = async (
 
     const titre = await titreGet(travaux.titreId, { fields: {} }, user)
 
-    if (!titre) throw new Error("le titre n'exsite pas")
+    if (!titre) throw new Error("le titre n'existe pas")
 
     if (!titre.travauxCreation) throw new Error('droits insuffisants')
 

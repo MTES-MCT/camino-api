@@ -23,7 +23,6 @@ const userGet = async (userId?: string) => {
   const user = await Utilisateurs.query().findById(userId)
 
   const q = utilisateursQueryBuild({}, {}, user)
-  // utilisé en interne (daily, monthly, etc.)
 
   return q.findById(userId)
 }

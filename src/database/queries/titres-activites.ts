@@ -371,10 +371,8 @@ const titresActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
     .withGraphFetched(options.titresActivites.graph)
     .upsertGraph(titreActivites, options.titresActivites.update)
 
-const titreActiviteUpdate = async (
-  id: string,
-  props: Partial<ITitreActivite>
-) => TitresActivites.query().patchAndFetchById(id, props)
+const titreActiviteUpdate = async (activite: Partial<ITitreActivite>) =>
+  TitresActivites.query().patch(activite)
 
 const titreActiviteDelete = async (
   id: string,
