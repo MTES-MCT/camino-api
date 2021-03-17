@@ -53,9 +53,7 @@ describe('entrepriseCreer', () => {
       entreprise: { legalSiren: 'test', paysId: 'fr' }
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("peut créer une entreprise (un utilisateur 'super')", async () => {
@@ -175,9 +173,7 @@ describe('entrepriseModifier', () => {
       entreprise: { id: entrepriseId, email: 'toto@gmail.com' }
     })
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour effectuer cette opération'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test("peut modifier une entreprise (un utilisateur 'super')", async () => {
@@ -265,8 +261,7 @@ describe('entreprise', () => {
           }
         ]
       },
-      {},
-      'super'
+      {}
     )
 
     const documentId = 'document-id'

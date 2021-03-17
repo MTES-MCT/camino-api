@@ -10,6 +10,7 @@ import {
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
 import TitresEtapes from '../../database/models/titres-etapes'
+import { userSuper } from '../../database/user-super'
 
 type ITitreEtapeIdPropId =
   | 'pointsTitreEtapeId'
@@ -58,7 +59,7 @@ async function main() {
   const titres = (await titresGet(
     {},
     { fields: { demarches: { etapes: { id: {} } } } },
-    'super'
+    userSuper
   )) as ITitreTmp[]
 
   for (const t of titres) {

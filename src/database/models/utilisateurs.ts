@@ -70,6 +70,9 @@ class Utilisateurs extends Model {
     delete json.modification
     delete json.suppression
     delete json.permissionModification
+    delete json.entreprisesCreation
+    delete json.utilisateursCreation
+
     json = super.$parseJson(json)
 
     return json
@@ -79,6 +82,9 @@ class Utilisateurs extends Model {
     delete json.modification
     delete json.suppression
     delete json.permissionModification
+    delete json.entreprisesCreation
+    delete json.utilisateursCreation
+
     json = super.$formatDatabaseJson(json)
 
     return json

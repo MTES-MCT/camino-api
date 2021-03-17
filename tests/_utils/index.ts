@@ -14,6 +14,7 @@ import {
   utilisateurCreate,
   utilisateurGet
 } from '../../src/database/queries/utilisateurs'
+import { userSuper } from '../../src/database/user-super'
 
 const queryImport = (nom: string) =>
   fs
@@ -57,7 +58,7 @@ const tokenUserGenerate = async (
       id += `-${administration.id}`
     }
   }
-  const userInDb = await utilisateurGet(id, undefined, 'super')
+  const userInDb = await utilisateurGet(id, undefined, userSuper)
 
   if (!userInDb) {
     const administrations = []

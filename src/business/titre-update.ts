@@ -19,6 +19,7 @@ const titreUpdate = async (titreId: string) => {
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate([titreId])
     const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
+
     if (titreIdTmp) {
       titreId = titreIdTmp
     }

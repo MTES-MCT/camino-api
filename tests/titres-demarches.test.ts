@@ -23,17 +23,41 @@ describe('demarcheCreer', () => {
   const demarcheCreerQuery = queryImport('titres-demarches-creer')
 
   test('ne peut pas créer une démarche (utilisateur anonyme)', async () => {
+    await titreCreate(
+      {
+        id: 'titre-id',
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm',
+        propsTitreEtapesIds: {},
+        publicLecture: true
+      },
+      {}
+    )
+
     const res = await graphQLCall(demarcheCreerQuery, {
-      demarche: { titreId: '', typeId: '' }
+      demarche: { titreId: 'titre-id', typeId: 'dpu' }
     })
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test('ne peut pas créer une démarche (utilisateur editeur)', async () => {
+    await titreCreate(
+      {
+        id: 'titre-id',
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm',
+        propsTitreEtapesIds: {},
+        publicLecture: true
+      },
+      {}
+    )
+
     const res = await graphQLCall(
       demarcheCreerQuery,
-      { demarche: { titreId: '', typeId: '' } },
+      { demarche: { titreId: 'titre-id', typeId: 'dpu' } },
       'editeur'
     )
 
@@ -100,8 +124,7 @@ describe('demarcheCreer', () => {
         administrationsGestionnaires: [administrations.ptmg],
         propsTitreEtapesIds: {}
       },
-      {},
-      'super'
+      {}
     )
 
     const res = await graphQLCall(
@@ -111,9 +134,7 @@ describe('demarcheCreer', () => {
       administrations.ptmg
     )
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour créer cette démarche'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 })
 
@@ -135,7 +156,7 @@ describe('demarcheModifier', () => {
       'editeur'
     )
 
-    expect(res.body.errors[0].message).toBe('droits insuffisants')
+    expect(res.body.errors[0].message).toBe('la démarche n’existe pas')
   })
 
   test('peut modifier une démarche (utilisateur super)', async () => {
@@ -158,7 +179,7 @@ describe('demarcheModifier', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe('le titre n’existe pas')
+    expect(res.body.errors[0].message).toBe('la démarche n’existe pas')
   })
 
   test('peut modifier une démarche d’un titre ARM en PTMG (utilisateur admin)', async () => {
@@ -185,9 +206,7 @@ describe('demarcheModifier', () => {
       administrations.dgtmGuyane
     )
 
-    expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour modifier cette démarche'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test('ne peut modifier une démarche inexistante', async () => {
@@ -227,9 +246,7 @@ describe('demarcheModifier', () => {
     )
 
     expect(res.body.errors).toHaveLength(1)
-    expect(res.body.errors[0].message).toBe(
-      'impossible de modifier le type d’une démarche si celle-ci a déjà une ou plusieurs étapes'
-    )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 })
 
@@ -241,7 +258,7 @@ describe('demarcheSupprimer', () => {
       id: 'toto'
     })
 
-    expect(res.body.errors[0].message).toBe('droits insuffisants')
+    expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
   })
 
   test('ne peut pas supprimer une démarche (utilisateur admin)', async () => {
@@ -251,7 +268,7 @@ describe('demarcheSupprimer', () => {
       'admin'
     )
 
-    expect(res.body.errors[0].message).toBe('droits insuffisants')
+    expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
   })
 
   test('ne peut pas supprimer une démarche inexistante (utilisateur super)', async () => {
@@ -292,8 +309,7 @@ const demarcheCreate = async () => {
       ],
       propsTitreEtapesIds: {}
     },
-    {},
-    'super'
+    {}
   )
 
   const resDemarchesCreer = await graphQLCall(

@@ -34,11 +34,11 @@ import {
 // - 'titresModification.id': id du titre sur lequel l'utilisateur a des droits
 // - 'demarchesModification.id': id de la démarche
 // - 't_d_e.etapeTypeId': id du type d'étape'
-const etapesTypesModificationQueryBuild = (
+const administrationsEtapesTypesPropsQuery = (
   administrationsIds: string[],
   type: 'modification' | 'creation'
-) => {
-  const q = TitresTypesDemarchesTypesEtapesTypes.query()
+) =>
+  TitresTypesDemarchesTypesEtapesTypes.query()
     .alias('t_d_e')
     .select(raw('true'))
     .leftJoin(
@@ -72,10 +72,16 @@ const etapesTypesModificationQueryBuild = (
         )
     )
 
-  // fileCreate('test-1.sql', format(q.toKnexQuery().toString()))
-
-  return q
-}
+const titresCreationQuery = (
+  administrationsIds: string[],
+  titresTypesAlias: string
+) =>
+  AdministrationsTitresTypes.query()
+    .alias('a_tt')
+    .select(raw('true'))
+    .whereRaw('?? = ??', ['a_tt.titreTypeId', `${titresTypesAlias}.id`])
+    .whereIn('a_tt.administrationId', administrationsIds)
+    .where('a_tt.gestionnaire', true)
 
 const titresTypesQueryModify = (
   q: QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
@@ -86,33 +92,15 @@ const titresTypesQueryModify = (
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('titresCreation'))
   } else if (
-    permissionCheck(user?.permissionId, ['admin']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
-    q.select(
-      raw('(case when ?? is not null then true else false end)', [
-        'titresCreation.id'
-      ]).as('titresCreation')
-    )
-
     const administrationsIds = user.administrations.map(e => e.id)
 
-    const titresCreationQuery = TitresTypes.query()
-      .select('titresTypes.id')
-      // l'utilisateur fait partie d'une administrations
-      // qui a les droits sur le type de titre
-      .whereExists(
-        AdministrationsTitresTypes.query()
-          .alias('tta')
-          .whereRaw('?? = ??', ['tta.titreTypeId', 'titresTypes.id'])
-          .whereIn('tta.administrationId', administrationsIds)
-          .where('tta.gestionnaire', true)
+    q.select(
+      titresCreationQuery(administrationsIds, 'titresTypes').as(
+        'titresCreation'
       )
-
-    q.leftJoin(
-      titresCreationQuery.as('titresCreation'),
-      'titresCreation.id',
-      'titresTypes.id'
     )
   } else {
     q.select(raw('false').as('titresCreation'))
@@ -124,42 +112,6 @@ const domainesQueryModify = (
   user?: IUtilisateur
 ) => {
   q.select('domaines.*')
-
-  if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('titresCreation'))
-  } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-    user?.administrations?.length
-  ) {
-    q.select(
-      raw('(case when ?? is not null then true else false end)', [
-        'domainesModification.domaineId'
-      ]).as('titresCreation')
-    )
-
-    const administrationsIds = user.administrations.map(e => e.id)
-
-    const titresCreationQuery = TitresTypes.query()
-      .select('titresTypes.domaineId')
-      // l'utilisateur fait partie d'une administrations
-      // qui a les droits sur le type de titre
-      .whereExists(
-        AdministrationsTitresTypes.query()
-          .alias('tta')
-          .whereRaw('?? = ??', ['tta.titreTypeId', 'titresTypes.id'])
-          .whereIn('tta.administrationId', administrationsIds)
-          .where('tta.gestionnaire', true)
-      )
-      .groupBy('titresTypes.domaineId')
-
-    q.leftJoin(
-      titresCreationQuery.as('domainesModification'),
-      'domainesModification.domaineId',
-      'domaines.id'
-    )
-  } else {
-    q.select(raw('false').as('titresCreation'))
-  }
 
   q.modifyGraph('titresTypes', b => {
     titresTypesQueryModify(
@@ -253,7 +205,7 @@ const etapesTypesQueryModify = (
     if (titreDemarcheId) {
       const administrationsIds = user.administrations.map(a => a.id) || []
 
-      const etapesCreationQuery = etapesTypesModificationQueryBuild(
+      const etapesCreationQuery = administrationsEtapesTypesPropsQuery(
         administrationsIds,
         titreEtapeId ? 'modification' : 'creation'
       )
@@ -450,7 +402,7 @@ export {
   activitesTypesQueryModify,
   demarchesTypesQueryModify,
   domainesQueryModify,
-  etapesTypesModificationQueryBuild,
+  administrationsEtapesTypesPropsQuery,
   etapesTypesQueryModify,
   permissionsQueryModify,
   titresTypesQueryModify,

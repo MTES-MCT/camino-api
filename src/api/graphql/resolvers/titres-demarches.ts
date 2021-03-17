@@ -10,8 +10,6 @@ import { debug } from '../../../config/index'
 
 import fieldsBuild from './_fields-build'
 
-import { permissionCheck } from '../../../tools/permission'
-
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 
 import { titreFormat } from '../../_format/titres'
@@ -28,10 +26,10 @@ import {
 } from '../../../database/queries/titres-demarches'
 
 import { titreGet } from '../../../database/queries/titres'
-import { userGet } from '../../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
 import { titreDemarcheUpdationValidate } from '../../../business/validations/titre-demarche-updation-validate'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const demarches = async (
   {
@@ -83,7 +81,7 @@ const demarches = async (
       page = 1
     }
 
-    const userId = context.user?.id
+    const user = await userGet(context.user?.id)
 
     const [titresDemarches, total] = await Promise.all([
       titresDemarchesGet(
@@ -106,7 +104,7 @@ const demarches = async (
           titresTerritoires
         },
         { fields: fields.elements },
-        userId
+        user
       ),
       titresDemarchesCount(
         {
@@ -124,7 +122,7 @@ const demarches = async (
           titresTerritoires
         },
         { fields: { id: {} } },
-        userId
+        user
       )
     ])
 
@@ -159,12 +157,18 @@ const demarcheCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
+
+    const titre = await titreGet(demarche.titreId, {}, user)
+
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    if (!titre.demarchesCreation) throw new Error('droits insuffisants')
 
     const demarcheCreated = await titreDemarcheCreate(
       demarche,
       { fields: { id: {} } },
-      user?.id
+      user
     )
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
@@ -174,7 +178,7 @@ const demarcheCreer = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -192,28 +196,24 @@ const demarcheModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const titre = await titreGet(
-      demarche.titreId,
-      { fields: { id: {} } },
-      user.id
-    )
-    if (!titre) throw new Error('le titre n’existe pas')
+    if (!user) throw new Error('droits insuffisants')
 
     const demarcheOld = await titreDemarcheGet(
       demarche.id,
       {
         fields: { etapes: { id: {} } }
       },
-      user.id
+      user
     )
 
     if (!demarcheOld) throw new Error('la démarche n’existe pas')
+
+    if (!demarcheOld.modification) throw new Error('droits insuffisants')
+
+    if (demarcheOld.titreId !== demarche.titreId)
+      throw new Error('le titre n’existe pas')
 
     const rulesErrors = await titreDemarcheUpdationValidate(
       demarche,
@@ -224,13 +224,7 @@ const demarcheModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    const demarcheUpdated = await titreDemarcheUpdate(
-      demarche.id,
-      demarche,
-      { fields: { id: {} } },
-      user.id,
-      titre
-    )
+    const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       demarcheUpdated.id,
@@ -239,7 +233,7 @@ const demarcheModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -257,18 +251,17 @@ const demarcheSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const user = await userGet(context.user?.id)
 
     const demarcheOld = await titreDemarcheGet(
       id,
       { fields: { etapes: { documents: { type: { id: {} } } } } },
-      user.id
+      user
     )
+
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
+
+    if (!demarcheOld.suppression) throw new Error('droits insuffisants')
 
     await titreDemarcheDelete(id)
 
@@ -281,7 +274,7 @@ const demarcheSupprimer = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {

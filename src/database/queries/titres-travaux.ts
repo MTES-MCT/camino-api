@@ -1,4 +1,4 @@
-import { ITitreTravaux, IFields } from '../../types'
+import { ITitreTravaux, IFields, IUtilisateur } from '../../types'
 import { Transaction } from 'objection'
 
 import TitresTravaux from '../models/titres-travaux'
@@ -8,13 +8,10 @@ import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 import { titresTravauxQueryModify } from './permissions/titres-travaux'
 
-const titresTravauxGet = async (
-  {
-    titresTravauxIds
-  }: {
-    titresTravauxIds?: string[] | null
-  } = {},
-  { fields }: { fields?: IFields }
+const titresTravauxQueryBuild = (
+  _: never,
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
   const graph = fields
     ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
@@ -22,7 +19,21 @@ const titresTravauxGet = async (
 
   const q = TitresTravaux.query().withGraphFetched(graph)
 
-  titresTravauxQueryModify(q, fields)
+  titresTravauxQueryModify(q, fields, user)
+
+  return q
+}
+
+const titresTravauxGet = async (
+  {
+    titresTravauxIds
+  }: {
+    titresTravauxIds?: string[] | null
+  } = {},
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
+) => {
+  const q = titresTravauxQueryBuild(null as never, { fields }, user)
 
   if (titresTravauxIds) {
     q.whereIn('titresTravaux.id', titresTravauxIds)
@@ -33,44 +44,33 @@ const titresTravauxGet = async (
 
 const titreTravauxGet = async (
   titreTravauxId: string,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
-    : options.titresTravaux.graph
+  const q = titresTravauxQueryBuild(null as never, { fields }, user)
 
-  const q = TitresTravaux.query()
-    .findById(titreTravauxId)
-    .withGraphFetched(graph)
-
-  return q
+  return q.findById(titreTravauxId)
 }
 
 const titreTravauxCreate = async (
   titreTravaux: ITitreTravaux,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
-    : options.titresTravaux.graph
+  const q = titresTravauxQueryBuild(null as never, { fields }, user)
 
-  return TitresTravaux.query()
-    .insertAndFetch(titreTravaux)
-    .withGraphFetched(graph)
+  return q.insertAndFetch(titreTravaux)
 }
 
 const titreTravauxUpdate = async (
   id: string,
   props: Partial<ITitreTravaux>,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
-    : options.titresTravaux.graph
+  const q = titresTravauxQueryBuild(null as never, { fields }, user)
 
-  return TitresTravaux.query()
-    .patchAndFetchById(id, props)
-    .withGraphFetched(graph)
+  return q.patchAndFetchById(id, props)
 }
 
 const titreTravauxDelete = async (id: string, trx?: Transaction) =>

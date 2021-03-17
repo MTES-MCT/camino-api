@@ -60,7 +60,7 @@ async function main() {
     user.administrations?.map(a => a.id).join(', ')
   )
 
-  const titre = await titreGet(titreId, { fields: {} }, userId)
+  const titre = await titreGet(titreId, { fields: {} }, user)
 
   console.info('type:', titre.typeId)
   console.info('statut:', titre.statutId)
@@ -71,7 +71,7 @@ async function main() {
       // titreEtapeId: `${titreId}-oct01-mfr01`
     },
     { fields: { id: {} } },
-    userId
+    user
   )
 
   res.forEach(et => {

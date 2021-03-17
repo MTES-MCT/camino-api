@@ -1,5 +1,6 @@
 import { titresEtapesGet } from '../../database/queries/titres-etapes'
 import { titresTypesDemarchesTypesEtapesTypesGet } from '../../database/queries/metas'
+import { userSuper } from '../../database/user-super'
 
 const etapeStatutCheck = async () => {
   console.info()
@@ -18,7 +19,7 @@ const etapeStatutCheck = async () => {
         demarche: { type: { id: {} }, titre: { id: {} } }
       }
     },
-    'super'
+    userSuper
   )
 
   let errorsNb = 0

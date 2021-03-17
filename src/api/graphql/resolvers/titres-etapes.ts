@@ -4,9 +4,6 @@ import { debug } from '../../../config/index'
 
 import { titreFormat } from '../../_format/titres'
 
-import { permissionCheck } from '../../../tools/permission'
-import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
-
 import {
   titreEtapeDelete,
   titreEtapeGet,
@@ -16,7 +13,6 @@ import {
 } from '../../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
-import { userGet } from '../../../database/queries/utilisateurs'
 
 import { fichiersDelete } from './_titre-document'
 
@@ -30,6 +26,8 @@ import fieldsBuild from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
 import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'
+import { userSuper } from '../../../database/user-super'
+import { userGet } from '../../../database/queries/utilisateurs'
 
 const etape = async (
   { id }: { id: string },
@@ -37,11 +35,7 @@ const etape = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
+    const user = await userGet(context.user?.id)
 
     const fields = fieldsBuild(info)
 
@@ -52,8 +46,12 @@ const etape = async (
     const titreEtape = await titreEtapeGet(
       id,
       { fields, fetchHeritage: true },
-      context?.user?.id
+      user
     )
+
+    if (!titreEtape) {
+      throw new Error("l'étape' n'existe pas")
+    }
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
@@ -63,7 +61,7 @@ const etape = async (
           type: { etapesTypes: { id: {} } }
         }
       },
-      user && user.id
+      user
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -91,16 +89,12 @@ const etapeHeritage = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
+    const user = await userGet(context.user?.id)
 
     let titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       { fields: { id: {} } },
-      user && user.id
+      user
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -121,7 +115,7 @@ const etapeHeritage = async (
           }
         }
       },
-      'super'
+      userSuper
     )
 
     const etapeType = await etapeTypeGet(typeId)
@@ -148,19 +142,17 @@ const etapeCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
+    const user = await userGet(context.user?.id)
 
     let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       { fields: { id: {} } },
-      user && user.id
+      user
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+    if (!titreDemarche.etapesCreation) throw new Error('droits insuffisants')
 
     titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
@@ -174,23 +166,13 @@ const etapeCreer = async (
           etapes: { type: { id: {} } }
         }
       },
-      'super'
+      userSuper
     )
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titreDemarche.titre.id,
-      etape.typeId,
-      'creation'
-    )
-
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour créer cette étape')
-    }
-
     const etapeType = await etapeTypeGet(etape.typeId)
+
     if (!etapeType) {
       throw new Error(`etape type "${etape.typeId}" inconnu `)
     }
@@ -226,7 +208,7 @@ const etapeCreer = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -244,16 +226,22 @@ const etapeModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
+    const titreEtapeOld = await titreEtapeGet(
+      etape.id,
+      { fields: { id: {} } },
+      user
+    )
+
+    if (!titreEtapeOld) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtapeOld.modification) throw new Error('droits insuffisants')
 
     let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       { fields: { id: {} } },
-      user && user.id
+      user
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -270,21 +258,10 @@ const etapeModifier = async (
           etapes: { type: { id: {} } }
         }
       },
-      'super'
+      userSuper
     )
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
-
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titreDemarche.titre.id,
-      etape.typeId,
-      'modification'
-    )
-
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour modifier cette étape')
-    }
 
     const etapeType = await etapeTypeGet(etape.typeId)
     if (!etapeType) {
@@ -322,7 +299,7 @@ const etapeModifier = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -341,18 +318,17 @@ const etapeSupprimer = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-    const user = context.user && (await userGet(context.user.id))
-
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    const user = await userGet(context.user?.id)
 
     const titreEtape = await titreEtapeGet(
       id,
       { fields: { documents: { type: { id: {} } } } },
-      context.user?.id
+      user
     )
+
     if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape.suppression) throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
@@ -366,8 +342,9 @@ const etapeSupprimer = async (
           etapes: { type: { id: {} } }
         }
       },
-      'super'
+      userSuper
     )
+
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
@@ -393,7 +370,7 @@ const etapeSupprimer = async (
       titreEtape.titreDemarcheId
     )
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -411,23 +388,23 @@ const etapeJustificatifsAssocier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const etape = await titreEtapeGet(
+    const titreEtape = await titreEtapeGet(
       id,
       { fields: { justificatifs: { id: {} } } },
-      context.user?.id
+      user
     )
-    if (!etape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape.justificatifsAssociation)
+      throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
+      titreEtape.titreDemarcheId,
       {},
-      user && user.id
+      user
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -440,24 +417,14 @@ const etapeJustificatifsAssocier = async (
           administrationsLocales: { id: {} }
         }
       },
-      user.id
+      user
     )
+
     if (!titre) throw new Error("le titre n'existe pas")
 
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titre.id,
-      etape.typeId,
-      'modification'
-    )
+    await titreEtapeJustificatifsDelete(titreEtape.id)
 
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour modifier cette étape')
-    }
-
-    await titreEtapeJustificatifsDelete(etape.id)
-
-    const titreEtapeId = etape.id
+    const titreEtapeId = titreEtape.id
 
     if (documentsIds.length) {
       await titresEtapesJustificatifsUpsert(
@@ -470,7 +437,7 @@ const etapeJustificatifsAssocier = async (
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titre.id, { fields }, user.id)
+    const titreUpdated = await titreGet(titre.id, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -488,24 +455,23 @@ const etapeJustificatifDissocier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const etape = await titreEtapeGet(
+    const titreEtape = await titreEtapeGet(
       id,
       { fields: { justificatifs: { id: {} } } },
-      context.user?.id
+      user
     )
 
-    if (!etape) throw new Error("l'étape n'existe pas")
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    if (!titreEtape.justificatifsAssociation)
+      throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
+      titreEtape.titreDemarcheId,
       {},
-      user && user.id
+      user
     )
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -518,27 +484,16 @@ const etapeJustificatifDissocier = async (
           administrationsLocales: { id: {} }
         }
       },
-      user.id
+      user
     )
 
     if (!titre) throw new Error("le titre n'existe pas")
 
-    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
-      user,
-      titre.id,
-      etape.typeId,
-      'modification'
-    )
-
-    if (!titreEtapePermission) {
-      throw new Error('droits insuffisants pour modifier cette étape')
-    }
-
-    await titreEtapeJustificatifsDelete(etape.id, documentId)
+    await titreEtapeJustificatifsDelete(titreEtape.id, documentId)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titre.id, { fields }, user.id)
+    const titreUpdated = await titreGet(titre.id, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {

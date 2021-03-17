@@ -2,6 +2,7 @@ import * as camelcase from 'camelcase'
 import { debug } from '../../../config/index'
 import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
+import { userSuper } from '../../../database/user-super'
 import { ITitre, ITitreActivite } from '../../../types'
 import { titresSurfaceIndexBuild } from './statistiques'
 
@@ -210,13 +211,13 @@ const statistiquesGuyane = async () => {
           demarches: { phase: { id: {} }, etapes: { id: {} } }
         }
       },
-      'super'
+      userSuper
     )
 
     const titresActivites = await titresActivitesGet(
       { titresTerritoires: 'guyane', annees, typesIds: ['grp', 'gra', 'grx'] },
       { fields: { titre: { id: {} } } },
-      'super'
+      userSuper
     )
 
     return {

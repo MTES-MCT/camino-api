@@ -78,6 +78,7 @@ import {
 } from '../../../database/queries/territoires'
 import ordreUpdate from './_ordre-update'
 import { demarcheDefinitionFind } from '../../../business/rules-demarches/definitions'
+import { userSuper } from '../../../database/user-super'
 
 const npmPackage = require('../../../../package.json')
 
@@ -131,7 +132,9 @@ const permission = async ({ id }: { id: string }) => permissionGet(id)
 
 const permissions = async (_: never, context: IToken) => {
   try {
-    return permissionsGet(null as never, null as never, context.user?.id)
+    const user = await userGet(context.user?.id)
+
+    return permissionsGet(null as never, null as never, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -147,13 +150,10 @@ const domaines = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const domaines = await domainesGet(
-      null as never,
-      { fields },
-      context.user?.id
-    )
+    const domaines = await domainesGet(null as never, { fields }, user)
 
     return domaines
   } catch (e) {
@@ -181,7 +181,9 @@ const types = async () => {
 
 const statuts = async (_: never, context: IToken) => {
   try {
-    return await titresStatutsGet(context.user?.id)
+    const user = await userGet(context.user?.id)
+
+    return await titresStatutsGet(user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -197,12 +199,13 @@ const demarchesTypes = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     const demarchesTypes = await demarchesTypesGet(
       { titreId, titreDemarcheId },
       { fields },
-      context.user?.id
+      user
     )
 
     return demarchesTypes
@@ -221,12 +224,13 @@ const travauxTypes = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     const travauxTypes = await travauxTypesGet(
       { titreId, titreTravauxId },
       { fields },
-      context.user?.id
+      user
     )
 
     return travauxTypes
@@ -274,7 +278,7 @@ const demarcheEtapesTypesGet = async (
         etapes: { type: { id: {} } }
       }
     },
-    'super'
+    userSuper
   )
 
   if (!titreDemarche) throw new Error("la démarche n'existe pas")
@@ -282,7 +286,7 @@ const demarcheEtapesTypesGet = async (
   const titre = titreDemarche.titre!
 
   const titreEtape = titreEtapeId
-    ? await titreEtapeGet(titreEtapeId, {}, user?.id)
+    ? await titreEtapeGet(titreEtapeId, {}, user)
     : undefined
 
   if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
@@ -314,7 +318,7 @@ const demarcheEtapesTypesGet = async (
   const etapesTypes = await etapesTypesGet(
     { titreDemarcheId, titreEtapeId, uniqueCheck },
     { fields },
-    userId
+    user
   )
 
   const etapesTypesFormatted = etapesTypes
@@ -359,6 +363,7 @@ const etapesTypes = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
     if (titreDemarcheId && context.user?.id) {
@@ -378,7 +383,7 @@ const etapesTypes = async (
     const etapesTypes = await etapesTypesGet(
       { titreDemarcheId, titreEtapeId, titreTravauxId, titreTravauxEtapeId },
       { fields },
-      context.user?.id
+      user
     )
 
     return etapesTypes
@@ -413,9 +418,10 @@ const activitesTypes = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const activitesTypes = await activitesTypesGet({ fields }, context.user?.id)
+    const activitesTypes = await activitesTypesGet({ fields }, user)
 
     // TODO: ne retourner que les types d'activités auxquels l'utilisateur a accès
 
@@ -579,22 +585,14 @@ const domaineModifier = async (
     const fields = fieldsBuild(info)
 
     if (domaine.ordre) {
-      const domaines = await domainesGet(
-        null as never,
-        { fields },
-        context.user?.id
-      )
+      const domaines = await domainesGet(null as never, { fields }, user)
 
       await ordreUpdate(domaine, domaines, domaineUpdate)
     }
 
     await domaineUpdate(domaine.id!, domaine)
 
-    const domaines = await domainesGet(
-      null as never,
-      { fields },
-      context.user?.id
-    )
+    const domaines = await domainesGet(null as never, { fields }, user)
 
     return domaines
   } catch (e) {
@@ -683,22 +681,14 @@ const demarcheTypeModifier = async (
     const fields = fieldsBuild(info)
 
     if (demarcheType.ordre) {
-      const demarchesTypes = await demarchesTypesGet(
-        {},
-        { fields },
-        context.user?.id
-      )
+      const demarchesTypes = await demarchesTypesGet({}, { fields }, user)
 
       await ordreUpdate(demarcheType, demarchesTypes, demarcheTypeUpdate)
     }
 
     await demarcheTypeUpdate(demarcheType.id!, demarcheType)
 
-    const demarchesTypes = await demarchesTypesGet(
-      {},
-      { fields },
-      context.user?.id
-    )
+    const demarchesTypes = await demarchesTypesGet({}, { fields }, user)
 
     return demarchesTypes
   } catch (e) {
@@ -725,18 +715,14 @@ const travauxTypeModifier = async (
     const fields = fieldsBuild(info)
 
     if (travauxType.ordre) {
-      const travauxTypes = await travauxTypesGet(
-        {},
-        { fields },
-        context.user?.id
-      )
+      const travauxTypes = await travauxTypesGet({}, { fields }, user)
 
       await ordreUpdate(travauxType, travauxTypes, travauxTypeUpdate)
     }
 
     await travauxTypeUpdate(travauxType.id!, travauxType)
 
-    const travauxTypes = await travauxTypesGet({}, { fields }, context.user?.id)
+    const travauxTypes = await travauxTypesGet({}, { fields }, user)
 
     return travauxTypes
   } catch (e) {
@@ -819,14 +805,14 @@ const etapeTypeModifier = async (
     const fields = fieldsBuild(info)
 
     if (etapeType.ordre) {
-      const etapesTypes = await etapesTypesGet({}, { fields }, context.user?.id)
+      const etapesTypes = await etapesTypesGet({}, { fields }, user)
 
       await ordreUpdate(etapeType, etapesTypes, etapeTypeUpdate)
     }
 
     await etapeTypeUpdate(etapeType.id!, etapeType)
 
-    const etapesTypes = await etapesTypesGet({}, { fields }, context.user?.id)
+    const etapesTypes = await etapesTypesGet({}, { fields }, user)
 
     return etapesTypes
   } catch (e) {
@@ -960,7 +946,7 @@ const permissionModifier = async (
       const permissions = await permissionsGet(
         null as never,
         null as never,
-        context.user?.id
+        user
       )
 
       await ordreUpdate(permission, permissions, permissionUpdate)
@@ -968,11 +954,7 @@ const permissionModifier = async (
 
     await permissionUpdate(permission.id!, permission)
 
-    const permissions = await permissionsGet(
-      null as never,
-      null as never,
-      context.user?.id
-    )
+    const permissions = await permissionsGet(null as never, null as never, user)
 
     return permissions
   } catch (e) {

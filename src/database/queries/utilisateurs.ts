@@ -20,14 +20,11 @@ import Objection = require('objection')
 const userGet = async (userId?: string) => {
   if (!userId) return undefined
 
-  // utilisé en interne (daily, monthly, etc.)
-  if (userId === 'super') {
-    return { permissionId: 'super', id: 'super' } as IUtilisateur
-  }
+  const user = await Utilisateurs.query().findById(userId)
 
-  return Utilisateurs.query()
-    .withGraphFetched(options.utilisateurs.graph)
-    .findById(userId)
+  const q = utilisateursQueryBuild({}, {}, user)
+
+  return q.findById(userId)
 }
 
 const utilisateursQueryBuild = (
@@ -129,13 +126,11 @@ const userByRefreshTokenGet = async (
 const utilisateurGet = async (
   id: string,
   { fields }: { fields?: IFields } = {},
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = utilisateursQueryBuild({}, { fields }, user)
 
-  return (await q.findById(id)) as IUtilisateur
+  return q.findById(id)
 }
 
 // lien = administration ou entreprise(s) en relation avec l'utilisateur :
@@ -189,9 +184,8 @@ const utilisateursGet = async (
     emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
   const q = utilisateursQueryBuild(
     {
       entrepriseIds,
@@ -245,9 +239,8 @@ const utilisateursCount = async (
     emails?: string | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
   const q = utilisateursQueryBuild(
     {
       entrepriseIds,

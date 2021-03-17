@@ -17,7 +17,6 @@ import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
-import { userGet } from './utilisateurs'
 import { raw } from 'objection'
 import { titresFiltersQueryBuild } from './_titres-filters'
 
@@ -127,10 +126,8 @@ const titreActivitesQueryBuild = (
 const titreActiviteGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titreActivitesQueryBuild({}, { fields }, user)
 
   if (!q) return undefined
@@ -146,9 +143,7 @@ const titreActiviteGet = async (
  *
  */
 
-const activitesAnneesGet = async (userId?: string) => {
-  const user = await userGet(userId)
-
+const activitesAnneesGet = async (user?: IUtilisateur) => {
   if (!user?.permissionId) return []
 
   const q = TitresActivites.query()
@@ -213,7 +208,7 @@ const titresActivitesColonnes = {
  * @param titresDomainesIds - tableau de domaine(s)
  * @param titresStatutsIds - tableau de statut(s) de titre
  * @param fields - propriétés demandées
- * @param userId - utilisateur
+ * @param user - utilisateur
  * @returns une liste d'activités
  *
  */
@@ -253,10 +248,8 @@ const titresActivitesGet = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titreActivitesQueryBuild(
     {
       typesIds,
@@ -315,7 +308,7 @@ const titresActivitesGet = async (
  * @param titresDomainesIds - tableau de domaine(s)
  * @param titresStatutsIds - tableau de statut(s) de titre
  * @param fields - propriétés demandées
- * @param userId - utilisateur
+ * @param user - utilisateur
  * @returns un entier
  *
  */
@@ -347,10 +340,8 @@ const titresActivitesCount = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titreActivitesQueryBuild(
     {
       typesIds,
@@ -380,19 +371,8 @@ const titresActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
     .withGraphFetched(options.titresActivites.graph)
     .upsertGraph(titreActivites, options.titresActivites.update)
 
-const titreActiviteUpdate = async (
-  id: string,
-  props: Partial<ITitreActivite>,
-  { fields }: { fields?: IFields }
-) => {
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
-    : options.titresActivites.graph
-
-  return TitresActivites.query()
-    .withGraphFetched(graph)
-    .patchAndFetchById(id, props)
-}
+const titreActiviteUpdate = async (activite: Partial<ITitreActivite>) =>
+  TitresActivites.query().patch(activite)
 
 const titreActiviteDelete = async (
   id: string,

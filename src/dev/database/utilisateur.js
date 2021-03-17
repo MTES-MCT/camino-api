@@ -67,7 +67,7 @@ async function main() {
 
   const utilisateurId = userId
 
-  const utilisateur = await utilisateurGet(utilisateurId, {}, userId)
+  const utilisateur = await utilisateurGet(utilisateurId, {}, user)
 
   console.info(
     'utilisateur:',

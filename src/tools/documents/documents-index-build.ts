@@ -3,6 +3,7 @@ import { IndexFile } from './_types'
 
 import { documentsGet } from '../../database/queries/documents'
 import { exhaustiveCheck } from '../exhaustive-type-check'
+import { userSuper } from '../../database/user-super'
 
 const documentPathGet = (document: IDocument) => {
   let path = document.type!.repertoire as string
@@ -23,7 +24,7 @@ const documentPathGet = (document: IDocument) => {
 }
 
 const documentsIndexBuild = async () => {
-  const documents = await documentsGet({}, {}, 'super')
+  const documents = await documentsGet({}, {}, userSuper)
 
   return documents.reduce((res: IndexFile, document) => {
     if (document.fichier) {

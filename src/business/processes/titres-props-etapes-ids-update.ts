@@ -4,6 +4,7 @@ import PQueue from 'p-queue'
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { titrePropTitreEtapeFind } from '../rules/titre-prop-etape-find'
 import { objectsDiffer } from '../../tools'
+import { userSuper } from '../../database/user-super'
 
 const titrePropsEtapes = [
   'points',
@@ -35,7 +36,7 @@ const titresPropsEtapesIdsUpdate = async (titresIds?: string[]) => {
         }
       }
     },
-    'super'
+    userSuper
   )
 
   const titresPropsEtapesIdsUpdated = [] as string[]

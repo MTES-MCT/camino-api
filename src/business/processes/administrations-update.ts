@@ -10,6 +10,7 @@ import {
 } from '../../tools/api-administrations/index'
 
 import { objectsDiffer } from '../../tools'
+import { userSuper } from '../../database/user-super'
 
 const administrationsUpdatedFind = (
   administrationsOld: IAdministration[],
@@ -56,7 +57,7 @@ const administrationsUpdate = async (administrationsIds?: string[]) => {
   const administrationsOld = await administrationsGet(
     { administrationsIds },
     {},
-    'super'
+    userSuper
   )
 
   // mise à jour de l'administrations grâce à l'API Administration

@@ -1,6 +1,7 @@
 import '../../init'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import TitresActivites from '../../database/models/titres-activites'
+import { userSuper } from '../../database/user-super'
 
 async function main() {
   console.info(
@@ -10,7 +11,7 @@ async function main() {
   const titresActivites = await titresActivitesGet(
     { typesIds: ['gra', 'grx'] },
     { fields: {} },
-    'super'
+    userSuper
   )
 
   for (const ta of titresActivites) {

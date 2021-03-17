@@ -6,6 +6,7 @@ import { titreCreate } from '../src/database/queries/titres'
 import { titreEtapeCreate } from '../src/database/queries/titres-etapes'
 import { IPermissionId } from '../src/types'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
+import { userSuper } from '../src/database/user-super'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -37,8 +38,7 @@ async function etapeCreate() {
         administrations.dgtmGuyane
       ]
     },
-    {},
-    'super'
+    {}
   )
   const titreDemarcheId = 'demarche-test-id'
   await titreDemarcheCreate(
@@ -48,7 +48,7 @@ async function etapeCreate() {
       typeId: 'oct'
     },
     {},
-    'super'
+    userSuper
   )
 
   const titreEtapeId = 'etape-test-id'
@@ -83,7 +83,7 @@ describe('etapeModifier', () => {
         permissionId
       )
 
-      expect(res.body.errors[0].message).toBe('droits insuffisants')
+      expect(res.body.errors[0].message).toBe("l'étape n'existe pas")
     }
   )
 
@@ -102,7 +102,7 @@ describe('etapeModifier', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
+    expect(res.body.errors[0].message).toBe("l'étape n'existe pas")
   })
 
   test('peut modifier une étape mfr avec un statut fai (utilisateur super)', async () => {
@@ -179,7 +179,7 @@ describe('etapeModifier', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour modifier cette étape'
+      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
     )
   })
 
@@ -214,7 +214,10 @@ describe('etapeModifier', () => {
           typeId: 'ede',
           statutId: 'fai',
           titreDemarcheId,
-          date: ''
+          date: '',
+          heritageContenu: {
+            deal: { motifs: { actif: false }, agent: { actif: false } }
+          }
         }
       },
       'admin',
@@ -222,7 +225,7 @@ describe('etapeModifier', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour modifier cette étape'
+      'statut de l\'étape "fai" invalide pour une type d\'étape ede pour une démarche de type octroi'
     )
   })
 })
@@ -239,7 +242,7 @@ describe('etapeSupprimer', () => {
         permissionId
       )
 
-      expect(res.body.errors[0].message).toBe('droits insuffisants')
+      expect(res.body.errors[0].message).toBe("l'étape n'existe pas")
     }
   )
 

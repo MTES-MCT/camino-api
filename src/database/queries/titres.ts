@@ -12,8 +12,6 @@ import { transaction, Transaction, raw, RawBuilder } from 'objection'
 import Titres from '../models/titres'
 import { titresQueryModify } from './permissions/titres'
 
-import { userGet } from './utilisateurs'
-
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { titresFieldsAdd } from './graph/fields-add'
@@ -21,9 +19,6 @@ import { titresFieldsAdd } from './graph/fields-add'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
-import { permissionCheck } from '../../tools/permission'
-import AdministrationsTitresTypes from '../models/administrations-titres-types'
-import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
@@ -102,11 +97,9 @@ const titresQueryBuild = (
  */
 const titreGet = async (
   id: string,
-
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
   const q = titresQueryBuild({}, { fields }, user)
 
   q.context({ fetchHeritage })
@@ -118,10 +111,8 @@ const titreFromIdGet = async (
   id: string,
   element: 'etape',
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titresQueryBuild({}, { fields }, user)
 
   if (element === 'etape') {
@@ -212,10 +203,8 @@ const titresGet = async (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titresQueryBuild(
     {
       perimetre,
@@ -309,10 +298,8 @@ const titresCount = async (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = await userGet(userId)
-
   const q = titresQueryBuild(
     {
       domainesIds,
@@ -333,10 +320,6 @@ const titresCount = async (
   return titres.length
 }
 
-type ICount = {
-  count: string
-}
-
 /**
  * Crée un nouveau titre
  *
@@ -346,26 +329,14 @@ type ICount = {
  * @returns le nouveau titre
  *
  */
-const titreCreate = async (
-  titre: ITitre,
-  { fields }: { fields?: IFields }, // eslint-disable-line @typescript-eslint/no-unused-vars
-  userId?: string
-) => {
-  const user = await userGet(userId)
-  if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-    throw new Error('droits insuffisants')
-  }
-
-  if (
-    permissionCheck(user.permissionId, ['admin']) &&
-    !(await titreTypePermissionAdministrationIdCheck(titre, user, 'creation'))
-  ) {
-    throw new Error('droits insuffisants pour créer ce type de titre')
-  }
+const titreCreate = async (titre: ITitre, { fields }: { fields?: IFields }) => {
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
+    : options.titres.graph
 
   return Titres.query()
+    .withGraphFetched(graph)
     .insertGraph(titre, options.titres.update)
-    .withGraphFetched(options.titres.graph)
 }
 
 const titreUpdate = async (id: string, props: Partial<ITitre>) =>
@@ -376,43 +347,16 @@ const titreDelete = async (id: string, tr?: Transaction) =>
 
 const titreUpsert = async (
   titre: ITitre,
-  { fields, titreOld }: { fields?: IFields; titreOld?: ITitre },
-  userId?: string,
+  { fields }: { fields?: IFields },
   tr?: Transaction
 ) => {
-  const user = await userGet(userId)
-  if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-    throw new Error('droits insuffisants pour modifier ce type de titre')
-  }
-
-  if (
-    permissionCheck(user.permissionId, ['admin']) &&
-    (!titreOld ||
-      !(await titreTypeStatutPermissionAdministrationCheck(
-        titre,
-        titreOld.statutId!,
-        user,
-        'titres'
-      )) ||
-      (titreOld.typeId !== titre.typeId &&
-        !(await titreTypeStatutPermissionAdministrationCheck(
-          titreOld,
-          titreOld.statutId!,
-          user,
-          'titres'
-        ))))
-  ) {
-    throw new Error('droits insuffisants pour modifier ce type de titre')
-  }
-
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
 
-  return Titres.query(tr)
-    .upsertGraph(titre, options.titres.update)
-    .withGraphFetched(graph)
-    .returning('*')
+  const q = Titres.query(tr).withGraphFetched(graph)
+
+  return q.upsertGraph(titre, options.titres.update)
 }
 
 const titresAdministrationsGestionnairesCreate = async (
@@ -437,77 +381,8 @@ const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
   return transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
 
-    await titreUpsert(titre, { fields: {} }, 'super', tr)
+    await titreUpsert(titre, { fields: {} }, tr)
   })
-}
-
-/**
- * Vérifie que l'utilisateur fait partie d'au moins une administration gestionnaire sur le type de titre
- *
- * @param titre - titre en cours de manipulation
- * @param user - utilisateur
- * @param titreMode - mode d’édition
- * @returns si l’utilisateur a la permission ou non
- *
- */
-const titreTypePermissionAdministrationIdCheck = async (
-  titre: ITitre,
-  user: IUtilisateur,
-  titreMode: EditionMode
-) => {
-  const q = AdministrationsTitresTypes.query()
-    .whereIn(
-      'administrationId',
-      user.administrations!.map(administration => administration.id)
-    )
-    .where('titreTypeId', titre.typeId)
-
-  if (titreMode === 'creation') {
-    q.where('gestionnaire', true)
-  }
-
-  const res = (await (q.count('administrationId') as unknown)) as ICount[]
-
-  return res.length && res[0].count !== '0'
-}
-
-type EditionType = 'titres' | 'demarches' | 'etapes'
-type EditionMode = 'creation' | 'modification'
-
-/**
- * Vérifie que l'utilisateur fait partie d'au moins une administration gestionnaire sur le type de titre et qui n’est pas restreinte sur l’édition
- *
- * @param titre - titre en cours de manipulation
- * @param titreStatutId - statut actuel du titre
- * @param user - utilisateur qui fait l’action
- * @param type - type qu’on souhaite modifier
- * @returns si l’utilisateur a la permission ou non
- *
- */
-const titreTypeStatutPermissionAdministrationCheck = async (
-  titre: ITitre,
-  titreStatutId: string,
-  user: IUtilisateur,
-  type: EditionType
-) => {
-  if (
-    await titreTypePermissionAdministrationIdCheck(titre, user, 'modification')
-  ) {
-    // vérifie que le type de titre est éditable par l'administration
-    const administrationIds = user.administrations!.map(
-      administration => administration.id
-    )
-    const res = (await (AdministrationsTitresTypesTitresStatuts.query()
-      .whereIn('administrationId', administrationIds)
-      .where('titreTypeId', titre.typeId)
-      .where('titreStatutId', titreStatutId)
-      .where(`${type}ModificationInterdit`, true)
-      .count('administrationId') as unknown)) as ICount[]
-
-    return !res.length || res[0].count === '0'
-  }
-
-  return false
 }
 
 export {

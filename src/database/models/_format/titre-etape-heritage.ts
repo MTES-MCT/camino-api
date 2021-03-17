@@ -1,5 +1,6 @@
 import { IHeritageProps, IFields, IHeritageContenu } from '../../../types'
 import { titreEtapeGet } from '../../queries/titres-etapes'
+import { userSuper } from '../../user-super'
 
 const heritagePropsFormat = async (heritageProps: IHeritageProps) => {
   for (const propId of Object.keys(heritageProps)) {
@@ -16,7 +17,7 @@ const heritagePropsFormat = async (heritageProps: IHeritageProps) => {
       const titreEtape = await titreEtapeGet(
         heritageProps[propId].etapeId!,
         { fields },
-        'super'
+        userSuper
       )
 
       heritageProps[propId].etape = titreEtape
@@ -35,7 +36,7 @@ const heritageContenuFormat = async (heritageContenu: IHeritageContenu) => {
           const titreEtape = await titreEtapeGet(
             heritageContenu[sectionId][elementId].etapeId!,
             { fields },
-            'super'
+            userSuper
           )
 
           heritageContenu[sectionId][elementId].etape = titreEtape

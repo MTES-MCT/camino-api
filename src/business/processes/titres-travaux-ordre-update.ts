@@ -4,6 +4,7 @@ import PQueue from 'p-queue'
 import { titreTravauxUpdate } from '../../database/queries/titres-travaux'
 import titreTravauxAscSort from '../utils/titre-elements-sort-asc'
 import { titresGet } from '../../database/queries/titres'
+import { userSuper } from '../../database/user-super'
 
 const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -13,7 +14,7 @@ const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
   const titres = await titresGet(
     { ids: titresIds },
     { fields: { travaux: { etapes: { id: {} } } } },
-    'super'
+    userSuper
   )
 
   const titresTravauxIdsUpdated = [] as string[]

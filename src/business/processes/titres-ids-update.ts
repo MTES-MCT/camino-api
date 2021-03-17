@@ -7,6 +7,8 @@ import {
   titreGet,
   titresGet
 } from '../../database/queries/titres'
+import { userSuper } from '../../database/user-super'
+
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreFilePathsRename } from './titre-fichiers-rename'
 
@@ -20,7 +22,7 @@ const titreDoublonCheck = async (
 
   if (titreOldId === titreId) return { hash, noLog }
 
-  const titreWithTheSameId = await titreGet(titreId, {}, 'super')
+  const titreWithTheSameId = await titreGet(titreId, {}, userSuper)
 
   // si le titre est en doublon
   // s'il a déjà un hash
@@ -138,7 +140,7 @@ const titresIdsUpdate = async (titresIds?: string[]) => {
         activites: { documents: { id: {} } }
       }
     },
-    'super'
+    userSuper
   )
 
   // les transactions `titreIdUpdate` ne peuvent être exécutées en parallèle

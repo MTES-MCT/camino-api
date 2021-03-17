@@ -1,5 +1,5 @@
 import { IFields, IUtilisateur } from '../../../types'
-// import * as sqlFormatter from 'sql-formatter'
+// import { format } from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
 import { raw, QueryBuilder } from 'objection'
@@ -14,7 +14,7 @@ import {
   titresQueryModify,
   titresAdministrationsModificationQuery
 } from './titres'
-import { etapesTypesModificationQueryBuild } from './metas'
+import { administrationsEtapesTypesPropsQuery } from './metas'
 import { administrationsTitresQuery } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
 
@@ -45,14 +45,17 @@ const titresDemarchesQueryModify = (
         user?.administrations?.length
       ) {
         const administrationsIds = user.administrations.map(e => e.id)
-
-        b.orWhereExists(
-          administrationsTitresQuery(administrationsIds, 'titre', {
+        const administrationTitre = administrationsTitresQuery(
+          administrationsIds,
+          'titre',
+          {
             isGestionnaire: true,
             isAssociee: true,
             isLocale: true
-          })
+          }
         )
+
+        b.orWhereExists(administrationTitre)
       }
 
       // les entreprises peuvent voir les démarches
@@ -105,12 +108,9 @@ const titresDemarchesQueryModify = (
       fields,
       user
     )
-      // on group by titreId au cas où il y a une aggrégation
-      // dans la requête de titre (ex : calc activités)
-      .groupBy('titres.id')
   )
 
-  // fileCreate('test-3.sql', sqlFormatter.format(q.toKnexQuery().toString()))
+  // fileCreate('sql.sql', format(q.toKnexQuery().toString()))
 
   return q
 }
@@ -159,7 +159,7 @@ const titreEtapesCreationQuery = (
     const administrationsIds = user.administrations.map(e => e.id)
 
     return (
-      etapesTypesModificationQueryBuild(administrationsIds, 'creation')
+      administrationsEtapesTypesPropsQuery(administrationsIds, 'creation')
         // filtre selon la démarche
         .whereRaw('?? = ??', [
           'demarchesModification.id',

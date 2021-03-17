@@ -17,7 +17,6 @@ import options from './_options'
 import { titresEtapesQueryModify } from './permissions/titres-etapes'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
-import { userGet } from './utilisateurs'
 import TitresForets from '../models/titres-forets'
 
 const titresEtapesQueryBuild = (
@@ -58,14 +57,12 @@ const titresEtapesQueryBuild = (
   return q
 }
 
-// utilisé dans le daily et le résolver des documents uniquement
+// utilisé dans le daily et le resolver des documents uniquement
 const titreEtapeGet = async (
   titreEtapeId: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = titresEtapesQueryBuild({}, { fields }, user)
 
   q.context({ fetchHeritage })
@@ -85,10 +82,8 @@ const titresEtapesGet = async (
     titresDemarchesIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const user = userId ? await userGet(userId) : undefined
-
   const q = titresEtapesQueryBuild(
     { titresEtapesIds, etapesTypesIds, titresDemarchesIds },
     { fields },

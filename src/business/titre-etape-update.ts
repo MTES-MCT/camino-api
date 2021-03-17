@@ -20,6 +20,7 @@ import { titresPublicUpdate } from './processes/titres-public-update'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
+import { userSuper } from '../database/user-super'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -40,7 +41,7 @@ const titreEtapeUpdate = async (
           titre: { id: {} }
         }
       },
-      'super'
+      userSuper
     )
 
     if (!titreDemarche) {

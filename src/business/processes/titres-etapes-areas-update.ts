@@ -27,6 +27,7 @@ import {
 } from '../../database/queries/titres-etapes'
 import TitresCommunes from '../../database/models/titres-communes'
 import TitresForets from '../../database/models/titres-forets'
+import { userSuper } from '../../database/user-super'
 
 interface ITitreEtapeAreas {
   titreEtape: ITitreEtape
@@ -263,7 +264,7 @@ const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
     {
       fields: { points: { id: {} }, communes: { id: {} }, forets: { id: {} } }
     },
-    'super'
+    userSuper
   )
 
   const communes = await communesGet()

@@ -2,6 +2,7 @@ import '../../init'
 import fileCreate from '../../tools/file-create'
 
 import { administrationGet } from '../../database/queries/administrations'
+import { userGet } from '../../database/queries/utilisateurs'
 
 async function main() {
   // admin onf uniquement
@@ -17,7 +18,9 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  const res = await administrationGet(id, {}, userId)
+  const user = await userGet(userId)
+
+  const res = await administrationGet(id, {}, user)
 
   console.info(res)
 

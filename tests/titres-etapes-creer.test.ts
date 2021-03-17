@@ -5,6 +5,7 @@ import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
+import { userSuper } from '../src/database/user-super'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -36,8 +37,7 @@ const demarcheCreate = async () => {
         administrations.dgtmGuyane
       ]
     },
-    {},
-    'super'
+    {}
   )
 
   await titreDemarcheCreate(
@@ -47,7 +47,7 @@ const demarcheCreate = async () => {
       typeId: 'oct'
     },
     {},
-    'super'
+    userSuper
   )
 
   return 'demarche-test-id'
@@ -65,7 +65,7 @@ describe('etapeCreer', () => {
         permissionId
       )
 
-      expect(res.body.errors[0].message).toBe('droits insuffisants')
+      expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
     }
   )
 
@@ -124,7 +124,7 @@ describe('etapeCreer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour créer cette étape'
+      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
     )
   })
 
@@ -157,13 +157,23 @@ describe('etapeCreer', () => {
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'ede', statutId: 'fai', titreDemarcheId, date: '' } },
+      {
+        etape: {
+          typeId: 'ede',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: '',
+          heritageContenu: {
+            deal: { motifs: { actif: false }, agent: { actif: false } }
+          }
+        }
+      },
       'admin',
       administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour créer cette étape'
+      'statut de l\'étape "fai" invalide pour une type d\'étape ede pour une démarche de type octroi'
     )
   })
 })

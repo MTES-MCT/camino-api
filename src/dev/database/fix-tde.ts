@@ -2,12 +2,13 @@ import '../../init'
 
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import TitresEtapes from '../../database/models/titres-etapes'
+import { userSuper } from '../../database/user-super'
 
 async function main() {
   let demarches = await titresDemarchesGet(
     { titresDomainesIds: ['m'], titresTypesIds: ['ax'], typesIds: ['oct'] },
     { fields: { etapes: { id: {} } } },
-    'super'
+    userSuper
   )
 
   console.info('migration des étapes d’oct d’AXM')
@@ -25,7 +26,7 @@ async function main() {
   demarches = await titresDemarchesGet(
     { titresDomainesIds: ['m'], titresTypesIds: ['ar'], typesIds: ['oct'] },
     { fields: { etapes: { id: {} } } },
-    'super'
+    userSuper
   )
 
   console.info('migration des étapes d’oct d’ARM')

@@ -1,6 +1,7 @@
 import { IFormat } from '../../types'
 
 import { documentGet } from '../../database/queries/documents'
+import { userGet } from '../../database/queries/utilisateurs'
 
 const fichier = async (
   { documentId }: { documentId?: string },
@@ -9,6 +10,8 @@ const fichier = async (
   if (!documentId) {
     throw new Error('id du document absent')
   }
+
+  const user = await userGet(userId)
 
   const document = await documentGet(
     documentId,
@@ -21,7 +24,7 @@ const fichier = async (
         travauxEtape: { id: {} }
       }
     },
-    userId
+    user
   )
 
   if (!document || !document.fichier) {

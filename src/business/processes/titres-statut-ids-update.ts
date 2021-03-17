@@ -3,6 +3,7 @@ import * as dateFormat from 'dateformat'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { titreStatutIdFind } from '../rules/titre-statut-id-find'
+import { userSuper } from '../../database/user-super'
 
 const titresStatutIdsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -16,7 +17,7 @@ const titresStatutIdsUpdate = async (titresIds?: string[]) => {
         demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
       }
     },
-    'super'
+    userSuper
   )
 
   const titresUpdated = [] as string[]

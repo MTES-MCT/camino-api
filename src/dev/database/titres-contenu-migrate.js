@@ -9,6 +9,7 @@ import {
 } from '../../database/queries/titres-demarches'
 import TitresDemarches from '../../database/models/titres-demarches'
 import { objectClone } from '../../tools/index'
+import { userSuper } from '../../database/user-super'
 
 const valueExists = a => a !== undefined && a !== null
 
@@ -359,7 +360,7 @@ const titresDemarchesModifieesGet = (modifs, titres) =>
 
 async function titresContenuMigrate(options, modifs) {
   try {
-    const titres = await titresGet(options, {}, 'super')
+    const titres = await titresGet(options, {}, userSuper)
 
     console.info('titres à traîter :', titres.length)
 

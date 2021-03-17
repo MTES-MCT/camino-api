@@ -3,6 +3,7 @@ import PQueue from 'p-queue'
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 import { objectsDiffer } from '../../tools/index'
+import { userSuper } from '../../database/user-super'
 
 const titresContenusEtapesIdsUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -12,7 +13,7 @@ const titresContenusEtapesIdsUpdate = async (titresIds?: string[]) => {
   const titres = await titresGet(
     { ids: titresIds },
     { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
-    'super'
+    userSuper
   )
 
   const titresUpdated = titres.reduce((titresIdsUpdated: string[], titre) => {

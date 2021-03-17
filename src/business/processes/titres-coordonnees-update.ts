@@ -1,6 +1,7 @@
 import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
+import { userSuper } from '../../database/user-super'
 import { titreCoordonneesFind } from '../utils/titre-coordonnees-find'
 
 const titresCoordonneesUpdate = async (titresIds?: string[]) => {
@@ -11,7 +12,7 @@ const titresCoordonneesUpdate = async (titresIds?: string[]) => {
   const titres = await titresGet(
     { ids: titresIds },
     { fields: { points: { id: {} } } },
-    'super'
+    userSuper
   )
 
   const titresCoordonneesUpdated = [] as string[]

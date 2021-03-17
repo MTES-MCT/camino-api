@@ -5,6 +5,7 @@ import { documentCreate, documentGet } from '../src/database/queries/documents'
 import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
+import { userSuper } from '../src/database/user-super'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -45,7 +46,7 @@ describe('documentSupprimer', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe('aucun document avec cette id')
+    expect(res.body.errors[0].message).toBe("le document n'existe pas")
   })
 
   test('peut supprimer un document d’entreprise (utilisateur super)', async () => {
@@ -68,7 +69,7 @@ describe('documentSupprimer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data.documentSupprimer).toBeTruthy()
-    expect(await documentGet(documentId, {}, 'super')).toBeUndefined()
+    expect(await documentGet(documentId, {}, userSuper)).toBeUndefined()
   })
 
   test('ne peut pas supprimer un document d’entreprise lié à une étape (utilisateur super)', async () => {
@@ -102,8 +103,7 @@ describe('documentSupprimer', () => {
           }
         ]
       },
-      {},
-      'super'
+      {}
     )
 
     const documentId = 'document-id'
@@ -163,8 +163,7 @@ describe('documentSupprimer', () => {
           }
         ]
       },
-      {},
-      'super'
+      {}
     )
 
     const documentId = 'document-id'
@@ -184,6 +183,6 @@ describe('documentSupprimer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data.documentSupprimer).toBeTruthy()
-    expect(await documentGet(documentId, {}, 'super')).toBeUndefined()
+    expect(await documentGet(documentId, {}, userSuper)).toBeUndefined()
   })
 })

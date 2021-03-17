@@ -1,5 +1,6 @@
 import { titresTypesDemarchesTypesEtapesTypesGet } from '../../database/queries/metas'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
+import { userSuper } from '../../database/user-super'
 
 const titreTypeDemarcheTypeEtapeTypeCheck = async () => {
   console.info()
@@ -17,7 +18,7 @@ const titreTypeDemarcheTypeEtapeTypeCheck = async () => {
         etapes: { type: { id: {} } }
       }
     },
-    'super'
+    userSuper
   )
 
   let errorsNb = 0

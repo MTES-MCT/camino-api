@@ -27,6 +27,7 @@ const utilisateurUpdationValidate = async (
   isSuper: boolean
 ) => {
   const utilisateurOld = await userGet(utilisateur.id)
+
   if (!utilisateurOld) return ["l'utilisateur n'existe pas"]
 
   if (utilisateur.administrations && utilisateur.administrations.length > 1) {

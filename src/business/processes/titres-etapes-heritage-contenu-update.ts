@@ -8,6 +8,7 @@ import {
   etapeSectionsDictionaryBuild,
   titreEtapeHeritageContenuFind
 } from '../utils/titre-etape-heritage-contenu-find'
+import { userSuper } from '../../database/user-super'
 
 const titresEtapesHeritageContenuUpdate = async (
   titresDemarchesIds?: string[]
@@ -25,7 +26,7 @@ const titresEtapesHeritageContenuUpdate = async (
         titre: { id: {} }
       }
     },
-    'super'
+    userSuper
   )
 
   // lorsqu'une étape est mise à jour par un utilisateur,
