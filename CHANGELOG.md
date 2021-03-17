@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.75](https://github.com/MTES-MCT/camino-api/compare/v0.24.74...v0.24.75) (2021-03-17)
+
+
+### Features
+
+* rend les activités visibles aux administrations locales ([#687](https://github.com/MTES-MCT/camino-api/issues/687)) ([c6d084a](https://github.com/MTES-MCT/camino-api/commit/c6d084a2f61862bb97a83cc81d5a181dd6929325))
+* **arm:** permet de créer une demande d’octroi d’ARM en construction ([#686](https://github.com/MTES-MCT/camino-api/issues/686)) ([dac1ee4](https://github.com/MTES-MCT/camino-api/commit/dac1ee4299cc046d428f2e258881c2c9c5bc20d1))
+
+
+### Bug Fixes
+
+* **activités:** autorise les administrations locales à modifier les activités ([#694](https://github.com/MTES-MCT/camino-api/issues/694)) ([b7ecbac](https://github.com/MTES-MCT/camino-api/commit/b7ecbac43a40041c2351993a971607414a5bb2ab))
+* **activités:** corrige les droits des administrations sur les activités ([#696](https://github.com/MTES-MCT/camino-api/issues/696)) ([e79fa1c](https://github.com/MTES-MCT/camino-api/commit/e79fa1c83eea445de6e6fa5e5c92594d34bb6695))
+* corrige une erreur sql sur les activités ([#691](https://github.com/MTES-MCT/camino-api/issues/691)) ([8449abf](https://github.com/MTES-MCT/camino-api/commit/8449abfe302d0e87a372aa3e4d8281bbea60268b))
+* **administration:** corrige l'édition des restrictions sur les activités ([1d12e08](https://github.com/MTES-MCT/camino-api/commit/1d12e0895775f92d0f72649c42e3cb315a88eb59))
+
 ### [0.24.74](https://github.com/MTES-MCT/camino-api/compare/v0.24.73...v0.24.74) (2021-03-08)
 
 
