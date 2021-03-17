@@ -289,10 +289,15 @@ const activiteModifier = async (
       oldTitreActivite
     )
 
-    await documentsLink(context, activite, 'titreActiviteId', oldTitreActivite)
+    await documentsModifier(
+      context,
+      activite,
+      'titreActiviteId',
+      oldTitreActivite
+    )
 
     await titreActiviteUpdateQuery(activite.id, activite)
-      const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
+    const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
 
     if (!activiteRes) throw new Error("l'activité n'existe pas")
     const activiteFormated = titreActiviteFormat(activiteRes, fields)

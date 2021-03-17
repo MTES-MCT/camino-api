@@ -46,7 +46,7 @@ describe('documentSupprimer', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe("le document n'existe pas")
+    expect(res.body.errors[0].message).toBe('aucun document avec cette id')
   })
 
   test('peut supprimer un document d’entreprise (utilisateur super)', async () => {
