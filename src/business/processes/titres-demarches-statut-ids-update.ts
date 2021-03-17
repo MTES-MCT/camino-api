@@ -33,12 +33,7 @@ const titresDemarchesStatutIdUpdate = async (titresIds?: string[]) => {
 
       if (titreDemarche.statutId !== statutId) {
         queue.add(async () => {
-          await titreDemarcheUpdate(
-            titreDemarche.id,
-            { statutId },
-            { fields: { id: {} } },
-            userSuper
-          )
+          await titreDemarcheUpdate(titreDemarche.id, { statutId })
 
           const log = {
             type: 'titre / démarche : statut (mise à jour) ->',

@@ -261,7 +261,7 @@ const travauxTypeEtapeTypeDelete = async (
 
 /**
  * retourne les statuts de titre visible par l’utilisateur
- * @param userId - id de l’utilisateur
+ * @param user - utilisateur
  * @returns liste de statuts
  */
 const titresStatutsGet = async (user?: IUtilisateur) => {

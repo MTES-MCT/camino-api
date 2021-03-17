@@ -146,13 +146,20 @@ const titreCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const domaines = await domainesGet(null as never, { fields: {} }, user)
+    const domaines = await domainesGet(
+      null as never,
+      { fields: { titresTypes: { id: {} } } },
+      user
+    )
+    const titreType = domaines
+      .find(d => d.id === titre.domaineId)
+      ?.titresTypes.find(tt => tt.id === titre.typeId)
 
-    if (!user || !domaines.find(d => d.id === titre.domaineId)?.titresCreation)
+    if (!user || !titreType?.titresCreation)
       throw new Error('droits insuffisants')
 
     // insert le titre dans la base
-    titre = await titreCreate(titre, {}, user)
+    titre = await titreCreate(titre, { fields: {} })
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
@@ -194,7 +201,7 @@ const titreModifier = async (
 
     // on doit utiliser upsert (plutôt qu'un simple update)
     // car le titre contient des références (tableau d'objet)
-    await titreUpsert(titre, { fields }, user)
+    await titreUpsert(titre, { fields })
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 

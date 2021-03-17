@@ -19,7 +19,6 @@ import { titresFieldsAdd } from './graph/fields-add'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
-import { userSuper } from '../user-super'
 
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
@@ -55,14 +54,13 @@ const titresQueryBuild = (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur,
-  tr?: Transaction
+  user?: IUtilisateur
 ) => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
 
-  const q = Titres.query(tr).withGraphFetched(graph)
+  const q = Titres.query().withGraphFetched(graph)
 
   titresQueryModify(q, fields, user)
 
@@ -331,14 +329,14 @@ const titresCount = async (
  * @returns le nouveau titre
  *
  */
-const titreCreate = async (
-  titre: ITitre,
-  { fields }: { fields?: IFields }, // eslint-disable-line @typescript-eslint/no-unused-vars
-  user?: IUtilisateur
-) => {
-  const q = titresQueryBuild({}, { fields }, user)
+const titreCreate = async (titre: ITitre, { fields }: { fields?: IFields }) => {
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
+    : options.titres.graph
 
-  return q.insertGraph(titre, options.titres.update)
+  return Titres.query()
+    .withGraphFetched(graph)
+    .insertGraph(titre, options.titres.update)
 }
 
 const titreUpdate = async (id: string, props: Partial<ITitre>) =>
@@ -350,10 +348,13 @@ const titreDelete = async (id: string, tr?: Transaction) =>
 const titreUpsert = async (
   titre: ITitre,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur,
   tr?: Transaction
 ) => {
-  const q = titresQueryBuild({}, { fields }, user, tr)
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
+    : options.titres.graph
+
+  const q = Titres.query(tr).withGraphFetched(graph)
 
   return q.upsertGraph(titre, options.titres.update)
 }
@@ -380,7 +381,7 @@ const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
   return transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
 
-    await titreUpsert(titre, { fields: {} }, userSuper, tr)
+    await titreUpsert(titre, { fields: {} }, tr)
   })
 }
 

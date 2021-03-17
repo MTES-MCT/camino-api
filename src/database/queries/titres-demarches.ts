@@ -14,6 +14,7 @@ import {
   raw,
   RawBuilder
 } from 'objection'
+
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 import { fieldsFormat } from './graph/fields-format'
@@ -350,14 +351,8 @@ const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
 
 const titreDemarcheUpdate = async (
   id: string,
-  props: Partial<ITitreDemarche>,
-  { fields }: { fields?: IFields },
-  user?: IUtilisateur
-) => {
-  const q = titresDemarchesQueryBuild({}, { fields }, user)
-
-  return q.patchAndFetchById(id, props)
-}
+  props: Partial<ITitreDemarche>
+) => TitresDemarches.query().patchAndFetchById(id, props)
 
 const titreDemarcheUpsert = async (
   titreDemarche: ITitreDemarche,

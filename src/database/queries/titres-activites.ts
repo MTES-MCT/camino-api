@@ -208,7 +208,7 @@ const titresActivitesColonnes = {
  * @param titresDomainesIds - tableau de domaine(s)
  * @param titresStatutsIds - tableau de statut(s) de titre
  * @param fields - propriétés demandées
- * @param userId - utilisateur
+ * @param user - utilisateur
  * @returns une liste d'activités
  *
  */
@@ -308,7 +308,7 @@ const titresActivitesGet = async (
  * @param titresDomainesIds - tableau de domaine(s)
  * @param titresStatutsIds - tableau de statut(s) de titre
  * @param fields - propriétés demandées
- * @param userId - utilisateur
+ * @param user - utilisateur
  * @returns un entier
  *
  */
@@ -373,17 +373,8 @@ const titresActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
 
 const titreActiviteUpdate = async (
   id: string,
-  props: Partial<ITitreActivite>,
-  { fields }: { fields?: IFields }
-) => {
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
-    : options.titresActivites.graph
-
-  return TitresActivites.query()
-    .withGraphFetched(graph)
-    .patchAndFetchById(id, props)
-}
+  props: Partial<ITitreActivite>
+) => TitresActivites.query().patchAndFetchById(id, props)
 
 const titreActiviteDelete = async (
   id: string,

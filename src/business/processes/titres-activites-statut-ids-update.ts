@@ -29,7 +29,7 @@ const titresActivitesStatutIdsUpdate = async () => {
       queue.add(async () => {
         titreActivite.statutId = statutId
 
-        await titreActiviteUpdate(titreActivite.id, { statutId }, {})
+        await titreActiviteUpdate(titreActivite.id, { statutId })
 
         const log = {
           type: 'titre / activité : statut (mise à jour) ->',

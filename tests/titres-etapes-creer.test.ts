@@ -37,8 +37,7 @@ const demarcheCreate = async () => {
         administrations.dgtmGuyane
       ]
     },
-    {},
-    userSuper
+    {}
   )
 
   await titreDemarcheCreate(

@@ -15,7 +15,6 @@ import { titreCreate } from '../src/database/queries/titres'
 import { documentCreate } from '../src/database/queries/documents'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
 import { ITitreEtapeJustificatif } from '../src/types'
-import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -262,8 +261,7 @@ describe('entreprise', () => {
           }
         ]
       },
-      {},
-      userSuper
+      {}
     )
 
     const documentId = 'document-id'

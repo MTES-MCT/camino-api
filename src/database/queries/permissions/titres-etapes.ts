@@ -9,7 +9,7 @@ import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
 
 import { documentsQueryModify } from './documents'
-import { etapesTypesModificationQueryBuild } from './metas'
+import { administrationsEtapesTypesPropsQuery } from './metas'
 import {
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
@@ -26,7 +26,7 @@ const titreEtapeModificationQueryBuild = (user?: IUtilisateur) => {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
     return (
-      etapesTypesModificationQueryBuild(administrationsIds, 'modification')
+      administrationsEtapesTypesPropsQuery(administrationsIds, 'modification')
         .whereRaw('?? = ??', [
           'demarchesModification.id',
           'titresEtapes.titreDemarcheId'

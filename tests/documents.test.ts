@@ -103,8 +103,7 @@ describe('documentSupprimer', () => {
           }
         ]
       },
-      {},
-      userSuper
+      {}
     )
 
     const documentId = 'document-id'
@@ -164,8 +163,7 @@ describe('documentSupprimer', () => {
           }
         ]
       },
-      {},
-      userSuper
+      {}
     )
 
     const documentId = 'document-id'

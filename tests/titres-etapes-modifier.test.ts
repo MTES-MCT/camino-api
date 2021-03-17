@@ -38,8 +38,7 @@ async function etapeCreate() {
         administrations.dgtmGuyane
       ]
     },
-    {},
-    userSuper
+    {}
   )
   const titreDemarcheId = 'demarche-test-id'
   await titreDemarcheCreate(

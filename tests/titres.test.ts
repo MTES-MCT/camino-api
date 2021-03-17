@@ -10,7 +10,6 @@ import {
   titreActivites
 } from './__mocks__/titres'
 import { titreCreate } from '../src/database/queries/titres'
-import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -31,7 +30,7 @@ describe('titre', () => {
   const titreQuery = queryImport('titre')
 
   test('peut voir un titre qui est en "lecture publique" (utilisateur anonyme)', async () => {
-    await titreCreate(titrePublicLecture, {}, userSuper)
+    await titreCreate(titrePublicLecture, {})
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
@@ -41,7 +40,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir un titre qui n\'est pas en "lecture publique" (utilisateur anonyme)', async () => {
-    await titreCreate(titrePublicLectureFalse, {}, userSuper)
+    await titreCreate(titrePublicLectureFalse, {})
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
@@ -49,7 +48,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir que les démarches qui sont en "lecture publique" (utilisateur anonyme)', async () => {
-    await titreCreate(titreDemarchesPubliques, {}, userSuper)
+    await titreCreate(titreDemarchesPubliques, {})
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
@@ -64,7 +63,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir les activités (utilisateur anonyme)', async () => {
-    await titreCreate(titreActivites, {}, userSuper)
+    await titreCreate(titreActivites, {})
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
@@ -78,7 +77,7 @@ describe('titre', () => {
   })
 
   test('ne peut voir que les étapes qui sont en "lecture publique" (utilisateur anonyme)', async () => {
-    await titreCreate(titreEtapesPubliques, {}, userSuper)
+    await titreCreate(titreEtapesPubliques, {})
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
@@ -97,7 +96,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir certaines étapes (utilisateur DGTM)', async () => {
-    await titreCreate(titreEtapesPubliques, {}, userSuper)
+    await titreCreate(titreEtapesPubliques, {})
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -130,7 +129,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir certaines étapes (utilisateur ONF)', async () => {
-    await titreCreate(titreEtapesPubliques, {}, userSuper)
+    await titreCreate(titreEtapesPubliques, {})
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -164,7 +163,7 @@ describe('titre', () => {
   })
 
   test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
-    await titreCreate(titreWithActiviteGrp, {}, userSuper)
+    await titreCreate(titreWithActiviteGrp, {})
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -179,7 +178,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir les activités GRP (utilisateur CACEM)', async () => {
-    await titreCreate(titreWithActiviteGrp, {}, userSuper)
+    await titreCreate(titreWithActiviteGrp, {})
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -283,8 +282,7 @@ describe('titreModifier', () => {
           administrations.dgtmGuyane
         ]
       },
-      {},
-      userSuper
+      {}
     )
   })
 
@@ -361,8 +359,7 @@ describe('titreModifier', () => {
           administrations.dgtmGuyane
         ]
       },
-      {},
-      userSuper
+      {}
     )
 
     const res = await graphQLCall(
@@ -410,8 +407,7 @@ describe('titreSupprimer', () => {
         typeId: 'arm',
         propsTitreEtapesIds: {}
       },
-      {},
-      userSuper
+      {}
     )
   })
 

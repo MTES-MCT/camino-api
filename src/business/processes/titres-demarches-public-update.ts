@@ -58,12 +58,7 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
 
       if (Object.keys(publicUpdate).length) {
         queue.add(async () => {
-          await titreDemarcheUpdate(
-            titreDemarche.id,
-            publicUpdate,
-            { fields: { id: {} } },
-            userSuper
-          )
+          await titreDemarcheUpdate(titreDemarche.id, publicUpdate)
 
           const log = {
             type: 'titre / démarche : publique (mise à jour) ->',

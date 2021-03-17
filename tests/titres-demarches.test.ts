@@ -3,7 +3,6 @@ import { graphQLCall, queryImport } from './_utils/index'
 import { titreCreate } from '../src/database/queries/titres'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapeUpsert } from '../src/database/queries/titres-etapes'
-import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -24,17 +23,41 @@ describe('demarcheCreer', () => {
   const demarcheCreerQuery = queryImport('titres-demarches-creer')
 
   test('ne peut pas créer une démarche (utilisateur anonyme)', async () => {
+    await titreCreate(
+      {
+        id: 'titre-id',
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm',
+        propsTitreEtapesIds: {},
+        publicLecture: true
+      },
+      {}
+    )
+
     const res = await graphQLCall(demarcheCreerQuery, {
-      demarche: { titreId: '', typeId: '' }
+      demarche: { titreId: 'titre-id', typeId: 'dpu' }
     })
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test('ne peut pas créer une démarche (utilisateur editeur)', async () => {
+    await titreCreate(
+      {
+        id: 'titre-id',
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm',
+        propsTitreEtapesIds: {},
+        publicLecture: true
+      },
+      {}
+    )
+
     const res = await graphQLCall(
       demarcheCreerQuery,
-      { demarche: { titreId: '', typeId: '' } },
+      { demarche: { titreId: 'titre-id', typeId: 'dpu' } },
       'editeur'
     )
 
@@ -101,8 +124,7 @@ describe('demarcheCreer', () => {
         administrationsGestionnaires: [administrations.ptmg],
         propsTitreEtapesIds: {}
       },
-      {},
-      userSuper
+      {}
     )
 
     const res = await graphQLCall(
@@ -287,8 +309,7 @@ const demarcheCreate = async () => {
       ],
       propsTitreEtapesIds: {}
     },
-    {},
-    userSuper
+    {}
   )
 
   const resDemarchesCreer = await graphQLCall(

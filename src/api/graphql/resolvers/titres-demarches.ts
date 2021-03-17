@@ -225,12 +225,7 @@ const demarcheModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    const demarcheUpdated = await titreDemarcheUpdate(
-      demarche.id,
-      demarche,
-      { fields: { id: {} } },
-      user
-    )
+    const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       demarcheUpdated.id,

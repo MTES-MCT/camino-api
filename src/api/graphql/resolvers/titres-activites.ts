@@ -275,9 +275,7 @@ const activiteModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const activiteRes = await titreActiviteUpdateQuery(activite.id, activite, {
-      fields
-    })
+    const activiteRes = await titreActiviteUpdateQuery(activite.id, activite)
 
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
