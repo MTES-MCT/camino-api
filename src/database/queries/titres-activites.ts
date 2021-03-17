@@ -143,7 +143,7 @@ const titreActiviteGet = async (
  *
  */
 
-const activitesAnneesGet = async (user?: IUtilisateur) => {
+const titresActivitesAnneesGet = async (user?: IUtilisateur) => {
   if (!user?.permissionId) return []
 
   const q = TitresActivites.query()
@@ -151,14 +151,10 @@ const activitesAnneesGet = async (user?: IUtilisateur) => {
   titresActivitesQueryModify(q, user, false)
 
   q.select('annee')
-  q.groupBy('annee', 'titresActivites.id')
+  q.groupBy('annee')
   q.orderBy('annee', 'desc')
 
-  const titreActivites = await q
-
-  const annees = titreActivites.map(ta => ta.annee)
-
-  return annees
+  return q
 }
 
 const titresActivitesColonnes = {
@@ -394,6 +390,6 @@ export {
   titresActivitesUpsert,
   titresActivitesGet,
   titreActiviteUpdate,
-  activitesAnneesGet,
+  titresActivitesAnneesGet,
   titreActiviteDelete
 }
