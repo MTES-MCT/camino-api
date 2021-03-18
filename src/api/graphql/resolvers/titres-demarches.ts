@@ -165,11 +165,7 @@ const demarcheCreer = async (
 
     if (!titre.demarchesCreation) throw new Error('droits insuffisants')
 
-    const demarcheCreated = await titreDemarcheCreate(
-      demarche,
-      { fields: { id: {} } },
-      user
-    )
+    const demarcheCreated = await titreDemarcheCreate(demarche)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       demarcheCreated.id,
@@ -224,11 +220,11 @@ const demarcheModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
+    await titreDemarcheUpdate(demarche.id, demarche)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
-      demarcheUpdated.id,
-      demarcheUpdated.titreId
+      demarche.id,
+      demarche.titreId
     )
 
     const fields = fieldsBuild(info)

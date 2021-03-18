@@ -156,14 +156,9 @@ const administrationModifier = async (
       throw new Error(errors.join(', '))
     }
 
-    const administrationUpdated = await administrationUpdate(
-      administration.id,
-      administration
-    )
+    await administrationUpdate(administration.id, administration)
 
-    const administrationId = await administrationUpdateTask(
-      administrationUpdated.id
-    )
+    const administrationId = await administrationUpdateTask(administration.id)
 
     const fields = fieldsBuild(info)
 

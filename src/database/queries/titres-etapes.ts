@@ -100,10 +100,8 @@ const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
     .insertAndFetch(titreEtape)
     .withGraphFetched(options.titresEtapes.graph)
 
-const titreEtapeUpdate = async (id: string, props: Partial<ITitreEtape>) =>
-  TitresEtapes.query()
-    .withGraphFetched(options.titresEtapes.graph)
-    .patchAndFetchById(id, props)
+const titreEtapeUpdate = async (id: string, titreEtape: Partial<ITitreEtape>) =>
+  TitresEtapes.query().patch(titreEtape).findById(id)
 
 const titreEtapeDelete = async (id: string, trx?: Transaction) =>
   TitresEtapes.query(trx)

@@ -193,7 +193,7 @@ const utilisateurTokenCreer = async (
 
     const { accessToken, refreshToken } = userTokensCreate(user)
 
-    await utilisateurUpdate(user.id, { refreshToken }, fields.utilisateur)
+    await utilisateurUpdate(user.id, { refreshToken })
 
     return {
       utilisateur: userFormat(user),

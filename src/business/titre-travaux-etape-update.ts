@@ -1,4 +1,4 @@
-import { titreTravauxGet } from '../database/queries/titres-travaux'
+import { titresTravauGet } from '../database/queries/titres-travaux'
 import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { logsUpdate } from './_logs-update'
@@ -9,7 +9,7 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
     console.info('- - -')
     console.info(`mise à jour d'une étape de travaux : ${titreTravauxId}`)
 
-    const titreTravaux = await titreTravauxGet(titreTravauxId, {
+    const titreTravaux = await titresTravauGet(titreTravauxId, {
       fields: {
         etapes: { id: {} },
         type: { etapesTypes: { id: {} } },

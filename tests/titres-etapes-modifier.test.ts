@@ -6,7 +6,6 @@ import { titreCreate } from '../src/database/queries/titres'
 import { titreEtapeCreate } from '../src/database/queries/titres-etapes'
 import { IPermissionId } from '../src/types'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
-import { userSuper } from '../src/database/user-super'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -41,15 +40,11 @@ async function etapeCreate() {
     {}
   )
   const titreDemarcheId = 'demarche-test-id'
-  await titreDemarcheCreate(
-    {
-      id: titreDemarcheId,
-      titreId,
-      typeId: 'oct'
-    },
-    {},
-    userSuper
-  )
+  await titreDemarcheCreate({
+    id: titreDemarcheId,
+    titreId,
+    typeId: 'oct'
+  })
 
   const titreEtapeId = 'etape-test-id'
   await titreEtapeCreate({

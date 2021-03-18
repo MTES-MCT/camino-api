@@ -4,7 +4,10 @@ import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { userSuper } from '../../database/user-super'
 import titrePublicFind from '../rules/titre-public-find'
 
-type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }
+type ITitrePatch = {
+  publicLecture: boolean
+  entreprisesLecture: boolean
+}
 
 // met à jour la publicité d'un titre
 const titresPublicUpdate = async (titresIds?: string[]) => {
@@ -34,23 +37,23 @@ const titresPublicUpdate = async (titresIds?: string[]) => {
       titre.demarches || []
     )
 
-    const publicUpdate = {} as IPublicUpdate
+    const patch = {} as ITitrePatch
 
     if (titre.publicLecture !== publicLecture) {
-      publicUpdate.publicLecture = publicLecture
+      patch.publicLecture = publicLecture
     }
 
     if (titre.entreprisesLecture !== entreprisesLecture) {
-      publicUpdate.entreprisesLecture = entreprisesLecture
+      patch.entreprisesLecture = entreprisesLecture
     }
 
-    if (Object.keys(publicUpdate).length) {
+    if (Object.keys(patch).length) {
       queue.add(async () => {
-        await titreUpdate(titre.id, publicUpdate)
+        await titreUpdate(titre.id, patch)
 
         const log = {
           type: 'titre : public (mise à jour) ->',
-          value: `${titre.id} : ${JSON.stringify(publicUpdate)}`
+          value: `${titre.id} : ${JSON.stringify(patch)}`
         }
 
         console.info(log.type, log.value)

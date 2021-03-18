@@ -5,7 +5,6 @@ import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
-import { userSuper } from '../src/database/user-super'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -40,15 +39,11 @@ const demarcheCreate = async () => {
     {}
   )
 
-  await titreDemarcheCreate(
-    {
-      id: 'demarche-test-id',
-      titreId,
-      typeId: 'oct'
-    },
-    {},
-    userSuper
-  )
+  await titreDemarcheCreate({
+    id: 'demarche-test-id',
+    titreId,
+    typeId: 'oct'
+  })
 
   return 'demarche-test-id'
 }

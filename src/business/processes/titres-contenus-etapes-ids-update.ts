@@ -33,9 +33,7 @@ const titresContenusEtapesIdsUpdate = async (titresIds?: string[]) => {
 
     if (hasChanged) {
       queue.add(async () => {
-        await titreUpdate(titre.id, {
-          contenusTitreEtapesIds
-        })
+        await titreUpdate(titre.id, { contenusTitreEtapesIds })
 
         const log = {
           type: 'titre : props-contenu-etape (mise à jour) ->',

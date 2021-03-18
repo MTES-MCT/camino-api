@@ -329,19 +329,10 @@ const titreDemarcheGet = async (
 /**
  * Crée une nouvelle démarche
  * @param titreDemarche - démarche à créer
- * @param fields
- * @param userId - id de l’utilisateur
  * @returns la nouvelle démarche
  */
-const titreDemarcheCreate = async (
-  titreDemarche: ITitreDemarche,
-  { fields }: { fields?: IFields },
-  user?: IUtilisateur
-) => {
-  const q = titresDemarchesQueryBuild({}, { fields }, user)
-
-  return q.insertAndFetch(titreDemarche)
-}
+const titreDemarcheCreate = async (titreDemarche: ITitreDemarche) =>
+  TitresDemarches.query().insertAndFetch(titreDemarche)
 
 const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
   TitresDemarches.query(trx)
@@ -351,8 +342,8 @@ const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
 
 const titreDemarcheUpdate = async (
   id: string,
-  props: Partial<ITitreDemarche>
-) => TitresDemarches.query().patchAndFetchById(id, props)
+  titreDemarche: Partial<ITitreDemarche>
+) => TitresDemarches.query().patch(titreDemarche).findById(id)
 
 const titreDemarcheUpsert = async (
   titreDemarche: ITitreDemarche,

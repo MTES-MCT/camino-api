@@ -29,11 +29,7 @@ const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
         (titreTravaux: ITitreTravaux, index: number) => {
           if (titreTravaux.ordre !== index + 1) {
             queue.add(async () => {
-              await titreTravauxUpdate(
-                titreTravaux.id,
-                { ordre: index + 1 },
-                { fields: { id: {} } }
-              )
+              await titreTravauxUpdate(titreTravaux.id, { ordre: index + 1 })
 
               const log = {
                 type: 'titre / travaux : ordre (mise à jour) ->',

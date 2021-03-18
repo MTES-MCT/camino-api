@@ -3,7 +3,7 @@ import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../../config/index'
 import fieldsBuild from './_fields-build'
 
-import { titreTravauxGet } from '../../../database/queries/titres-travaux'
+import { titresTravauGet } from '../../../database/queries/titres-travaux'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { titreGet } from '../../../database/queries/titres'
 
@@ -26,7 +26,7 @@ const travauxEtapeCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const titreTravaux = await titreTravauxGet(etape.titreTravauxId, {}, user)
+    const titreTravaux = await titresTravauGet(etape.titreTravauxId, {}, user)
 
     if (!titreTravaux) throw new Error("les travaux n'existent pas")
 
@@ -72,7 +72,7 @@ const travauxEtapeModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const titreTravaux = await titreTravauxGet(
+    const titreTravaux = await titresTravauGet(
       etape.titreTravauxId,
       { fields: {} },
       user

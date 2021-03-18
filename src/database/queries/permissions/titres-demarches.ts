@@ -56,12 +56,7 @@ const titresDemarchesQueryModify = (
         )
 
         b.orWhereExists(administrationTitre)
-      }
-
-      // les entreprises peuvent voir les démarches
-      // des titres dont elles sont titulaires ou amodiataires
-      // si elles sont visibles aux entreprises
-      else if (
+      } else if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
