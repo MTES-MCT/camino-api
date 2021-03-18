@@ -15,7 +15,7 @@ import {
   titreActiviteGet,
   titresActivitesCount,
   titresActivitesGet,
-  activitesAnneesGet,
+  titresActivitesAnneesGet,
   titreActiviteUpdate as titreActiviteUpdateQuery,
   titreActiviteDelete
 } from '../../../database/queries/titres-activites'
@@ -208,9 +208,10 @@ const activites = async (
 const activitesAnnees = async (_: never, context: IToken) => {
   try {
     const user = await userGet(context.user?.id)
-    const annees = await activitesAnneesGet(user)
+    const titreActivites = await titresActivitesAnneesGet(user)
 
-    if (!annees || !annees.length) return []
+    if (!titreActivites || !titreActivites.length) return []
+    const annees = titreActivites.map(ta => ta.annee)
 
     return annees
   } catch (e) {
