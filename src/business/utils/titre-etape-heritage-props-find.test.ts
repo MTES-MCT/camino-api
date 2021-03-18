@@ -312,7 +312,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
     )
 
     const newTitreEtape = objectClone(titreEtape)
-    newTitreEtape.incertitudes = {}
+    newTitreEtape.incertitudes = null
 
     expect(
       titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
