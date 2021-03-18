@@ -254,7 +254,7 @@ class TitresEtapes extends Model {
       })
 
       if (!Object.keys(json.incertitudes).length) {
-        delete json.incertitudes
+        json.incertitudes = null
       }
     }
 

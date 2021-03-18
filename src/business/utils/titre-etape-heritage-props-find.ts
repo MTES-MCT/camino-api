@@ -152,26 +152,29 @@ const titreEtapeHeritagePropsFind = (
         }
 
         const incertitudePropId = propId as keyof ITitreIncertitudes
-        // si l’incertitude est déjà présente, on la supprime
+
         if (
           newTitreEtape.incertitudes &&
-          newTitreEtape.incertitudes[incertitudePropId]
-        ) {
-          hasChanged = true
-          newTitreEtape = objectClone(newTitreEtape)
-          delete newTitreEtape.incertitudes![incertitudePropId]
-        }
-        // si il y a une incertitude sur l’étape précédente, alors on la recopie
-        if (
           prevTitreEtape.incertitudes &&
-          prevTitreEtape.incertitudes[incertitudePropId]
+          newTitreEtape.incertitudes[incertitudePropId] !==
+            prevTitreEtape.incertitudes[incertitudePropId]
         ) {
           hasChanged = true
           newTitreEtape = objectClone(newTitreEtape)
-          if (!newTitreEtape.incertitudes) {
-            newTitreEtape.incertitudes = {}
-          }
-
+          newTitreEtape.incertitudes![incertitudePropId] =
+            prevTitreEtape.incertitudes[incertitudePropId]
+        } else if (newTitreEtape.incertitudes && !prevTitreEtape.incertitudes) {
+          hasChanged = true
+          newTitreEtape = objectClone(newTitreEtape)
+          newTitreEtape.incertitudes = null
+        } else if (
+          prevTitreEtape.incertitudes &&
+          prevTitreEtape.incertitudes[incertitudePropId] &&
+          !newTitreEtape.incertitudes
+        ) {
+          hasChanged = true
+          newTitreEtape = objectClone(newTitreEtape)
+          newTitreEtape.incertitudes = {}
           newTitreEtape.incertitudes![incertitudePropId] =
             prevTitreEtape.incertitudes[incertitudePropId]
         }
