@@ -82,8 +82,6 @@ import {
   unites,
   uniteModifier,
   version,
-  activitesTypes,
-  activitesStatuts,
   definitions,
   definitionModifier,
   administrationsTypes,
@@ -95,6 +93,19 @@ import {
   referenceTypeModifier,
   geoSystemeModifier
 } from './resolvers/metas'
+
+import {
+  activitesTypes,
+  activiteTypeModifier,
+  activitesStatuts,
+  activiteStatutModifier,
+  activiteTypeTitreTypeCreer,
+  activiteTypeTitreTypeSupprimer,
+  activiteTypeDocumentTypeCreer,
+  activiteTypeDocumentTypeSupprimer,
+  activiteTypePaysCreer,
+  activiteTypePaysSupprimer
+} from './resolvers/metas-activites'
 
 import {
   titresTypes,
@@ -214,8 +225,6 @@ export default {
   activite,
   activites,
   activitesAnnees,
-  activitesTypes,
-  activitesStatuts,
   definitions,
   administrationsTypes,
   regions,
@@ -225,6 +234,8 @@ export default {
   titresTypesDemarchesTypesEtapesTypes,
   etapesTypesEtapesStatuts,
   travauxTypesEtapesTypes,
+  activitesTypes,
+  activitesStatuts,
 
   // mutations
   titreCreer,
@@ -307,5 +318,14 @@ export default {
 
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,
-  travauxTypeEtapeTypeSupprimer
+  travauxTypeEtapeTypeSupprimer,
+
+  activiteTypeModifier,
+  activiteStatutModifier,
+  activiteTypeTitreTypeCreer,
+  activiteTypeTitreTypeSupprimer,
+  activiteTypeDocumentTypeCreer,
+  activiteTypeDocumentTypeSupprimer,
+  activiteTypePaysCreer,
+  activiteTypePaysSupprimer
 }

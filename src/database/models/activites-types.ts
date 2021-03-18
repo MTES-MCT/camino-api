@@ -30,8 +30,8 @@ class ActivitesTypes extends Model {
       join: {
         from: 'activitesTypes.id',
         through: {
-          from: 'titresTypes__activitesTypes.activiteTypeId',
-          to: 'titresTypes__activitesTypes.titreTypeId'
+          from: 'activitesTypes__titresTypes.activiteTypeId',
+          to: 'activitesTypes__titresTypes.titreTypeId'
         },
         to: 'titresTypes.id'
       }

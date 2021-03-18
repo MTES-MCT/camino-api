@@ -1,4 +1,4 @@
-import { rmdir, writeFileSync } from 'fs'
+import { rm, writeFileSync } from 'fs'
 import * as makeDir from 'make-dir'
 import * as decamelize from 'decamelize'
 
@@ -10,7 +10,7 @@ import { tables } from './tables'
 const dir = 'sources'
 
 const databaseToJsonExport = async () => {
-  await rmdir(`./${dir}`, { recursive: true }, err => {
+  await rm(`./${dir}`, { recursive: true, force: true }, err => {
     if (err) {
       throw err
     }
@@ -25,6 +25,8 @@ const databaseToJsonExport = async () => {
 
     if (json) {
       writeFileSync(filePath, JSON.stringify(json, null, 2))
+    } else {
+      console.error(`la table ${table} est vide`)
     }
   }
 }

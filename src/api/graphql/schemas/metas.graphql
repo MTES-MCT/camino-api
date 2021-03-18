@@ -250,7 +250,7 @@ type Definition {
   nom: String!
   slug: String!
   description: String
-  couleur: String
+  couleur: Couleur
   ordre: Int
   elements: [Definition]
 }
@@ -343,7 +343,7 @@ input InputDefinition {
   nom: String
   slug: String
   description: String
-  couleur: String
+  couleur: Couleur
   ordre: Int
 }
 

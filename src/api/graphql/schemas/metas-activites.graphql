@@ -1,17 +1,68 @@
 type ActiviteStatut {
   id: ID!
   nom: String!
-  couleur: String!
+  couleur: Couleur!
 }
 
 type ActiviteType {
   id: ID!
   nom: String!
-  sections: Json!
+  ordre: Int
+  dateDebut: String!
+  delaiMois: Int!
   frequence: Frequence!
+  sections: Json!
   pays: [Pays!]
   documentsTypes: [DocumentType]
-
+  email: String
+  satisfactionUrl: String
   lectureInterdit: Boolean
   modificationInterdit: Boolean
+}
+
+type ActiviteTypeTitreType {
+  activiteTypeId: ID!
+  titreTypeId: ID!
+}
+
+type ActiviteTypeDocumentType {
+  activiteTypeId: ID!
+  documentTypeId: ID!
+}
+
+type ActiviteTypePays {
+  activiteTypeId: ID!
+  paysId: ID!
+}
+
+input InputActiviteStatut {
+  id: ID!
+  nom: String!
+  couleur: Couleur!
+}
+
+input InputActiviteType {
+  id: ID!
+  nom: String!
+  dateDebut: String!
+  delaiMois: Int!
+  frequenceId: ID!
+  sections: Json!
+  email: String
+  satisfactionUrl: String
+}
+
+input InputActiviteTypeTitreType {
+  activiteTypeId: ID!
+  titreTypeId: ID!
+}
+
+input InputActiviteTypeDocumentType {
+  activiteTypeId: ID!
+  documentTypeId: ID!
+}
+
+input InputActiviteTypePays {
+  activiteTypeId: ID!
+  paysId: ID!
 }

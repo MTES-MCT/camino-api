@@ -46,11 +46,12 @@ type ITitreActiviteColonneId = 'titreNom' | 'titulaire' | 'periode' | 'statut'
 type IUtilisateursColonneId = 'nom' | 'prenom' | 'email' | 'permission' | 'lien'
 type IEntrepriseColonneId = 'nom' | 'siren'
 type IAdministrationColonneId = 'abreviation' | 'nom' | 'type'
+type ICouleur = 'error' | 'info' | 'neutral' | 'success' | 'warning'
 
 interface IActiviteStatut {
   id: string
   nom: string
-  couleur: string
+  couleur: ICouleur
 }
 
 interface IContenuId {
@@ -124,12 +125,20 @@ interface ISectionElement {
 }
 
 interface IActiviteTypeDocumentType extends IDocumentType {
+  activiteTypeId: string
+  documentTypeId: string
   optionnel: boolean
+}
+
+interface IActiviteTypePays {
+  activiteTypeId: string
+  paysId: string
 }
 
 interface IActiviteType {
   id: string
   nom: string
+  ordre: number
   frequenceId: string
   dateDebut: string
   delaiMois: number
@@ -203,7 +212,7 @@ interface IDemarcheStatut {
   id: string
   nom: string
   ordre: number
-  couleur: string
+  couleur: ICouleur
 }
 
 interface IDemarcheType {
@@ -294,7 +303,7 @@ interface IEtapeStatut {
   id: string
   nom: string
   description?: string
-  couleur: string
+  couleur: ICouleur
 }
 
 interface IEtapeType {
@@ -407,7 +416,7 @@ interface IPermission {
 interface IPhaseStatut {
   id: string
   nom: string
-  couleur: string
+  couleur: ICouleur
 }
 
 interface IReferenceType {
@@ -459,7 +468,7 @@ interface ITitreTypeDemarcheType {
   dateFin?: string | null
 }
 
-interface ITitreTypeActiviteType {
+interface IActiviteTypeTitreType {
   titreTypeId: string
   titreType?: ITitreType | null
   activiteTypeId: string
@@ -509,7 +518,7 @@ interface IAdministrationActiviteType {
 interface ITitreStatut {
   id: string
   nom: string
-  couleur: string
+  couleur: ICouleur
   ordre: number
 }
 
@@ -974,7 +983,7 @@ export {
   IRegion,
   ITitreTypeTitreStatut,
   ITitreTypeDemarcheType,
-  ITitreTypeActiviteType,
+  IActiviteTypeTitreType,
   IEtapeTypeEtapeStatut,
   ITravauxTypeEtapeType,
   IAdministrationTitreType,
@@ -1034,5 +1043,7 @@ export {
   IHeritageProps,
   IHeritageContenu,
   ICache,
-  ICacheId
+  ICacheId,
+  IActiviteTypeDocumentType,
+  IActiviteTypePays
 }

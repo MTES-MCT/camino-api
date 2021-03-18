@@ -116,7 +116,7 @@ type Query {
   "Types d'activités"
   activitesTypes: [ActiviteType]
 
-  "Statuts des rapports d'activités"
+  "Statuts des activités"
   activitesStatuts: [ActiviteStatut]
 
   "Types de démarches"
@@ -185,6 +185,10 @@ type Query {
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   travauxTypesEtapesTypes: [TravauxTypeEtapeType]
 
+  ActivitesTypesTitresTypes: [ActiviteTypeTitreType]
+  ActivitesTypesDocumentsTypes: [ActiviteTypeDocumentType]
+  ActivitesTypesPays: [ActiviteTypePays]
+
   "Liste des permissions utilisateurs"
   permissions: [Permission]
 
@@ -226,7 +230,7 @@ type Query {
   "Définitions et descriptions"
   definitions: [Definition]
 
-  "Types de travaux"
+  "Types des travaux"
   travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
 }
 
@@ -396,6 +400,10 @@ type Mutation {
 
   etapeStatutModifier(etapeStatut: InputEtapeStatut!): [EtapeStatut]
 
+  activiteTypeModifier(activiteType: InputActiviteType!): [ActiviteType]
+
+  activiteStatutModifier(activiteStatut: InputActiviteStatut!): [ActiviteStatut]
+
   deviseModifier(devise: InputDevise!): [Devise]
 
   uniteModifier(unite: InputUnite!): [Unite]
@@ -477,4 +485,40 @@ type Mutation {
   travauxTypeEtapeTypeSupprimer(
     travauxTypeEtapeType: InputTravauxTypeEtapeType!
   ): [TravauxTypeEtapeType]
+
+  ActiviteTypeTitreTypeCreer(
+    activiteTypeTitreType: InputActiviteTypeTitreType!
+  ): [ActiviteTypeTitreType]
+
+  ActiviteTypeTitreTypeModifier(
+    activiteTypeTitreType: InputActiviteTypeTitreType!
+  ): [ActiviteTypeTitreType]
+
+  ActiviteTypeTitreTypeSupprimer(
+    activiteTypeTitreType: InputActiviteTypeTitreType!
+  ): [ActiviteTypeTitreType]
+
+  ActiviteTypeDocumentTypeCreer(
+    activiteTypeDocumentType: InputActiviteTypeDocumentType!
+  ): [ActiviteTypeDocumentType]
+
+  ActiviteTypeDocumentTypeModifier(
+    activiteTypeDocumentType: InputActiviteTypeDocumentType!
+  ): [ActiviteTypeDocumentType]
+
+  ActiviteTypeDocumentTypeSupprimer(
+    activiteTypeDocumentType: InputActiviteTypeDocumentType!
+  ): [ActiviteTypeDocumentType]
+
+  ActiviteTypePaysCreer(
+    activiteTypePays: InputActiviteTypePays!
+  ): [ActiviteTypePays]
+
+  ActiviteTypePaysModifier(
+    activiteTypePays: InputActiviteTypePays!
+  ): [ActiviteTypePays]
+
+  ActiviteTypePaysSupprimer(
+    activiteTypePays: InputActiviteTypePays!
+  ): [ActiviteTypePays]
 }

@@ -2,6 +2,7 @@
 const tables = [
   'activites_statuts',
   'activites_types',
+  'activites_types__titres_types',
   'activites_types__documents_types',
   'activites_types__pays',
   'administrations',
@@ -61,7 +62,6 @@ const tables = [
   'titres_travaux',
   'titres_travaux_etapes',
   'titres_types',
-  'titres_types__activites_types',
   'titres_types__demarches_types',
   'titres_types__demarches_types__etapes_types',
   'titres_types__titres_statuts',

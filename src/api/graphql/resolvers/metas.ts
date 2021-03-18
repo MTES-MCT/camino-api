@@ -24,7 +24,6 @@ import {
 import { debug } from '../../../config/index'
 
 import {
-  activitesStatutsGet,
   administrationsTypesGet,
   administrationTypeUpdate,
   definitionsGet,
@@ -61,7 +60,6 @@ import {
   documentTypeUpdate,
   referenceTypeUpdate
 } from '../../../database/queries/metas'
-import { activitesTypesGet } from '../../../database/queries/metas-activites'
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
@@ -411,43 +409,6 @@ const etapesStatuts = async () => {
 }
 
 const version = () => npmPackage.version
-
-const activitesTypes = async (
-  _: never,
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-    const fields = fieldsBuild(info)
-
-    const activitesTypes = await activitesTypesGet({ fields }, user)
-
-    // TODO: ne retourner que les types d'activités auxquels l'utilisateur a accès
-
-    return activitesTypes
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const activitesStatuts = async () => {
-  try {
-    const activitesStatuts = await activitesStatutsGet()
-
-    return activitesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
 
 /**
  * Retourne les définitions
@@ -1066,8 +1027,6 @@ export {
   types,
   unites,
   version,
-  activitesTypes,
-  activitesStatuts,
   definitions,
   administrationsTypes,
   regions,
