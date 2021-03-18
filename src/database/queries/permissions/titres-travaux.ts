@@ -12,6 +12,44 @@ import { titresQueryModify } from './titres'
 import { administrationsTitresQuery } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
 
+const titreTravauxModificationQuery = (
+  travauxAlias: string,
+  titreAlias: string,
+  user?: IUtilisateur
+) => {
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    return raw('not exists(?)', [titreTravauxEtapesQuery(travauxAlias)])
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
+    user?.administrations?.length
+  ) {
+    const administrationsIds = user.administrations.map(a => a.id) || []
+
+    const administrationTitreModification = administrationsTitresQuery(
+      administrationsIds,
+      titreAlias,
+      {
+        isGestionnaire: true,
+        isLocale: true
+      }
+    )
+
+    return administrationTitreModification
+      .whereNotExists(titreTravauxEtapesQuery(travauxAlias))
+      .select(raw('true'))
+  }
+
+  return raw('false')
+}
+
+const titreTravauxEtapesQuery = (travauxAlias: string) =>
+  TitresTravauxEtapes.query()
+    .alias('titresTravauxEtapes')
+    .whereRaw('?? = ??', [
+      'titresTravauxEtapes.titreTravauxId',
+      `${travauxAlias}.id`
+    ])
+
 const titresTravauxQueryModify = (
   q: QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
   fields?: IFields,
@@ -48,12 +86,7 @@ const titresTravauxQueryModify = (
         )
 
         b.orWhereExists(administrationTitre)
-      }
-
-      // les entreprises peuvent voir les démarches
-      // des titres dont elles sont titulaires ou amodiataires
-      // si elles sont visibles aux entreprises
-      else if (
+      } else if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
@@ -76,19 +109,15 @@ const titresTravauxQueryModify = (
   )
 
   q.select(
-    raw(
-      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
-        ? 'true'
-        : 'false'
-    ).as('modification')
+    titreTravauxModificationQuery('titresTravaux', 'titre', user).as(
+      'modification'
+    )
   )
 
   q.select(
-    raw(
-      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
-        ? 'true'
-        : 'false'
-    ).as('etapesCreation')
+    titreTravauxModificationQuery('titresTravaux', 'titre', user).as(
+      'etapesCreation'
+    )
   )
 
   q.modifyGraph('etapes', b => {
@@ -112,4 +141,4 @@ const titresTravauxQueryModify = (
   return q
 }
 
-export { titresTravauxQueryModify }
+export { titresTravauxQueryModify, titreTravauxModificationQuery }

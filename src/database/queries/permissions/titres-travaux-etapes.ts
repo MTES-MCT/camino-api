@@ -9,6 +9,7 @@ import TitresTravauxEtapes from '../../models/titres-travaux-etapes'
 import { documentsQueryModify } from './documents'
 import { administrationsTitresQuery } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
+import { titreTravauxModificationQuery } from './titres-travaux'
 
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
@@ -33,9 +34,6 @@ const titresTravauxEtapesQueryModify = (
         user?.administrations?.length &&
         permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
       ) {
-        // si l'utilisateur appartient à une administration
-        // alors il peut voir les étapes faisant l'objet d'aucune restriction
-
         const administrationsIds = user.administrations.map(a => a.id) || []
 
         b.orWhereExists(
@@ -49,9 +47,6 @@ const titresTravauxEtapesQueryModify = (
         user?.entreprises?.length &&
         permissionCheck(user?.permissionId, ['entreprise'])
       ) {
-        // si l'utilisateur appartient à une administration
-        // alors il peut voir les étapes faisant l'objet d'aucune restriction
-
         const entreprisesIds = user.entreprises.map(a => a.id)
 
         b.orWhere(c => {
@@ -75,11 +70,9 @@ const titresTravauxEtapesQueryModify = (
   )
 
   q.select(
-    raw(
-      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
-        ? 'true'
-        : 'false'
-    ).as('modification')
+    titreTravauxModificationQuery('travaux', 'travaux:titre', user).as(
+      'modification'
+    )
   )
 
   q.modifyGraph('documents', b => {

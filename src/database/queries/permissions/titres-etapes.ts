@@ -25,15 +25,15 @@ const titreEtapeModificationQueryBuild = (user?: IUtilisateur) => {
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
-    return (
-      administrationsEtapesTypesPropsQuery(administrationsIds, 'modification')
-        .whereRaw('?? = ??', [
-          'demarchesModification.id',
-          'titresEtapes.titreDemarcheId'
-        ])
-        // filtre selon le type de l'étape
-        .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
+    return administrationsEtapesTypesPropsQuery(
+      administrationsIds,
+      'modification'
     )
+      .whereRaw('?? = ??', [
+        'demarchesModification.id',
+        'titresEtapes.titreDemarcheId'
+      ])
+      .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
   }
 
   return raw('false')
@@ -61,9 +61,6 @@ const titresEtapesQueryModify = (
         user?.administrations?.length &&
         permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
       ) {
-        // si l'utilisateur appartient à une administration
-        // alors il peut voir les étapes faisant l'objet d'aucune restriction
-
         const administrationsIds = user.administrations.map(a => a.id) || []
 
         b.orWhereExists(
@@ -82,9 +79,6 @@ const titresEtapesQueryModify = (
         user?.entreprises?.length &&
         permissionCheck(user?.permissionId, ['entreprise'])
       ) {
-        // si l'utilisateur appartient à une administration
-        // alors il peut voir les étapes faisant l'objet d'aucune restriction
-
         const entreprisesIds = user.entreprises.map(a => a.id)
 
         b.orWhere(c => {
@@ -101,6 +95,7 @@ const titresEtapesQueryModify = (
     })
   }
 
+  // TODO: restreindre avec titreEtapeModificationQueryBuild(user)
   q.select(
     raw(
       permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])

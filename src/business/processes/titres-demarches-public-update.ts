@@ -65,7 +65,7 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
 
           const log = {
             type: 'titre / démarche : publique (mise à jour) ->',
-            value: `${JSON.stringify(patch)}`
+            value: `${titreDemarche.id}: ${JSON.stringify(patch)}`
           }
 
           console.info(log.type, log.value)
