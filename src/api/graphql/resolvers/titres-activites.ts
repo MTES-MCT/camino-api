@@ -276,7 +276,7 @@ const activiteModifier = async (
 
     const fields = fieldsBuild(info)
 
-    await titreActiviteUpdateQuery(activite)
+    await titreActiviteUpdateQuery(activite.id, activite)
 
     const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
 

@@ -52,54 +52,54 @@ const titresEtapesQueryModify = (
 ) => {
   q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
 
-  q.where(b => {
-    if (!user || !permissionCheck(user.permissionId, ['super'])) {
+  if (!user || !permissionCheck(user.permissionId, ['super'])) {
+    q.where(b => {
       b.orWhere('type.publicLecture', true)
-    }
 
-    // étapes visibles pour les admins
-    if (
-      user?.administrations?.length &&
-      permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
-    ) {
-      // si l'utilisateur appartient à une administration
-      // alors il peut voir les étapes faisant l'objet d'aucune restriction
+      // étapes visibles pour les admins
+      if (
+        user?.administrations?.length &&
+        permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
+      ) {
+        // si l'utilisateur appartient à une administration
+        // alors il peut voir les étapes faisant l'objet d'aucune restriction
 
-      const administrationsIds = user.administrations.map(a => a.id) || []
+        const administrationsIds = user.administrations.map(a => a.id) || []
 
-      b.orWhereExists(
-        administrationsTitresQuery(administrationsIds, 'demarche:titre', {
-          isGestionnaire: true,
-          isAssociee: true,
-          isLocale: true
-        }).modify(
-          administrationsTitresTypesEtapesTypesModify,
-          'lecture',
-          'demarche:titre.typeId',
-          'titresEtapes.typeId'
+        b.orWhereExists(
+          administrationsTitresQuery(administrationsIds, 'demarche:titre', {
+            isGestionnaire: true,
+            isAssociee: true,
+            isLocale: true
+          }).modify(
+            administrationsTitresTypesEtapesTypesModify,
+            'lecture',
+            'demarche:titre.typeId',
+            'titresEtapes.typeId'
+          )
         )
-      )
-    } else if (
-      user?.entreprises?.length &&
-      permissionCheck(user?.permissionId, ['entreprise'])
-    ) {
-      // si l'utilisateur appartient à une administration
-      // alors il peut voir les étapes faisant l'objet d'aucune restriction
+      } else if (
+        user?.entreprises?.length &&
+        permissionCheck(user?.permissionId, ['entreprise'])
+      ) {
+        // si l'utilisateur appartient à une administration
+        // alors il peut voir les étapes faisant l'objet d'aucune restriction
 
-      const entreprisesIds = user.entreprises.map(a => a.id)
+        const entreprisesIds = user.entreprises.map(a => a.id)
 
-      b.orWhere(c => {
-        c.where('type.entreprisesLecture', true)
+        b.orWhere(c => {
+          c.where('type.entreprisesLecture', true)
 
-        c.whereExists(
-          entreprisesTitresQuery(entreprisesIds, 'demarche:titre', {
-            isTitulaire: true,
-            isAmodiataire: true
-          })
-        )
-      })
-    }
-  })
+          c.whereExists(
+            entreprisesTitresQuery(entreprisesIds, 'demarche:titre', {
+              isTitulaire: true,
+              isAmodiataire: true
+            })
+          )
+        })
+      }
+    })
+  }
 
   q.select(
     raw(

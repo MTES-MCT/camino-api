@@ -24,33 +24,33 @@ const titresDatesUpdate = async (titresIds?: string[]) => {
   const titresUpdated = [] as string[]
 
   titres.forEach(titre => {
-    const props: Partial<ITitre> = {}
+    const patch: Partial<ITitre> = {}
 
     const dateFin = titreDateFinFind(titre.demarches!)
 
     if (titre.dateFin !== dateFin) {
-      props.dateFin = dateFin
+      patch.dateFin = dateFin
     }
 
     const dateDebut = titreDateDebutFind(titre.demarches!, titre.typeId)
 
     if (titre.dateDebut !== dateDebut) {
-      props.dateDebut = dateDebut
+      patch.dateDebut = dateDebut
     }
 
     const dateDemande = titreDateDemandeFind(titre.demarches!)
 
     if (titre.dateDemande !== dateDemande) {
-      props.dateDemande = dateDemande
+      patch.dateDemande = dateDemande
     }
 
-    if (Object.keys(props).length) {
+    if (Object.keys(patch).length) {
       queue.add(async () => {
-        await titreUpdate(titre.id, props)
+        await titreUpdate(titre.id, patch)
 
         const log = {
           type: 'titre : dates (mise à jour) ->',
-          value: `${titre.id}: ${JSON.stringify(props)}`
+          value: `${titre.id}: ${JSON.stringify(patch)}`
         }
 
         console.info(log.type, log.value)

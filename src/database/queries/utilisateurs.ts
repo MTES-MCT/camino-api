@@ -285,16 +285,8 @@ const utilisateurUpsert = async (
 
 const utilisateurUpdate = async (
   id: string,
-  props: Partial<IUtilisateur>,
-  { fields }: { fields?: IFields }
-) =>
-  Utilisateurs.query()
-    .withGraphFetched(
-      fields
-        ? graphBuild(fields, 'utilisateur', fieldsFormat)
-        : options.utilisateurs.graph
-    )
-    .patchAndFetchById(id, props)
+  utilisateur: Partial<IUtilisateur>
+) => Utilisateurs.query().patch(utilisateur).findById(id)
 
 export {
   userGet,

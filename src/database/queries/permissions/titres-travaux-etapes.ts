@@ -7,6 +7,8 @@ import Documents from '../../models/documents'
 import TitresTravauxEtapes from '../../models/titres-travaux-etapes'
 
 import { documentsQueryModify } from './documents'
+import { administrationsTitresQuery } from './administrations'
+import { entreprisesTitresQuery } from './entreprises'
 
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
@@ -22,15 +24,63 @@ const titresTravauxEtapesQueryModify = (
   >,
   user?: IUtilisateur
 ) => {
-  q.select('titresTravauxEtapes.*')
+  q.select('titresTravauxEtapes.*').leftJoinRelated('[travaux.titre]')
 
-  if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('modification'))
-    q.select(raw('true').as('suppression'))
-  } else {
-    q.select(raw('false').as('modification'))
-    q.select(raw('false').as('suppression'))
+  if (!user || !permissionCheck(user.permissionId, ['super'])) {
+    q.where(b => {
+      // étapes visibles pour les admins
+      if (
+        user?.administrations?.length &&
+        permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
+      ) {
+        // si l'utilisateur appartient à une administration
+        // alors il peut voir les étapes faisant l'objet d'aucune restriction
+
+        const administrationsIds = user.administrations.map(a => a.id) || []
+
+        b.orWhereExists(
+          administrationsTitresQuery(administrationsIds, 'travaux:titre', {
+            isGestionnaire: true,
+            isAssociee: true,
+            isLocale: true
+          })
+        )
+      } else if (
+        user?.entreprises?.length &&
+        permissionCheck(user?.permissionId, ['entreprise'])
+      ) {
+        // si l'utilisateur appartient à une administration
+        // alors il peut voir les étapes faisant l'objet d'aucune restriction
+
+        const entreprisesIds = user.entreprises.map(a => a.id)
+
+        b.orWhere(c => {
+          c.where('type.entreprisesLecture', true)
+
+          c.whereExists(
+            entreprisesTitresQuery(entreprisesIds, 'travaux:titre', {
+              isTitulaire: true,
+              isAmodiataire: true
+            })
+          )
+        })
+      }
+    })
   }
+
+  q.select(
+    raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(
+      'suppression'
+    )
+  )
+
+  q.select(
+    raw(
+      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
+        ? 'true'
+        : 'false'
+    ).as('modification')
+  )
 
   q.modifyGraph('documents', b => {
     documentsQueryModify(

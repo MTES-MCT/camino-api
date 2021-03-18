@@ -5,7 +5,10 @@ import { titreDemarchePublicFind } from '../rules/titre-demarche-public-find'
 import { titresGet } from '../../database/queries/titres'
 import { userSuper } from '../../database/user-super'
 
-type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }
+type ITitreDemarchePatch = {
+  publicLecture: boolean
+  entreprisesLecture: boolean
+}
 
 // met à jour la publicité des démarches d'un titre
 const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
@@ -46,23 +49,23 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
         titre.typeId
       )
 
-      const publicUpdate = {} as IPublicUpdate
+      const patch = {} as ITitreDemarchePatch
 
       if (titreDemarche.publicLecture !== publicLecture) {
-        publicUpdate.publicLecture = publicLecture
+        patch.publicLecture = publicLecture
       }
 
       if (titreDemarche.entreprisesLecture !== entreprisesLecture) {
-        publicUpdate.entreprisesLecture = entreprisesLecture
+        patch.entreprisesLecture = entreprisesLecture
       }
 
-      if (Object.keys(publicUpdate).length) {
+      if (Object.keys(patch).length) {
         queue.add(async () => {
-          await titreDemarcheUpdate(titreDemarche.id, publicUpdate)
+          await titreDemarcheUpdate(titreDemarche.id, patch)
 
           const log = {
             type: 'titre / démarche : publique (mise à jour) ->',
-            value: `${titreDemarche.id}: ${JSON.stringify(publicUpdate)}`
+            value: `${JSON.stringify(patch)}`
           }
 
           console.info(log.type, log.value)

@@ -29,7 +29,9 @@ const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
       (titreDemarche: ITitreDemarche, index: number) => {
         if (titreDemarche.ordre !== index + 1) {
           queue.add(async () => {
-            await titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 })
+            await titreDemarcheUpdate(titreDemarche.id, {
+              ordre: index + 1
+            })
 
             const log = {
               type: 'titre / démarche : ordre (mise à jour) ->',

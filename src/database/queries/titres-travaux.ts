@@ -42,7 +42,7 @@ const titresTravauxGet = async (
   return q
 }
 
-const titreTravauxGet = async (
+const titresTravauGet = async (
   titreTravauxId: string,
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -52,26 +52,13 @@ const titreTravauxGet = async (
   return q.findById(titreTravauxId)
 }
 
-const titreTravauxCreate = async (
-  titreTravaux: ITitreTravaux,
-  { fields }: { fields?: IFields },
-  user?: IUtilisateur
-) => {
-  const q = titresTravauxQueryBuild(null as never, { fields }, user)
-
-  return q.insertAndFetch(titreTravaux)
-}
+const titreTravauxCreate = async (titreTravaux: ITitreTravaux) =>
+  TitresTravaux.query().insertAndFetch(titreTravaux)
 
 const titreTravauxUpdate = async (
   id: string,
-  props: Partial<ITitreTravaux>,
-  { fields }: { fields?: IFields },
-  user?: IUtilisateur
-) => {
-  const q = titresTravauxQueryBuild(null as never, { fields }, user)
-
-  return q.patchAndFetchById(id, props)
-}
+  titreTravaux: Partial<ITitreTravaux>
+) => TitresTravaux.query().patch(titreTravaux).findById(id)
 
 const titreTravauxDelete = async (id: string, trx?: Transaction) =>
   TitresTravaux.query(trx)
@@ -80,7 +67,7 @@ const titreTravauxDelete = async (id: string, trx?: Transaction) =>
     .returning('*')
 
 export {
-  titreTravauxGet,
+  titresTravauGet,
   titresTravauxGet,
   titreTravauxCreate,
   titreTravauxUpdate,

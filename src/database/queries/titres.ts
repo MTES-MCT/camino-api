@@ -339,8 +339,8 @@ const titreCreate = async (titre: ITitre, { fields }: { fields?: IFields }) => {
     .insertGraph(titre, options.titres.update)
 }
 
-const titreUpdate = async (id: string, props: Partial<ITitre>) =>
-  Titres.query().patchAndFetchById(id, props)
+const titreUpdate = async (id: string, titre: Partial<ITitre>) =>
+  Titres.query().patch(titre).findById(id)
 
 const titreDelete = async (id: string, tr?: Transaction) =>
   Titres.query(tr).deleteById(id)

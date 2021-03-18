@@ -167,11 +167,8 @@ const administrationsUpsert = async (administrations: IAdministration[]) =>
 
 const administrationUpdate = async (
   id: string,
-  props: Partial<IAdministration>
-) =>
-  Administrations.query()
-    .patchAndFetchById(id, props)
-    .withGraphFetched(options.administrations.graph)
+  administration: Partial<IAdministration>
+) => Administrations.query().patch(administration).findById(id)
 
 const administrationTitreTypeUpsert = async (
   administrationTitreType: IAdministrationTitreType

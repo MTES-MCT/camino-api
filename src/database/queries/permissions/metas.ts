@@ -256,11 +256,14 @@ const travauxEtapesTypesQueryModify = (
   }
 
   // propriété 'etapesCreation' en fonction du profil de l'utilisateur
-  if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('etapesCreation'))
-  } else {
-    q.select(raw('false').as('etapesCreation'))
-  }
+
+  q.select(
+    raw(
+      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
+        ? 'true'
+        : 'false'
+    ).as('etapesCreation')
+  )
 }
 
 const activitesTypesQueryModify = (

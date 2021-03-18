@@ -1,6 +1,6 @@
 import { IToken, ITitreTravaux } from '../../../types'
 import {
-  titreTravauxGet,
+  titresTravauGet,
   titreTravauxCreate,
   titreTravauxUpdate,
   titreTravauxDelete
@@ -29,13 +29,7 @@ const travauxCreer = async (
 
     if (!titre.travauxCreation) throw new Error('droits insuffisants')
 
-    const travauxUpdated = await titreTravauxCreate(
-      travaux,
-      {
-        fields: { id: {} }
-      },
-      user
-    )
+    const travauxUpdated = await titreTravauxCreate(travaux)
 
     const titreUpdatedId = await titreTravauxUpdateTask(travauxUpdated.titreId)
 
@@ -61,7 +55,7 @@ const travauxModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const oldTitreTravaux = await titreTravauxGet(
+    const oldTitreTravaux = await titresTravauGet(
       travaux.titreId,
       { fields: { id: {} } },
       user
@@ -71,15 +65,12 @@ const travauxModifier = async (
 
     if (!oldTitreTravaux.modification) throw new Error('droits insuffisants')
 
-    const titre = await titreGet(travaux.titreId, { fields: { id: {} } }, user)
+    if (travaux.titreId !== oldTitreTravaux.titreId)
+      throw new Error("le titre n'existe pas")
 
-    if (!titre) throw new Error("le titre n'existe pas")
+    await titreTravauxUpdate(travaux.id, travaux)
 
-    const travauxUpdated = await titreTravauxUpdate(travaux.id, travaux, {
-      fields: { id: {} }
-    })
-
-    const titreUpdatedId = await titreTravauxUpdateTask(travauxUpdated.titreId)
+    const titreUpdatedId = await titreTravauxUpdateTask(travaux.titreId)
 
     const fields = fieldsBuild(info)
 
@@ -103,7 +94,7 @@ const travauxSupprimer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const oldTitreTravaux = await titreTravauxGet(
+    const oldTitreTravaux = await titresTravauGet(
       id,
       { fields: { id: {} } },
       user
@@ -113,7 +104,7 @@ const travauxSupprimer = async (
 
     if (!oldTitreTravaux.suppression) throw new Error('droits insuffisants')
 
-    const travauxOld = await titreTravauxGet(id, {
+    const travauxOld = await titresTravauGet(id, {
       fields: { etapes: { documents: { type: { id: {} } } } }
     })
     if (!travauxOld) throw new Error("la démarche n'existe pas")
