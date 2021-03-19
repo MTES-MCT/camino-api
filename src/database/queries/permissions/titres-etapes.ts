@@ -39,6 +39,22 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   return raw('false')
 }
 
+const titreEtapeCreationDocumentsModify = (
+  q: QueryBuilder<any, any | any[]>
+) => {
+  // si il existe un type de document pour le type d’étape
+  q.leftJoin(
+    'etapesTypes__documentsTypes',
+    'type.id',
+    'etapesTypes__documentsTypes.etapeTypeId'
+  )
+  q.select(
+    raw('?? is not null', ['etapesTypes__documentsTypes.documentTypeId']).as(
+      'documentsCreation'
+    )
+  )
+}
+
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
  *
@@ -104,6 +120,9 @@ const titresEtapesQueryModify = (
     ).as('justificatifsAssociation')
   )
 
+  // si il existe un type de document pour le type d’étape
+  titreEtapeCreationDocumentsModify(q)
+
   q.select(
     raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(
       'suppression'
@@ -131,4 +150,4 @@ const titresEtapesQueryModify = (
   return q
 }
 
-export { titresEtapesQueryModify }
+export { titresEtapesQueryModify, titreEtapeCreationDocumentsModify }

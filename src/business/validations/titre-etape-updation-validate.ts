@@ -49,8 +49,8 @@ const titreEtapeUpdationValidate = async (
     }
   }
 
-  // 4. les fichiers obligatoires sont tous renseignés et complets
-  if (documentsTypes!.length) {
+  // 4. si l’étape n’est pas en cours de construction, les fichiers obligatoires sont tous renseignés et complets
+  if (titreEtape.statutId !== 'aco' && documentsTypes!.length) {
     const documentsErrors = documentsTypesValidate(
       titreEtape.documents,
       documentsTypes

@@ -771,6 +771,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
   justificatifsAssociation?: boolean | null
+  documentsCreation?: boolean | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {

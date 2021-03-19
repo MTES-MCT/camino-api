@@ -10,6 +10,7 @@ type TravauxEtape {
   contenu: Json
   modification: Boolean
   suppression: Boolean
+  documentsCreation: Boolean
 }
 
 input InputTravauxEtapeCreation {

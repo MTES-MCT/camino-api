@@ -424,11 +424,16 @@ const documentsTypesGet = async ({
   if (repertoire) {
     q.where({ repertoire })
 
-    // restreint les types de documents à ceux liés aux activités
-    if (repertoire === 'activites' && typeId) {
-      q.joinRelated('activitesTypes')
-
-      q.where('activitesTypes.id', typeId)
+    if (typeId) {
+      // restreint les types de documents à ceux liés aux activités
+      if (repertoire === 'activites') {
+        q.joinRelated('activitesTypes')
+        q.where('activitesTypes.id', typeId)
+      } else {
+        // restreint les types de documents à ceux liés aux étapes
+        q.joinRelated('etapesTypes')
+        q.where('etapesTypes.id', typeId)
+      }
     }
   }
 

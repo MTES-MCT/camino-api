@@ -55,12 +55,14 @@ const travauxEtapeCreer = async (
       throw new Error(`etape type "${etape.typeId}" inconnu `)
     }
 
-    const documentsErrors = await documentsTypesValidate(
-      etape.documents,
-      etapeType.documentsTypes
-    )
-    if (documentsErrors.length) {
-      throw new Error(documentsErrors.join(', '))
+    if (etape.statutId !== 'aco') {
+      const documentsErrors = await documentsTypesValidate(
+        etape.documents,
+        etapeType.documentsTypes
+      )
+      if (documentsErrors.length) {
+        throw new Error(documentsErrors.join(', '))
+      }
     }
 
     const documents = etape.documents || []
@@ -110,6 +112,24 @@ const travauxEtapeModifier = async (
 
     if (titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId)
       throw new Error("les travaux n'existent pas")
+
+
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    if (etape.statutId !== 'aco') {
+      const documentsErrors = await documentsTypesValidate(
+        etape.documents,
+        etapeType.documentsTypes
+      )
+      if (documentsErrors.length) {
+        throw new Error(documentsErrors.join(', '))
+      }
+    }
 
     await documentsModifier(context, etape, 'titreEtapeId', titreTravauxEtapeOld)
 

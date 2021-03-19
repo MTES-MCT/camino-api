@@ -10,6 +10,7 @@ import { documentsQueryModify } from './documents'
 import { administrationsTitresQuery } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
 import { titreTravauxModificationQuery } from './titres-travaux'
+import { titreEtapeCreationDocumentsModify } from './titres-etapes'
 
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
@@ -25,7 +26,7 @@ const titresTravauxEtapesQueryModify = (
   >,
   user: IUtilisateur | null
 ) => {
-  q.select('titresTravauxEtapes.*').leftJoinRelated('[travaux.titre]')
+  q.select('titresTravauxEtapes.*').leftJoinRelated('[travaux.titre, type]')
 
   // étapes visibles pour les admins
   if (
@@ -71,6 +72,8 @@ const titresTravauxEtapesQueryModify = (
       user
     ).as('modification')
   )
+
+  titreEtapeCreationDocumentsModify(q)
 
   q.modifyGraph('documents', b => {
     documentsQueryModify(
