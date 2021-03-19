@@ -110,7 +110,9 @@ const travauxEtapeModifier = async (
 
     if (titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId)
       throw new Error("les travaux n'existent pas")
-// TODO documents
+
+    await documentsModifier(context, etape, 'titreEtapeId', titreTravauxEtapeOld)
+
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 
     const titreUpdatedId = await titreTravauxEtapeUpdateTask(

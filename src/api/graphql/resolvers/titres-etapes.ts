@@ -301,8 +301,7 @@ const etapeModifier = async (
       etape.points = titreEtapePointsCalc(etape.points)
     }
 
-    // TODO documents, ajouter le old
-    await documentsModifier(context, etape, 'titreEtapeId')
+    await documentsModifier(context, etape, 'titreEtapeId', titreEtapeOld)
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
