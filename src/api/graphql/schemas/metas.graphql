@@ -11,8 +11,6 @@ type Domaine {
   ordre: Int
 
   titresTypes: [TitreType]
-
-  titresCreation: Boolean
 }
 
 "Type de titre minier"
