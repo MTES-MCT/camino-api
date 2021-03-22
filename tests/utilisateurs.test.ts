@@ -68,6 +68,43 @@ describe('utilisateurModifier', () => {
       data: { utilisateurModifier: { id: 'test' } }
     })
   })
+
+  test('ne peut pas modifier un compte utilisateur avec un email existant', async () => {
+    await userAdd(knex, {
+      id: 'test1',
+      prenom: 'toto1',
+      nom: 'test1',
+      email: 'test1@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'defaut'
+    })
+
+    await userAdd(knex, {
+      id: 'test2',
+      prenom: 'toto2',
+      nom: 'test2',
+      email: 'test2@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'defaut'
+    })
+
+    const res = await graphQLCall(
+      utilisateurModifierQuery,
+      {
+        utilisateur: {
+          id: 'test2',
+          nom: 'test2',
+          prenom: 'toto2',
+          email: 'test1@camino.local'
+        }
+      },
+      'super'
+    )
+
+    expect(res.body.errors[0].message).toEqual(
+      'un utilisateur avec cet email existe déjà'
+    )
+  })
 })
 
 describe('utilisateursCreer', () => {

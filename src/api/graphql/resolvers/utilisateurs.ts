@@ -459,6 +459,14 @@ const utilisateurModifier = async (
       errors.push(...errorsValidate)
     }
 
+    const utilisateurWithTheSameEmail = await userByEmailGet(utilisateur.email)
+    if (
+      utilisateurWithTheSameEmail &&
+      utilisateur.id !== utilisateurWithTheSameEmail.id
+    ) {
+      errors.push('un utilisateur avec cet email existe déjà')
+    }
+
     if (errors.length) {
       throw new Error(errors.join(', '))
     }
