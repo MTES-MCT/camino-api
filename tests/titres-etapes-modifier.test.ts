@@ -59,7 +59,7 @@ async function etapeCreate() {
 }
 
 describe('etapeModifier', () => {
-  const etapeModifierQuery = queryImport('titres-etapes-modifier')
+  const etapeModifierQuery = queryImport('titre-etape-modifier')
 
   each([undefined, 'editeur']).test(
     'ne peut pas modifier une étape (utilisateur %s)',
@@ -170,7 +170,7 @@ describe('etapeModifier', () => {
         }
       },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -192,7 +192,7 @@ describe('etapeModifier', () => {
         }
       },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -216,7 +216,7 @@ describe('etapeModifier', () => {
         }
       },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -226,7 +226,7 @@ describe('etapeModifier', () => {
 })
 
 describe('etapeSupprimer', () => {
-  const etapeSupprimerQuery = queryImport('titres-etapes-supprimer')
+  const etapeSupprimerQuery = queryImport('titre-etape-supprimer')
 
   each([undefined, 'admin']).test(
     'ne peut pas supprimer une étape (utilisateur %s)',

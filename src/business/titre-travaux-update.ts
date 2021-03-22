@@ -1,6 +1,8 @@
 import { titreGet } from '../database/queries/titres'
 import { userSuper } from '../database/user-super'
+import { titresIdsUpdate } from './processes/titres-ids-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
+import { logsUpdate } from './_logs-update'
 
 const titreTravauxUpdate = async (titreId: string) => {
   try {
@@ -20,16 +22,17 @@ const titreTravauxUpdate = async (titreId: string) => {
     }
 
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
+    // met à jour l'id dans le titre par effet de bord
+    const titresUpdatedIndex = await titresIdsUpdate([titreId])
 
     console.info()
     console.info('-')
     console.info('tâches exécutées:')
 
-    if (titresTravauxOrdreUpdated.length) {
-      console.info(
-        `mise à jour: ${titresTravauxOrdreUpdated.length} travaux (ordre)`
-      )
-    }
+    logsUpdate({
+      titresTravauxOrdreUpdated,
+      titresUpdatedIndex
+    })
 
     return titre.id
   } catch (e) {

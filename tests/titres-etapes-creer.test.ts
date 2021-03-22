@@ -49,7 +49,7 @@ const demarcheCreate = async () => {
 }
 
 describe('etapeCreer', () => {
-  const etapeCreerQuery = queryImport('titres-etapes-creer')
+  const etapeCreerQuery = queryImport('titre-etape-creer')
 
   each([undefined, 'editeur']).test(
     'ne peut pas créer une étape (utilisateur %s)',
@@ -115,7 +115,7 @@ describe('etapeCreer', () => {
       etapeCreerQuery,
       { etape: { typeId: 'acg', statutId: 'fai', titreDemarcheId, date: '' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -141,7 +141,7 @@ describe('etapeCreer', () => {
       etapeCreerQuery,
       { etape: { typeId: 'men', statutId: 'fai', titreDemarcheId, date: '' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -164,7 +164,7 @@ describe('etapeCreer', () => {
         }
       },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toBe(

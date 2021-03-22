@@ -376,7 +376,7 @@ const travauxTypesQueryModify = (
   q.select('travauxTypes.*')
 
   // propriété 'travauxCreation' selon le profil de l'utilisateur
-  if (permissionCheck(user?.permissionId, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
     q.select(raw('true').as('travauxCreation'))
   } else {
     q.select(raw('false').as('travauxCreation'))

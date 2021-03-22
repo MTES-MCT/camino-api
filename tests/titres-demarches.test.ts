@@ -20,7 +20,7 @@ afterAll(async () => {
 })
 
 describe('demarcheCreer', () => {
-  const demarcheCreerQuery = queryImport('titres-demarches-creer')
+  const demarcheCreerQuery = queryImport('titre-demarche-creer')
 
   test('ne peut pas créer une démarche (utilisateur anonyme)', async () => {
     await titreCreate(
@@ -106,7 +106,7 @@ describe('demarcheCreer', () => {
       demarcheCreerQuery,
       { demarche: { titreId, typeId: 'oct' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -131,7 +131,7 @@ describe('demarcheCreer', () => {
       demarcheCreerQuery,
       { demarche: { titreId: 'titre-arm-echu', typeId: 'oct' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
@@ -139,7 +139,7 @@ describe('demarcheCreer', () => {
 })
 
 describe('demarcheModifier', () => {
-  const demarcheModifierQuery = queryImport('titres-demarches-modifier')
+  const demarcheModifierQuery = queryImport('titre-demarche-modifier')
 
   test('ne peut pas modifier une démarche (utilisateur anonyme)', async () => {
     const res = await graphQLCall(demarcheModifierQuery, {
@@ -189,7 +189,7 @@ describe('demarcheModifier', () => {
       demarcheModifierQuery,
       { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -203,7 +203,7 @@ describe('demarcheModifier', () => {
       demarcheModifierQuery,
       { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
       'admin',
-      administrations.dgtmGuyane
+      administrations.dgtmGuyane.id
     )
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
@@ -251,7 +251,7 @@ describe('demarcheModifier', () => {
 })
 
 describe('demarcheSupprimer', () => {
-  const demarcheSupprimerQuery = queryImport('titres-demarches-supprimer')
+  const demarcheSupprimerQuery = queryImport('titre-demarche-supprimer')
 
   test('ne peut pas supprimer une démarche (utilisateur anonyme)', async () => {
     const res = await graphQLCall(demarcheSupprimerQuery, {
@@ -313,7 +313,7 @@ const demarcheCreate = async () => {
   )
 
   const resDemarchesCreer = await graphQLCall(
-    queryImport('titres-demarches-creer'),
+    queryImport('titre-demarche-creer'),
     { demarche: { titreId, typeId: 'oct' } },
     'super'
   )

@@ -1,0 +1,16 @@
+mutation TravauxCreer($travaux: InputTravauxCreation!) {
+  travauxCreer(travaux: $travaux) {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  nom
+  id
+  travaux {
+    id
+    type {
+      id
+    }
+  }
+}

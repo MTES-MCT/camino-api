@@ -238,15 +238,10 @@ const etapeModifier = async (
 
     if (!titreEtapeOld.modification) throw new Error('droits insuffisants')
 
-    let titreDemarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
-      { fields: { id: {} } },
-      user
-    )
+    if (titreEtapeOld.titreDemarcheId !== etape.titreDemarcheId)
+      throw new Error("la démarche n'existe pas")
 
-    if (!titreDemarche) throw new Error("la démarche n'existe pas")
-
-    titreDemarche = await titreDemarcheGet(
+    const titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       {
         fields: {

@@ -44,7 +44,7 @@ const visibleCheck = async (
     titreQuery,
     { id: titre.id },
     'admin',
-    administration
+    administration.id
   )
 
   if (cible === 'titres') {
@@ -104,7 +104,7 @@ const creationCheck = async (
         titre
       },
       'admin',
-      administration
+      administration.id
     )
 
     if (creer) {
@@ -119,7 +119,7 @@ const creationCheck = async (
     const res = await demarcheCreerProfil(
       titreCreated.body.data.titreCreer.id,
       'admin',
-      administration
+      administration.id
     )
 
     if (creer) {
@@ -167,7 +167,7 @@ const creationCheck = async (
       demarcheCreated.body.data.demarcheCreer.demarches[0].id
 
     const res = await graphQLCall(
-      queryImport('titres-etapes-creer'),
+      queryImport('titre-etape-creer'),
       {
         etape: {
           typeId: etapeTypeId,
@@ -233,7 +233,7 @@ const modificationCheck = async (
     queryImport('titre'),
     { id: titre.id },
     'admin',
-    administration
+    administration.id
   )
 
   if (cible === 'titres') {
@@ -289,13 +289,13 @@ const titreCreerSuper = async (administrationId: string, titreTypeId: string) =>
 const demarcheCreerProfil = async (
   titreId: string,
   profil: IPermissionId,
-  administration?: IAdministration
+  administrationId?: string
 ) =>
   graphQLCall(
-    queryImport('titres-demarches-creer'),
+    queryImport('titre-demarche-creer'),
     { demarche: { titreId, typeId: 'oct' } },
     profil!,
-    administration
+    administrationId
   )
 
 const titreBuild = (

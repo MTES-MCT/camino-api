@@ -101,7 +101,7 @@ describe('titre', () => {
       titreQuery,
       { id: 'titre-id' },
       'admin',
-      administrations.dgtmGuyane
+      administrations.dgtmGuyane.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -134,7 +134,7 @@ describe('titre', () => {
       titreQuery,
       { id: 'titre-id' },
       'admin',
-      administrations.onf
+      administrations.onf.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -168,7 +168,7 @@ describe('titre', () => {
       titreQuery,
       { id: 'titre-id' },
       'admin',
-      administrations.dgtmGuyane
+      administrations.dgtmGuyane.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -183,7 +183,7 @@ describe('titre', () => {
       titreQuery,
       { id: 'titre-id' },
       'admin',
-      administrations.cacem
+      administrations.cacem.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -232,7 +232,7 @@ describe('titreCreer', () => {
       titreCreerQuery,
       { titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
@@ -243,7 +243,7 @@ describe('titreCreer', () => {
       titreCreerQuery,
       { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'admin',
-      administrations.dgtmGuyane
+      administrations.dgtmGuyane.id
     )
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
@@ -254,7 +254,7 @@ describe('titreCreer', () => {
       titreCreerQuery,
       { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -332,7 +332,7 @@ describe('titreModifier', () => {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body).toMatchObject({
@@ -373,7 +373,7 @@ describe('titreModifier', () => {
         }
       },
       'admin',
-      administrations.ptmg
+      administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
@@ -386,7 +386,7 @@ describe('titreModifier', () => {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
       'admin',
-      administrations.dgtmGuyane
+      administrations.dgtmGuyane.id
     )
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)

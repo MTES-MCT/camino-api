@@ -14,7 +14,7 @@ import TitresActivites from '../../models/titres-activites'
 import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify,
-  titreActivitesCalc
+  titreActivitesCount
 } from './titres-activites'
 import { titresDemarchesQueryModify } from './titres-demarches'
 import { titresTravauxQueryModify } from './titres-travaux'
@@ -26,7 +26,7 @@ import { entreprisesTitresQuery } from './entreprises'
 
 const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
-  type: 'titres' | 'demarches' | 'etapes'
+  type: 'titres' | 'demarches'
 ) =>
   Titres.query()
     .alias('titresModification')
@@ -112,20 +112,39 @@ const titresQueryModify = (
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
-    const titresModificationQuery = titresAdministrationsModificationQuery(
-      administrationsIds,
-      'titres'
-    ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
-
-    const demarchesCreationQuery = titresAdministrationsModificationQuery(
-      administrationsIds,
-      'demarches'
-    ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
-
-    q.select(titresModificationQuery.as('modification'))
+    q.select(
+      administrationsTitresQuery(administrationsIds, 'titres', {
+        isGestionnaire: true
+      })
+        .modify(
+          administrationsTitresTypesTitresStatutsModify,
+          'titres',
+          'titres'
+        )
+        .select(raw('true'))
+        .as('modification')
+    )
     q.select(raw('false').as('suppression'))
-    q.select(demarchesCreationQuery.as('demarchesCreation'))
-    q.select(raw('false').as('travauxCreation'))
+    q.select(
+      administrationsTitresQuery(administrationsIds, 'titres', {
+        isGestionnaire: true
+      })
+        .modify(
+          administrationsTitresTypesTitresStatutsModify,
+          'demarches',
+          'titres'
+        )
+        .select(raw('true'))
+        .as('demarchesCreation')
+    )
+    q.select(
+      administrationsTitresQuery(administrationsIds, 'titres', {
+        isGestionnaire: true,
+        isLocale: true
+      })
+        .select(raw('true'))
+        .as('travauxCreation')
+    )
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
@@ -170,7 +189,7 @@ const titresQueryModify = (
     )
   })
 
-  titreActivitesCalc(q, fields, user)
+  titreActivitesCount(q, fields, user)
 
   // visibilité des activités
   q.modifyGraph('activites', b => {

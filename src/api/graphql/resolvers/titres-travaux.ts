@@ -56,7 +56,7 @@ const travauxModifier = async (
     const user = await userGet(context.user?.id)
 
     const oldTitreTravaux = await titresTravauGet(
-      travaux.titreId,
+      travaux.id,
       { fields: { id: {} } },
       user
     )
@@ -104,9 +104,12 @@ const travauxSupprimer = async (
 
     if (!oldTitreTravaux.suppression) throw new Error('droits insuffisants')
 
-    const travauxOld = await titresTravauGet(id, {
-      fields: { etapes: { documents: { type: { id: {} } } } }
-    })
+    const travauxOld = await titresTravauGet(
+      id,
+      { fields: { etapes: { documents: { type: { id: {} } } } } },
+      user
+    )
+
     if (!travauxOld) throw new Error("la démarche n'existe pas")
 
     await titreTravauxDelete(id)
