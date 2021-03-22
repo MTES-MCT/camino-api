@@ -361,7 +361,6 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
       user
     )
 
-    // TODO gérer le boolean « suppression »
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
     }
@@ -370,6 +369,10 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
       throw new Error(
         errorEtapesAssocieesUpdate(documentOld.etapesAssociees, 'supprimer')
       )
+    }
+
+    if (!documentOld.suppression) {
+      throw new Error('droits insuffisants')
     }
 
     await documentPermissionsCheck(documentOld, user)

@@ -5,6 +5,8 @@ import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
 import TitresEtapesJustificatifs from '../../models/titres-etapes-justificatifs'
+import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
+import ActivitesTypesDocumentsTypes from '../../models/activites-types--documents-types'
 
 const documentsQueryModify = (
   q: QueryBuilder<Documents, Documents | Documents[]>,
@@ -98,12 +100,39 @@ const documentsQueryModify = (
     raw('(not exists(?))', [titreEtapeJustificatifsQuery]).as('modification')
   )
   q.select(
-    raw('(not exists(?))', [titreEtapeJustificatifsQuery]).as('suppression')
+    raw('(not exists(?) and not exists(?) and not exists(?))', [
+      titreEtapeJustificatifsQuery,
+      documentTypeActiviteTypeQuery(
+        'documents.typeId',
+        'documents.titreActiviteId'
+      ),
+      documentTypeEtapeTypeQuery('documents.typeId', 'documents.titreEtapeId')
+    ]).as('suppression')
   )
 }
 
 const titreEtapeJustificatifsQuery = TitresEtapesJustificatifs.query()
   .alias('documentsModification')
   .whereRaw('?? = ??', ['documentsModification.documentId', 'documents.id'])
+
+const documentTypeActiviteTypeQuery = (
+  typeIdAlias: string,
+  activiteIdAlias: string
+) =>
+  ActivitesTypesDocumentsTypes.query()
+    .leftJoin('titresActivites', 'titresActivites.id', activiteIdAlias)
+    .whereRaw('?? = ??', ['activiteTypeId', 'titresActivites.typeId'])
+    .andWhereRaw('?? = ??', ['documentTypeId', typeIdAlias])
+    .andWhereRaw('?? is not true', ['optionnel'])
+
+const documentTypeEtapeTypeQuery = (
+  typeIdAlias: string,
+  etapeIdAlias: string
+) =>
+  EtapesTypesDocumentsTypes.query()
+    .leftJoin('titresEtapes', 'titresEtapes.id', etapeIdAlias)
+    .whereRaw('?? = ??', ['etapeTypeId', 'titresEtapes.typeId'])
+    .andWhereRaw('?? = ??', ['documentTypeId', typeIdAlias])
+    .andWhereRaw('?? is not true', ['optionnel'])
 
 export { documentsQueryModify }

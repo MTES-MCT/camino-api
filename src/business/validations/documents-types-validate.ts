@@ -1,8 +1,8 @@
-import { IActiviteTypeDocumentType, IDocument } from '../../types'
+import { IDocument, IDocumentType } from '../../types'
 
 const documentsTypesValidate = (
   documents?: IDocument[] | null,
-  documentsTypes?: IActiviteTypeDocumentType[]
+  documentsTypes?: IDocumentType[]
 ) => {
   const errors = [] as string[]
 

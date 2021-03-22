@@ -1,5 +1,5 @@
 import { documentsTypesValidate } from './documents-types-validate'
-import { IActiviteTypeDocumentType, IDocument } from '../../types'
+import { IDocument, IDocumentType } from '../../types'
 
 describe('teste documentsTypesValidate', () => {
   test('aucun document type n’est possible', () => {
@@ -15,14 +15,14 @@ describe('teste documentsTypesValidate', () => {
   test('tous les documents sont optionnels', () => {
     const errors = documentsTypesValidate([], [
       { id: 'arr', optionnel: true }
-    ] as IActiviteTypeDocumentType[])
+    ] as IDocumentType[])
     expect(errors).toHaveLength(0)
   })
 
   test('il manque un document obligatoire', () => {
     const errors = documentsTypesValidate(null, [
       { id: 'arr', optionnel: false }
-    ] as IActiviteTypeDocumentType[])
+    ] as IDocumentType[])
     expect(errors).toHaveLength(1)
   })
 
@@ -35,7 +35,7 @@ describe('teste documentsTypesValidate', () => {
           fichierTypeId: 'pdf'
         }
       ] as IDocument[],
-      [{ id: 'arr', optionnel: false }] as IActiviteTypeDocumentType[]
+      [{ id: 'arr', optionnel: false }] as IDocumentType[]
     )
     expect(errors).toHaveLength(1)
   })
@@ -49,7 +49,7 @@ describe('teste documentsTypesValidate', () => {
           date: '2002-10-10'
         }
       ] as IDocument[],
-      [{ id: 'arr', optionnel: false }] as IActiviteTypeDocumentType[]
+      [{ id: 'arr', optionnel: false }] as IDocumentType[]
     )
     expect(errors).toHaveLength(1)
   })
@@ -63,7 +63,7 @@ describe('teste documentsTypesValidate', () => {
           date: '2002-10-10'
         }
       ] as IDocument[],
-      [{ id: 'arr', optionnel: false }] as IActiviteTypeDocumentType[]
+      [{ id: 'arr', optionnel: false }] as IDocumentType[]
     )
     expect(errors).toHaveLength(1)
   })
@@ -78,7 +78,7 @@ describe('teste documentsTypesValidate', () => {
           date: '2002-10-10'
         }
       ] as IDocument[],
-      [{ id: 'arr', optionnel: false }] as IActiviteTypeDocumentType[]
+      [{ id: 'arr', optionnel: false }] as IDocumentType[]
     )
     expect(errors).toHaveLength(0)
   })

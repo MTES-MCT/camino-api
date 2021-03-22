@@ -1,14 +1,10 @@
-import {
-  IActiviteTypeDocumentType,
-  ISection,
-  ITitreActivite
-} from '../../types'
+import { IDocumentType, ISection, ITitreActivite } from '../../types'
 import { documentsTypesValidate } from './documents-types-validate'
 
 const titreActiviteCompleteCheck = (
   titreActivite: ITitreActivite,
   activiteSections: ISection[],
-  documentsTypes?: IActiviteTypeDocumentType[]
+  documentsTypes?: IDocumentType[]
 ) => {
   const activiteComplete = activiteSections.every(s =>
     s.elements?.every(

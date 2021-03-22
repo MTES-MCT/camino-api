@@ -124,7 +124,7 @@ interface ISectionElement {
   optionnel?: boolean
 }
 
-interface IActiviteTypeDocumentType extends IDocumentType {
+interface IActiviteTypeDocumentType {
   activiteTypeId: string
   documentTypeId: string
   optionnel: boolean
@@ -143,7 +143,7 @@ interface IActiviteType {
   dateDebut: string
   delaiMois: number
   titresTypes: ITitreType[]
-  documentsTypes: IActiviteTypeDocumentType[]
+  documentsTypes: IDocumentType[]
   sections: ISection[]
   frequence?: IFrequence | null
   pays?: IPays[] | null
@@ -251,6 +251,7 @@ interface IDocumentType {
   id: string
   nom: string
   repertoire: IDocumentRepertoire
+  optionnel: boolean
 }
 
 interface IDomaine {
@@ -306,8 +307,10 @@ interface IEtapeStatut {
   couleur: ICouleur
 }
 
-interface IEtapeTypeDocumentType extends IDocumentType {
-  optionnel: boolean
+interface IEtapeTypeDocumentType {
+  etapeTypeId: string
+  documentTypeId: string
+  optionnel?: boolean
 }
 
 interface IEtapeType {
@@ -325,7 +328,7 @@ interface IEtapeType {
   demarcheTypeId?: string | null
   etapesCreation?: boolean | null
   unique?: boolean | null
-  documentsTypes?: IEtapeTypeDocumentType[]
+  documentsTypes?: IDocumentType[]
 }
 
 interface IForet extends IArea {}
@@ -732,6 +735,7 @@ interface IDocument {
   entrepriseId?: string | null
   entreprise?: IEntreprise | null
   etapesAssociees?: ITitreEtape[] | null
+  suppression?: boolean | null
 }
 
 interface ITitreEtapeOrTitreTravauxEtape {

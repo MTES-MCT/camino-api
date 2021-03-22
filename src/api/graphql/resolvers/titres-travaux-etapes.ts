@@ -113,7 +113,6 @@ const travauxEtapeModifier = async (
     if (titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId)
       throw new Error("les travaux n'existent pas")
 
-
     const etapeType = await etapeTypeGet(etape.typeId, {
       fields: { documentsTypes: { id: {} } }
     })
@@ -131,7 +130,12 @@ const travauxEtapeModifier = async (
       }
     }
 
-    await documentsModifier(context, etape, 'titreEtapeId', titreTravauxEtapeOld)
+    await documentsModifier(
+      context,
+      etape,
+      'titreEtapeId',
+      titreTravauxEtapeOld
+    )
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 

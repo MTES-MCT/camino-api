@@ -1,9 +1,4 @@
-import {
-  ITitreEtape,
-  ITitreDemarche,
-  ITitre,
-  IEtapeTypeDocumentType
-} from '../../types'
+import { ITitreEtape, ITitreDemarche, ITitre, IDocumentType } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
 import { titreEtapePointsValidate } from './titre-etape-points-validate'
@@ -14,7 +9,7 @@ const titreEtapeUpdationValidate = async (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
   titre: ITitre,
-  documentsTypes: IEtapeTypeDocumentType[]
+  documentsTypes: IDocumentType[]
 ) => {
   const errors = []
 
