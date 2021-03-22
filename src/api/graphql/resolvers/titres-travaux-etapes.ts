@@ -72,29 +72,17 @@ const travauxEtapeModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const titreTravaux = await titresTravauGet(
-      etape.titreTravauxId,
-      { fields: {} },
+    const titreTravauxEtapeOld = await titreTravauxEtapeGet(
+      etape.id,
+      { fields: { id: {} } },
       user
     )
 
-    if (!titreTravaux) throw new Error("les titreTravaux n'existent pas")
-
-    if (!titreTravaux.etapesCreation) {
+    if (!titreTravauxEtapeOld.modification)
       throw new Error('droits insuffisants')
-    }
 
-    const titre = await titreGet(
-      titreTravaux.titreId,
-      {
-        fields: {
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
-      },
-      user
-    )
-    if (!titre) throw new Error("le titre n'existe pas")
+    if (titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId)
+      throw new Error("les travaux n'existent pas")
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 

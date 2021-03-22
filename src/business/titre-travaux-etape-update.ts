@@ -1,4 +1,6 @@
 import { titresTravauGet } from '../database/queries/titres-travaux'
+import { userSuper } from '../database/user-super'
+import { titresIdsUpdate } from './processes/titres-ids-update'
 import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
 import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { logsUpdate } from './_logs-update'
@@ -9,13 +11,17 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
     console.info('- - -')
     console.info(`mise à jour d'une étape de travaux : ${titreTravauxId}`)
 
-    const titreTravaux = await titresTravauGet(titreTravauxId, {
-      fields: {
-        etapes: { id: {} },
-        type: { etapesTypes: { id: {} } },
-        titre: { id: {} }
-      }
-    })
+    const titreTravaux = await titresTravauGet(
+      titreTravauxId,
+      {
+        fields: {
+          etapes: { id: {} },
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} }
+        }
+      },
+      userSuper
+    )
 
     if (!titreTravaux) {
       throw new Error(`les travaux ${titreTravaux} n'existent pas`)
@@ -27,9 +33,13 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
     const titreId = titreTravaux.titreId
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
 
+    // met à jour l'id des travauxdans le titre par effet de bord
+    const titresUpdatedIndex = await titresIdsUpdate([titreId])
+
     logsUpdate({
       titresTravauxEtapesOrdreUpdated,
-      titresTravauxOrdreUpdated
+      titresTravauxOrdreUpdated,
+      titresUpdatedIndex
     })
 
     return titreId

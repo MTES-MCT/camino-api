@@ -31,7 +31,7 @@ const activiteStatuts = [
   }
 ]
 
-const titreActivitesCalc = (
+const titreActivitesCount = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   fields?: { fields?: IFields },
   user?: IUtilisateur
@@ -102,28 +102,12 @@ const titreActivitesCalc = (
       ) {
         const entreprisesIds = user.entreprises.map(e => e.id)
 
-        titresActivitesCountQuery.where(b => {
-          b.whereExists(
-            TitresActivites.query()
-              .alias('titresActivitesTitulaires')
-              .joinRelated('titre.titulaires')
-              .whereRaw('?? = ??', [
-                'titresActivitesTitulaires.id',
-                'activitesCount.id'
-              ])
-              .whereIn('titre:titulaires.id', entreprisesIds)
-          )
-          b.orWhereExists(
-            TitresActivites.query()
-              .alias('titresActivitesAmodiataires')
-              .joinRelated('titre.amodiataires')
-              .whereRaw('?? = ??', [
-                'titresActivitesAmodiataires.id',
-                'activitesCount.id'
-              ])
-              .whereIn('titre:amodiataires.id', entreprisesIds)
-          )
-        })
+        titresActivitesCountQuery.whereExists(
+          entreprisesTitresQuery(entreprisesIds, 'titre', {
+            isTitulaire: true,
+            isAmodiataire: true
+          })
+        )
       } else {
         titresActivitesCountQuery.where(false)
       }
@@ -271,5 +255,5 @@ const titresActivitesPropsQueryModify = (
 export {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify,
-  titreActivitesCalc
+  titreActivitesCount
 }

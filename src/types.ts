@@ -761,6 +761,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
   titreTravauxId: string
+  travaux?: ITitreTravaux
 }
 
 interface ITitreEtapeFiltre {

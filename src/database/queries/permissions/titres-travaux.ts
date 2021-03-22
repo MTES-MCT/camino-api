@@ -15,10 +15,15 @@ import { entreprisesTitresQuery } from './entreprises'
 const titreTravauxModificationQuery = (
   travauxAlias: string,
   titreAlias: string,
+  type: 'travaux' | 'etapes',
   user?: IUtilisateur
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
-    return raw('not exists(?)', [titreTravauxEtapesQuery(travauxAlias)])
+    if (type === 'travaux') {
+      return raw('not exists(?)', [titreTravauxEtapesQuery(travauxAlias)])
+    }
+
+    return raw('true')
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
@@ -34,9 +39,13 @@ const titreTravauxModificationQuery = (
       }
     )
 
-    return administrationTitreModification
-      .whereNotExists(titreTravauxEtapesQuery(travauxAlias))
-      .select(raw('true'))
+    if (type === 'travaux') {
+      administrationTitreModification.whereNotExists(
+        titreTravauxEtapesQuery(travauxAlias)
+      )
+    }
+
+    return administrationTitreModification.select(raw('true'))
   }
 
   return raw('false')
@@ -109,13 +118,13 @@ const titresTravauxQueryModify = (
   )
 
   q.select(
-    titreTravauxModificationQuery('titresTravaux', 'titre', user).as(
+    titreTravauxModificationQuery('titresTravaux', 'titre', 'travaux', user).as(
       'modification'
     )
   )
 
   q.select(
-    titreTravauxModificationQuery('titresTravaux', 'titre', user).as(
+    titreTravauxModificationQuery('titresTravaux', 'titre', 'etapes', user).as(
       'etapesCreation'
     )
   )

@@ -2,12 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as jwt from 'jsonwebtoken'
 
-import {
-  IAdministration,
-  Index,
-  IPermissionId,
-  IUtilisateur
-} from '../../src/types'
+import { Index, IPermissionId, IUtilisateur } from '../../src/types'
 import * as request from 'supertest'
 import { app } from '../init'
 import {
@@ -31,11 +26,11 @@ const graphQLCall = async (
     string | boolean | Index<string | boolean | Index<string>[] | any>
   >,
   permissionId?: IPermissionId,
-  administration?: IAdministration
+  administrationId?: string
 ) => {
   let token
   if (permissionId) {
-    token = await tokenUserGenerate(permissionId, administration)
+    token = await userTokenGenerate(permissionId, administrationId)
   }
 
   const req = request(app).post('/').send({ query, variables })
@@ -47,24 +42,27 @@ const graphQLCall = async (
   return req
 }
 
-const tokenUserGenerate = async (
+const userTokenGenerate = async (
   permissionId: IPermissionId,
-  administration?: IAdministration
+  administrationId?: string
 ) => {
   let id = 'super'
+
   if (permissionId !== 'super') {
     id = `${permissionId}-user`
-    if (administration?.id) {
-      id += `-${administration.id}`
+
+    if (administrationId) {
+      id += `-${administrationId}`
     }
   }
+
   const userInDb = await utilisateurGet(id, undefined, userSuper)
 
   if (!userInDb) {
     const administrations = []
 
-    if (administration) {
-      administrations.push(administration)
+    if (administrationId) {
+      administrations.push({ id: administrationId })
     }
 
     await utilisateurCreate(
@@ -84,4 +82,4 @@ const tokenUserGenerate = async (
   return tokenCreate({ id })
 }
 
-export { queryImport, tokenCreate, graphQLCall, tokenUserGenerate }
+export { queryImport, tokenCreate, graphQLCall, userTokenGenerate }

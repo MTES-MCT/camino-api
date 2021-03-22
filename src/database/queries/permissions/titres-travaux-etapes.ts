@@ -49,16 +49,12 @@ const titresTravauxEtapesQueryModify = (
       ) {
         const entreprisesIds = user.entreprises.map(a => a.id)
 
-        b.orWhere(c => {
-          c.where('type.entreprisesLecture', true)
-
-          c.whereExists(
-            entreprisesTitresQuery(entreprisesIds, 'travaux:titre', {
-              isTitulaire: true,
-              isAmodiataire: true
-            })
-          )
-        })
+        b.whereExists(
+          entreprisesTitresQuery(entreprisesIds, 'travaux:titre', {
+            isTitulaire: true,
+            isAmodiataire: true
+          })
+        )
       }
     })
   }
@@ -70,9 +66,12 @@ const titresTravauxEtapesQueryModify = (
   )
 
   q.select(
-    titreTravauxModificationQuery('travaux', 'travaux:titre', user).as(
-      'modification'
-    )
+    titreTravauxModificationQuery(
+      'travaux',
+      'travaux:titre',
+      'etapes',
+      user
+    ).as('modification')
   )
 
   q.modifyGraph('documents', b => {
