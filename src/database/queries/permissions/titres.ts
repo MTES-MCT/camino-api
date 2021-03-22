@@ -43,8 +43,8 @@ const titresAdministrationsModificationQuery = (
 
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  fields?: IFields,
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   q.select('titres.*')
 
@@ -175,7 +175,7 @@ const titresQueryModify = (
   q.modifyGraph('demarches', b => {
     titresDemarchesQueryModify(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-      fields,
+      { fields },
       user
     )
   })
@@ -184,12 +184,12 @@ const titresQueryModify = (
   q.modifyGraph('travaux', b => {
     titresTravauxQueryModify(
       b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
-      fields,
+      { fields },
       user
     )
   })
 
-  titreActivitesCount(q, fields, user)
+  titreActivitesCount(q, { fields }, user)
 
   // visibilité des activités
   q.modifyGraph('activites', b => {

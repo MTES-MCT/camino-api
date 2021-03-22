@@ -18,7 +18,7 @@ import { stringSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
-  if (!userId) return undefined
+  if (!userId) return null
 
   const user = await Utilisateurs.query().findById(userId)
 
@@ -42,7 +42,7 @@ const utilisateursQueryBuild = (
     emails?: string | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'utilisateur', fieldsFormat)
@@ -50,7 +50,7 @@ const utilisateursQueryBuild = (
 
   const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
 
-  utilisateursQueryModify(q, fields, user)
+  utilisateursQueryModify(q, { fields }, user)
 
   if (permissionIds) {
     q.whereIn('permissionId', permissionIds)
@@ -126,7 +126,7 @@ const userByRefreshTokenGet = async (
 const utilisateurGet = async (
   id: string,
   { fields }: { fields?: IFields } = {},
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = utilisateursQueryBuild({}, { fields }, user)
 
@@ -184,7 +184,7 @@ const utilisateursGet = async (
     emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = utilisateursQueryBuild(
     {
@@ -239,7 +239,7 @@ const utilisateursCount = async (
     emails?: string | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = utilisateursQueryBuild(
     {

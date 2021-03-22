@@ -21,7 +21,7 @@ const entreprisesQueryBuild = (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'entreprises', fieldsFormat)
@@ -29,7 +29,7 @@ const entreprisesQueryBuild = (
 
   const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
 
-  entreprisesQueryModify(q, fields, user)
+  entreprisesQueryModify(q, { fields }, user)
 
   if (noms) {
     const nomsArray = stringSplit(noms)
@@ -71,7 +71,7 @@ const entreprisesCount = async (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = entreprisesQueryBuild({ noms, archive }, { fields }, user)
   if (!q) return 0
@@ -84,7 +84,7 @@ const entreprisesCount = async (
 const entrepriseGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = entreprisesQueryBuild({}, { fields }, user)
 
@@ -108,7 +108,7 @@ const entreprisesGet = async (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = entreprisesQueryBuild({ noms, archive }, { fields }, user)
   if (!q) return []

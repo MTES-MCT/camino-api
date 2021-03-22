@@ -30,7 +30,7 @@ const titresEtapesQueryBuild = (
     titresDemarchesIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapes', fieldsFormat)
@@ -61,7 +61,7 @@ const titresEtapesQueryBuild = (
 const titreEtapeGet = async (
   titreEtapeId: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresEtapesQueryBuild({}, { fields }, user)
 
@@ -82,7 +82,7 @@ const titresEtapesGet = async (
     titresDemarchesIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresEtapesQueryBuild(
     { titresEtapesIds, etapesTypesIds, titresDemarchesIds },

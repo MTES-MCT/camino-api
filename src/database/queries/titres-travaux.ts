@@ -11,7 +11,7 @@ import { titresTravauxQueryModify } from './permissions/titres-travaux'
 const titresTravauxQueryBuild = (
   _: never,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fieldsTitreAdd(fields), 'travaux', fieldsFormat)
@@ -19,7 +19,7 @@ const titresTravauxQueryBuild = (
 
   const q = TitresTravaux.query().withGraphFetched(graph)
 
-  titresTravauxQueryModify(q, fields, user)
+  titresTravauxQueryModify(q, { fields }, user)
 
   return q
 }
@@ -31,7 +31,7 @@ const titresTravauxGet = async (
     titresTravauxIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresTravauxQueryBuild(null as never, { fields }, user)
 
@@ -45,7 +45,7 @@ const titresTravauxGet = async (
 const titresTravauGet = async (
   titreTravauxId: string,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresTravauxQueryBuild(null as never, { fields }, user)
 

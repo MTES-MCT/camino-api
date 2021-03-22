@@ -85,7 +85,7 @@ const titresCreationQuery = (
 
 const titresTypesQueryModify = (
   q: QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   q.select('titresTypes.*')
 
@@ -109,7 +109,7 @@ const titresTypesQueryModify = (
 
 const domainesQueryModify = (
   q: QueryBuilder<Domaines, Domaines | Domaines[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   q.select('domaines.*')
 
@@ -123,7 +123,7 @@ const domainesQueryModify = (
 
 const etapesTypesQueryModify = (
   q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
-  user?: IUtilisateur,
+  user: IUtilisateur | null,
   {
     titreDemarcheId,
     titreEtapeId,
@@ -226,7 +226,7 @@ const etapesTypesQueryModify = (
 
 const travauxEtapesTypesQueryModify = (
   q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
-  user?: IUtilisateur,
+  user: IUtilisateur | null,
   {
     titreTravauxId,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -268,7 +268,7 @@ const travauxEtapesTypesQueryModify = (
 
 const activitesTypesQueryModify = (
   q: QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
@@ -313,7 +313,7 @@ const activitesTypesQueryModify = (
 
 const demarchesTypesQueryModify = (
   q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
-  user?: IUtilisateur,
+  user: IUtilisateur | null,
   {
     titreId,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -365,7 +365,7 @@ const demarchesTypesQueryModify = (
 
 const travauxTypesQueryModify = (
   q: QueryBuilder<TravauxTypes, TravauxTypes | TravauxTypes[]>,
-  user?: IUtilisateur,
+  user: IUtilisateur | null,
   {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     titreId,
@@ -385,7 +385,7 @@ const travauxTypesQueryModify = (
 
 const permissionsQueryModify = (
   q: QueryBuilder<Permissions, Permissions | Permissions[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   // le super peut voir toutes les permissions sans restriction
   if (permissionCheck(user?.permissionId, ['super'])) {

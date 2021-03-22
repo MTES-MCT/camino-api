@@ -10,8 +10,8 @@ import { entreprisesQueryModify } from './entreprises'
 
 const utilisateursQueryModify = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-  fields?: IFields,
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   q.select('utilisateurs.*')
 
@@ -137,7 +137,7 @@ const utilisateursQueryModify = (
   q.modifyGraph('entreprises', u =>
     entreprisesQueryModify(
       u as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
-      fields,
+      { fields },
       user
     )
   )

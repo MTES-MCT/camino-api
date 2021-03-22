@@ -14,8 +14,8 @@ import { documentsQueryModify } from './documents'
 
 const entreprisesQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
-  fields?: IFields,
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   q.select('entreprises.*')
 
@@ -43,7 +43,7 @@ const entreprisesQueryModify = (
   q.modifyGraph('titulaireTitres', a =>
     titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields?.titulaireTitres,
+      { fields: fields?.titulaireTitres },
       user
     )
       // on group by entrepriseId au cas où il y a une aggrégation
@@ -54,7 +54,7 @@ const entreprisesQueryModify = (
   q.modifyGraph('amodiataireTitres', a =>
     titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields?.amodiataireTitres,
+      { fields: fields?.amodiataireTitres },
       user
     )
       // on group by entrepriseId au cas où il y a une aggrégation
@@ -65,7 +65,7 @@ const entreprisesQueryModify = (
   q.modifyGraph('utilisateurs', b => {
     utilisateursQueryModify(
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-      fields,
+      { fields },
       user
     )
   })

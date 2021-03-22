@@ -23,7 +23,7 @@ const titresTravauxEtapesQueryModify = (
     TitresTravauxEtapes,
     TitresTravauxEtapes | TitresTravauxEtapes[]
   >,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   q.select('titresTravauxEtapes.*').leftJoinRelated('[travaux.titre]')
 

@@ -27,6 +27,7 @@ import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 import EtapesTypes from '../../database/models/etapes-types'
 import { entreprisesGet } from '../../database/queries/entreprises'
 import Entreprises from '../../database/models/entreprises'
+import { userSuper } from '../../database/user-super'
 // import dirCreate from '../../tools/dir-create'
 // import fileRename from '../../tools/file-rename'
 import slugify = require('@sindresorhus/slugify')
@@ -240,7 +241,8 @@ const etapesGet = async (
   if (demarche.siren_titulaire) {
     let entreprises = await entreprisesGet(
       { noms: demarche.siren_titulaire },
-      { fields: { id: {} } }
+      { fields: { id: {} } },
+      userSuper
     )
     if (!entreprises?.length) {
       console.info(`Nouvelle entreprise ${demarche.siren_titulaire}`)
@@ -419,11 +421,15 @@ const main = async () => {
       // récupération des périmètres déjà enregistrés en prod
 
       const oldId = demarche.Camino.slice(35)
-      oldTitre = await titreGet(oldId, {
-        fields: {
-          demarches: { etapes: { points: { references: { id: {} } } } }
-        }
-      })
+      oldTitre = await titreGet(
+        oldId,
+        {
+          fields: {
+            demarches: { etapes: { points: { references: { id: {} } } } }
+          }
+        },
+        userSuper
+      )
       if (!oldTitre) {
         console.error(
           demarche.Camino,
@@ -492,9 +498,13 @@ const main = async () => {
   }
 
   for (const newTitre of newTitres) {
-    const bddTitre = await titreGet(newTitre.id, {
-      fields: { demarches: { id: {} } }
-    })
+    const bddTitre = await titreGet(
+      newTitre.id,
+      {
+        fields: { demarches: { id: {} } }
+      },
+      userSuper
+    )
 
     if (bddTitre) {
       bddTitre.demarches!.forEach(d => {

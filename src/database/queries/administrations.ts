@@ -32,7 +32,7 @@ const administrationsQueryBuild = (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'administrations', fieldsFormat)
@@ -40,7 +40,7 @@ const administrationsQueryBuild = (
 
   const q = Administrations.query().withGraphFetched(graph)
 
-  administrationsQueryModify(q, fields, user)
+  administrationsQueryModify(q, { fields }, user)
 
   if (administrationsIds) {
     q.whereIn('administrations.id', administrationsIds)
@@ -74,7 +74,7 @@ const administrationsQueryBuild = (
 const administrationGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = administrationsQueryBuild({}, { fields }, user)
 
@@ -92,7 +92,7 @@ const administrationsCount = async (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = administrationsQueryBuild(
     { noms, typesIds, administrationsIds },
@@ -126,7 +126,7 @@ const administrationsGet = async (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = administrationsQueryBuild(
     { noms, typesIds, administrationsIds },

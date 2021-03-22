@@ -8,7 +8,7 @@ import TitresEtapesJustificatifs from '../../models/titres-etapes-justificatifs'
 
 const documentsQueryModify = (
   q: QueryBuilder<Documents, Documents | Documents[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   q.select('documents.*')
 

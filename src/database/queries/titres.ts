@@ -54,7 +54,7 @@ const titresQueryBuild = (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
@@ -62,7 +62,7 @@ const titresQueryBuild = (
 
   const q = Titres.query().withGraphFetched(graph)
 
-  titresQueryModify(q, fields, user)
+  titresQueryModify(q, { fields }, user)
 
   if (ids) {
     q.whereIn('titres.id', ids)
@@ -98,7 +98,7 @@ const titresQueryBuild = (
 const titreGet = async (
   id: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild({}, { fields }, user)
 
@@ -111,7 +111,7 @@ const titreFromIdGet = async (
   id: string,
   element: 'etape',
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild({}, { fields }, user)
 
@@ -203,7 +203,7 @@ const titresGet = async (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild(
     {
@@ -298,7 +298,7 @@ const titresCount = async (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild(
     {

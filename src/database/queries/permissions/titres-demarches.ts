@@ -20,8 +20,8 @@ import { entreprisesTitresQuery } from './entreprises'
 
 const titresDemarchesQueryModify = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-  fields?: IFields,
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   q.select('titresDemarches.*').leftJoinRelated('titre')
 
@@ -32,7 +32,7 @@ const titresDemarchesQueryModify = (
           Titres,
           Titres | Titres[]
         >).alias('titres'),
-        fields,
+        { fields },
         user
       )
     )
@@ -100,7 +100,7 @@ const titresDemarchesQueryModify = (
   q.modifyGraph('titre', a =>
     titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
+      { fields },
       user
     )
   )
@@ -112,7 +112,7 @@ const titresDemarchesQueryModify = (
 
 const titreDemarcheModificationQuery = (
   demarcheAlias: string,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     return raw('not exists(?)', [titreDemarcheEtapesQuery(demarcheAlias)])
@@ -143,7 +143,7 @@ const titreDemarcheEtapesQuery = (demarcheAlias: string) =>
 
 const titreEtapesCreationQuery = (
   demarcheAlias: string,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     return raw('true')

@@ -120,7 +120,7 @@ const documentRepertoireCheck = (
 
 const documentPermissionsCheck = async (
   document: IDocument,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   if (
     !document.titreEtapeId &&

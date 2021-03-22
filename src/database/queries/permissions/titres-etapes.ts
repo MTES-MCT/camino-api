@@ -16,7 +16,7 @@ import {
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
 
-const titreEtapeModificationQueryBuild = (user?: IUtilisateur) => {
+const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     return raw('true')
   } else if (
@@ -48,7 +48,7 @@ const titreEtapeModificationQueryBuild = (user?: IUtilisateur) => {
  */
 const titresEtapesQueryModify = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
 

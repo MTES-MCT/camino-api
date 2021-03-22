@@ -16,7 +16,7 @@ const titreTravauxModificationQuery = (
   travauxAlias: string,
   titreAlias: string,
   type: 'travaux' | 'etapes',
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     if (type === 'travaux') {
@@ -61,8 +61,8 @@ const titreTravauxEtapesQuery = (travauxAlias: string) =>
 
 const titresTravauxQueryModify = (
   q: QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
-  fields?: IFields,
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   q.select('titresTravaux.*').leftJoinRelated('titre')
 
@@ -129,7 +129,7 @@ const titresTravauxQueryModify = (
   q.modifyGraph('titre', a =>
     titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
+      { fields },
       user
     )
   )

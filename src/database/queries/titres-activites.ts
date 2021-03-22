@@ -69,7 +69,7 @@ const titreActivitesQueryBuild = (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   if (!user?.permissionId) return null
 
@@ -126,7 +126,7 @@ const titreActivitesQueryBuild = (
 const titreActiviteGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titreActivitesQueryBuild({}, { fields }, user)
 
@@ -143,7 +143,7 @@ const titreActiviteGet = async (
  *
  */
 
-const titresActivitesAnneesGet = async (user?: IUtilisateur) => {
+const titresActivitesAnneesGet = async (user: IUtilisateur | null) => {
   if (!user?.permissionId) return []
 
   const q = TitresActivites.query()
@@ -244,7 +244,7 @@ const titresActivitesGet = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titreActivitesQueryBuild(
     {
@@ -336,7 +336,7 @@ const titresActivitesCount = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titreActivitesQueryBuild(
     {

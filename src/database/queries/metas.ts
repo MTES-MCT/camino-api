@@ -66,7 +66,11 @@ import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import TravauxTypesEtapesTypes from '../models/travaux-types--etapes-types'
 
-const permissionsGet = async (_a: never, _b: never, user?: IUtilisateur) => {
+const permissionsGet = async (
+  _a: never,
+  _b: never,
+  user: IUtilisateur | null
+) => {
   const q = Permissions.query().skipUndefined().orderBy('ordre')
 
   permissionsQueryModify(q, user)
@@ -101,7 +105,7 @@ const titreTypeTypeUpdate = async (
 const domainesGet = async (
   _: never,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'titre', fieldsFormat)
@@ -117,7 +121,7 @@ const domainesGet = async (
 const domaineGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'titre', fieldsFormat)
@@ -280,7 +284,7 @@ const travauxTypeEtapeTypeDelete = async (
  * @param user - utilisateur
  * @returns liste de statuts
  */
-const titresStatutsGet = async (user?: IUtilisateur) => {
+const titresStatutsGet = async (user: IUtilisateur | null) => {
   let query = TitresStatuts.query().orderBy('ordre')
 
   // si l’utilisateur n’est pas connecté on filtre les statuts non visibles pour le public
@@ -302,7 +306,7 @@ const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
 const travauxTypesGet = async (
   { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'travauxTypes', fieldsFormat)
@@ -324,7 +328,7 @@ const travauxTypeUpdate = async (id: string, props: Partial<ITravauxType>) =>
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'demarchesTypes', fieldsFormat)
@@ -368,7 +372,7 @@ const etapesTypesGet = async (
     uniqueCheck?: boolean
   } = { uniqueCheck: true },
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapesTypes', fieldsFormat)

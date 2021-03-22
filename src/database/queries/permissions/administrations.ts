@@ -13,8 +13,8 @@ import { knex } from '../../../knex'
 
 const administrationsQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  fields?: IFields,
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   q.select('administrations.*')
 
@@ -40,7 +40,7 @@ const administrationsQueryModify = (
   q.modifyGraph('gestionnaireTitres', a =>
     titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
+      { fields },
       user
     )
       // on group by administrationId au cas où il y a une aggrégation
@@ -54,7 +54,7 @@ const administrationsQueryModify = (
   q.modifyGraph('localeTitres', a =>
     titresQueryModify(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields,
+      { fields },
       user
     )
       // on group by administrationId au cas où il y a une aggrégation
@@ -65,7 +65,7 @@ const administrationsQueryModify = (
   q.modifyGraph('utilisateurs', b => {
     utilisateursQueryModify(
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-      fields,
+      { fields },
       user
     )
   })

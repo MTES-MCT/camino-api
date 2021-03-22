@@ -647,14 +647,14 @@ const titreStatutModifier = async (
     }
 
     if (titreStatut.ordre) {
-      const titresStatuts = await titresStatutsGet()
+      const titresStatuts = await titresStatutsGet(user)
 
       await ordreUpdate(titreStatut, titresStatuts, titreStatutUpdate)
     }
 
     await titreStatutUpdate(titreStatut.id!, titreStatut)
 
-    const titresStatut = await titresStatutsGet()
+    const titresStatut = await titresStatutsGet(user)
 
     return titresStatut
   } catch (e) {

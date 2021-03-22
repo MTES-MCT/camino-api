@@ -2,7 +2,7 @@ import { IUtilisateur, IUser } from '../../types'
 
 import { permissionCheck } from '../../tools/permission'
 
-const userFormat = (utilisateur: IUtilisateur | undefined) => {
+const userFormat = (utilisateur: IUtilisateur | null) => {
   if (!utilisateur) return null
 
   const user = utilisateur as IUser

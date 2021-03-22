@@ -18,7 +18,7 @@ const titresTravauxEtapesQueryBuild = (
     titresTravauxIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapes', fieldsFormat)
@@ -48,7 +48,7 @@ const titresTravauxEtapesQueryBuild = (
 const titreTravauxEtapeGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresTravauxEtapesQueryBuild({}, { fields }, user)
 
@@ -66,7 +66,7 @@ const titresTravauxEtapesGet = async (
     titresTravauxIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   const q = titresTravauxEtapesQueryBuild(
     { etapesIds, etapesTypesIds, titresTravauxIds },

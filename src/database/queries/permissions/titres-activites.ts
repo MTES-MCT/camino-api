@@ -33,8 +33,8 @@ const activiteStatuts = [
 
 const titreActivitesCount = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  fields?: { fields?: IFields },
-  user?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
 ) => {
   const activiteStatutsRequested = activiteStatuts.filter(
     activiteStatut =>
@@ -135,7 +135,7 @@ const titreActivitesCount = (
 
 const titresActivitesQueryModify = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  user?: IUtilisateur,
+  user: IUtilisateur | null,
   select = true
 ) => {
   if (select) {
@@ -187,7 +187,7 @@ const titresActivitesQueryModify = (
 
 const titresActivitesPropsQueryModify = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  user?: IUtilisateur
+  user: IUtilisateur | null
 ) => {
   q.select('titresActivites.*')
 
