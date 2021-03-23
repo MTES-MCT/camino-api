@@ -27,36 +27,34 @@ const titresTravauxEtapesQueryModify = (
 ) => {
   q.select('titresTravauxEtapes.*').leftJoinRelated('[travaux.titre]')
 
-  if (!user || !permissionCheck(user.permissionId, ['super'])) {
-    q.where(b => {
-      // étapes visibles pour les admins
-      if (
-        user?.administrations?.length &&
-        permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
-      ) {
-        const administrationsIds = user.administrations.map(a => a.id) || []
+  // étapes visibles pour les admins
+  if (
+    user?.administrations?.length &&
+    permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
+  ) {
+    const administrationsIds = user.administrations.map(a => a.id) || []
 
-        b.orWhereExists(
-          administrationsTitresQuery(administrationsIds, 'travaux:titre', {
-            isGestionnaire: true,
-            isAssociee: true,
-            isLocale: true
-          })
-        )
-      } else if (
-        user?.entreprises?.length &&
-        permissionCheck(user?.permissionId, ['entreprise'])
-      ) {
-        const entreprisesIds = user.entreprises.map(a => a.id)
+    q.whereExists(
+      administrationsTitresQuery(administrationsIds, 'travaux:titre', {
+        isGestionnaire: true,
+        isAssociee: true,
+        isLocale: true
+      })
+    )
+  } else if (
+    user?.entreprises?.length &&
+    permissionCheck(user?.permissionId, ['entreprise'])
+  ) {
+    const entreprisesIds = user.entreprises.map(a => a.id)
 
-        b.whereExists(
-          entreprisesTitresQuery(entreprisesIds, 'travaux:titre', {
-            isTitulaire: true,
-            isAmodiataire: true
-          })
-        )
-      }
-    })
+    q.whereExists(
+      entreprisesTitresQuery(entreprisesIds, 'travaux:titre', {
+        isTitulaire: true,
+        isAmodiataire: true
+      })
+    )
+  } else if (!permissionCheck(user?.permissionId, ['super'])) {
+    q.where(false)
   }
 
   q.select(
