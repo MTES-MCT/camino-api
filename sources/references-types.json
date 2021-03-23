@@ -4,20 +4,8 @@
     "nom": "Nom d'usage"
   },
   {
-    "id": "dge",
-    "nom": "DGEC"
-  },
-  {
     "id": "ifr",
     "nom": "Ifremer"
-  },
-  {
-    "id": "brg",
-    "nom": "BRGM"
-  },
-  {
-    "id": "deb",
-    "nom": "DEB"
   },
   {
     "id": "onf",
@@ -28,6 +16,18 @@
     "nom": "PTMG"
   },
   {
+    "id": "brg",
+    "nom": "BRGM"
+  },
+  {
+    "id": "dea",
+    "nom": "DEAL"
+  },
+  {
+    "id": "deb",
+    "nom": "DEB"
+  },
+  {
     "id": "rnt",
     "nom": "RNTM"
   },
@@ -36,7 +36,7 @@
     "nom": "IRSN"
   },
   {
-    "id": "dea",
-    "nom": "DEAL"
+    "id": "dge",
+    "nom": "DGEC"
   }
 ]

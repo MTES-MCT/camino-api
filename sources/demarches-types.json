@@ -114,6 +114,13 @@
     "points": true
   },
   {
+    "id": "ret",
+    "nom": "retrait",
+    "description": "Démarche initiée par l’autorité administrative. Le ministre chargé des mines pour les titres et le préfet pour les autorisations d’exploitation peuvent retirer les autorisations et les titres miniers en cours de validité si l’intéressé ne remplit plus certaines prescriptions légales.\r\nLe retrait a pour effet de replacer le gisement dans la situation de ceux ouverts aux recherches.",
+    "ordre": 20,
+    "duree": true
+  },
+  {
     "id": "ren",
     "nom": "renonciation",
     "description": "Démarche appliquée à une autorisation ou un titre minier pour anticiper son échéance. Elle peut porter sur tout ou partie du périmètre. Cela est possible sous réserve d’avoir procédé aux mesures de remise en état dont le préfet lui aura a donné acte définitivement. La renonciation a pour effet de replacer le gisement dans la catégorie de ceux ouverts aux recherches.",
@@ -124,19 +131,21 @@
     "renouvelable": true
   },
   {
-    "id": "ret",
-    "nom": "retrait",
-    "description": "Démarche initiée par l’autorité administrative. Le ministre chargé des mines pour les titres et le préfet pour les autorisations d’exploitation peuvent retirer les autorisations et les titres miniers en cours de validité si l’intéressé ne remplit plus certaines prescriptions légales.\r\nLe retrait a pour effet de replacer le gisement dans la situation de ceux ouverts aux recherches.",
-    "ordre": 20,
-    "duree": true
-  },
-  {
     "id": "pr1",
     "nom": "prolongation 1",
     "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
     "ordre": 3,
     "duree": true,
     "points": true
+  },
+  {
+    "id": "pro",
+    "nom": "prolongation",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Des prolongations sans limitation sont applicables aux concessions pour des durées maximales successives de 25 ans, aux permis d'exploitation de géothermie pour des durées maximales successives de 15 ans, aux permis exclusifs de carrières pour des durées maximales successives de 10 ans et aux autorisations de recherches de carrières pour des durées maximales successives de 3 ans.\nUne prolongation unique est applicable aux autorisations de recherches et aux autorisations d'exploitation de minéraux et métaux en Guyane pour respectivement 4 mois et 4 ans maximum.",
+    "ordre": 2,
+    "duree": true,
+    "points": true,
+    "renouvelable": true
   },
   {
     "id": "mut",
@@ -149,22 +158,6 @@
     "renouvelable": true
   },
   {
-    "id": "dec",
-    "nom": "déchéance",
-    "description": "Démarche obsolète. L’autorité administrative pouvait retirer les droits liés aux autorisations et titres miniers en cours de validité si le titulaire ne remplissait plus certaines prescriptions légales. La déchéance avait pour effet de permettre à l’Etat de réattribuer le titre ou l’autorisation lors d’un appel d’offre.",
-    "ordre": 21,
-    "titulaires": true
-  },
-  {
-    "id": "pro",
-    "nom": "prolongation",
-    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Des prolongations sans limitation sont applicables aux concessions pour des durées maximales successives de 25 ans, aux permis d'exploitation de géothermie pour des durées maximales successives de 15 ans, aux permis exclusifs de carrières pour des durées maximales successives de 10 ans et aux autorisations de recherches de carrières pour des durées maximales successives de 3 ans.\nUne prolongation unique est applicable aux autorisations de recherches et aux autorisations d'exploitation de minéraux et métaux en Guyane pour respectivement 4 mois et 4 ans maximum.",
-    "ordre": 2,
-    "duree": true,
-    "points": true,
-    "renouvelable": true
-  },
-  {
     "id": "oct",
     "nom": "octroi",
     "description": "Démarche à l’initiative d’une personne physique ou morale en vue de l’obtention d’une autorisation ou d’un titre minier pour une première période de validité définie.",
@@ -172,6 +165,13 @@
     "duree": true,
     "points": true,
     "substances": true,
+    "titulaires": true
+  },
+  {
+    "id": "dec",
+    "nom": "déchéance",
+    "description": "Démarche obsolète. L’autorité administrative pouvait retirer les droits liés aux autorisations et titres miniers en cours de validité si le titulaire ne remplissait plus certaines prescriptions légales. La déchéance avait pour effet de permettre à l’Etat de réattribuer le titre ou l’autorisation lors d’un appel d’offre.",
+    "ordre": 21,
     "titulaires": true
   }
 ]

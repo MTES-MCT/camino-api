@@ -160,21 +160,6 @@
     "type_id": "cx"
   },
   {
-    "id": "prg",
-    "domaine_id": "g",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
-  },
-  {
     "id": "cxg",
     "domaine_id": "g",
     "type_id": "cx"
@@ -225,29 +210,14 @@
     ]
   },
   {
+    "id": "axm",
+    "domaine_id": "m",
+    "type_id": "ax"
+  },
+  {
     "id": "cxr",
     "domaine_id": "r",
     "type_id": "cx"
-  },
-  {
-    "id": "pxr",
-    "domaine_id": "r",
-    "type_id": "px"
-  },
-  {
-    "id": "prr",
-    "domaine_id": "r",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
   },
   {
     "id": "prm",
@@ -263,6 +233,11 @@
         "sectionId": "prx"
       }
     ]
+  },
+  {
+    "id": "pxr",
+    "domaine_id": "r",
+    "type_id": "px"
   },
   {
     "id": "pxm",
@@ -285,8 +260,33 @@
     "type_id": "in"
   },
   {
-    "id": "axm",
-    "domaine_id": "m",
-    "type_id": "ax"
+    "id": "prg",
+    "domaine_id": "g",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "prr",
+    "domaine_id": "r",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
   }
 ]

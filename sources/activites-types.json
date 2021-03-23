@@ -552,35 +552,6 @@
     "email": "cecile.caron@developpement-durable.gouv.fr"
   },
   {
-    "id": "gra",
-    "nom": "rapport annuel d'exploitation",
-    "sections": [
-      {
-        "id": "substancesFiscales",
-        "nom": "Production annuelle"
-      },
-      {
-        "id": "complement",
-        "nom": "Informations complémentaires",
-        "elements": [
-          {
-            "id": "texte",
-            "type": "textarea",
-            "dateDebut": "2018-01-01",
-            "optionnel": true,
-            "description": "Toute information utile à la compréhension de la production déclarée."
-          }
-        ]
-      }
-    ],
-    "frequence_id": "ann",
-    "date_debut": "2020-01-01",
-    "delai_mois": 11,
-    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2657?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
-    "ordre": 2,
-    "email": "camino@beta.gouv.fr"
-  },
-  {
     "id": "pmb",
     "nom": "rapport financier d'exploration",
     "sections": [
@@ -1372,6 +1343,35 @@
     "delai_mois": 24,
     "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2656?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
     "ordre": 4
+  },
+  {
+    "id": "gra",
+    "nom": "rapport annuel d'exploitation",
+    "sections": [
+      {
+        "id": "substancesFiscales",
+        "nom": "Production annuelle"
+      },
+      {
+        "id": "complement",
+        "nom": "Informations complémentaires",
+        "elements": [
+          {
+            "id": "texte",
+            "type": "textarea",
+            "dateDebut": "2018-01-01",
+            "optionnel": true,
+            "description": "Toute information utile à la compréhension de la production déclarée."
+          }
+        ]
+      }
+    ],
+    "frequence_id": "ann",
+    "date_debut": "2020-01-01",
+    "delai_mois": 11,
+    "satisfaction_url": "https://voxusagers.numerique.gouv.fr/Demarches/2657?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511",
+    "ordre": 2,
+    "email": "camino@beta.gouv.fr"
   },
   {
     "id": "pmc",

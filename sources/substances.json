@@ -90,11 +90,6 @@
     "description": "Mélange sédimentaire meuble constituée d'éléments rocheux de nature variée sous forme de sables, graviers et galets de nature variable extraits d'anciens lits de cours d'eau et utilisé comme granulat encore aujourd'hui principalement dans des bétons spéciaux ou pour des couches drainantes."
   },
   {
-    "id": "tell",
-    "nom": "tellure",
-    "symbole": "Te"
-  },
-  {
     "id": "trxx",
     "nom": "autres éléments de terres rares"
   },
@@ -120,14 +115,19 @@
     "nom": "gîtes géothermiques basse température"
   },
   {
-    "id": "irid",
-    "nom": "iridium",
-    "symbole": "Ir"
+    "id": "tell",
+    "nom": "tellure",
+    "symbole": "Te"
   },
   {
     "id": "lant",
     "nom": "lanthane",
     "symbole": "La"
+  },
+  {
+    "id": "lute",
+    "nom": "lutécium",
+    "symbole": "Lu"
   },
   {
     "id": "sgrm",
@@ -514,11 +514,6 @@
     "nom": "charbon"
   },
   {
-    "id": "coba",
-    "nom": "cobalt",
-    "symbole": "Co"
-  },
-  {
     "id": "zirc",
     "nom": "zirconium",
     "symbole": "Zr"
@@ -549,9 +544,9 @@
     "symbole": "Gd"
   },
   {
-    "id": "lute",
-    "nom": "lutécium",
-    "symbole": "Lu"
+    "id": "irid",
+    "nom": "iridium",
+    "symbole": "Ir"
   },
   {
     "id": "scbi",
@@ -714,9 +709,14 @@
     "nom": "alun"
   },
   {
-    "id": "lith",
-    "nom": "lithium",
-    "symbole": "Li"
+    "id": "ferx",
+    "nom": "fer",
+    "symbole": "Fe"
+  },
+  {
+    "id": "nacl",
+    "nom": "sels de sodium",
+    "symbole": "Na"
   },
   {
     "id": "bitm",
@@ -738,6 +738,10 @@
   {
     "id": "hydr",
     "nom": "hydrocarbures"
+  },
+  {
+    "id": "rxxx",
+    "nom": "autres éléments radioactifs"
   },
   {
     "id": "hyda",
@@ -767,11 +771,6 @@
     "symbole": "Al"
   },
   {
-    "id": "anti",
-    "nom": "antimoine",
-    "symbole": "Sb"
-  },
-  {
     "id": "soxx",
     "nom": "sulfates autres que les sulfates alcalino-terreux"
   },
@@ -791,11 +790,6 @@
   {
     "id": "prpy",
     "nom": "propylène"
-  },
-  {
-    "id": "fluo",
-    "nom": "fluorine",
-    "symbole": "F"
   },
   {
     "id": "gazn",
@@ -856,8 +850,13 @@
     "symbole": "Ti"
   },
   {
-    "id": "meco",
-    "nom": "métaux connexes"
+    "id": "anti",
+    "nom": "antimoine",
+    "symbole": "Sb"
+  },
+  {
+    "id": "bitu",
+    "nom": "bitume"
   },
   {
     "id": "saco",
@@ -866,33 +865,23 @@
     "description": "Mélange sédimentaire meuble constituée d'éléments rocheux de nature variée sous forme sous forme de sables et graviers d'origine détritique, de nature siliceuse et calcaire extrait des fonds marins. Leur utilité est destinée au granulat."
   },
   {
-    "id": "tant",
-    "nom": "tantale",
-    "symbole": "Ta"
+    "id": "fluo",
+    "nom": "fluorine",
+    "symbole": "F"
   },
   {
-    "id": "niob",
-    "nom": "niobium",
-    "symbole": "Nb"
+    "id": "mang",
+    "nom": "manganèse",
+    "symbole": "Mn"
   },
   {
-    "id": "bery",
-    "nom": "béryllium",
-    "symbole": "Be"
-  },
-  {
-    "id": "plat",
-    "nom": "platine",
-    "symbole": "Pt"
+    "id": "geoh",
+    "nom": "gîtes géothermiques haute température"
   },
   {
     "id": "caci",
     "nom": "calcaires cimentiers",
     "gerep": 1105
-  },
-  {
-    "id": "geoh",
-    "nom": "gîtes géothermiques haute température"
   },
   {
     "id": "hydx",
@@ -915,9 +904,8 @@
     "nom": "sources d'eau salée"
   },
   {
-    "id": "indi",
-    "nom": "indium",
-    "symbole": "In"
+    "id": "meco",
+    "nom": "métaux connexes"
   },
   {
     "id": "selg",
@@ -944,58 +932,6 @@
     "nom": "métaux de la mine du platine"
   },
   {
-    "id": "germ",
-    "nom": "germanium",
-    "symbole": "Ge"
-  },
-  {
-    "id": "nacl",
-    "nom": "sels de sodium",
-    "symbole": "Na"
-  },
-  {
-    "id": "mang",
-    "nom": "manganèse",
-    "symbole": "Mn"
-  },
-  {
-    "id": "arge",
-    "nom": "argent",
-    "symbole": "Ag"
-  },
-  {
-    "id": "auru",
-    "nom": "or",
-    "symbole": "Au"
-  },
-  {
-    "id": "ferx",
-    "nom": "fer",
-    "symbole": "Fe"
-  },
-  {
-    "id": "suco",
-    "nom": "substances connexes"
-  },
-  {
-    "id": "bitu",
-    "nom": "bitume"
-  },
-  {
-    "id": "rxxx",
-    "nom": "autres éléments radioactifs"
-  },
-  {
-    "id": "cuiv",
-    "nom": "cuivre",
-    "symbole": "Cu"
-  },
-  {
-    "id": "plom",
-    "nom": "plomb",
-    "symbole": "Pb"
-  },
-  {
     "id": "wolf",
     "nom": "tungstène",
     "symbole": "W"
@@ -1015,13 +951,77 @@
     "nom": "lignite"
   },
   {
+    "id": "auru",
+    "nom": "or",
+    "symbole": "Au"
+  },
+  {
+    "id": "cuiv",
+    "nom": "cuivre",
+    "symbole": "Cu"
+  },
+  {
+    "id": "plom",
+    "nom": "plomb",
+    "symbole": "Pb"
+  },
+  {
+    "id": "arge",
+    "nom": "argent",
+    "symbole": "Ag"
+  },
+  {
+    "id": "lith",
+    "nom": "lithium",
+    "symbole": "Li"
+  },
+  {
+    "id": "niob",
+    "nom": "niobium",
+    "symbole": "Nb"
+  },
+  {
+    "id": "tant",
+    "nom": "tantale",
+    "symbole": "Ta"
+  },
+  {
+    "id": "cfho",
+    "nom": "houille"
+  },
+  {
     "id": "zinc",
     "nom": "zinc",
     "symbole": "Zn"
   },
   {
-    "id": "cfho",
-    "nom": "houille"
+    "id": "suco",
+    "nom": "substances connexes"
+  },
+  {
+    "id": "bery",
+    "nom": "béryllium",
+    "symbole": "Be"
+  },
+  {
+    "id": "coba",
+    "nom": "cobalt",
+    "symbole": "Co"
+  },
+  {
+    "id": "germ",
+    "nom": "germanium",
+    "symbole": "Ge"
+  },
+  {
+    "id": "indi",
+    "nom": "indium",
+    "symbole": "In"
+  },
+  {
+    "id": "plat",
+    "nom": "platine",
+    "symbole": "Pt"
   },
   {
     "id": "uran",
