@@ -16,6 +16,7 @@ class Document extends Model {
       date: { type: 'string' },
       titreEtapeId: { type: ['string', 'null'] },
       titreActiviteId: { type: ['string', 'null'] },
+      titreTravauxEtapeId: { type: ['string', 'null'] },
       entrepriseId: { type: ['string', 'null'] },
       description: { type: ['string', 'null'] },
       fichier: { type: ['boolean', 'null'] },
