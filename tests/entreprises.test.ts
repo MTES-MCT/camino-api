@@ -1,4 +1,4 @@
-import { dbManager } from './init'
+import { dbManager } from './init-db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import { mocked } from 'ts-jest/utils'
 import {

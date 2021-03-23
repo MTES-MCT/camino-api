@@ -1,4 +1,4 @@
-import { dbManager } from './init'
+import { dbManager } from './init-db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import { administrations } from './__mocks__/administrations'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'

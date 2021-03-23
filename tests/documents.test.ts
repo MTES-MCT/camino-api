@@ -1,4 +1,3 @@
-import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils/index'
 import { IPermissionId, ITitreEtapeJustificatif } from '../src/types'
 import { documentCreate, documentGet } from '../src/database/queries/documents'
@@ -6,11 +5,7 @@ import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
 import { userSuper } from '../src/database/user-super'
-import { knex } from '../src/knex'
-import EtapesTypesDocumentsTypes from '../src/database/models/etapes-types--documents-types'
-import TitresEtapes from '../src/database/models/titres-etapes'
-import TitresActivites from '../src/database/models/titres-activites'
-import ActivitesTypesDocumentsTypes from '../src/database/models/activites-types--documents-types'
+import { dbManager } from './init-db-manager'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -76,103 +71,6 @@ describe('documentSupprimer', () => {
     expect(res.body.data.documentSupprimer).toBeTruthy()
     expect(await documentGet(documentId, {}, userSuper)).toBeUndefined()
   })
-
-  test.each`
-    optionnel    | statutId | suppression
-    ${true}      | ${'aco'} | ${true}
-    ${false}     | ${'aco'} | ${true}
-    ${undefined} | ${'aco'} | ${true}
-    ${true}      | ${'fai'} | ${true}
-    ${false}     | ${'fai'} | ${false}
-    ${undefined} | ${'fai'} | ${false}
-  `(
-    'vérifie la possibilité de supprimer un document optionnel ou non d’une étape (utilisateur super)',
-    async ({ optionnel, statutId, suppression }) => {
-      // suppression de la clé étrangère sur la démarche pour ne pas avoir à tout créer
-      await TitresEtapes.query().delete()
-      await knex.schema.alterTable(TitresEtapes.tableName, table => {
-        table.dropColumns('titreDemarcheId')
-      })
-
-      await knex.schema.alterTable(TitresEtapes.tableName, table => {
-        table.string('titreDemarcheId').index().notNullable()
-      })
-
-      await TitresEtapes.query().insertGraph({
-        id: 'titreEtapeId',
-        typeId: 'dpu',
-        titreDemarcheId: 'titreDemarcheId',
-        date: '',
-        statutId
-      })
-
-      const documentId = 'document-id'
-      await documentCreate({
-        id: documentId,
-        typeId: 'dec',
-        date: '',
-        titreEtapeId: 'titreEtapeId'
-      })
-
-      await EtapesTypesDocumentsTypes.query().insertGraph({
-        etapeTypeId: 'dpu',
-        documentTypeId: 'dec',
-        optionnel
-      })
-
-      const documentRes = await documentGet(documentId, {}, userSuper)
-
-      expect(documentRes.suppression).toBe(suppression)
-    }
-  )
-
-  test.each`
-    optionnel    | suppression
-    ${true}      | ${true}
-    ${false}     | ${false}
-    ${undefined} | ${false}
-  `(
-    'vérifie la possibilité de supprimer un document optionnel ou non d’une activité (utilisateur super)',
-    async ({ optionnel, suppression }) => {
-      // suppression de la clé étrangère sur le titre pour ne pas avoir à tout créer
-      await TitresActivites.query().delete()
-      await knex.schema.alterTable(TitresActivites.tableName, table => {
-        table.dropColumns('titreId')
-      })
-
-      await knex.schema.alterTable(TitresActivites.tableName, table => {
-        table.string('titreId').index().notNullable()
-      })
-
-      await TitresActivites.query().insertGraph({
-        id: 'titreActiviteId',
-        typeId: 'grx',
-        titreId: '',
-        date: '',
-        statutId: 'dep',
-        periodeId: 1,
-        annee: 2000
-      })
-
-      const documentId = 'document-id'
-      await documentCreate({
-        id: documentId,
-        typeId: 'dec',
-        date: '',
-        titreActiviteId: 'titreActiviteId'
-      })
-
-      await ActivitesTypesDocumentsTypes.query().insertGraph({
-        activiteTypeId: 'grx',
-        documentTypeId: 'dec',
-        optionnel
-      })
-
-      const documentRes = await documentGet(documentId, {}, userSuper)
-
-      expect(documentRes.suppression).toBe(suppression)
-    }
-  )
 
   test('ne peut pas supprimer un document d’entreprise lié à une étape (utilisateur super)', async () => {
     const entrepriseId = 'entreprise-id'

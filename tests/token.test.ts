@@ -1,4 +1,4 @@
-import { dbManager } from './init'
+import { dbManager } from './init-db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import Utilisateurs from '../src/database/models/utilisateurs'
 import * as jwt from 'jsonwebtoken'
