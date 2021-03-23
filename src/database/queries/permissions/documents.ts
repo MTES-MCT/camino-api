@@ -23,6 +23,9 @@ const documentsQueryModify = (
 
     // repertoire = activites
     q.leftJoinRelated('activite.titre.[titulaires, amodiataires]')
+
+    // repertoire = activites
+    q.leftJoinRelated('travauxEtape.travaux.titre.[titulaires, amodiataires]')
   }
 
   if (
@@ -54,6 +57,20 @@ const documentsQueryModify = (
                 )
                 f.orWhereIn(
                   'etape:demarche:titre:amodiataires.id',
+                  entreprisesIds
+                )
+              })
+            })
+
+            d.orWhere(e => {
+              e.where('type.repertoire', 'travaux')
+              e.where(f => {
+                f.orWhereIn(
+                  'travauxEtape:travaux:titre:titulaires.id',
+                  entreprisesIds
+                )
+                f.orWhereIn(
+                  'travauxEtape:travaux:titre:amodiataires.id',
                   entreprisesIds
                 )
               })

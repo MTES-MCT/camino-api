@@ -66,49 +66,36 @@ const titresTravauxQueryModify = (
 ) => {
   q.select('titresTravaux.*').leftJoinRelated('titre')
 
-  if (!user || !permissionCheck(user.permissionId, ['super'])) {
-    q.whereExists(
-      titresQueryModify(
-        (TitresTravaux.relatedQuery('titre') as QueryBuilder<
-          Titres,
-          Titres | Titres[]
-        >).alias('titres'),
-        fields,
-        user
-      )
+  if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    const administrationsIds = user.administrations.map(e => e.id)
+    const administrationTitre = administrationsTitresQuery(
+      administrationsIds,
+      'titre',
+      {
+        isGestionnaire: true,
+        isAssociee: true,
+        isLocale: true
+      }
     )
 
-    q.where(b => {
-      if (
-        permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-        user?.administrations?.length
-      ) {
-        const administrationsIds = user.administrations.map(e => e.id)
-        const administrationTitre = administrationsTitresQuery(
-          administrationsIds,
-          'titre',
-          {
-            isGestionnaire: true,
-            isAssociee: true,
-            isLocale: true
-          }
-        )
+    q.whereExists(administrationTitre)
+  } else if (
+    permissionCheck(user?.permissionId, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
+    const entreprisesIds = user.entreprises.map(e => e.id)
 
-        b.orWhereExists(administrationTitre)
-      } else if (
-        permissionCheck(user?.permissionId, ['entreprise']) &&
-        user?.entreprises?.length
-      ) {
-        const entreprisesIds = user.entreprises.map(e => e.id)
-
-        b.whereExists(
-          entreprisesTitresQuery(entreprisesIds, 'titre', {
-            isTitulaire: true,
-            isAmodiataire: true
-          })
-        )
-      }
-    })
+    q.whereExists(
+      entreprisesTitresQuery(entreprisesIds, 'titre', {
+        isTitulaire: true,
+        isAmodiataire: true
+      })
+    )
+  } else if (!permissionCheck(user?.permissionId, ['super'])) {
+    q.where(false)
   }
 
   q.select(
