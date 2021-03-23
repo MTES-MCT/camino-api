@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.76](https://github.com/MTES-MCT/camino-api/compare/v0.24.75...v0.24.76) (2021-03-23)
+
+
+### Features
+
+* **travaux:** gère les permissions des administrations et entreprises affiliées ([#701](https://github.com/MTES-MCT/camino-api/issues/701)) ([791fe06](https://github.com/MTES-MCT/camino-api/commit/791fe06441fc06e7063a9afdf2598e8c98a39d04))
+
+
+### Bug Fixes
+
+* **activités:** corrige la listes des années des activités ([#699](https://github.com/MTES-MCT/camino-api/issues/699)) ([503b35c](https://github.com/MTES-MCT/camino-api/commit/503b35cedf77bb0162ac63230ddaa1f7c23a985a))
+* **domaines:** supprime un champ de domaine obsolète ([#705](https://github.com/MTES-MCT/camino-api/issues/705)) ([24a8332](https://github.com/MTES-MCT/camino-api/commit/24a8332517ef74a16a5b2e4744631ccee7c5d012))
+* **étapes:** supprime les incertitudes non utilisées lors de l’enregistrement ([#700](https://github.com/MTES-MCT/camino-api/issues/700)) ([66c0917](https://github.com/MTES-MCT/camino-api/commit/66c0917dee98327352945c622d1e50599216d9fd))
+* **travaux:** corrige les permissions ([#704](https://github.com/MTES-MCT/camino-api/issues/704)) ([7ea8111](https://github.com/MTES-MCT/camino-api/commit/7ea81115e4668304dae427c0b23d75199f218d5e))
+* **travaux:** gère les permissions pour les entreprises ([#706](https://github.com/MTES-MCT/camino-api/issues/706)) ([16d1182](https://github.com/MTES-MCT/camino-api/commit/16d1182a52a25669b1bfaf2a49cc75dbb10e7e5c))
+* **utilisateur:** ne peut pas modifier l’email d’un utilisateur avec un email existant ([#703](https://github.com/MTES-MCT/camino-api/issues/703)) ([99043aa](https://github.com/MTES-MCT/camino-api/commit/99043aa12e759bef9ff6f6c0dd066a9aa47e2d0e))
+
 ### [0.24.75](https://github.com/MTES-MCT/camino-api/compare/v0.24.74...v0.24.75) (2021-03-17)
 
 
