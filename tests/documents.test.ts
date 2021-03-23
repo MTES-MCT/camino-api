@@ -78,13 +78,16 @@ describe('documentSupprimer', () => {
   })
 
   test.each`
-    optionnel    | suppression
-    ${true}      | ${true}
-    ${false}     | ${false}
-    ${undefined} | ${false}
+    optionnel    | statutId | suppression
+    ${true}      | ${'aco'} | ${true}
+    ${false}     | ${'aco'} | ${true}
+    ${undefined} | ${'aco'} | ${true}
+    ${true}      | ${'fai'} | ${true}
+    ${false}     | ${'fai'} | ${false}
+    ${undefined} | ${'fai'} | ${false}
   `(
     'vérifie la possibilité de supprimer un document optionnel ou non d’une étape (utilisateur super)',
-    async ({ optionnel, suppression }) => {
+    async ({ optionnel, statutId, suppression }) => {
       // suppression de la clé étrangère sur la démarche pour ne pas avoir à tout créer
       await TitresEtapes.query().delete()
       await knex.schema.alterTable(TitresEtapes.tableName, table => {
@@ -100,7 +103,7 @@ describe('documentSupprimer', () => {
         typeId: 'dpu',
         titreDemarcheId: 'titreDemarcheId',
         date: '',
-        statutId: 'acc'
+        statutId
       })
 
       const documentId = 'document-id'

@@ -134,5 +134,6 @@ const documentTypeEtapeTypeQuery = (
     .whereRaw('?? = ??', ['etapeTypeId', 'titresEtapes.typeId'])
     .andWhereRaw('?? = ??', ['documentTypeId', typeIdAlias])
     .andWhereRaw('?? is not true', ['optionnel'])
+    .andWhereRaw('?? != ?', ['titresEtapes.statutId', 'aco'])
 
 export { documentsQueryModify }
