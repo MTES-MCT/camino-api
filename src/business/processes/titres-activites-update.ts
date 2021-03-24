@@ -30,7 +30,23 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
     userSuper
   )
 
-  const activitesTypes = await activitesTypesGet({}, userSuper)
+  const activitesTypes = await activitesTypesGet(
+    {
+      fields: {
+        pays: { id: {} },
+        frequence: {
+          mois: { id: {} },
+          trimestres: { mois: { id: {} } },
+          annees: { id: {} }
+        },
+        titresTypes: { id: {} },
+        administrations: { id: {} },
+        documentsTypes: { id: {} }
+      }
+    },
+    userSuper
+  )
+
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
   const titresActivitesCreated = activitesTypes.reduce(

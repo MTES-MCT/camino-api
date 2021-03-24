@@ -15,7 +15,7 @@ exports.up = knex =>
       table.integer('ordre').notNullable()
       table.string('email', 128)
     })
-    .createTable('titresTypes__activitesTypes', table => {
+    .createTable('activitesTypes__titresTypes', table => {
       table
         .string('titreTypeId', 3)
         .index()
@@ -26,7 +26,7 @@ exports.up = knex =>
         .index()
         .references('activitesTypes.id')
         .notNullable()
-      table.primary(['titreTypeId', 'activiteTypeId'])
+      table.primary(['activiteTypeId', 'titreTypeId'])
     })
     .createTable('activitesTypes__pays', table => {
       table.string('paysId', 3).notNullable().index().references('pays.id')
@@ -63,6 +63,6 @@ exports.down = knex =>
   knex.schema
     .dropTable('activitesTypes__pays')
     .dropTable('activitesTypes__documentsTypes')
-    .dropTable('titresTypes__activitesTypes')
+    .dropTable('activitesTypes__titresTypes')
     .dropTable('activitesTypes')
     .dropTable('activitesStatuts')

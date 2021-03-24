@@ -116,7 +116,7 @@ type Query {
   "Types d'activités"
   activitesTypes: [ActiviteType]
 
-  "Statuts des rapports d'activités"
+  "Statuts des activités"
   activitesStatuts: [ActiviteStatut]
 
   "Types de démarches"
@@ -185,6 +185,10 @@ type Query {
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   travauxTypesEtapesTypes: [TravauxTypeEtapeType]
 
+  activitesTypesTitresTypes: [ActiviteTypeTitreType]
+  activitesTypesDocumentsTypes: [ActiviteTypeDocumentType]
+  activitesTypesPays: [ActiviteTypePays]
+
   "Liste des permissions utilisateurs"
   permissions: [Permission]
 
@@ -226,7 +230,7 @@ type Query {
   "Définitions et descriptions"
   definitions: [Definition]
 
-  "Types de travaux"
+  "Types des travaux"
   travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
 }
 
@@ -396,6 +400,10 @@ type Mutation {
 
   etapeStatutModifier(etapeStatut: InputEtapeStatut!): [EtapeStatut]
 
+  activiteTypeModifier(activiteType: InputActiviteType!): [ActiviteType]
+
+  activiteStatutModifier(activiteStatut: InputActiviteStatut!): [ActiviteStatut]
+
   deviseModifier(devise: InputDevise!): [Devise]
 
   uniteModifier(unite: InputUnite!): [Unite]
@@ -477,4 +485,32 @@ type Mutation {
   travauxTypeEtapeTypeSupprimer(
     travauxTypeEtapeType: InputTravauxTypeEtapeType!
   ): [TravauxTypeEtapeType]
+
+  activiteTypeTitreTypeCreer(
+    activiteTypeTitreType: InputActiviteTypeTitreType!
+  ): [ActiviteTypeTitreType]
+
+  activiteTypeTitreTypeSupprimer(
+    activiteTypeTitreType: InputActiviteTypeTitreType!
+  ): [ActiviteTypeTitreType]
+
+  activiteTypeDocumentTypeCreer(
+    activiteTypeDocumentType: InputActiviteTypeDocumentType!
+  ): [ActiviteTypeDocumentType]
+
+  activiteTypeDocumentTypeModifier(
+    activiteTypeDocumentType: InputActiviteTypeDocumentType!
+  ): [ActiviteTypeDocumentType]
+
+  activiteTypeDocumentTypeSupprimer(
+    activiteTypeDocumentType: InputActiviteTypeDocumentType!
+  ): [ActiviteTypeDocumentType]
+
+  activiteTypePaysCreer(
+    activiteTypePays: InputActiviteTypePays!
+  ): [ActiviteTypePays]
+
+  activiteTypePaysSupprimer(
+    activiteTypePays: InputActiviteTypePays!
+  ): [ActiviteTypePays]
 }

@@ -3,7 +3,7 @@ import { knex } from '../../knex'
 import {
   activitesTypesGet,
   activiteTypeCreate,
-  titreTypeActiviteTypeDelete
+  activiteTypeTitreTypeDelete
 } from '../../database/queries/metas-activites'
 import {
   titresActivitesUpsert,
@@ -31,7 +31,7 @@ const main = async () => {
   await activiteTypeCreate(activiteTypeNew)
 
   console.info(`type d'activité ajoutée: ${activiteTypeNew.nom}`)
-  await titreTypeActiviteTypeDelete({
+  await activiteTypeTitreTypeDelete({
     titreTypeId: 'axm',
     activiteTypeId: 'gra'
   })

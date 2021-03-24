@@ -40,7 +40,6 @@ import ReferencesTypes from '../models/references-types'
 import TitresStatuts from '../models/titres-statuts'
 import TitresTypesTypes from '../models/titres-types-types'
 import Unites from '../models/unites'
-import ActivitesStatuts from '../models/activites-statuts'
 import EtapesStatuts from '../models/etapes-statuts'
 import SubstancesLegalesCodes from '../models/substances-legales-codes'
 import Definitions from '../models/definition'
@@ -210,12 +209,11 @@ const titreTypeDemarcheTypeEtapeTypeUpdate = async (
   titreTypeId: string,
   demarcheTypeId: string,
   etapeTypeId: string,
-  props: Partial<ITitreTypeDemarcheTypeEtapeType>
+  titreTypeDemarcheTypeEtapeType: Partial<ITitreTypeDemarcheTypeEtapeType>
 ) =>
-  TitresTypesDemarchesTypesEtapesTypes.query().patchAndFetchById(
-    [titreTypeId, demarcheTypeId, etapeTypeId],
-    props
-  )
+  TitresTypesDemarchesTypesEtapesTypes.query()
+    .patch(titreTypeDemarcheTypeEtapeType)
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId])
 
 const titreTypeDemarcheTypeEtapeTypeCreate = async (
   titreTypeDemarcheTypeEtapeType: ITitreTypeDemarcheTypeEtapeType
@@ -447,12 +445,6 @@ const unitesGet = async () => Unites.query().orderBy('id')
 const uniteUpdate = async (id: string, props: Partial<IUnite>) =>
   Unites.query().patchAndFetchById(id, props)
 
-const activitesStatutsGet = async () => {
-  const q = ActivitesStatuts.query()
-
-  return q
-}
-
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 const etapesStatutsGet = async () => EtapesStatuts.query()
@@ -502,7 +494,6 @@ export {
   geoSystemeGet,
   unitesGet,
   uniteUpdate,
-  activitesStatutsGet,
   referencesTypesGet,
   phasesStatutsGet,
   phaseStatutUpdate,

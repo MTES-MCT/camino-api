@@ -10,7 +10,6 @@ node_modules
 /dist
 /sources/titres.json
 /sources/titres-*.json
-!/sources/titres-types--activites-types.json
 !/sources/titres-types--demarches-types--etapes-types.json
 !/sources/titres-types--demarches-types.json
 !/sources/titres-types--titres-statuts.json
