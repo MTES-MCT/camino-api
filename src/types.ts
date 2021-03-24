@@ -881,6 +881,7 @@ interface ITitreTypeDemarcheTypeEtapeType {
 
   sections?: ISection[] | null
   ordre: number
+  etapeType?: IEtapeType
 }
 
 interface IUnite {
