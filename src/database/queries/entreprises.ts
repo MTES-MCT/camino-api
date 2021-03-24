@@ -166,5 +166,6 @@ export {
   entreprisesCount,
   entreprisesUpsert,
   entrepriseUpsert,
-  entrepriseDelete
+  entrepriseDelete,
+  entreprisesQueryBuild
 }

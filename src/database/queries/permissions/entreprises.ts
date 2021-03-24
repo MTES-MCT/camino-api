@@ -11,6 +11,7 @@ import Documents from '../../models/documents'
 import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
 import { documentsQueryModify } from './documents'
+import { knex } from '../../../knex'
 
 const entreprisesQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
@@ -27,12 +28,11 @@ const entreprisesQueryModify = (
   ) {
     const utilisateurEntreprise = Utilisateurs.query().leftJoin(
       'utilisateurs__entreprises as u_e',
-      raw('?? = ?? and ?? = ?', [
-        'u_e.entrepriseId',
-        'entreprises.id',
-        'u_e.utilisateurId',
-        user.id
-      ])
+      b => {
+        b.on(knex.raw('?? = ??', ['u_e.entrepriseId', 'entreprises.id'])).andOn(
+          knex.raw('?? = ?', ['u_e.utilisateurId', user.id])
+        )
+      }
     )
 
     q.select(raw('exists (?)', [utilisateurEntreprise]).as('modification'))
@@ -116,18 +116,15 @@ const entreprisesTitulairesModify = (
   entreprisesIds: string[],
   titreAlias: string
 ) => {
-  const entreprisesIdsReplace = entreprisesIds.map(() => '?').join(',')
-
-  q.leftJoin(
-    'titresTitulaires as t_t',
-    raw(`?? ->> ? = ?? and ?? in (${entreprisesIdsReplace})`, [
-      `${titreAlias}.propsTitreEtapesIds`,
-      'titulaires',
-      't_t.titreEtapeId',
-      't_t.entrepriseId',
-      ...entreprisesIds
-    ])
-  )
+  q.leftJoin('titresTitulaires as t_t', b => {
+    b.on(
+      knex.raw('?? ->> ? = ??', [
+        `${titreAlias}.propsTitreEtapesIds`,
+        'titulaires',
+        't_t.titreEtapeId'
+      ])
+    ).onIn('t_t.entrepriseId', entreprisesIds)
+  })
 }
 
 const entreprisesAmodiatairesModify = (
@@ -135,18 +132,15 @@ const entreprisesAmodiatairesModify = (
   entreprisesIds: string[],
   titreAlias: string
 ) => {
-  const entreprisesIdsReplace = entreprisesIds.map(() => '?').join(',')
-
-  q.leftJoin(
-    'titresAmodiataires as t_a',
-    raw(`?? ->> ? = ?? and ?? in (${entreprisesIdsReplace})`, [
-      `${titreAlias}.propsTitreEtapesIds`,
-      'amodiataires',
-      't_a.titreEtapeId',
-      't_a.entrepriseId',
-      ...entreprisesIds
-    ])
-  )
+  q.leftJoin('titresAmodiataires as t_a', b => {
+    b.on(
+      knex.raw('?? ->> ? = ??', [
+        `${titreAlias}.propsTitreEtapesIds`,
+        'amodiataires',
+        't_a.titreEtapeId'
+      ])
+    ).onIn('t_a.entrepriseId', entreprisesIds)
+  })
 }
 
 export { entreprisesQueryModify, entreprisesTitresQuery }

@@ -82,32 +82,19 @@ const administrationsTitresTypesModify = (
     isAssociee
   }: { isGestionnaire?: boolean; isAssociee?: boolean } = {}
 ) => {
-  const administrationsIdsReplace = administrationsIds.map(() => '?').join(',')
-
-  let query = `?? = ?? and ?? = ?? and ?? in (${administrationsIdsReplace})`
-
-  const bindings = [
-    'a_tt.administrationId',
-    'administrations.id',
-    'a_tt.titreTypeId',
-    `${titreAlias}.typeId`,
-    'administrations.id',
-    ...administrationsIds
-  ]
-
-  if (isGestionnaire) {
-    query = `${query} and ${isAssociee ? '(' : ''} ?? is true`
-    bindings.push('a_tt.gestionnaire')
-  }
-
-  if (isAssociee) {
-    query = `${query} ${isGestionnaire ? 'or' : 'and'} ?? is true ${
-      isGestionnaire ? ')' : ''
-    }`
-    bindings.push('a_tt.associee')
-  }
-
-  q.leftJoin('administrations__titresTypes as a_tt', raw(query, bindings))
+  q.leftJoin('administrations__titresTypes as a_tt', b => {
+    b.on(knex.raw('?? = ??', ['a_tt.administrationId', 'administrations.id']))
+      .andOn(knex.raw('?? = ??', ['a_tt.titreTypeId', `${titreAlias}.typeId`]))
+      .onIn('administrations.id', administrationsIds)
+    if (isGestionnaire && isAssociee) {
+      b.on(knex.raw('( ?? is true', ['a_tt.gestionnaire']))
+      b.orOn(knex.raw('?? is true )', ['a_tt.associee']))
+    } else if (isGestionnaire) {
+      b.on(knex.raw('?? is true', ['a_tt.gestionnaire']))
+    } else if (isAssociee) {
+      b.on(knex.raw('?? is true', ['a_tt.associee']))
+    }
+  })
 }
 
 const administrationsLocalesModify = (
@@ -115,18 +102,15 @@ const administrationsLocalesModify = (
   administrationsIds: string[],
   titreAlias: string
 ) => {
-  const administrationsIdsReplace = administrationsIds.map(() => '?').join(',')
-
-  q.leftJoin(
-    'titresAdministrationsLocales as t_al',
-    raw(`?? ->> ? = ?? and ?? in (${administrationsIdsReplace})`, [
-      `${titreAlias}.propsTitreEtapesIds`,
-      'administrations',
-      't_al.titreEtapeId',
-      't_al.administrationId',
-      ...administrationsIds
-    ])
-  )
+  q.leftJoin('titresAdministrationsLocales as t_al', b => {
+    b.on(
+      knex.raw('?? ->> ? = ??', [
+        `${titreAlias}.propsTitreEtapesIds`,
+        'administrations',
+        't_al.titreEtapeId'
+      ])
+    ).onIn('t_al.administrationId', administrationsIds)
+  })
 }
 
 const administrationsActivitesModify = (
@@ -194,18 +178,18 @@ const administrationsTitresTypesTitresStatutsModify = (
   type: 'titres' | 'demarches' | 'etapes',
   titreAlias: string
 ) => {
-  q.leftJoin(
-    'administrations__titresTypes__titresStatuts as a_tt_ts',
-    raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
-      'a_tt_ts.administrationId',
-      'administrations.id',
-      'a_tt_ts.titreTypeId',
-      `${titreAlias}.typeId`,
-      'a_tt_ts.titreStatutId',
-      `${titreAlias}.statutId`,
-      `a_tt_ts.${type}ModificationInterdit`
-    ])
-  ).whereNull('a_tt_ts.administrationId')
+  q.leftJoin('administrations__titresTypes__titresStatuts as a_tt_ts', b => {
+    b.on(
+      knex.raw('?? = ??', ['a_tt_ts.administrationId', 'administrations.id'])
+    )
+      .andOn(
+        knex.raw('?? = ??', ['a_tt_ts.titreTypeId', `${titreAlias}.typeId`])
+      )
+      .andOn(
+        knex.raw('?? = ??', ['a_tt_ts.titreStatutId', `${titreAlias}.statutId`])
+      )
+      .andOn(knex.raw('?? is true', [`a_tt_ts.${type}ModificationInterdit`]))
+  }).whereNull('a_tt_ts.administrationId')
 }
 
 // l'utilisateur est dans au moins une administration
@@ -216,18 +200,14 @@ const administrationsTitresTypesEtapesTypesModify = (
   titreTypeIdColumn: string,
   etapeTypeIdColumn: string
 ) => {
-  q.leftJoin(
-    'administrations__titresTypes__etapesTypes as a_tt_et',
-    raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
-      'a_tt_et.administrationId',
-      'administrations.id',
-      'a_tt_et.titreTypeId',
-      titreTypeIdColumn,
-      'a_tt_et.etapeTypeId',
-      etapeTypeIdColumn,
-      `a_tt_et.${type}Interdit`
-    ])
-  ).whereNull('a_tt_et.administrationId')
+  q.leftJoin('administrations__titresTypes__etapesTypes as a_tt_et', b => {
+    b.on(
+      knex.raw('?? = ??', ['a_tt_et.administrationId', 'administrations.id'])
+    )
+      .andOn(knex.raw('?? = ??', ['a_tt_et.titreTypeId', titreTypeIdColumn]))
+      .andOn(knex.raw('?? = ??', ['a_tt_et.etapeTypeId', etapeTypeIdColumn]))
+      .andOn(knex.raw('?? is true', [`a_tt_et.${type}Interdit`]))
+  }).whereNull('a_tt_et.administrationId')
 }
 
 export {
