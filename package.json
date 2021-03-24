@@ -61,12 +61,13 @@
     "ci:codecov": "codecov"
   },
   "@comment dependencies": {
-    "graphql-import": "bloqué à 0.7.1: https://github.com/MTES-MCT/camino-api/issues/399 & https://github.com/MTES-MCT/camino-api/issues/424"
+    "graphql-import": "bloqué à 0.7.1: https://github.com/MTES-MCT/camino-api/issues/399 & https://github.com/MTES-MCT/camino-api/issues/424",
+    "knex": "bloqué à 0.21.19 https://github.com/Vincit/objection.js/issues/2012"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
-    "@sentry/node": "^6.2.2",
-    "@sentry/types": "^6.2.2",
+    "@sentry/node": "^6.2.3",
+    "@sentry/types": "^6.2.3",
     "@sindresorhus/slugify": "^1.1.0",
     "@turf/center": "^6.3.0",
     "@types/basic-auth": "^1.1.3",
@@ -113,7 +114,7 @@
     "graphql-type-json": "^0.3.2",
     "graphql-upload": "^11.0.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.21.19",
+    "knex": "0.21.19",
     "knex-db-manager": "^0.7.0",
     "make-dir": "^3.1.0",
     "matomo-tracker": "^2.2.4",
@@ -133,8 +134,8 @@
   "devDependencies": {
     "@types/knex-db-manager": "^0.6.1",
     "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
     "codecov": "^3.8.1",
     "commitizen": "^4.2.3",
     "conventional-github-releaser": "^3.1.5",
@@ -158,7 +159,7 @@
     "standard-version": "^9.1.1",
     "supertest": "^6.1.3",
     "ts-jest": "^26.5.4",
-    "typedoc": "^0.20.32",
+    "typedoc": "^0.20.33",
     "typedoc-plugin-pages-fork": "^0.0.1",
     "typedoc-plugin-sourcefile-url": "^1.0.6"
   },
