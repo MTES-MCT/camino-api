@@ -195,6 +195,11 @@
     "type_id": "in"
   },
   {
+    "id": "cxr",
+    "domaine_id": "r",
+    "type_id": "cx"
+  },
+  {
     "id": "arm",
     "domaine_id": "m",
     "type_id": "ar",
@@ -210,14 +215,14 @@
     ]
   },
   {
+    "id": "pxr",
+    "domaine_id": "r",
+    "type_id": "px"
+  },
+  {
     "id": "axm",
     "domaine_id": "m",
     "type_id": "ax"
-  },
-  {
-    "id": "cxr",
-    "domaine_id": "r",
-    "type_id": "cx"
   },
   {
     "id": "prm",
@@ -235,11 +240,6 @@
     ]
   },
   {
-    "id": "pxr",
-    "domaine_id": "r",
-    "type_id": "px"
-  },
-  {
     "id": "pxm",
     "domaine_id": "m",
     "type_id": "px"
@@ -255,11 +255,6 @@
     "type_id": "cx"
   },
   {
-    "id": "inr",
-    "domaine_id": "r",
-    "type_id": "in"
-  },
-  {
     "id": "prg",
     "domaine_id": "g",
     "type_id": "pr",
@@ -273,6 +268,11 @@
         "sectionId": "prx"
       }
     ]
+  },
+  {
+    "id": "inr",
+    "domaine_id": "r",
+    "type_id": "in"
   },
   {
     "id": "prr",

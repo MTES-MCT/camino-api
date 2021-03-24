@@ -8,16 +8,16 @@
     "nom": "Ifremer"
   },
   {
+    "id": "brg",
+    "nom": "BRGM"
+  },
+  {
     "id": "onf",
     "nom": "ONF"
   },
   {
     "id": "ptm",
     "nom": "PTMG"
-  },
-  {
-    "id": "brg",
-    "nom": "BRGM"
   },
   {
     "id": "dea",
@@ -32,11 +32,11 @@
     "nom": "RNTM"
   },
   {
-    "id": "irs",
-    "nom": "IRSN"
-  },
-  {
     "id": "dge",
     "nom": "DGEC"
+  },
+  {
+    "id": "irs",
+    "nom": "IRSN"
   }
 ]

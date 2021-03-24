@@ -971,6 +971,24 @@
     "symbole": "Ag"
   },
   {
+    "id": "cfho",
+    "nom": "houille"
+  },
+  {
+    "id": "zinc",
+    "nom": "zinc",
+    "symbole": "Zn"
+  },
+  {
+    "id": "suco",
+    "nom": "substances connexes"
+  },
+  {
+    "id": "uran",
+    "nom": "uranium",
+    "symbole": "U"
+  },
+  {
     "id": "lith",
     "nom": "lithium",
     "symbole": "Li"
@@ -984,19 +1002,6 @@
     "id": "tant",
     "nom": "tantale",
     "symbole": "Ta"
-  },
-  {
-    "id": "cfho",
-    "nom": "houille"
-  },
-  {
-    "id": "zinc",
-    "nom": "zinc",
-    "symbole": "Zn"
-  },
-  {
-    "id": "suco",
-    "nom": "substances connexes"
   },
   {
     "id": "bery",
@@ -1022,10 +1027,5 @@
     "id": "plat",
     "nom": "platine",
     "symbole": "Pt"
-  },
-  {
-    "id": "uran",
-    "nom": "uranium",
-    "symbole": "U"
   }
 ]
