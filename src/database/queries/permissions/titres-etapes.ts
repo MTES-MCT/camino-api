@@ -15,6 +15,7 @@ import {
   administrationsTitresQuery
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
+import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -40,19 +41,15 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
 }
 
 const titreEtapeCreationDocumentsModify = (
-  q: QueryBuilder<any, any | any[]>
+  q: QueryBuilder<any, any | any[]>,
+  typeIdAlias: string
 ) => {
   // si il existe un type de document pour le type d’étape
-  q.leftJoin(
-    'etapesTypes__documentsTypes',
-    'type.id',
-    'etapesTypes__documentsTypes.etapeTypeId'
-  )
-  q.select(
-    raw('?? is not null', ['etapesTypes__documentsTypes.documentTypeId']).as(
-      'documentsCreation'
-    )
-  )
+  const query = EtapesTypesDocumentsTypes.query()
+    .where(raw('?? = ??', [typeIdAlias, 'etapeTypeId']))
+    .first()
+
+  q.select(raw('EXISTS(?)', [query]).as('documentsCreation'))
 }
 
 /**
@@ -121,7 +118,7 @@ const titresEtapesQueryModify = (
   )
 
   // si il existe un type de document pour le type d’étape
-  titreEtapeCreationDocumentsModify(q)
+  titreEtapeCreationDocumentsModify(q, 'type.id')
 
   q.select(
     raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(

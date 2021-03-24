@@ -73,7 +73,7 @@ const titresTravauxEtapesQueryModify = (
     ).as('modification')
   )
 
-  titreEtapeCreationDocumentsModify(q)
+  titreEtapeCreationDocumentsModify(q, 'type.id')
 
   q.modifyGraph('documents', b => {
     documentsQueryModify(

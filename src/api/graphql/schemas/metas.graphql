@@ -316,6 +316,12 @@ type EtapeTypeEtapeStatut {
   ordre: Int!
 }
 
+type EtapeTypeDocumentType {
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
+}
+
 type TravauxTypeDemarcheStatut {
   travauxTypeId: ID!
   demarcheStatutId: ID!
@@ -515,6 +521,12 @@ input InputEtapeTypeEtapeStatut {
   etapeTypeId: ID!
   etapeStatutId: ID!
   ordre: Int
+}
+
+input InputEtapeTypeDocumentType {
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
 }
 
 input InputTravauxTypeDemarcheStatut {
