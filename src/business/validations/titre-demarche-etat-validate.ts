@@ -46,7 +46,7 @@ const titreDemarcheEtapesBuild = (
 
 // vérifie que  la démarche est valide par rapport aux définitions des types d'étape
 const titreDemarcheEtatValidate = (
-  demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions[],
+  demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions,
   demarcheType: IDemarcheType,
   titreEtapes: ITitreEtape[],
   titre: ITitre
@@ -56,9 +56,8 @@ const titreDemarcheEtatValidate = (
   // et que les étapes après celle-ci soient toujours possibles
 
   // Vérifie que toutes les étapes existent dans l’arbre
-  const etapeTypeIdsValid = demarcheDefinitionRestrictions.map(
-    r => r.etapeTypeId
-  )
+  const etapeTypeIdsValid = Object.keys(demarcheDefinitionRestrictions)
+
   const etapeInconnue = titreEtapes.find(
     etape => !etapeTypeIdsValid.includes(etape.typeId!)
   )

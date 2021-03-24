@@ -12,7 +12,10 @@ interface IEtapeTypeIdCondition {
 }
 
 interface IDemarcheDefinitionRestrictions {
-  etapeTypeId: string
+  [key: string]: IDemarcheDefinitionRestrictionsProps
+}
+
+interface IDemarcheDefinitionRestrictionsProps {
   separation?: string[]
   justeApres: IEtapeTypeIdCondition[][]
   avant?: IEtapeTypeIdCondition[][]
@@ -20,10 +23,15 @@ interface IDemarcheDefinitionRestrictions {
   final?: boolean
 }
 
+interface IDemarcheDefinitionRestrictionsElements
+  extends IDemarcheDefinitionRestrictionsProps {
+  etapeTypeId?: string
+}
+
 interface IDemarcheDefinition {
   titreTypeId: string
   demarcheTypeIds: string[]
-  restrictions: IDemarcheDefinitionRestrictions[]
+  restrictions: IDemarcheDefinitionRestrictions
   dateDebut: string
 }
 
@@ -90,6 +98,8 @@ export {
   demarcheDefinitionFind,
   ITitreCondition,
   IDemarcheDefinitionRestrictions,
+  IDemarcheDefinitionRestrictionsProps,
+  IDemarcheDefinitionRestrictionsElements,
   IEtapeTypeIdCondition,
   IDemarcheDefinition,
   IContenuElementCondition
