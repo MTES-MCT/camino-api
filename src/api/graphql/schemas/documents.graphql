@@ -65,6 +65,25 @@ input InputDocumentCreation {
 
 input InputDocumentModification {
   id: ID!
+  date: String!
+  titreActiviteId: ID
+  entrepriseId: ID
+  titreEtapeId: ID
+  titreTravauxEtapeId: ID
+  description: String
+  fichier: Boolean
+  fichierTypeId: ID
+  fichierNouveau: FileUpload
+  url: String
+  uri: String
+  jorf: String
+  nor: String
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
+}
+
+input InputDocument {
+  id: ID
   typeId: ID!
   date: String!
   titreActiviteId: ID

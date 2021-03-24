@@ -172,6 +172,8 @@ type EtapeType {
   etapesStatuts: [EtapeStatut]
 
   etapesCreation: Boolean
+
+  documentsTypes: [DocumentType]
 }
 
 "Statut d'une étape de démarche de titre minier"
@@ -312,6 +314,12 @@ type EtapeTypeEtapeStatut {
   etapeTypeId: ID!
   etapeStatutId: ID!
   ordre: Int!
+}
+
+type EtapeTypeDocumentType {
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
 }
 
 type TravauxTypeDemarcheStatut {
@@ -513,6 +521,12 @@ input InputEtapeTypeEtapeStatut {
   etapeTypeId: ID!
   etapeStatutId: ID!
   ordre: Int
+}
+
+input InputEtapeTypeDocumentType {
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
 }
 
 input InputTravauxTypeDemarcheStatut {

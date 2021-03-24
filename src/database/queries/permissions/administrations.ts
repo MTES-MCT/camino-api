@@ -139,7 +139,7 @@ const administrationsActivitesModify = (
       .andOn(
         knex.raw('?? = ??', ['a_at.activiteTypeId', 'titresActivites.typeId'])
       )
-      .on(c => {
+      .andOn(c => {
         if (lecture) {
           c.orOn(knex.raw('?? is true', ['a_at.lectureInterdit']))
         }

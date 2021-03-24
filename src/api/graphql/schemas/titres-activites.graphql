@@ -27,9 +27,6 @@ type Activite {
 
 input InputActiviteModification {
   id: ID!
-  statutId: String!
   contenu: Json
-  fichier: Boolean
-  fichierTypeId: ID
-  fichierNouveau: FileUpload
+  documents: [InputDocument]
 }

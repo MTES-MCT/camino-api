@@ -28,6 +28,7 @@ import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
+import { documentsModifier } from './documents'
 
 const etape = async (
   { id }: { id: string },
@@ -118,7 +119,7 @@ const etapeHeritage = async (
       userSuper
     )
 
-    const etapeType = await etapeTypeGet(typeId)
+    const etapeType = await etapeTypeGet(typeId, { fields: { id: {} } })
     const titreEtape = titreEtapeHeritageBuild(date, etapeType, titreDemarche)
 
     return titreEtapeFormat(
@@ -135,7 +136,6 @@ const etapeHeritage = async (
   }
 }
 
-// TODO à re-factoriser, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
   { etape }: { etape: ITitreEtape },
   context: IToken,
@@ -171,7 +171,9 @@ const etapeCreer = async (
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
-    const etapeType = await etapeTypeGet(etape.typeId)
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
 
     if (!etapeType) {
       throw new Error(`etape type "${etape.typeId}" inconnu `)
@@ -190,7 +192,8 @@ const etapeCreer = async (
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
-      titreDemarche.titre
+      titreDemarche.titre,
+      etapeType.documentsTypes!
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -200,7 +203,16 @@ const etapeCreer = async (
       etape.points = titreEtapePointsCalc(etape.points)
     }
 
+    const documents = etape.documents || []
+    delete etape.documents
+
     const etapeUpdated = await titreEtapeUpsert(etape)
+
+    await documentsModifier(
+      context,
+      { id: etapeUpdated.id, documents },
+      'titreEtapeId'
+    )
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -258,7 +270,9 @@ const etapeModifier = async (
 
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
-    const etapeType = await etapeTypeGet(etape.typeId)
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
     if (!etapeType) {
       throw new Error(`etape type "${etape.typeId}" inconnu `)
     }
@@ -275,7 +289,8 @@ const etapeModifier = async (
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
-      titreDemarche.titre
+      titreDemarche.titre,
+      etapeType.documentsTypes!
     )
 
     if (rulesErrors.length) {
@@ -285,6 +300,8 @@ const etapeModifier = async (
     if (etape.points) {
       etape.points = titreEtapePointsCalc(etape.points)
     }
+
+    await documentsModifier(context, etape, 'titreEtapeId', titreEtapeOld)
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 

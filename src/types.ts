@@ -124,7 +124,7 @@ interface ISectionElement {
   optionnel?: boolean
 }
 
-interface IActiviteTypeDocumentType extends IDocumentType {
+interface IActiviteTypeDocumentType {
   activiteTypeId: string
   documentTypeId: string
   optionnel: boolean
@@ -143,7 +143,7 @@ interface IActiviteType {
   dateDebut: string
   delaiMois: number
   titresTypes: ITitreType[]
-  documentsTypes: IActiviteTypeDocumentType[]
+  documentsTypes: IDocumentType[]
   sections: ISection[]
   frequence?: IFrequence | null
   pays?: IPays[] | null
@@ -251,6 +251,7 @@ interface IDocumentType {
   id: string
   nom: string
   repertoire: IDocumentRepertoire
+  optionnel: boolean
 }
 
 interface IDomaine {
@@ -306,6 +307,12 @@ interface IEtapeStatut {
   couleur: ICouleur
 }
 
+interface IEtapeTypeDocumentType {
+  etapeTypeId: string
+  documentTypeId: string
+  optionnel?: boolean
+}
+
 interface IEtapeType {
   id: string
   nom: string
@@ -321,6 +328,7 @@ interface IEtapeType {
   demarcheTypeId?: string | null
   etapesCreation?: boolean | null
   unique?: boolean | null
+  documentsTypes?: IDocumentType[]
 }
 
 interface IForet extends IArea {}
@@ -727,6 +735,7 @@ interface IDocument {
   entrepriseId?: string | null
   entreprise?: IEntreprise | null
   etapesAssociees?: ITitreEtape[] | null
+  suppression?: boolean | null
 }
 
 interface ITitreEtapeOrTitreTravauxEtape {
@@ -766,6 +775,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
   justificatifsAssociation?: boolean | null
+  documentsCreation?: boolean | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -941,6 +951,7 @@ export {
   IFormat,
   IActiviteStatut,
   IActiviteType,
+  IActiviteTypeDocumentType,
   ISection,
   ISectionElement,
   IAdministration,
@@ -985,6 +996,7 @@ export {
   ITitreTypeDemarcheType,
   IActiviteTypeTitreType,
   IEtapeTypeEtapeStatut,
+  IEtapeTypeDocumentType,
   ITravauxTypeEtapeType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
@@ -1044,6 +1056,5 @@ export {
   IHeritageContenu,
   ICache,
   ICacheId,
-  IActiviteTypeDocumentType,
   IActiviteTypePays
 }

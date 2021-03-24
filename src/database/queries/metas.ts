@@ -24,7 +24,8 @@ import {
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
   ITravauxTypeEtapeType,
-  IUtilisateur
+  IUtilisateur,
+  IEtapeTypeDocumentType
 } from '../../types'
 
 import DemarchesTypes from '../models/demarches-types'
@@ -64,6 +65,7 @@ import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarc
 import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import TravauxTypesEtapesTypes from '../models/travaux-types--etapes-types'
+import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
 
 const permissionsGet = async (
   _a: never,
@@ -248,12 +250,34 @@ const etapeTypeEtapeStatutUpdate = async (
 
 const etapeTypeEtapeStatutCreate = async (
   etapeTypeEtapeStatut: IEtapeTypeEtapeStatut
-) => EtapesTypesEtapesStatuts.query().insertAndFetch(etapeTypeEtapeStatut)
+) => EtapesTypesEtapesStatuts.query().insert(etapeTypeEtapeStatut)
 
 const etapeTypeEtapeStatutDelete = async (
   etapeTypeId: string,
   etapeStatutId: string
 ) => EtapesTypesEtapesStatuts.query().deleteById([etapeTypeId, etapeStatutId])
+
+const etapesTypesDocumentsTypesGet = async () =>
+  EtapesTypesDocumentsTypes.query().orderBy(['etapeTypeId', 'documentTypeId'])
+
+const etapeTypeDocumentTypeUpdate = async (
+  etapeTypeId: string,
+  documentTypeId: string,
+  props: Partial<IEtapeTypeDocumentType>
+) =>
+  EtapesTypesDocumentsTypes.query().patchAndFetchById(
+    [etapeTypeId, documentTypeId],
+    props
+  )
+
+const etapeTypeDocumentTypeCreate = async (
+  etapeTypeDocumentType: IEtapeTypeDocumentType
+) => EtapesTypesDocumentsTypes.query().insert(etapeTypeDocumentType)
+
+const etapeTypeDocumentTypeDelete = async (
+  etapeTypeId: string,
+  documentTypeId: string
+) => EtapesTypesDocumentsTypes.query().deleteById([etapeTypeId, documentTypeId])
 
 const travauxTypesEtapesTypesGet = async () =>
   TravauxTypesEtapesTypes.query().orderBy(['travauxTypeId', 'etapeTypeId'])
@@ -396,7 +420,13 @@ const etapesTypesGet = async (
   return q
 }
 
-const etapeTypeGet = async (id: string) => EtapesTypes.query().findById(id)
+const etapeTypeGet = async (id: string, { fields }: { fields?: IFields }) => {
+  const graph = fields
+    ? graphBuild(fields, 'etapesTypes', fieldsFormat)
+    : options.etapesTypes.graph
+
+  return EtapesTypes.query().withGraphFetched(graph).findById(id)
+}
 
 const etapeTypeUpdate = async (id: string, props: Partial<IEtapeType>) =>
   EtapesTypes.query().patchAndFetchById(id, props)
@@ -418,11 +448,16 @@ const documentsTypesGet = async ({
   if (repertoire) {
     q.where({ repertoire })
 
-    // restreint les types de documents à ceux liés aux activités
-    if (repertoire === 'activites' && typeId) {
-      q.joinRelated('activitesTypes')
-
-      q.where('activitesTypes.id', typeId)
+    if (typeId) {
+      // restreint les types de documents à ceux liés aux activités
+      if (repertoire === 'activites') {
+        q.joinRelated('activitesTypes')
+        q.where('activitesTypes.id', typeId)
+      } else {
+        // restreint les types de documents à ceux liés aux étapes
+        q.joinRelated('etapesTypes')
+        q.where('etapesTypes.id', typeId)
+      }
     }
   }
 
@@ -530,6 +565,10 @@ export {
   etapeTypeEtapeStatutUpdate,
   etapeTypeEtapeStatutCreate,
   etapeTypeEtapeStatutDelete,
+  etapesTypesDocumentsTypesGet,
+  etapeTypeDocumentTypeUpdate,
+  etapeTypeDocumentTypeCreate,
+  etapeTypeDocumentTypeDelete,
   travauxTypesEtapesTypesGet,
   travauxTypeEtapeTypeUpdate,
   travauxTypeEtapeTypeCreate,

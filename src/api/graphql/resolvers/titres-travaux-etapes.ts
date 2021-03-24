@@ -17,6 +17,9 @@ import {
 import titreTravauxEtapeUpdateTask from '../../../business/titre-travaux-etape-update'
 
 import { fichiersDelete } from './_titre-document'
+import { documentsModifier } from './documents'
+import { documentsTypesValidate } from '../../../business/validations/documents-types-validate'
+import { etapeTypeGet } from '../../../database/queries/metas'
 
 const travauxEtapeCreer = async (
   { etape }: { etape: ITitreTravauxEtape },
@@ -45,7 +48,33 @@ const travauxEtapeCreer = async (
 
     if (!titre) throw new Error("le titre n'existe pas")
 
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    if (etape.statutId !== 'aco') {
+      const documentsErrors = await documentsTypesValidate(
+        etape.documents,
+        etapeType.documentsTypes
+      )
+      if (documentsErrors.length) {
+        throw new Error(documentsErrors.join(', '))
+      }
+    }
+
+    const documents = etape.documents || []
+    delete etape.documents
+
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
+
+    await documentsModifier(
+      context,
+      { id: travauxEtapeUpdated.id, documents },
+      'titreEtapeId'
+    )
 
     const titreUpdatedId = await titreTravauxEtapeUpdateTask(
       travauxEtapeUpdated.titreTravauxId
@@ -83,6 +112,30 @@ const travauxEtapeModifier = async (
 
     if (titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId)
       throw new Error("les travaux n'existent pas")
+
+    const etapeType = await etapeTypeGet(etape.typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
+    if (!etapeType) {
+      throw new Error(`etape type "${etape.typeId}" inconnu `)
+    }
+
+    if (etape.statutId !== 'aco') {
+      const documentsErrors = await documentsTypesValidate(
+        etape.documents,
+        etapeType.documentsTypes
+      )
+      if (documentsErrors.length) {
+        throw new Error(documentsErrors.join(', '))
+      }
+    }
+
+    await documentsModifier(
+      context,
+      etape,
+      'titreEtapeId',
+      titreTravauxEtapeOld
+    )
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 

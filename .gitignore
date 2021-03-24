@@ -15,6 +15,7 @@ node_modules
 !/sources/titres-types--titres-statuts.json
 !/sources/titres-types-types.json
 !/sources/titres-types.json
+!/sources/titres-statuts.json
 /sources/utilisateurs*.json
 /sources/entreprises*.json
 /sources/documents.json

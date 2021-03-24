@@ -251,9 +251,7 @@ const documentModifier = async (
       )
     }
 
-    const documentType = await documentTypeGet(document.typeId)
-
-    documentRepertoireCheck(documentType, document)
+    const documentType = await documentTypeGet(documentOld.typeId)
 
     const errors = await documentInputValidate(document)
     const rulesErrors = await documentUpdationValidate(document)
@@ -276,12 +274,9 @@ const documentModifier = async (
 
     const documentUpdated = await documentUpdate(document.id, document)
 
-    // si la date ou le type de fichier ont changé
+    // si la date a changé
     // alors on change l'id et renomme le fichier s'il y en a un
-    if (
-      document.date !== documentOld.date ||
-      document.typeId !== documentOld.typeId
-    ) {
+    if (document.date !== documentOld.date) {
       const hash = documentOld.id.split('-').pop()
       const documentIdNew = `${documentUpdated.date}-${documentUpdated.typeId}-${hash}`
 
@@ -347,13 +342,32 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
     if (!user) throw new Error('droits insuffisants')
 
-    const documentOld = await documentGet(id, {}, user)
-    if (!documentOld) throw new Error("le document n'existe pas")
+    const documentOld = await documentGet(
+      id,
+      {
+        fields: {
+          type: {
+            activitesTypes: { id: {} },
+            etapesTypes: { id: {} }
+          },
+          etapesAssociees: { id: {} }
+        }
+      },
+      user
+    )
+
+    if (!documentOld) {
+      throw new Error('aucun document avec cette id')
+    }
 
     if (documentOld.etapesAssociees && documentOld.etapesAssociees.length > 0) {
       throw new Error(
         errorEtapesAssocieesUpdate(documentOld.etapesAssociees, 'supprimer')
       )
+    }
+
+    if (!documentOld.suppression) {
+      throw new Error('droits insuffisants')
     }
 
     await documentPermissionsCheck(documentOld, user)
@@ -386,4 +400,43 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   }
 }
 
-export { documents, documentCreer, documentModifier, documentSupprimer }
+const documentsModifier = async (
+  context: IToken,
+  parent: { id: string; documents?: IDocument[] | null },
+  propParentId: 'titreActiviteId' | 'titreEtapeId',
+  oldParent?: { documents?: IDocument[] | null }
+) => {
+  const documents = parent.documents || []
+  if (oldParent?.documents?.length) {
+    // supprime les anciens documents ou ceux qui n'ont pas de fichier
+    const oldDocumentsIds = oldParent.documents.map(d => d.id)
+    for (const oldDocumentId of oldDocumentsIds) {
+      const document = documents.find(d => d.id === oldDocumentId)
+
+      if (!document || !(document.fichier || document.fichierNouveau)) {
+        await documentSupprimer({ id: oldDocumentId }, context)
+      }
+    }
+  }
+
+  // met à jour ou ajoute les documents
+  for (const document of documents) {
+    document[propParentId] = parent.id
+    if ((document.fichier || document.fichierNouveau) && document.date) {
+      if (document.id) {
+        await documentModifier({ document }, context)
+      } else {
+        await documentCreer({ document }, context)
+      }
+    }
+  }
+  delete parent.documents
+}
+
+export {
+  documents,
+  documentCreer,
+  documentModifier,
+  documentSupprimer,
+  documentsModifier
+}

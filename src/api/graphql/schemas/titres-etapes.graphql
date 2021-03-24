@@ -72,6 +72,7 @@ type Etape {
   modification: Boolean
   suppression: Boolean
   justificatifsAssociation: Boolean
+  documentsCreation: Boolean
 }
 
 "Étape d'une démarche effectuée sur un titre minier"
@@ -157,6 +158,7 @@ input InputEtapeCreation {
   heritageProps: InputHeritageProps
   heritageContenu: Json
   contenu: Json
+  documents: [InputDocument]
 }
 
 input InputEtapeModification {
@@ -178,6 +180,7 @@ input InputEtapeModification {
   heritageProps: InputHeritageProps
   heritageContenu: Json
   contenu: Json
+  documents: [InputDocument]
 }
 
 input InputEtapeFiltre {

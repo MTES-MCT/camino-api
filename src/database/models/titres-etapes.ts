@@ -137,6 +137,15 @@ class TitresEtapes extends Model {
       }
     },
 
+    documentsTypes: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'documents-types'),
+      join: {
+        from: 'titresEtapes.typeId',
+        to: 'etapesTypes__documentsTypes.etapeTypeId'
+      }
+    },
+
     justificatifs: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'documents'),
@@ -207,6 +216,7 @@ class TitresEtapes extends Model {
     delete json.modification
     delete json.suppression
     delete json.justificatifsAssociation
+    delete json.documentsCreation
     json = super.$formatDatabaseJson(json)
 
     return json
@@ -263,6 +273,7 @@ class TitresEtapes extends Model {
     delete json.modification
     delete json.suppression
     delete json.justificatifsAssociation
+    delete json.documentsCreation
     json = super.$parseJson(json)
 
     return json

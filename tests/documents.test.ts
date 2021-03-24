@@ -1,4 +1,3 @@
-import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils/index'
 import { IPermissionId, ITitreEtapeJustificatif } from '../src/types'
 import { documentCreate, documentGet } from '../src/database/queries/documents'
@@ -6,6 +5,7 @@ import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
 import { userSuper } from '../src/database/user-super'
+import { dbManager } from './init-db-manager'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -46,7 +46,7 @@ describe('documentSupprimer', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe("le document n'existe pas")
+    expect(res.body.errors[0].message).toBe('aucun document avec cette id')
   })
 
   test('peut supprimer un document d’entreprise (utilisateur super)', async () => {

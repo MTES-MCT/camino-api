@@ -108,10 +108,26 @@ exports.up = knex => {
       table.string('nom').notNullable()
       table.string('repertoire').notNullable()
     })
+    .createTable('etapesTypes__documentsTypes', table => {
+      table
+        .string('etapeTypeId', 3)
+        .index()
+        .references('etapesTypes.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table
+        .string('documentTypeId', 3)
+        .index()
+        .references('documentsTypes.id')
+        .notNullable()
+      table.boolean('optionnel')
+      table.primary(['etapeTypeId', 'documentTypeId'])
+    })
 }
 
 exports.down = knex => {
   return knex.schema
+    .dropTable('etapesTypes__documentsTypes')
     .dropTable('etapesTypes__etapesStatuts')
     .dropTable('etapesStatuts')
     .dropTable('titresTypes__demarchesTypes__etapesTypes')

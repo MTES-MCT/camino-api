@@ -45,6 +45,11 @@ jobs:
           CI: true
       - name: Unit tests
         run: npm run ci:test-unit
+        env:
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: password
       - name: Code coverage
         run: npm run ci:codecov
         env:

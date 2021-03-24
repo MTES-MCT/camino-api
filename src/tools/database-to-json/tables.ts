@@ -26,6 +26,7 @@ const tables = [
   'etapes_statuts',
   'etapes_types',
   'etapes_types__etapes_statuts',
+  'etapes_types__documents_types',
   'forets',
   'frequences',
   'geo_systemes',

@@ -10,6 +10,7 @@ type TravauxEtape {
   contenu: Json
   modification: Boolean
   suppression: Boolean
+  documentsCreation: Boolean
 }
 
 input InputTravauxEtapeCreation {
@@ -21,6 +22,7 @@ input InputTravauxEtapeCreation {
   duree: Int
   surface: Float
   contenu: Json
+  documents: [InputDocument]
 }
 
 input InputTravauxEtapeModification {
@@ -33,4 +35,5 @@ input InputTravauxEtapeModification {
   duree: Int
   surface: Float
   contenu: Json
+  documents: [InputDocument]
 }
