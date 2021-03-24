@@ -65,7 +65,6 @@ input InputDocumentCreation {
 
 input InputDocumentModification {
   id: ID!
-  typeId: ID!
   date: String!
   titreActiviteId: ID
   entrepriseId: ID

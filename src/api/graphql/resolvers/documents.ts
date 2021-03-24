@@ -251,9 +251,7 @@ const documentModifier = async (
       )
     }
 
-    const documentType = await documentTypeGet(document.typeId)
-
-    documentRepertoireCheck(documentType, document)
+    const documentType = await documentTypeGet(documentOld.typeId)
 
     const errors = await documentInputValidate(document)
     const rulesErrors = await documentUpdationValidate(document)
@@ -276,12 +274,9 @@ const documentModifier = async (
 
     const documentUpdated = await documentUpdate(document.id, document)
 
-    // si la date ou le type de fichier ont changé
+    // si la date a changé
     // alors on change l'id et renomme le fichier s'il y en a un
-    if (
-      document.date !== documentOld.date ||
-      document.typeId !== documentOld.typeId
-    ) {
+    if (document.date !== documentOld.date) {
       const hash = documentOld.id.split('-').pop()
       const documentIdNew = `${documentUpdated.date}-${documentUpdated.typeId}-${hash}`
 

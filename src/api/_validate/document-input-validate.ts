@@ -5,7 +5,7 @@ import { dateValidate } from '../../tools/date-validate'
 const documentInputValidate = async (document: IDocument) => {
   const errors = [] as string[]
 
-  if (!document.typeId) {
+  if (!document.id && !document.typeId) {
     errors.push('type de fichier manquant')
   }
 

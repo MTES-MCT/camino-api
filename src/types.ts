@@ -1056,6 +1056,5 @@ export {
   IHeritageContenu,
   ICache,
   ICacheId,
-  IActiviteTypeDocumentType,
   IActiviteTypePays
 }
