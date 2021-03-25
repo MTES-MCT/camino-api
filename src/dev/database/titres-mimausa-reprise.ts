@@ -7,6 +7,7 @@ import {
   IDocument,
   IEntreprise,
   IEtapeType,
+  IFields,
   IHeritageContenu,
   IHeritageProps,
   ISubstance,
@@ -20,7 +21,7 @@ import {
 import DemarchesTypes from '../../database/models/demarches-types'
 import TitresTypesDemarchesTypes from '../../database/models/titres-types--demarches-types'
 import TitresTypesDemarchesTypesEtapesTypes from '../../database/models/titres-types--demarches-types-etapes-types'
-import { titreGet } from '../../database/queries/titres'
+import { titreDelete, titreGet } from '../../database/queries/titres'
 import { objectClone } from '../../tools'
 import { titreEtapePropsIds } from '../../business/utils/titre-etape-heritage-props-find'
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
@@ -28,6 +29,9 @@ import EtapesTypes from '../../database/models/etapes-types'
 import { entreprisesGet } from '../../database/queries/entreprises'
 import Entreprises from '../../database/models/entreprises'
 import { userSuper } from '../../database/user-super'
+import dirCreate from '../../tools/dir-create'
+import * as fs from 'fs'
+import { titreFichiersDelete } from '../../api/graphql/resolvers/_titre-document'
 // import dirCreate from '../../tools/dir-create'
 // import fileRename from '../../tools/file-rename'
 import slugify = require('@sindresorhus/slugify')
@@ -64,6 +68,46 @@ let demarcheTypes = [] as IDemarcheType[]
 let etapeTypeDPU = null as IEtapeType | null
 let etapeTypeDEX = null as IEtapeType | null
 let entrepriseNumber = 300000000
+
+const titreFichiersDeleteFieldsAdd = (fields: IFields) => {
+  if (!fields.demarches) {
+    fields.demarches = {}
+  }
+  if (!fields.demarches.etapes) {
+    fields.demarches.etapes = {}
+  }
+  if (!fields.demarches.etapes.documents) {
+    fields.demarches.etapes.documents = {}
+  }
+  if (!fields.demarches.etapes.documents.type) {
+    fields.demarches.etapes.documents.type = { id: {} }
+  }
+
+  if (!fields.travaux) {
+    fields.travaux = {}
+  }
+  if (!fields.travaux.etapes) {
+    fields.travaux.etapes = {}
+  }
+  if (!fields.travaux.etapes.documents) {
+    fields.travaux.etapes.documents = {}
+  }
+  if (!fields.travaux.etapes.documents.type) {
+    fields.travaux.etapes.documents.type = { id: {} }
+  }
+
+  if (!fields.activites) {
+    fields.activites = {}
+  }
+  if (!fields.activites.documents) {
+    fields.activites.documents = {}
+  }
+  if (!fields.activites.documents.type) {
+    fields.activites.documents.type = { id: {} }
+  }
+
+  return fields
+}
 
 const titreIdGet = (
   domaineId: string,
@@ -157,12 +201,14 @@ const etapeGet = async (
     document.date = date
     document.titreEtapeId = id
 
-    // TODO
-    // const dirPath = `files/demarches/${document.titreEtapeId}`
-    // await dirCreate(dirPath)
-    // const docPath = `${dirPath}/${document.id}.${document.fichierTypeId}`
-    //
-    // await fileRename(`sources/files-mimausa/${docCode}.pdf`, docPath)
+    const dirPath = `files/demarches/${document.titreEtapeId}`
+    await dirCreate(dirPath)
+    const docPath = `${dirPath}/${document.id}.${document.fichierTypeId}`
+
+    if (!fs.existsSync(`sources/files-mimausa/${docCode}.pdf`)) {
+      console.error(`sources/files-mimausa/${docCode}.pdf introuvable`)
+    }
+    fs.copyFileSync(`sources/files-mimausa/${docCode}.pdf`, docPath)
   }
 
   const documents = document ? [objectClone(document)] : null
@@ -497,11 +543,16 @@ const main = async () => {
     }
   }
 
+  // On ajoute le dernier titre
+  newTitres.push(objectClone(titre))
+
   for (const newTitre of newTitres) {
+    const fields = titreFichiersDeleteFieldsAdd({ demarches: { id: {} } })
+
     const bddTitre = await titreGet(
       newTitre.id,
       {
-        fields: { demarches: { id: {} } }
+        fields
       },
       userSuper
     )
@@ -518,7 +569,8 @@ const main = async () => {
           )
         }
       })
-      await Titres.query().deleteById(newTitre.id)
+      await titreFichiersDelete(bddTitre)
+      await titreDelete(newTitre.id)
     }
     // else {
     //     console.warn(`titre ${newTitre.id} introuvable`)
