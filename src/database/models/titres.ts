@@ -1,4 +1,4 @@
-import { Model, Pojo, RelationMappings, ref } from 'objection'
+import { Model, Pojo, ref } from 'objection'
 import { join } from 'path'
 import { titreInsertFormat } from './_format/titre-insert'
 
@@ -45,7 +45,7 @@ class Titres extends Model {
     }
   }
 
-  public static relationMappings = (): RelationMappings => ({
+  public static relationMappings = {
     domaine: {
       relation: Model.BelongsToOneRelation,
       modelClass: Domaines,
@@ -208,7 +208,7 @@ class Titres extends Model {
       modelClass: TitresReferences,
       join: { from: 'titres.id', to: 'titresReferences.titreId' }
     }
-  })
+  }
 
   $afterFind() {
     this.pays = paysFormat(this.communes || [])
