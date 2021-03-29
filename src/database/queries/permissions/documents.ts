@@ -124,6 +124,7 @@ const documentTypeActiviteTypeQuery = (
     .whereRaw('?? = ??', ['activiteTypeId', 'titresActivites.typeId'])
     .andWhereRaw('?? = ??', ['documentTypeId', typeIdAlias])
     .andWhereRaw('?? is not true', ['optionnel'])
+    .andWhereRaw('?? not in (?, ?)', ['titresActivites.statutId', 'abs', 'enc'])
 
 const documentTypeEtapeTypeQuery = (
   typeIdAlias: string,

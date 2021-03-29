@@ -242,7 +242,7 @@ const etapeModifier = async (
 
     const titreEtapeOld = await titreEtapeGet(
       etape.id,
-      { fields: { id: {} } },
+      { fields: { documents: { id: {} } } },
       user
     )
 

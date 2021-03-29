@@ -73,13 +73,16 @@ describe('documentSupprimer', () => {
   )
 
   test.each`
-    optionnel    | suppression
-    ${true}      | ${true}
-    ${false}     | ${false}
-    ${undefined} | ${false}
+    optionnel    | statutId | suppression
+    ${true}      | ${'enc'} | ${true}
+    ${false}     | ${'enc'} | ${true}
+    ${undefined} | ${'enc'} | ${true}
+    ${true}      | ${'dep'} | ${true}
+    ${false}     | ${'dep'} | ${false}
+    ${undefined} | ${'dep'} | ${false}
   `(
     'vérifie la possibilité de supprimer un document optionnel ou non d’une activité (utilisateur super)',
-    async ({ optionnel, suppression }) => {
+    async ({ optionnel, suppression, statutId }) => {
       // suppression de la clé étrangère sur le titre pour ne pas avoir à tout créer
       await TitresActivites.query().delete()
       await Document.query().delete()
@@ -97,7 +100,7 @@ describe('documentSupprimer', () => {
         typeId: 'grx',
         titreId: '',
         date: '',
-        statutId: 'dep',
+        statutId,
         periodeId: 1,
         annee: 2000
       })

@@ -289,13 +289,6 @@ const activiteModifier = async (
       oldTitreActivite
     )
 
-    await documentsModifier(
-      context,
-      activite,
-      'titreActiviteId',
-      oldTitreActivite
-    )
-
     await titreActiviteUpdateQuery(activite.id, activite)
     const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
 
