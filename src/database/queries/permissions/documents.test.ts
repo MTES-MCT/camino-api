@@ -7,6 +7,7 @@ import ActivitesTypesDocumentsTypes from '../../models/activites-types--document
 import TitresActivites from '../../models/titres-activites'
 import Document from '../../models/documents'
 import { dbManager } from '../../../../tests/init-db-manager'
+import { etapeTypeDocumentTypeUsedCheck } from './documents'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -124,4 +125,72 @@ describe('documentSupprimer', () => {
       expect(documentRes.suppression).toBe(suppression)
     }
   )
+})
+
+describe('etapeTypeDocumentTypeUsedCheck', () => {
+  test('il existe un etapeTypeDocumentType (utilisateur super)', async () => {
+    // suppression de la clé étrangère sur la démarche pour ne pas avoir à tout créer
+    await TitresEtapes.query().delete()
+    await Document.query().delete()
+    await knex.schema.alterTable(TitresEtapes.tableName, table => {
+      table.dropColumns('titreDemarcheId')
+    })
+
+    await knex.schema.alterTable(TitresEtapes.tableName, table => {
+      table.string('titreDemarcheId').index().notNullable()
+    })
+
+    await TitresEtapes.query().insertGraph({
+      id: 'titreEtapeId',
+      typeId: 'dpu',
+      titreDemarcheId: 'titreDemarcheId',
+      date: '',
+      statutId: 'aco'
+    })
+
+    const documentId = 'document-id'
+    await documentCreate({
+      id: documentId,
+      typeId: 'dec',
+      date: '',
+      titreEtapeId: 'titreEtapeId'
+    })
+
+    const check = await etapeTypeDocumentTypeUsedCheck('dpu', 'dec')
+
+    expect(check).toBe(true)
+  })
+
+  test('il n’existe pas un etapeTypeDocumentType (utilisateur super)', async () => {
+    // suppression de la clé étrangère sur la démarche pour ne pas avoir à tout créer
+    await TitresEtapes.query().delete()
+    await Document.query().delete()
+    await knex.schema.alterTable(TitresEtapes.tableName, table => {
+      table.dropColumns('titreDemarcheId')
+    })
+
+    await knex.schema.alterTable(TitresEtapes.tableName, table => {
+      table.string('titreDemarcheId').index().notNullable()
+    })
+
+    await TitresEtapes.query().insertGraph({
+      id: 'titreEtapeId',
+      typeId: 'dpu',
+      titreDemarcheId: 'titreDemarcheId',
+      date: '',
+      statutId: 'aco'
+    })
+
+    const documentId = 'document-id'
+    await documentCreate({
+      id: documentId,
+      typeId: 'arr',
+      date: '',
+      titreEtapeId: 'titreEtapeId'
+    })
+
+    const check = await etapeTypeDocumentTypeUsedCheck('dpu', 'dec')
+
+    expect(check).toBe(false)
+  })
 })

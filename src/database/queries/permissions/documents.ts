@@ -137,4 +137,17 @@ const documentTypeEtapeTypeQuery = (
     .andWhereRaw('?? is not true', ['optionnel'])
     .andWhereRaw('?? != ?', ['titresEtapes.statutId', 'aco'])
 
-export { documentsQueryModify }
+const etapeTypeDocumentTypeUsedCheck = async (
+  etapeTypeId: string,
+  documentTypeId: string
+) => {
+  const res = await Documents.query()
+    .joinRelated('etape')
+    .where('etape.typeId', etapeTypeId)
+    .andWhere('documents.typeId', documentTypeId)
+    .count()
+
+  return (res[0] as any).count !== '0'
+}
+
+export { documentsQueryModify, etapeTypeDocumentTypeUsedCheck }
