@@ -86,13 +86,15 @@ const administrationsTitresTypesModify = (
     b.on(knex.raw('?? = ??', ['a_tt.administrationId', 'administrations.id']))
       .andOn(knex.raw('?? = ??', ['a_tt.titreTypeId', `${titreAlias}.typeId`]))
       .onIn('administrations.id', administrationsIds)
-    if (isGestionnaire && isAssociee) {
-      b.on(knex.raw('( ?? is true', ['a_tt.gestionnaire']))
-      b.orOn(knex.raw('?? is true )', ['a_tt.associee']))
-    } else if (isGestionnaire) {
-      b.on(knex.raw('?? is true', ['a_tt.gestionnaire']))
-    } else if (isAssociee) {
-      b.on(knex.raw('?? is true', ['a_tt.associee']))
+    if (isGestionnaire || isAssociee) {
+      b.andOn(c => {
+        if (isGestionnaire) {
+          c.orOn(knex.raw('?? is true', ['a_tt.gestionnaire']))
+        }
+        if (isAssociee) {
+          c.orOn(knex.raw('?? is true', ['a_tt.associee']))
+        }
+      })
     }
   })
 }
@@ -216,5 +218,6 @@ export {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery,
-  administrationsActivitesModify
+  administrationsActivitesModify,
+  administrationsTitresTypesModify
 }
