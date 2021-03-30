@@ -1,1 +1,0 @@
-select "entreprises".*, exists ((select "utilisateurs".* from "utilisateurs" left join "utilisateurs__entreprises" as "u_e" on "u_e"."entreprise_id" = "entreprises"."id" and "u_e"."utilisateur_id" = '3553d2')) as "modification" from "entreprises"
