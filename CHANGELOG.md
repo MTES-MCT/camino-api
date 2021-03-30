@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.77](https://github.com/MTES-MCT/camino-api/compare/v0.24.76...v0.24.77) (2021-03-30)
+
+
+### Features
+
+* **definitions:** ajoute une vérification des arbres d’instructions ([#708](https://github.com/MTES-MCT/camino-api/issues/708)) ([64a0087](https://github.com/MTES-MCT/camino-api/commit/64a00871562c56d0082f7aa4ddc870898d952861))
+* etapes types documents types ([#698](https://github.com/MTES-MCT/camino-api/issues/698)) ([eeb1288](https://github.com/MTES-MCT/camino-api/commit/eeb1288be19f32ebcf79cb539a0e97c543c81275))
+* **activités:** expose les méthodes pour modifier les métas ([#702](https://github.com/MTES-MCT/camino-api/issues/702)) ([6dc47e4](https://github.com/MTES-MCT/camino-api/commit/6dc47e494e776e2791e47b6595bc99555eb43ac5))
+
+
+### Bug Fixes
+
+* **documents:** corriges des problèmes sur la suppression des documents ([6738043](https://github.com/MTES-MCT/camino-api/commit/673804338ab297801c14e86a9cdba5aff32eeb3a))
+* **métas:** vérifie si on peut supprimer un etapeTypeDocumentType ([#709](https://github.com/MTES-MCT/camino-api/issues/709)) ([85520f9](https://github.com/MTES-MCT/camino-api/commit/85520f9f683a524a095b0f7e1491e9bb0f8f63f3))
+
 ### [0.24.76](https://github.com/MTES-MCT/camino-api/compare/v0.24.75...v0.24.76) (2021-03-23)
 
 
