@@ -48,6 +48,7 @@ import {
 } from '../../../database/queries/metas'
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 import { userSuper } from '../../../database/user-super'
+import { etapeTypeDocumentTypeUsedCheck } from '../../../database/queries/permissions/documents'
 
 const titresTypes = async (_: never, context: IToken) => {
   try {
@@ -675,6 +676,17 @@ const etapeTypeDocumentTypeSupprimer = async (
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
+    }
+
+    const used = await etapeTypeDocumentTypeUsedCheck(
+      etapeTypeDocumentType.etapeTypeId,
+      etapeTypeDocumentType.documentTypeId
+    )
+
+    if (used) {
+      throw new Error(
+        'impossible de supprimer cette jointure car elle est utilisée'
+      )
     }
 
     await etapeTypeDocumentTypeDelete(
