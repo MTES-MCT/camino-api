@@ -33,7 +33,7 @@ docker exec -t camino_api_db pg_dumpall -c -U postgres > /srv/tmp/camino.sql
 ```sh
 
 # importer la base de données depuis le dump
-cat backups/camino.sql | docker exec -i camino_api_db pg_restore --clean --if-exists --no-owner --no-privileges -d camino
+cat /srv/tmp/camino.sql | docker exec -i camino_api_db pg_restore --clean --if-exists --no-owner --no-privileges -d camino
 ```
 
 ## En local

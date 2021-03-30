@@ -1,8 +1,8 @@
 const Knex = require('knex')
-const config = require('./config')
+const { knexConfig } = require('./config')
 const userAdd = require('./user-add')
 
-const knex = Knex(config)
+const knex = Knex(knexConfig)
 
 const run = async () => {
   const user = {
