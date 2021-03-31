@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.78](https://github.com/MTES-MCT/camino-api/compare/v0.24.77...v0.24.78) (2021-03-31)
+
+
+### Bug Fixes
+
+* **travaux:** corrige l’enregistrement des étapes des travaux ([7a8ace0](https://github.com/MTES-MCT/camino-api/commit/7a8ace0bb06a5f669bf75eafa36e7ef537879043))
+
 ### [0.24.77](https://github.com/MTES-MCT/camino-api/compare/v0.24.76...v0.24.77) (2021-03-30)
 
 
