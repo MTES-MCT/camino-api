@@ -13,6 +13,7 @@ const fieldsOrderAsc = [
   'references',
   'etapesTypes',
   'etapesStatuts',
+  'titresTypes',
   'titresTypesEtapesTypes',
   'titresTypesTitresStatuts'
 ]
