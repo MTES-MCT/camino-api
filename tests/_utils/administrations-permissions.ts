@@ -163,6 +163,28 @@ const creationCheck = async (
       return acc
     }, {} as any)
 
+    const contenu = sections.reduce((acc, section) => {
+      if (!acc[section.id]) {
+        acc[section.id] = {}
+      }
+
+      section.elements?.forEach(e => {
+        let value
+        if (e.type === 'radio') {
+          value = false
+        } else if (e.type === 'text') {
+          value = 'text'
+        } else if (e.type === 'number' || e.type === 'integer') {
+          value = 3
+        } else if (e.type === 'select') {
+          value = 'fakeId'
+        }
+        acc[section.id][e.id] = value
+      })
+
+      return acc
+    }, {} as any)
+
     const titreDemarcheId =
       demarcheCreated.body.data.demarcheCreer.demarches[0].id
 
@@ -184,7 +206,8 @@ const creationCheck = async (
               [key: string]: { actif: boolean }
             }
           ),
-          heritageContenu
+          heritageContenu,
+          contenu
         }
       },
       'super'

@@ -6,21 +6,23 @@ import { titreCreate } from '../src/database/queries/titres'
 import { titreEtapeCreate } from '../src/database/queries/titres-etapes'
 import { IPermissionId } from '../src/types'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
+import Titres from '../src/database/models/titres'
 const each = require('jest-each').default
 
 console.info = jest.fn()
 console.error = jest.fn()
 
-beforeEach(async () => {
+beforeAll(async () => {
   await dbManager.populateDb()
 })
 
-afterEach(async () => {
-  await dbManager.truncateDb()
+beforeEach(async () => {
+  await Titres.query().delete()
 })
 
 afterAll(async () => {
-  dbManager.closeKnex()
+  await dbManager.truncateDb()
+  await dbManager.closeKnex()
 })
 
 async function etapeCreate() {
@@ -126,7 +128,8 @@ describe('etapeModifier', () => {
               mecanise: { actif: false },
               franchissements: { actif: false }
             }
-          }
+          },
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
         }
       },
       'super'
@@ -212,7 +215,8 @@ describe('etapeModifier', () => {
           date: '',
           heritageContenu: {
             deal: { motifs: { actif: false }, agent: { actif: false } }
-          }
+          },
+          contenu: { deal: { motifs: 'motif', agent: 'agent' } }
         }
       },
       'admin',

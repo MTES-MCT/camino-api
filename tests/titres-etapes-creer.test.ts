@@ -5,21 +5,23 @@ import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
+import Titres from '../src/database/models/titres'
 const each = require('jest-each').default
 
 console.info = jest.fn()
 console.error = jest.fn()
 
-beforeEach(async () => {
+beforeAll(async () => {
   await dbManager.populateDb()
 })
 
-afterEach(async () => {
-  await dbManager.truncateDb()
+beforeEach(async () => {
+  await Titres.query().delete()
 })
 
 afterAll(async () => {
-  dbManager.closeKnex()
+  await dbManager.truncateDb()
+  await dbManager.closeKnex()
 })
 
 const demarcheCreate = async () => {
@@ -99,7 +101,8 @@ describe('etapeCreer', () => {
               mecanise: { actif: true },
               franchissements: { actif: true }
             }
-          }
+          },
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
         }
       },
       'super'
@@ -160,6 +163,9 @@ describe('etapeCreer', () => {
           date: '',
           heritageContenu: {
             deal: { motifs: { actif: false }, agent: { actif: false } }
+          },
+          contenu: {
+            deal: { motifs: 'motif', agent: 'agent' }
           }
         }
       },
@@ -170,5 +176,75 @@ describe('etapeCreer', () => {
     expect(res.body.errors[0].message).toBe(
       'statut de l\'étape "fai" invalide pour une type d\'étape ede pour une démarche de type octroi'
     )
+  })
+
+  test('ne peut pas créer une étape mfr avec un statut fai avec un champ obligatoire manquant (utilisateur super)', async () => {
+    const titreDemarcheId = await demarcheCreate()
+    const res = await graphQLCall(
+      etapeCreerQuery,
+      {
+        etape: {
+          typeId: 'mfr',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: '',
+          heritageProps: titreEtapePropsIds.reduce(
+            (acc, prop) => {
+              acc[prop] = { actif: false }
+
+              return acc
+            },
+            {} as {
+              [key: string]: { actif: boolean }
+            }
+          ),
+          heritageContenu: {
+            arm: {
+              mecanise: { actif: true },
+              franchissements: { actif: true }
+            }
+          }
+        }
+      },
+      'super'
+    )
+
+    expect(res.body.errors[0].message).toBe(
+      'l’élément "Prospection mécanisée" de la section "Caractéristiques ARM" est obligatoire, l’élément "Franchissements de cours d\'eau" de la section "Caractéristiques ARM" est obligatoire'
+    )
+  })
+
+  test('peut créer une étape mfr avec un statut aco avec un champ obligatoire manquant (utilisateur super)', async () => {
+    const titreDemarcheId = await demarcheCreate()
+    const res = await graphQLCall(
+      etapeCreerQuery,
+      {
+        etape: {
+          typeId: 'mfr',
+          statutId: 'aco',
+          titreDemarcheId,
+          date: '',
+          heritageProps: titreEtapePropsIds.reduce(
+            (acc, prop) => {
+              acc[prop] = { actif: false }
+
+              return acc
+            },
+            {} as {
+              [key: string]: { actif: boolean }
+            }
+          ),
+          heritageContenu: {
+            arm: {
+              mecanise: { actif: true },
+              franchissements: { actif: true }
+            }
+          }
+        }
+      },
+      'super'
+    )
+
+    expect(res.body.errors).toBeUndefined()
   })
 })
