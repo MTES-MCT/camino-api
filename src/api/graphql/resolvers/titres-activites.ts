@@ -24,7 +24,7 @@ import {
   utilisateursGet
 } from '../../../database/queries/utilisateurs'
 
-import { titreActiviteInputValidate } from '../../_validate/titre-activite-input-validate'
+import { titreActiviteInputValidate } from '../../../business/validations/titre-activite-input-validate'
 import { titreActiviteCompleteCheck } from '../../../business/validations/titre-activite-complete-check'
 import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
 import { userSuper } from '../../../database/user-super'
