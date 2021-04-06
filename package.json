@@ -49,13 +49,13 @@
     "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && conventional-github-releaser",
     "json:export": "rm -rf sources && node ./dist/scripts/database-to-json-export.js",
     "start": "node ./dist/index.js",
-    "test": "eslint . && npm run build && PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --forceExit",
-    "test:unit": "npm run lint && PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --watch",
+    "test": "eslint . && npm run build && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --forceExit",
+    "test:unit": "npm run lint && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
-    "test:integration": "PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch --testTimeout=20000",
+    "test:integration": "cross-env PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch --testTimeout=20000",
     "ci:lint": "eslint .",
-    "ci:test-unit": "PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --ci --runInBand --detectOpenHandles --forceExit",
-    "ci:test-integration": "PGDATABASE=camino_tests JWT_SECRET=secret-tests JWT_SECRET_REFRESH=refresh-secret jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit --testTimeout=20000",
+    "ci:test-unit": "cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --ci --runInBand --detectOpenHandles --forceExit",
+    "ci:test-integration": "cross-env PGDATABASE=camino_tests JWT_SECRET=secret-tests JWT_SECRET_REFRESH=refresh-secret jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit --testTimeout=20000",
     "ci:codecov": "codecov"
   },
   "@comment dependencies": {
