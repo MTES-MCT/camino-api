@@ -39,9 +39,9 @@ const titreEtapeFormat = (
     }
 
     if (fields.geojsonPoints) {
-      titreEtape.geojsonPoints = geojsonFeatureCollectionPoints(
+      titreEtape.geojsonPoints = (geojsonFeatureCollectionPoints(
         titreEtape.points
-      ) as IGeoJson
+      ) as unknown) as IGeoJson
     }
   }
 
