@@ -1,15 +1,122 @@
-import { ITitreEtape, ITitreDemarche, ITitre, IDocumentType } from '../../types'
+import {
+  ITitreEtape,
+  ITitreDemarche,
+  ITitre,
+  IDocumentType,
+  IEtapeType
+} from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
 import { titreEtapePointsValidate } from './titre-etape-points-validate'
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
+import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
+import { heritageContenuValidate } from '../../api/_validate/utils/heritage-contenu-validate'
+import propsNumbersCheck from '../../api/_validate/utils/props-numbers-check'
+import contenuNumbersCheck from '../../api/_validate/utils/contenu-numbers-check'
+import propsDatesCheck from '../../api/_validate/utils/props-dates-check'
+import contenuDatesCheck from '../../api/_validate/utils/contenu-dates-check'
 import { documentsTypesValidate } from './documents-types-validate'
+
+const numberProps = (['duree', 'surface'] as unknown) as [keyof ITitreEtape]
+
+const dateProps = (['date', 'dateDebut', 'dateFin'] as unknown) as [
+  keyof ITitreEtape
+]
 
 const titreEtapeUpdationValidate = async (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
   titre: ITitre,
+  etapeType: IEtapeType,
   documentsTypes: IDocumentType[]
+) => {
+  const errors = []
+
+  const sections = etapeTypeSectionsFormat(
+    etapeType,
+    titreDemarche.type!.etapesTypes,
+    titreDemarche.titre!.typeId
+  )
+
+  // le champ heritageContenu est cohérent avec les sections
+  const errorsHeritageContenu = heritageContenuValidate(
+    sections,
+    titreEtape.heritageContenu
+  )
+  errors.push(...errorsHeritageContenu)
+
+  if (sections.length) {
+    // 1. les champs number ne peuvent avoir une durée négative
+    const errorsNumbers = propsNumbersCheck(numberProps, titreEtape)
+    if (errorsNumbers) {
+      errors.push(errorsNumbers)
+    }
+
+    if (titreEtape.contenu) {
+      const errorsContenu = contenuNumbersCheck(sections, titreEtape.contenu)
+      if (errorsContenu) {
+        errors.push(errorsContenu)
+      }
+    }
+
+    // 2. les champs date ne peuvent avoir une date invalide
+    const errorsDates = propsDatesCheck<ITitreEtape>(dateProps, titreEtape)
+    if (errorsDates) {
+      errors.push(errorsDates)
+    }
+
+    // 3. les champs date des sections ne peuvent avoir une date invalide
+    if (titreEtape.contenu) {
+      const errorsContenu = contenuDatesCheck(sections, titreEtape.contenu)
+      if (errorsContenu) {
+        errors.push(errorsContenu)
+      }
+    }
+  }
+
+  // 4. si l’étape n’est pas en cours de construction
+  if (titreEtape.statutId !== 'aco') {
+    // les éléments non optionnel des sections sont renseignés
+    if (sections.length) {
+      sections.forEach(s =>
+        s.elements?.forEach(e => {
+          if (
+            !e.optionnel &&
+            (!titreEtape.contenu ||
+              titreEtape.contenu[s.id][e.id] === undefined ||
+              titreEtape.contenu[s.id][e.id] === null)
+          ) {
+            errors.push(
+              `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+            )
+          }
+        })
+      )
+    }
+
+    // les fichiers obligatoires sont tous renseignés et complets
+    if (documentsTypes!.length) {
+      const documentsErrors = documentsTypesValidate(
+        titreEtape.documents,
+        documentsTypes
+      )
+      if (documentsErrors.length) {
+        errors.push(...documentsErrors)
+      }
+    }
+  }
+
+  if (errors.length) {
+    return errors
+  }
+
+  return titreEtapeUpdationBusinessValidate(titreEtape, titreDemarche, titre)
+}
+
+const titreEtapeUpdationBusinessValidate = async (
+  titreEtape: ITitreEtape,
+  titreDemarche: ITitreDemarche,
+  titre: ITitre
 ) => {
   const errors = []
 
@@ -41,17 +148,6 @@ const titreEtapeUpdationValidate = async (
     const error = titreEtapePointsValidate(titreEtape.points)
     if (error) {
       errors.push(error)
-    }
-  }
-
-  // 4. si l’étape n’est pas en cours de construction, les fichiers obligatoires sont tous renseignés et complets
-  if (titreEtape.statutId !== 'aco' && documentsTypes!.length) {
-    const documentsErrors = documentsTypesValidate(
-      titreEtape.documents,
-      documentsTypes
-    )
-    if (documentsErrors.length) {
-      errors.push(...documentsErrors)
     }
   }
 

@@ -18,7 +18,6 @@ import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
-import { titreEtapeInputValidate } from '../../_validate/titre-etape-input-validate'
 import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
@@ -179,20 +178,11 @@ const etapeCreer = async (
       throw new Error(`etape type "${etape.typeId}" inconnu `)
     }
 
-    const inputErrors = await titreEtapeInputValidate(
-      etape,
-      titreDemarche,
-      etapeType
-    )
-
-    if (inputErrors.length) {
-      throw new Error(inputErrors.join(', '))
-    }
-
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
+      etapeType,
       etapeType.documentsTypes!
     )
     if (rulesErrors.length) {
@@ -277,19 +267,11 @@ const etapeModifier = async (
       throw new Error(`etape type "${etape.typeId}" inconnu `)
     }
 
-    const inputErrors = await titreEtapeInputValidate(
-      etape,
-      titreDemarche,
-      etapeType
-    )
-    if (inputErrors.length) {
-      throw new Error(inputErrors.join(', '))
-    }
-
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
+      etapeType,
       etapeType.documentsTypes!
     )
 
