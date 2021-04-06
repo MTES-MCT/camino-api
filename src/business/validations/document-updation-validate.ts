@@ -1,8 +1,17 @@
 import { IDocument } from '../../types'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { dateValidate } from '../../tools/date-validate'
+
 const documentUpdationValidate = async (document: IDocument) => {
-  return []
+  const errors = [] as string[]
+
+  const error = dateValidate(document.date)
+
+  if (error) {
+    errors.push(error)
+  }
+
+  return errors
 }
 
 export { documentUpdationValidate }

@@ -33,7 +33,7 @@ import fileRename from '../../../tools/file-rename'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
-import { documentInputValidate } from '../../_validate/document-input-validate'
+import { documentInputValidate } from '../../../business/validations/document-input-validate'
 import { documentUpdationValidate } from '../../../business/validations/document-updation-validate'
 import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
 import { entrepriseGet } from '../../../database/queries/entreprises'
