@@ -32,7 +32,10 @@ const geojsonFeatureCollectionPoints = (points: ITitrePoint[]) => ({
       id: p.id,
       groupe: p.groupe,
       contour: p.contour,
-      point: p.point
+      point: p.point,
+      nom: p.nom,
+      description: p.description,
+      references: p.references
     }
   }))
 })

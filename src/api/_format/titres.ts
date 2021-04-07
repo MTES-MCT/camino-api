@@ -126,7 +126,9 @@ const titreFormat = (t: ITitre, fields: IFields = titreFormatFields) => {
   }
 
   if (fields.geojsonPoints && t.points?.length) {
-    t.geojsonPoints = geojsonFeatureCollectionPoints(t.points) as IGeoJson
+    t.geojsonPoints = (geojsonFeatureCollectionPoints(
+      t.points
+    ) as unknown) as IGeoJson
   }
 
   if (fields.geojsonCentre && t.coordonnees && t.propsTitreEtapesIds.points) {
