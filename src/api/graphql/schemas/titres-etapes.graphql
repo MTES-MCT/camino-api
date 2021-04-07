@@ -77,6 +77,9 @@ type Etape {
 
 "Étape d'une démarche effectuée sur un titre minier"
 type EtapeHeritage {
+
+  type: EtapeType
+
   "Durée de la démarche"
   duree: Int
 
