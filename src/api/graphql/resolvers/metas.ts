@@ -64,10 +64,7 @@ import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
 import fieldsBuild from './_fields-build'
-import {
-  etapeTypeIsValidCheck,
-  etapeTypeSectionsFormat
-} from '../../_format/etapes-types'
+import { etapeTypeIsValidCheck } from '../../_format/etapes-types'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import {
@@ -319,26 +316,16 @@ const demarcheEtapesTypesGet = async (
     user
   )
 
-  const etapesTypesFormatted = etapesTypes
-    .filter(etapeType =>
-      etapeTypeIsValidCheck(
-        etapeType,
-        date,
-        titre,
-        titreDemarche.type!,
-        titreDemarche.etapes,
-        titreEtape
-      )
+  const etapesTypesFormatted = etapesTypes.filter(etapeType =>
+    etapeTypeIsValidCheck(
+      etapeType,
+      date,
+      titre,
+      titreDemarche.type!,
+      titreDemarche.etapes,
+      titreEtape
     )
-    .map(etapeType => {
-      etapeType.sections = etapeTypeSectionsFormat(
-        etapeType,
-        titreDemarche.type!.etapesTypes,
-        titre.typeId
-      )
-
-      return etapeType
-    })
+  )
 
   return etapesTypesFormatted
 }

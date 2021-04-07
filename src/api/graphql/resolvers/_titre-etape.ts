@@ -222,6 +222,8 @@ const titreEtapeHeritageBuild = (
     titreEtape.heritageContenu = heritageContenu
   }
 
+  titreEtape.type = etapeType
+
   return titreEtape
 }
 
