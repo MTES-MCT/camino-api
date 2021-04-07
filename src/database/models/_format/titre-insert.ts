@@ -1,11 +1,12 @@
 import * as slugify from '@sindresorhus/slugify'
 import { Pojo } from 'objection'
+import * as cryptoRandomString from 'crypto-random-string'
 
 const titreInsertFormat = (json: Pojo) => {
   if (!json.id && json.domaineId && json.typeId && json.nom) {
     json.id = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
       json.nom
-    )}-0000`
+    )}-${cryptoRandomString({ length: 4 })}`
   }
 
   delete json.geojsonMultiPolygon
