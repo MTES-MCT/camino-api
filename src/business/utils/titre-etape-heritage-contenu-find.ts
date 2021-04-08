@@ -3,6 +3,7 @@ import {
   IEtapeType,
   Index,
   ISection,
+  ISectionElementType,
   ITitreEtape
 } from '../../types'
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
@@ -10,6 +11,7 @@ import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 const heritageContenuFind = (
   sectionId: string,
   elementId: string,
+  elementType: ISectionElementType,
   titreEtape: ITitreEtape,
   prevTitreEtape?: ITitreEtape | null
 ) => {
@@ -35,7 +37,10 @@ const heritageContenuFind = (
         prevTitreEtape.contenu[sectionId] &&
         prevTitreEtape.contenu[sectionId][elementId]) as IContenuValeur
 
-      if (oldValue !== value) {
+      if (
+        (elementType !== 'multiple' && oldValue !== value) ||
+        JSON.stringify(oldValue) !== JSON.stringify(value)
+      ) {
         hasChanged = true
       }
     } else {
@@ -83,6 +88,7 @@ const titreEtapeHeritageContenuFind = (
           } = heritageContenuFind(
             section.id,
             element.id,
+            element.type,
             titreEtape,
             prevTitreEtape
           )

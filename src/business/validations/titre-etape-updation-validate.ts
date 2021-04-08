@@ -80,15 +80,39 @@ const titreEtapeUpdationValidate = async (
     if (sections.length) {
       sections.forEach(s =>
         s.elements?.forEach(e => {
-          if (
-            !e.optionnel &&
-            (!titreEtape.contenu ||
+          if (!e.optionnel) {
+            if (
+              !titreEtape.contenu ||
               titreEtape.contenu[s.id][e.id] === undefined ||
-              titreEtape.contenu[s.id][e.id] === null)
-          ) {
-            errors.push(
-              `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-            )
+              titreEtape.contenu[s.id][e.id] === null
+            ) {
+              errors.push(
+                `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+              )
+            } else if (e.type === 'multiple') {
+              const values = titreEtape!.contenu[s.id][e.id] as []
+              if (!values?.length) {
+                errors.push(
+                  `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+                )
+              } else {
+                e.elements?.forEach(prop => {
+                  if (!prop.optionnel) {
+                    values.forEach(v => {
+                      if (
+                        !v[prop.id] ||
+                        v[prop.id] === undefined ||
+                        v[prop.id] === null
+                      ) {
+                        errors.push(
+                          `le champ "${prop.id}" de l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+                        )
+                      }
+                    })
+                  }
+                })
+              }
+            }
           }
         })
       )

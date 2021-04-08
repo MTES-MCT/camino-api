@@ -59,7 +59,7 @@ interface IContenuId {
   elementId: string
 }
 
-type IContenuValeur = string | number | string[] | boolean
+type IContenuValeur = string | number | string[] | boolean | IContenuElement[]
 
 interface IContenuElement {
   [elementId: string]: IContenuValeur
@@ -107,6 +107,7 @@ type ISectionElementType =
   | 'checkboxes'
   | 'select'
   | 'radio'
+  | 'multiple'
 
 interface ISectionElement {
   id: string
@@ -116,12 +117,11 @@ interface ISectionElement {
   dateDebut?: string | null
   dateFin?: string | null
   periodesIds?: number[] | null
-  // à supprimer après la migration
-  frequencePeriodesIds?: number[] | null
   valeurs?: { id: string; nom: string }[] | null
   valeursMetasNom?: IValeurMetasNom
   referenceUniteRatio?: number
   optionnel?: boolean
+  elements?: ISectionElement[]
 }
 
 interface IActiviteTypeDocumentType {
@@ -955,6 +955,7 @@ export {
   IActiviteTypeDocumentType,
   ISection,
   ISectionElement,
+  ISectionElementType,
   IAdministration,
   IAdministrationType,
   IAnnee,
