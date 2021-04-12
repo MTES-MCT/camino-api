@@ -49,6 +49,7 @@ import {
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 import { userSuper } from '../../../database/user-super'
 import { etapeTypeDocumentTypeUsedCheck } from '../../../database/queries/permissions/documents'
+import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'
 
 const titresTypes = async (_: never, context: IToken) => {
   try {
@@ -396,6 +397,8 @@ const titreTypeDemarcheTypeEtapeTypeModifier = async (
       titreTypeDemarcheTypeEtapeType
     )
 
+    await titresEtapesHeritageContenuUpdate()
+
     const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
@@ -422,6 +425,8 @@ const titreTypeDemarcheTypeEtapeTypeCreer = async (
     }
 
     await titreTypeDemarcheTypeEtapeTypeCreate(titreTypeDemarcheTypeEtapeType)
+
+    await titresEtapesHeritageContenuUpdate()
 
     const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
 

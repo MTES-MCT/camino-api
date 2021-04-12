@@ -3,6 +3,7 @@ import {
   IEtapeType,
   Index,
   ISection,
+  ISectionElementType,
   ITitreEtape
 } from '../../types'
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
@@ -10,6 +11,7 @@ import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 const heritageContenuFind = (
   sectionId: string,
   elementId: string,
+  elementType: ISectionElementType,
   titreEtape: ITitreEtape,
   prevTitreEtape?: ITitreEtape | null
 ) => {
@@ -18,7 +20,15 @@ const heritageContenuFind = (
     titreEtape.contenu[sectionId] &&
     titreEtape.contenu[sectionId][elementId]) as IContenuValeur
 
-  const heritage = titreEtape.heritageContenu![sectionId][elementId]
+  let heritage = titreEtape.heritageContenu![sectionId][elementId]
+  if (!heritage) {
+    // l’héritage peut ne pas exister dans le cas où un nouvel élément d’une section a été ajouté via les métas
+    heritage = {
+      actif: false,
+      etapeId: null
+    }
+    hasChanged = true
+  }
   const prevHeritage = prevTitreEtape?.heritageContenu![sectionId][elementId]
 
   let actif = heritage.actif
@@ -35,7 +45,10 @@ const heritageContenuFind = (
         prevTitreEtape.contenu[sectionId] &&
         prevTitreEtape.contenu[sectionId][elementId]) as IContenuValeur
 
-      if (oldValue !== value) {
+      if (
+        (elementType !== 'multiple' && oldValue !== value) ||
+        JSON.stringify(oldValue) !== JSON.stringify(value)
+      ) {
         hasChanged = true
       }
     } else {
@@ -83,6 +96,7 @@ const titreEtapeHeritageContenuFind = (
           } = heritageContenuFind(
             section.id,
             element.id,
+            element.type,
             titreEtape,
             prevTitreEtape
           )
@@ -102,9 +116,7 @@ const titreEtapeHeritageContenuFind = (
               delete contenu[section.id][element.id]
             }
 
-            heritageContenu![section.id][element.id].etapeId = etapeId
-            heritageContenu![section.id][element.id].actif = actif
-
+            heritageContenu![section.id][element.id] = { actif, etapeId }
             hasChanged = true
           }
         })

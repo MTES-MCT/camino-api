@@ -30,7 +30,9 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       heritageContenu
     } as ITitreEtape
 
-    expect(heritageContenuFind('section', 'element', titreEtape)).toEqual({
+    expect(
+      heritageContenuFind('section', 'element', 'checkbox', titreEtape)
+    ).toEqual({
       actif: false,
       hasChanged: false,
       value: undefined,
@@ -56,6 +58,7 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       heritageContenuFind(
         'section',
         'element',
+        'checkbox',
         titreEtape,
         titreEtapePrecedente
       )
@@ -90,6 +93,7 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       heritageContenuFind(
         'section',
         'element',
+        'text',
         titreEtape,
         titreEtapePrecedente
       )
@@ -125,6 +129,7 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       heritageContenuFind(
         'section',
         'element',
+        'text',
         titreEtape,
         titreEtapePrecedente
       )
@@ -146,14 +151,14 @@ describe('retourne le contenu spécifique d’un élément d’une section en fo
       } as IHeritageContenu
     } as ITitreEtape
 
-    expect(heritageContenuFind('section', 'element', titreEtape, null)).toEqual(
-      {
-        hasChanged: true,
-        actif: false,
-        value: titreEtape.contenu!.section.element,
-        etapeId: undefined
-      }
-    )
+    expect(
+      heritageContenuFind('section', 'element', 'text', titreEtape, null)
+    ).toEqual({
+      hasChanged: true,
+      actif: false,
+      value: titreEtape.contenu!.section.element,
+      etapeId: undefined
+    })
   })
 })
 
