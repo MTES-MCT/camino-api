@@ -74,6 +74,7 @@ import {
 import ordreUpdate from './_ordre-update'
 import { demarcheDefinitionFind } from '../../../business/rules-demarches/definitions'
 import { userSuper } from '../../../database/user-super'
+import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'
 
 const npmPackage = require('../../../../package.json')
 
@@ -759,6 +760,8 @@ const etapeTypeModifier = async (
     }
 
     await etapeTypeUpdate(etapeType.id!, etapeType)
+
+    await titresEtapesHeritageContenuUpdate()
 
     const etapesTypes = await etapesTypesGet({}, { fields }, user)
 
