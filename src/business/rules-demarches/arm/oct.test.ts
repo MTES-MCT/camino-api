@@ -31,6 +31,16 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     ).toEqual(['l’étape "mdp" n’est pas possible juste après "mfr"'])
   })
 
+  test('ne peut pas créer une étape "mcp" sans "mdp"', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'mfr', statutId: 'fai' },
+        { typeId: 'pfd' },
+        { typeId: 'mcp' }
+      ])
+    ).toEqual(['l’étape "mcp" n’est pas possible juste après "mfr", "pfd"'])
+  })
+
   test('ne peut pas créer 2 "mfr"', () => {
     expect(
       octEtatsValidate([

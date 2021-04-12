@@ -50,17 +50,8 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
         { etapeTypeId: 'mdp' }
       ],
       [
-        { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etapeTypeId: 'dae', statutId: 'fav' },
-        { etapeTypeId: 'pfd' }
-      ],
-      [
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
         { etapeTypeId: 'mdp' }
-      ],
-      [
-        { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
-        { etapeTypeId: 'pfd' }
       ],
       [{ etapeTypeId: 'mcr', statutId: 'def' }],
       [{ etapeTypeId: 'mom' }],
