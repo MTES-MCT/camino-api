@@ -9,7 +9,6 @@ import AdministrationsTitresTypes from '../../models/administrations-titres-type
 import Domaines from '../../models/domaines'
 import TitresTypes from '../../models/titres-types'
 import DemarchesTypes from '../../models/demarches-types'
-import TravauxTypes from '../../models/travaux-types'
 import EtapesTypes from '../../models/etapes-types'
 import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
@@ -18,7 +17,6 @@ import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--dem
 import TitresActivites from '../../models/titres-activites'
 import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
-import TitresTravaux from '../../models/titres-travaux'
 
 import { titresAdministrationsModificationQuery } from './titres'
 import {
@@ -224,48 +222,6 @@ const etapesTypesQueryModify = (
   // fileCreate('dev/tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
 
-const travauxEtapesTypesQueryModify = (
-  q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
-  user: IUtilisateur | null,
-  {
-    titreTravauxId,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreTravauxEtapeId
-  }: { titreTravauxId?: string; titreTravauxEtapeId?: string } = {}
-) => {
-  q.select('etapesTypes.*')
-
-  // si titreDemarcheId
-  // -> restreint aux types d'étapes du type de la démarche
-
-  if (titreTravauxId) {
-    q.whereExists(
-      TitresTravaux.query()
-        .findById(titreTravauxId)
-        .joinRelated('titre')
-        .join(
-          'travauxTypes__etapesTypes as te',
-          raw('?? = ?? and ?? = ??', [
-            'te.etapeTypeId',
-            'etapesTypes.id',
-            'te.travauxTypeId',
-            'titresTravaux.typeId'
-          ])
-        )
-    )
-  }
-
-  // propriété 'etapesCreation' en fonction du profil de l'utilisateur
-
-  q.select(
-    raw(
-      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
-        ? 'true'
-        : 'false'
-    ).as('etapesCreation')
-  )
-}
-
 const activitesTypesQueryModify = (
   q: QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
   user: IUtilisateur | null
@@ -363,26 +319,6 @@ const demarchesTypesQueryModify = (
   }
 }
 
-const travauxTypesQueryModify = (
-  q: QueryBuilder<TravauxTypes, TravauxTypes | TravauxTypes[]>,
-  user: IUtilisateur | null,
-  {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreId,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreTravauxId
-  }: { titreId?: string; titreTravauxId?: string } = {}
-) => {
-  q.select('travauxTypes.*')
-
-  // propriété 'travauxCreation' selon le profil de l'utilisateur
-  if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
-    q.select(raw('true').as('travauxCreation'))
-  } else {
-    q.select(raw('false').as('travauxCreation'))
-  }
-}
-
 const permissionsQueryModify = (
   q: QueryBuilder<Permissions, Permissions | Permissions[]>,
   user: IUtilisateur | null
@@ -408,7 +344,5 @@ export {
   administrationsEtapesTypesPropsQuery,
   etapesTypesQueryModify,
   permissionsQueryModify,
-  titresTypesQueryModify,
-  travauxTypesQueryModify,
-  travauxEtapesTypesQueryModify
+  titresTypesQueryModify
 }

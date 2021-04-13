@@ -20,18 +20,17 @@ class TravauxTypes extends Model {
   }
 
   public static relationMappings = {
-    etapesTypes: {
+    travauxEtapesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+      modelClass: join(__dirname, 'travaux-etapes-types'),
       join: {
         from: 'travauxTypes.id',
         through: {
-          from: 'travauxTypes__etapesTypes.travauxTypeId',
-          to: 'travauxTypes__etapesTypes.etapeTypeId',
-          // permet de donner un alias spécial aux champs extra { alias: field }
-          extra: ['ordre', 'sections']
+          from: 'travauxTypes__travauxEtapesTypes.travauxTypeId',
+          to: 'travauxTypes__travauxEtapesTypes.travauxEtapeTypeId',
+          extra: ['ordre']
         },
-        to: 'etapesTypes.id'
+        to: 'travauxEtapesTypes.id'
       }
     }
   }

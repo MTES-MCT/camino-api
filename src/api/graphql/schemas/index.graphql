@@ -184,7 +184,7 @@ type Query {
   titresTypesDemarchesTypesEtapesTypes: [TitreTypeDemarcheTypeEtapeType]
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   etapesTypesDocumentsTypes: [EtapeTypeDocumentType]
-  travauxTypesEtapesTypes: [TravauxTypeEtapeType]
+  travauxTypesTravauxEtapesTypes: [TravauxTypeEtapeType]
 
   activitesTypesTitresTypes: [ActiviteTypeTitreType]
   activitesTypesDocumentsTypes: [ActiviteTypeDocumentType]
@@ -333,7 +333,10 @@ type Mutation {
   documentSupprimer(id: ID!): Boolean
 
   "Crée ou modifie une activité"
-  activiteModifier(activite: InputActiviteModification!, depose: Boolean): Activite
+  activiteModifier(
+    activite: InputActiviteModification!
+    depose: Boolean
+  ): Activite
 
   "Supprime une activité"
   activiteSupprimer(id: ID!): Activite
@@ -487,16 +490,16 @@ type Mutation {
     etapeTypeDocumentType: InputEtapeTypeDocumentType!
   ): [EtapeTypeDocumentType]
 
-  travauxTypeEtapeTypeModifier(
-    travauxTypeEtapeType: InputTravauxTypeEtapeType!
+  travauxTypeTravauxEtapeTypeModifier(
+    travauxTypeTravauxEtapeType: InputTravauxTypeEtapeType!
   ): [TravauxTypeEtapeType]
 
-  travauxTypeEtapeTypeCreer(
-    travauxTypeEtapeType: InputTravauxTypeEtapeType!
+  travauxTypeTravauxEtapeTypeCreer(
+    travauxTypeTravauxEtapeType: InputTravauxTypeEtapeType!
   ): [TravauxTypeEtapeType]
 
-  travauxTypeEtapeTypeSupprimer(
-    travauxTypeEtapeType: InputTravauxTypeEtapeType!
+  travauxTypeTravauxEtapeTypeSupprimer(
+    travauxTypeTravauxEtapeType: InputTravauxTypeEtapeType!
   ): [TravauxTypeEtapeType]
 
   activiteTypeTitreTypeCreer(

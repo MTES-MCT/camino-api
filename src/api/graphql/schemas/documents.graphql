@@ -16,7 +16,7 @@ type Document {
   "Description du document"
   description: String
 
-  "Fichier est hébergé sur camino"
+  "Fichier enregistré sur le serveur"
   fichier: Boolean
 
   "Extension du fichier"

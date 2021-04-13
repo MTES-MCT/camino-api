@@ -132,15 +132,18 @@ import {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-  travauxTypesEtapesTypes,
-  travauxTypeEtapeTypeModifier,
-  travauxTypeEtapeTypeCreer,
-  travauxTypeEtapeTypeSupprimer,
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer
 } from './resolvers/metas-join'
+
+import {
+  travauxTypesTravauxEtapesTypes,
+  travauxTypeTravauxEtapeTypeModifier,
+  travauxTypeTravauxEtapeTypeCreer,
+  travauxTypeTravauxEtapeTypeSupprimer
+} from './resolvers/metas-travaux-join'
 
 import {
   substance,
@@ -242,7 +245,7 @@ export default {
   titresTypesDemarchesTypesEtapesTypes,
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
-  travauxTypesEtapesTypes,
+  travauxTypesTravauxEtapesTypes,
   activitesTypes,
   activitesStatuts,
   activitesTypesTitresTypes,
@@ -332,9 +335,9 @@ export default {
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer,
 
-  travauxTypeEtapeTypeModifier,
-  travauxTypeEtapeTypeCreer,
-  travauxTypeEtapeTypeSupprimer,
+  travauxTypeTravauxEtapeTypeModifier,
+  travauxTypeTravauxEtapeTypeCreer,
+  travauxTypeTravauxEtapeTypeSupprimer,
 
   activiteTypeModifier,
   activiteStatutModifier,

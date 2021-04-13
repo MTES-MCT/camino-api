@@ -18,7 +18,6 @@ import {
   ITitreStatut,
   ITitreTypeType,
   IToken,
-  ITravauxType,
   IUnite
 } from '../../../types'
 import { debug } from '../../../config/index'
@@ -50,8 +49,6 @@ import {
   titreStatutUpdate,
   titresTypesTypesGet,
   titreTypeTypeUpdate,
-  travauxTypesGet,
-  travauxTypeUpdate,
   unitesGet,
   deviseUpdate,
   uniteUpdate,
@@ -60,6 +57,7 @@ import {
   documentTypeUpdate,
   referenceTypeUpdate
 } from '../../../database/queries/metas'
+
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
@@ -92,7 +90,9 @@ const documentsTypes = async ({
   typeId?: string
 }) => {
   try {
-    return documentsTypesGet({ repertoire, typeId })
+    const documentsTypes = await documentsTypesGet({ repertoire, typeId })
+
+    return documentsTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -214,31 +214,6 @@ const demarchesTypes = async (
   }
 }
 
-const travauxTypes = async (
-  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-    const fields = fieldsBuild(info)
-
-    const travauxTypes = await travauxTypesGet(
-      { titreId, titreTravauxId },
-      { fields },
-      user
-    )
-
-    return travauxTypes
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
 const demarchesStatuts = async () => {
   try {
     const demarchesStatuts = await demarchesStatutsGet()
@@ -335,14 +310,10 @@ const etapesTypes = async (
   {
     titreDemarcheId,
     titreEtapeId,
-    titreTravauxId,
-    titreTravauxEtapeId,
     date
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
-    titreTravauxId?: string
-    titreTravauxEtapeId?: string
     date?: string
   },
   context: IToken,
@@ -367,7 +338,7 @@ const etapesTypes = async (
     }
 
     const etapesTypes = await etapesTypesGet(
-      { titreDemarcheId, titreEtapeId, titreTravauxId, titreTravauxEtapeId },
+      { titreDemarcheId, titreEtapeId },
       { fields },
       user
     )
@@ -640,40 +611,6 @@ const demarcheTypeModifier = async (
     const demarchesTypes = await demarchesTypesGet({}, { fields }, user)
 
     return demarchesTypes
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const travauxTypeModifier = async (
-  { travauxType }: { travauxType: ITravauxType },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const fields = fieldsBuild(info)
-
-    if (travauxType.ordre) {
-      const travauxTypes = await travauxTypesGet({}, { fields }, user)
-
-      await ordreUpdate(travauxType, travauxTypes, travauxTypeUpdate)
-    }
-
-    await travauxTypeUpdate(travauxType.id!, travauxType)
-
-    const travauxTypes = await travauxTypesGet({}, { fields }, user)
-
-    return travauxTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -1001,7 +938,6 @@ export {
   devises,
   demarchesTypes,
   demarchesStatuts,
-  travauxTypes,
   documentsTypes,
   documentsVisibilites,
   domaines,
@@ -1025,7 +961,6 @@ export {
   definitionModifier,
   titreTypeTypeModifier,
   demarcheTypeModifier,
-  travauxTypeModifier,
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,

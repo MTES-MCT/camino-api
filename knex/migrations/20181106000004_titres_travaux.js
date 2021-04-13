@@ -24,14 +24,31 @@ exports.up = knex =>
         .references('titresTravaux.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
-
       table.string('statutId', 3).index().references('etapesStatuts.id')
-      table.string('typeId', 3).index().references('etapesTypes.id')
+      table
+        .string('typeId', 3)
+        .index()
+        .references('travauxEtapesTypes.id')
+        .notNullable()
       table.string('date', 10)
       table.integer('duree')
       table.float('surface')
       table.jsonb('contenu')
       table.integer('ordre')
+    })
+    .createTable('travauxEtapesTypes__etapesStatuts', table => {
+      table
+        .string('travauxEtapeTypeId', 3)
+        .index()
+        .references('travauxEtapesTypes.id')
+        .notNullable()
+      table
+        .string('etapeStatutId', 3)
+        .index()
+        .references('etapesStatuts.id')
+        .notNullable()
+      table.integer('ordre')
+      table.primary(['travauxEtapeTypeId', 'etapeStatutId'])
     })
 
 exports.down = knex => knex.schema.dropTable('titresActivites')

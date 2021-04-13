@@ -91,7 +91,7 @@ exports.up = knex => {
     })
     .createTable('etapesTypes__etapesStatuts', table => {
       table
-        .string('etapeTypeId', 7)
+        .string('etapeTypeId', 3)
         .index()
         .references('etapesTypes.id')
         .notNullable()
