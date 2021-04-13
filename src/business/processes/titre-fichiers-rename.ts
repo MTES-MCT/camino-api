@@ -1,5 +1,6 @@
 import fileRename from '../../tools/file-rename'
-import { ITitre, ITitreDemarche, ITitreEtape, Index } from '../../types'
+import { Index, ITitre, ITitreDemarche, ITitreEtape } from '../../types'
+import { existsSync } from 'fs'
 
 const titreEtapeFilePathPathBuild = (titreEtapeId: string) =>
   `demarches/${titreEtapeId}`
@@ -17,13 +18,13 @@ const titreEtapesFilePathsNamesFind = (
     const titreEtapeOldId = relationsIdsUpdatedIndex.etapes[titreEtape.id]
 
     if (titreEtapeOldId) {
-      const hasDocumentsWithFiles = titreEtape.documents?.find(d => d.fichier)
+      const filePathPathOld = titreEtapeFilePathPathBuild(titreEtapeOldId)
+      const hasDocumentsWithFiles = existsSync(`files/${filePathPathOld}`)
 
       if (hasDocumentsWithFiles) {
-        const filePathPathOld = titreEtapeFilePathPathBuild(titreEtapeOldId)
-        const filePathPathNew = titreEtapeFilePathPathBuild(titreEtape.id)
-
-        fichiersNames[filePathPathOld] = filePathPathNew
+        fichiersNames[filePathPathOld] = titreEtapeFilePathPathBuild(
+          titreEtape.id
+        )
       }
     }
 

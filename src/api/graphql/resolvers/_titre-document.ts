@@ -4,62 +4,55 @@ import {
   ITitreTravaux,
   ITitreActivite,
   ITitreEtapeOrTitreTravauxEtape,
-  IDocument
+  IDocumentRepertoire
 } from '../../../types'
 
 import { join } from 'path'
 
-import fileDelete from '../../../tools/file-delete'
+import { dirDelete } from '../../../tools/dir-delete'
 
-const fichiersDelete = async (documents?: IDocument[] | null) => {
-  if (documents?.length) {
-    for (const document of documents) {
-      if (document.fichier && document.type) {
-        try {
-          const documentPath = `files/${document.type.repertoire}/${
-            document.titreEtapeId ||
-            document.titreActiviteId ||
-            document.entrepriseId ||
-            document.titreTravauxEtapeId
-          }/${document.id}.${document.fichierTypeId}`
-
-          await fileDelete(join(process.cwd(), documentPath))
-        } catch (e) {
-          console.info(`impossible de supprimer le fichier: ${document.id}`)
-        }
-      }
-    }
+const fichiersRepertoireDelete = async (
+  id: string,
+  repertoire: IDocumentRepertoire
+) => {
+  const repertoirePath = `files/${repertoire}/${id}`
+  try {
+    await dirDelete(join(process.cwd(), repertoirePath))
+  } catch (e) {
+    console.error(`impossible de supprimer le répertoire: ${repertoirePath}`, e)
   }
 }
 
 const titreEtapesOrActivitesFichiersDelete = async (
+  repertoire: IDocumentRepertoire,
   etapesOrActvites?: ITitreEtapeOrTitreTravauxEtape[] | ITitreActivite[] | null
 ) => {
   if (etapesOrActvites?.length) {
     for (const ea of etapesOrActvites) {
-      await fichiersDelete(ea.documents)
+      await fichiersRepertoireDelete(ea.id, repertoire)
     }
   }
 }
 
 const titreDemarchesOrTravauxFichiersDelete = async (
+  repertoire: IDocumentRepertoire,
   demarchesOrTravaux?: ITitreDemarche[] | ITitreTravaux[] | null
 ) => {
   if (demarchesOrTravaux?.length) {
     for (const dt of demarchesOrTravaux) {
-      await titreEtapesOrActivitesFichiersDelete(dt.etapes)
+      await titreEtapesOrActivitesFichiersDelete(repertoire, dt.etapes)
     }
   }
 }
 
 const titreFichiersDelete = async (titre: ITitre) => {
-  titreDemarchesOrTravauxFichiersDelete(titre.demarches)
-  titreDemarchesOrTravauxFichiersDelete(titre.travaux)
-  titreEtapesOrActivitesFichiersDelete(titre.activites)
+  titreDemarchesOrTravauxFichiersDelete('demarches', titre.demarches)
+  titreDemarchesOrTravauxFichiersDelete('travaux', titre.travaux)
+  titreEtapesOrActivitesFichiersDelete('activites', titre.activites)
 }
 
 export {
-  fichiersDelete,
+  fichiersRepertoireDelete,
   titreEtapesOrActivitesFichiersDelete,
   titreFichiersDelete
 }

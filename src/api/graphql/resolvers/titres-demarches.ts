@@ -261,7 +261,7 @@ const demarcheSupprimer = async (
 
     await titreDemarcheDelete(id)
 
-    await titreEtapesOrActivitesFichiersDelete(demarcheOld.etapes)
+    await titreEtapesOrActivitesFichiersDelete('demarches', demarcheOld.etapes)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       null,

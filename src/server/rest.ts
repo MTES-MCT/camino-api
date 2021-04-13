@@ -13,7 +13,7 @@ import {
   entreprises
 } from '../api/rest'
 
-import { fichier } from '../api/rest/fichiers'
+import { etapeFichier, fichier } from '../api/rest/fichiers'
 
 import { IAuthRequest } from './_types'
 
@@ -53,7 +53,10 @@ const restify = (resolver: IRestResolver) => async (
 
     const { nom, format, contenu, filePath } = result
 
-    res.header('Content-disposition', `attachment; filename=${nom}`)
+    res.header(
+      'Content-disposition',
+      `attachment; filename=${encodeURIComponent(nom)}`
+    )
     res.header('Content-Type', contentTypes[format])
 
     if (filePath) {
@@ -87,6 +90,7 @@ rest.get('/activites', restify(activites))
 rest.get('/utilisateurs', restify(utilisateurs))
 rest.get('/entreprises', restify(entreprises))
 rest.get('/fichiers/:documentId', restify(fichier))
+rest.get('/etape/:etapeId/:fichierNom', restify(etapeFichier))
 
 rest.use(
   (

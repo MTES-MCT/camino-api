@@ -1,7 +1,8 @@
-import { IFormat } from '../../types'
+import { IDocumentRepertoire, IFormat } from '../../types'
 
 import { documentGet } from '../../database/queries/documents'
 import { userGet } from '../../database/queries/utilisateurs'
+import { titreEtapeGet } from '../../database/queries/titres-etapes'
 
 const fichier = async (
   { documentId }: { documentId?: string },
@@ -58,4 +59,34 @@ const fichier = async (
   }
 }
 
-export { fichier }
+const etapeFichier = async (
+  { etapeId, fichierNom }: { etapeId?: string; fichierNom?: string },
+  userId?: string
+) => {
+  if (!etapeId) {
+    throw new Error('id de l’étape absent')
+  }
+  if (!fichierNom) {
+    throw new Error('nom du fichier absent')
+  }
+
+  const user = await userGet(userId)
+
+  const etape = await titreEtapeGet(etapeId, { fields: { id: {} } }, user)
+
+  if (!etape) {
+    throw new Error('fichier inexistant')
+  }
+
+  const repertoire = 'demarches' as IDocumentRepertoire
+
+  const filePath = `${repertoire}/${etapeId}/${fichierNom}`
+
+  return {
+    nom: fichierNom.slice(5),
+    format: 'pdf' as IFormat,
+    filePath
+  }
+}
+
+export { fichier, etapeFichier }

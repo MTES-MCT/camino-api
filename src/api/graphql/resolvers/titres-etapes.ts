@@ -14,7 +14,7 @@ import {
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
 
-import { fichiersDelete } from './_titre-document'
+import { fichiersRepertoireDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
@@ -28,6 +28,11 @@ import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentsModifier } from './documents'
+import {
+  contenuElementFileGet,
+  contenuElementFileProcess
+} from './_contenu-element-file'
+import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
 
 const etape = async (
   { id }: { id: string },
@@ -178,11 +183,17 @@ const etapeCreer = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
+    const sections = etapeTypeSectionsFormat(
+      etapeType,
+      titreDemarche.type!.etapesTypes,
+      titreDemarche.titre!.typeId
+    )
+
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
-      etapeType,
+      sections,
       etapeType.documentsTypes!
     )
     if (rulesErrors.length) {
@@ -196,7 +207,20 @@ const etapeCreer = async (
     const documents = etape.documents || []
     delete etape.documents
 
+    const { contenu, newFiles } = await contenuElementFileGet(
+      etape.contenu,
+      sections
+    )
+    etape.contenu = contenu
+
     const etapeUpdated = await titreEtapeUpsert(etape)
+
+    await contenuElementFileProcess(
+      newFiles,
+      'demarches',
+      etapeUpdated.id,
+      sections
+    )
 
     await documentsModifier(
       context,
@@ -267,11 +291,17 @@ const etapeModifier = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
+    const sections = etapeTypeSectionsFormat(
+      etapeType,
+      titreDemarche.type!.etapesTypes,
+      titreDemarche.titre!.typeId
+    )
+
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
-      etapeType,
+      sections,
       etapeType.documentsTypes!
     )
 
@@ -285,7 +315,21 @@ const etapeModifier = async (
 
     await documentsModifier(context, etape, 'titreEtapeId', titreEtapeOld)
 
+    const { contenu, newFiles } = await contenuElementFileGet(
+      etape.contenu,
+      sections
+    )
+    etape.contenu = contenu
+
     const etapeUpdated = await titreEtapeUpsert(etape)
+
+    await contenuElementFileProcess(
+      newFiles,
+      'demarches',
+      etapeUpdated.id,
+      sections,
+      titreEtapeOld.contenu
+    )
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -357,7 +401,7 @@ const etapeSupprimer = async (
 
     await titreEtapeDelete(id)
 
-    await fichiersDelete(titreEtape.documents)
+    await fichiersRepertoireDelete(id, 'demarches')
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       null,

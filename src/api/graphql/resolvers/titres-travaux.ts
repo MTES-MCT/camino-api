@@ -110,7 +110,7 @@ const travauxSupprimer = async (
 
     await titreTravauxDelete(id)
 
-    await titreEtapesOrActivitesFichiersDelete(travauxOld.etapes)
+    await titreEtapesOrActivitesFichiersDelete('travaux', travauxOld.etapes)
 
     const titreUpdatedId = await titreTravauxUpdateTask(travauxOld.titreId)
 
