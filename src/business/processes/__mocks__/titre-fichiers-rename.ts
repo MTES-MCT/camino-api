@@ -31,11 +31,6 @@ const titreNew = {
 
 const titreNewSansDemarches = { id: 'new-titre-id' } as ITitre
 
-const titreNewDemarchesVides = ({
-  id: 'new-titre-id',
-  demarches: []
-} as unknown) as ITitre
-
 const titreNewSansEtapes = {
   id: 'new-titre-id',
   demarches: [
@@ -46,32 +41,6 @@ const titreNewSansEtapes = {
       etapes: [
         { id: 'new-titre-id-demarche-03-etape-01', documents: [] },
         { id: 'new-titre-id-demarche-03-etape-02' }
-      ]
-    }
-  ]
-} as ITitre
-
-const titreSansDocuments = {
-  id: 'new-titre-id',
-  demarches: [
-    {
-      id: 'new-titre-id-demarche-01',
-      etapes: [{ id: 'new-titre-id-demarche-01-etape-01' }]
-    }
-  ]
-} as ITitre
-
-const titreDocumentsVide = {
-  id: 'new-titre-id',
-  demarches: [
-    {
-      id: 'new-titre-id-demarche-01',
-      etapes: [
-        {
-          id: 'new-titre-id-demarche-01-etape-01',
-          documents: []
-        },
-        { id: 'new-titre-id-demarche-01-etape-02' }
       ]
     }
   ]
@@ -107,9 +76,6 @@ const titreNewDemarchesSansChangement = {
 export {
   titreNew,
   titreNewSansDemarches,
-  titreNewDemarchesVides,
   titreNewSansEtapes,
-  titreSansDocuments,
-  titreDocumentsVide,
   titreNewDemarchesSansChangement
 }

@@ -158,7 +158,7 @@ const travauxEtapeSupprimer = async (
     const oldTitreTravauxEtape = await titreTravauxEtapeGet(
       id,
       {
-        fields: { documents: { type: { id: {} } } }
+        fields: { id: {} }
       },
       user
     )

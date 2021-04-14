@@ -72,7 +72,7 @@ const etapeFichier = async (
 
   const user = await userGet(userId)
 
-  const etape = await titreEtapeGet(etapeId, { fields: { id: {} } }, user)
+  const etape = await titreEtapeGet(etapeId, { fields: {} }, user)
 
   if (!etape) {
     throw new Error('fichier inexistant')

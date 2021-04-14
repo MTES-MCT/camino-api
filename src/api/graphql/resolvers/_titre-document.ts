@@ -46,9 +46,9 @@ const titreDemarchesOrTravauxFichiersDelete = async (
 }
 
 const titreFichiersDelete = async (titre: ITitre) => {
-  titreDemarchesOrTravauxFichiersDelete('demarches', titre.demarches)
-  titreDemarchesOrTravauxFichiersDelete('travaux', titre.travaux)
-  titreEtapesOrActivitesFichiersDelete('activites', titre.activites)
+  await titreDemarchesOrTravauxFichiersDelete('demarches', titre.demarches)
+  await titreDemarchesOrTravauxFichiersDelete('travaux', titre.travaux)
+  await titreEtapesOrActivitesFichiersDelete('activites', titre.activites)
 }
 
 export {

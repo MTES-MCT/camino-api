@@ -6,12 +6,13 @@ import fileRename from '../../tools/file-rename'
 import {
   titreNew,
   titreNewSansDemarches,
-  titreNewDemarchesVides,
   titreNewSansEtapes,
-  titreSansDocuments,
-  titreDocumentsVide,
   titreNewDemarchesSansChangement
 } from './__mocks__/titre-fichiers-rename'
+
+jest.mock('fs', () => ({
+  existsSync: jest.fn().mockRejectedValue(true)
+}))
 
 jest.mock('../../tools/file-rename', () => ({
   default: jest.fn().mockResolvedValue(true)
@@ -52,13 +53,7 @@ describe("renomme les fichiers d'un titre", () => {
 
     await titreFilePathsRename(relationsIdsUpdatedIndex, titreNewSansDemarches)
 
-    await titreFilePathsRename(relationsIdsUpdatedIndex, titreNewDemarchesVides)
-
     await titreFilePathsRename(relationsIdsUpdatedIndex, titreNewSansEtapes)
-
-    await titreFilePathsRename(relationsIdsUpdatedIndex, titreSansDocuments)
-
-    await titreFilePathsRename(relationsIdsUpdatedIndex, titreDocumentsVide)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })

@@ -102,7 +102,7 @@ const travauxSupprimer = async (
 
     const travauxOld = await titresTravauGet(
       id,
-      { fields: { etapes: { documents: { type: { id: {} } } } } },
+      { fields: { etapes: { id: {} } } },
       user
     )
 

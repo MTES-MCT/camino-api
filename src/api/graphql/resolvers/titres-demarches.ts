@@ -251,7 +251,7 @@ const demarcheSupprimer = async (
 
     const demarcheOld = await titreDemarcheGet(
       id,
-      { fields: { etapes: { documents: { type: { id: {} } } } } },
+      { fields: { etapes: { id: {} } } },
       user
     )
 

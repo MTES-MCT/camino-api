@@ -28,11 +28,12 @@ import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentsModifier } from './documents'
-import {
-  contenuElementFileGet,
-  contenuElementFileProcess
-} from './_contenu-element-file'
 import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
+import {
+  contenuElementFilesCreate,
+  contenuElementFilesDelete,
+  sectionsContenuAndFilesGet
+} from '../../../business/utils/contenu-element-file-process'
 
 const etape = async (
   { id }: { id: string },
@@ -207,7 +208,7 @@ const etapeCreer = async (
     const documents = etape.documents || []
     delete etape.documents
 
-    const { contenu, newFiles } = await contenuElementFileGet(
+    const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,
       sections
     )
@@ -215,12 +216,7 @@ const etapeCreer = async (
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
-    await contenuElementFileProcess(
-      newFiles,
-      'demarches',
-      etapeUpdated.id,
-      sections
-    )
+    await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
     await documentsModifier(
       context,
@@ -315,7 +311,7 @@ const etapeModifier = async (
 
     await documentsModifier(context, etape, 'titreEtapeId', titreEtapeOld)
 
-    const { contenu, newFiles } = await contenuElementFileGet(
+    const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,
       sections
     )
@@ -323,17 +319,26 @@ const etapeModifier = async (
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
-    await contenuElementFileProcess(
-      newFiles,
-      'demarches',
-      etapeUpdated.id,
-      sections,
-      titreEtapeOld.contenu
-    )
+    await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
       etapeUpdated.titreDemarcheId
+    )
+
+    // après le recalcule de l’héritage, on recharge toutes les étapes de la démarche pour pouvoir récuperer
+    // tous les fichiers tjrs présents dans le contenu de chaque étape
+    const demarche = await titreDemarcheGet(
+      etapeUpdated.id,
+      { fields: { etapes: { id: {} } } },
+      userSuper
+    )
+    await contenuElementFilesDelete(
+      'demarches',
+      etapeUpdated.id,
+      sections,
+      demarche.etapes,
+      titreEtapeOld.contenu
     )
 
     const fields = fieldsBuild(info)
@@ -358,11 +363,7 @@ const etapeSupprimer = async (
     const fields = fieldsBuild(info)
     const user = await userGet(context.user?.id)
 
-    const titreEtape = await titreEtapeGet(
-      id,
-      { fields: { documents: { type: { id: {} } } } },
-      user
-    )
+    const titreEtape = await titreEtapeGet(id, { fields: { id: {} } }, user)
 
     if (!titreEtape) throw new Error("l'étape n'existe pas")
 
