@@ -10,7 +10,7 @@ import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
 import { login as cerbereLogin } from '../../../tools/api-cerbere'
 
-import init from '../../../database/init'
+import { databaseInit } from '../../../database/init'
 
 import { debug } from '../../../config/index'
 import { emailSend } from '../../../tools/emails-send'
@@ -148,7 +148,7 @@ const moi = async (_: never, context: IToken) => {
     // TODO:
     // mettre ça dans un middleware à la racine de l'app express
     if (!globales.chargement) {
-      await init()
+      await databaseInit()
     }
 
     const user = await userGet(context.user?.id)

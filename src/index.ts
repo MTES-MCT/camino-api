@@ -8,11 +8,10 @@
  * You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import './init'
 import * as compression from 'compression'
 import * as cors from 'cors'
 import * as express from 'express'
-
-import './init'
 
 import { rest } from './server/rest'
 import { graphql } from './server/graphql'
@@ -20,14 +19,14 @@ import { authJwt, authJwtError } from './server/auth-jwt'
 import { authBasic } from './server/auth-basic'
 import { upload } from './server/upload'
 
-import init from './database/init'
+import { databaseInit } from './database/init'
 
 import { port, url } from './config/index'
 
 import * as Sentry from '@sentry/node'
 import './config/logger'
 
-init()
+databaseInit()
 
 const app = express()
 

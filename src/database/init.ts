@@ -3,7 +3,7 @@ import { geoConvertInit } from '../tools/geo-convert'
 import { globalesInit } from './cache/globales'
 import { geoSystemesInit } from './cache/geo-systemes'
 
-const init = async () => {
+const databaseInit = async () => {
   await metasInit()
   // on initialise le cache des géosystèmes en premier
   // car geoConvert les utilise pour son initialisation
@@ -12,4 +12,4 @@ const init = async () => {
   await globalesInit()
 }
 
-export default init
+export { databaseInit }

@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken'
 
 import { Index, IPermissionId, IUtilisateur } from '../../src/types'
 import * as request from 'supertest'
-import { app } from '../init'
+import { app } from '../app'
 import {
   utilisateurCreate,
   utilisateurGet
