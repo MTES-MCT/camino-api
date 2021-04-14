@@ -19,6 +19,7 @@ type ActiviteType {
   satisfactionUrl: String
   lectureInterdit: Boolean
   modificationInterdit: Boolean
+  description: String
 }
 
 type ActiviteTypeTitreType {
@@ -53,6 +54,7 @@ input InputActiviteType {
   sections: Json
   email: String
   satisfactionUrl: String
+  description: String
 }
 
 input InputActiviteTypeTitreType {

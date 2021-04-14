@@ -151,6 +151,7 @@ interface IActiviteType {
   satisfactionUrl: string
   email?: string | null
   modification?: boolean | null
+  description?: string
 }
 
 interface IAdministrationType {

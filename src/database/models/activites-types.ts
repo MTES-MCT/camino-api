@@ -19,7 +19,8 @@ class ActivitesTypes extends Model {
       dateDebut: { type: 'string' },
       delaiMois: { type: 'integer' },
       satisfactionUrl: { type: 'string' },
-      ordre: { type: 'integer' }
+      ordre: { type: 'integer' },
+      description: { type: ['string', 'null'] }
     }
   }
 
