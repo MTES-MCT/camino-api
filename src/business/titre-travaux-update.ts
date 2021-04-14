@@ -11,11 +11,7 @@ const titreTravauxUpdate = async (titreId: string) => {
     console.info(`mise à jour de travaux : ${titreId}`)
     console.info()
 
-    const titre = await titreGet(
-      titreId,
-      { fields: { travaux: { etapes: { id: {} } } } },
-      userSuper
-    )
+    const titre = await titreGet(titreId, { fields: {} }, userSuper)
 
     if (!titre) {
       throw new Error(`warning: le titre ${titreId} n'existe plus`)

@@ -17,7 +17,7 @@ const fieldFormat = (name: string, field: string) =>
 // - 'titres' depuis la table 'titres'
 // - 'titre' depuis la table 'titresDemarches'
 // root: nom de la table de base
-const titresFiltersQueryBuild = (
+const titresFiltersQueryModify = (
   {
     perimetre,
     domainesIds,
@@ -267,4 +267,4 @@ const titresFiltersQueryBuild = (
   }
 }
 
-export { titresFiltersQueryBuild }
+export { titresFiltersQueryModify }

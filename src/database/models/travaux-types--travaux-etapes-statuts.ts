@@ -5,11 +5,11 @@ interface TravauxEtapesTypesEtapesStatuts
   extends ITravauxEtapeTypeEtapeStatut {}
 
 class TravauxEtapesTypesEtapesStatuts extends Model {
-  public static tableName = 'TravauxEtapesTypes__etapesStatuts'
+  public static tableName = 'travauxEtapesTypes__etapesStatuts'
 
   public static jsonSchema = {
     type: 'object',
-    required: ['TravauxEtapeTypeId', 'etapeStatutId'],
+    required: ['travauxEtapeTypeId', 'etapeStatutId'],
 
     properties: {
       etapeTypeId: { type: 'string', maxLength: 3 },
@@ -18,7 +18,7 @@ class TravauxEtapesTypesEtapesStatuts extends Model {
     }
   }
 
-  public static idColumn = ['TravauxEtapeTypeId', 'etapeStatutId']
+  public static idColumn = ['travauxEtapeTypeId', 'etapeStatutId']
 }
 
 export default TravauxEtapesTypesEtapesStatuts

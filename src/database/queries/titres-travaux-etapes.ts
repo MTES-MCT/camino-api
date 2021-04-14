@@ -8,15 +8,6 @@ import TitresTravauxEtapes from '../models/titres-travaux-etapes'
 import { titresTravauxEtapesQueryModify } from './permissions/titres-travaux-etapes'
 
 const titresTravauxEtapesQueryBuild = (
-  {
-    etapesIds,
-    etapesTypesIds,
-    titresTravauxIds
-  }: {
-    etapesIds?: string[] | null
-    etapesTypesIds?: string[] | null
-    titresTravauxIds?: string[] | null
-  } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -28,18 +19,6 @@ const titresTravauxEtapesQueryBuild = (
 
   titresTravauxEtapesQueryModify(q, user)
 
-  if (etapesIds) {
-    q.whereIn('titresTravauxEtapes.id', etapesIds)
-  }
-
-  if (etapesTypesIds) {
-    q.whereIn('titresTravauxEtapes.typeId', etapesTypesIds)
-  }
-
-  if (titresTravauxIds) {
-    q.whereIn('titresTravauxEtapes.titreTravauxId', titresTravauxIds)
-  }
-
   // console.info(q.toKnexQuery().toString())
 
   return q
@@ -50,9 +29,9 @@ const titreTravauxEtapeGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresTravauxEtapesQueryBuild({}, { fields }, user)
+  const q = titresTravauxEtapesQueryBuild({ fields }, user)
 
-  return (await q.findById(id)) as ITitreTravauxEtape
+  return q.findById(id)
 }
 
 const titresTravauxEtapesGet = async (
@@ -68,11 +47,19 @@ const titresTravauxEtapesGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresTravauxEtapesQueryBuild(
-    { etapesIds, etapesTypesIds, titresTravauxIds },
-    { fields },
-    user
-  )
+  const q = titresTravauxEtapesQueryBuild({ fields }, user)
+
+  if (etapesIds) {
+    q.whereIn('titresTravauxEtapes.id', etapesIds)
+  }
+
+  if (etapesTypesIds) {
+    q.whereIn('titresTravauxEtapes.typeId', etapesTypesIds)
+  }
+
+  if (titresTravauxIds) {
+    q.whereIn('titresTravauxEtapes.titreTravauxId', titresTravauxIds)
+  }
 
   q.orderBy('ordre')
 

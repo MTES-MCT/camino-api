@@ -75,8 +75,12 @@ const demarchesTypes = {
   graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
+const travauxEtapesTypes = {
+  graph: `[etapesStatuts]`
+}
+
 const travauxTypes = {
-  graph: `[etapesTypes.${etapesTypes.graph}]`
+  graph: `[travauxEtapesTypes.${travauxEtapesTypes.graph}]`
 }
 
 const titresTypes = {
@@ -410,5 +414,7 @@ export default {
   titresTravaux,
   titresTravauxEtapes,
   titresTypes,
+  travauxTypes,
+  travauxEtapesTypes,
   utilisateurs
 }

@@ -108,8 +108,6 @@ const documentRepertoireCheck = (
     throw new Error('type de document incorrect')
   }
 
-  console.log(documentType.repertoire, document)
-
   if (
     (documentType.repertoire === 'activites' && !document.titreActiviteId) ||
     (documentType.repertoire === 'demarches' && !document.titreEtapeId) ||

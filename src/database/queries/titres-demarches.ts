@@ -22,7 +22,7 @@ import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 
 import { titresDemarchesQueryModify } from './permissions/titres-demarches'
-import { titresFiltersQueryBuild } from './_titres-filters'
+import { titresFiltersQueryModify } from './_titres-filters'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -61,7 +61,7 @@ const etapesIncluesExcluesBuild = (
   )
 }
 
-const titresDemarchesQueryBuild = (
+const titresDemarchesFiltersQueryModify = (
   {
     typesIds,
     statutsIds,
@@ -91,17 +91,8 @@ const titresDemarchesQueryBuild = (
     titresReferences?: string | null
     titresTerritoires?: string | null
   } = {},
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  q: QueryBuilder<TitresDemarches, TitresDemarches[]>
 ) => {
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'demarches', fieldsFormat)
-    : options.titresDemarches.graph
-
-  const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
-
-  titresDemarchesQueryModify(q, { fields }, user)
-
   if (titresDemarchesIds) {
     q.whereIn('titresDemarches.id', titresDemarchesIds)
   }
@@ -114,7 +105,19 @@ const titresDemarchesQueryBuild = (
     q.whereIn('titresDemarches.statutId', statutsIds)
   }
 
-  titresFiltersQueryBuild(
+  if (etapesInclues?.length || etapesExclues?.length) {
+    q.leftJoinRelated('etapes').groupBy('titresDemarches.id')
+
+    if (etapesInclues?.length) {
+      etapesIncluesExcluesBuild(q, etapesInclues, 'etapesInclues')
+    }
+
+    if (etapesExclues?.length) {
+      etapesIncluesExcluesBuild(q, etapesExclues, 'etapesExclues')
+    }
+  }
+
+  titresFiltersQueryModify(
     {
       domainesIds: titresDomainesIds,
       typesIds: titresTypesIds,
@@ -129,18 +132,19 @@ const titresDemarchesQueryBuild = (
     'titre',
     'titresDemarches'
   )
+}
 
-  if (etapesInclues?.length || etapesExclues?.length) {
-    q.leftJoinRelated('etapes').groupBy('titresDemarches.id')
+const titresDemarchesQueryBuild = (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  const graph = fields
+    ? graphBuild(fieldsTitreAdd(fields), 'demarches', fieldsFormat)
+    : options.titresDemarches.graph
 
-    if (etapesInclues?.length) {
-      etapesIncluesExcluesBuild(q, etapesInclues, 'etapesInclues')
-    }
+  const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
 
-    if (etapesExclues?.length) {
-      etapesIncluesExcluesBuild(q, etapesExclues, 'etapesExclues')
-    }
-  }
+  titresDemarchesQueryModify(q, { fields }, user)
 
   return q
 }
@@ -178,7 +182,9 @@ const titresDemarchesCount = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresDemarchesQueryBuild(
+  const q = titresDemarchesQueryBuild({ fields }, user)
+
+  titresDemarchesFiltersQueryModify(
     {
       typesIds,
       statutsIds,
@@ -194,8 +200,7 @@ const titresDemarchesCount = async (
       titresReferences,
       titresTerritoires
     },
-    { fields },
-    user
+    q
   )
 
   const titresDemarches = ((await q) as unknown) as { total: number }[]
@@ -261,7 +266,9 @@ const titresDemarchesGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresDemarchesQueryBuild(
+  const q = titresDemarchesQueryBuild({ fields }, user)
+
+  titresDemarchesFiltersQueryModify(
     {
       typesIds,
       statutsIds,
@@ -277,8 +284,7 @@ const titresDemarchesGet = async (
       titresReferences,
       titresTerritoires
     },
-    { fields },
-    user
+    q
   )
 
   if (colonne) {
@@ -321,7 +327,7 @@ const titreDemarcheGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresDemarchesQueryBuild({}, { fields }, user)
+  const q = titresDemarchesQueryBuild({ fields }, user)
 
   return q.findById(titreDemarcheId)
 }

@@ -3,8 +3,7 @@ const fieldsOrderDesc = [
   'demarches',
   'etapes',
   'activites',
-  'travaux',
-  'travauxEtapes'
+  'travaux'
 ]
 const fieldsOrderAsc = [
   'domaines',

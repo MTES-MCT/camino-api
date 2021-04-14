@@ -2,6 +2,7 @@ import '../../init'
 import { knex } from '../../knex'
 
 const main = async () => {
+  console.info('créé les nouvelles tables')
   await knex.schema
     .createTable('travauxEtapesTypes', table => {
       table.string('id', 3).primary()
@@ -23,11 +24,29 @@ const main = async () => {
       table.integer('ordre')
       table.primary(['travauxEtapeTypeId', 'etapeStatutId'])
     })
+    .createTable('travauxEtapesTypes__documentsTypes', table => {
+      table
+        .string('travauxEtapeTypeId', 3)
+        .index()
+        .references('travauxEtapesTypes.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table
+        .string('documentTypeId', 3)
+        .index()
+        .references('documentsTypes.id')
+        .notNullable()
+      table.boolean('optionnel')
+      table.primary(['travauxEtapeTypeId', 'documentTypeId'])
+    })
+
+  console.info("corrige une erreur d'id")
 
   await knex('travauxTypes__etapesTypes')
     .where('etapeTypeId', 'rtd')
     .update({ etapeTypeId: 'rdt' })
 
+  // ids des étapes qui existent uniquement dans les travaux
   const newTravauxEtapesTypesIds = [
     'aow',
     'awd',
@@ -42,6 +61,7 @@ const main = async () => {
     'sup'
   ]
 
+  // ids des étapes existent dans les démarches et les travaux
   const copyTravauxEtapesTypesIds = [
     'dec',
     'dex',
@@ -54,6 +74,10 @@ const main = async () => {
     'scl',
     'ssr'
   ]
+
+  console.info("copie les types d'étapes dans les types d'étapes de travaux")
+  console.info('copie les statuts des étapes de travaux')
+  console.info('copie les types de documents des étapes de travaux')
 
   for (const travauxEtapeTypeId of [
     ...newTravauxEtapesTypesIds,
@@ -75,16 +99,25 @@ const main = async () => {
 
       await knex('travauxEtapesTypes__etapesStatuts').insert(etEs)
     }
+    const etapeTypesDocumentsTypes = await knex(
+      'etapesTypes__documentsTypes'
+    ).where('etapeTypeId', travauxEtapeTypeId)
+
+    for (const etDt of etapeTypesDocumentsTypes) {
+      etDt.travauxEtapeTypeId = etDt.etapeTypeId
+      delete etDt.etapeTypeId
+
+      await knex('travauxEtapesTypes__documentsTypes').insert(etDt)
+    }
   }
 
-  await knex.schema.renameTable(
-    'travauxTypes__etapesTypes',
-    'travauxTypes__travauxEtapesTypes'
-  )
+  console.info('modifie la table des étapes de travaux')
+
   await knex.schema.alterTable('titresTravauxEtapes', table => {
     table.dropIndex('typeId').dropForeign(['typeId'])
     table.renameColumn('typeId', 'typeIdOld')
   })
+
   await knex.schema.alterTable('titresTravauxEtapes', table => {
     table
       .string('typeId', 3)
@@ -94,21 +127,20 @@ const main = async () => {
       .defaultTo('aow')
   })
 
-  for (const travauxEtapeTypeId of [
-    ...newTravauxEtapesTypesIds,
-    ...copyTravauxEtapesTypesIds
-  ]) {
-    const titresTravauxEtapes = await knex('titresTravauxEtapes').where(
-      'typeId',
-      travauxEtapeTypeId
-    )
+  await knex('titresTravauxEtapes').update('typeId', knex.ref('typeIdOld'))
 
-    for (const tte of titresTravauxEtapes) {
-      await knex('titresTravauxEtapes')
-        .where('id', tte.id)
-        .update('typeId', tte.typeIdOld)
-    }
-  }
+  console.info(
+    'renomme la table de jointure travaux_types__travaux_etapes_types'
+  )
+
+  await knex.schema.renameTable(
+    'travauxTypes__etapesTypes',
+    'travauxTypes__travauxEtapesTypes'
+  )
+
+  console.info(
+    'met à jour la table de jointure travaux_types__travaux_etapes_types'
+  )
 
   await knex.schema.alterTable('travauxTypes__travauxEtapesTypes', table => {
     table.dropColumn('sections')
@@ -120,25 +152,23 @@ const main = async () => {
       .defaultTo('aow')
   })
 
-  const travauxTypesTravauxEtapesTypes = await knex(
-    'travauxTypes__travauxEtapesTypes'
+  await knex('travauxTypes__travauxEtapesTypes').update(
+    'travauxEtapeTypeId',
+    knex.ref('etapeTypeId')
   )
-
-  for (const ttTet of travauxTypesTravauxEtapesTypes) {
-    await knex('travauxTypes__travauxEtapesTypes')
-      .where('etapeTypeId', ttTet.etapeTypeId)
-      .where('travauxTypeId', ttTet.travauxTypeId)
-      .first()
-      .update({ travauxEtapeTypeId: ttTet.etapeTypeId })
-  }
 
   await knex.schema
     .alterTable('travauxTypes__travauxEtapesTypes', table => {
       table.dropColumn('etapeTypeId')
+      table.primary(['travauxTypeId', 'travauxEtapeTypeId'])
     })
     .alterTable('titresTravauxEtapes', table => {
       table.dropColumn('typeIdOld')
     })
+
+  console.info(
+    "supprime les ids des types d'étapes de travaux dans la table des types d'étape"
+  )
 
   for (const travauxEtapeTypeId of newTravauxEtapesTypesIds) {
     await knex('etapesTypes__etapesStatuts')

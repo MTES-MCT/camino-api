@@ -15,13 +15,9 @@ const travauxEtapesTypesQueryModify = (
     TravauxEtapesTypes | TravauxEtapesTypes[]
   >,
   user: IUtilisateur | null,
-  {
-    titreTravauxId,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreTravauxEtapeId
-  }: { titreTravauxId?: string; titreTravauxEtapeId?: string } = {}
+  { titreTravauxId }: { titreTravauxId?: string } = {}
 ) => {
-  q.select('etapesTypes.*')
+  q.select('travauxEtapesTypes.*')
 
   // si titreDemarcheId
   // -> restreint aux types d'étapes du type de la démarche
@@ -34,8 +30,8 @@ const travauxEtapesTypesQueryModify = (
         .join(
           'travauxTypes__travauxEtapesTypes as tt_tet',
           raw('?? = ?? and ?? = ??', [
-            'tt_tet.etapeTypeId',
-            'etapesTypes.id',
+            'tt_tet.travauxEtapeTypeId',
+            'travauxEtapesTypes.id',
             'tt_tet.travauxTypeId',
             'titresTravaux.typeId'
           ])

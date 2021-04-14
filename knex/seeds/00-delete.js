@@ -67,6 +67,7 @@ const seed = seeding(async ({ del }) => {
   await del('activitesStatuts')
 
   // 05
+  await del('travauxEtapesTypes__documentsTypes')
   await del('travauxTypes__travauxEtapesTypes')
   await del('travauxEtapesTypes__etapesStatuts')
   await del('travauxEtapesTypes')

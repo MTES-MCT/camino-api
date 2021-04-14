@@ -28,7 +28,7 @@ import {
   userByRefreshTokenGet
 } from '../../../database/queries/utilisateurs'
 
-import globales from '../../../database/cache/globales'
+import { globales } from '../../../database/cache/globales'
 
 import { utilisateurUpdationValidate } from '../../../business/validations/utilisateur-updation-validate'
 import { permissionCheck } from '../../../tools/permission'
@@ -120,7 +120,7 @@ const utilisateurs = async (
           noms,
           emails
         },
-        { fields: { id: {} } },
+        { fields: {} },
         user
       )
     ])
@@ -355,7 +355,7 @@ const utilisateurCreer = async (
         id: await userIdGenerate(),
         ...utilisateur
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     emailSend(
@@ -591,7 +591,7 @@ const utilisateurMotDePasseModifier = async (
         id,
         motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     return utilisateurUpdated
@@ -682,7 +682,7 @@ const utilisateurMotDePasseInitialiser = async (
         id: context.user.id,
         motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     return {
@@ -787,7 +787,7 @@ const utilisateurEmailModifier = async (
         id: user.id,
         email: emailTokenDecoded.email
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     return {

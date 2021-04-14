@@ -3,6 +3,7 @@ import { IToken, ITravauxType } from '../../../types'
 import { debug } from '../../../config/index'
 
 import {
+  travauxEtapesTypesGet,
   travauxTypesGet,
   travauxTypeUpdate
 } from '../../../database/queries/metas-travaux'
@@ -72,4 +73,34 @@ const travauxTypeModifier = async (
   }
 }
 
-export { travauxTypes, travauxTypeModifier }
+const travauxEtapesTypes = async (
+  {
+    titreTravauxId
+  }: {
+    titreTravauxId?: string
+    date?: string
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+    const fields = fieldsBuild(info)
+
+    const etapesTypes = await travauxEtapesTypesGet(
+      { titreTravauxId },
+      { fields },
+      user
+    )
+
+    return etapesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export { travauxTypes, travauxTypeModifier, travauxEtapesTypes }

@@ -26,6 +26,9 @@ import {
   IEtapeTypeDocumentType
 } from '../../types'
 
+import { raw } from 'objection'
+import { knex } from '../../knex'
+
 import DemarchesTypes from '../models/demarches-types'
 import Devises from '../models/devises'
 import DocumentsTypes from '../models/documents-types'
@@ -61,8 +64,6 @@ import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarc
 import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
-import { knex } from '../../knex'
-import { raw } from 'objection'
 
 const permissionsGet = async (
   _a: never,
@@ -335,14 +336,12 @@ const phaseStatutUpdate = async (id: string, props: Partial<IPhaseStatut>) =>
 const etapesTypesGet = async (
   {
     titreDemarcheId,
-    titreEtapeId,
-    uniqueCheck
+    titreEtapeId
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
-    uniqueCheck?: boolean
-  } = { uniqueCheck: true },
-  { fields }: { fields?: IFields },
+  },
+  { fields, uniqueCheck = true }: { fields?: IFields; uniqueCheck?: boolean },
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -392,24 +391,31 @@ const documentsTypesGet = async ({
   if (repertoire) {
     q.where({ repertoire })
 
-    // restreint les types de documents à ceux liés aux activités
     if (typeId && repertoire === 'activites') {
       q.join('activitesTypes__documentsTypes as at_dt', b => {
         b.on(knex.raw('?? = ?', ['at_dt.activiteTypeId', typeId]))
-        b.on(knex.raw('?? = ??', ['at_dt.documentTypeId', 'id']))
+        b.on(knex.raw('?? = ??', ['at_dt.documentTypeId', 'documentsTypes.id']))
       })
 
       q.select(raw('?? is true', ['at_dt.optionnel']).as('optionnel'))
-    } else if (typeId && ['demarches', 'travaux'].includes(repertoire)) {
-      // restreint les types de documents à ceux liés aux étapes
+    } else if (typeId && repertoire === 'demarches') {
       q.join('etapesTypes__documentsTypes as et_dt', b => {
         b.on(knex.raw('?? = ?', ['et_dt.etapeTypeId', typeId]))
-        b.on(knex.raw('?? = ??', ['et_dt.documentTypeId', 'id']))
+        b.on(knex.raw('?? = ??', ['et_dt.documentTypeId', 'documentsTypes.id']))
+      })
+
+      q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
+    } else if (typeId && repertoire === 'travaux') {
+      q.join('travauxEtapesTypes__documentsTypes as et_dt', b => {
+        b.on(knex.raw('?? = ?', ['et_dt.travauxEtapeTypeId', typeId]))
+        b.on(knex.raw('?? = ??', ['et_dt.documentTypeId', 'documentsTypes.id']))
       })
 
       q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
     }
   }
+
+  // aot apd apm apu rdt
 
   return q
 }

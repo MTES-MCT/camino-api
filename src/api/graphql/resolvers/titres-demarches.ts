@@ -121,7 +121,7 @@ const demarches = async (
           titresReferences,
           titresTerritoires
         },
-        { fields: { id: {} } },
+        { fields: {} },
         user
       )
     ])
@@ -159,7 +159,7 @@ const demarcheCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const titre = await titreGet(demarche.titreId, {}, user)
+    const titre = await titreGet(demarche.titreId, { fields: {} }, user)
 
     if (!titre) throw new Error("le titre n'existe pas")
 

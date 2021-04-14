@@ -459,7 +459,7 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
         typesIds: [titreTypeDemarcheTypeEtapeType.demarcheTypeId],
         etapesInclues: [{ typeId: titreTypeDemarcheTypeEtapeType.etapeTypeId }]
       },
-      { fields: { id: {} } },
+      { fields: {} },
       userSuper
     )
 

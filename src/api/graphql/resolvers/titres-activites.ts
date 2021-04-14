@@ -172,7 +172,7 @@ const activites = async (
           titresDomainesIds,
           titresStatutsIds
         },
-        { fields: { id: {} } },
+        { fields: {} },
         user
       )
     ])
@@ -313,7 +313,7 @@ const activiteModifier = async (
           administrationIds: undefined,
           permissionIds: undefined
         },
-        {},
+        { fields: {} },
         userSuper
       )
 

@@ -842,9 +842,9 @@
     "symbole": "Ti"
   },
   {
-    "id": "anti",
-    "nom": "antimoine",
-    "symbole": "Sb"
+    "id": "mang",
+    "nom": "manganèse",
+    "symbole": "Mn"
   },
   {
     "id": "selg",
@@ -864,11 +864,6 @@
     "id": "fluo",
     "nom": "fluorine",
     "symbole": "F"
-  },
-  {
-    "id": "mang",
-    "nom": "manganèse",
-    "symbole": "Mn"
   },
   {
     "id": "sels",
@@ -900,6 +895,10 @@
     "nom": "hydrocarbures conventionnels liquides ou gazeux"
   },
   {
+    "id": "hydx",
+    "nom": "hydrocarbures liquides ou gazeux"
+  },
+  {
     "id": "meco",
     "nom": "métaux connexes"
   },
@@ -916,77 +915,12 @@
     "description": "Minéral - Sulfate de calcium hydraté (CaSO4,2H2O). Dans le domaine des liants hydrauliques, ce minéral est utilisé pour la fabrication du plâtre et comme régulateur de prise dans les ciments. Dans le domaine des minéraux industriel, sa pureté chimique et ses caractéristiques physiques comme la blancheur lui permettent d'être utilisé comme charge minérale. Dans le domaine de l'amendement, sa propriété chimique (base) est utilisée pour corriger les sols acides."
   },
   {
-    "id": "hydx",
-    "nom": "hydrocarbures liquides ou gazeux"
-  },
-  {
     "id": "plax",
     "nom": "métaux de la mine du platine"
   },
   {
-    "id": "wolf",
-    "nom": "tungstène",
-    "symbole": "W"
-  },
-  {
-    "id": "moly",
-    "nom": "molybdène",
-    "symbole": "Mo"
-  },
-  {
-    "id": "etai",
-    "nom": "étain",
-    "symbole": "Sn"
-  },
-  {
-    "id": "cfli",
-    "nom": "lignite"
-  },
-  {
-    "id": "auru",
-    "nom": "or",
-    "symbole": "Au"
-  },
-  {
-    "id": "cuiv",
-    "nom": "cuivre",
-    "symbole": "Cu"
-  },
-  {
-    "id": "plom",
-    "nom": "plomb",
-    "symbole": "Pb"
-  },
-  {
     "id": "scor",
     "nom": "substances connexes"
-  },
-  {
-    "id": "arge",
-    "nom": "argent",
-    "symbole": "Ag"
-  },
-  {
-    "id": "cfho",
-    "nom": "houille"
-  },
-  {
-    "id": "zinc",
-    "nom": "zinc",
-    "symbole": "Zn"
-  },
-  {
-    "id": "suco",
-    "nom": "substances connexes"
-  },
-  {
-    "id": "rxxx",
-    "nom": "autres éléments radioactifs"
-  },
-  {
-    "id": "uran",
-    "nom": "uranium",
-    "symbole": "U"
   },
   {
     "id": "lith",
@@ -1027,5 +961,71 @@
     "id": "plat",
     "nom": "platine",
     "symbole": "Pt"
+  },
+  {
+    "id": "wolf",
+    "nom": "tungstène",
+    "symbole": "W"
+  },
+  {
+    "id": "moly",
+    "nom": "molybdène",
+    "symbole": "Mo"
+  },
+  {
+    "id": "etai",
+    "nom": "étain",
+    "symbole": "Sn"
+  },
+  {
+    "id": "cfli",
+    "nom": "lignite"
+  },
+  {
+    "id": "cuiv",
+    "nom": "cuivre",
+    "symbole": "Cu"
+  },
+  {
+    "id": "plom",
+    "nom": "plomb",
+    "symbole": "Pb"
+  },
+  {
+    "id": "cfho",
+    "nom": "houille"
+  },
+  {
+    "id": "zinc",
+    "nom": "zinc",
+    "symbole": "Zn"
+  },
+  {
+    "id": "rxxx",
+    "nom": "autres éléments radioactifs"
+  },
+  {
+    "id": "uran",
+    "nom": "uranium",
+    "symbole": "U"
+  },
+  {
+    "id": "auru",
+    "nom": "or",
+    "symbole": "Au"
+  },
+  {
+    "id": "arge",
+    "nom": "argent",
+    "symbole": "Ag"
+  },
+  {
+    "id": "anti",
+    "nom": "antimoine",
+    "symbole": "Sb"
+  },
+  {
+    "id": "suco",
+    "nom": "substances connexes"
   }
 ]

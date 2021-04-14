@@ -175,11 +175,6 @@
     "type_id": "in"
   },
   {
-    "id": "pxm",
-    "domaine_id": "m",
-    "type_id": "px"
-  },
-  {
     "id": "prr",
     "domaine_id": "r",
     "type_id": "pr",
@@ -200,34 +195,9 @@
     "type_id": "px"
   },
   {
-    "id": "cxf",
-    "domaine_id": "f",
+    "id": "cxh",
+    "domaine_id": "h",
     "type_id": "cx"
-  },
-  {
-    "id": "cxm",
-    "domaine_id": "m",
-    "type_id": "cx"
-  },
-  {
-    "id": "inr",
-    "domaine_id": "r",
-    "type_id": "in"
-  },
-  {
-    "id": "arm",
-    "domaine_id": "m",
-    "type_id": "ar",
-    "contenu_ids": [
-      {
-        "elementId": "mecanise",
-        "sectionId": "arm"
-      },
-      {
-        "elementId": "franchissements",
-        "sectionId": "arm"
-      }
-    ]
   },
   {
     "id": "prh",
@@ -245,9 +215,29 @@
     ]
   },
   {
-    "id": "cxh",
-    "domaine_id": "h",
+    "id": "cxm",
+    "domaine_id": "m",
     "type_id": "cx"
+  },
+  {
+    "id": "arm",
+    "domaine_id": "m",
+    "type_id": "ar",
+    "contenu_ids": [
+      {
+        "elementId": "mecanise",
+        "sectionId": "arm"
+      },
+      {
+        "elementId": "franchissements",
+        "sectionId": "arm"
+      }
+    ]
+  },
+  {
+    "id": "axm",
+    "domaine_id": "m",
+    "type_id": "ax"
   },
   {
     "id": "prg",
@@ -270,9 +260,19 @@
     "type_id": "cx"
   },
   {
-    "id": "axm",
+    "id": "pxm",
     "domaine_id": "m",
-    "type_id": "ax"
+    "type_id": "px"
+  },
+  {
+    "id": "cxf",
+    "domaine_id": "f",
+    "type_id": "cx"
+  },
+  {
+    "id": "inr",
+    "domaine_id": "r",
+    "type_id": "in"
   },
   {
     "id": "prm",

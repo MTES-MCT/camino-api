@@ -155,13 +155,13 @@ const etapesTypesQueryModify = (
         )
     )
 
+    // si
+    // - l'étape n'est pas unique
+    // - ou si
+    //   - il n'y a aucune étape du même type au sein de la démarche
+    //   - l'id de l'étape est différente de l'étape éditée
+    // -> affiche le type d'étape
     if (uniqueCheck) {
-      // si
-      // - l'étape n'est pas unique
-      // - ou si
-      //   - il n'y a aucune étape du même type au sein de la démarche
-      //   - l'id de l'étape est différente de l'étape éditée
-      // -> affiche le type d'étape
       q.where(b => {
         b.whereRaw('?? is not true', ['etapesTypes.unique'])
         b.orWhere(c => {
@@ -179,16 +179,15 @@ const etapesTypesQueryModify = (
     }
   }
 
+  // types d'étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
   if (!user || permissionCheck(user?.permissionId, ['defaut', 'entreprise'])) {
-    // types d'étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
-
     q.where(b => {
-      // visibilité des types d'étapes en tant que titulaire ou amodiataire
+      // types d'étapes visibles en tant que titulaire ou amodiataire
       if (permissionCheck(user?.permissionId, ['entreprise'])) {
         b.orWhere('entreprisesLecture', true)
       }
 
-      // visibilité des types d'étapes publiques
+      // types d'étapes publiques
       b.orWhere('publicLecture', true)
     })
   }
@@ -210,7 +209,6 @@ const etapesTypesQueryModify = (
         .where('demarchesModification.id', titreDemarcheId)
         .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'etapesTypes.id'])
 
-      // TODO: conditionner aux fields
       q.select(etapesCreationQuery.as('etapesCreation'))
     } else {
       q.select(raw('false').as('etapesCreation'))

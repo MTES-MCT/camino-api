@@ -114,7 +114,7 @@ const titres = async (
           references,
           territoires
         },
-        { fields: { id: {} } },
+        { fields: {} },
         user
       )
     ])
@@ -183,7 +183,7 @@ const titreModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const titreOld = await titreGet(titre.id, {}, user)
+    const titreOld = await titreGet(titre.id, { fields: {} }, user)
 
     if (!titreOld) throw new Error("le titre n'existe pas")
 

@@ -18,8 +18,7 @@ import titreTravauxEtapeUpdateTask from '../../../business/titre-travaux-etape-u
 
 import { fichiersDelete } from './_titre-document'
 import { documentsModifier } from './documents'
-import { documentsTypesValidate } from '../../../business/validations/documents-types-validate'
-import { etapeTypeGet } from '../../../database/queries/metas'
+import { travauxEtapeTypeGet } from '../../../database/queries/metas-travaux'
 
 const travauxEtapeCreer = async (
   { etape }: { etape: ITitreTravauxEtape },
@@ -29,7 +28,11 @@ const travauxEtapeCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const titreTravaux = await titresTravauGet(etape.titreTravauxId, {}, user)
+    const titreTravaux = await titresTravauGet(
+      etape.titreTravauxId,
+      { fields: {} },
+      user
+    )
 
     if (!titreTravaux) throw new Error("les travaux n'existent pas")
 
@@ -48,21 +51,14 @@ const travauxEtapeCreer = async (
 
     if (!titre) throw new Error("le titre n'existe pas")
 
-    const etapeType = await etapeTypeGet(etape.typeId, {
+    const travauxEtapeType = await travauxEtapeTypeGet(etape.typeId, {
       fields: { documentsTypes: { id: {} } }
     })
-    if (!etapeType) {
-      throw new Error(`etape type "${etape.typeId}" inconnu `)
-    }
 
-    if (etape.statutId !== 'aco') {
-      const documentsErrors = await documentsTypesValidate(
-        etape.documents,
-        etapeType.documentsTypes
+    if (!travauxEtapeType) {
+      throw new Error(
+        `le type d'étape de travaux "${etape.typeId}" n'existe pas `
       )
-      if (documentsErrors.length) {
-        throw new Error(documentsErrors.join(', '))
-      }
     }
 
     const documents = etape.documents || []
@@ -103,31 +99,25 @@ const travauxEtapeModifier = async (
 
     const titreTravauxEtapeOld = await titreTravauxEtapeGet(
       etape.id,
-      { fields: { id: {} } },
+      { fields: {} },
       user
     )
+
+    if (
+      !titreTravauxEtapeOld ||
+      titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId
+    )
+      throw new Error("les travaux n'existent pas")
 
     if (!titreTravauxEtapeOld.modification)
       throw new Error('droits insuffisants')
 
-    if (titreTravauxEtapeOld.titreTravauxId !== etape.titreTravauxId)
-      throw new Error("les travaux n'existent pas")
-
-    const etapeType = await etapeTypeGet(etape.typeId, {
+    const travauxEtapeType = await travauxEtapeTypeGet(etape.typeId, {
       fields: { documentsTypes: { id: {} } }
     })
-    if (!etapeType) {
-      throw new Error(`etape type "${etape.typeId}" inconnu `)
-    }
 
-    if (etape.statutId !== 'aco') {
-      const documentsErrors = await documentsTypesValidate(
-        etape.documents,
-        etapeType.documentsTypes
-      )
-      if (documentsErrors.length) {
-        throw new Error(documentsErrors.join(', '))
-      }
+    if (!travauxEtapeType) {
+      throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
     await documentsModifier(

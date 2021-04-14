@@ -8,14 +8,6 @@
     "nom": "Ifremer"
   },
   {
-    "id": "deb",
-    "nom": "DEB"
-  },
-  {
-    "id": "brg",
-    "nom": "BRGM"
-  },
-  {
     "id": "dge",
     "nom": "DGEC"
   },
@@ -38,5 +30,13 @@
   {
     "id": "irs",
     "nom": "IRSN"
+  },
+  {
+    "id": "brg",
+    "nom": "BRGM"
+  },
+  {
+    "id": "deb",
+    "nom": "DEB"
   }
 ]

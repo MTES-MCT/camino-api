@@ -71,6 +71,7 @@ const tables = [
   'travaux_etapes_types',
   'travaux_types__travaux_etapes_types',
   'travaux_etapes_types__etapes_statuts',
+  'travaux_etapes_types__documents_types',
   'trimestres',
   'unites',
   'utilisateurs',

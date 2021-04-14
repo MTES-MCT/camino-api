@@ -20,15 +20,6 @@ import { fieldsFormat } from './graph/fields-format'
 import TitresForets from '../models/titres-forets'
 
 const titresEtapesQueryBuild = (
-  {
-    titresEtapesIds,
-    etapesTypesIds,
-    titresDemarchesIds
-  }: {
-    titresEtapesIds?: string[] | null
-    etapesTypesIds?: string[] | null
-    titresDemarchesIds?: string[] | null
-  } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -39,18 +30,6 @@ const titresEtapesQueryBuild = (
   const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)
 
   titresEtapesQueryModify(q, user)
-
-  if (titresEtapesIds) {
-    q.whereIn('titresEtapes.id', titresEtapesIds)
-  }
-
-  if (etapesTypesIds) {
-    q.whereIn('titresEtapes.typeId', etapesTypesIds)
-  }
-
-  if (titresDemarchesIds) {
-    q.whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
-  }
 
   // console.info(q.toKnexQuery().toString())
 
@@ -63,7 +42,7 @@ const titreEtapeGet = async (
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
   user: IUtilisateur | null
 ) => {
-  const q = titresEtapesQueryBuild({}, { fields }, user)
+  const q = titresEtapesQueryBuild({ fields }, user)
 
   q.context({ fetchHeritage })
 
@@ -84,11 +63,19 @@ const titresEtapesGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresEtapesQueryBuild(
-    { titresEtapesIds, etapesTypesIds, titresDemarchesIds },
-    { fields },
-    user
-  )
+  const q = titresEtapesQueryBuild({ fields }, user)
+
+  if (titresEtapesIds) {
+    q.whereIn('titresEtapes.id', titresEtapesIds)
+  }
+
+  if (etapesTypesIds) {
+    q.whereIn('titresEtapes.typeId', etapesTypesIds)
+  }
+
+  if (titresDemarchesIds) {
+    q.whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
+  }
 
   q.orderBy('ordre')
 

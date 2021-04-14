@@ -51,7 +51,7 @@ async function main() {
     const user = await userGet(userId)
     const res = await titresDemarchesGet(
       { titresDomainesIds: ['m'], titresStatutsIds: ['ech'] },
-      { fields: { id: {} } },
+      { fields: {} },
       user
     )
 

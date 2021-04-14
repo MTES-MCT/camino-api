@@ -454,6 +454,14 @@ interface ITravauxEtapeType {
   nom: string
   ordre: number
   description?: string
+  etapesStatuts?: IEtapeStatut[] | null
+  documentsTypes?: IDocumentType[]
+}
+
+interface ITravauxEtapeTypeDocumentType {
+  travauxEtapeTypeId: string
+  documentTypeId: string
+  optionnel?: boolean
 }
 
 interface ITitreTypeEtapeType {
@@ -1015,6 +1023,7 @@ export {
   IEtapeTypeDocumentType,
   ITravauxTypeTravauxEtapeType,
   ITravauxEtapeTypeEtapeStatut,
+  ITravauxEtapeTypeDocumentType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,

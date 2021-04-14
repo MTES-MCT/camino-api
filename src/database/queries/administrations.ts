@@ -21,7 +21,9 @@ import AdministrationsTitresTypesTitresStatuts from '../models/administrations-t
 import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
 import AdministrationsActivitesTypes from '../models/administrations-activites-types'
 
-const administrationsQueryBuild = (
+import { QueryBuilder } from 'objection'
+
+const administrationsFiltersQueryModify = (
   {
     noms,
     typesIds,
@@ -31,17 +33,8 @@ const administrationsQueryBuild = (
     typesIds?: string[] | null
     administrationsIds?: string[] | null
   },
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  q: QueryBuilder<Administrations, Administrations[]>
 ) => {
-  const graph = fields
-    ? graphBuild(fields, 'administrations', fieldsFormat)
-    : options.administrations.graph
-
-  const q = Administrations.query().withGraphFetched(graph)
-
-  administrationsQueryModify(q, { fields }, user)
-
   if (administrationsIds) {
     q.whereIn('administrations.id', administrationsIds)
   }
@@ -67,6 +60,19 @@ const administrationsQueryBuild = (
 
     q.whereIn('type.id', typesIds)
   }
+}
+
+const administrationsQueryBuild = (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'administrations', fieldsFormat)
+    : options.administrations.graph
+
+  const q = Administrations.query().withGraphFetched(graph)
+
+  administrationsQueryModify(q, { fields }, user)
 
   return q
 }
@@ -76,7 +82,7 @@ const administrationGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = administrationsQueryBuild({}, { fields }, user)
+  const q = administrationsQueryBuild({ fields }, user)
 
   return q.findById(id)
 }
@@ -94,11 +100,10 @@ const administrationsCount = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = administrationsQueryBuild(
-    { noms, typesIds, administrationsIds },
-    { fields },
-    user
-  )
+  const q = administrationsQueryBuild({ fields }, user)
+
+  administrationsFiltersQueryModify({ noms, typesIds, administrationsIds }, q)
+
   if (!q) return 0
 
   const administrations = ((await q) as unknown) as { total: number }[]
@@ -128,11 +133,9 @@ const administrationsGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = administrationsQueryBuild(
-    { noms, typesIds, administrationsIds },
-    { fields },
-    user
-  )
+  const q = administrationsQueryBuild({ fields }, user)
+
+  administrationsFiltersQueryModify({ noms, typesIds, administrationsIds }, q)
 
   // type: { id: 'type:type.nom', relation: 'type.type' }
   if (colonne && colonne === 'type') {

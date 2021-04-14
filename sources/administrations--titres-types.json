@@ -34,14 +34,6 @@
     "titre_type_id": "prm"
   },
   {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "prm"
-  },
-  {
     "administration_id": "dre-ile-de-france-01",
     "titre_type_id": "pcc",
     "gestionnaire": true

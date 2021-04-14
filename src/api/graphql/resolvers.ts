@@ -136,7 +136,11 @@ import {
   etapeTypeDocumentTypeSupprimer
 } from './resolvers/metas-join'
 
-import { travauxTypes, travauxTypeModifier } from './resolvers/metas-travaux'
+import {
+  travauxTypes,
+  travauxTypeModifier,
+  travauxEtapesTypes
+} from './resolvers/metas-travaux'
 
 import {
   travauxTypesTravauxEtapesTypes,
@@ -201,6 +205,7 @@ export default {
   demarchesTypes,
   demarchesStatuts,
   travauxTypes,
+  travauxEtapesTypes,
   devises,
   documents,
   documentsTypes,

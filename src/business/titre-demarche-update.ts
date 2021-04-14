@@ -24,14 +24,10 @@ const titreDemarcheUpdate = async (
     console.info('- - -')
     console.info(`mise à jour d'une démarche : ${titreDemarcheId}`)
 
-    const titre = await titreGet(
-      titreId,
-      { fields: { demarches: { etapes: { id: {} } } } },
-      userSuper
-    )
+    const titre = await titreGet(titreId, { fields: {} }, userSuper)
 
     if (!titre) {
-      throw new Error(`warning: le titre ${titreId} n'existe plus`)
+      throw new Error(`warning: le titre ${titreId} n'existe pas`)
     }
 
     let titresDemarchesPublicUpdated

@@ -18,7 +18,7 @@ const fieldsToArray = (fields: IFields, format: IFieldsFormat) => {
     // formate les propriétés enfants récursivement
     const fieldsSubString = fieldsToString(fieldsSub, id, format)
 
-    // ajoute un modifieur à certaines propriétés
+    // ajoute un modifieur à certaines propriétés (p.e.: orderAsc)
     if (fieldsSub.$modifier) {
       id = `${id}(${fieldsSub.$modifier})`
     }

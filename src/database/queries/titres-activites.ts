@@ -7,6 +7,8 @@ import {
   IColonne
 } from '../../types'
 
+import { raw, QueryBuilder, RawBuilder } from 'objection'
+
 import { fieldsFormat } from './graph/fields-format'
 import { fieldsTitreAdd } from './graph/fields-add'
 import graphBuild from './graph/build'
@@ -17,14 +19,11 @@ import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
-import { raw } from 'objection'
-import { titresFiltersQueryBuild } from './_titres-filters'
 
-import Objection = require('objection')
+import { titresFiltersQueryModify } from './_titres-filters'
 
 /**
- * Construit le corps de la requête sur les activités (hors paramètres de pagination)
- *
+ * Modifie la requête en fonction des paramètres de filtre
  * @param typesIds - tableau de type(s) d'activité
  * @param statutsIds - tableau de statut(s) d'activité
  * @param annees - année de l'activité
@@ -36,13 +35,10 @@ import Objection = require('objection')
  * @param titresTypesIds - tableau de type(s) de titre
  * @param titresDomainesIds - tableau de domaine(s)
  * @param titresStatutsIds - tableau de statut(s) de titre
- * @param fields - propriétés demandées
- * @param userId - utilisateur
- * @returns une requête d'activités
- *
+ * @param q
  */
 
-const titreActivitesQueryBuild = (
+const titresActivitesFiltersQueryModify = (
   {
     typesIds,
     statutsIds,
@@ -68,20 +64,8 @@ const titreActivitesQueryBuild = (
     titresDomainesIds?: string[] | null
     titresStatutsIds?: string[] | null
   },
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  q: QueryBuilder<TitresActivites, TitresActivites[]>
 ) => {
-  if (!user?.permissionId) return null
-
-  const graph = fields
-    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
-    : options.titresActivites.graph
-
-  const q = TitresActivites.query().withGraphFetched(graph)
-
-  titresActivitesQueryModify(q, user)
-  titresActivitesPropsQueryModify(q, user)
-
   if (typesIds) {
     q.whereIn('titresActivites.typeId', typesIds)
   }
@@ -94,7 +78,7 @@ const titreActivitesQueryBuild = (
     q.whereIn('titresActivites.statutId', statutsIds)
   }
 
-  titresFiltersQueryBuild(
+  titresFiltersQueryModify(
     {
       domainesIds: titresDomainesIds,
       typesIds: titresTypesIds,
@@ -109,6 +93,29 @@ const titreActivitesQueryBuild = (
     'titre',
     'titresActivites'
   )
+}
+
+/**
+ * Construit le corps de la requête sur les activités (hors paramètres de pagination)
+ *
+ * @param fields - propriétés demandées
+ * @param userId - utilisateur
+ * @returns une requête d'activités
+ *
+ */
+
+const titreActivitesQueryBuild = (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  const graph = fields
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
+    : options.titresActivites.graph
+
+  const q = TitresActivites.query().withGraphFetched(graph)
+
+  titresActivitesQueryModify(q, user)
+  titresActivitesPropsQueryModify(q, user)
 
   return q
 }
@@ -128,7 +135,7 @@ const titreActiviteGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titreActivitesQueryBuild({}, { fields }, user)
+  const q = titreActivitesQueryBuild({ fields }, user)
 
   if (!q) return undefined
 
@@ -183,7 +190,7 @@ const titresActivitesColonnes = {
   annee: { id: 'annee' },
   periode: { id: 'periodeId' },
   statut: { id: 'statutId' }
-} as Index<IColonne<string | Objection.RawBuilder>>
+} as Index<IColonne<string | RawBuilder>>
 
 /**
  * Retourne les activités
@@ -246,7 +253,9 @@ const titresActivitesGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titreActivitesQueryBuild(
+  const q = titreActivitesQueryBuild({ fields }, user)
+
+  titresActivitesFiltersQueryModify(
     {
       typesIds,
       statutsIds,
@@ -260,8 +269,7 @@ const titresActivitesGet = async (
       titresDomainesIds,
       titresStatutsIds
     },
-    { fields },
-    user
+    q
   )
 
   if (!q) return []
@@ -338,7 +346,9 @@ const titresActivitesCount = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titreActivitesQueryBuild(
+  const q = titreActivitesQueryBuild({ fields }, user)
+
+  titresActivitesFiltersQueryModify(
     {
       typesIds,
       statutsIds,
@@ -352,9 +362,9 @@ const titresActivitesCount = async (
       titresDomainesIds,
       titresStatutsIds
     },
-    { fields },
-    user
+    q
   )
+
   if (!q) return 0
 
   const titresActivites = ((await q) as unknown) as { total: number }[]

@@ -229,10 +229,12 @@ const demarchesStatuts = async () => {
 }
 
 const demarcheEtapesTypesGet = async (
-  fields: IFields,
-  titreDemarcheId: string,
-  date: string,
-  titreEtapeId?: string,
+  {
+    titreDemarcheId,
+    titreEtapeId,
+    date
+  }: { titreDemarcheId: string; date: string; titreEtapeId?: string },
+  { fields }: { fields: IFields },
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -287,8 +289,8 @@ const demarcheEtapesTypesGet = async (
 
   // dans un premier temps on récupère toutes les étapes possibles pour cette démarche
   const etapesTypes = await etapesTypesGet(
-    { titreDemarcheId, titreEtapeId, uniqueCheck },
-    { fields },
+    { titreDemarcheId, titreEtapeId },
+    { fields, uniqueCheck },
     user
   )
 
@@ -323,27 +325,23 @@ const etapesTypes = async (
     const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    if (titreDemarcheId && context.user?.id) {
+    // si création ou édition d'une étape de démarche
+    // retourne les types d'étape pour cette démarche
+    if (titreDemarcheId) {
       if (!date) {
         throw new Error(`date manquante`)
       }
 
       return demarcheEtapesTypesGet(
-        fields,
-        titreDemarcheId,
-        date,
-        titreEtapeId,
-        context.user.id
+        { titreDemarcheId, date, titreEtapeId },
+        { fields },
+        context.user?.id
       )
     }
 
-    const etapesTypes = await etapesTypesGet(
-      { titreDemarcheId, titreEtapeId },
-      { fields },
-      user
-    )
-
-    return etapesTypes
+    // sinon (p.e.: édition des métas ou des permissions d'administration)
+    // retourne la liste des types d'étapes
+    return etapesTypesGet({}, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -328,9 +328,9 @@ type TravauxTypeDemarcheStatut {
   ordre: Int!
 }
 
-type TravauxTypeEtapeType {
+type TravauxTypeTravauxEtapeType {
   travauxTypeId: ID!
-  etapeTypeId: ID!
+  travauxEtapeTypeId: ID!
   ordre: Int!
 }
 
@@ -535,9 +535,9 @@ input InputTravauxTypeDemarcheStatut {
   ordre: Int
 }
 
-input InputTravauxTypeEtapeType {
+input InputTravauxTypeTravauxEtapeType {
   travauxTypeId: ID!
-  etapeTypeId: ID!
+  travauxEtapeTypeId: ID!
   ordre: Int
 }
 
