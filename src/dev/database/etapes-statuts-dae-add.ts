@@ -2,6 +2,7 @@ import '../../init'
 
 import EtapesStatuts from '../../database/models/etapes-statuts'
 import TitresEtapes from '../../database/models/titres-etapes'
+import EtapesTypesEtapesStatuts from '../../database/models/etapes-types--etapes-statuts'
 import { IEtapeStatut } from '../../types'
 
 const main = async () => {
@@ -22,24 +23,23 @@ const main = async () => {
     await EtapesStatuts.query().insert(ds)
   }
 
-  const titresEtapesDaeFav = await TitresEtapes.query()
+  await TitresEtapes.query()
+    .patch({ statutId: 'req' })
     .where('typeId', 'dae')
     .andWhere('statutId', 'fav')
 
-  const titresEtapesDaeDef = await TitresEtapes.query()
+  await TitresEtapes.query()
+    .patch({ statutId: 'exe' })
     .where('typeId', 'dae')
     .andWhere('statutId', 'def')
 
-  await Promise.all(
-    titresEtapesDaeFav.map(async tef => {
-      await TitresEtapes.query().patch({ statutId: 'req' }).where('id', tef.id)
-      titresEtapesDaeDef.map(async ted => {
-        await TitresEtapes.query()
-          .patch({ statutId: 'exe' })
-          .where('id', ted.id)
-      })
-    })
-  )
+  await EtapesTypesEtapesStatuts.query()
+    .patch({ etapeStatutId: 'req' })
+    .where('etapeStatutId', 'fav')
+
+  await EtapesTypesEtapesStatuts.query()
+    .patch({ etapeStatutId: 'exe' })
+    .where('etapeStatutId', 'def')
 
   process.exit(0)
 }
