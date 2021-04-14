@@ -36,19 +36,5 @@ exports.up = knex =>
       table.jsonb('contenu')
       table.integer('ordre')
     })
-    .createTable('travauxEtapesTypes__etapesStatuts', table => {
-      table
-        .string('travauxEtapeTypeId', 3)
-        .index()
-        .references('travauxEtapesTypes.id')
-        .notNullable()
-      table
-        .string('etapeStatutId', 3)
-        .index()
-        .references('etapesStatuts.id')
-        .notNullable()
-      table.integer('ordre')
-      table.primary(['travauxEtapeTypeId', 'etapeStatutId'])
-    })
 
 exports.down = knex => knex.schema.dropTable('titresActivites')

@@ -41,6 +41,7 @@ const main = async () => {
     'rwt',
     'sup'
   ]
+
   const copyTravauxEtapesTypesIds = [
     'dec',
     'dex',

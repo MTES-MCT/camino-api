@@ -68,13 +68,16 @@ const seed = seeding(async ({ del }) => {
 
   // 05
   await del('travauxTypes__travauxEtapesTypes')
+  await del('travauxEtapesTypes__etapesStatuts')
+  await del('travauxEtapesTypes')
   await del('travauxTypes')
 
   // 04
-  await del('substances')
+  await del('substancesFiscales')
   await del('substances__substancesLegales')
   await del('substancesLegales')
   await del('substancesLegalesCodes')
+  await del('substances')
 
   // 03
   await Promise.all([

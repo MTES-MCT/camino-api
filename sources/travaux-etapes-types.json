@@ -1,0 +1,121 @@
+[
+  {
+    "id": "aow",
+    "nom": "décision d'ouverture des travaux miniers",
+    "ordre": 128
+  },
+  {
+    "id": "awd",
+    "nom": "second donné acte d'arret des travaux miniers",
+    "description": "Décision du préfet actant que l’opérateur a pris toutes les mesures nécessaires pour fermer la mine.",
+    "ordre": 130
+  },
+  {
+    "id": "awu",
+    "nom": "premier donné acte d'arret des travaux miniers",
+    "description": "Décision du préfet demandant à l’opérateur de prendre certaines mesures d’après-mine.",
+    "ordre": 129
+  },
+  {
+    "id": "dow",
+    "nom": "donné acte de déclaration d'ouverture de travaux minier",
+    "ordre": 127
+  },
+  {
+    "id": "dpm",
+    "nom": "décision de police des mines",
+    "ordre": 131
+  },
+  {
+    "id": "mdd",
+    "nom": "dépôt de la déclaration",
+    "ordre": 7
+  },
+  {
+    "id": "mfw",
+    "nom": "mémoire de fin de travaux",
+    "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
+    "ordre": 134
+  },
+  {
+    "id": "rdt",
+    "nom": "récépissé de déclaration d'ouverture de travaux miniers",
+    "description": "Courrier par lequel l’administration accuse réception de la déclaration faite au préfet pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.61-1 du code minier.",
+    "ordre": 44
+  },
+  {
+    "id": "rwp",
+    "nom": "récolement partiel",
+    "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
+    "ordre": 133
+  },
+  {
+    "id": "rwt",
+    "nom": "récolement complet",
+    "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
+    "ordre": 135
+  },
+  {
+    "id": "sup",
+    "nom": "décision instituant une servitude d'utilité publique",
+    "ordre": 132
+  },
+  {
+    "id": "dec",
+    "nom": "déclaration",
+    "ordre": 2
+  },
+  {
+    "id": "dex",
+    "nom": "décision de l'administration",
+    "ordre": 103
+  },
+  {
+    "id": "mdp",
+    "nom": "dépôt de la demande",
+    "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
+    "ordre": 6
+  },
+  {
+    "id": "mfr",
+    "nom": "demande",
+    "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
+    "ordre": 1
+  },
+  {
+    "id": "ncl",
+    "nom": "notification des collectivités locales",
+    "description": "Notification de la décision aux collectivités locales.",
+    "ordre": 121
+  },
+  {
+    "id": "ppc",
+    "nom": "clôture de la participation du public",
+    "description": "La durée de la participation du public doit être au moins égale 15 jours. L’administration doit tenir compte pour sa décision des avis recueillis lors de la participation du public.",
+    "ordre": 52
+  },
+  {
+    "id": "ppu",
+    "nom": "ouverture de la participation du public",
+    "description": "La participation du public est obligatoire pour l’octroi des permis exclusifs de recherches (PER) et les prolongations de concessions minières. La législation ne prévoit pas à quel moment elle intervient. Il a été décidé pour les titres miniers qu’elle aurait lieu dès la déclaration de recevabilité du dossier. ",
+    "ordre": 50
+  },
+  {
+    "id": "rpu",
+    "nom": "publication de décision au recueil des actes administratifs",
+    "description": "Publication, par le préfet, au recueil des actes administratifs.",
+    "ordre": 108
+  },
+  {
+    "id": "scl",
+    "nom": "saisine des collectivités locales",
+    "description": "Consultation pour avis, des collectivités locales dans le cadre de l’instruction d’un titre ou d’une autorisation.",
+    "ordre": 65
+  },
+  {
+    "id": "ssr",
+    "nom": "saisine des services",
+    "description": "Demande de consultation dans le cadre d’un titre minier des chefs de service civils et de l’autorité militaire. Les intéressés ont un mois pour répondre. Au-delà de ce délai,  le silence vaut accord.\n",
+    "ordre": 54
+  }
+]

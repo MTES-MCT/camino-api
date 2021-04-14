@@ -59,8 +59,6 @@ import {
   demarcheTypeModifier,
   demarchesStatuts,
   demarcheStatutModifier,
-  travauxTypes,
-  travauxTypeModifier,
   documentsTypes,
   documentsVisibilites,
   domaines,
@@ -137,6 +135,8 @@ import {
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer
 } from './resolvers/metas-join'
+
+import { travauxTypes, travauxTypeModifier } from './resolvers/metas-travaux'
 
 import {
   travauxTypesTravauxEtapesTypes,

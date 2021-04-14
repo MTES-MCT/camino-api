@@ -70,21 +70,6 @@
     "type_id": "in"
   },
   {
-    "id": "prh",
-    "domaine_id": "h",
-    "type_id": "pr",
-    "contenu_ids": [
-      {
-        "elementId": "engagement",
-        "sectionId": "prx"
-      },
-      {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
-      }
-    ]
-  },
-  {
     "id": "pxw",
     "domaine_id": "w",
     "type_id": "px",
@@ -155,11 +140,6 @@
     "type_id": "px"
   },
   {
-    "id": "cxh",
-    "domaine_id": "h",
-    "type_id": "cx"
-  },
-  {
     "id": "cxg",
     "domaine_id": "g",
     "type_id": "cx"
@@ -195,9 +175,44 @@
     "type_id": "in"
   },
   {
-    "id": "cxr",
+    "id": "pxm",
+    "domaine_id": "m",
+    "type_id": "px"
+  },
+  {
+    "id": "prr",
     "domaine_id": "r",
+    "type_id": "pr",
+    "contenu_ids": [
+      {
+        "elementId": "engagement",
+        "sectionId": "prx"
+      },
+      {
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
+      }
+    ]
+  },
+  {
+    "id": "pxr",
+    "domaine_id": "r",
+    "type_id": "px"
+  },
+  {
+    "id": "cxf",
+    "domaine_id": "f",
     "type_id": "cx"
+  },
+  {
+    "id": "cxm",
+    "domaine_id": "m",
+    "type_id": "cx"
+  },
+  {
+    "id": "inr",
+    "domaine_id": "r",
+    "type_id": "in"
   },
   {
     "id": "arm",
@@ -215,18 +230,8 @@
     ]
   },
   {
-    "id": "pxr",
-    "domaine_id": "r",
-    "type_id": "px"
-  },
-  {
-    "id": "axm",
-    "domaine_id": "m",
-    "type_id": "ax"
-  },
-  {
-    "id": "prm",
-    "domaine_id": "m",
+    "id": "prh",
+    "domaine_id": "h",
     "type_id": "pr",
     "contenu_ids": [
       {
@@ -240,18 +245,8 @@
     ]
   },
   {
-    "id": "pxm",
-    "domaine_id": "m",
-    "type_id": "px"
-  },
-  {
-    "id": "cxf",
-    "domaine_id": "f",
-    "type_id": "cx"
-  },
-  {
-    "id": "cxm",
-    "domaine_id": "m",
+    "id": "cxh",
+    "domaine_id": "h",
     "type_id": "cx"
   },
   {
@@ -270,13 +265,18 @@
     ]
   },
   {
-    "id": "inr",
+    "id": "cxr",
     "domaine_id": "r",
-    "type_id": "in"
+    "type_id": "cx"
   },
   {
-    "id": "prr",
-    "domaine_id": "r",
+    "id": "axm",
+    "domaine_id": "m",
+    "type_id": "ax"
+  },
+  {
+    "id": "prm",
+    "domaine_id": "m",
     "type_id": "pr",
     "contenu_ids": [
       {

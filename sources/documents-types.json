@@ -5,11 +5,6 @@
     "repertoire": "demarches"
   },
   {
-    "id": "arr",
-    "nom": "Arrêté",
-    "repertoire": "demarches"
-  },
-  {
     "id": "aot",
     "nom": "Arrêté autorisant l'ouverture de travaux miniers",
     "repertoire": "travaux"
@@ -383,5 +378,10 @@
     "id": "rwp",
     "nom": "rapport annuel d'exploitation",
     "repertoire": "activites"
+  },
+  {
+    "id": "arr",
+    "nom": "Arrêté",
+    "repertoire": "demarches"
   }
 ]

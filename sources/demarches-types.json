@@ -10,15 +10,6 @@
     "renouvelable": true
   },
   {
-    "id": "exs",
-    "nom": "extension de substance",
-    "description": "Démarche appliquée aux autorisations d'exploitation et aux permis exclusifs de recherches de minéraux et métaux pour étendre la liste des substances non connexes autorisées à la prospection. Elle s’applique aussi aux concessions de géothermie qui peuvent être étendues à des substances de mines non connexes.",
-    "ordre": 10,
-    "duree": true,
-    "substances": true,
-    "renouvelable": true
-  },
-  {
     "id": "con",
     "nom": "conversion",
     "description": "Démarche appliquée à un titre d’exploitation d’hydrocarbures liquides ou gazeux. Elle permet de substituer les substances initiales par d’autres substances de mines connexes aux hydrocarbures contenus dans le gisement ou bien par un autre usage du sous-sol. La demande de conversion peut être réalisée au plus tard 4 ans avant l’échéance de son titre. Elle doit de surcroît démontrer la rentabilité économique de la poursuite de l’exploitation du gisement, mais ne fait pas l’objet d’une mise en concurrence.",
@@ -39,24 +30,6 @@
     "description": "Démarche obsolète. Co-initiée par le titulaire du titre minier et l’entreprise souhaitant devenir titulaire ou co-titulaire elle remplit une fonction proche de la mutation dans le code minier actuel.",
     "ordre": 16,
     "titulaires": true
-  },
-  {
-    "id": "prr",
-    "nom": "prorogation",
-    "description": "Démarche obsolète. Initiée par l’autorité administrative, elle proroge la durée de validité d’un titre d’exploration, de droit et sans formalité, jusqu’à l’intervention d’une décision sur une demande de titre d’exploitation portant sur ce titre d’exploration visé. Le code minier actuel y a substitué le régime de “survie provisoire”.",
-    "ordre": 17,
-    "duree": true,
-    "points": true,
-    "renouvelable": true
-  },
-  {
-    "id": "exp",
-    "nom": "extension de périmètre",
-    "description": "Démarche appliquée aux permis exclusifs de recherches, permis d'exploitation de minéraux et métaux et concessions pour étendre leurs périmètres.",
-    "ordre": 7,
-    "duree": true,
-    "points": true,
-    "renouvelable": true
   },
   {
     "id": "vut",
@@ -90,14 +63,6 @@
     "auto": true
   },
   {
-    "id": "pre",
-    "nom": "prolongation exceptionnelle",
-    "description": "Démarche appliquée à un permis exclusif de recherches d’hydrocarbures liquides ou gazeux. Elle prolonge sa durée de validité de trois ans maximum. La prolongation exceptionnelle ne peut être mobilisée qu’une fois au cours de la vie du titres et ne s’accompagne pas nécessairement d’une réduction de sa surface.",
-    "ordre": 5,
-    "duree": true,
-    "exception": true
-  },
-  {
     "id": "amo",
     "nom": "amodiation",
     "description": "Démarche co-initiée par le titulaire de certains titres miniers d’exploitation et l’entreprise souhaitant devenir amodiataire du titre. C’est une location de l’exploitation d’un gisement à un tiers par le titulaire du titre en contrepartie d’un loyer ou / et du versement d’une quantité donnée des substances extraites. L’amodiation donne lieu à un contrat entre le titulaire du titre et l’amodiataire pour une durée fixée. Afin d’en bénéficier, l’intéressé doit satisfaire aux critères d’attribution exigés pour être détenteurs du titre minier. L’amodiation n’est pas une sous-traitance. En effet, le sous-traitant est rémunéré par le titulaire du titre pour l’exécution de prestations sur la base d’une facture et non d’un loyer.",
@@ -106,12 +71,30 @@
     "renouvelable": true
   },
   {
-    "id": "pr2",
-    "nom": "prolongation 2",
-    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’une première prolongation. Elle prolonge sa durée de validité. Une seconde prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Seules deux prolongations successives sont admises pour ces titres. A l’exception des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux qui peuvent faire l’objet d’une prolongation exceptionnelle. Pour ces derniers, la seconde prolongation s’accompagne obligatoirement d’une réduction de 25% de la surface du titre.",
-    "ordre": 4,
+    "id": "prr",
+    "nom": "prorogation",
+    "description": "Démarche obsolète. Initiée par l’autorité administrative, elle proroge la durée de validité d’un titre d’exploration, de droit et sans formalité, jusqu’à l’intervention d’une décision sur une demande de titre d’exploitation portant sur ce titre d’exploration visé. Le code minier actuel y a substitué le régime de “survie provisoire”.",
+    "ordre": 17,
+    "duree": true,
+    "points": true,
+    "renouvelable": true
+  },
+  {
+    "id": "pr1",
+    "nom": "prolongation 1",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
+    "ordre": 3,
     "duree": true,
     "points": true
+  },
+  {
+    "id": "exp",
+    "nom": "extension de périmètre",
+    "description": "Démarche appliquée aux permis exclusifs de recherches, permis d'exploitation de minéraux et métaux et concessions pour étendre leurs périmètres.",
+    "ordre": 7,
+    "duree": true,
+    "points": true,
+    "renouvelable": true
   },
   {
     "id": "ret",
@@ -119,6 +102,23 @@
     "description": "Démarche initiée par l’autorité administrative. Le ministre chargé des mines pour les titres et le préfet pour les autorisations d’exploitation peuvent retirer les autorisations et les titres miniers en cours de validité si l’intéressé ne remplit plus certaines prescriptions légales.\r\nLe retrait a pour effet de replacer le gisement dans la situation de ceux ouverts aux recherches.",
     "ordre": 20,
     "duree": true
+  },
+  {
+    "id": "pre",
+    "nom": "prolongation exceptionnelle",
+    "description": "Démarche appliquée à un permis exclusif de recherches d’hydrocarbures liquides ou gazeux. Elle prolonge sa durée de validité de trois ans maximum. La prolongation exceptionnelle ne peut être mobilisée qu’une fois au cours de la vie du titres et ne s’accompagne pas nécessairement d’une réduction de sa surface.",
+    "ordre": 5,
+    "duree": true,
+    "exception": true
+  },
+  {
+    "id": "exs",
+    "nom": "extension de substance",
+    "description": "Démarche appliquée aux autorisations d'exploitation et aux permis exclusifs de recherches de minéraux et métaux pour étendre la liste des substances non connexes autorisées à la prospection. Elle s’applique aussi aux concessions de géothermie qui peuvent être étendues à des substances de mines non connexes.",
+    "ordre": 10,
+    "duree": true,
+    "substances": true,
+    "renouvelable": true
   },
   {
     "id": "ren",
@@ -129,14 +129,6 @@
     "points": true,
     "titulaires": true,
     "renouvelable": true
-  },
-  {
-    "id": "pr1",
-    "nom": "prolongation 1",
-    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
-    "ordre": 3,
-    "duree": true,
-    "points": true
   },
   {
     "id": "pro",
@@ -156,6 +148,14 @@
     "points": true,
     "titulaires": true,
     "renouvelable": true
+  },
+  {
+    "id": "pr2",
+    "nom": "prolongation 2",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’une première prolongation. Elle prolonge sa durée de validité. Une seconde prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Seules deux prolongations successives sont admises pour ces titres. A l’exception des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux qui peuvent faire l’objet d’une prolongation exceptionnelle. Pour ces derniers, la seconde prolongation s’accompagne obligatoirement d’une réduction de 25% de la surface du titre.",
+    "ordre": 4,
+    "duree": true,
+    "points": true
   },
   {
     "id": "oct",

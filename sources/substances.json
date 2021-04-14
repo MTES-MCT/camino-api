@@ -256,13 +256,13 @@
     "nom": "activités géothermiques de minime importance"
   },
   {
-    "id": "sels",
-    "nom": "sels"
-  },
-  {
     "id": "hafn",
     "nom": "hafnium",
     "symbole": "Hf"
+  },
+  {
+    "id": "scbi",
+    "nom": "schistes bitumineux"
   },
   {
     "id": "syen",
@@ -549,10 +549,6 @@
     "symbole": "Ir"
   },
   {
-    "id": "scbi",
-    "nom": "schistes bitumineux"
-  },
-  {
     "id": "neod",
     "nom": "néodyme",
     "symbole": "Nd"
@@ -709,11 +705,6 @@
     "nom": "alun"
   },
   {
-    "id": "ferx",
-    "nom": "fer",
-    "symbole": "Fe"
-  },
-  {
     "id": "nacl",
     "nom": "sels de sodium",
     "symbole": "Na"
@@ -728,10 +719,6 @@
     "nom": "butane"
   },
   {
-    "id": "hydc",
-    "nom": "hydrocarbures conventionnels liquides ou gazeux"
-  },
-  {
     "id": "pipe",
     "nom": "pierres précieuses"
   },
@@ -740,8 +727,9 @@
     "nom": "hydrocarbures"
   },
   {
-    "id": "rxxx",
-    "nom": "autres éléments radioactifs"
+    "id": "ferx",
+    "nom": "fer",
+    "symbole": "Fe"
   },
   {
     "id": "hyda",
@@ -801,6 +789,10 @@
     "symbole": "Ce"
   },
   {
+    "id": "bitu",
+    "nom": "bitume"
+  },
+  {
     "id": "scan",
     "nom": "scandium",
     "symbole": "Sc"
@@ -855,14 +847,18 @@
     "symbole": "Sb"
   },
   {
-    "id": "bitu",
-    "nom": "bitume"
+    "id": "selg",
+    "nom": "sel gemme"
   },
   {
     "id": "saco",
     "nom": "sables coquilliers",
     "gerep": 1118,
     "description": "Mélange sédimentaire meuble constituée d'éléments rocheux de nature variée sous forme sous forme de sables et graviers d'origine détritique, de nature siliceuse et calcaire extrait des fonds marins. Leur utilité est destinée au granulat."
+  },
+  {
+    "id": "selh",
+    "nom": "sources d'eau salée"
   },
   {
     "id": "fluo",
@@ -875,6 +871,10 @@
     "symbole": "Mn"
   },
   {
+    "id": "sels",
+    "nom": "sels"
+  },
+  {
     "id": "geoh",
     "nom": "gîtes géothermiques haute température"
   },
@@ -882,10 +882,6 @@
     "id": "caci",
     "nom": "calcaires cimentiers",
     "gerep": 1105
-  },
-  {
-    "id": "hydx",
-    "nom": "hydrocarbures liquides ou gazeux"
   },
   {
     "id": "sasi",
@@ -900,16 +896,12 @@
     "description": "Mélange sédimentaire meuble constituée d'éléments rocheux de nature variée sous forme sous forme de sables et graviers d'origine détritique, de nature siliceuse et calcaire extrait des fonds marins. Leur utilité est destinée au granulat."
   },
   {
-    "id": "selh",
-    "nom": "sources d'eau salée"
+    "id": "hydc",
+    "nom": "hydrocarbures conventionnels liquides ou gazeux"
   },
   {
     "id": "meco",
     "nom": "métaux connexes"
-  },
-  {
-    "id": "selg",
-    "nom": "sel gemme"
   },
   {
     "id": "marn",
@@ -924,8 +916,8 @@
     "description": "Minéral - Sulfate de calcium hydraté (CaSO4,2H2O). Dans le domaine des liants hydrauliques, ce minéral est utilisé pour la fabrication du plâtre et comme régulateur de prise dans les ciments. Dans le domaine des minéraux industriel, sa pureté chimique et ses caractéristiques physiques comme la blancheur lui permettent d'être utilisé comme charge minérale. Dans le domaine de l'amendement, sa propriété chimique (base) est utilisée pour corriger les sols acides."
   },
   {
-    "id": "scor",
-    "nom": "substances connexes"
+    "id": "hydx",
+    "nom": "hydrocarbures liquides ou gazeux"
   },
   {
     "id": "plax",
@@ -966,6 +958,10 @@
     "symbole": "Pb"
   },
   {
+    "id": "scor",
+    "nom": "substances connexes"
+  },
+  {
     "id": "arge",
     "nom": "argent",
     "symbole": "Ag"
@@ -982,6 +978,10 @@
   {
     "id": "suco",
     "nom": "substances connexes"
+  },
+  {
+    "id": "rxxx",
+    "nom": "autres éléments radioactifs"
   },
   {
     "id": "uran",
