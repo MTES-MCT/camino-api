@@ -136,7 +136,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         [
           { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
           { typeId: 'mdp', date: '2020-01-01' },
-          { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+          { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
           { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
           { typeId: 'mod', date: '2020-01-01' },
           { typeId: 'vfd', date: '2020-01-01' },
@@ -222,7 +222,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     expect(
       octEtatsValidate(
         [
-          { typeId: 'dae', date: '2020-06-22', statutId: 'fav' },
+          { typeId: 'dae', date: '2020-06-22', statutId: 'exe' },
           { typeId: 'mfr', date: '2020-07-09', statutId: 'fai' },
           { typeId: 'pfd', date: '2020-07-10', statutId: 'fai' },
           { typeId: 'mdp', date: '2020-07-17', statutId: 'fai' },

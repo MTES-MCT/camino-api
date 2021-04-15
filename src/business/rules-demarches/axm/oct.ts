@@ -28,12 +28,12 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     avant: [[{ etapeTypeId: 'dae' }]]
   },
   mom: {
-    justeApres: [[{ etapeTypeId: 'dae', statutId: 'def' }]]
+    justeApres: [[{ etapeTypeId: 'dae', statutId: 'req' }]]
   },
   mdp: {
     avant: [[{ etapeTypeId: 'mdp' }]],
     justeApres: [
-      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'dae', statutId: 'fav' }],
+      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'dae', statutId: 'exe' }],
       [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'mom' }]
     ]
   },
@@ -190,7 +190,7 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
       [
         { etapeTypeId: 'mdp' },
         { etapeTypeId: 'asl', statutId: 'def' },
-        { etapeTypeId: 'dae', statutId: 'def' }
+        { etapeTypeId: 'dae', statutId: 'req' }
       ]
     ],
     avant: [

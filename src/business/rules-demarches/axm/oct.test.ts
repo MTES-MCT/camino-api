@@ -7,7 +7,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' }
       ])
     ).toHaveLength(0)
@@ -23,7 +23,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
         { typeId: 'nis', date: '2020-01-02' },
         { typeId: 'mdp', date: '2020-01-03' }
       ])
@@ -34,7 +34,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'mca', date: '2020-01-03' },
         { typeId: 'mdp', date: '2020-01-04' }
@@ -57,11 +57,11 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     ).toContain('l’étape "mdp" n’est pas possible juste après "mfr"')
   })
 
-  test('ne peut pas créer une "mdp" sans une "dae" défavorable', () => {
+  test('ne peut pas créer une "mdp" sans une "dae" requis', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'def', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'req', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' }
       ])
     ).toContain('l’étape "mdp" n’est pas possible juste après "mfr", "dae"')
@@ -71,7 +71,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
@@ -95,7 +95,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
@@ -118,7 +118,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     expect(
       octEtatsValidate([
         { typeId: 'mfr', date: '2020-01-01' },
-        { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },

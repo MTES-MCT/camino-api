@@ -39,14 +39,14 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
   mom: {
     justeApres: [
       [{ etapeTypeId: 'rde', statutId: 'def' }],
-      [{ etapeTypeId: 'dae', statutId: 'def' }]
+      [{ etapeTypeId: 'dae', statutId: 'req' }]
     ]
   },
   mcp: {
     justeApres: [
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etapeTypeId: 'dae', statutId: 'fav' },
+        { etapeTypeId: 'dae', statutId: 'exe' },
         { etapeTypeId: 'mdp' }
       ],
       [
