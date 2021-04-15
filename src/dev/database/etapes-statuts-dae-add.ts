@@ -10,36 +10,36 @@ const main = async () => {
     {
       id: 'exe',
       nom: 'exempté',
-      couleur: 'neutral'
+      couleur: 'success'
     },
     {
       id: 'req',
       nom: 'requis',
-      couleur: 'success'
+      couleur: 'neutral'
     }
   ] as IEtapeStatut[]
 
-  for (const ds of daeStatuts) {
-    await EtapesStatuts.query().insert(ds)
-  }
-
-  await TitresEtapes.query()
-    .patch({ statutId: 'req' })
-    .where('typeId', 'dae')
-    .andWhere('statutId', 'fav')
+  await EtapesStatuts.query().insert(daeStatuts)
 
   await TitresEtapes.query()
     .patch({ statutId: 'exe' })
     .where('typeId', 'dae')
+    .andWhere('statutId', 'fav')
+
+  await TitresEtapes.query()
+    .patch({ statutId: 'req' })
+    .where('typeId', 'dae')
     .andWhere('statutId', 'def')
 
   await EtapesTypesEtapesStatuts.query()
-    .patch({ etapeStatutId: 'req' })
+    .patch({ etapeStatutId: 'exe' })
     .where('etapeStatutId', 'fav')
+    .andWhere('etapeTypeId', 'dae')
 
   await EtapesTypesEtapesStatuts.query()
-    .patch({ etapeStatutId: 'exe' })
+    .patch({ etapeStatutId: 'req' })
     .where('etapeStatutId', 'def')
+    .andWhere('etapeTypeId', 'dae')
 
   process.exit(0)
 }

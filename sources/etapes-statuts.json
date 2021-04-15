@@ -66,5 +66,15 @@
     "id": "aco",
     "nom": "en construction",
     "couleur": "warning"
+  },
+  {
+    "id": "exe",
+    "nom": "exempté",
+    "couleur": "success"
+  },
+  {
+    "id": "req",
+    "nom": "requis",
+    "couleur": "neutral"
   }
 ]
