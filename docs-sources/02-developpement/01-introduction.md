@@ -64,42 +64,11 @@ npm run start
 
 ---
 
-## Tests
-
-### Tests unitaires
-
-```sh
-# lance les tests en local
-npm run test:jest
-```
-
-### Tests de bout-en-bout
-
-Ces tests sont lancés depuis `camino-ui` avec la commande `npm run test:cypress`.
-
-Pour que cela fonctionne l'API doit être lancée avec `npm run dev`.
-
-Pour que les tests soient plus rapides, on peut utiliser une version publique de la base de données contenant seulement certains titres miniers.
-
-```bash
-# crée une copie de la base de données (publique)
-npm run db:dump-public
-
-# importe la base de données publique
-# met à jour les données (daily)
-# crée un utilisateur super-admin
-# lance le serveur de dev
-npm run test:cypress
-```
-
----
-
 ## Structure des fichiers
 
 ```bash
 .
 │
-├── dev                  # `scripts de développement`
 ├── knex                 # `scripts de création et d'import de la base de données (npm run migrate)
 │   ├── migrations       # `création de la base de données`
 │   └── seeds            # `import depuis les fichier /sources vers la base de données`
@@ -116,6 +85,8 @@ npm run test:cypress
     ├── config           #
     │   ├── index        # `variables globales`
     │   └── knex         # `connexion à la base de données`
+    │
+    ├── dev               # `scripts de développement`
     │
     ├── database         # `base de données PostgreSQL`
     │   ├── models       # `modèles de la base de données (knex.js / objection.js)`

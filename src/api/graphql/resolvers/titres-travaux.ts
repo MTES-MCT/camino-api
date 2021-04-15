@@ -57,7 +57,7 @@ const travauxModifier = async (
 
     const oldTitreTravaux = await titresTravauGet(
       travaux.id,
-      { fields: { id: {} } },
+      { fields: {} },
       user
     )
 
@@ -94,11 +94,7 @@ const travauxSupprimer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const oldTitreTravaux = await titresTravauGet(
-      id,
-      { fields: { id: {} } },
-      user
-    )
+    const oldTitreTravaux = await titresTravauGet(id, { fields: {} }, user)
 
     if (!oldTitreTravaux) throw new Error("Les travaux n'existent pas")
 

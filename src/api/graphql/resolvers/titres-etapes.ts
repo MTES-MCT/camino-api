@@ -93,7 +93,7 @@ const etapeHeritage = async (
 
     let titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
-      { fields: { id: {} } },
+      { fields: {} },
       user
     )
 
@@ -118,7 +118,7 @@ const etapeHeritage = async (
       userSuper
     )
 
-    const etapeType = await etapeTypeGet(typeId, { fields: { id: {} } })
+    const etapeType = await etapeTypeGet(typeId, { fields: {} })
     const titreEtape = titreEtapeHeritageBuild(date, etapeType, titreDemarche)
 
     return titreEtapeFormat(
@@ -145,7 +145,7 @@ const etapeCreer = async (
 
     let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
-      { fields: { id: {} } },
+      { fields: {} },
       user
     )
 
@@ -175,7 +175,7 @@ const etapeCreer = async (
     })
 
     if (!etapeType) {
-      throw new Error(`etape type "${etape.typeId}" inconnu `)
+      throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(
@@ -264,7 +264,7 @@ const etapeModifier = async (
       fields: { documentsTypes: { id: {} } }
     })
     if (!etapeType) {
-      throw new Error(`etape type "${etape.typeId}" inconnu `)
+      throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(
@@ -397,7 +397,7 @@ const etapeJustificatifsAssocier = async (
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
-      {},
+      { fields: {} },
       user
     )
 
@@ -464,7 +464,7 @@ const etapeJustificatifDissocier = async (
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
-      {},
+      { fields: {} },
       user
     )
 

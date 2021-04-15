@@ -10,7 +10,7 @@ import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
 import { login as cerbereLogin } from '../../../tools/api-cerbere'
 
-import init from '../../../database/init'
+import { databaseInit } from '../../../database/init'
 
 import { debug } from '../../../config/index'
 import { emailSend } from '../../../tools/emails-send'
@@ -28,7 +28,7 @@ import {
   userByRefreshTokenGet
 } from '../../../database/queries/utilisateurs'
 
-import globales from '../../../database/cache/globales'
+import { globales } from '../../../database/cache/globales'
 
 import { utilisateurUpdationValidate } from '../../../business/validations/utilisateur-updation-validate'
 import { permissionCheck } from '../../../tools/permission'
@@ -120,7 +120,7 @@ const utilisateurs = async (
           noms,
           emails
         },
-        { fields: { id: {} } },
+        { fields: {} },
         user
       )
     ])
@@ -148,7 +148,7 @@ const moi = async (_: never, context: IToken) => {
     // TODO:
     // mettre ça dans un middleware à la racine de l'app express
     if (!globales.chargement) {
-      await init()
+      await databaseInit()
     }
 
     const user = await userGet(context.user?.id)
@@ -355,7 +355,7 @@ const utilisateurCreer = async (
         id: await userIdGenerate(),
         ...utilisateur
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     emailSend(
@@ -591,7 +591,7 @@ const utilisateurMotDePasseModifier = async (
         id,
         motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     return utilisateurUpdated
@@ -682,7 +682,7 @@ const utilisateurMotDePasseInitialiser = async (
         id: context.user.id,
         motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     return {
@@ -787,7 +787,7 @@ const utilisateurEmailModifier = async (
         id: user.id,
         email: emailTokenDecoded.email
       } as IUtilisateur,
-      {}
+      { fields: {} }
     )
 
     return {

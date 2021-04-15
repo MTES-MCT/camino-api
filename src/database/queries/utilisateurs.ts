@@ -6,16 +6,15 @@ import {
   IColonne
 } from '../../types'
 
+import { raw, RawBuilder } from 'objection'
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
 import { utilisateursQueryModify } from './permissions/utilisateurs'
 
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
-import { raw } from 'objection'
 
 import { stringSplit } from './_utils'
-import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
   if (!userId) return null
@@ -159,7 +158,7 @@ const utilisateursColonnes = {
     relation: '[administrations, entreprises]',
     groupBy: ['utilisateurs.id', 'administrations.id']
   }
-} as Index<IColonne<string | Objection.RawBuilder>>
+} as Index<IColonne<string | RawBuilder>>
 
 const utilisateursGet = async (
   {

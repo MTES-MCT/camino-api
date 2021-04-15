@@ -14,25 +14,10 @@
     "entreprises_lecture": true
   },
   {
-    "id": "qae",
-    "nom": "demande d'examen au cas par cas",
-    "ordre": 4,
-    "unique": true,
-    "entreprises_lecture": true
-  },
-  {
     "id": "asl",
     "nom": "décision du propriétaire du sol",
     "ordre": 5,
     "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mdd",
-    "nom": "dépôt de la déclaration",
-    "ordre": 7,
-    "unique": true,
-    "public_lecture": true,
     "entreprises_lecture": true
   },
   {
@@ -464,14 +449,6 @@
     "entreprises_lecture": true
   },
   {
-    "id": "rdt",
-    "nom": "récépissé de déclaration d'ouverture de travaux miniers",
-    "description": "Courrier par lequel l’administration accuse réception de la déclaration faite au préfet pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.61-1 du code minier.",
-    "ordre": 44,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
     "id": "vfd",
     "nom": "validation du paiement des frais de dossier",
     "description": "Acte attestant que le pétitionnaire d’une autorisation de recherches minières (ARM) a acquitté ses frais de dossier.\n",
@@ -879,37 +856,6 @@
     "entreprises_lecture": true
   },
   {
-    "id": "dow",
-    "nom": "donné acte de déclaration d'ouverture de travaux minier",
-    "ordre": 127
-  },
-  {
-    "id": "aow",
-    "nom": "décision d'ouverture des travaux miniers",
-    "ordre": 128
-  },
-  {
-    "id": "dpm",
-    "nom": "décision de police des mines",
-    "ordre": 131,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "sup",
-    "nom": "décision instituant une servitude d'utilité publique",
-    "ordre": 132,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mfw",
-    "nom": "mémoire de fin de travaux",
-    "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
-    "ordre": 134,
-    "entreprises_lecture": true
-  },
-  {
     "id": "acl",
     "nom": "avis d'une collectivité locale",
     "description": "Avis de la collectivité locale dans le cadre de l’instruction d’un titre.",
@@ -1006,36 +952,6 @@
     "unique": true,
     "date_fin": "2018-12-31",
     "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "awu",
-    "nom": "premier donné acte d'arret des travaux miniers",
-    "description": "Décision du préfet demandant à l’opérateur de prendre certaines mesures d’après-mine.",
-    "ordre": 129,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "awd",
-    "nom": "second donné acte d'arret des travaux miniers",
-    "description": "Décision du préfet actant que l’opérateur a pris toutes les mesures nécessaires pour fermer la mine.",
-    "ordre": 130,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rwp",
-    "nom": "récolement partiel",
-    "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
-    "ordre": 133,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rwt",
-    "nom": "récolement complet",
-    "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
-    "ordre": 135,
     "entreprises_lecture": true
   },
   {
@@ -1438,6 +1354,13 @@
       }
     ],
     "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "qae",
+    "nom": "demande d'examen au cas par cas ",
+    "ordre": 4,
+    "unique": true,
     "entreprises_lecture": true
   }
 ]

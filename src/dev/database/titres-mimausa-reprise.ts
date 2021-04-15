@@ -287,7 +287,7 @@ const etapesGet = async (
   if (demarche.siren_titulaire) {
     let entreprises = await entreprisesGet(
       { noms: demarche.siren_titulaire },
-      { fields: { id: {} } },
+      { fields: {} },
       userSuper
     )
     if (!entreprises?.length) {

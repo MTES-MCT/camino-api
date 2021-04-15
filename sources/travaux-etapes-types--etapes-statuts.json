@@ -1,0 +1,157 @@
+[
+  {
+    "travaux_etape_type_id": "aow",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "aow",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "awd",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "awd",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "awu",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "awu",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "dow",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "dpm",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "mdd",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "mfw",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "rdt",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "rdt",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "rwp",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "rwp",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "rwt",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "rwt",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "sup",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "sup",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "dec",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "mdp",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "etape_statut_id": "fai",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "etape_statut_id": "aco",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "ncl",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "ppc",
+    "etape_statut_id": "ter",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "ppu",
+    "etape_statut_id": "fai",
+    "ordre": 2
+  },
+  {
+    "travaux_etape_type_id": "ppu",
+    "etape_statut_id": "pro",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "rpu",
+    "etape_statut_id": "fai",
+    "ordre": 3
+  },
+  {
+    "travaux_etape_type_id": "scl",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "travaux_etape_type_id": "ssr",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  }
+]

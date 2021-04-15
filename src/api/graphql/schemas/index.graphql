@@ -126,16 +126,20 @@ type Query {
   demarchesStatuts: [DemarcheStatut]
 
   "Types d'étapes"
-  etapesTypes(
-    titreDemarcheId: ID
-    titreEtapeId: ID
+  etapesTypes(titreDemarcheId: ID, titreEtapeId: ID, date: String): [EtapeType]
+
+  "Status d'étapes"
+  etapesStatuts: [EtapeStatut]
+
+  "Types des travaux"
+  travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
+
+  "Types d'étapes de travaux"
+  travauxEtapesTypes(
     titreTravauxId: ID
     titreTravauxEtapeId: ID
     date: String
   ): [EtapeType]
-
-  "Status d'étapes"
-  etapesStatuts: [EtapeStatut]
 
   "Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
@@ -184,7 +188,7 @@ type Query {
   titresTypesDemarchesTypesEtapesTypes: [TitreTypeDemarcheTypeEtapeType]
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   etapesTypesDocumentsTypes: [EtapeTypeDocumentType]
-  travauxTypesEtapesTypes: [TravauxTypeEtapeType]
+  travauxTypesTravauxEtapesTypes: [TravauxTypeTravauxEtapeType]
 
   activitesTypesTitresTypes: [ActiviteTypeTitreType]
   activitesTypesDocumentsTypes: [ActiviteTypeDocumentType]
@@ -230,9 +234,6 @@ type Query {
 
   "Définitions et descriptions"
   definitions: [Definition]
-
-  "Types des travaux"
-  travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
 }
 
 """
@@ -333,7 +334,10 @@ type Mutation {
   documentSupprimer(id: ID!): Boolean
 
   "Crée ou modifie une activité"
-  activiteModifier(activite: InputActiviteModification!, depose: Boolean): Activite
+  activiteModifier(
+    activite: InputActiviteModification!
+    depose: Boolean
+  ): Activite
 
   "Supprime une activité"
   activiteSupprimer(id: ID!): Activite
@@ -487,17 +491,17 @@ type Mutation {
     etapeTypeDocumentType: InputEtapeTypeDocumentType!
   ): [EtapeTypeDocumentType]
 
-  travauxTypeEtapeTypeModifier(
-    travauxTypeEtapeType: InputTravauxTypeEtapeType!
-  ): [TravauxTypeEtapeType]
+  travauxTypeTravauxEtapeTypeModifier(
+    travauxTypeTravauxEtapeType: InputTravauxTypeTravauxEtapeType!
+  ): [TravauxTypeTravauxEtapeType]
 
-  travauxTypeEtapeTypeCreer(
-    travauxTypeEtapeType: InputTravauxTypeEtapeType!
-  ): [TravauxTypeEtapeType]
+  travauxTypeTravauxEtapeTypeCreer(
+    travauxTypeTravauxEtapeType: InputTravauxTypeTravauxEtapeType!
+  ): [TravauxTypeTravauxEtapeType]
 
-  travauxTypeEtapeTypeSupprimer(
-    travauxTypeEtapeType: InputTravauxTypeEtapeType!
-  ): [TravauxTypeEtapeType]
+  travauxTypeTravauxEtapeTypeSupprimer(
+    travauxTypeTravauxEtapeType: InputTravauxTypeTravauxEtapeType!
+  ): [TravauxTypeTravauxEtapeType]
 
   activiteTypeTitreTypeCreer(
     activiteTypeTitreType: InputActiviteTypeTitreType!

@@ -9,7 +9,6 @@ import { fieldsTitreAdd } from './graph/fields-add'
 import { titresTravauxQueryModify } from './permissions/titres-travaux'
 
 const titresTravauxQueryBuild = (
-  _: never,
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -33,7 +32,7 @@ const titresTravauxGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresTravauxQueryBuild(null as never, { fields }, user)
+  const q = titresTravauxQueryBuild({ fields }, user)
 
   if (titresTravauxIds) {
     q.whereIn('titresTravaux.id', titresTravauxIds)
@@ -47,7 +46,7 @@ const titresTravauGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresTravauxQueryBuild(null as never, { fields }, user)
+  const q = titresTravauxQueryBuild({ fields }, user)
 
   return q.findById(titreTravauxId)
 }

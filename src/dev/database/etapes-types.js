@@ -70,7 +70,7 @@ async function main() {
       titreDemarcheId: `${titreId}-oct01`
       // titreEtapeId: `${titreId}-oct01-mfr01`
     },
-    { fields: { id: {} } },
+    { fields: {} },
     user
   )
 

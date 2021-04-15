@@ -57,6 +57,10 @@
             {
               "title": "Base de données",
               "source": "./docs-sources/02-developpement/02-base-de-donnees.md"
+            },
+            {
+              "title": "Tests",
+              "source": "./docs-sources/02-developpement/03-tests.md"
             }
           ]
         },

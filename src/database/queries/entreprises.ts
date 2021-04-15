@@ -10,9 +10,9 @@ import { entreprisesQueryModify } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { stringSplit } from './_utils'
-import { raw } from 'objection'
+import { raw, QueryBuilder } from 'objection'
 
-const entreprisesQueryBuild = (
+const entreprisesFiltersQueryModify = (
   {
     noms,
     archive
@@ -20,17 +20,8 @@ const entreprisesQueryBuild = (
     noms?: string | null
     archive?: boolean | null
   },
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  q: QueryBuilder<Entreprises, Entreprises[]>
 ) => {
-  const graph = fields
-    ? graphBuild(fields, 'entreprises', fieldsFormat)
-    : options.entreprises.graph
-
-  const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
-
-  entreprisesQueryModify(q, { fields }, user)
-
   if (noms) {
     const nomsArray = stringSplit(noms)
 
@@ -58,6 +49,19 @@ const entreprisesQueryBuild = (
   if (archive !== undefined && archive !== null) {
     q.where('entreprises.archive', archive)
   }
+}
+
+const entreprisesQueryBuild = (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'entreprises', fieldsFormat)
+    : options.entreprises.graph
+
+  const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
+
+  entreprisesQueryModify(q, { fields }, user)
 
   return q
 }
@@ -73,7 +77,9 @@ const entreprisesCount = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = entreprisesQueryBuild({ noms, archive }, { fields }, user)
+  const q = entreprisesQueryBuild({ fields }, user)
+
+  entreprisesFiltersQueryModify({ noms, archive }, q)
   if (!q) return 0
 
   const entreprises = ((await q) as unknown) as { total: number }[]
@@ -86,7 +92,7 @@ const entrepriseGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = entreprisesQueryBuild({}, { fields }, user)
+  const q = entreprisesQueryBuild({ fields }, user)
 
   return (await q.findById(id)) as IEntreprise
 }
@@ -110,7 +116,10 @@ const entreprisesGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = entreprisesQueryBuild({ noms, archive }, { fields }, user)
+  const q = entreprisesQueryBuild({ fields }, user)
+
+  entreprisesFiltersQueryModify({ noms, archive }, q)
+
   if (!q) return []
 
   // le tri sur la colonne 'siren' s'effectue sur le legal_siren ET le legal_etranger

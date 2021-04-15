@@ -1,4 +1,4 @@
-import { app } from './init'
+import { app } from './app'
 import { knex } from '../src/knex'
 import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
 import * as userAdd from '../knex/user-add'

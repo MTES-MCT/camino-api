@@ -14,12 +14,15 @@ class EtapesTypes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 3 },
-      nom: { type: ['string', 'null'], maxLength: 128 },
+      nom: { type: 'string', maxLength: 128 },
+      description: { type: ['string', 'null'] },
       acceptationAuto: { type: ['boolean', 'null'] },
       fondamentale: { type: ['boolean', 'null'] },
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
       sections: { type: 'json' },
+      unique: { type: 'boolean' },
+      ordre: { type: 'integer' },
       publicLecture: { type: 'boolean' },
       entreprisesLecture: { type: 'boolean' }
     }

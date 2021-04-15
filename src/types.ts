@@ -317,6 +317,7 @@ interface IEtapeType {
   id: string
   nom: string
   ordre: number
+  description?: string
   acceptationAuto?: boolean | null
   fondamentale?: boolean | null
   dateDebut?: string | null
@@ -448,6 +449,21 @@ interface ITravauxType {
   travauxCreation?: boolean | null
 }
 
+interface ITravauxEtapeType {
+  id: string
+  nom: string
+  ordre: number
+  description?: string
+  etapesStatuts?: IEtapeStatut[] | null
+  documentsTypes?: IDocumentType[]
+}
+
+interface ITravauxEtapeTypeDocumentType {
+  travauxEtapeTypeId: string
+  documentTypeId: string
+  optionnel?: boolean
+}
+
 interface ITitreTypeEtapeType {
   titreTypeId: string
   titreType?: ITitreType | null
@@ -489,9 +505,15 @@ interface IEtapeTypeEtapeStatut {
   ordre: number
 }
 
-interface ITravauxTypeEtapeType {
+interface ITravauxTypeTravauxEtapeType {
   travauxTypeId: string
-  etapeTypeId: string
+  travauxEtapeTypeId: string
+  ordre: number
+}
+
+interface ITravauxEtapeTypeEtapeStatut {
+  travauxEtapeTypeId: string
+  etapeStatutId: string
   ordre: number
 }
 
@@ -999,7 +1021,9 @@ export {
   IActiviteTypeTitreType,
   IEtapeTypeEtapeStatut,
   IEtapeTypeDocumentType,
-  ITravauxTypeEtapeType,
+  ITravauxTypeTravauxEtapeType,
+  ITravauxEtapeTypeEtapeStatut,
+  ITravauxEtapeTypeDocumentType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
@@ -1036,6 +1060,7 @@ export {
   ITitreTypeDemarcheTypeEtapeType,
   ITitreEntreprise,
   ITravauxType,
+  ITravauxEtapeType,
   ITrimestre,
   IUnite,
   IUser,

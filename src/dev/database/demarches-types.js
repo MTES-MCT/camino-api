@@ -56,7 +56,7 @@ async function main() {
       titreId,
       titreDemarcheId: `${titreId}-oct01`
     },
-    { fields: { id: {} } },
+    { fields: {} },
     user
   )
 

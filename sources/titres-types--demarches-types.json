@@ -1379,5 +1379,20 @@
     "titre_type_id": "pxw",
     "demarche_type_id": "ret",
     "delai_recours": "2"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exs",
+    "delai_recours": "2"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "prr",
+    "delai_recours": "2"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "prr",
+    "delai_recours": "2"
   }
 ]

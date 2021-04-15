@@ -194,20 +194,6 @@
     "departement_id": "21"
   },
   {
-    "id": "pre-11069-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Aude",
-    "abreviation": "Préfecture - Aude",
-    "url": "http://www.aude.gouv.fr",
-    "email": "prefecture@aude.gouv.fr",
-    "telephone": "04 68 10 27 00",
-    "adresse1": "CS 20001, 52, rue Jean-Bringer",
-    "code_postal": "11836",
-    "commune": "Carcassonne Cedex 9",
-    "cedex": "Cedex 9",
-    "departement_id": "11"
-  },
-  {
     "id": "dre-bretagne-01",
     "type_id": "dre",
     "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Bretagne",
@@ -222,32 +208,6 @@
     "region_id": "53"
   },
   {
-    "id": "dre-paca-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Provence-Alpes-Côte-d'Azur",
-    "abreviation": "DREAL - Provence-Alpes-Côte-d'Azur",
-    "url": "http://www.paca.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)4 91 28 40 40",
-    "adresse1": "16 rue Antoine-Zattara\nCS 70248\n13331 Marseille",
-    "code_postal": "13331",
-    "commune": "Marseille",
-    "cedex": "Cedex",
-    "region_id": "93"
-  },
-  {
-    "id": "dre-bfc-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Bourgogne-Franche-Comté - Siège de Besançon",
-    "abreviation": "DREAL - Bourgogne-Franche-Comté - Siège de Besançon",
-    "url": "http://www.bourgogne-franche-comte.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)3 81 21 67 00",
-    "adresse1": "Technopole microtechnique et scientifique\n17 E rue Alain-Savary\nBP 1269\n25005 Besançon",
-    "code_postal": "25005",
-    "commune": "Besançon",
-    "cedex": "Cedex",
-    "region_id": "27"
-  },
-  {
     "id": "pre-16015-01",
     "type_id": "pre",
     "nom": "Préfecture - Charente",
@@ -260,6 +220,17 @@
     "commune": "Angoulême Cedex",
     "cedex": "Cedex",
     "departement_id": "16"
+  },
+  {
+    "id": "ope-ptmg-973-01",
+    "type_id": "ope",
+    "nom": "Pôle Technique Minier de Guyane",
+    "abreviation": "Pôle Technique Minier de Guyane",
+    "telephone": "+594 (0)5 94 30 06 00",
+    "adresse1": "Hôtel de la Collectivité Territoriale de Guyane, Carrefour de Suzini",
+    "adresse2": "4179 route de Montabo",
+    "code_postal": "97307",
+    "commune": "Cayenne"
   },
   {
     "id": "pre-76540-01",
@@ -289,6 +260,19 @@
     "departement_id": "19"
   },
   {
+    "id": "dre-paca-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Provence-Alpes-Côte-d'Azur",
+    "abreviation": "DREAL - Provence-Alpes-Côte-d'Azur",
+    "url": "http://www.paca.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)4 91 28 40 40",
+    "adresse1": "16 rue Antoine-Zattara\nCS 70248\n13331 Marseille",
+    "code_postal": "13331",
+    "commune": "Marseille",
+    "cedex": "Cedex",
+    "region_id": "93"
+  },
+  {
     "id": "ope-brgm-02",
     "type_id": "ope",
     "nom": "BRGM - Projet Zercoa",
@@ -303,15 +287,18 @@
     "cedex": "Cedex 2"
   },
   {
-    "id": "ope-ptmg-973-01",
-    "type_id": "ope",
-    "nom": "Pôle Technique Minier de Guyane",
-    "abreviation": "Pôle Technique Minier de Guyane",
-    "telephone": "+594 (0)5 94 30 06 00",
-    "adresse1": "Hôtel de la Collectivité Territoriale de Guyane, Carrefour de Suzini",
-    "adresse2": "4179 route de Montabo",
-    "code_postal": "97307",
-    "commune": "Cayenne"
+    "id": "pre-11069-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Aude",
+    "abreviation": "Préfecture - Aude",
+    "url": "http://www.aude.gouv.fr",
+    "email": "prefecture@aude.gouv.fr",
+    "telephone": "04 68 10 27 00",
+    "adresse1": "CS 20001, 52, rue Jean-Bringer",
+    "code_postal": "11836",
+    "commune": "Carcassonne Cedex 9",
+    "cedex": "Cedex 9",
+    "departement_id": "11"
   },
   {
     "id": "pre-04070-01",
@@ -325,20 +312,6 @@
     "commune": "Digne-les-Bains Cedex",
     "cedex": "Cedex",
     "departement_id": "04"
-  },
-  {
-    "id": "pre-17300-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Charente-Maritime",
-    "abreviation": "Préfecture - Charente-Maritime",
-    "url": "http://www.charente-maritime.gouv.fr",
-    "email": "prefecture@charente-maritime.gouv.fr",
-    "telephone": "05 46 27 43 00",
-    "adresse1": "CS 70000, 38, rue Réaumur",
-    "code_postal": "17017",
-    "commune": "La Rochelle Cedex 1",
-    "cedex": "Cedex 1",
-    "departement_id": "17"
   },
   {
     "id": "pre-06088-01",
@@ -368,20 +341,6 @@
     "departement_id": "01"
   },
   {
-    "id": "pre-10387-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Aube",
-    "abreviation": "Préfecture - Aube",
-    "url": "http://www.aube.gouv.fr",
-    "email": "prefecture@aube.gouv.fr",
-    "telephone": "03 25 42 35 00",
-    "adresse1": "CS 20372, 2, rue Pierre-Labonde",
-    "code_postal": "10025",
-    "commune": "Troyes Cedex",
-    "cedex": "Cedex",
-    "departement_id": "10"
-  },
-  {
     "id": "pre-25056-01",
     "type_id": "pre",
     "nom": "Préfecture - Doubs",
@@ -407,20 +366,6 @@
     "departement_id": "28"
   },
   {
-    "id": "pre-79191-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Deux-Sèvres",
-    "abreviation": "Préfecture - Deux-Sèvres",
-    "url": "http://www.deux-sevres.gouv.fr",
-    "email": "courrier@deux-sevres.pref.gouv.fr",
-    "telephone": "05 49 08 68 68",
-    "adresse1": "4, rue Duguesclin, BP 70000",
-    "code_postal": "79099",
-    "commune": "Niort Cedex 9",
-    "cedex": "Cedex 9",
-    "departement_id": "79"
-  },
-  {
     "id": "pre-97105-01",
     "type_id": "pre",
     "nom": "Préfecture - Guadeloupe",
@@ -433,30 +378,17 @@
     "departement_id": "971"
   },
   {
-    "id": "pre-31555-01",
+    "id": "pre-23096-01",
     "type_id": "pre",
-    "nom": "Préfecture - Haute-Garonne",
-    "abreviation": "Préfecture - Haute-Garonne",
-    "url": "http://www.haute-garonne.gouv.fr",
-    "telephone": "05 34 45 34 45",
-    "adresse1": "1, place Saint-Étienne",
-    "adresse2": "Place Saint-Étienne",
-    "code_postal": "31000",
-    "commune": "Toulouse",
-    "departement_id": "31"
-  },
-  {
-    "id": "pre-34172-01",
-    "type_id": "pre",
-    "nom": "Préfecture de l'Hérault",
-    "abreviation": "Préfecture - Hérault",
-    "url": "http://www.herault.gouv.fr",
-    "telephone": "04 67 61 61 61",
-    "adresse1": "34, place des Martyrs-de-la-Résistance",
-    "code_postal": "34062",
-    "commune": "Montpellier Cedex 2",
-    "cedex": "Cedex 2",
-    "departement_id": "34"
+    "nom": "Préfecture - Creuse",
+    "abreviation": "Préfecture - Creuse",
+    "url": "http://www.creuse.gouv.fr",
+    "telephone": "05 55 51 59 00",
+    "adresse1": "BP 79, Place Louis-Lacrocq",
+    "code_postal": "23011",
+    "commune": "Guéret Cedex",
+    "cedex": "Cedex",
+    "departement_id": "23"
   },
   {
     "id": "pre-75104-01",
@@ -499,6 +431,19 @@
     "departement_id": "22"
   },
   {
+    "id": "pre-67482-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Bas-Rhin",
+    "abreviation": "Préfecture - Bas-Rhin",
+    "url": "http://www.bas-rhin.gouv.fr",
+    "telephone": "03 88 21 67 68",
+    "adresse1": "5 place de la République, BP 1047",
+    "code_postal": "67073",
+    "commune": "Strasbourg Cedex",
+    "cedex": "Cedex",
+    "departement_id": "67"
+  },
+  {
     "id": "pre-2A004-01",
     "type_id": "pre",
     "nom": "Préfecture - Corse-du-Sud",
@@ -511,20 +456,6 @@
     "commune": "Ajaccio Cedex 9",
     "cedex": "Cedex 9",
     "departement_id": "2A"
-  },
-  {
-    "id": "pre-48095-01",
-    "type_id": "pre",
-    "nom": "Préfecture de la Lozère",
-    "abreviation": "Préfecture - Lozère",
-    "url": "http://www.lozere.gouv.fr",
-    "email": "prefecture@lozere.gouv.fr",
-    "telephone": "04 66 49 60 00",
-    "adresse1": "Rue du Faubourg-Montbel",
-    "adresse2": "BP 130",
-    "code_postal": "48000",
-    "commune": "Mende",
-    "departement_id": "48"
   },
   {
     "id": "pre-05061-01",
@@ -555,43 +486,32 @@
     "departement_id": "74"
   },
   {
-    "id": "pre-15014-01",
+    "id": "pre-79191-01",
     "type_id": "pre",
-    "nom": "Préfecture - Cantal",
-    "abreviation": "Préfecture - Cantal",
-    "url": "http://www.cantal.gouv.fr",
-    "email": "courrier@cantal.pref.gouv.fr",
-    "telephone": "04 71 46 23 00",
-    "adresse1": "Cours Monthyon, BP 529",
-    "code_postal": "15005",
-    "commune": "Aurillac Cedex",
-    "cedex": "Cedex",
-    "departement_id": "15"
+    "nom": "Préfecture - Deux-Sèvres",
+    "abreviation": "Préfecture - Deux-Sèvres",
+    "url": "http://www.deux-sevres.gouv.fr",
+    "email": "courrier@deux-sevres.pref.gouv.fr",
+    "telephone": "05 49 08 68 68",
+    "adresse1": "4, rue Duguesclin, BP 70000",
+    "code_postal": "79099",
+    "commune": "Niort Cedex 9",
+    "cedex": "Cedex 9",
+    "departement_id": "79"
   },
   {
-    "id": "pre-87085-01",
+    "id": "pre-29232-01",
     "type_id": "pre",
-    "nom": "Préfecture - Haute-Vienne",
-    "abreviation": "Préfecture - Haute-Vienne",
-    "url": "http://www.haute-vienne.gouv.fr",
-    "telephone": "05 55 44 18 00",
-    "adresse1": "1, rue de la Préfecture, BP 87031",
-    "code_postal": "87031",
-    "commune": "Limoges Cedex 1",
-    "departement_id": "87"
-  },
-  {
-    "id": "pre-23096-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Creuse",
-    "abreviation": "Préfecture - Creuse",
-    "url": "http://www.creuse.gouv.fr",
-    "telephone": "05 55 51 59 00",
-    "adresse1": "BP 79, Place Louis-Lacrocq",
-    "code_postal": "23011",
-    "commune": "Guéret Cedex",
+    "nom": "Préfecture du Finistère",
+    "abreviation": "Préfecture - Finistère",
+    "url": "http://www.finistere.gouv.fr",
+    "email": "prefecture@finistere.gouv.fr",
+    "telephone": "02 98 76 29 29",
+    "adresse1": "42, boulevard Dupleix",
+    "code_postal": "29320",
+    "commune": "Quimper Cedex",
     "cedex": "Cedex",
-    "departement_id": "23"
+    "departement_id": "29"
   },
   {
     "id": "pre-60057-01",
@@ -607,18 +527,17 @@
     "departement_id": "60"
   },
   {
-    "id": "pre-89024-01",
+    "id": "pre-34172-01",
     "type_id": "pre",
-    "nom": "Préfecture de l'Yonne",
-    "abreviation": "Préfecture - Yonne",
-    "url": "http://www.yonne.gouv.fr",
-    "email": "prefecture@yonne.gouv.fr",
-    "telephone": "03 86 72 79 89",
-    "adresse1": "Place de la Préfecture",
-    "code_postal": "89016",
-    "commune": "Auxerre Cedex",
-    "cedex": "Cedex",
-    "departement_id": "89"
+    "nom": "Préfecture de l'Hérault",
+    "abreviation": "Préfecture - Hérault",
+    "url": "http://www.herault.gouv.fr",
+    "telephone": "04 67 61 61 61",
+    "adresse1": "34, place des Martyrs-de-la-Résistance",
+    "code_postal": "34062",
+    "commune": "Montpellier Cedex 2",
+    "cedex": "Cedex 2",
+    "departement_id": "34"
   },
   {
     "id": "pre-08105-01",
@@ -663,18 +582,17 @@
     "departement_id": "88"
   },
   {
-    "id": "pre-29232-01",
+    "id": "pre-31555-01",
     "type_id": "pre",
-    "nom": "Préfecture du Finistère",
-    "abreviation": "Préfecture - Finistère",
-    "url": "http://www.finistere.gouv.fr",
-    "email": "prefecture@finistere.gouv.fr",
-    "telephone": "02 98 76 29 29",
-    "adresse1": "42, boulevard Dupleix",
-    "code_postal": "29320",
-    "commune": "Quimper Cedex",
-    "cedex": "Cedex",
-    "departement_id": "29"
+    "nom": "Préfecture - Haute-Garonne",
+    "abreviation": "Préfecture - Haute-Garonne",
+    "url": "http://www.haute-garonne.gouv.fr",
+    "telephone": "05 34 45 34 45",
+    "adresse1": "1, place Saint-Étienne",
+    "adresse2": "Place Saint-Étienne",
+    "code_postal": "31000",
+    "commune": "Toulouse",
+    "departement_id": "31"
   },
   {
     "id": "pre-37261-01",
@@ -705,17 +623,46 @@
     "departement_id": "81"
   },
   {
-    "id": "pre-67482-01",
+    "id": "pre-17300-01",
     "type_id": "pre",
-    "nom": "Préfecture - Bas-Rhin",
-    "abreviation": "Préfecture - Bas-Rhin",
-    "url": "http://www.bas-rhin.gouv.fr",
-    "telephone": "03 88 21 67 68",
-    "adresse1": "5 place de la République, BP 1047",
-    "code_postal": "67073",
-    "commune": "Strasbourg Cedex",
+    "nom": "Préfecture - Charente-Maritime",
+    "abreviation": "Préfecture - Charente-Maritime",
+    "url": "http://www.charente-maritime.gouv.fr",
+    "email": "prefecture@charente-maritime.gouv.fr",
+    "telephone": "05 46 27 43 00",
+    "adresse1": "CS 70000, 38, rue Réaumur",
+    "code_postal": "17017",
+    "commune": "La Rochelle Cedex 1",
+    "cedex": "Cedex 1",
+    "departement_id": "17"
+  },
+  {
+    "id": "pre-48095-01",
+    "type_id": "pre",
+    "nom": "Préfecture de la Lozère",
+    "abreviation": "Préfecture - Lozère",
+    "url": "http://www.lozere.gouv.fr",
+    "email": "prefecture@lozere.gouv.fr",
+    "telephone": "04 66 49 60 00",
+    "adresse1": "Rue du Faubourg-Montbel",
+    "adresse2": "BP 130",
+    "code_postal": "48000",
+    "commune": "Mende",
+    "departement_id": "48"
+  },
+  {
+    "id": "pre-15014-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Cantal",
+    "abreviation": "Préfecture - Cantal",
+    "url": "http://www.cantal.gouv.fr",
+    "email": "courrier@cantal.pref.gouv.fr",
+    "telephone": "04 71 46 23 00",
+    "adresse1": "Cours Monthyon, BP 529",
+    "code_postal": "15005",
+    "commune": "Aurillac Cedex",
     "cedex": "Cedex",
-    "departement_id": "67"
+    "departement_id": "15"
   },
   {
     "id": "pre-2B033-01",
@@ -757,19 +704,6 @@
     "departement_id": "27"
   },
   {
-    "id": "pre-91228-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Essonne",
-    "abreviation": "Préfecture - Essonne",
-    "url": "http://www.essonne.gouv.fr",
-    "email": "prefecture@essonne.gouv.fr",
-    "telephone": "01 69 91 91 91",
-    "adresse1": "Boulevard de France",
-    "code_postal": "91010",
-    "commune": "Évry",
-    "departement_id": "91"
-  },
-  {
     "id": "pre-32013-01",
     "type_id": "pre",
     "nom": "Préfecture - Gers",
@@ -794,19 +728,6 @@
     "code_postal": "92013",
     "commune": "Nanterre Cedex",
     "departement_id": "92"
-  },
-  {
-    "id": "pre-49007-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Maine-et-Loire",
-    "abreviation": "Préfecture - Maine-et-Loire",
-    "url": "http://www.maine-et-loire.gouv.fr",
-    "email": "modernisation@maine-et-loire.pref.gouv.fr",
-    "telephone": "02 41 81 81 81",
-    "adresse1": "Place Michel-Debré",
-    "code_postal": "49934",
-    "commune": "Angers Cedex 9",
-    "departement_id": "49"
   },
   {
     "id": "pre-47001-01",
@@ -925,31 +846,6 @@
     "departement_id": "69"
   },
   {
-    "id": "pre-66136-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Pyrénées-Orientales",
-    "abreviation": "Préfecture - Pyrénées-Orientales",
-    "url": "http://www.pyrenees-orientales.gouv.fr",
-    "telephone": "04 68 51 66 66",
-    "adresse1": "24, quai Sadi-Carnot, BP 951",
-    "code_postal": "66951",
-    "commune": "Perpignan Cedex",
-    "cedex": "Cedex",
-    "departement_id": "66"
-  },
-  {
-    "id": "pre-40192-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Landes",
-    "abreviation": "Préfecture - Landes",
-    "url": "http://www.landes.gouv.fr",
-    "telephone": "05 58 06 58 06",
-    "adresse1": "24-26, rue Victor-Hugo",
-    "code_postal": "40021",
-    "commune": "Mont-de-Marsan Cedex",
-    "departement_id": "40"
-  },
-  {
     "id": "pre-39300-01",
     "type_id": "pre",
     "nom": "Préfecture - Jura",
@@ -973,20 +869,6 @@
     "code_postal": "38021",
     "commune": "Grenoble Cedex 1",
     "departement_id": "38"
-  },
-  {
-    "id": "pre-58194-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Nièvre",
-    "abreviation": "Préfecture - Nièvre",
-    "url": "http://www.nievre.gouv.fr",
-    "email": "courrier@nievre.pref.gouv.fr",
-    "telephone": "03 86 60 70 80",
-    "adresse1": "40, rue de la Préfecture",
-    "code_postal": "58026",
-    "commune": "Nevers Cedex",
-    "cedex": "Cedex",
-    "departement_id": "58"
   },
   {
     "id": "pre-36044-01",
@@ -1028,19 +910,6 @@
     "departement_id": "41"
   },
   {
-    "id": "pre-71270-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Saône-et-Loire",
-    "abreviation": "Préfecture - Saône-et-Loire",
-    "url": "http://www.saone-et-loire.gouv.fr",
-    "telephone": "03 85 21 81 00",
-    "adresse1": "196, rue de Strasbourg",
-    "code_postal": "71021",
-    "commune": "Mâcon Cedex 9",
-    "cedex": "Cedex 9",
-    "departement_id": "71"
-  },
-  {
     "id": "pre-97411-01",
     "type_id": "pre",
     "nom": "Préfecture - Réunion",
@@ -1054,17 +923,17 @@
     "departement_id": "974"
   },
   {
-    "id": "pre-63113-01",
+    "id": "pre-49007-01",
     "type_id": "pre",
-    "nom": "Préfecture - Puy-de-Dôme",
-    "abreviation": "Préfecture - Puy-de-Dôme",
-    "url": "http://www.puy-de-dome.gouv.fr",
-    "telephone": "04 73 98 63 63",
-    "adresse1": "1, rue d'Assas",
-    "code_postal": "63033",
-    "commune": "Clermont-Ferrand Cedex 1",
-    "cedex": "Cedex 1",
-    "departement_id": "63"
+    "nom": "Préfecture - Maine-et-Loire",
+    "abreviation": "Préfecture - Maine-et-Loire",
+    "url": "http://www.maine-et-loire.gouv.fr",
+    "email": "modernisation@maine-et-loire.pref.gouv.fr",
+    "telephone": "02 41 81 81 81",
+    "adresse1": "Place Michel-Debré",
+    "code_postal": "49934",
+    "commune": "Angers Cedex 9",
+    "departement_id": "49"
   },
   {
     "id": "pre-53130-01",
@@ -1093,6 +962,19 @@
     "departement_id": "70"
   },
   {
+    "id": "pre-56260-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Morbihan",
+    "abreviation": "Préfecture - Morbihan",
+    "url": "http://www.morbihan.gouv.fr",
+    "telephone": "02 97 54 84 00",
+    "adresse1": "24, place de la République",
+    "adresse2": "Préfecture du Morbihan, BP 501",
+    "code_postal": "56000",
+    "commune": "Vannes",
+    "departement_id": "56"
+  },
+  {
     "id": "pre-61001-01",
     "type_id": "pre",
     "nom": "Préfecture de l'Orne",
@@ -1105,19 +987,6 @@
     "commune": "Alençon Cedex",
     "cedex": "Cedex",
     "departement_id": "61"
-  },
-  {
-    "id": "pre-77288-01",
-    "type_id": "pre",
-    "nom": "Préfecture de Seine-et-Marne",
-    "abreviation": "Préfecture - Seine-et-Marne",
-    "url": "http://www.seine-et-marne.gouv.fr",
-    "telephone": "01 64 71 77 77",
-    "adresse1": "12, rue des Saints-Pères",
-    "code_postal": "77010",
-    "commune": "Melun Cedex",
-    "cedex": "Cedex",
-    "departement_id": "77"
   },
   {
     "id": "pre-18033-01",
@@ -1134,56 +1003,82 @@
     "departement_id": "18"
   },
   {
-    "id": "pre-56260-01",
+    "id": "pre-58194-01",
     "type_id": "pre",
-    "nom": "Préfecture - Morbihan",
-    "abreviation": "Préfecture - Morbihan",
-    "url": "http://www.morbihan.gouv.fr",
-    "telephone": "02 97 54 84 00",
-    "adresse1": "24, place de la République",
-    "adresse2": "Préfecture du Morbihan, BP 501",
-    "code_postal": "56000",
-    "commune": "Vannes",
-    "departement_id": "56"
-  },
-  {
-    "id": "pre-44109-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Loire-Atlantique",
-    "abreviation": "Préfecture - Loire-Atlantique",
-    "url": "http://www.loire-atlantique.gouv.fr",
-    "telephone": "02 40 41 20 20",
-    "adresse1": "6, quai Ceineray, BP 33515",
-    "code_postal": "44035",
-    "commune": "Nantes Cedex 1",
-    "departement_id": "44"
-  },
-  {
-    "id": "pre-73065-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Savoie",
-    "abreviation": "Préfecture - Savoie",
-    "url": "http://www.savoie.gouv.fr",
-    "email": "prefecture@savoie.gouv.fr",
-    "telephone": "04 79 75 50 50",
-    "adresse1": "Château des Ducs de Savoie, BP 1801",
-    "code_postal": "73018",
-    "commune": "Chambéry Cedex",
+    "nom": "Préfecture - Nièvre",
+    "abreviation": "Préfecture - Nièvre",
+    "url": "http://www.nievre.gouv.fr",
+    "email": "courrier@nievre.pref.gouv.fr",
+    "telephone": "03 86 60 70 80",
+    "adresse1": "40, rue de la Préfecture",
+    "code_postal": "58026",
+    "commune": "Nevers Cedex",
     "cedex": "Cedex",
-    "departement_id": "73"
+    "departement_id": "58"
   },
   {
-    "id": "pre-42218-01",
+    "id": "pre-91228-01",
     "type_id": "pre",
-    "nom": "Préfecture - Loire",
-    "abreviation": "Préfecture - Loire",
-    "url": "http://www.loire.gouv.fr",
-    "email": "pref-loire@loire.pref.gouv.fr",
-    "telephone": "04 77 48 48 48",
-    "adresse1": "2, rue Charles-de-Gaulle",
-    "code_postal": "42022",
-    "commune": "Saint-Etienne Cedex 1",
-    "departement_id": "42"
+    "nom": "Préfecture - Essonne",
+    "abreviation": "Préfecture - Essonne",
+    "url": "http://www.essonne.gouv.fr",
+    "email": "prefecture@essonne.gouv.fr",
+    "telephone": "01 69 91 91 91",
+    "adresse1": "Boulevard de France",
+    "code_postal": "91010",
+    "commune": "Évry",
+    "departement_id": "91"
+  },
+  {
+    "id": "pre-71270-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Saône-et-Loire",
+    "abreviation": "Préfecture - Saône-et-Loire",
+    "url": "http://www.saone-et-loire.gouv.fr",
+    "telephone": "03 85 21 81 00",
+    "adresse1": "196, rue de Strasbourg",
+    "code_postal": "71021",
+    "commune": "Mâcon Cedex 9",
+    "cedex": "Cedex 9",
+    "departement_id": "71"
+  },
+  {
+    "id": "pre-40192-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Landes",
+    "abreviation": "Préfecture - Landes",
+    "url": "http://www.landes.gouv.fr",
+    "telephone": "05 58 06 58 06",
+    "adresse1": "24-26, rue Victor-Hugo",
+    "code_postal": "40021",
+    "commune": "Mont-de-Marsan Cedex",
+    "departement_id": "40"
+  },
+  {
+    "id": "pre-63113-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Puy-de-Dôme",
+    "abreviation": "Préfecture - Puy-de-Dôme",
+    "url": "http://www.puy-de-dome.gouv.fr",
+    "telephone": "04 73 98 63 63",
+    "adresse1": "1, rue d'Assas",
+    "code_postal": "63033",
+    "commune": "Clermont-Ferrand Cedex 1",
+    "cedex": "Cedex 1",
+    "departement_id": "63"
+  },
+  {
+    "id": "pre-77288-01",
+    "type_id": "pre",
+    "nom": "Préfecture de Seine-et-Marne",
+    "abreviation": "Préfecture - Seine-et-Marne",
+    "url": "http://www.seine-et-marne.gouv.fr",
+    "telephone": "01 64 71 77 77",
+    "adresse1": "12, rue des Saints-Pères",
+    "code_postal": "77010",
+    "commune": "Melun Cedex",
+    "cedex": "Cedex",
+    "departement_id": "77"
   },
   {
     "id": "pre-46042-01",
@@ -1223,34 +1118,6 @@
     "code_postal": "78000",
     "commune": "Versailles",
     "departement_id": "78"
-  },
-  {
-    "id": "pre-85191-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Vendée",
-    "abreviation": "Préfecture - Vendée",
-    "url": "http://www.vendee.gouv.fr",
-    "email": "prefecture@vendee.gouv.fr",
-    "telephone": "02 51 36 70 85",
-    "adresse1": "29, rue Delille",
-    "code_postal": "85922",
-    "commune": "La Roche-sur-Yon Cedex 9",
-    "cedex": "Cedex 9",
-    "departement_id": "85"
-  },
-  {
-    "id": "pre-54395-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Meurthe-et-Moselle",
-    "abreviation": "Préfecture - Meurthe-et-Moselle",
-    "url": "http://www.meurthe-et-moselle.gouv.fr",
-    "email": "pref-informations@meurthe-et-moselle.gouv.fr",
-    "telephone": "03 83 34 26 26",
-    "adresse1": "6, rue Sainte-Catherine",
-    "adresse2": "CS 60031, 1, rue du Préfet-Claude-Érignac",
-    "code_postal": "54000",
-    "commune": "Nancy",
-    "departement_id": "54"
   },
   {
     "id": "pre-86194-01",
@@ -1308,20 +1175,6 @@
     "departement_id": "65"
   },
   {
-    "id": "dre-ile-de-france-01",
-    "type_id": "dre",
-    "nom": "Direction régionale et interdépartementale de l'environnement et de l'énergie (DRIEE) - Île-de-France",
-    "abreviation": "DRIEE - Île-de-France",
-    "url": "http://www.driee.ile-de-france.developpement-durable.gouv.fr",
-    "email": "driee-if@developpement-durable.gouv.fr",
-    "telephone": "+33 (0)1 87 36 45 00",
-    "adresse1": "12 cours Louis Lumière, CS 70027",
-    "code_postal": "94307",
-    "commune": "Vincennes",
-    "cedex": "cedex",
-    "region_id": "11"
-  },
-  {
     "id": "pre-45234-01",
     "type_id": "pre",
     "nom": "Préfecture - Loiret",
@@ -1347,6 +1200,59 @@
     "departement_id": "55"
   },
   {
+    "id": "pre-42218-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Loire",
+    "abreviation": "Préfecture - Loire",
+    "url": "http://www.loire.gouv.fr",
+    "email": "pref-loire@loire.pref.gouv.fr",
+    "telephone": "04 77 48 48 48",
+    "adresse1": "2, rue Charles-de-Gaulle",
+    "code_postal": "42022",
+    "commune": "Saint-Etienne Cedex 1",
+    "departement_id": "42"
+  },
+  {
+    "id": "pre-85191-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Vendée",
+    "abreviation": "Préfecture - Vendée",
+    "url": "http://www.vendee.gouv.fr",
+    "email": "prefecture@vendee.gouv.fr",
+    "telephone": "02 51 36 70 85",
+    "adresse1": "29, rue Delille",
+    "code_postal": "85922",
+    "commune": "La Roche-sur-Yon Cedex 9",
+    "cedex": "Cedex 9",
+    "departement_id": "85"
+  },
+  {
+    "id": "pre-44109-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Loire-Atlantique",
+    "abreviation": "Préfecture - Loire-Atlantique",
+    "url": "http://www.loire-atlantique.gouv.fr",
+    "telephone": "02 40 41 20 20",
+    "adresse1": "6, quai Ceineray, BP 33515",
+    "code_postal": "44035",
+    "commune": "Nantes Cedex 1",
+    "departement_id": "44"
+  },
+  {
+    "id": "pre-64445-01",
+    "type_id": "pre",
+    "nom": "Préfecture des Pyrénées-Atlantiques",
+    "abreviation": "Préfecture - Pyrénées-Atlantiques",
+    "url": "http://www.pyrenees-atlantiques.gouv.fr",
+    "email": "prefecture@pyrenees-atlantiques.gouv.fr",
+    "telephone": "05 59 98 24 24",
+    "adresse1": "2, rue du Maréchal-Joffre",
+    "code_postal": "64021",
+    "commune": "Pau Cedex",
+    "cedex": "Cedex",
+    "departement_id": "64"
+  },
+  {
     "id": "min-mtes-dgpr-01",
     "type_id": "min",
     "nom": "Ministère de l'Economie, des Finances et de la Relance & Ministère de la Transition écologique",
@@ -1359,6 +1265,20 @@
     "code_postal": "92800",
     "commune": "Puteaux",
     "cedex": "Cedex"
+  },
+  {
+    "id": "pre-43157-01",
+    "type_id": "pre",
+    "nom": "Préfecture de Haute-Loire",
+    "abreviation": "Préfecture - Haute-Loire",
+    "url": "http://www.haute-loire.gouv.fr",
+    "email": "prefecture@haute-loire.gouv.fr",
+    "telephone": "04 71 09 43 43",
+    "adresse1": "6, avenue du Général-de-Gaulle, CS 40321",
+    "code_postal": "43009",
+    "commune": "Le Puy-en-Velay Cedex",
+    "cedex": "Cedex",
+    "departement_id": "43"
   },
   {
     "id": "dre-grand-est-01",
@@ -1386,31 +1306,18 @@
     "departement_id": "57"
   },
   {
-    "id": "pre-64445-01",
+    "id": "pre-84007-01",
     "type_id": "pre",
-    "nom": "Préfecture des Pyrénées-Atlantiques",
-    "abreviation": "Préfecture - Pyrénées-Atlantiques",
-    "url": "http://www.pyrenees-atlantiques.gouv.fr",
-    "email": "prefecture@pyrenees-atlantiques.gouv.fr",
-    "telephone": "05 59 98 24 24",
-    "adresse1": "2, rue du Maréchal-Joffre",
-    "code_postal": "64021",
-    "commune": "Pau Cedex",
-    "cedex": "Cedex",
-    "departement_id": "64"
-  },
-  {
-    "id": "pre-97302-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Guyane",
-    "abreviation": "Préfecture - Guyane",
-    "url": "http://www.guyane.pref.gouv.fr",
-    "email": "courrier@guyane.pref.gouv.fr",
-    "telephone": "+594 594 39 45 00",
-    "adresse1": "BP 7008, Rue Fiedmond",
-    "code_postal": "97307",
-    "commune": "Cayenne Cedex",
-    "departement_id": "973"
+    "nom": "Préfecture - Vaucluse",
+    "abreviation": "Préfecture - Vaucluse",
+    "url": "http://www.vaucluse.gouv.fr",
+    "email": "pref-contact@vaucluse.gouv.fr",
+    "telephone": "04 88 17 84 84",
+    "adresse1": "2, avenue de la Folie",
+    "adresse2": "Services de l'Etat en Vaucluse Préfecture",
+    "code_postal": "84000",
+    "commune": "Avignon",
+    "departement_id": "84"
   },
   {
     "id": "dre-aura-01",
@@ -1428,6 +1335,33 @@
     "region_id": "84"
   },
   {
+    "id": "pre-97302-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Guyane",
+    "abreviation": "Préfecture - Guyane",
+    "url": "http://www.guyane.pref.gouv.fr",
+    "email": "courrier@guyane.pref.gouv.fr",
+    "telephone": "+594 594 39 45 00",
+    "adresse1": "BP 7008, Rue Fiedmond",
+    "code_postal": "97307",
+    "commune": "Cayenne Cedex",
+    "departement_id": "973"
+  },
+  {
+    "id": "dre-ile-de-france-01",
+    "type_id": "dre",
+    "nom": "Direction régionale et interdépartementale de l'environnement et de l'énergie (DRIEE) - Île-de-France",
+    "abreviation": "DRIEE - Île-de-France",
+    "url": "http://www.driee.ile-de-france.developpement-durable.gouv.fr",
+    "email": "driee-if@developpement-durable.gouv.fr",
+    "telephone": "+33 (0)1 87 36 45 00",
+    "adresse1": "12 cours Louis Lumière, CS 70027",
+    "code_postal": "94307",
+    "commune": "Vincennes",
+    "cedex": "cedex",
+    "region_id": "11"
+  },
+  {
     "id": "dre-pays-de-la-loire-01",
     "type_id": "dre",
     "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Pays de la Loire",
@@ -1442,44 +1376,32 @@
     "region_id": "52"
   },
   {
-    "id": "pre-84007-01",
+    "id": "pre-73065-01",
     "type_id": "pre",
-    "nom": "Préfecture - Vaucluse",
-    "abreviation": "Préfecture - Vaucluse",
-    "url": "http://www.vaucluse.gouv.fr",
-    "email": "pref-contact@vaucluse.gouv.fr",
-    "telephone": "04 88 17 84 84",
-    "adresse1": "2, avenue de la Folie",
-    "adresse2": "Services de l'Etat en Vaucluse Préfecture",
-    "code_postal": "84000",
-    "commune": "Avignon",
-    "departement_id": "84"
+    "nom": "Préfecture - Savoie",
+    "abreviation": "Préfecture - Savoie",
+    "url": "http://www.savoie.gouv.fr",
+    "email": "prefecture@savoie.gouv.fr",
+    "telephone": "04 79 75 50 50",
+    "adresse1": "Château des Ducs de Savoie, BP 1801",
+    "code_postal": "73018",
+    "commune": "Chambéry Cedex",
+    "cedex": "Cedex",
+    "departement_id": "73"
   },
   {
-    "id": "pre-51108-01",
+    "id": "pre-54395-01",
     "type_id": "pre",
-    "nom": "Préfecture - Marne",
-    "abreviation": "Préfecture - Marne",
-    "url": "http://www.marne.gouv.fr",
-    "email": "contact@marne.gouv.fr",
-    "telephone": "03 26 26 10 10",
-    "adresse1": "38, rue Carnot",
-    "code_postal": "51036",
-    "commune": "Châlons-en-Champagne Cedex",
-    "departement_id": "51"
-  },
-  {
-    "id": "pre-33063-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Gironde",
-    "abreviation": "Préfecture - Gironde",
-    "url": "http://www.gironde.gouv.fr",
-    "telephone": "05 56 90 60 60",
-    "adresse1": "Rue Claude-Bonnier",
-    "adresse2": "2, esplanade Charles-de-Gaulle, CS 41397",
-    "code_postal": "33000",
-    "commune": "Bordeaux",
-    "departement_id": "33"
+    "nom": "Préfecture - Meurthe-et-Moselle",
+    "abreviation": "Préfecture - Meurthe-et-Moselle",
+    "url": "http://www.meurthe-et-moselle.gouv.fr",
+    "email": "pref-informations@meurthe-et-moselle.gouv.fr",
+    "telephone": "03 83 34 26 26",
+    "adresse1": "6, rue Sainte-Catherine",
+    "adresse2": "CS 60031, 1, rue du Préfet-Claude-Érignac",
+    "code_postal": "54000",
+    "commune": "Nancy",
+    "departement_id": "54"
   },
   {
     "id": "pre-62041-01",
@@ -1508,18 +1430,17 @@
     "departement_id": "26"
   },
   {
-    "id": "pre-68066-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Haut-Rhin",
-    "abreviation": "Préfecture - Haut-Rhin",
-    "url": "http://www.haut-rhin.gouv.fr",
-    "email": "pref-courrier@haut-rhin.gouv.fr",
-    "telephone": "03 89 29 20 00",
-    "adresse1": "11, avenue de la République",
-    "adresse2": "7, rue Bruat, BP 10489",
-    "code_postal": "68000",
-    "commune": "Colmar",
-    "departement_id": "68"
+    "id": "dre-occitanie-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Occitanie - Siège de Toulouse",
+    "abreviation": "DREAL - Occitanie - Siège de Toulouse",
+    "url": "http://www.occitanie.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)5 61 58 50 00",
+    "adresse1": "1 rue de la Cité-Administrative\nBâtiment G\nCS 80002\n31074 Toulouse",
+    "code_postal": "31074",
+    "commune": "Toulouse",
+    "cedex": "Cedex",
+    "region_id": "76"
   },
   {
     "id": "pre-30189-01",
@@ -1534,6 +1455,88 @@
     "code_postal": "30000",
     "commune": "Nîmes",
     "departement_id": "30"
+  },
+  {
+    "id": "pre-07186-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Ardèche",
+    "abreviation": "Préfecture - Ardèche",
+    "url": "http://www.ardeche.gouv.fr",
+    "email": "pref-courrier@ardeche.gouv.fr",
+    "telephone": "04 75 66 50 00",
+    "adresse1": "4, boulevard de Vernon",
+    "code_postal": "07000",
+    "commune": "Privas",
+    "departement_id": "07"
+  },
+  {
+    "id": "pre-68066-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Haut-Rhin",
+    "abreviation": "Préfecture - Haut-Rhin",
+    "url": "http://www.haut-rhin.gouv.fr",
+    "email": "pref-courrier@haut-rhin.gouv.fr",
+    "telephone": "03 89 29 20 00",
+    "adresse1": "11, avenue de la République",
+    "adresse2": "7, rue Bruat, BP 10489",
+    "code_postal": "68000",
+    "commune": "Colmar",
+    "departement_id": "68"
+  },
+  {
+    "id": "min-dajb-01",
+    "type_id": "min",
+    "nom": "Ministère de l'Economie, des Finances et de la Relance",
+    "abreviation": "DAJ - Ministère de l'Economie, des Finances et de la Relance",
+    "service": "Bureau 4C. Droit de l'industrie, de l'énergie et des réseaux de communication",
+    "url": "http://www.economie.gouv.fr",
+    "telephone": "01 44 97 03 32",
+    "adresse1": "6 rue Louise-Weiss",
+    "adresse2": "Télédoc 342",
+    "code_postal": "75703",
+    "commune": "Paris",
+    "cedex": "Cedex 13"
+  },
+  {
+    "id": "pre-72181-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Sarthe",
+    "abreviation": "Préfecture - Sarthe",
+    "url": "http://www.sarthe.gouv.fr",
+    "email": "pref-mail@sarthe.gouv.fr",
+    "telephone": "02 43 39 72 72",
+    "adresse1": "Place Aristide-Briand",
+    "code_postal": "72041",
+    "commune": "Le Mans Cedex 9",
+    "cedex": "Cedex 9",
+    "departement_id": "72"
+  },
+  {
+    "id": "pre-33063-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Gironde",
+    "abreviation": "Préfecture - Gironde",
+    "url": "http://www.gironde.gouv.fr",
+    "telephone": "05 56 90 60 60",
+    "adresse1": "Rue Claude-Bonnier",
+    "adresse2": "2, esplanade Charles-de-Gaulle, CS 41397",
+    "code_postal": "33000",
+    "commune": "Bordeaux",
+    "departement_id": "33"
+  },
+  {
+    "id": "pre-03190-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Allier",
+    "abreviation": "Préfecture - Allier",
+    "url": "http://www.allier.gouv.fr",
+    "email": "prefecture@allier.gouv.fr",
+    "telephone": "04 70 48 30 00",
+    "adresse1": "2, rue Michel-de-L'Hospital, CS 31649",
+    "code_postal": "03016",
+    "commune": "Moulins Cedex",
+    "cedex": "Cedex",
+    "departement_id": "03"
   },
   {
     "id": "aut-mrae-guyane-01",
@@ -1564,20 +1567,6 @@
     "region_id": "03"
   },
   {
-    "id": "pre-24322-01",
-    "type_id": "pre",
-    "nom": "Préfecture de Dordogne",
-    "abreviation": "Préfecture - Dordogne",
-    "url": "http://www.dordogne.gouv.fr",
-    "email": "prefecture@dordogne.gouv.fr",
-    "telephone": "05 53 02 24 24",
-    "adresse1": "2, rue Paul-Louis-Courier",
-    "adresse2": "Services de l'État - Préfecture de la Dordogne, Cité adminsitrative",
-    "code_postal": "24000",
-    "commune": "Périgueux",
-    "departement_id": "24"
-  },
-  {
     "id": "ope-onf-973-01",
     "type_id": "ope",
     "nom": "Office national des forêts",
@@ -1592,72 +1581,17 @@
     "commune": "Cayenne"
   },
   {
-    "id": "min-dajb-01",
-    "type_id": "min",
-    "nom": "Ministère de l'Economie, des Finances et de la Relance",
-    "abreviation": "DAJ - Ministère de l'Economie, des Finances et de la Relance",
-    "service": "Bureau 4C. Droit de l'industrie, de l'énergie et des réseaux de communication",
-    "url": "http://www.economie.gouv.fr",
-    "telephone": "01 44 97 03 32",
-    "adresse1": "6 rue Louise-Weiss",
-    "adresse2": "Télédoc 342",
-    "code_postal": "75703",
-    "commune": "Paris",
-    "cedex": "Cedex 13"
-  },
-  {
-    "id": "pre-07186-01",
+    "id": "pre-51108-01",
     "type_id": "pre",
-    "nom": "Préfecture - Ardèche",
-    "abreviation": "Préfecture - Ardèche",
-    "url": "http://www.ardeche.gouv.fr",
-    "email": "pref-courrier@ardeche.gouv.fr",
-    "telephone": "04 75 66 50 00",
-    "adresse1": "4, boulevard de Vernon",
-    "code_postal": "07000",
-    "commune": "Privas",
-    "departement_id": "07"
-  },
-  {
-    "id": "dre-occitanie-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Occitanie - Siège de Toulouse",
-    "abreviation": "DREAL - Occitanie - Siège de Toulouse",
-    "url": "http://www.occitanie.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)5 61 58 50 00",
-    "adresse1": "1 rue de la Cité-Administrative\nBâtiment G\nCS 80002\n31074 Toulouse",
-    "code_postal": "31074",
-    "commune": "Toulouse",
-    "cedex": "Cedex",
-    "region_id": "76"
-  },
-  {
-    "id": "pre-72181-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Sarthe",
-    "abreviation": "Préfecture - Sarthe",
-    "url": "http://www.sarthe.gouv.fr",
-    "email": "pref-mail@sarthe.gouv.fr",
-    "telephone": "02 43 39 72 72",
-    "adresse1": "Place Aristide-Briand",
-    "code_postal": "72041",
-    "commune": "Le Mans Cedex 9",
-    "cedex": "Cedex 9",
-    "departement_id": "72"
-  },
-  {
-    "id": "pre-03190-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Allier",
-    "abreviation": "Préfecture - Allier",
-    "url": "http://www.allier.gouv.fr",
-    "email": "prefecture@allier.gouv.fr",
-    "telephone": "04 70 48 30 00",
-    "adresse1": "2, rue Michel-de-L'Hospital, CS 31649",
-    "code_postal": "03016",
-    "commune": "Moulins Cedex",
-    "cedex": "Cedex",
-    "departement_id": "03"
+    "nom": "Préfecture - Marne",
+    "abreviation": "Préfecture - Marne",
+    "url": "http://www.marne.gouv.fr",
+    "email": "contact@marne.gouv.fr",
+    "telephone": "03 26 26 10 10",
+    "adresse1": "38, rue Carnot",
+    "code_postal": "51036",
+    "commune": "Châlons-en-Champagne Cedex",
+    "departement_id": "51"
   },
   {
     "id": "min-mtes-dgec-01",
@@ -1689,18 +1623,97 @@
     "departement_id": "12"
   },
   {
-    "id": "pre-43157-01",
+    "id": "pre-66136-01",
     "type_id": "pre",
-    "nom": "Préfecture de Haute-Loire",
-    "abreviation": "Préfecture - Haute-Loire",
-    "url": "http://www.haute-loire.gouv.fr",
-    "email": "prefecture@haute-loire.gouv.fr",
-    "telephone": "04 71 09 43 43",
-    "adresse1": "6, avenue du Général-de-Gaulle, CS 40321",
-    "code_postal": "43009",
-    "commune": "Le Puy-en-Velay Cedex",
+    "nom": "Préfecture - Pyrénées-Orientales",
+    "abreviation": "Préfecture - Pyrénées-Orientales",
+    "url": "http://www.pyrenees-orientales.gouv.fr",
+    "telephone": "04 68 51 66 66",
+    "adresse1": "24, quai Sadi-Carnot, BP 951",
+    "code_postal": "66951",
+    "commune": "Perpignan Cedex",
     "cedex": "Cedex",
-    "departement_id": "43"
+    "departement_id": "66"
+  },
+  {
+    "id": "dre-bfc-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Bourgogne-Franche-Comté - Siège de Besançon",
+    "abreviation": "DREAL - Bourgogne-Franche-Comté - Siège de Besançon",
+    "url": "http://www.bourgogne-franche-comte.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)3 81 21 67 00",
+    "adresse1": "Technopole microtechnique et scientifique\n17 E rue Alain-Savary\nBP 1269\n25005 Besançon",
+    "code_postal": "25005",
+    "commune": "Besançon",
+    "cedex": "Cedex",
+    "region_id": "27"
+  },
+  {
+    "id": "pre-10387-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Aube",
+    "abreviation": "Préfecture - Aube",
+    "url": "http://www.aube.gouv.fr",
+    "email": "prefecture@aube.gouv.fr",
+    "telephone": "03 25 42 35 00",
+    "adresse1": "CS 20372, 2, rue Pierre-Labonde",
+    "code_postal": "10025",
+    "commune": "Troyes Cedex",
+    "cedex": "Cedex",
+    "departement_id": "10"
+  },
+  {
+    "id": "pre-89024-01",
+    "type_id": "pre",
+    "nom": "Préfecture de l'Yonne",
+    "abreviation": "Préfecture - Yonne",
+    "url": "http://www.yonne.gouv.fr",
+    "email": "prefecture@yonne.gouv.fr",
+    "telephone": "03 86 72 79 89",
+    "adresse1": "Place de la Préfecture",
+    "code_postal": "89016",
+    "commune": "Auxerre Cedex",
+    "cedex": "Cedex",
+    "departement_id": "89"
+  },
+  {
+    "id": "dre-nouvelle-aquitaine-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers",
+    "abreviation": "DREAL - Nouvelle-Aquitaine - Siège de Poitiers",
+    "url": "http://www.nouvelle-aquitaine.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)5 49 55 63 63",
+    "adresse1": "15 rue Arthur-Ranc\nBP 60539\n86020 Poitiers",
+    "code_postal": "86020",
+    "commune": "Poitiers",
+    "cedex": "Cedex",
+    "region_id": "75"
+  },
+  {
+    "id": "pre-24322-01",
+    "type_id": "pre",
+    "nom": "Préfecture de Dordogne",
+    "abreviation": "Préfecture - Dordogne",
+    "url": "http://www.dordogne.gouv.fr",
+    "email": "prefecture@dordogne.gouv.fr",
+    "telephone": "05 53 02 24 24",
+    "adresse1": "2, rue Paul-Louis-Courier",
+    "adresse2": "Services de l'État - Préfecture de la Dordogne, Cité adminsitrative",
+    "code_postal": "24000",
+    "commune": "Périgueux",
+    "departement_id": "24"
+  },
+  {
+    "id": "pre-87085-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Haute-Vienne",
+    "abreviation": "Préfecture - Haute-Vienne",
+    "url": "http://www.haute-vienne.gouv.fr",
+    "telephone": "05 55 44 18 00",
+    "adresse1": "1, rue de la Préfecture, BP 87031",
+    "code_postal": "87031",
+    "commune": "Limoges Cedex 1",
+    "departement_id": "87"
   },
   {
     "id": "min-mtes-dgaln-01",
@@ -1716,18 +1729,5 @@
     "code_postal": "92055",
     "commune": "Paris-La-Défense",
     "cedex": "Cedex"
-  },
-  {
-    "id": "dre-nouvelle-aquitaine-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers",
-    "abreviation": "DREAL - Nouvelle-Aquitaine - Siège de Poitiers",
-    "url": "http://www.nouvelle-aquitaine.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)5 49 55 63 63",
-    "adresse1": "15 rue Arthur-Ranc\nBP 60539\n86020 Poitiers",
-    "code_postal": "86020",
-    "commune": "Poitiers",
-    "cedex": "Cedex",
-    "region_id": "75"
   }
 ]

@@ -27,10 +27,10 @@ class TitresTravauxEtapes extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+      modelClass: join(__dirname, 'travaux-etapes-types'),
       join: {
         from: 'titresTravauxEtapes.typeId',
-        to: 'etapesTypes.id'
+        to: 'travauxEtapesTypes.id'
       }
     },
 

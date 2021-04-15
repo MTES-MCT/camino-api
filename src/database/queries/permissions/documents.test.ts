@@ -1,12 +1,14 @@
-import TitresEtapes from '../../models/titres-etapes'
 import { knex } from '../../../knex'
-import { documentCreate, documentGet } from '../documents'
-import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
+import { dbManager } from '../../../../tests/init-db-manager'
+
 import { userSuper } from '../../user-super'
+import TitresEtapes from '../../models/titres-etapes'
+import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 import ActivitesTypesDocumentsTypes from '../../models/activites-types--documents-types'
 import TitresActivites from '../../models/titres-activites'
 import Document from '../../models/documents'
-import { dbManager } from '../../../../tests/init-db-manager'
+
+import { documentCreate, documentGet } from '../documents'
 import { etapeTypeDocumentTypeUsedCheck } from './documents'
 
 console.info = jest.fn()

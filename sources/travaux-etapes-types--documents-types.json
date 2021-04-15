@@ -1,0 +1,247 @@
+[
+  {
+    "travaux_etape_type_id": "awd",
+    "document_type_id": "apd",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "awu",
+    "document_type_id": "apu",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "dec",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "con",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "pla",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "cdc",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "dei",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "cnt",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "ord",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "arm",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "odr",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "cnr",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "dex",
+    "document_type_id": "ndd",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mdp",
+    "document_type_id": "acr",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mdp",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mdp",
+    "document_type_id": "lem",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mdp",
+    "document_type_id": "dom",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "dom",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "for",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "lem",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "doe",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "dos",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "noi",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "cnt",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "cam",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "pla",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "fac",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "fip",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "cod",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "jpa",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "fic",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "dep",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "mfr",
+    "document_type_id": "rec",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ppc",
+    "document_type_id": "rce",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ppc",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ppu",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ppu",
+    "document_type_id": "dos",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ppu",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "rpu",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "scl",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "scl",
+    "document_type_id": "lcm",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "scl",
+    "document_type_id": "lac",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ssr",
+    "document_type_id": "lcm",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ssr",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "travaux_etape_type_id": "ssr",
+    "document_type_id": "let",
+    "optionnel": true
+  }
+]

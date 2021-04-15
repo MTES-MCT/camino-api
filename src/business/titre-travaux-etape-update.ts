@@ -13,13 +13,7 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
 
     const titreTravaux = await titresTravauGet(
       titreTravauxId,
-      {
-        fields: {
-          etapes: { id: {} },
-          type: { etapesTypes: { id: {} } },
-          titre: { id: {} }
-        }
-      },
+      { fields: {} },
       userSuper
     )
 

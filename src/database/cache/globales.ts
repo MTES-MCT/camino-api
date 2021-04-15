@@ -9,6 +9,4 @@ const globalesInit = async () => {
   globales.chargement = globaleChargement ? globaleChargement.valeur : false
 }
 
-export default globales
-
-export { globalesInit }
+export { globales, globalesInit }

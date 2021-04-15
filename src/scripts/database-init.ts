@@ -1,8 +1,8 @@
 import '../init'
 
-import init from '../database/init'
+import { databaseInit } from '../database/init'
 
-init()
+databaseInit()
   .then(() => {
     process.exit()
   })

@@ -59,8 +59,6 @@ import {
   demarcheTypeModifier,
   demarchesStatuts,
   demarcheStatutModifier,
-  travauxTypes,
-  travauxTypeModifier,
   documentsTypes,
   documentsVisibilites,
   domaines,
@@ -132,15 +130,24 @@ import {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-  travauxTypesEtapesTypes,
-  travauxTypeEtapeTypeModifier,
-  travauxTypeEtapeTypeCreer,
-  travauxTypeEtapeTypeSupprimer,
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer
 } from './resolvers/metas-join'
+
+import {
+  travauxTypes,
+  travauxTypeModifier,
+  travauxEtapesTypes
+} from './resolvers/metas-travaux'
+
+import {
+  travauxTypesTravauxEtapesTypes,
+  travauxTypeTravauxEtapeTypeModifier,
+  travauxTypeTravauxEtapeTypeCreer,
+  travauxTypeTravauxEtapeTypeSupprimer
+} from './resolvers/metas-travaux-join'
 
 import {
   substance,
@@ -198,6 +205,7 @@ export default {
   demarchesTypes,
   demarchesStatuts,
   travauxTypes,
+  travauxEtapesTypes,
   devises,
   documents,
   documentsTypes,
@@ -242,7 +250,7 @@ export default {
   titresTypesDemarchesTypesEtapesTypes,
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
-  travauxTypesEtapesTypes,
+  travauxTypesTravauxEtapesTypes,
   activitesTypes,
   activitesStatuts,
   activitesTypesTitresTypes,
@@ -332,9 +340,9 @@ export default {
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer,
 
-  travauxTypeEtapeTypeModifier,
-  travauxTypeEtapeTypeCreer,
-  travauxTypeEtapeTypeSupprimer,
+  travauxTypeTravauxEtapeTypeModifier,
+  travauxTypeTravauxEtapeTypeCreer,
+  travauxTypeTravauxEtapeTypeSupprimer,
 
   activiteTypeModifier,
   activiteStatutModifier,

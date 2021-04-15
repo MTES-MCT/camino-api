@@ -147,4 +147,4 @@ const titresEtapesQueryModify = (
   return q
 }
 
-export { titresEtapesQueryModify, titreEtapeCreationDocumentsModify }
+export { titresEtapesQueryModify }

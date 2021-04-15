@@ -10,7 +10,6 @@ import {
   IPhaseStatut,
   IEtapeType,
   IEtapeStatut,
-  ITravauxType,
   IDevise,
   IUnite,
   IAdministrationType,
@@ -23,13 +22,14 @@ import {
   ITitreTypeDemarcheType,
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
-  ITravauxTypeEtapeType,
   IUtilisateur,
   IEtapeTypeDocumentType
 } from '../../types'
 
+import { raw } from 'objection'
+import { knex } from '../../knex'
+
 import DemarchesTypes from '../models/demarches-types'
-import TravauxTypes from '../models/travaux-types'
 import Devises from '../models/devises'
 import DocumentsTypes from '../models/documents-types'
 import DemarchesStatuts from '../models/demarches-statuts'
@@ -54,17 +54,15 @@ import {
   domainesQueryModify,
   etapesTypesQueryModify,
   demarchesTypesQueryModify,
-  permissionsQueryModify,
-  travauxTypesQueryModify,
-  travauxEtapesTypesQueryModify
+  permissionsQueryModify
 } from './permissions/metas'
+
 import PhasesStatuts from '../models/phases-statuts'
 import TitresTypes from '../models/titres-types'
 import TitresTypesTitresStatuts from '../models/titres-types--titres-statuts'
 import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarches-types-etapes-types'
 import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
-import TravauxTypesEtapesTypes from '../models/travaux-types--etapes-types'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
 
 const permissionsGet = async (
@@ -279,28 +277,6 @@ const etapeTypeDocumentTypeDelete = async (
   documentTypeId: string
 ) => EtapesTypesDocumentsTypes.query().deleteById([etapeTypeId, documentTypeId])
 
-const travauxTypesEtapesTypesGet = async () =>
-  TravauxTypesEtapesTypes.query().orderBy(['travauxTypeId', 'etapeTypeId'])
-
-const travauxTypeEtapeTypeUpdate = async (
-  travauxTypeId: string,
-  etapeTypeId: string,
-  props: Partial<ITravauxTypeEtapeType>
-) =>
-  TravauxTypesEtapesTypes.query().patchAndFetchById(
-    [travauxTypeId, etapeTypeId],
-    props
-  )
-
-const travauxTypeEtapeTypeCreate = async (
-  travauxTypeEtapeType: ITravauxTypeEtapeType
-) => TravauxTypesEtapesTypes.query().insertAndFetch(travauxTypeEtapeType)
-
-const travauxTypeEtapeTypeDelete = async (
-  travauxTypeId: string,
-  etapeTypeId: string
-) => TravauxTypesEtapesTypes.query().deleteById([travauxTypeId, etapeTypeId])
-
 /**
  * retourne les statuts de titre visible par l’utilisateur
  * @param user - utilisateur
@@ -324,28 +300,6 @@ const titresStatutsGet = async (user: IUtilisateur | null) => {
 
 const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
   TitresStatuts.query().patchAndFetchById(id, props)
-
-const travauxTypesGet = async (
-  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
-) => {
-  const graph = fields
-    ? graphBuild(fields, 'travauxTypes', fieldsFormat)
-    : options.demarchesTypes.graph
-
-  const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
-
-  travauxTypesQueryModify(q, user, {
-    titreId,
-    titreTravauxId
-  })
-
-  return q
-}
-
-const travauxTypeUpdate = async (id: string, props: Partial<ITravauxType>) =>
-  TravauxTypes.query().patchAndFetchById(id, props)
 
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
@@ -382,18 +336,12 @@ const phaseStatutUpdate = async (id: string, props: Partial<IPhaseStatut>) =>
 const etapesTypesGet = async (
   {
     titreDemarcheId,
-    titreEtapeId,
-    titreTravauxId,
-    titreTravauxEtapeId,
-    uniqueCheck
+    titreEtapeId
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
-    titreTravauxId?: string
-    titreTravauxEtapeId?: string
-    uniqueCheck?: boolean
-  } = { uniqueCheck: true },
-  { fields }: { fields?: IFields },
+  },
+  { fields, uniqueCheck = true }: { fields?: IFields; uniqueCheck?: boolean },
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -407,13 +355,6 @@ const etapesTypesGet = async (
       titreDemarcheId,
       titreEtapeId,
       uniqueCheck
-    })
-  }
-
-  if (titreTravauxId) {
-    travauxEtapesTypesQueryModify(q, user, {
-      titreTravauxId,
-      titreTravauxEtapeId
     })
   }
 
@@ -445,21 +386,36 @@ const documentsTypesGet = async ({
 }) => {
   const q = DocumentsTypes.query().orderBy('nom')
 
+  q.select('documentsTypes.*')
+
   if (repertoire) {
     q.where({ repertoire })
 
-    if (typeId) {
-      // restreint les types de documents à ceux liés aux activités
-      if (repertoire === 'activites') {
-        q.joinRelated('activitesTypes')
-        q.where('activitesTypes.id', typeId)
-      } else {
-        // restreint les types de documents à ceux liés aux étapes
-        q.joinRelated('etapesTypes')
-        q.where('etapesTypes.id', typeId)
-      }
+    if (typeId && repertoire === 'activites') {
+      q.join('activitesTypes__documentsTypes as at_dt', b => {
+        b.on(knex.raw('?? = ?', ['at_dt.activiteTypeId', typeId]))
+        b.on(knex.raw('?? = ??', ['at_dt.documentTypeId', 'documentsTypes.id']))
+      })
+
+      q.select(raw('?? is true', ['at_dt.optionnel']).as('optionnel'))
+    } else if (typeId && repertoire === 'demarches') {
+      q.join('etapesTypes__documentsTypes as et_dt', b => {
+        b.on(knex.raw('?? = ?', ['et_dt.etapeTypeId', typeId]))
+        b.on(knex.raw('?? = ??', ['et_dt.documentTypeId', 'documentsTypes.id']))
+      })
+
+      q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
+    } else if (typeId && repertoire === 'travaux') {
+      q.join('travauxEtapesTypes__documentsTypes as et_dt', b => {
+        b.on(knex.raw('?? = ?', ['et_dt.travauxEtapeTypeId', typeId]))
+        b.on(knex.raw('?? = ??', ['et_dt.documentTypeId', 'documentsTypes.id']))
+      })
+
+      q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
     }
   }
+
+  // aot apd apm apu rdt
 
   return q
 }
@@ -514,8 +470,6 @@ export {
   titreStatutUpdate,
   demarchesTypesGet,
   demarcheTypeUpdate,
-  travauxTypesGet,
-  travauxTypeUpdate,
   demarchesStatutsGet,
   demarcheStatutUpdate,
   etapesTypesGet,
@@ -568,9 +522,5 @@ export {
   etapesTypesDocumentsTypesGet,
   etapeTypeDocumentTypeUpdate,
   etapeTypeDocumentTypeCreate,
-  etapeTypeDocumentTypeDelete,
-  travauxTypesEtapesTypesGet,
-  travauxTypeEtapeTypeUpdate,
-  travauxTypeEtapeTypeCreate,
-  travauxTypeEtapeTypeDelete
+  etapeTypeDocumentTypeDelete
 }

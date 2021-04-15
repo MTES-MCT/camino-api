@@ -8,8 +8,12 @@
     "nom": "Ifremer"
   },
   {
-    "id": "brg",
-    "nom": "BRGM"
+    "id": "dge",
+    "nom": "DGEC"
+  },
+  {
+    "id": "rnt",
+    "nom": "RNTM"
   },
   {
     "id": "onf",
@@ -24,19 +28,15 @@
     "nom": "DEAL"
   },
   {
-    "id": "deb",
-    "nom": "DEB"
-  },
-  {
-    "id": "rnt",
-    "nom": "RNTM"
-  },
-  {
-    "id": "dge",
-    "nom": "DGEC"
-  },
-  {
     "id": "irs",
     "nom": "IRSN"
+  },
+  {
+    "id": "brg",
+    "nom": "BRGM"
+  },
+  {
+    "id": "deb",
+    "nom": "DEB"
   }
 ]

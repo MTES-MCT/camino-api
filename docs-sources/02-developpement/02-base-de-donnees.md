@@ -24,7 +24,7 @@ npm run db:import
 Il est possible de tracer l'ensemble des requêtes SQL traitées par le serveur
 PostgreSQL avec ces paramètres :
 
-```
+```bash
 log_destination = 'stderr'
 logging_collector = on
 # log_directory = '/var/log/postgresql/'
@@ -37,11 +37,11 @@ log_duration = on
 ```
 
 Selon la distribution utilisée, l'emplacement des fichiers est le suivant :
+
 - sur Debian, il faut créer un fichier `/etc/postgresql/11/main/conf.d/log.conf`
   (ou autre nom terminant par `.conf`) et les logs seront ensuite disponibles
   dans `/var/log/postgresql/postgresql.log`.
-- sur Arch ou certaines images Docker, il faut ajouter la ligne `include =
-  'custom.conf'` à la fin du fichier `/var/lib/postgres/data/postgresql.conf` et
+- sur Arch ou certaines images Docker, il faut ajouter la ligne `include = 'custom.conf'` à la fin du fichier `/var/lib/postgres/data/postgresql.conf` et
   créer un fichier `custom.conf` avec les paramètres. Les logs seront ensuite
   disponible dans `/var/lib/postgres/data/log/postgresql.log`.
 

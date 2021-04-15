@@ -17,7 +17,7 @@ const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
     {
       fields: {
         etapes: { id: {} },
-        type: { etapesTypes: { id: {} } },
+        type: { travauxEtapesTypes: { id: {} } },
         titre: { id: {} }
       }
     },

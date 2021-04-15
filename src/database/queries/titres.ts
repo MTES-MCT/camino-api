@@ -18,41 +18,17 @@ import { titresFieldsAdd } from './graph/fields-add'
 
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
-import { titresFiltersQueryBuild } from './_titres-filters'
+import { titresFiltersQueryModify } from './_titres-filters'
 
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
  *
- * @param filters - filtres à appliquer
  * @param fields - propriétés demandées sur le titre
  * @param user - utilisateur
  * @returns la requête
  *
  */
 const titresQueryBuild = (
-  {
-    perimetre,
-    ids,
-    domainesIds,
-    typesIds,
-    statutsIds,
-    substances,
-    noms,
-    entreprises,
-    references,
-    territoires
-  }: {
-    perimetre?: number[] | null
-    ids?: string[] | null
-    domainesIds?: string[] | null
-    typesIds?: string[] | null
-    statutsIds?: string[] | null
-    substances?: string | null
-    noms?: string | null
-    entreprises?: string | null
-    references?: string | null
-    territoires?: string | null
-  } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -63,25 +39,6 @@ const titresQueryBuild = (
   const q = Titres.query().withGraphFetched(graph)
 
   titresQueryModify(q, { fields }, user)
-
-  if (ids) {
-    q.whereIn('titres.id', ids)
-  }
-
-  titresFiltersQueryBuild(
-    {
-      perimetre,
-      domainesIds,
-      typesIds,
-      statutsIds,
-      noms,
-      entreprises,
-      substances,
-      references,
-      territoires
-    },
-    q
-  )
 
   return q
 }
@@ -100,7 +57,7 @@ const titreGet = async (
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
   user: IUtilisateur | null
 ) => {
-  const q = titresQueryBuild({}, { fields }, user)
+  const q = titresQueryBuild({ fields }, user)
 
   q.context({ fetchHeritage })
 
@@ -113,7 +70,7 @@ const titreFromIdGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresQueryBuild({}, { fields }, user)
+  const q = titresQueryBuild({ fields }, user)
 
   if (element === 'etape') {
     q.joinRelated('demarches.etapes')
@@ -205,21 +162,25 @@ const titresGet = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresQueryBuild(
+  const q = titresQueryBuild({ fields }, user)
+
+  if (ids) {
+    q.whereIn('titres.id', ids)
+  }
+
+  titresFiltersQueryModify(
     {
       perimetre,
-      ids,
       domainesIds,
       typesIds,
       statutsIds,
-      substances,
       noms,
       entreprises,
+      substances,
       references,
       territoires
     },
-    { fields },
-    user
+    q
   )
 
   if (colonne) {
@@ -300,19 +261,20 @@ const titresCount = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresQueryBuild(
+  const q = titresQueryBuild({ fields }, user)
+
+  titresFiltersQueryModify(
     {
       domainesIds,
       typesIds,
       statutsIds,
-      substances,
       noms,
       entreprises,
+      substances,
       references,
       territoires
     },
-    { fields },
-    user
+    q
   )
 
   const titres = ((await q) as unknown) as { total: number }[]

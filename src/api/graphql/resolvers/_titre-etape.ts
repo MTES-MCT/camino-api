@@ -10,8 +10,8 @@ import {
   ISection
 } from '../../../types'
 
-import geoConvert from '../../../tools/geo-convert'
-import geo from '../../../database/cache/geo-systemes'
+import { geoConvert } from '../../../tools/geo-convert'
+import { geoSystemes } from '../../../database/cache/geo-systemes'
 
 import {
   titreEtapeHeritagePropsFind,
@@ -48,7 +48,7 @@ const pointReferenceFind = (points: ITitrePoint[]) =>
 const uniteRatioFind = (pointReference: ITitrePointReference | 0) => {
   if (!pointReference || !pointReference.geoSystemeId) return 1
 
-  const geoSysteme = geo.systemes.find(
+  const geoSysteme = geoSystemes.find(
     ({ id }) => pointReference.geoSystemeId === id
   )
 

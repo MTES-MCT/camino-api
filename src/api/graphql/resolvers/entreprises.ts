@@ -84,7 +84,7 @@ const entreprises = async (
           { fields: fields.elements },
           user
         ),
-        entreprisesCount({ noms, archive }, { fields: { id: {} } }, user)
+        entreprisesCount({ noms, archive }, { fields: {} }, user)
       ])
     }
 

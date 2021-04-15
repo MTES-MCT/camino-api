@@ -1,4 +1,4 @@
-const { dbManagerConfig } = require('./config-db-manager')
+const { dbManagerConfig } = require('./db-manager-config')
 const chalk = require('chalk')
 const dbManager = require('knex-db-manager').databaseManagerFactory(
   dbManagerConfig

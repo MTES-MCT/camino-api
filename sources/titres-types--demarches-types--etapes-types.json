@@ -23869,5 +23869,53 @@
     "ordre": 223,
     "demarche_type_id": "oct",
     "etape_type_id": "edm"
+  },
+  {
+    "titre_type_id": "prr",
+    "ordre": 50,
+    "demarche_type_id": "prr",
+    "etape_type_id": "dex"
+  },
+  {
+    "titre_type_id": "prr",
+    "ordre": 100,
+    "demarche_type_id": "prr",
+    "etape_type_id": "dpu"
+  },
+  {
+    "titre_type_id": "pxr",
+    "ordre": 50,
+    "demarche_type_id": "prr",
+    "etape_type_id": "dex"
+  },
+  {
+    "titre_type_id": "pxr",
+    "ordre": 100,
+    "demarche_type_id": "prr",
+    "etape_type_id": "dpu"
+  },
+  {
+    "titre_type_id": "prr",
+    "ordre": 50,
+    "demarche_type_id": "exs",
+    "etape_type_id": "dex"
+  },
+  {
+    "titre_type_id": "prr",
+    "ordre": 100,
+    "demarche_type_id": "exs",
+    "etape_type_id": "dpu"
+  },
+  {
+    "titre_type_id": "prr",
+    "ordre": 50,
+    "demarche_type_id": "ret",
+    "etape_type_id": "dex"
+  },
+  {
+    "titre_type_id": "prr",
+    "ordre": 100,
+    "demarche_type_id": "ret",
+    "etape_type_id": "dpu"
   }
 ]

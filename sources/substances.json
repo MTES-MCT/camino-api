@@ -256,13 +256,13 @@
     "nom": "activités géothermiques de minime importance"
   },
   {
-    "id": "sels",
-    "nom": "sels"
-  },
-  {
     "id": "hafn",
     "nom": "hafnium",
     "symbole": "Hf"
+  },
+  {
+    "id": "scbi",
+    "nom": "schistes bitumineux"
   },
   {
     "id": "syen",
@@ -549,10 +549,6 @@
     "symbole": "Ir"
   },
   {
-    "id": "scbi",
-    "nom": "schistes bitumineux"
-  },
-  {
     "id": "neod",
     "nom": "néodyme",
     "symbole": "Nd"
@@ -709,11 +705,6 @@
     "nom": "alun"
   },
   {
-    "id": "ferx",
-    "nom": "fer",
-    "symbole": "Fe"
-  },
-  {
     "id": "nacl",
     "nom": "sels de sodium",
     "symbole": "Na"
@@ -728,10 +719,6 @@
     "nom": "butane"
   },
   {
-    "id": "hydc",
-    "nom": "hydrocarbures conventionnels liquides ou gazeux"
-  },
-  {
     "id": "pipe",
     "nom": "pierres précieuses"
   },
@@ -740,8 +727,9 @@
     "nom": "hydrocarbures"
   },
   {
-    "id": "rxxx",
-    "nom": "autres éléments radioactifs"
+    "id": "ferx",
+    "nom": "fer",
+    "symbole": "Fe"
   },
   {
     "id": "hyda",
@@ -801,6 +789,10 @@
     "symbole": "Ce"
   },
   {
+    "id": "bitu",
+    "nom": "bitume"
+  },
+  {
     "id": "scan",
     "nom": "scandium",
     "symbole": "Sc"
@@ -850,13 +842,13 @@
     "symbole": "Ti"
   },
   {
-    "id": "anti",
-    "nom": "antimoine",
-    "symbole": "Sb"
+    "id": "mang",
+    "nom": "manganèse",
+    "symbole": "Mn"
   },
   {
-    "id": "bitu",
-    "nom": "bitume"
+    "id": "selg",
+    "nom": "sel gemme"
   },
   {
     "id": "saco",
@@ -865,14 +857,17 @@
     "description": "Mélange sédimentaire meuble constituée d'éléments rocheux de nature variée sous forme sous forme de sables et graviers d'origine détritique, de nature siliceuse et calcaire extrait des fonds marins. Leur utilité est destinée au granulat."
   },
   {
+    "id": "selh",
+    "nom": "sources d'eau salée"
+  },
+  {
     "id": "fluo",
     "nom": "fluorine",
     "symbole": "F"
   },
   {
-    "id": "mang",
-    "nom": "manganèse",
-    "symbole": "Mn"
+    "id": "sels",
+    "nom": "sels"
   },
   {
     "id": "geoh",
@@ -882,10 +877,6 @@
     "id": "caci",
     "nom": "calcaires cimentiers",
     "gerep": 1105
-  },
-  {
-    "id": "hydx",
-    "nom": "hydrocarbures liquides ou gazeux"
   },
   {
     "id": "sasi",
@@ -900,16 +891,16 @@
     "description": "Mélange sédimentaire meuble constituée d'éléments rocheux de nature variée sous forme sous forme de sables et graviers d'origine détritique, de nature siliceuse et calcaire extrait des fonds marins. Leur utilité est destinée au granulat."
   },
   {
-    "id": "selh",
-    "nom": "sources d'eau salée"
+    "id": "hydc",
+    "nom": "hydrocarbures conventionnels liquides ou gazeux"
+  },
+  {
+    "id": "hydx",
+    "nom": "hydrocarbures liquides ou gazeux"
   },
   {
     "id": "meco",
     "nom": "métaux connexes"
-  },
-  {
-    "id": "selg",
-    "nom": "sel gemme"
   },
   {
     "id": "marn",
@@ -924,69 +915,12 @@
     "description": "Minéral - Sulfate de calcium hydraté (CaSO4,2H2O). Dans le domaine des liants hydrauliques, ce minéral est utilisé pour la fabrication du plâtre et comme régulateur de prise dans les ciments. Dans le domaine des minéraux industriel, sa pureté chimique et ses caractéristiques physiques comme la blancheur lui permettent d'être utilisé comme charge minérale. Dans le domaine de l'amendement, sa propriété chimique (base) est utilisée pour corriger les sols acides."
   },
   {
-    "id": "scor",
-    "nom": "substances connexes"
-  },
-  {
     "id": "plax",
     "nom": "métaux de la mine du platine"
   },
   {
-    "id": "wolf",
-    "nom": "tungstène",
-    "symbole": "W"
-  },
-  {
-    "id": "moly",
-    "nom": "molybdène",
-    "symbole": "Mo"
-  },
-  {
-    "id": "etai",
-    "nom": "étain",
-    "symbole": "Sn"
-  },
-  {
-    "id": "cfli",
-    "nom": "lignite"
-  },
-  {
-    "id": "auru",
-    "nom": "or",
-    "symbole": "Au"
-  },
-  {
-    "id": "cuiv",
-    "nom": "cuivre",
-    "symbole": "Cu"
-  },
-  {
-    "id": "plom",
-    "nom": "plomb",
-    "symbole": "Pb"
-  },
-  {
-    "id": "arge",
-    "nom": "argent",
-    "symbole": "Ag"
-  },
-  {
-    "id": "cfho",
-    "nom": "houille"
-  },
-  {
-    "id": "zinc",
-    "nom": "zinc",
-    "symbole": "Zn"
-  },
-  {
-    "id": "suco",
+    "id": "scor",
     "nom": "substances connexes"
-  },
-  {
-    "id": "uran",
-    "nom": "uranium",
-    "symbole": "U"
   },
   {
     "id": "lith",
@@ -1027,5 +961,71 @@
     "id": "plat",
     "nom": "platine",
     "symbole": "Pt"
+  },
+  {
+    "id": "wolf",
+    "nom": "tungstène",
+    "symbole": "W"
+  },
+  {
+    "id": "moly",
+    "nom": "molybdène",
+    "symbole": "Mo"
+  },
+  {
+    "id": "etai",
+    "nom": "étain",
+    "symbole": "Sn"
+  },
+  {
+    "id": "cfli",
+    "nom": "lignite"
+  },
+  {
+    "id": "cuiv",
+    "nom": "cuivre",
+    "symbole": "Cu"
+  },
+  {
+    "id": "plom",
+    "nom": "plomb",
+    "symbole": "Pb"
+  },
+  {
+    "id": "cfho",
+    "nom": "houille"
+  },
+  {
+    "id": "zinc",
+    "nom": "zinc",
+    "symbole": "Zn"
+  },
+  {
+    "id": "rxxx",
+    "nom": "autres éléments radioactifs"
+  },
+  {
+    "id": "uran",
+    "nom": "uranium",
+    "symbole": "U"
+  },
+  {
+    "id": "auru",
+    "nom": "or",
+    "symbole": "Au"
+  },
+  {
+    "id": "arge",
+    "nom": "argent",
+    "symbole": "Ag"
+  },
+  {
+    "id": "anti",
+    "nom": "antimoine",
+    "symbole": "Sb"
+  },
+  {
+    "id": "suco",
+    "nom": "substances connexes"
   }
 ]
