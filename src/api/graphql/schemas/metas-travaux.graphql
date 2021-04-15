@@ -1,0 +1,49 @@
+type TravauxType {
+  id: ID!
+  nom: String!
+  description: String
+  ordre: Int
+  travauxCreation: Boolean
+}
+
+type TravauxTypeDemarcheStatut {
+  travauxTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int!
+}
+
+"Type d'étape de travaux de titre minier"
+type TravauxEtapeType {
+  id: ID!
+  nom: String!
+  description: String
+  ordre: Int!
+  etapesStatuts: [EtapeStatut]
+  documentsTypes: [DocumentType]
+  etapesCreation: Boolean
+}
+
+type TravauxTypeTravauxEtapeType {
+  travauxTypeId: ID!
+  travauxEtapeTypeId: ID!
+  ordre: Int!
+}
+
+input InputTravauxType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+}
+
+input InputTravauxTypeDemarcheStatut {
+  travauxTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int
+}
+
+input InputTravauxTypeTravauxEtapeType {
+  travauxTypeId: ID!
+  travauxEtapeTypeId: ID!
+  ordre: Int
+}

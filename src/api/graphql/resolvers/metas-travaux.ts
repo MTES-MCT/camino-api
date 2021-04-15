@@ -15,7 +15,7 @@ import fieldsBuild from './_fields-build'
 import ordreUpdate from './_ordre-update'
 
 const travauxTypes = async (
-  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
+  _: never,
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -23,11 +23,7 @@ const travauxTypes = async (
     const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const travauxTypes = await travauxTypesGet(
-      { titreId, titreTravauxId },
-      { fields },
-      user
-    )
+    const travauxTypes = await travauxTypesGet({ fields }, user)
 
     return travauxTypes
   } catch (e) {
@@ -54,14 +50,14 @@ const travauxTypeModifier = async (
     const fields = fieldsBuild(info)
 
     if (travauxType.ordre) {
-      const travauxTypes = await travauxTypesGet({}, { fields }, user)
+      const travauxTypes = await travauxTypesGet({ fields }, user)
 
       await ordreUpdate(travauxType, travauxTypes, travauxTypeUpdate)
     }
 
     await travauxTypeUpdate(travauxType.id!, travauxType)
 
-    const travauxTypes = await travauxTypesGet({}, { fields }, user)
+    const travauxTypes = await travauxTypesGet({ fields }, user)
 
     return travauxTypes
   } catch (e) {

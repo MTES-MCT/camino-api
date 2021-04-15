@@ -19,7 +19,6 @@ import TravauxTypesTravauxEtapesTypes from '../models/travaux-types--travaux-eta
 import TravauxEtapesTypes from '../models/travaux-etapes-types'
 
 const travauxTypesGet = async (
-  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -29,10 +28,7 @@ const travauxTypesGet = async (
 
   const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  travauxTypesQueryModify(q, user, {
-    titreId,
-    titreTravauxId
-  })
+  travauxTypesQueryModify(q, user)
 
   return q
 }

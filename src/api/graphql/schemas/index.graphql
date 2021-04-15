@@ -5,6 +5,7 @@
 # import * from 'geojsons.graphql'
 # import * from 'metas-activites.graphql'
 # import * from 'metas.graphql'
+# import * from 'metas-travaux.graphql'
 # import * from 'points.graphql'
 # import * from 'statistiques.graphql'
 # import * from 'substances.graphql'
@@ -132,14 +133,10 @@ type Query {
   etapesStatuts: [EtapeStatut]
 
   "Types des travaux"
-  travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
+  travauxTypes: [TravauxType]
 
   "Types d'étapes de travaux"
-  travauxEtapesTypes(
-    titreTravauxId: ID
-    titreTravauxEtapeId: ID
-    date: String
-  ): [EtapeType]
+  travauxEtapesTypes(titreTravauxId: ID): [TravauxEtapeType]
 
   "Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
