@@ -139,14 +139,23 @@ import {
 import {
   travauxTypes,
   travauxTypeModifier,
-  travauxEtapesTypes
+  travauxEtapesTypes,
+  travauxEtapeTypeModifier
 } from './resolvers/metas-travaux'
 
 import {
   travauxTypesTravauxEtapesTypes,
   travauxTypeTravauxEtapeTypeModifier,
   travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer
+  travauxTypeTravauxEtapeTypeSupprimer,
+  travauxEtapesTypesDocumentsTypes,
+  travauxEtapeTypeDocumentTypeModifier,
+  travauxEtapeTypeDocumentTypeCreer,
+  travauxEtapeTypeDocumentTypeSupprimer,
+  travauxEtapesTypesEtapesStatuts,
+  travauxEtapeTypeEtapeStatutModifier,
+  travauxEtapeTypeEtapeStatutCreer,
+  travauxEtapeTypeEtapeStatutSupprimer
 } from './resolvers/metas-travaux-join'
 
 import {
@@ -251,6 +260,8 @@ export default {
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
   travauxTypesTravauxEtapesTypes,
+  travauxEtapesTypesDocumentsTypes,
+  travauxEtapesTypesEtapesStatuts,
   activitesTypes,
   activitesStatuts,
   activitesTypesTitresTypes,
@@ -310,6 +321,7 @@ export default {
   etapeTypeModifier,
   etapeStatutModifier,
   travauxTypeModifier,
+  travauxEtapeTypeModifier,
   deviseModifier,
   uniteModifier,
   administrationTypeModifier,
@@ -343,6 +355,14 @@ export default {
   travauxTypeTravauxEtapeTypeModifier,
   travauxTypeTravauxEtapeTypeCreer,
   travauxTypeTravauxEtapeTypeSupprimer,
+
+  travauxEtapeTypeDocumentTypeModifier,
+  travauxEtapeTypeDocumentTypeCreer,
+  travauxEtapeTypeDocumentTypeSupprimer,
+
+  travauxEtapeTypeEtapeStatutModifier,
+  travauxEtapeTypeEtapeStatutCreer,
+  travauxEtapeTypeEtapeStatutSupprimer,
 
   activiteTypeModifier,
   activiteStatutModifier,

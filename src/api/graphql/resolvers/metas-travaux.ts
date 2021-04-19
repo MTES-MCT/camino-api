@@ -1,11 +1,12 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, ITravauxType } from '../../../types'
+import { IToken, ITravauxEtapeType, ITravauxType } from '../../../types'
 import { debug } from '../../../config/index'
 
 import {
   travauxEtapesTypesGet,
   travauxTypesGet,
-  travauxTypeUpdate
+  travauxTypeUpdate,
+  travauxEtapeTypeUpdate
 } from '../../../database/queries/metas-travaux'
 
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -99,4 +100,51 @@ const travauxEtapesTypes = async (
   }
 }
 
-export { travauxTypes, travauxTypeModifier, travauxEtapesTypes }
+const travauxEtapeTypeModifier = async (
+  { travauxEtapeType }: { travauxEtapeType: ITravauxEtapeType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (travauxEtapeType.ordre) {
+      const travauxEtapesTypes = await travauxEtapesTypesGet(
+        {},
+        { fields },
+        user
+      )
+
+      await ordreUpdate(
+        travauxEtapeType,
+        travauxEtapesTypes,
+        travauxEtapeTypeUpdate
+      )
+    }
+
+    await travauxEtapeTypeUpdate(travauxEtapeType.id!, travauxEtapeType)
+
+    const travauxEtapesTypes = await travauxEtapesTypesGet({}, { fields }, user)
+
+    return travauxEtapesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export {
+  travauxTypes,
+  travauxTypeModifier,
+  travauxEtapesTypes,
+  travauxEtapeTypeModifier
+}

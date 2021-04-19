@@ -29,7 +29,26 @@ type TravauxTypeTravauxEtapeType {
   ordre: Int!
 }
 
+type TravauxEtapeTypeDocumentType {
+  travauxEtapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
+}
+
+type TravauxEtapeTypeEtapeStatut {
+  travauxEtapeTypeId: ID!
+  etapeStatutId: ID!
+  ordre: Int!
+}
+
 input InputTravauxType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+}
+
+input InputTravauxEtapeType {
   id: ID!
   nom: String
   description: String
@@ -45,5 +64,17 @@ input InputTravauxTypeDemarcheStatut {
 input InputTravauxTypeTravauxEtapeType {
   travauxTypeId: ID!
   travauxEtapeTypeId: ID!
+  ordre: Int
+}
+
+input InputTravauxEtapeTypeDocumentType {
+  travauxEtapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
+}
+
+input InputTravauxEtapeTypeEtapeStatut {
+  travauxEtapeTypeId: ID!
+  etapeStatutId: ID!
   ordre: Int
 }
