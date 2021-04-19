@@ -321,15 +321,10 @@ const etapeModifier = async (
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
-    const titreUpdatedId = await titreEtapeUpdateTask(
-      etapeUpdated.id,
-      etapeUpdated.titreDemarcheId
-    )
-
     // après le recalcule de l’héritage, on recharge toutes les étapes de la démarche pour pouvoir récuperer
     // tous les fichiers tjrs présents dans le contenu de chaque étape
     const demarche = await titreDemarcheGet(
-      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId,
       { fields: { etapes: { id: {} } } },
       userSuper
     )
@@ -339,6 +334,11 @@ const etapeModifier = async (
       sections,
       demarche.etapes,
       titreEtapeOld.contenu
+    )
+
+    const titreUpdatedId = await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId
     )
 
     const fields = fieldsBuild(info)

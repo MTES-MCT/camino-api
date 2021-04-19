@@ -1,4 +1,9 @@
-import { IDocumentRepertoire, IFormat } from '../../types'
+import {
+  IContenuElement,
+  IContenuValeur,
+  IDocumentRepertoire,
+  IFormat
+} from '../../types'
 
 import { documentGet } from '../../database/queries/documents'
 import { userGet } from '../../database/queries/utilisateurs'
@@ -59,6 +64,39 @@ const fichier = async (
   }
 }
 
+const etapeIdPathGet = (
+  etapeId: string,
+  fichierNom: string,
+  contenu: IContenuValeur,
+  heritageContenu: { actif: boolean; etapeId?: string | null }
+): null | string => {
+  if (Array.isArray(contenu)) {
+    const contenuArray = contenu as IContenuElement[]
+    for (let i = 0; i < contenuArray.length; i++) {
+      const contenuElement = contenuArray[i]
+      for (const contenuElementAttr of Object.keys(contenuElement)) {
+        const etapeIdFound = etapeIdPathGet(
+          etapeId,
+          fichierNom,
+          contenuElement[contenuElementAttr],
+          heritageContenu
+        )
+        if (etapeIdFound) {
+          return etapeIdFound
+        }
+      }
+    }
+  } else if (contenu === fichierNom) {
+    if (heritageContenu.actif) {
+      return heritageContenu.etapeId!
+    } else {
+      return etapeId
+    }
+  }
+
+  return null
+}
+
 const etapeFichier = async (
   { etapeId, fichierNom }: { etapeId?: string; fichierNom?: string },
   userId?: string
@@ -78,9 +116,26 @@ const etapeFichier = async (
     throw new Error('fichier inexistant')
   }
 
+  let etapeIdPath
+
+  // recherche dans quel élément de quelle section est stocké ce fichier, pour savoir si l’héritage est activé
+  for (const sectionId of Object.keys(etape!.contenu!)) {
+    for (const elementId of Object.keys(etape.contenu![sectionId])) {
+      etapeIdPath = etapeIdPathGet(
+        etape.id,
+        fichierNom,
+        etape.contenu![sectionId][elementId],
+        etape.heritageContenu![sectionId][elementId]
+      )
+    }
+  }
+
+  if (!etapeIdPath) {
+    throw new Error('fichier inexistant')
+  }
   const repertoire = 'demarches' as IDocumentRepertoire
 
-  const filePath = `${repertoire}/${etapeId}/${fichierNom}`
+  const filePath = `${repertoire}/${etapeIdPath}/${fichierNom}`
 
   return {
     nom: fichierNom.slice(5),

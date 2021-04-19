@@ -20,7 +20,10 @@ const heritageContenuFind = (
     titreEtape.contenu[sectionId] &&
     titreEtape.contenu[sectionId][elementId]) as IContenuValeur
 
-  let heritage = titreEtape.heritageContenu![sectionId][elementId]
+  let heritage =
+    titreEtape.heritageContenu && titreEtape.heritageContenu[sectionId]
+      ? titreEtape.heritageContenu[sectionId][elementId]
+      : null
   if (!heritage) {
     // l’héritage peut ne pas exister dans le cas où un nouvel élément d’une section a été ajouté via les métas
     heritage = {
@@ -116,7 +119,15 @@ const titreEtapeHeritageContenuFind = (
               delete contenu[section.id][element.id]
             }
 
-            heritageContenu![section.id][element.id] = { actif, etapeId }
+            if (!heritageContenu) {
+              heritageContenu = {}
+            }
+
+            if (!heritageContenu[section.id]) {
+              heritageContenu[section.id] = {}
+            }
+
+            heritageContenu[section.id][element.id] = { actif, etapeId }
             hasChanged = true
           }
         })

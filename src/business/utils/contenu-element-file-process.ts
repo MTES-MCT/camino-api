@@ -153,17 +153,19 @@ const contenuElementFilesCreate = async (
   repertoire: IDocumentRepertoire,
   parentId: string
 ) => {
-  const dirPath = `files/${repertoire}/${parentId}`
-  await dirCreate(join(process.cwd(), dirPath))
-  // on enregistre tous les nouveaux fichiers sur le disque
-  for (const file of newFiles) {
-    if (file) {
-      const { createReadStream } = file
+  if (newFiles.length) {
+    const dirPath = `files/${repertoire}/${parentId}`
+    await dirCreate(join(process.cwd(), dirPath))
+    // on enregistre tous les nouveaux fichiers sur le disque
+    for (const file of newFiles) {
+      if (file) {
+        const { createReadStream } = file
 
-      await fileStreamCreate(
-        createReadStream(),
-        join(process.cwd(), `${dirPath}/${file.filename}`)
-      )
+        await fileStreamCreate(
+          createReadStream(),
+          join(process.cwd(), `${dirPath}/${file.filename}`)
+        )
+      }
     }
   }
 }
@@ -205,5 +207,6 @@ const contenuElementFilesDelete = async (
 export {
   contenuElementFilesCreate,
   contenuElementFilesDelete,
-  sectionsContenuAndFilesGet
+  sectionsContenuAndFilesGet,
+  contenuFilesGet
 }
