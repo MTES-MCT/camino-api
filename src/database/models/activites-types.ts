@@ -14,6 +14,7 @@ class ActivitesTypes extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
+      description: { type: ['string', 'null'] },
       sections: { type: 'json' },
       frequenceId: { type: 'string', maxLength: 3 },
       dateDebut: { type: 'string' },
