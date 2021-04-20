@@ -2,22 +2,24 @@ import { IDocument } from '../../types'
 import { IndexFile } from './_types'
 
 import { documentsGet } from '../../database/queries/documents'
-import { exhaustiveCheck } from '../exhaustive-type-check'
 import { userSuper } from '../../database/user-super'
+import { documentRepertoireFind } from './document-repertoire-find'
 
 const documentPathGet = (document: IDocument) => {
-  let path = document.type!.repertoire as string
+  let path = documentRepertoireFind(document)
 
-  if (document.type!.repertoire === 'demarches') {
-    path = `${path}/${document.titreEtapeId}`
-  } else if (document.type!.repertoire === 'entreprises') {
-    path = `${path}/${document.entrepriseId}`
-  } else if (document.type!.repertoire === 'activites') {
-    path = `${path}/${document.titreActiviteId}`
-  } else if (document.type!.repertoire === 'travaux') {
-    path = `${path}/${document.titreTravauxEtapeId}`
-  } else {
-    exhaustiveCheck(document.type!.repertoire)
+  if (!path) {
+    console.error(`le repertoire est absent ${document}`)
+  }
+
+  if (path === 'demarches') {
+    path += `/${document.titreEtapeId}`
+  } else if (path === 'entreprises') {
+    path += `/${document.entrepriseId}`
+  } else if (path === 'activites') {
+    path += `/${document.titreActiviteId}`
+  } else if (path === 'travaux') {
+    path += `/${document.titreTravauxEtapeId}`
   }
 
   return `${path}/${document.id}.${document.fichierTypeId}`

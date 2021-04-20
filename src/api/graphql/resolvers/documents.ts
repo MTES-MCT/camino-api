@@ -1,11 +1,4 @@
-import {
-  IDocument,
-  IToken,
-  IDocumentRepertoire,
-  IDocumentType,
-  ITitreEtape,
-  IUtilisateur
-} from '../../../types'
+import { IDocument, IToken, ITitreEtape, IUtilisateur } from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
 import { join } from 'path'
@@ -38,17 +31,18 @@ import { documentUpdationValidate } from '../../../business/validations/document
 import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
 import { entrepriseGet } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
+import { documentRepertoireFind } from '../../../tools/documents/document-repertoire-find'
 
-const documentFileDirPathFind = (
-  document: IDocument,
-  repertoire: IDocumentRepertoire
-) =>
-  `files/${repertoire}/${
+const documentFileDirPathFind = (document: IDocument) => {
+  const repertoire = documentRepertoireFind(document)
+
+  return `files/${repertoire}/${
     document.titreEtapeId ||
     document.titreActiviteId ||
     document.entrepriseId ||
     document.titreTravauxEtapeId
   }`
+}
 
 const documentFilePathFind = (document: IDocument, dirPath: string) =>
   `${dirPath}/${document.id}.${document.fichierTypeId}`
@@ -63,10 +57,9 @@ const errorEtapesAssocieesUpdate = (
 
 const documentFileCreate = async (
   document: IDocument,
-  repertoire: IDocumentRepertoire,
   fileUpload: FileUpload
 ) => {
-  const dirPath = documentFileDirPathFind(document, repertoire)
+  const dirPath = documentFileDirPathFind(document)
 
   await dirCreate(dirPath)
 
@@ -97,24 +90,6 @@ const documents = async (
     }
 
     throw e
-  }
-}
-
-const documentRepertoireCheck = (
-  documentType: IDocumentType | undefined,
-  document: IDocument
-) => {
-  if (!documentType) {
-    throw new Error('type de document incorrect')
-  }
-
-  if (
-    (documentType.repertoire === 'activites' && !document.titreActiviteId) ||
-    (documentType.repertoire === 'demarches' && !document.titreEtapeId) ||
-    (documentType.repertoire === 'entreprises' && !document.entrepriseId) ||
-    (documentType.repertoire === 'travaux' && !document.titreTravauxEtapeId)
-  ) {
-    throw new Error("le répertoire et l'élément lié ne correspondent pas")
   }
 }
 
@@ -191,7 +166,9 @@ const documentCreer = async (
 
     const documentType = await documentTypeGet(document.typeId)
 
-    documentRepertoireCheck(documentType, document)
+    if (!documentType) {
+      throw new Error('type de document manquant')
+    }
 
     const errors = await documentInputValidate(document)
 
@@ -208,11 +185,7 @@ const documentCreer = async (
     if (document.fichierNouveau) {
       document.fichier = true
 
-      await documentFileCreate(
-        document,
-        documentType.repertoire,
-        document.fichierNouveau.file
-      )
+      await documentFileCreate(document, document.fichierNouveau.file)
     }
 
     if (document.publicLecture) {
@@ -251,8 +224,6 @@ const documentModifier = async (
       )
     }
 
-    const documentType = await documentTypeGet(documentOld.typeId)
-
     const errors = await documentInputValidate(document)
     const rulesErrors = await documentUpdationValidate(document)
 
@@ -285,10 +256,7 @@ const documentModifier = async (
       await documentIdUpdate(documentOld.id, documentUpdated)
 
       if (!documentFichierNouveau && document.fichier && documentOld.fichier) {
-        const dirPath = documentFileDirPathFind(
-          documentUpdated,
-          documentType.repertoire
-        )
+        const dirPath = documentFileDirPathFind(documentUpdated)
 
         const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
         const documentFilePath = documentFilePathFind(documentUpdated, dirPath)
@@ -302,10 +270,7 @@ const documentModifier = async (
       (documentFichierNouveau || !documentUpdated.fichier) &&
       documentOld.fichier
     ) {
-      const dirPath = documentFileDirPathFind(
-        documentOld,
-        documentType.repertoire
-      )
+      const dirPath = documentFileDirPathFind(documentOld)
       const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
 
       try {
@@ -319,11 +284,7 @@ const documentModifier = async (
 
     // enregistre le nouveau fichier
     if (documentFichierNouveau) {
-      await documentFileCreate(
-        documentUpdated,
-        documentType.repertoire,
-        documentFichierNouveau.file
-      )
+      await documentFileCreate(documentUpdated, documentFichierNouveau.file)
     }
 
     return documentUpdated
@@ -373,10 +334,7 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     await documentPermissionsCheck(documentOld, user)
 
     if (documentOld.fichier) {
-      const dirPath = documentFileDirPathFind(
-        documentOld,
-        documentOld.type!.repertoire
-      )
+      const dirPath = documentFileDirPathFind(documentOld)
       const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
 
       try {

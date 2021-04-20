@@ -228,7 +228,6 @@ type GeoSysteme {
 type DocumentType {
   id: ID!
   nom: String!
-  repertoire: String!
   optionnel: Boolean
 }
 
