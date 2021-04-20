@@ -20,7 +20,7 @@ const elementHtmlBuild = (
   ((contenu[sectionId][element.id] as IContenuValeur) ||
     (contenu[sectionId][element.id] as IContenuValeur) === 0 ||
     (contenu[sectionId][element.id] as IContenuValeur) === false)
-    ? `<li>${element.nom ? element.nom + ' : ' : ''}${
+    ? `<li><strong>${element.nom ? element.nom + ' : ' : ''}</strong>${
         element.type === 'checkboxes'
           ? (contenu[sectionId][element.id] as string[])
               .reduce((valeurs: string[], id) => {
@@ -34,7 +34,7 @@ const elementHtmlBuild = (
               }, [])
               .join(', ')
           : contenu[sectionId][element.id]
-      } ${element.description}</li>`
+      } <br><small>${element.description}</small></li>`
     : `<li>–</li>`
 
 const elementsHtmlBuild = (

@@ -11,8 +11,11 @@ const titreActiviteCompleteCheck = (
       e =>
         e.optionnel ||
         (titreActivite.contenu &&
-          titreActivite.contenu[s.id][e.id] !== undefined &&
-          titreActivite.contenu[s.id][e.id] !== null)
+          (e.type === 'checkboxes'
+            ? (titreActivite.contenu[s.id][e.id] as string[]).length
+            : titreActivite.contenu[s.id][e.id] !== undefined &&
+              titreActivite.contenu[s.id][e.id] !== null &&
+              titreActivite.contenu[s.id][e.id] !== ''))
     )
   )
 

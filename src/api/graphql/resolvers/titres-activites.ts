@@ -273,12 +273,13 @@ const activiteModifier = async (
 
     const fields = fieldsBuild(info)
 
-    if (oldTitreActivite.statutId !== 'dep' && depose) {
+    if (depose) {
       const complete = titreActiviteCompleteCheck(
         activite,
         oldTitreActivite.sections,
         oldTitreActivite.type!.documentsTypes
       )
+
       activite.statutId = depose && complete ? 'dep' : 'enc'
     }
 

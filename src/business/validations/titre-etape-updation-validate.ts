@@ -77,7 +77,8 @@ const titreEtapeUpdationValidate = async (
             if (
               !titreEtape.contenu ||
               titreEtape.contenu[s.id][e.id] === undefined ||
-              titreEtape.contenu[s.id][e.id] === null
+              titreEtape.contenu[s.id][e.id] === null ||
+              titreEtape.contenu[s.id][e.id] === ''
             ) {
               errors.push(
                 `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
