@@ -92,7 +92,8 @@ const titreActivitesCount = (
                   'a_at.administrationId',
                   'administrations.id'
                 ])
-              ).andOn(
+              )
+              b.andOn(
                 knex.raw('?? = ??', [
                   'a_at.activiteTypeId',
                   'activitesCount.typeId'

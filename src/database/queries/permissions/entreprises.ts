@@ -29,9 +29,8 @@ const entreprisesQueryModify = (
     const utilisateurEntreprise = Utilisateurs.query().leftJoin(
       'utilisateurs__entreprises as u_e',
       b => {
-        b.on(knex.raw('?? = ??', ['u_e.entrepriseId', 'entreprises.id'])).andOn(
-          knex.raw('?? = ?', ['u_e.utilisateurId', user.id])
-        )
+        b.on(knex.raw('?? = ??', ['u_e.entrepriseId', 'entreprises.id']))
+        b.andOn(knex.raw('?? = ?', ['u_e.utilisateurId', user.id]))
       }
     )
 

@@ -1,7 +1,6 @@
 import { dbManager } from '../../../../tests/init-db-manager'
 import { IAdministration, IUtilisateur } from '../../../types'
 import Administrations from '../../models/administrations'
-import Permissions from '../../models/permissions'
 import Utilisateurs from '../../models/utilisateurs'
 import { utilisateursGet } from '../utilisateurs'
 
@@ -26,7 +25,6 @@ const mockAdministration = {
 const mockUser = {
   id: 'utilisateurId',
   permissionId: 'editeur',
-  permission: { id: 'editeur', nom: 'Éditeur', ordre: 3 },
   nom: 'utilisateurNom',
   email: 'utilisateurEmail',
   motDePasse: 'utilisateurMotdepasse',
@@ -34,12 +32,6 @@ const mockUser = {
 } as IUtilisateur
 
 describe('utilisateursQueryModify', () => {
-  beforeEach(async () => {
-    await Utilisateurs.query().delete()
-    await Administrations.query().delete()
-    await Permissions.query().delete()
-  })
-
   test.each`
     permissionId    | voit
     ${'super'}      | ${true}
@@ -51,14 +43,17 @@ describe('utilisateursQueryModify', () => {
   `(
     "Vérifie l'écriture de la requête sur un utilisateur",
     async ({ permissionId, voit }) => {
+      await Utilisateurs.query().delete()
+      await Administrations.query().delete()
+
       await Utilisateurs.query().insertGraph(mockUser)
 
       const user = {
         id: 'userId',
         permissionId,
-        permission: { id: permissionId, nom: permissionId, ordre: 1 },
         administrations: [mockAdministration]
       } as IUtilisateur
+
       const utilisateurs = await utilisateursGet(
         { noms: mockUser.nom },
         {},

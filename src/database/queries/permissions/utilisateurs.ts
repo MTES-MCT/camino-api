@@ -73,10 +73,8 @@ const utilisateursQueryModify = (
     const administrationsIds = user.administrations.map(e => e.id)
 
     q.leftJoin('utilisateurs__administrations as u_a', b => {
-      b.on(knex.raw('?? = ??', ['u_a.utilisateur_id', 'utilisateurs.id'])).onIn(
-        'u_a.administration_id',
-        administrationsIds
-      )
+      b.on(knex.raw('?? = ??', ['u_a.utilisateur_id', 'utilisateurs.id']))
+      b.andOnIn('u_a.administration_id', administrationsIds)
     })
 
     const permissionModificationSuppression = (alias: string) =>

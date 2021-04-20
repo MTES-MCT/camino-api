@@ -84,8 +84,8 @@ const administrationsTitresTypesModify = (
 ) => {
   q.leftJoin('administrations__titresTypes as a_tt', b => {
     b.on(knex.raw('?? = ??', ['a_tt.administrationId', 'administrations.id']))
-      .andOn(knex.raw('?? = ??', ['a_tt.titreTypeId', `${titreAlias}.typeId`]))
-      .onIn('administrations.id', administrationsIds)
+    b.andOn(knex.raw('?? = ??', ['a_tt.titreTypeId', `${titreAlias}.typeId`]))
+    b.andOnIn('administrations.id', administrationsIds)
     if (isGestionnaire || isAssociee) {
       b.andOn(c => {
         if (isGestionnaire) {
@@ -111,7 +111,8 @@ const administrationsLocalesModify = (
         'administrations',
         't_al.titreEtapeId'
       ])
-    ).onIn('t_al.administrationId', administrationsIds)
+    )
+    b.onIn('t_al.administrationId', administrationsIds)
   })
 }
 
@@ -122,17 +123,17 @@ const administrationsActivitesModify = (
 ) => {
   q.leftJoin('administrations__activitesTypes as a_at', b => {
     b.on(knex.raw('?? = ??', ['a_at.administrationId', 'administrations.id']))
-      .andOn(
-        knex.raw('?? = ??', ['a_at.activiteTypeId', 'titresActivites.typeId'])
-      )
-      .andOn(c => {
-        if (lecture) {
-          c.orOn(knex.raw('?? is true', ['a_at.lectureInterdit']))
-        }
-        if (modification) {
-          c.orOn(knex.raw('?? is true', ['a_at.modificationInterdit']))
-        }
-      })
+    b.andOn(
+      knex.raw('?? = ??', ['a_at.activiteTypeId', 'titresActivites.typeId'])
+    )
+    b.andOn(c => {
+      if (lecture) {
+        c.orOn(knex.raw('?? is true', ['a_at.lectureInterdit']))
+      }
+      if (modification) {
+        c.orOn(knex.raw('?? is true', ['a_at.modificationInterdit']))
+      }
+    })
   })
   q.whereNull('a_at.administrationId')
 }
@@ -184,13 +185,13 @@ const administrationsTitresTypesTitresStatutsModify = (
     b.on(
       knex.raw('?? = ??', ['a_tt_ts.administrationId', 'administrations.id'])
     )
-      .andOn(
-        knex.raw('?? = ??', ['a_tt_ts.titreTypeId', `${titreAlias}.typeId`])
-      )
-      .andOn(
-        knex.raw('?? = ??', ['a_tt_ts.titreStatutId', `${titreAlias}.statutId`])
-      )
-      .andOn(knex.raw('?? is true', [`a_tt_ts.${type}ModificationInterdit`]))
+    b.andOn(
+      knex.raw('?? = ??', ['a_tt_ts.titreTypeId', `${titreAlias}.typeId`])
+    )
+    b.andOn(
+      knex.raw('?? = ??', ['a_tt_ts.titreStatutId', `${titreAlias}.statutId`])
+    )
+    b.andOn(knex.raw('?? is true', [`a_tt_ts.${type}ModificationInterdit`]))
   }).whereNull('a_tt_ts.administrationId')
 }
 
@@ -206,9 +207,9 @@ const administrationsTitresTypesEtapesTypesModify = (
     b.on(
       knex.raw('?? = ??', ['a_tt_et.administrationId', 'administrations.id'])
     )
-      .andOn(knex.raw('?? = ??', ['a_tt_et.titreTypeId', titreTypeIdColumn]))
-      .andOn(knex.raw('?? = ??', ['a_tt_et.etapeTypeId', etapeTypeIdColumn]))
-      .andOn(knex.raw('?? is true', [`a_tt_et.${type}Interdit`]))
+    b.andOn(knex.raw('?? = ??', ['a_tt_et.titreTypeId', titreTypeIdColumn]))
+    b.andOn(knex.raw('?? = ??', ['a_tt_et.etapeTypeId', etapeTypeIdColumn]))
+    b.andOn(knex.raw('?? is true', [`a_tt_et.${type}Interdit`]))
   }).whereNull('a_tt_et.administrationId')
 }
 
@@ -218,6 +219,5 @@ export {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery,
-  administrationsActivitesModify,
-  administrationsTitresTypesModify
+  administrationsActivitesModify
 }
