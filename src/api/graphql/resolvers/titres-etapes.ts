@@ -14,7 +14,7 @@ import {
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
 
-import { fichiersDelete } from './_titre-document'
+import { fichiersRepertoireDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
@@ -28,6 +28,12 @@ import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentsModifier } from './documents'
+import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
+import {
+  contenuElementFilesCreate,
+  contenuElementFilesDelete,
+  sectionsContenuAndFilesGet
+} from '../../../business/utils/contenu-element-file-process'
 
 const etape = async (
   { id }: { id: string },
@@ -178,11 +184,17 @@ const etapeCreer = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
+    const sections = etapeTypeSectionsFormat(
+      etapeType,
+      titreDemarche.type!.etapesTypes,
+      titreDemarche.titre!.typeId
+    )
+
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
-      etapeType,
+      sections,
       etapeType.documentsTypes!
     )
     if (rulesErrors.length) {
@@ -196,7 +208,15 @@ const etapeCreer = async (
     const documents = etape.documents || []
     delete etape.documents
 
+    const { contenu, newFiles } = sectionsContenuAndFilesGet(
+      etape.contenu,
+      sections
+    )
+    etape.contenu = contenu
+
     const etapeUpdated = await titreEtapeUpsert(etape)
+
+    await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
     await documentsModifier(
       context,
@@ -267,11 +287,17 @@ const etapeModifier = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
+    const sections = etapeTypeSectionsFormat(
+      etapeType,
+      titreDemarche.type!.etapesTypes,
+      titreDemarche.titre!.typeId
+    )
+
     const rulesErrors = await titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
-      etapeType,
+      sections,
       etapeType.documentsTypes!
     )
 
@@ -285,7 +311,30 @@ const etapeModifier = async (
 
     await documentsModifier(context, etape, 'titreEtapeId', titreEtapeOld)
 
+    const { contenu, newFiles } = sectionsContenuAndFilesGet(
+      etape.contenu,
+      sections
+    )
+    etape.contenu = contenu
+
     const etapeUpdated = await titreEtapeUpsert(etape)
+
+    await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
+
+    // après le recalcule de l’héritage, on recharge toutes les étapes de la démarche pour pouvoir récuperer
+    // tous les fichiers tjrs présents dans le contenu de chaque étape
+    const demarche = await titreDemarcheGet(
+      etapeUpdated.titreDemarcheId,
+      { fields: { etapes: { id: {} } } },
+      userSuper
+    )
+    await contenuElementFilesDelete(
+      'demarches',
+      etapeUpdated.id,
+      sections,
+      demarche.etapes,
+      titreEtapeOld.contenu
+    )
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -314,11 +363,7 @@ const etapeSupprimer = async (
     const fields = fieldsBuild(info)
     const user = await userGet(context.user?.id)
 
-    const titreEtape = await titreEtapeGet(
-      id,
-      { fields: { documents: { type: { id: {} } } } },
-      user
-    )
+    const titreEtape = await titreEtapeGet(id, { fields: { id: {} } }, user)
 
     if (!titreEtape) throw new Error("l'étape n'existe pas")
 
@@ -357,7 +402,7 @@ const etapeSupprimer = async (
 
     await titreEtapeDelete(id)
 
-    await fichiersDelete(titreEtape.documents)
+    await fichiersRepertoireDelete(id, 'demarches')
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       null,

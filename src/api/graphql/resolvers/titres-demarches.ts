@@ -251,7 +251,7 @@ const demarcheSupprimer = async (
 
     const demarcheOld = await titreDemarcheGet(
       id,
-      { fields: { etapes: { documents: { type: { id: {} } } } } },
+      { fields: { etapes: { id: {} } } },
       user
     )
 
@@ -261,7 +261,7 @@ const demarcheSupprimer = async (
 
     await titreDemarcheDelete(id)
 
-    await titreEtapesOrActivitesFichiersDelete(demarcheOld.etapes)
+    await titreEtapesOrActivitesFichiersDelete('demarches', demarcheOld.etapes)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       null,

@@ -102,7 +102,7 @@ const travauxSupprimer = async (
 
     const travauxOld = await titresTravauGet(
       id,
-      { fields: { etapes: { documents: { type: { id: {} } } } } },
+      { fields: { etapes: { id: {} } } },
       user
     )
 
@@ -110,7 +110,7 @@ const travauxSupprimer = async (
 
     await titreTravauxDelete(id)
 
-    await titreEtapesOrActivitesFichiersDelete(travauxOld.etapes)
+    await titreEtapesOrActivitesFichiersDelete('travaux', travauxOld.etapes)
 
     const titreUpdatedId = await titreTravauxUpdateTask(travauxOld.titreId)
 

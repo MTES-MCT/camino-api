@@ -3,13 +3,12 @@ import {
   ITitreDemarche,
   ITitre,
   IDocumentType,
-  IEtapeType
+  ISection
 } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
 import { titreEtapePointsValidate } from './titre-etape-points-validate'
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
-import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 import { heritageContenuValidate } from './utils/heritage-contenu-validate'
 import propsNumbersCheck from './utils/props-numbers-check'
 import contenuNumbersCheck from './utils/contenu-numbers-check'
@@ -27,16 +26,10 @@ const titreEtapeUpdationValidate = async (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
   titre: ITitre,
-  etapeType: IEtapeType,
+  sections: ISection[],
   documentsTypes: IDocumentType[]
 ) => {
   const errors = []
-
-  const sections = etapeTypeSectionsFormat(
-    etapeType,
-    titreDemarche.type!.etapesTypes,
-    titreDemarche.titre!.typeId
-  )
 
   // le champ heritageContenu est cohérent avec les sections
   const errorsHeritageContenu = heritageContenuValidate(

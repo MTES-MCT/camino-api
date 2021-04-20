@@ -16,7 +16,7 @@ import {
 
 import titreTravauxEtapeUpdateTask from '../../../business/titre-travaux-etape-update'
 
-import { fichiersDelete } from './_titre-document'
+import { fichiersRepertoireDelete } from './_titre-document'
 import { documentsModifier } from './documents'
 import { travauxEtapeTypeGet } from '../../../database/queries/metas-travaux'
 
@@ -158,7 +158,7 @@ const travauxEtapeSupprimer = async (
     const oldTitreTravauxEtape = await titreTravauxEtapeGet(
       id,
       {
-        fields: { documents: { type: { id: {} } } }
+        fields: { id: {} }
       },
       user
     )
@@ -171,7 +171,7 @@ const travauxEtapeSupprimer = async (
 
     await titreTravauxEtapeDelete(id)
 
-    await fichiersDelete(oldTitreTravauxEtape.documents)
+    await fichiersRepertoireDelete(oldTitreTravauxEtape.id, 'travaux')
 
     const titreUpdatedId = await titreTravauxEtapeUpdateTask(
       oldTitreTravauxEtape.titreTravauxId

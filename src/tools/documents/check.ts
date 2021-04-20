@@ -13,7 +13,7 @@ const documentsCheck = async () => {
   const filesIndex = filesIndexBuild()
 
   documentsFilesCheck(documentsIndex, filesIndex)
-  filesDocumentCheck(documentsIndex, filesIndex)
+  await filesDocumentCheck(documentsIndex, filesIndex)
   filesPathCheck(documentsIndex, filesIndex)
 }
 

@@ -59,7 +59,13 @@ interface IContenuId {
   elementId: string
 }
 
-type IContenuValeur = string | number | string[] | boolean | IContenuElement[]
+type IContenuValeur =
+  | string
+  | number
+  | string[]
+  | boolean
+  | IContenuElement[]
+  | { file: FileUpload }
 
 interface IContenuElement {
   [elementId: string]: IContenuValeur
@@ -108,6 +114,7 @@ type ISectionElementType =
   | 'select'
   | 'radio'
   | 'multiple'
+  | 'file'
 
 interface ISectionElement {
   id: string

@@ -1,7 +1,13 @@
-import { IFormat } from '../../types'
+import {
+  IContenuElement,
+  IContenuValeur,
+  IDocumentRepertoire,
+  IFormat
+} from '../../types'
 
 import { documentGet } from '../../database/queries/documents'
 import { userGet } from '../../database/queries/utilisateurs'
+import { titreEtapeGet } from '../../database/queries/titres-etapes'
 
 const fichier = async (
   { documentId }: { documentId?: string },
@@ -58,4 +64,84 @@ const fichier = async (
   }
 }
 
-export { fichier }
+const etapeIdPathGet = (
+  etapeId: string,
+  fichierNom: string,
+  contenu: IContenuValeur,
+  heritageContenu: { actif: boolean; etapeId?: string | null }
+): null | string => {
+  if (Array.isArray(contenu)) {
+    const contenuArray = contenu as IContenuElement[]
+    for (let i = 0; i < contenuArray.length; i++) {
+      const contenuElement = contenuArray[i]
+      for (const contenuElementAttr of Object.keys(contenuElement)) {
+        const etapeIdFound = etapeIdPathGet(
+          etapeId,
+          fichierNom,
+          contenuElement[contenuElementAttr],
+          heritageContenu
+        )
+        if (etapeIdFound) {
+          return etapeIdFound
+        }
+      }
+    }
+  } else if (contenu === fichierNom) {
+    if (heritageContenu.actif) {
+      return heritageContenu.etapeId!
+    } else {
+      return etapeId
+    }
+  }
+
+  return null
+}
+
+const etapeFichier = async (
+  { etapeId, fichierNom }: { etapeId?: string; fichierNom?: string },
+  userId?: string
+) => {
+  if (!etapeId) {
+    throw new Error('id de l’étape absent')
+  }
+  if (!fichierNom) {
+    throw new Error('nom du fichier absent')
+  }
+
+  const user = await userGet(userId)
+
+  const etape = await titreEtapeGet(etapeId, { fields: {} }, user)
+
+  if (!etape) {
+    throw new Error('fichier inexistant')
+  }
+
+  let etapeIdPath
+
+  // recherche dans quel élément de quelle section est stocké ce fichier, pour savoir si l’héritage est activé
+  for (const sectionId of Object.keys(etape!.contenu!)) {
+    for (const elementId of Object.keys(etape.contenu![sectionId])) {
+      etapeIdPath = etapeIdPathGet(
+        etape.id,
+        fichierNom,
+        etape.contenu![sectionId][elementId],
+        etape.heritageContenu![sectionId][elementId]
+      )
+    }
+  }
+
+  if (!etapeIdPath) {
+    throw new Error('fichier inexistant')
+  }
+  const repertoire = 'demarches' as IDocumentRepertoire
+
+  const filePath = `${repertoire}/${etapeIdPath}/${fichierNom}`
+
+  return {
+    nom: fichierNom.slice(5),
+    format: 'pdf' as IFormat,
+    filePath
+  }
+}
+
+export { fichier, etapeFichier }

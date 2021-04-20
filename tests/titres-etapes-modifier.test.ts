@@ -9,6 +9,19 @@ import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-p
 import Titres from '../src/database/models/titres'
 const each = require('jest-each').default
 
+jest.mock('../src/tools/dir-create', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
+jest.mock('../src/tools/file-stream-create', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
+jest.mock('../src/tools/file-delete', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
+
 console.info = jest.fn()
 console.error = jest.fn()
 

@@ -1,4 +1,4 @@
-import { IToken, ITitre, ITitreColonneId, IFields } from '../../../types'
+import { IToken, ITitre, ITitreColonneId } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
@@ -222,7 +222,7 @@ const titreSupprimer = async (
 ) => {
   const user = await userGet(context.user?.id)
 
-  const fields = titreFichiersDeleteFieldsAdd(fieldsBuild(info))
+  const fields = fieldsBuild(info)
 
   const titreOld = await titreGet(id, { fields }, user)
 
@@ -235,47 +235,6 @@ const titreSupprimer = async (
   await titreDelete(id)
 
   return titreOld
-}
-
-// ajoute les champs nécessaire pour supprimer les fichiers
-const titreFichiersDeleteFieldsAdd = (fields: IFields) => {
-  if (!fields.demarches) {
-    fields.demarches = {}
-  }
-  if (!fields.demarches.etapes) {
-    fields.demarches.etapes = {}
-  }
-  if (!fields.demarches.etapes.documents) {
-    fields.demarches.etapes.documents = {}
-  }
-  if (!fields.demarches.etapes.documents.type) {
-    fields.demarches.etapes.documents.type = { id: {} }
-  }
-
-  if (!fields.travaux) {
-    fields.travaux = {}
-  }
-  if (!fields.travaux.etapes) {
-    fields.travaux.etapes = {}
-  }
-  if (!fields.travaux.etapes.documents) {
-    fields.travaux.etapes.documents = {}
-  }
-  if (!fields.travaux.etapes.documents.type) {
-    fields.travaux.etapes.documents.type = { id: {} }
-  }
-
-  if (!fields.activites) {
-    fields.activites = {}
-  }
-  if (!fields.activites.documents) {
-    fields.activites.documents = {}
-  }
-  if (!fields.activites.documents.type) {
-    fields.activites.documents.type = { id: {} }
-  }
-
-  return fields
 }
 
 export { titre, titres, titreCreer, titreModifier, titreSupprimer }

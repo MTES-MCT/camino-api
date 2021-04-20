@@ -1,10 +1,22 @@
 import { dbManager } from './init-db-manager'
 import {
-  visibleCheck,
   creationCheck,
-  modificationCheck
+  modificationCheck,
+  visibleCheck
 } from './_utils/administrations-permissions'
 
+jest.mock('../src/tools/dir-create', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
+jest.mock('../src/tools/file-stream-create', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
+jest.mock('../src/tools/file-delete', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
 console.info = jest.fn()
 console.error = jest.fn()
 
