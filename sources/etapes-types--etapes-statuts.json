@@ -310,6 +310,16 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "dae",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "dae",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "aca",
     "etape_statut_id": "fav",
     "ordre": 1
@@ -865,11 +875,6 @@
     "ordre": 3
   },
   {
-    "etape_type_id": "dae",
-    "etape_statut_id": "req",
-    "ordre": 2
-  },
-  {
     "etape_type_id": "aim",
     "etape_statut_id": "dre",
     "ordre": 4
@@ -1157,11 +1162,6 @@
   {
     "etape_type_id": "mfr",
     "etape_statut_id": "aco",
-    "ordre": 1
-  },
-  {
-    "etape_type_id": "dae",
-    "etape_statut_id": "exe",
     "ordre": 1
   }
 ]

@@ -1,387 +1,310 @@
 [
   {
     "id": "acr",
-    "nom": "Accusé de réception d'une demande",
-    "repertoire": "demarches"
+    "nom": "Accusé de réception d'une demande"
   },
   {
     "id": "aot",
-    "nom": "Arrêté autorisant l'ouverture de travaux miniers",
-    "repertoire": "travaux"
+    "nom": "Arrêté autorisant l'ouverture de travaux miniers"
   },
   {
     "id": "apm",
-    "nom": "Arrêté de police des mines",
-    "repertoire": "travaux"
+    "nom": "Arrêté de police des mines"
   },
   {
     "id": "apu",
-    "nom": "Arrêté de premier donné acte (AP1)",
-    "repertoire": "travaux"
+    "nom": "Arrêté de premier donné acte (AP1)"
   },
   {
     "id": "apd",
-    "nom": "Arrêté de second donné acte (AP2)",
-    "repertoire": "travaux"
+    "nom": "Arrêté de second donné acte (AP2)"
   },
   {
     "id": "arm",
-    "nom": "Arrêté ministériel",
-    "repertoire": "demarches"
+    "nom": "Arrêté ministériel"
   },
   {
     "id": "arp",
-    "nom": "Arrêté préfectoral",
-    "repertoire": "demarches"
+    "nom": "Arrêté préfectoral"
   },
   {
     "id": "atf",
-    "nom": "Attestation fiscale",
-    "repertoire": "entreprises"
+    "nom": "Attestation fiscale"
   },
   {
     "id": "ave",
-    "nom": "Avenant",
-    "repertoire": "demarches"
+    "nom": "Avenant"
   },
   {
     "id": "aep",
-    "nom": "Avis d'enquête publique",
-    "repertoire": "demarches"
+    "nom": "Avis d'enquête publique"
   },
   {
     "id": "aac",
-    "nom": "Avis d'un service de l'administration centrale",
-    "repertoire": "demarches"
+    "nom": "Avis d'un service de l'administration centrale"
   },
   {
     "id": "acd",
-    "nom": "Avis de la commission départementale des mines",
-    "repertoire": "demarches"
+    "nom": "Avis de la commission départementale des mines"
   },
   {
     "id": "avc",
-    "nom": "Avis de mise en concurrence",
-    "repertoire": "demarches"
+    "nom": "Avis de mise en concurrence"
   },
   {
     "id": "sir",
-    "nom": "Avis de situation au répertoire Sirene",
-    "repertoire": "entreprises"
+    "nom": "Avis de situation au répertoire Sirene"
   },
   {
     "id": "acm",
-    "nom": "Avis des services civils et militaires",
-    "repertoire": "demarches"
+    "nom": "Avis des services civils et militaires"
   },
   {
     "id": "acg",
-    "nom": "Avis du conseil général chargé des mines",
-    "repertoire": "demarches"
+    "nom": "Avis du conseil général chargé des mines"
   },
   {
     "id": "cdc",
-    "nom": "Cahier des charges",
-    "repertoire": "demarches"
+    "nom": "Cahier des charges"
   },
   {
     "id": "cod",
-    "nom": "Compléments au dossier de demande",
-    "repertoire": "demarches"
+    "nom": "Compléments au dossier de demande"
   },
   {
     "id": "cnt",
-    "nom": "Contrat",
-    "repertoire": "demarches"
+    "nom": "Contrat"
   },
   {
     "id": "cam",
-    "nom": "Contrat d'amodiation",
-    "repertoire": "demarches"
+    "nom": "Contrat d'amodiation"
   },
   {
     "id": "con",
-    "nom": "Convention",
-    "repertoire": "demarches"
+    "nom": "Convention"
   },
   {
     "id": "cco",
-    "nom": "Courrier de demande de compléments",
-    "repertoire": "demarches"
+    "nom": "Courrier de demande de compléments"
   },
   {
     "id": "cnr",
-    "nom": "Courrier de notification de la recevabilité",
-    "repertoire": "demarches"
+    "nom": "Courrier de notification de la recevabilité"
   },
   {
     "id": "cur",
-    "nom": "Curriculum vitae",
-    "repertoire": "entreprises"
+    "nom": "Curriculum vitae"
   },
   {
     "id": "dei",
-    "nom": "Décision",
-    "repertoire": "demarches"
+    "nom": "Décision"
   },
   {
     "id": "dep",
-    "nom": "Décision cas par cas",
-    "repertoire": "demarches"
+    "nom": "Décision cas par cas"
   },
   {
     "id": "dec",
-    "nom": "Décret",
-    "repertoire": "demarches"
+    "nom": "Décret"
   },
   {
     "id": "dos",
-    "nom": "Dossier",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "doe",
-    "nom": "Dossier \"Loi sur l'eau\"",
-    "repertoire": "demarches"
+    "nom": "Dossier"
   },
   {
     "id": "dom",
-    "nom": "Dossier de demande",
-    "repertoire": "demarches"
+    "nom": "Dossier de demande"
   },
   {
     "id": "erd",
-    "nom": "Extrait du registre des délibérations de la section des travaux public du Conseil d'Etat",
-    "repertoire": "demarches"
+    "nom": "Extrait du registre des délibérations de la section des travaux public du Conseil d'Etat"
   },
   {
     "id": "fac",
-    "nom": "Facture",
-    "repertoire": "demarches"
+    "nom": "Facture"
   },
   {
     "id": "fic",
-    "nom": "Fiche de complétude",
-    "repertoire": "demarches"
+    "nom": "Fiche de complétude"
   },
   {
     "id": "fip",
-    "nom": "Fiche de pésentation",
-    "repertoire": "demarches"
+    "nom": "Fiche de pésentation"
   },
   {
     "id": "idm",
-    "nom": "Identification de matériel",
-    "repertoire": "entreprises"
+    "nom": "Identification de matériel"
   },
   {
     "id": "jid",
-    "nom": "Justificatif d'identité",
-    "repertoire": "entreprises"
+    "nom": "Justificatif d'identité"
   },
   {
     "id": "jpa",
-    "nom": "Justificatif de paiement",
-    "repertoire": "demarches"
+    "nom": "Justificatif de paiement"
   },
   {
     "id": "jct",
-    "nom": "Justificatif des capacités techniques",
-    "repertoire": "entreprises"
+    "nom": "Justificatif des capacités techniques"
   },
   {
     "id": "kbi",
-    "nom": "Kbis",
-    "repertoire": "entreprises"
+    "nom": "Kbis"
   },
   {
     "id": "lem",
-    "nom": "Lettre de demande",
-    "repertoire": "demarches"
+    "nom": "Lettre de demande"
   },
   {
     "id": "lcm",
-    "nom": "Lettre de saisine des services civils et militaires",
-    "repertoire": "demarches"
+    "nom": "Lettre de saisine des services civils et militaires"
   },
   {
     "id": "lac",
-    "nom": "Lettre de saisine des services de l'administration centrale",
-    "repertoire": "demarches"
+    "nom": "Lettre de saisine des services de l'administration centrale"
   },
   {
     "id": "lce",
-    "nom": "Lettre de saisine du conseil d'Etat",
-    "repertoire": "demarches"
+    "nom": "Lettre de saisine du conseil d'Etat"
   },
   {
     "id": "lcg",
-    "nom": "Lettre de saisine du conseil général chargé des mines",
-    "repertoire": "demarches"
+    "nom": "Lettre de saisine du conseil général chargé des mines"
   },
   {
     "id": "lpf",
-    "nom": "Lettre de saisine du préfet",
-    "repertoire": "demarches"
+    "nom": "Lettre de saisine du préfet"
   },
   {
     "id": "mot",
-    "nom": "Motif",
-    "repertoire": "demarches"
+    "nom": "Motif"
   },
   {
     "id": "nas",
-    "nom": "Note à l'autorité signataire",
-    "repertoire": "demarches"
+    "nom": "Note à l'autorité signataire"
   },
   {
     "id": "nis",
-    "nom": "Note interne signalée",
-    "repertoire": "demarches"
+    "nom": "Note interne signalée"
   },
   {
     "id": "not",
-    "nom": "Notes",
-    "repertoire": "demarches"
+    "nom": "Notes"
   },
   {
     "id": "noi",
-    "nom": "Notice d'incidence",
-    "repertoire": "demarches"
+    "nom": "Notice d'incidence"
   },
   {
     "id": "ndd",
-    "nom": "Notification de décision",
-    "repertoire": "demarches"
+    "nom": "Notification de décision"
   },
   {
     "id": "ndc",
-    "nom": "Notification de demande concurrente",
-    "repertoire": "demarches"
+    "nom": "Notification de demande concurrente"
   },
   {
     "id": "ord",
-    "nom": "Ordonnance",
-    "repertoire": "demarches"
+    "nom": "Ordonnance"
   },
   {
     "id": "odr",
-    "nom": "Ordonnance du Roi",
-    "repertoire": "demarches"
+    "nom": "Ordonnance du Roi"
   },
   {
     "id": "ocd",
-    "nom": "Ordre du jour de la commission départementale des mines",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "pla",
-    "nom": "Plan",
-    "repertoire": "demarches"
+    "nom": "Ordre du jour de la commission départementale des mines"
   },
   {
     "id": "rac",
-    "nom": "Rapport de l’administration centrale chargé des mines",
-    "repertoire": "demarches"
+    "nom": "Rapport de l’administration centrale chargé des mines"
   },
   {
     "id": "rdr",
-    "nom": "Rapport de la direction régionale chargée des mines",
-    "repertoire": "demarches"
+    "nom": "Rapport de la direction régionale chargée des mines"
   },
   {
     "id": "rcr",
-    "nom": "Rapport de recevabilité",
-    "repertoire": "demarches"
+    "nom": "Rapport de recevabilité"
   },
   {
     "id": "rce",
-    "nom": "Rapport du commissaire enquêteur",
-    "repertoire": "demarches"
+    "nom": "Rapport du commissaire enquêteur"
   },
   {
     "id": "ree",
-    "nom": "Rapport environnemental d'exploration",
-    "repertoire": "activites"
+    "nom": "Rapport environnemental d'exploration"
   },
   {
     "id": "rfe",
-    "nom": "Rapport financier d'exploration",
-    "repertoire": "activites"
+    "nom": "Rapport financier d'exploration"
   },
   {
     "id": "rse",
-    "nom": "Rapport social et économique d'exploration",
-    "repertoire": "activites"
+    "nom": "Rapport social et économique d'exploration"
   },
   {
     "id": "rec",
-    "nom": "Récépissé \"Loi sur l'eau\"",
-    "repertoire": "demarches"
+    "nom": "Récépissé \"Loi sur l'eau\""
   },
   {
     "id": "rdt",
-    "nom": "Récépissé de déclaration d'ouverture des travaux miniers",
-    "repertoire": "travaux"
+    "nom": "Récépissé de déclaration d'ouverture des travaux miniers"
   },
   {
     "id": "jcf",
-    "nom": "Justificatif des capacités financières",
-    "repertoire": "entreprises"
+    "nom": "Justificatif des capacités financières"
   },
   {
     "id": "rie",
-    "nom": "Rapport d’intensité d’exploration",
-    "repertoire": "activites"
+    "nom": "Rapport d’intensité d’exploration"
   },
   {
     "id": "pub",
-    "nom": "Publication au JORF",
-    "repertoire": "demarches"
+    "nom": "Publication au JORF"
   },
   {
     "id": "let",
-    "nom": "Lettre",
-    "repertoire": "demarches"
+    "nom": "Lettre"
   },
   {
     "id": "apf",
-    "nom": "Avis du préfet",
-    "repertoire": "demarches"
+    "nom": "Avis du préfet"
   },
   {
     "id": "adr",
-    "nom": "Avis du directeur régional chargé des mines",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "for",
-    "nom": "Formulaire de demande",
-    "repertoire": "demarches"
+    "nom": "Avis du directeur régional chargé des mines"
   },
   {
     "id": "car",
-    "nom": "Carte",
-    "repertoire": "demarches"
+    "nom": "Carte"
   },
   {
     "id": "avi",
-    "nom": "Avis",
-    "repertoire": "demarches"
+    "nom": "Avis"
   },
   {
     "id": "rgr",
-    "nom": "rapport annuel d'exploitation",
-    "repertoire": "activites"
+    "nom": "rapport annuel d'exploitation"
   },
   {
     "id": "rwp",
-    "nom": "rapport annuel d'exploitation",
-    "repertoire": "activites"
+    "nom": "rapport annuel d'exploitation"
   },
   {
     "id": "arr",
-    "nom": "Arrêté",
-    "repertoire": "demarches"
+    "nom": "Arrêté"
+  },
+  {
+    "id": "pla",
+    "nom": "Plan"
+  },
+  {
+    "id": "doe",
+    "nom": "Dossier \"Loi sur l'eau\""
+  },
+  {
+    "id": "for",
+    "nom": "Formulaire de demande"
   }
 ]

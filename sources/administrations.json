@@ -194,18 +194,17 @@
     "departement_id": "21"
   },
   {
-    "id": "dre-bretagne-01",
+    "id": "dre-paca-01",
     "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Bretagne",
-    "abreviation": "DREAL - Bretagne",
-    "url": "http://www.bretagne.developpement-durable.gouv.fr",
-    "email": "dreal-bretagne@developpement-durable.gouv.fr",
-    "telephone": "+33 (0)2 99 33 45 55",
-    "adresse1": "10 rue Maurice-Fabre\nCS 96515\n35065 Rennes",
-    "code_postal": "35065",
-    "commune": "Rennes",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Provence-Alpes-Côte-d'Azur",
+    "abreviation": "DREAL - Provence-Alpes-Côte-d'Azur",
+    "url": "http://www.paca.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)4 91 28 40 40",
+    "adresse1": "16 rue Antoine-Zattara\nCS 70248\n13331 Marseille",
+    "code_postal": "13331",
+    "commune": "Marseille",
     "cedex": "Cedex",
-    "region_id": "53"
+    "region_id": "93"
   },
   {
     "id": "pre-16015-01",
@@ -222,15 +221,18 @@
     "departement_id": "16"
   },
   {
-    "id": "ope-ptmg-973-01",
-    "type_id": "ope",
-    "nom": "Pôle Technique Minier de Guyane",
-    "abreviation": "Pôle Technique Minier de Guyane",
-    "telephone": "+594 (0)5 94 30 06 00",
-    "adresse1": "Hôtel de la Collectivité Territoriale de Guyane, Carrefour de Suzini",
-    "adresse2": "4179 route de Montabo",
-    "code_postal": "97307",
-    "commune": "Cayenne"
+    "id": "dre-bretagne-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Bretagne",
+    "abreviation": "DREAL - Bretagne",
+    "url": "http://www.bretagne.developpement-durable.gouv.fr",
+    "email": "dreal-bretagne@developpement-durable.gouv.fr",
+    "telephone": "+33 (0)2 99 33 45 55",
+    "adresse1": "10 rue Maurice-Fabre\nCS 96515\n35065 Rennes",
+    "code_postal": "35065",
+    "commune": "Rennes",
+    "cedex": "Cedex",
+    "region_id": "53"
   },
   {
     "id": "pre-76540-01",
@@ -260,17 +262,15 @@
     "departement_id": "19"
   },
   {
-    "id": "dre-paca-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Provence-Alpes-Côte-d'Azur",
-    "abreviation": "DREAL - Provence-Alpes-Côte-d'Azur",
-    "url": "http://www.paca.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)4 91 28 40 40",
-    "adresse1": "16 rue Antoine-Zattara\nCS 70248\n13331 Marseille",
-    "code_postal": "13331",
-    "commune": "Marseille",
-    "cedex": "Cedex",
-    "region_id": "93"
+    "id": "ope-ptmg-973-01",
+    "type_id": "ope",
+    "nom": "Pôle Technique Minier de Guyane",
+    "abreviation": "Pôle Technique Minier de Guyane",
+    "telephone": "+594 (0)5 94 30 06 00",
+    "adresse1": "Hôtel de la Collectivité Territoriale de Guyane, Carrefour de Suzini",
+    "adresse2": "4179 route de Montabo",
+    "code_postal": "97307",
+    "commune": "Cayenne"
   },
   {
     "id": "ope-brgm-02",
@@ -431,17 +431,16 @@
     "departement_id": "22"
   },
   {
-    "id": "pre-67482-01",
+    "id": "pre-87085-01",
     "type_id": "pre",
-    "nom": "Préfecture - Bas-Rhin",
-    "abreviation": "Préfecture - Bas-Rhin",
-    "url": "http://www.bas-rhin.gouv.fr",
-    "telephone": "03 88 21 67 68",
-    "adresse1": "5 place de la République, BP 1047",
-    "code_postal": "67073",
-    "commune": "Strasbourg Cedex",
-    "cedex": "Cedex",
-    "departement_id": "67"
+    "nom": "Préfecture - Haute-Vienne",
+    "abreviation": "Préfecture - Haute-Vienne",
+    "url": "http://www.haute-vienne.gouv.fr",
+    "telephone": "05 55 44 18 00",
+    "adresse1": "1, rue de la Préfecture, BP 87031",
+    "code_postal": "87031",
+    "commune": "Limoges Cedex 1",
+    "departement_id": "87"
   },
   {
     "id": "pre-2A004-01",
@@ -500,6 +499,19 @@
     "departement_id": "79"
   },
   {
+    "id": "pre-34172-01",
+    "type_id": "pre",
+    "nom": "Préfecture de l'Hérault",
+    "abreviation": "Préfecture - Hérault",
+    "url": "http://www.herault.gouv.fr",
+    "telephone": "04 67 61 61 61",
+    "adresse1": "34, place des Martyrs-de-la-Résistance",
+    "code_postal": "34062",
+    "commune": "Montpellier Cedex 2",
+    "cedex": "Cedex 2",
+    "departement_id": "34"
+  },
+  {
     "id": "pre-29232-01",
     "type_id": "pre",
     "nom": "Préfecture du Finistère",
@@ -527,17 +539,17 @@
     "departement_id": "60"
   },
   {
-    "id": "pre-34172-01",
+    "id": "pre-67482-01",
     "type_id": "pre",
-    "nom": "Préfecture de l'Hérault",
-    "abreviation": "Préfecture - Hérault",
-    "url": "http://www.herault.gouv.fr",
-    "telephone": "04 67 61 61 61",
-    "adresse1": "34, place des Martyrs-de-la-Résistance",
-    "code_postal": "34062",
-    "commune": "Montpellier Cedex 2",
-    "cedex": "Cedex 2",
-    "departement_id": "34"
+    "nom": "Préfecture - Bas-Rhin",
+    "abreviation": "Préfecture - Bas-Rhin",
+    "url": "http://www.bas-rhin.gouv.fr",
+    "telephone": "03 88 21 67 68",
+    "adresse1": "5 place de la République, BP 1047",
+    "code_postal": "67073",
+    "commune": "Strasbourg Cedex",
+    "cedex": "Cedex",
+    "departement_id": "67"
   },
   {
     "id": "pre-08105-01",
@@ -1239,6 +1251,18 @@
     "departement_id": "44"
   },
   {
+    "id": "pre-57463-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Moselle",
+    "abreviation": "Préfecture - Moselle",
+    "telephone": "03 87 34 87 34",
+    "adresse1": "9, place de la Préfecture, BP 71014",
+    "code_postal": "57034",
+    "commune": "Metz Cedex 01",
+    "cedex": "Cedex 01",
+    "departement_id": "57"
+  },
+  {
     "id": "pre-64445-01",
     "type_id": "pre",
     "nom": "Préfecture des Pyrénées-Atlantiques",
@@ -1251,59 +1275,6 @@
     "commune": "Pau Cedex",
     "cedex": "Cedex",
     "departement_id": "64"
-  },
-  {
-    "id": "min-mtes-dgpr-01",
-    "type_id": "min",
-    "nom": "Ministère de l'Economie, des Finances et de la Relance & Ministère de la Transition écologique",
-    "abreviation": "DGPR/SRT/SDRCP/BSSS",
-    "service": "Bureau du sol et du sous-sol - Direction générale de la prévention des risques (DGPR)",
-    "email": "bsss.sdrcp.srt.dgpr@developpement-durable.gouv.fr",
-    "telephone": "+33 (0)1 40 81 21 22",
-    "adresse1": "Tour Séquoia\n1 place Carpeaux\n92800 Puteaux",
-    "adresse2": "Adresse postale\n92055 Paris-La-Défense Cedex",
-    "code_postal": "92800",
-    "commune": "Puteaux",
-    "cedex": "Cedex"
-  },
-  {
-    "id": "pre-43157-01",
-    "type_id": "pre",
-    "nom": "Préfecture de Haute-Loire",
-    "abreviation": "Préfecture - Haute-Loire",
-    "url": "http://www.haute-loire.gouv.fr",
-    "email": "prefecture@haute-loire.gouv.fr",
-    "telephone": "04 71 09 43 43",
-    "adresse1": "6, avenue du Général-de-Gaulle, CS 40321",
-    "code_postal": "43009",
-    "commune": "Le Puy-en-Velay Cedex",
-    "cedex": "Cedex",
-    "departement_id": "43"
-  },
-  {
-    "id": "dre-grand-est-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz",
-    "abreviation": "DREAL - Grand Est - Siège de Metz",
-    "url": "http://www.grand-est.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)3 87 62 81 00",
-    "adresse1": "Greenpark\n2 rue Augustin-Fresnel\nBP 95038\n57071 Metz",
-    "code_postal": "57071",
-    "commune": "Metz",
-    "cedex": "Cedex",
-    "region_id": "44"
-  },
-  {
-    "id": "pre-57463-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Moselle",
-    "abreviation": "Préfecture - Moselle",
-    "telephone": "03 87 34 87 34",
-    "adresse1": "9, place de la Préfecture, BP 71014",
-    "code_postal": "57034",
-    "commune": "Metz Cedex 01",
-    "cedex": "Cedex 01",
-    "departement_id": "57"
   },
   {
     "id": "pre-84007-01",
@@ -1320,6 +1291,33 @@
     "departement_id": "84"
   },
   {
+    "id": "dre-grand-est-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz",
+    "abreviation": "DREAL - Grand Est - Siège de Metz",
+    "url": "http://www.grand-est.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)3 87 62 81 00",
+    "adresse1": "Greenpark\n2 rue Augustin-Fresnel\nBP 95038\n57071 Metz",
+    "code_postal": "57071",
+    "commune": "Metz",
+    "cedex": "Cedex",
+    "region_id": "44"
+  },
+  {
+    "id": "min-mtes-dgpr-01",
+    "type_id": "min",
+    "nom": "Ministère de l'Economie, des Finances et de la Relance & Ministère de la Transition écologique",
+    "abreviation": "DGPR/SRT/SDRCP/BSSS",
+    "service": "Bureau du sol et du sous-sol - Direction générale de la prévention des risques (DGPR)",
+    "email": "bsss.sdrcp.srt.dgpr@developpement-durable.gouv.fr",
+    "telephone": "+33 (0)1 40 81 21 22",
+    "adresse1": "Tour Séquoia\n1 place Carpeaux\n92800 Puteaux",
+    "adresse2": "Adresse postale\n92055 Paris-La-Défense Cedex",
+    "code_postal": "92800",
+    "commune": "Puteaux",
+    "cedex": "Cedex"
+  },
+  {
     "id": "dre-aura-01",
     "type_id": "dre",
     "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Auvergne-Rhône-Alpes - Siège de Lyon",
@@ -1333,19 +1331,6 @@
     "commune": "Lyon",
     "cedex": "Cedex",
     "region_id": "84"
-  },
-  {
-    "id": "pre-97302-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Guyane",
-    "abreviation": "Préfecture - Guyane",
-    "url": "http://www.guyane.pref.gouv.fr",
-    "email": "courrier@guyane.pref.gouv.fr",
-    "telephone": "+594 594 39 45 00",
-    "adresse1": "BP 7008, Rue Fiedmond",
-    "code_postal": "97307",
-    "commune": "Cayenne Cedex",
-    "departement_id": "973"
   },
   {
     "id": "dre-ile-de-france-01",
@@ -1430,46 +1415,6 @@
     "departement_id": "26"
   },
   {
-    "id": "dre-occitanie-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Occitanie - Siège de Toulouse",
-    "abreviation": "DREAL - Occitanie - Siège de Toulouse",
-    "url": "http://www.occitanie.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)5 61 58 50 00",
-    "adresse1": "1 rue de la Cité-Administrative\nBâtiment G\nCS 80002\n31074 Toulouse",
-    "code_postal": "31074",
-    "commune": "Toulouse",
-    "cedex": "Cedex",
-    "region_id": "76"
-  },
-  {
-    "id": "pre-30189-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Gard",
-    "abreviation": "Préfecture - Gard",
-    "url": "http://www.gard.gouv.fr",
-    "email": "prefecture@gard.gouv.fr",
-    "telephone": "0820 09 11 72",
-    "adresse1": "2, rue Guillemette, 19, avenue Feuchères (étrangers)",
-    "adresse2": "10, avenue Feuchères",
-    "code_postal": "30000",
-    "commune": "Nîmes",
-    "departement_id": "30"
-  },
-  {
-    "id": "pre-07186-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Ardèche",
-    "abreviation": "Préfecture - Ardèche",
-    "url": "http://www.ardeche.gouv.fr",
-    "email": "pref-courrier@ardeche.gouv.fr",
-    "telephone": "04 75 66 50 00",
-    "adresse1": "4, boulevard de Vernon",
-    "code_postal": "07000",
-    "commune": "Privas",
-    "departement_id": "07"
-  },
-  {
     "id": "pre-68066-01",
     "type_id": "pre",
     "nom": "Préfecture - Haut-Rhin",
@@ -1484,6 +1429,19 @@
     "departement_id": "68"
   },
   {
+    "id": "dre-occitanie-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Occitanie - Siège de Toulouse",
+    "abreviation": "DREAL - Occitanie - Siège de Toulouse",
+    "url": "http://www.occitanie.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)5 61 58 50 00",
+    "adresse1": "1 rue de la Cité-Administrative\nBâtiment G\nCS 80002\n31074 Toulouse",
+    "code_postal": "31074",
+    "commune": "Toulouse",
+    "cedex": "Cedex",
+    "region_id": "76"
+  },
+  {
     "id": "min-dajb-01",
     "type_id": "min",
     "nom": "Ministère de l'Economie, des Finances et de la Relance",
@@ -1496,6 +1454,34 @@
     "code_postal": "75703",
     "commune": "Paris",
     "cedex": "Cedex 13"
+  },
+  {
+    "id": "pre-03190-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Allier",
+    "abreviation": "Préfecture - Allier",
+    "url": "http://www.allier.gouv.fr",
+    "email": "prefecture@allier.gouv.fr",
+    "telephone": "04 70 48 30 00",
+    "adresse1": "2, rue Michel-de-L'Hospital, CS 31649",
+    "code_postal": "03016",
+    "commune": "Moulins Cedex",
+    "cedex": "Cedex",
+    "departement_id": "03"
+  },
+  {
+    "id": "pre-24322-01",
+    "type_id": "pre",
+    "nom": "Préfecture de Dordogne",
+    "abreviation": "Préfecture - Dordogne",
+    "url": "http://www.dordogne.gouv.fr",
+    "email": "prefecture@dordogne.gouv.fr",
+    "telephone": "05 53 02 24 24",
+    "adresse1": "2, rue Paul-Louis-Courier",
+    "adresse2": "Services de l'État - Préfecture de la Dordogne, Cité adminsitrative",
+    "code_postal": "24000",
+    "commune": "Périgueux",
+    "departement_id": "24"
   },
   {
     "id": "pre-72181-01",
@@ -1525,46 +1511,46 @@
     "departement_id": "33"
   },
   {
-    "id": "pre-03190-01",
+    "id": "min-mtes-dgec-01",
+    "type_id": "min",
+    "nom": "Ministère de l'Economie, des Finances et de la Relance & Ministère de la Transition écologique",
+    "abreviation": "DGEC/DE/SD2/2A",
+    "service": "Bureau Ressources énergétiques du sous-sol (2A) - Direction générale de l'énergie et du climat (DGEC)",
+    "url": "http://www.minergies.fr",
+    "email": "2a.sd2.de.dgec@developpement-durable.gouv.fr",
+    "telephone": "+33 (0)1 40 81 95 63",
+    "adresse1": "Tour Séquoia\n1 place Carpeaux\n92800 Puteaux",
+    "adresse2": "Adresse postale\r\n92055 Paris-La-Défense Cedex",
+    "code_postal": "92800",
+    "commune": "Puteaux",
+    "cedex": "Cedex"
+  },
+  {
+    "id": "pre-30189-01",
     "type_id": "pre",
-    "nom": "Préfecture - Allier",
-    "abreviation": "Préfecture - Allier",
-    "url": "http://www.allier.gouv.fr",
-    "email": "prefecture@allier.gouv.fr",
-    "telephone": "04 70 48 30 00",
-    "adresse1": "2, rue Michel-de-L'Hospital, CS 31649",
-    "code_postal": "03016",
-    "commune": "Moulins Cedex",
-    "cedex": "Cedex",
-    "departement_id": "03"
+    "nom": "Préfecture - Gard",
+    "abreviation": "Préfecture - Gard",
+    "url": "http://www.gard.gouv.fr",
+    "email": "prefecture@gard.gouv.fr",
+    "telephone": "0820 09 11 72",
+    "adresse1": "2, rue Guillemette, 19, avenue Feuchères (étrangers)",
+    "adresse2": "10, avenue Feuchères",
+    "code_postal": "30000",
+    "commune": "Nîmes",
+    "departement_id": "30"
   },
   {
-    "id": "aut-mrae-guyane-01",
-    "type_id": "aut",
-    "nom": "Mission régionnale autorité environnementale de Guyane",
-    "abreviation": "MRAE Guyane",
-    "url": "http://www.mrae.developpement-durable.gouv.fr/guyane-r27.html",
-    "telephone": "+594 (0)5 94 39 80 00",
-    "adresse1": "Route du Vieux-Port\n97300 Cayenne",
-    "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
-    "code_postal": "97300",
-    "commune": "Cayenne",
-    "cedex": "Cedex",
-    "region_id": "03"
-  },
-  {
-    "id": "dea-guyane-01",
-    "type_id": "dea",
-    "nom": "Direction Générale des Territoires et de la Mer de Guyane",
-    "abreviation": "DGTM - Guyane",
-    "url": "http://www.guyane.developpement-durable.gouv.fr",
-    "telephone": "+594 5 94 39 80 00",
-    "adresse1": "Route du Vieux-Port\n97300 Cayenne",
-    "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
-    "code_postal": "97300",
-    "commune": "Cayenne",
-    "cedex": "Cedex",
-    "region_id": "03"
+    "id": "pre-07186-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Ardèche",
+    "abreviation": "Préfecture - Ardèche",
+    "url": "http://www.ardeche.gouv.fr",
+    "email": "pref-courrier@ardeche.gouv.fr",
+    "telephone": "04 75 66 50 00",
+    "adresse1": "4, boulevard de Vernon",
+    "code_postal": "07000",
+    "commune": "Privas",
+    "departement_id": "07"
   },
   {
     "id": "ope-onf-973-01",
@@ -1594,21 +1580,6 @@
     "departement_id": "51"
   },
   {
-    "id": "min-mtes-dgec-01",
-    "type_id": "min",
-    "nom": "Ministère de l'Economie, des Finances et de la Relance & Ministère de la Transition écologique",
-    "abreviation": "DGEC/DE/SD2/2A",
-    "service": "Bureau Ressources énergétiques du sous-sol (2A) - Direction générale de l'énergie et du climat (DGEC)",
-    "url": "http://www.minergies.fr",
-    "email": "2a.sd2.de.dgec@developpement-durable.gouv.fr",
-    "telephone": "+33 (0)1 40 81 95 63",
-    "adresse1": "Tour Séquoia\n1 place Carpeaux\n92800 Puteaux",
-    "adresse2": "Adresse postale\r\n92055 Paris-La-Défense Cedex",
-    "code_postal": "92800",
-    "commune": "Puteaux",
-    "cedex": "Cedex"
-  },
-  {
     "id": "pre-12202-01",
     "type_id": "pre",
     "nom": "Préfecture de l'Aveyron",
@@ -1621,6 +1592,46 @@
     "commune": "Rodez",
     "cedex": "Cedex",
     "departement_id": "12"
+  },
+  {
+    "id": "dre-nouvelle-aquitaine-01",
+    "type_id": "dre",
+    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers",
+    "abreviation": "DREAL - Nouvelle-Aquitaine - Siège de Poitiers",
+    "url": "http://www.nouvelle-aquitaine.developpement-durable.gouv.fr",
+    "telephone": "+33 (0)5 49 55 63 63",
+    "adresse1": "15 rue Arthur-Ranc\nBP 60539\n86020 Poitiers",
+    "code_postal": "86020",
+    "commune": "Poitiers",
+    "cedex": "Cedex",
+    "region_id": "75"
+  },
+  {
+    "id": "pre-97302-01",
+    "type_id": "pre",
+    "nom": "Préfecture - Guyane",
+    "abreviation": "Préfecture - Guyane",
+    "url": "http://www.guyane.pref.gouv.fr",
+    "email": "courrier@guyane.pref.gouv.fr",
+    "telephone": "+594 594 39 45 00",
+    "adresse1": "BP 7008, Rue Fiedmond",
+    "code_postal": "97307",
+    "commune": "Cayenne Cedex",
+    "departement_id": "973"
+  },
+  {
+    "id": "pre-43157-01",
+    "type_id": "pre",
+    "nom": "Préfecture de Haute-Loire",
+    "abreviation": "Préfecture - Haute-Loire",
+    "url": "http://www.haute-loire.gouv.fr",
+    "email": "prefecture@haute-loire.gouv.fr",
+    "telephone": "04 71 09 43 43",
+    "adresse1": "6, avenue du Général-de-Gaulle, CS 40321",
+    "code_postal": "43009",
+    "commune": "Le Puy-en-Velay Cedex",
+    "cedex": "Cedex",
+    "departement_id": "43"
   },
   {
     "id": "pre-66136-01",
@@ -1677,43 +1688,32 @@
     "departement_id": "89"
   },
   {
-    "id": "dre-nouvelle-aquitaine-01",
-    "type_id": "dre",
-    "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers",
-    "abreviation": "DREAL - Nouvelle-Aquitaine - Siège de Poitiers",
-    "url": "http://www.nouvelle-aquitaine.developpement-durable.gouv.fr",
-    "telephone": "+33 (0)5 49 55 63 63",
-    "adresse1": "15 rue Arthur-Ranc\nBP 60539\n86020 Poitiers",
-    "code_postal": "86020",
-    "commune": "Poitiers",
+    "id": "aut-mrae-guyane-01",
+    "type_id": "aut",
+    "nom": "Mission régionnale autorité environnementale de Guyane",
+    "abreviation": "MRAE Guyane",
+    "url": "http://www.mrae.developpement-durable.gouv.fr/guyane-r27.html",
+    "telephone": "+594 (0)5 94 39 80 00",
+    "adresse1": "Route du Vieux-Port\n97300 Cayenne",
+    "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
+    "code_postal": "97300",
+    "commune": "Cayenne",
     "cedex": "Cedex",
-    "region_id": "75"
+    "region_id": "03"
   },
   {
-    "id": "pre-24322-01",
-    "type_id": "pre",
-    "nom": "Préfecture de Dordogne",
-    "abreviation": "Préfecture - Dordogne",
-    "url": "http://www.dordogne.gouv.fr",
-    "email": "prefecture@dordogne.gouv.fr",
-    "telephone": "05 53 02 24 24",
-    "adresse1": "2, rue Paul-Louis-Courier",
-    "adresse2": "Services de l'État - Préfecture de la Dordogne, Cité adminsitrative",
-    "code_postal": "24000",
-    "commune": "Périgueux",
-    "departement_id": "24"
-  },
-  {
-    "id": "pre-87085-01",
-    "type_id": "pre",
-    "nom": "Préfecture - Haute-Vienne",
-    "abreviation": "Préfecture - Haute-Vienne",
-    "url": "http://www.haute-vienne.gouv.fr",
-    "telephone": "05 55 44 18 00",
-    "adresse1": "1, rue de la Préfecture, BP 87031",
-    "code_postal": "87031",
-    "commune": "Limoges Cedex 1",
-    "departement_id": "87"
+    "id": "dea-guyane-01",
+    "type_id": "dea",
+    "nom": "Direction Générale des Territoires et de la Mer de Guyane",
+    "abreviation": "DGTM - Guyane",
+    "url": "http://www.guyane.developpement-durable.gouv.fr",
+    "telephone": "+594 5 94 39 80 00",
+    "adresse1": "Route du Vieux-Port\n97300 Cayenne",
+    "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
+    "code_postal": "97300",
+    "commune": "Cayenne",
+    "cedex": "Cedex",
+    "region_id": "03"
   },
   {
     "id": "min-mtes-dgaln-01",

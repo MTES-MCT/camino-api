@@ -11,9 +11,9 @@
     "ordre": 5
   },
   {
-    "id": "aom",
-    "nom": "autorisation d'ouverture",
-    "ordre": 2
+    "id": "dom",
+    "nom": "déclaration d'ouverture",
+    "ordre": 1
   },
   {
     "id": "mpm",
@@ -26,8 +26,8 @@
     "ordre": 6
   },
   {
-    "id": "dom",
-    "nom": "déclaration d'ouverture",
-    "ordre": 1
+    "id": "aom",
+    "nom": "autorisation d'ouverture",
+    "ordre": 2
   }
 ]

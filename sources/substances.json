@@ -847,6 +847,11 @@
     "symbole": "Mn"
   },
   {
+    "id": "anti",
+    "nom": "antimoine",
+    "symbole": "Sb"
+  },
+  {
     "id": "selg",
     "nom": "sel gemme"
   },
@@ -919,7 +924,54 @@
     "nom": "métaux de la mine du platine"
   },
   {
+    "id": "wolf",
+    "nom": "tungstène",
+    "symbole": "W"
+  },
+  {
+    "id": "moly",
+    "nom": "molybdène",
+    "symbole": "Mo"
+  },
+  {
     "id": "scor",
+    "nom": "substances connexes"
+  },
+  {
+    "id": "etai",
+    "nom": "étain",
+    "symbole": "Sn"
+  },
+  {
+    "id": "cfli",
+    "nom": "lignite"
+  },
+  {
+    "id": "cuiv",
+    "nom": "cuivre",
+    "symbole": "Cu"
+  },
+  {
+    "id": "plom",
+    "nom": "plomb",
+    "symbole": "Pb"
+  },
+  {
+    "id": "arge",
+    "nom": "argent",
+    "symbole": "Ag"
+  },
+  {
+    "id": "cfho",
+    "nom": "houille"
+  },
+  {
+    "id": "zinc",
+    "nom": "zinc",
+    "symbole": "Zn"
+  },
+  {
+    "id": "suco",
     "nom": "substances connexes"
   },
   {
@@ -963,44 +1015,6 @@
     "symbole": "Pt"
   },
   {
-    "id": "wolf",
-    "nom": "tungstène",
-    "symbole": "W"
-  },
-  {
-    "id": "moly",
-    "nom": "molybdène",
-    "symbole": "Mo"
-  },
-  {
-    "id": "etai",
-    "nom": "étain",
-    "symbole": "Sn"
-  },
-  {
-    "id": "cfli",
-    "nom": "lignite"
-  },
-  {
-    "id": "cuiv",
-    "nom": "cuivre",
-    "symbole": "Cu"
-  },
-  {
-    "id": "plom",
-    "nom": "plomb",
-    "symbole": "Pb"
-  },
-  {
-    "id": "cfho",
-    "nom": "houille"
-  },
-  {
-    "id": "zinc",
-    "nom": "zinc",
-    "symbole": "Zn"
-  },
-  {
     "id": "rxxx",
     "nom": "autres éléments radioactifs"
   },
@@ -1013,19 +1027,5 @@
     "id": "auru",
     "nom": "or",
     "symbole": "Au"
-  },
-  {
-    "id": "arge",
-    "nom": "argent",
-    "symbole": "Ag"
-  },
-  {
-    "id": "anti",
-    "nom": "antimoine",
-    "symbole": "Sb"
-  },
-  {
-    "id": "suco",
-    "nom": "substances connexes"
   }
 ]
