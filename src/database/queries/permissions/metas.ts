@@ -24,6 +24,7 @@ import {
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
 } from './administrations'
+import { knex } from '../../../knex'
 
 // récupère les types d'étapes qui ont
 // - les autorisations sur le titre
@@ -43,15 +44,19 @@ const administrationsEtapesTypesPropsQuery = (
       'titres as titresModification',
       raw('?? = ??', ['t_d_e.titreTypeId', 'titresModification.typeId'])
     )
-    .leftJoin(
-      'titresDemarches as demarchesModification',
-      raw('?? = ?? and ?? = ??', [
-        'demarchesModification.typeId',
-        't_d_e.demarcheTypeId',
-        'demarchesModification.titreId',
-        'titresModification.id'
-      ])
-    )
+    .leftJoin('titresDemarches as demarchesModification', b => {
+      b.on(
+        knex.raw('?? = ??', [
+          'demarchesModification.typeId',
+          't_d_e.demarcheTypeId'
+        ])
+      ).andOn(
+        knex.raw('?? = ??', [
+          'demarchesModification.titreId',
+          'titresModification.id'
+        ])
+      )
+    })
     .whereExists(
       administrationsTitresQuery(administrationsIds, 'titresModification', {
         isGestionnaire: true,
@@ -142,17 +147,16 @@ const etapesTypesQueryModify = (
       TitresDemarches.query()
         .findById(titreDemarcheId)
         .joinRelated('titre')
-        .join(
-          'titresTypes__demarchesTypes__etapesTypes as tde',
-          raw('?? = ?? and ?? = ?? and ?? = ??', [
-            'tde.etapeTypeId',
-            'etapesTypes.id',
-            'tde.demarcheTypeId',
-            'titresDemarches.typeId',
-            'tde.titreTypeId',
-            'titre.typeId'
-          ])
-        )
+        .join('titresTypes__demarchesTypes__etapesTypes as tde', b => {
+          b.on(knex.raw('?? = ??', ['tde.etapeTypeId', 'etapesTypes.id']))
+            .andOn(
+              knex.raw('?? = ??', [
+                'tde.demarcheTypeId',
+                'titresDemarches.typeId'
+              ])
+            )
+            .andOn(knex.raw('?? = ??', ['tde.titreTypeId', 'titre.typeId']))
+        })
     )
 
     // si

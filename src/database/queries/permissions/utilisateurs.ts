@@ -7,6 +7,7 @@ import Utilisateurs from '../../models/utilisateurs'
 import Administrations from '../../models/administrations'
 import Entreprises from '../../models/entreprises'
 import { entreprisesQueryModify } from './entreprises'
+import { knex } from '../../../knex'
 
 const utilisateursQueryModify = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
@@ -70,17 +71,11 @@ const utilisateursQueryModify = (
     const permissionsIdsAdminReplace = permissionsIdsAdmin.map(() => '?')
 
     const administrationsIds = user.administrations.map(e => e.id)
-    const administrationsIdsReplace = user.administrations.map(() => '?')
 
-    q.leftJoin(
-      'utilisateurs__administrations as u_a',
-      raw(`?? = ?? and ?? in (${administrationsIdsReplace})`, [
-        'u_a.utilisateur_id',
-        'utilisateurs.id',
-        'u_a.administration_id',
-        ...administrationsIds
-      ])
-    )
+    q.leftJoin('utilisateurs__administrations as u_a', b => {
+      b.on(knex.raw('?? = ??', ['u_a.utilisateur_id', 'utilisateurs.id']))
+      b.andOnIn('u_a.administration_id', administrationsIds)
+    })
 
     const permissionModificationSuppression = (alias: string) =>
       q.select(

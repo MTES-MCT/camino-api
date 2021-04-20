@@ -13,6 +13,7 @@ import {
   administrationsActivitesModify
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
+import { knex } from '../../../knex'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
@@ -85,15 +86,20 @@ const titreActivitesCount = (
             isAssociee: true,
             isLocale: true
           })
-            .leftJoin(
-              'administrations__activitesTypes as a_at',
-              raw('?? = ?? and ?? = ?? ', [
-                'a_at.administrationId',
-                'administrations.id',
-                'a_at.activiteTypeId',
-                'activitesCount.typeId'
-              ])
-            )
+            .leftJoin('administrations__activitesTypes as a_at', b => {
+              b.on(
+                knex.raw('?? = ??', [
+                  'a_at.administrationId',
+                  'administrations.id'
+                ])
+              )
+              b.andOn(
+                knex.raw('?? = ??', [
+                  'a_at.activiteTypeId',
+                  'activitesCount.typeId'
+                ])
+              )
+            })
             .whereRaw('?? is not true', ['a_at.lectureInterdit'])
         )
       } else if (
