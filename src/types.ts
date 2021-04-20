@@ -138,6 +138,7 @@ interface IActiviteTypePays {
 interface IActiviteType {
   id: string
   nom: string
+  description?: string
   ordre: number
   frequenceId: string
   dateDebut: string
