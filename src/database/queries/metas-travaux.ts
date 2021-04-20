@@ -1,5 +1,8 @@
 import {
   IFields,
+  ITravauxEtapeType,
+  ITravauxEtapeTypeDocumentType,
+  ITravauxEtapeTypeEtapeStatut,
   ITravauxType,
   ITravauxTypeTravauxEtapeType,
   IUtilisateur
@@ -17,9 +20,10 @@ import {
 } from './permissions/metas-travaux'
 import TravauxTypesTravauxEtapesTypes from '../models/travaux-types--travaux-etapes-types'
 import TravauxEtapesTypes from '../models/travaux-etapes-types'
+import TravauxEtapesTypesDocumentsTypes from '../models/travaux-etapes-types--documents-types'
+import TravauxEtapesTypesEtapesStatuts from '../models/travaux-types--travaux-etapes-statuts'
 
 const travauxTypesGet = async (
-  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -29,10 +33,7 @@ const travauxTypesGet = async (
 
   const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  travauxTypesQueryModify(q, user, {
-    titreId,
-    titreTravauxId
-  })
+  travauxTypesQueryModify(q, user)
 
   return q
 }
@@ -50,6 +51,11 @@ const travauxEtapeTypeGet = async (
 
   return TravauxEtapesTypes.query().withGraphFetched(graph).findById(id)
 }
+
+const travauxEtapeTypeUpdate = async (
+  id: string,
+  props: Partial<ITravauxEtapeType>
+) => TravauxEtapesTypes.query().patchAndFetchById(id, props)
 
 const travauxEtapesTypesGet = async (
   { titreTravauxId }: { titreTravauxId?: string },
@@ -101,13 +107,86 @@ const travauxTypeTravauxEtapeTypeDelete = async (
     etapeTypeId
   ])
 
+const travauxEtapesTypesDocumentsTypesGet = async () =>
+  TravauxEtapesTypesDocumentsTypes.query().orderBy([
+    'travauxEtapeTypeId',
+    'documentTypeId'
+  ])
+
+const travauxEtapeTypeDocumentTypeUpdate = async (
+  travauxEtapeTypeId: string,
+  documentTypeId: string,
+  props: Partial<ITravauxEtapeTypeDocumentType>
+) =>
+  TravauxEtapesTypesDocumentsTypes.query().patchAndFetchById(
+    [travauxEtapeTypeId, documentTypeId],
+    props
+  )
+
+const travauxEtapeTypeDocumentTypeCreate = async (
+  TravauxEtapeTypeDocumentType: ITravauxEtapeTypeDocumentType
+) =>
+  TravauxEtapesTypesDocumentsTypes.query().insertAndFetch(
+    TravauxEtapeTypeDocumentType
+  )
+
+const travauxEtapeTypeDocumentTypeDelete = async (
+  travauxEtapeTypeId: string,
+  documentTypeId: string
+) =>
+  TravauxEtapesTypesDocumentsTypes.query().deleteById([
+    travauxEtapeTypeId,
+    documentTypeId
+  ])
+
+const travauxEtapesTypesEtapesStatutsGet = async () =>
+  TravauxEtapesTypesEtapesStatuts.query().orderBy([
+    'travauxEtapeTypeId',
+    'etapeStatutId'
+  ])
+
+const travauxEtapeTypeEtapeStatutUpdate = async (
+  travauxEtapeTypeId: string,
+  etapeStatutId: string,
+  props: Partial<ITravauxEtapeTypeEtapeStatut>
+) =>
+  TravauxEtapesTypesEtapesStatuts.query().patchAndFetchById(
+    [travauxEtapeTypeId, etapeStatutId],
+    props
+  )
+
+const travauxEtapeTypeEtapeStatutCreate = async (
+  TravauxEtapeTypeEtapeStatut: ITravauxEtapeTypeEtapeStatut
+) =>
+  TravauxEtapesTypesEtapesStatuts.query().insertAndFetch(
+    TravauxEtapeTypeEtapeStatut
+  )
+
+const travauxEtapeTypeEtapeStatutDelete = async (
+  travauxEtapeTypeId: string,
+  etapeStatutId: string
+) =>
+  TravauxEtapesTypesEtapesStatuts.query().deleteById([
+    travauxEtapeTypeId,
+    etapeStatutId
+  ])
+
 export {
   travauxTypesGet,
   travauxTypeUpdate,
   travauxEtapesTypesGet,
   travauxEtapeTypeGet,
+  travauxEtapeTypeUpdate,
   travauxTypesTravauxEtapesTypesGet,
   travauxTypeTravauxEtapeTypeUpdate,
   travauxTypeTravauxEtapeTypeCreate,
-  travauxTypeTravauxEtapeTypeDelete
+  travauxTypeTravauxEtapeTypeDelete,
+  travauxEtapesTypesDocumentsTypesGet,
+  travauxEtapeTypeDocumentTypeUpdate,
+  travauxEtapeTypeDocumentTypeCreate,
+  travauxEtapeTypeDocumentTypeDelete,
+  travauxEtapesTypesEtapesStatutsGet,
+  travauxEtapeTypeEtapeStatutUpdate,
+  travauxEtapeTypeEtapeStatutCreate,
+  travauxEtapeTypeEtapeStatutDelete
 }

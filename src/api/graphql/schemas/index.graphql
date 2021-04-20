@@ -5,6 +5,7 @@
 # import * from 'geojsons.graphql'
 # import * from 'metas-activites.graphql'
 # import * from 'metas.graphql'
+# import * from 'metas-travaux.graphql'
 # import * from 'points.graphql'
 # import * from 'statistiques.graphql'
 # import * from 'substances.graphql'
@@ -132,14 +133,10 @@ type Query {
   etapesStatuts: [EtapeStatut]
 
   "Types des travaux"
-  travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
+  travauxTypes: [TravauxType]
 
   "Types d'étapes de travaux"
-  travauxEtapesTypes(
-    titreTravauxId: ID
-    titreTravauxEtapeId: ID
-    date: String
-  ): [EtapeType]
+  travauxEtapesTypes(titreTravauxId: ID): [TravauxEtapeType]
 
   "Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
@@ -189,6 +186,8 @@ type Query {
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   etapesTypesDocumentsTypes: [EtapeTypeDocumentType]
   travauxTypesTravauxEtapesTypes: [TravauxTypeTravauxEtapeType]
+  travauxEtapesTypesDocumentsTypes: [TravauxEtapeTypeDocumentType]
+  travauxEtapesTypesEtapesStatuts: [TravauxEtapeTypeEtapeStatut]
 
   activitesTypesTitresTypes: [ActiviteTypeTitreType]
   activitesTypesDocumentsTypes: [ActiviteTypeDocumentType]
@@ -397,6 +396,10 @@ type Mutation {
 
   travauxTypeModifier(travauxType: InputTravauxType!): [TravauxType]
 
+  travauxEtapeTypeModifier(
+    travauxEtapeType: InputTravauxEtapeType!
+  ): [TravauxEtapeType]
+
   demarcheStatutModifier(demarcheStatut: InputDemarcheStatut!): [DemarcheStatut]
 
   phaseStatutModifier(phaseStatut: InputPhaseStatut!): [PhaseStatut]
@@ -502,6 +505,30 @@ type Mutation {
   travauxTypeTravauxEtapeTypeSupprimer(
     travauxTypeTravauxEtapeType: InputTravauxTypeTravauxEtapeType!
   ): [TravauxTypeTravauxEtapeType]
+
+  travauxEtapeTypeDocumentTypeModifier(
+    travauxEtapeTypeDocumentType: InputTravauxEtapeTypeDocumentType!
+  ): [TravauxEtapeTypeDocumentType]
+
+  travauxEtapeTypeDocumentTypeCreer(
+    travauxEtapeTypeDocumentType: InputTravauxEtapeTypeDocumentType!
+  ): [TravauxEtapeTypeDocumentType]
+
+  travauxEtapeTypeDocumentTypeSupprimer(
+    travauxEtapeTypeDocumentType: InputTravauxEtapeTypeDocumentType!
+  ): [TravauxEtapeTypeDocumentType]
+
+  travauxEtapeTypeEtapeStatutModifier(
+    travauxEtapeTypeEtapeStatut: InputTravauxEtapeTypeEtapeStatut!
+  ): [TravauxEtapeTypeEtapeStatut]
+
+  travauxEtapeTypeEtapeStatutCreer(
+    travauxEtapeTypeEtapeStatut: InputTravauxEtapeTypeEtapeStatut!
+  ): [TravauxEtapeTypeEtapeStatut]
+
+  travauxEtapeTypeEtapeStatutSupprimer(
+    travauxEtapeTypeEtapeStatut: InputTravauxEtapeTypeEtapeStatut!
+  ): [TravauxEtapeTypeEtapeStatut]
 
   activiteTypeTitreTypeCreer(
     activiteTypeTitreType: InputActiviteTypeTitreType!

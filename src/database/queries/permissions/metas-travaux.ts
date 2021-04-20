@@ -52,13 +52,7 @@ const travauxEtapesTypesQueryModify = (
 
 const travauxTypesQueryModify = (
   q: QueryBuilder<TravauxTypes, TravauxTypes | TravauxTypes[]>,
-  user: IUtilisateur | null,
-  {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreId,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreTravauxId
-  }: { titreId?: string; titreTravauxId?: string } = {}
+  user: IUtilisateur | null
 ) => {
   q.select('travauxTypes.*')
 

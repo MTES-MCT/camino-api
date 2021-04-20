@@ -104,14 +104,6 @@ type DemarcheType {
   demarchesCreation: Boolean
 }
 
-type TravauxType {
-  id: ID!
-  nom: String!
-  description: String
-  ordre: Int
-  travauxCreation: Boolean
-}
-
 "Statut d'une démarche applicable à un titre minier"
 type DemarcheStatut {
   "Id composée de trois lettres"
@@ -322,18 +314,6 @@ type EtapeTypeDocumentType {
   optionnel: Boolean
 }
 
-type TravauxTypeDemarcheStatut {
-  travauxTypeId: ID!
-  demarcheStatutId: ID!
-  ordre: Int!
-}
-
-type TravauxTypeTravauxEtapeType {
-  travauxTypeId: ID!
-  travauxEtapeTypeId: ID!
-  ordre: Int!
-}
-
 input InputDomaine {
   "Id composée d'une seule lettre"
   id: ID!
@@ -381,13 +361,6 @@ input InputDemarcheType {
   titulaires: Boolean
   renouvelable: Boolean
   exception: Boolean
-}
-
-input InputTravauxType {
-  id: ID!
-  nom: String
-  description: String
-  ordre: Int
 }
 
 input InputDemarcheStatut {
@@ -527,18 +500,6 @@ input InputEtapeTypeDocumentType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
-}
-
-input InputTravauxTypeDemarcheStatut {
-  travauxTypeId: ID!
-  demarcheStatutId: ID!
-  ordre: Int
-}
-
-input InputTravauxTypeTravauxEtapeType {
-  travauxTypeId: ID!
-  travauxEtapeTypeId: ID!
-  ordre: Int
 }
 
 """
