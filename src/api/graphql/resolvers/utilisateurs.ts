@@ -163,25 +163,20 @@ const moi = async (_: never, context: IToken) => {
   }
 }
 
-const utilisateurTokenCreer = async (
-  {
-    email,
-    motDePasse
-  }: {
-    email: string
-    motDePasse: string
-  },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
+const utilisateurTokenCreer = async ({
+  email,
+  motDePasse
+}: {
+  email: string
+  motDePasse: string
+}) => {
   try {
-    const fields = fieldsBuild(info)
     email = email.toLowerCase()
     if (!emailCheck(email)) {
       throw new Error('adresse email invalide')
     }
 
-    const user = await userByEmailGet(email, { fields: fields.utilisateur })
+    let user = await userByEmailGet(email)
     if (!user) {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
@@ -190,6 +185,9 @@ const utilisateurTokenCreer = async (
     if (!valid) {
       throw new Error('mot de passe incorrect')
     }
+
+    // charge l’utilisateur totalement
+    user = (await userGet(user.id))!
 
     const { accessToken, refreshToken } = userTokensCreate(user)
 
@@ -278,6 +276,9 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
         { user: { email: cerbereUtilisateur.email } } as IToken
       )
     }
+
+    // charge l’utilisateur totalement
+    utilisateur = (await userGet(utilisateur.id))!
 
     return {
       ...userTokensCreate(utilisateur),
