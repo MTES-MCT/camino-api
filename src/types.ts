@@ -258,7 +258,6 @@ type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'travaux'
 interface IDocumentType {
   id: string
   nom: string
-  repertoire: IDocumentRepertoire
   optionnel: boolean
 }
 

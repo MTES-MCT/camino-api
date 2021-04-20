@@ -8,6 +8,7 @@ import {
 import { documentGet } from '../../database/queries/documents'
 import { userGet } from '../../database/queries/utilisateurs'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
+import { documentRepertoireFind } from '../../tools/documents/document-repertoire-find'
 
 const fichier = async (
   { documentId }: { documentId?: string },
@@ -39,7 +40,7 @@ const fichier = async (
 
   let dossier
 
-  const repertoire = document.type!.repertoire
+  const repertoire = documentRepertoireFind(document)
 
   const format = 'pdf' as IFormat
 

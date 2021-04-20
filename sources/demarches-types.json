@@ -80,6 +80,14 @@
     "renouvelable": true
   },
   {
+    "id": "pr1",
+    "nom": "prolongation 1",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
+    "ordre": 3,
+    "duree": true,
+    "points": true
+  },
+  {
     "id": "exp",
     "nom": "extension de périmètre",
     "description": "Démarche appliquée aux permis exclusifs de recherches, permis d'exploitation de minéraux et métaux et concessions pour étendre leurs périmètres.",
@@ -155,14 +163,6 @@
     "description": "Démarche obsolète. L’autorité administrative pouvait retirer les droits liés aux autorisations et titres miniers en cours de validité si le titulaire ne remplissait plus certaines prescriptions légales. La déchéance avait pour effet de permettre à l’Etat de réattribuer le titre ou l’autorisation lors d’un appel d’offre.",
     "ordre": 21,
     "titulaires": true
-  },
-  {
-    "id": "pr1",
-    "nom": "prolongation 1",
-    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
-    "ordre": 3,
-    "duree": true,
-    "points": true
   },
   {
     "id": "oct",

@@ -215,29 +215,34 @@
     ]
   },
   {
-    "id": "cxm",
+    "id": "axm",
     "domaine_id": "m",
-    "type_id": "cx"
+    "type_id": "ax"
   },
   {
-    "id": "arm",
+    "id": "prm",
     "domaine_id": "m",
-    "type_id": "ar",
+    "type_id": "pr",
     "contenu_ids": [
       {
-        "elementId": "mecanise",
-        "sectionId": "arm"
+        "elementId": "engagement",
+        "sectionId": "prx"
       },
       {
-        "elementId": "franchissements",
-        "sectionId": "arm"
+        "elementId": "engagementDeviseId",
+        "sectionId": "prx"
       }
     ]
   },
   {
-    "id": "axm",
+    "id": "pxm",
     "domaine_id": "m",
-    "type_id": "ax"
+    "type_id": "px"
+  },
+  {
+    "id": "cxf",
+    "domaine_id": "f",
+    "type_id": "cx"
   },
   {
     "id": "prg",
@@ -260,33 +265,28 @@
     "type_id": "cx"
   },
   {
-    "id": "pxm",
-    "domaine_id": "m",
-    "type_id": "px"
-  },
-  {
-    "id": "cxf",
-    "domaine_id": "f",
-    "type_id": "cx"
-  },
-  {
     "id": "inr",
     "domaine_id": "r",
     "type_id": "in"
   },
   {
-    "id": "prm",
+    "id": "arm",
     "domaine_id": "m",
-    "type_id": "pr",
+    "type_id": "ar",
     "contenu_ids": [
       {
-        "elementId": "engagement",
-        "sectionId": "prx"
+        "elementId": "mecanise",
+        "sectionId": "arm"
       },
       {
-        "elementId": "engagementDeviseId",
-        "sectionId": "prx"
+        "elementId": "franchissements",
+        "sectionId": "arm"
       }
     ]
+  },
+  {
+    "id": "cxm",
+    "domaine_id": "m",
+    "type_id": "cx"
   }
 ]

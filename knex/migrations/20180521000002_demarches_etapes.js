@@ -106,7 +106,6 @@ exports.up = knex => {
     .createTable('documentsTypes', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
-      table.string('repertoire').notNullable()
     })
     .createTable('etapesTypes__documentsTypes', table => {
       table

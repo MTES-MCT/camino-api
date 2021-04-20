@@ -31,6 +31,14 @@ exports.up = knex =>
       table.string('dateDebut', 10)
       table.string('dateFin', 10)
     })
+    .createTable('entreprises__documentsTypes', table => {
+      table
+        .string('documentTypeId', 3)
+        .index()
+        .references('documentsTypes.id')
+        .notNullable()
+      table.primary(['documentTypeId'])
+    })
     .createTable('administrationsTypes', table => {
       table.string('id', 64).primary()
       table.string('nom').notNullable()

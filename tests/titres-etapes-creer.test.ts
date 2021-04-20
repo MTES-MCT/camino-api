@@ -222,7 +222,7 @@ describe('etapeCreer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'l’élément "Prospection mécanisée" de la section "Caractéristiques ARM" est obligatoire, l’élément "Franchissements de cours d\'eau" de la section "Caractéristiques ARM" est obligatoire'
+      'l’élément "Prospection mécanisée" de la section "Caractéristiques ARM" est obligatoire'
     )
   })
 

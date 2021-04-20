@@ -389,8 +389,6 @@ const documentsTypesGet = async ({
   q.select('documentsTypes.*')
 
   if (repertoire) {
-    q.where({ repertoire })
-
     if (typeId && repertoire === 'activites') {
       q.join('activitesTypes__documentsTypes as at_dt', b => {
         b.on(knex.raw('?? = ?', ['at_dt.activiteTypeId', typeId]))
@@ -412,10 +410,14 @@ const documentsTypesGet = async ({
       })
 
       q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
+    } else if (repertoire === 'entreprises') {
+      q.join(
+        'entreprises__documentsTypes as e_dt',
+        'e_dt.documentTypeId',
+        'documentsTypes.id'
+      )
     }
   }
-
-  // aot apd apm apu rdt
 
   return q
 }
