@@ -99,7 +99,7 @@ const entreprisesUpdate = async () => {
   console.info()
   console.info('entreprises (Api Insee)…')
 
-  const entreprisesOld = await entreprisesGet({}, {}, userSuper)
+  const entreprisesOld = await entreprisesGet({}, { fields: {} }, userSuper)
   const entreprisesEtablissementsOld = await entreprisesEtablissementsGet()
 
   const sirens = sirensFind(entreprisesOld)

@@ -12,7 +12,7 @@ import { fieldsFormat } from './graph/fields-format'
 
 const documentGet = async (
   documentId: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -30,7 +30,7 @@ const documentGet = async (
 
 const documentsGet = async (
   { entreprisesIds }: { entreprisesIds?: string[] },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields

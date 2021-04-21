@@ -63,7 +63,7 @@ const administrationsFiltersQueryModify = (
 }
 
 const administrationsQueryBuild = (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -79,7 +79,7 @@ const administrationsQueryBuild = (
 
 const administrationGet = async (
   id: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = administrationsQueryBuild({ fields }, user)
@@ -97,7 +97,7 @@ const administrationsCount = async (
     typesIds?: string[] | null
     administrationsIds?: string[] | null
   },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = administrationsQueryBuild({ fields }, user)
@@ -130,7 +130,7 @@ const administrationsGet = async (
     typesIds?: string[] | null
     administrationsIds?: string[] | null
   },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = administrationsQueryBuild({ fields }, user)

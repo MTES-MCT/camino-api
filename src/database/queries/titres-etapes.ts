@@ -20,7 +20,7 @@ import { fieldsFormat } from './graph/fields-format'
 import TitresForets from '../models/titres-forets'
 
 const titresEtapesQueryBuild = (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -39,7 +39,7 @@ const titresEtapesQueryBuild = (
 // utilisé dans le daily et le resolver des documents uniquement
 const titreEtapeGet = async (
   titreEtapeId: string,
-  { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
+  { fields, fetchHeritage }: { fields: IFields; fetchHeritage?: boolean },
   user: IUtilisateur | null
 ) => {
   const q = titresEtapesQueryBuild({ fields }, user)
@@ -60,7 +60,7 @@ const titresEtapesGet = async (
     etapesTypesIds?: string[] | null
     titresDemarchesIds?: string[] | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresEtapesQueryBuild({ fields }, user)

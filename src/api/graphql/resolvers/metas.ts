@@ -234,7 +234,7 @@ const demarcheEtapesTypesGet = async (
     titreEtapeId,
     date
   }: { titreDemarcheId: string; date: string; titreEtapeId?: string },
-  { fields }: { fields: IFields },
+  { fields }: { fields?: IFields } = {},
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -259,7 +259,7 @@ const demarcheEtapesTypesGet = async (
   const titre = titreDemarche.titre!
 
   const titreEtape = titreEtapeId
-    ? await titreEtapeGet(titreEtapeId, {}, user)
+    ? await titreEtapeGet(titreEtapeId, { fields: {} }, user)
     : undefined
 
   if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")

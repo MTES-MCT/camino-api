@@ -10,7 +10,11 @@ const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiquesGlobales = async () => {
   try {
-    const titresActivites = await titresActivitesGet({}, {}, userSuper)
+    const titresActivites = await titresActivitesGet(
+      {},
+      { fields: {} },
+      userSuper
+    )
 
     const titresActivitesDepose = titresActivites.filter(
       titreActivite =>

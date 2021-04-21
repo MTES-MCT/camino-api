@@ -26,7 +26,7 @@ const documentPathGet = (document: IDocument) => {
 }
 
 const documentsIndexBuild = async () => {
-  const documents = await documentsGet({}, {}, userSuper)
+  const documents = await documentsGet({}, { fields: {} }, userSuper)
 
   return documents.reduce((res: IndexFile, document) => {
     if (document.fichier) {

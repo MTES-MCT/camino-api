@@ -74,7 +74,7 @@ const entreprisesCount = async (
     noms?: string | null
     archive?: boolean | null
   },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = entreprisesQueryBuild({ fields }, user)
@@ -89,7 +89,7 @@ const entreprisesCount = async (
 
 const entrepriseGet = async (
   id: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = entreprisesQueryBuild({ fields }, user)

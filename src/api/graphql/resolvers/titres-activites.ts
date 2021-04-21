@@ -351,7 +351,7 @@ const activiteSupprimer = async ({ id }: { id: string }, context: IToken) => {
       throw new Error(rulesErrors.join(', '))
     }
 
-    return titreActiviteDelete(id, {})
+    return titreActiviteDelete(id, { fields: {} })
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -20,7 +20,7 @@ import ActivitesTypesDocumentsTypes from '../models/activites-types--documents-t
 import ActivitesTypesPays from '../models/activites-types--pays'
 
 const activitesTypesGet = async (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields

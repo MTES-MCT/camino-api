@@ -24,7 +24,7 @@ import TravauxEtapesTypesDocumentsTypes from '../models/travaux-etapes-types--do
 import TravauxEtapesTypesEtapesStatuts from '../models/travaux-types--travaux-etapes-statuts'
 
 const travauxTypesGet = async (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -43,7 +43,7 @@ const travauxTypeUpdate = async (id: string, props: Partial<ITravauxType>) =>
 
 const travauxEtapeTypeGet = async (
   id: string,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields } = {}
 ) => {
   const graph = fields
     ? graphBuild(fields, 'travauxEtapesTypes', fieldsFormat)
@@ -59,7 +59,7 @@ const travauxEtapeTypeUpdate = async (
 
 const travauxEtapesTypesGet = async (
   { titreTravauxId }: { titreTravauxId?: string },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields

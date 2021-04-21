@@ -8,7 +8,7 @@ import TitresTravauxEtapes from '../models/titres-travaux-etapes'
 import { titresTravauxEtapesQueryModify } from './permissions/titres-travaux-etapes'
 
 const titresTravauxEtapesQueryBuild = (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -26,7 +26,7 @@ const titresTravauxEtapesQueryBuild = (
 
 const titreTravauxEtapeGet = async (
   id: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresTravauxEtapesQueryBuild({ fields }, user)
@@ -44,7 +44,7 @@ const titresTravauxEtapesGet = async (
     etapesTypesIds?: string[] | null
     titresTravauxIds?: string[] | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresTravauxEtapesQueryBuild({ fields }, user)

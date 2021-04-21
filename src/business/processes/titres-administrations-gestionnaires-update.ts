@@ -129,7 +129,11 @@ const titresAdministrationsGestionnairesUpdate = async (
     userSuper
   )
 
-  const administrations = await administrationsGet({}, {}, userSuper)
+  const administrations = await administrationsGet(
+    {},
+    { fields: { titresTypes: { id: {} } } },
+    userSuper
+  )
 
   const {
     titresAsGsToCreate,

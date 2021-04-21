@@ -17,7 +17,7 @@ const main = async () => {
     table.boolean('optionnel')
   })
 
-  const activitesTypes = await activitesTypesGet({}, userSuper)
+  const activitesTypes = await activitesTypesGet({ fields: {} }, userSuper)
   const activiteTypeNew = activitesTypes.find(at => at.id === 'gra')!
   activiteTypeNew.id = 'grx'
   activiteTypeNew.nom =
@@ -38,7 +38,7 @@ const main = async () => {
 
   const titresActivites = await titresActivitesGet(
     { typesIds: ['gra'], titresTypesIds: ['ax'] },
-    {},
+    { fields: {} },
     userSuper
   )
 
@@ -58,7 +58,7 @@ const main = async () => {
   await titresActivitesUpsert(newTitreActivites)
 
   for (const id of oldIds) {
-    await titreActiviteDelete(id, {})
+    await titreActiviteDelete(id, { fields: {} })
   }
 
   console.info(`${newTitreActivites.length} activités insérees`)

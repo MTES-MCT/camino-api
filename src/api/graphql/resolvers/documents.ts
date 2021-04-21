@@ -213,7 +213,11 @@ const documentModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    const documentOld = await documentGet(document.id, {}, user)
+    const documentOld = await documentGet(
+      document.id,
+      { fields: { etapesAssociees: { id: {} } } },
+      user
+    )
     if (!documentOld) throw new Error("le document n'existe pas")
 
     await documentPermissionsCheck(document, user)

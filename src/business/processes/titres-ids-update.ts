@@ -22,7 +22,7 @@ const titreDoublonCheck = async (
 
   if (titreOldId === titreId) return { hash, noLog }
 
-  const titreWithTheSameId = await titreGet(titreId, {}, userSuper)
+  const titreWithTheSameId = await titreGet(titreId, { fields: {} }, userSuper)
 
   // si le titre est en doublon
   // s'il a déjà un hash

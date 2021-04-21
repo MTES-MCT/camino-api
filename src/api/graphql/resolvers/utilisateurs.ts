@@ -176,7 +176,7 @@ const utilisateurTokenCreer = async ({
       throw new Error('adresse email invalide')
     }
 
-    let user = await userByEmailGet(email)
+    let user = await userByEmailGet(email, { fields: {} })
     if (!user) {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
@@ -264,7 +264,9 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
       throw new Error('aucun utilisateur sur Cerbère')
     }
 
-    let utilisateur = await userByEmailGet(cerbereUtilisateur.email!)
+    let utilisateur = await userByEmailGet(cerbereUtilisateur.email!, {
+      fields: {}
+    })
 
     // si l'utilisateur n'existe pas encore en base
     // alors on le crée en lui générant un mot de passe aléatoire
@@ -317,7 +319,10 @@ const utilisateurCreer = async (
       errors.push('le mot de passe doit contenir au moins 8 caractères')
     }
 
-    const utilisateurWithTheSameEmail = await userByEmailGet(utilisateur.email!)
+    const utilisateurWithTheSameEmail = await userByEmailGet(
+      utilisateur.email!,
+      { fields: {} }
+    )
 
     if (utilisateurWithTheSameEmail) {
       errors.push('un utilisateur avec cet email existe déjà')
@@ -385,7 +390,7 @@ const utilisateurCreationMessageEnvoyer = async ({
 
     if (!emailCheck(email)) throw new Error('adresse email invalide')
 
-    const user = await userByEmailGet(email)
+    const user = await userByEmailGet(email, { fields: {} })
 
     if (user) {
       throw new Error('un utilisateur est déjà enregistré avec cet email')
@@ -460,7 +465,10 @@ const utilisateurModifier = async (
       errors.push(...errorsValidate)
     }
 
-    const utilisateurWithTheSameEmail = await userByEmailGet(utilisateur.email)
+    const utilisateurWithTheSameEmail = await userByEmailGet(
+      utilisateur.email,
+      { fields: {} }
+    )
     if (
       utilisateurWithTheSameEmail &&
       utilisateur.id !== utilisateurWithTheSameEmail.id
@@ -571,7 +579,7 @@ const utilisateurMotDePasseModifier = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(id, {}, user)
+    const utilisateur = await utilisateurGet(id, { fields: {} }, user)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -614,7 +622,7 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
   try {
     if (!emailCheck(email)) throw new Error('adresse email invalide')
 
-    const utilisateur = await userByEmailGet(email)
+    const utilisateur = await userByEmailGet(email, { fields: {} })
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
@@ -670,7 +678,11 @@ const utilisateurMotDePasseInitialiser = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(context.user.id, {}, user)
+    const utilisateur = await utilisateurGet(
+      context.user.id,
+      { fields: {} },
+      user
+    )
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -722,7 +734,7 @@ const utilisateurEmailMessageEnvoyer = async (
       throw new Error('utilisateur inconnu')
     }
 
-    const userExistant = await userByEmailGet(email)
+    const userExistant = await userByEmailGet(email, { fields: {} })
     if (userExistant) {
       throw new Error(
         'un utilisateur est déjà enregistré avec cette adresse email'
@@ -777,7 +789,7 @@ const utilisateurEmailModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    const utilisateur = await utilisateurGet(user.id, {}, user)
+    const utilisateur = await utilisateurGet(user.id, { fields: {} }, user)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')

@@ -29,7 +29,7 @@ import { titresFiltersQueryModify } from './_titres-filters'
  *
  */
 const titresQueryBuild = (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -54,7 +54,7 @@ const titresQueryBuild = (
  */
 const titreGet = async (
   id: string,
-  { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
+  { fields, fetchHeritage }: { fields: IFields; fetchHeritage?: boolean },
   user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild({ fields }, user)
@@ -67,7 +67,7 @@ const titreGet = async (
 const titreFromIdGet = async (
   id: string,
   element: 'etape',
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild({ fields }, user)
@@ -159,7 +159,7 @@ const titresGet = async (
     references?: string | null
     territoires?: string | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild({ fields }, user)
@@ -258,7 +258,7 @@ const titresCount = async (
     references?: string | null
     territoires?: string | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresQueryBuild({ fields }, user)
@@ -291,7 +291,10 @@ const titresCount = async (
  * @returns le nouveau titre
  *
  */
-const titreCreate = async (titre: ITitre, { fields }: { fields?: IFields }) => {
+const titreCreate = async (
+  titre: ITitre,
+  { fields }: { fields?: IFields } = {}
+) => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
@@ -309,7 +312,7 @@ const titreDelete = async (id: string, tr?: Transaction) =>
 
 const titreUpsert = async (
   titre: ITitre,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   tr?: Transaction
 ) => {
   const graph = fields

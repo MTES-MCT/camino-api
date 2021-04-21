@@ -13,7 +13,7 @@ import { knex } from '../../../knex'
 
 const administrationsQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   q.select('administrations.*')

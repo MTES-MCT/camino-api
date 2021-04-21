@@ -135,7 +135,7 @@ const titresDemarchesFiltersQueryModify = (
 }
 
 const titresDemarchesQueryBuild = (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -179,7 +179,7 @@ const titresDemarchesCount = async (
     titresReferences?: string | null
     titresTerritoires?: string | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)
@@ -263,7 +263,7 @@ const titresDemarchesGet = async (
     titresReferences?: string | null
     titresTerritoires?: string | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)
@@ -324,7 +324,7 @@ const titresDemarchesGet = async (
 
 const titreDemarcheGet = async (
   titreDemarcheId: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)

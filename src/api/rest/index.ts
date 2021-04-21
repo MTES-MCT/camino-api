@@ -382,7 +382,13 @@ const utilisateurs = async (
       noms,
       emails
     },
-    {},
+    {
+      fields: {
+        administrations: { id: {} },
+        entreprises: { id: {} },
+        permission: { id: {} }
+      }
+    },
     user
   )
 

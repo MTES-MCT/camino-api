@@ -56,7 +56,7 @@ const administrationsUpdate = async (administrationsIds?: string[]) => {
 
   const administrationsOld = await administrationsGet(
     { administrationsIds },
-    {},
+    { fields: {} },
     userSuper
   )
 

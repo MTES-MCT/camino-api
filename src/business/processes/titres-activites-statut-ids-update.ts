@@ -16,7 +16,11 @@ const titresActivitesStatutIdsUpdate = async () => {
     concurrency: 100
   })
 
-  const titresActivites = await titresActivitesGet({}, {}, userSuper)
+  const titresActivites = await titresActivitesGet(
+    {},
+    { fields: { type: { id: {} } } },
+    userSuper
+  )
 
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 

@@ -69,7 +69,11 @@ describe('documentSupprimer', () => {
         optionnel
       })
 
-      const documentRes = await documentGet(documentId, {}, userSuper)
+      const documentRes = await documentGet(
+        documentId,
+        { fields: {} },
+        userSuper
+      )
 
       expect(documentRes.suppression).toBe(suppression)
     }
@@ -122,7 +126,11 @@ describe('documentSupprimer', () => {
         optionnel
       })
 
-      const documentRes = await documentGet(documentId, {}, userSuper)
+      const documentRes = await documentGet(
+        documentId,
+        { fields: {} },
+        userSuper
+      )
 
       expect(documentRes.suppression).toBe(suppression)
     }

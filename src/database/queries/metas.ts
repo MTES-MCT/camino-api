@@ -103,7 +103,7 @@ const titreTypeTypeUpdate = async (
 
 const domainesGet = async (
   _: never,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -119,7 +119,7 @@ const domainesGet = async (
 
 const domaineGet = async (
   id: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -136,7 +136,10 @@ const domaineGet = async (
 const domaineUpdate = async (id: string, props: Partial<IDomaine>) =>
   Domaines.query().patchAndFetchById(id, props)
 
-const titresTypesGet = async (_: never, { fields }: { fields?: IFields }) => {
+const titresTypesGet = async (
+  _: never,
+  { fields }: { fields?: IFields } = {}
+) => {
   const graph = fields
     ? graphBuild(fields, 'titresTypes', fieldsFormat)
     : options.titresTypes.graph
@@ -303,7 +306,7 @@ const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
 
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -341,7 +344,7 @@ const etapesTypesGet = async (
     titreDemarcheId?: string
     titreEtapeId?: string
   },
-  { fields, uniqueCheck = true }: { fields?: IFields; uniqueCheck?: boolean },
+  { fields, uniqueCheck = true }: { fields: IFields; uniqueCheck?: boolean },
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -361,7 +364,10 @@ const etapesTypesGet = async (
   return q
 }
 
-const etapeTypeGet = async (id: string, { fields }: { fields?: IFields }) => {
+const etapeTypeGet = async (
+  id: string,
+  { fields }: { fields?: IFields } = {}
+) => {
   const graph = fields
     ? graphBuild(fields, 'etapesTypes', fieldsFormat)
     : options.etapesTypes.graph

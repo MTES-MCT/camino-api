@@ -40,7 +40,7 @@ const utilisateursQueryBuild = (
     noms?: string | null
     emails?: string | null
   },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -237,7 +237,7 @@ const utilisateursCount = async (
     noms?: string | null
     emails?: string | null
   },
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = utilisateursQueryBuild(
@@ -259,7 +259,7 @@ const utilisateursCount = async (
 
 const utilisateurCreate = async (
   utilisateur: IUtilisateur,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields } = {}
 ) =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)

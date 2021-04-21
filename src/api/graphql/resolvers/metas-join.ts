@@ -54,7 +54,7 @@ const titresTypes = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const titresTypes = await titresTypesGet(null as never, {})
+    const titresTypes = await titresTypesGet(null as never, { fields: {} })
 
     return titresTypes
   } catch (e) {
@@ -79,7 +79,7 @@ const titreTypeModifier = async (
 
     await titreTypeUpdate(titreType.id!, titreType)
 
-    const titresTypes = await titresTypesGet(null as never, {})
+    const titresTypes = await titresTypesGet(null as never, { fields: {} })
 
     return titresTypes
   } catch (e) {
@@ -104,7 +104,7 @@ const titreTypeCreer = async (
 
     await titreTypeCreate(titreType)
 
-    const titresTypes = await titresTypesGet(null as never, {})
+    const titresTypes = await titresTypesGet(null as never, { fields: {} })
 
     return titresTypes
   } catch (e) {
@@ -129,7 +129,7 @@ const titreTypeSupprimer = async (
 
     await titreTypeDelete(titreType.id)
 
-    const titresTypes = await titresTypesGet(null as never, {})
+    const titresTypes = await titresTypesGet(null as never, { fields: {} })
 
     return titresTypes
   } catch (e) {

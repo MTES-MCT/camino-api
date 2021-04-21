@@ -19,7 +19,7 @@ const userCredentialsCheck = async (email: string, motDePasse: string) => {
   let user
 
   try {
-    user = await userByEmailGet(email, {})
+    user = await userByEmailGet(email, { fields: {} })
 
     if (!user) return null
   } catch (e) {

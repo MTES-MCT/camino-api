@@ -9,7 +9,7 @@ import { fieldsTitreAdd } from './graph/fields-add'
 import { titresTravauxQueryModify } from './permissions/titres-travaux'
 
 const titresTravauxQueryBuild = (
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const graph = fields
@@ -29,7 +29,7 @@ const titresTravauxGet = async (
   }: {
     titresTravauxIds?: string[] | null
   } = {},
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresTravauxQueryBuild({ fields }, user)
@@ -43,7 +43,7 @@ const titresTravauxGet = async (
 
 const titresTravauGet = async (
   titreTravauxId: string,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
   const q = titresTravauxQueryBuild({ fields }, user)

@@ -56,7 +56,7 @@ describe('utilisateursQueryModify', () => {
 
       const utilisateurs = await utilisateursGet(
         { noms: mockUser.nom },
-        {},
+        { fields: { administrations: { id: {} } } },
         user
       )
 
