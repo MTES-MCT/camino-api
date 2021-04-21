@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.79](https://github.com/MTES-MCT/camino-api/compare/v0.24.78...v0.24.79) (2021-04-21)
+
+
+### Features
+
+* **activités:** ajoutes une description sur les types d'activités ([#725](https://github.com/MTES-MCT/camino-api/issues/725)) ([b526aea](https://github.com/MTES-MCT/camino-api/commit/b526aeacdf2264b27c571116548ab0937ba2d227))
+* **fichier:** ajoute des éléments de type fichier dans les sections ([#723](https://github.com/MTES-MCT/camino-api/issues/723)) ([2d55079](https://github.com/MTES-MCT/camino-api/commit/2d55079c42477376d9793486fa47e7985271ce43))
+* expose les méta-données des travaux ([#724](https://github.com/MTES-MCT/camino-api/issues/724)) ([3c77f5f](https://github.com/MTES-MCT/camino-api/commit/3c77f5f6a5fd6efa5de7c697e497a820959c268b))
+* **sections:** permet d’avoir des éléments de type "multiple" ([#718](https://github.com/MTES-MCT/camino-api/issues/718)) ([4a066cf](https://github.com/MTES-MCT/camino-api/commit/4a066cf7bb6efc85a69eea37d7fcad3bdc3fd99b))
+* **sections:** transmet les sections du type de l’étape lors de la récupération de son héritage ([#717](https://github.com/MTES-MCT/camino-api/issues/717)) ([fc52577](https://github.com/MTES-MCT/camino-api/commit/fc52577f20b2e8fcd4a560e8d2e7888821677ab7))
+
+
+### Bug Fixes
+
+* **documents:** supprime la colonne répertoire ([#727](https://github.com/MTES-MCT/camino-api/issues/727)) ([6f5cfdc](https://github.com/MTES-MCT/camino-api/commit/6f5cfdcbe3ef524d7a46c2bc3ecbd7a383b9dd65))
+* **utilisateur:** charge correctement toutes les infos de l’utilisateur lors de sa connexion ([#726](https://github.com/MTES-MCT/camino-api/issues/726)) ([cff40dc](https://github.com/MTES-MCT/camino-api/commit/cff40dc7adfa6e032c6f4cc72dcefd017b2b361a))
+* ajoute des types d'étapes de travaux ([#721](https://github.com/MTES-MCT/camino-api/issues/721)) ([cec86e8](https://github.com/MTES-MCT/camino-api/commit/cec86e8d1349e5175bf946b897dfb5d8f07c7911))
+* **arm:** ne peut pas faire de complétude de la demande sans à avoir un dépôt de la demande ([#719](https://github.com/MTES-MCT/camino-api/issues/719)) ([11ffdad](https://github.com/MTES-MCT/camino-api/commit/11ffdad4cf8804cb2fdc2d40854739c020a15bb6))
+* **étape:** vérifie si les éléments non optionnels sont renseignés avant d’enregistrer une étape ([#712](https://github.com/MTES-MCT/camino-api/issues/712)) ([255b0b8](https://github.com/MTES-MCT/camino-api/commit/255b0b8812d4cedd7c1e34edf2a9d77f874b9228))
+* **geojson:** complète les propriétés des points ([#713](https://github.com/MTES-MCT/camino-api/issues/713)) ([5f12545](https://github.com/MTES-MCT/camino-api/commit/5f12545f5792d6e681eb7d85710a8d1dc8440d91))
+* **titre:** permet de créer 2 titres avec le même nom et de type identique ([#715](https://github.com/MTES-MCT/camino-api/issues/715)) ([233bb45](https://github.com/MTES-MCT/camino-api/commit/233bb450ea138c1ae514224809b0f7a63266204e))
+* **titres:** retourne les types de titres dans l’ordre ([#711](https://github.com/MTES-MCT/camino-api/issues/711)) ([5c43b87](https://github.com/MTES-MCT/camino-api/commit/5c43b877e9b29befa3b5a4b00b29ff7db8be51d2))
+
 ### [0.24.78](https://github.com/MTES-MCT/camino-api/compare/v0.24.77...v0.24.78) (2021-03-31)
 
 
