@@ -29,6 +29,7 @@ import { titreActiviteCompleteCheck } from '../../../business/validations/titre-
 import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
 import { userSuper } from '../../../database/user-super'
 import { documentsModifier } from './documents'
+import { fichiersRepertoireDelete } from './_titre-document'
 
 /**
  * Retourne une activité
@@ -351,7 +352,11 @@ const activiteSupprimer = async ({ id }: { id: string }, context: IToken) => {
       throw new Error(rulesErrors.join(', '))
     }
 
-    return titreActiviteDelete(id, {})
+    const activite = titreActiviteDelete(id, {})
+
+    await fichiersRepertoireDelete(id, 'activites')
+
+    return activite
   } catch (e) {
     if (debug) {
       console.error(e)
