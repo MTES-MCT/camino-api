@@ -6,6 +6,7 @@ import {
   ISectionElementType,
   ITitreEtape
 } from '../../types'
+
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 
 const heritageContenuFind = (

@@ -1,3 +1,5 @@
+import { transaction, Transaction, raw, RawBuilder } from 'objection'
+
 import {
   ITitre,
   ITitreAdministrationGestionnaire,
@@ -7,17 +9,15 @@ import {
   IFields,
   IUtilisateur
 } from '../../types'
-import { transaction, Transaction, raw, RawBuilder } from 'objection'
 
-import Titres from '../models/titres'
-import { titresQueryModify } from './permissions/titres'
-
+import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { titresFieldsAdd } from './graph/fields-add'
 
+import Titres from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
-import options from './_options'
+import { titresQueryModify } from './permissions/titres'
 import { titresFiltersQueryModify } from './_titres-filters'
 
 /**

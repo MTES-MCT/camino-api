@@ -1,6 +1,9 @@
+import { raw, QueryBuilder } from 'objection'
+
 import { IFields, IUtilisateur } from '../../../types'
 
-import { raw, QueryBuilder } from 'objection'
+import { knex } from '../../../knex'
+
 import { permissionCheck } from '../../../tools/permission'
 
 import Entreprises from '../../models/entreprises'
@@ -11,7 +14,6 @@ import Documents from '../../models/documents'
 import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
 import { documentsQueryModify } from './documents'
-import { knex } from '../../../knex'
 
 const entreprisesQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,

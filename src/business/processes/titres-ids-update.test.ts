@@ -1,7 +1,8 @@
 import { mocked } from 'ts-jest/utils'
-import Titres from '../../database/models/titres'
+
 import { ITitre } from '../../types'
 
+import Titres from '../../database/models/titres'
 import { titresIdsUpdate } from './titres-ids-update'
 
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'

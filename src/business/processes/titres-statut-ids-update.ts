@@ -1,5 +1,5 @@
 import PQueue from 'p-queue'
-import * as dateFormat from 'dateformat'
+import dateFormat from 'dateformat'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { titreStatutIdFind } from '../rules/titre-statut-id-find'

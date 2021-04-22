@@ -1,8 +1,10 @@
+import { QueryBuilder } from 'objection'
+
 import { stringSplit } from './_utils'
+
 import Titres from '../models/titres'
 import TitresDemarches from '../models/titres-demarches'
 import TitresActivites from '../models/titres-activites'
-import { QueryBuilder } from 'objection'
 
 type ITitreTableName = 'titres' | 'titre'
 type ITitreRootName = 'titres' | 'titresDemarches' | 'titresActivites'

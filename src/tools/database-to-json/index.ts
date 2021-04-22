@@ -1,9 +1,8 @@
 import { rm, writeFileSync } from 'fs'
-import * as makeDir from 'make-dir'
-import * as decamelize from 'decamelize'
+import makeDir from 'make-dir'
+import decamelize from 'decamelize'
 
 import { ICoordonnees } from '../../types'
-import '../../init'
 import { knex } from '../../knex'
 import { tables } from './tables'
 
@@ -18,7 +17,7 @@ const databaseToJsonExport = async () => {
   })
 
   for (const table of tables) {
-    const fileName = `${table.replace(/_/g, '-')}.json`
+    const fileName = `${table.replace(/_/g, '-')}on`
     const filePath = `${dir}/${fileName}`
 
     const json = format(await knex.from(table))

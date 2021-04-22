@@ -1,7 +1,7 @@
-import { dbManager } from './init-db-manager'
+import { dbManager } from './db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import Utilisateurs from '../src/database/models/utilisateurs'
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 console.info = jest.fn()
 console.error = jest.fn()

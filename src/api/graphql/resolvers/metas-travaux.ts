@@ -12,8 +12,8 @@ import {
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
-import fieldsBuild from './_fields-build'
-import ordreUpdate from './_ordre-update'
+import { fieldsBuild } from './_fields-build'
+import { ordreUpdate } from './_ordre-update'
 
 const travauxTypes = async (
   _: never,

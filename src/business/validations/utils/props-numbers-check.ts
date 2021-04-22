@@ -14,4 +14,4 @@ const propsNumbersCheck = <T>(props: [keyof T], element: T) => {
   return null
 }
 
-export default propsNumbersCheck
+export { propsNumbersCheck }

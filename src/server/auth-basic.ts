@@ -1,13 +1,11 @@
-import * as express from 'express'
-import * as basicAuth from 'basic-auth'
-import * as bcrypt from 'bcryptjs'
+import express from 'express'
+import basicAuth from 'basic-auth'
+import bcrypt from 'bcryptjs'
 
 import { IAuthRequest } from './_types'
 
 import { debug } from '../config/index'
-
 import { emailCheck } from '../tools/email-check'
-
 import { userByEmailGet } from '../database/queries/utilisateurs'
 
 const userCredentialsCheck = async (email: string, motDePasse: string) => {

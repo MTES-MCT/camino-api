@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import * as express from 'express'
+import express from 'express'
 
 // bug de typage de express-jwt
 // https://github.com/auth0/express-jwt/issues/215

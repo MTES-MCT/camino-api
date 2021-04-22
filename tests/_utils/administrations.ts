@@ -1,4 +1,7 @@
 /* eslint-disable camelcase */
+import { readFileSync } from 'fs'
+import { join } from 'path'
+
 import {
   IAdministration,
   IAdministrationTitreType,
@@ -9,9 +12,7 @@ import {
   ITitreType
 } from '../../src/types'
 
-import { readFileSync } from 'fs'
-import { join } from 'path'
-import { objectClone } from '../../src/tools'
+import { objectClone } from '../../src/tools/index'
 
 interface ISources {
   administrations: {

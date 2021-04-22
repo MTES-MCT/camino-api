@@ -1,5 +1,7 @@
-import { dbManager } from '../../../../tests/init-db-manager'
 import { IEntreprise, IUtilisateur } from '../../../types'
+
+import { dbManager } from '../../../../tests/db-manager'
+
 import Entreprises from '../../models/entreprises'
 import Utilisateurs from '../../models/utilisateurs'
 import { entreprisesQueryModify } from './entreprises'

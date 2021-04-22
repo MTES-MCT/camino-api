@@ -1,3 +1,5 @@
+import dateFormat from 'dateformat'
+
 import {
   IApiSirenEtablissement,
   IApiSirenUniteLegalePeriode,
@@ -5,13 +7,11 @@ import {
   IApiSirenUnionUniteLegaleEtablissmentUnite,
   IApiSirenUniteLegale
 } from './types'
-
-import * as dateFormat from 'dateformat'
+import { IEntrepriseEtablissement, IEntreprise } from '../../types'
 
 import inseePays from './definitions/pays'
 import inseeCategoriesJuridiques from './definitions/categories-juridiques'
 import inseeTypesVoies from './definitions/voies'
-import { IEntrepriseEtablissement, IEntreprise } from '../../types'
 
 interface IApiSirenNomFormat
   extends IApiSirenUnionUniteLegalePeriodeEtablissmentUnite,

@@ -1,12 +1,8 @@
 import { ITitreDemarche, IFields } from '../../types'
 
-import { titreEtapeFormatFields, titreEtapeFormat } from './titres-etapes'
-import { titreFormatFields, titreFormat } from './titres'
-
-const titreDemarcheFormatFields = {
-  etapes: titreEtapeFormatFields,
-  titre: titreFormatFields
-} as IFields
+import { titreEtapeFormat } from './titres-etapes'
+import { titreFormat } from './titres'
+import { titreDemarcheFormatFields } from './_fields'
 
 const titreDemarcheFormat = (
   titreDemarche: ITitreDemarche,

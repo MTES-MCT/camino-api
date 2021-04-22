@@ -1,9 +1,8 @@
 import { Model, Pojo, ref } from 'objection'
 import { join } from 'path'
-import { titreInsertFormat } from './_format/titre-insert'
 
-import { paysFormat } from './_format/pays'
-import { titreContenuFormat } from './_format/titre-contenu'
+import { ITitre } from '../../types'
+
 import Administrations from './administrations'
 import Communes from './communes'
 import Domaines from './domaines'
@@ -15,9 +14,11 @@ import TitresEtapes from './titres-etapes'
 import TitresPoints from './titres-points'
 import TitresReferences from './titres-references'
 import Types from './titres-types'
-
-import { ITitre } from '../../types'
 import Forets from './forets'
+
+import { titreInsertFormat } from './_format/titre-insert'
+import { paysFormat } from './_format/pays'
+import { titreContenuFormat } from './_format/titre-contenu'
 
 interface Titres extends ITitre {}
 
@@ -135,7 +136,7 @@ class Titres extends Model {
       modelClass: Administrations,
       // On ne peut pas utiliser directement administrations__titresTypes car on ne peut pas sélectionner les lignes où le booléen
       // gestionnaire est à vrai
-      // https://github.com/Vincit/objection.js/issues/1356
+      // https://github.com/Vincit/objection/issues/1356
       join: {
         from: 'titres.id',
         through: {

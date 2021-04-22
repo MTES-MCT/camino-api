@@ -1,6 +1,7 @@
 import { FileUpload } from 'graphql-upload'
-import * as cryptoRandomString from 'crypto-random-string'
+import cryptoRandomString from 'crypto-random-string'
 import { join } from 'path'
+
 import {
   IContenu,
   IContenuElement,
@@ -10,6 +11,7 @@ import {
   ISectionElement,
   ITitreEtape
 } from '../../types'
+
 import dirCreate from '../../tools/dir-create'
 import fileStreamCreate from '../../tools/file-stream-create'
 import fileDelete from '../../tools/file-delete'

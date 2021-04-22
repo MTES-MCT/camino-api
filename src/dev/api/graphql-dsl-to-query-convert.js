@@ -20,5 +20,5 @@ fetch(url, {
 })
   .then(res => res.json())
   .then(res =>
-    fs.writeFileSync(`${dir}/schema.json`, JSON.stringify(res.data, null, 2))
+    fs.writeFileSync(`${dir}/schemaon`, JSON.stringify(res.data, null, 2))
   )

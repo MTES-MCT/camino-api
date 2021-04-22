@@ -5,8 +5,7 @@ import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
 import { userSuper } from '../src/database/user-super'
-import { dbManager } from './init-db-manager'
-const each = require('jest-each').default
+import { dbManager } from './db-manager'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -26,7 +25,7 @@ afterAll(async () => {
 describe('documentSupprimer', () => {
   const documentSupprimerQuery = queryImport('documents-supprimer')
 
-  each([undefined]).test(
+  test.each([undefined])(
     'ne peut pas supprimer un document (utilisateur %s)',
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(

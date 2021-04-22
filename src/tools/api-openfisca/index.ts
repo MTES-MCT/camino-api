@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+
 import errorLog from '../error-log'
 
 interface IOpenfiscaBody {

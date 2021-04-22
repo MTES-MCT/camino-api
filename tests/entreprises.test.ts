@@ -1,6 +1,8 @@
-import { dbManager } from './init-db-manager'
-import { graphQLCall, queryImport } from './_utils/index'
 import { mocked } from 'ts-jest/utils'
+
+import { ITitreEtapeJustificatif } from '../src/types'
+import { dbManager } from './db-manager'
+import { graphQLCall, queryImport } from './_utils/index'
 import {
   entreprisesEtablissementsFetch,
   entreprisesFetch,
@@ -14,7 +16,6 @@ import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
 import { documentCreate } from '../src/database/queries/documents'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
-import { ITitreEtapeJustificatif } from '../src/types'
 
 console.info = jest.fn()
 console.error = jest.fn()

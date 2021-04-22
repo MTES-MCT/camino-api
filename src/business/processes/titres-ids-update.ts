@@ -1,6 +1,6 @@
-import { Index, ITitre } from '../../types'
+import cryptoRandomString from 'crypto-random-string'
 
-import * as cryptoRandomString from 'crypto-random-string'
+import { Index, ITitre } from '../../types'
 
 import {
   titreIdUpdate,

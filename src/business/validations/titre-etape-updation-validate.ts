@@ -10,10 +10,10 @@ import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-v
 import { titreEtapePointsValidate } from './titre-etape-points-validate'
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
 import { heritageContenuValidate } from './utils/heritage-contenu-validate'
-import propsNumbersCheck from './utils/props-numbers-check'
-import contenuNumbersCheck from './utils/contenu-numbers-check'
-import propsDatesCheck from './utils/props-dates-check'
-import contenuDatesCheck from './utils/contenu-dates-check'
+import { propsNumbersCheck } from './utils/props-numbers-check'
+import { contenuNumbersCheck } from './utils/contenu-numbers-check'
+import { propsDatesCheck } from './utils/props-dates-check'
+import { contenuDatesCheck } from './utils/contenu-dates-check'
 import { documentsTypesValidate } from './documents-types-validate'
 
 const numberProps = (['duree', 'surface'] as unknown) as [keyof ITitreEtape]

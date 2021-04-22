@@ -1,6 +1,6 @@
-import { ITitreEtape } from '../../types'
-
 import PQueue from 'p-queue'
+
+import { ITitreEtape } from '../../types'
 
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'

@@ -1,6 +1,6 @@
-import * as slugify from '@sindresorhus/slugify'
+import slugify from '@sindresorhus/slugify'
 import { Pojo } from 'objection'
-import * as cryptoRandomString from 'crypto-random-string'
+import cryptoRandomString from 'crypto-random-string'
 
 const titreInsertFormat = (json: Pojo) => {
   if (!json.id && json.domaineId && json.typeId && json.nom) {

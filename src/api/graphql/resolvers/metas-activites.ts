@@ -7,8 +7,9 @@ import {
   IActiviteTypeTitreType,
   IToken
 } from '../../../types'
-import { debug } from '../../../config'
-import fieldsBuild from './_fields-build'
+
+import { debug } from '../../../config/index'
+import { fieldsBuild } from './_fields-build'
 import { userGet } from '../../../database/queries/utilisateurs'
 import {
   activitesTypesGet,
@@ -27,7 +28,7 @@ import {
   activiteTypePaysDelete
 } from '../../../database/queries/metas-activites'
 import { permissionCheck } from '../../../tools/permission'
-import ordreUpdate from './_ordre-update'
+import { ordreUpdate } from './_ordre-update'
 
 const activitesTypes = async (
   _: never,

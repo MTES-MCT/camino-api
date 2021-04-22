@@ -1,8 +1,8 @@
 import { mocked } from 'ts-jest/utils'
+
 import { ITitreActivite } from '../../types'
 
 import { titresActivitesUpdate } from './titres-activites-update'
-
 import { titreActiviteTypeCheck } from '../utils/titre-activite-type-check'
 import { anneesBuild } from '../../tools/annees-build'
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'

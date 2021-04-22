@@ -1,5 +1,5 @@
-import * as express from 'express'
-import * as expressJwt from 'express-jwt'
+import express from 'express'
+import expressJwt from 'express-jwt'
 
 const authJwt = expressJwt({
   credentialsRequired: false,

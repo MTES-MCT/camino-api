@@ -1,20 +1,22 @@
 import { GraphQLResolveInfo } from 'graphql'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import cryptoRandomString from 'crypto-random-string'
+
 import {
   IToken,
   IUtilisateur,
   IUtilisateurCreation,
   IUtilisateursColonneId
 } from '../../../types'
-import * as bcrypt from 'bcryptjs'
-import * as jwt from 'jsonwebtoken'
-import * as cryptoRandomString from 'crypto-random-string'
-import { login as cerbereLogin } from '../../../tools/api-cerbere'
+
+import { login as cerbereLogin } from '../../../tools/api-cerbere/index'
 
 import { databaseInit } from '../../../database/init'
 
 import { debug } from '../../../config/index'
 import { emailSend } from '../../../tools/emails-send'
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import {
   userGet,

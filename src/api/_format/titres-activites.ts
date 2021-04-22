@@ -10,6 +10,8 @@ import {
 
 import { titreSectionsFormat } from './titres-sections'
 
+import { titreActiviteFormatFields } from './_fields'
+
 const titreActiviteContenuFormat = (
   sections: ISection[],
   contenu: IContenu,
@@ -35,11 +37,6 @@ const titreActiviteContenuFormat = (
 
   return contenu
 }
-
-const titreActiviteFormatFields = {
-  periode: {},
-  sections: {}
-} as IFields
 
 const titreActiviteFormat = (
   ta: ITitreActivite,

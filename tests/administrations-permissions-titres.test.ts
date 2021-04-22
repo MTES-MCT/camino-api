@@ -1,4 +1,4 @@
-import { dbManager } from './init-db-manager'
+import { dbManager } from './db-manager'
 import {
   visibleCheck,
   creationCheck,

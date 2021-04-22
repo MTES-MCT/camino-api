@@ -1,5 +1,6 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
+
 import { ITitreTravauxEtape } from '../../types'
 
 interface TitresTravauxEtapes extends ITitreTravauxEtape {}

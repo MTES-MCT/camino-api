@@ -1,10 +1,11 @@
 import { mocked } from 'ts-jest/utils'
 
+import { ITitreEtape } from '../../types'
+
 import { titresContenusEtapesIdsUpdate } from './titres-contenus-etapes-ids-update'
 import { titreContenuTitreEtapeFind } from '../rules/titre-prop-etape-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
-import { ITitreEtape } from '../../types'
 
 jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true),

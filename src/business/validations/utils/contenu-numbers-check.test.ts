@@ -1,4 +1,4 @@
-import contenuNumbersCheck from './contenu-numbers-check'
+import { contenuNumbersCheck } from './contenu-numbers-check'
 import {
   contenuNumber,
   contenuNumberNeg,

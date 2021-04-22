@@ -1,4 +1,4 @@
-import * as Knex from 'knex'
+import Knex from 'knex'
 import { Model } from 'objection'
 
 let knexInstance = (null as unknown) as Knex

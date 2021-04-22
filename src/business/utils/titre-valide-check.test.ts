@@ -1,9 +1,12 @@
 import { mocked } from 'ts-jest/utils'
+
+import { ITitreDemarche } from '../../types'
+
 import { titreValideCheck } from './titre-valide-check'
-import { titreDemarches } from './__mocks__/titre-valide-check-demarches'
 import { titreStatutIdFind } from '../rules/titre-statut-id-find'
 import { titreDemarchesEtapesRebuild } from './titre-demarches-etapes-rebuild'
-import { ITitreDemarche } from '../../types'
+
+import { titreDemarches } from './__mocks__/titre-valide-check-demarches'
 
 jest.mock('../rules/titre-statut-id-find', () => ({
   __esModule: true,

@@ -1,3 +1,5 @@
+import { join } from 'path'
+
 import {
   ITitre,
   ITitreDemarche,
@@ -6,8 +8,6 @@ import {
   ITitreEtapeOrTitreTravauxEtape,
   IDocumentRepertoire
 } from '../../../types'
-
-import { join } from 'path'
 
 import { dirDelete } from '../../../tools/dir-delete'
 

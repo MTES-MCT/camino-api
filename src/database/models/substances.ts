@@ -1,5 +1,4 @@
 import { Model, Modifiers } from 'objection'
-
 import { join } from 'path'
 
 import { ISubstance } from '../../types'

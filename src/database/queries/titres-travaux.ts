@@ -1,11 +1,13 @@
-import { ITitreTravaux, IFields, IUtilisateur } from '../../types'
 import { Transaction } from 'objection'
 
-import TitresTravaux from '../models/titres-travaux'
+import { ITitreTravaux, IFields, IUtilisateur } from '../../types'
+
 import options from './_options'
 import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
+
+import TitresTravaux from '../models/titres-travaux'
 import { titresTravauxQueryModify } from './permissions/titres-travaux'
 
 const titresTravauxQueryBuild = (

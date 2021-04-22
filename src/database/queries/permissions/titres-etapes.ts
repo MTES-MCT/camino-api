@@ -1,12 +1,14 @@
+import { raw, QueryBuilder } from 'objection'
+
 import { IUtilisateur } from '../../../types'
-// import * as sqlFormatter from 'sql-formatter'
+// import sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
-import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
+import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 import { documentsQueryModify } from './documents'
 import { administrationsEtapesTypesPropsQuery } from './metas'
@@ -15,7 +17,6 @@ import {
   administrationsTitresQuery
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
-import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {

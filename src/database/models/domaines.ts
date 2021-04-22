@@ -1,6 +1,7 @@
-import { IDomaine } from '../../types'
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
+
+import { IDomaine } from '../../types'
 
 interface Domaines extends IDomaine {}
 

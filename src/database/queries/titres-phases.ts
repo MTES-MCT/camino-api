@@ -1,6 +1,8 @@
 import { ITitrePhase } from '../../types'
-import TitresPhases from '../models/titres-phases'
+
 import options from './_options'
+
+import TitresPhases from '../models/titres-phases'
 
 const titresPhasesGet = async () =>
   TitresPhases.query()

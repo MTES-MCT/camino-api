@@ -1,16 +1,19 @@
+import { FileUpload } from 'graphql-upload'
+import { ReadStream } from 'fs'
+import { mocked } from 'ts-jest/utils'
+
+import { IContenu, ISection, ITitreEtape } from '../../types'
+
 import {
   contenuElementFilesCreate,
   contenuElementFilesDelete,
   sectionsContenuAndFilesGet
 } from './contenu-element-file-process'
-import { FileUpload } from 'graphql-upload'
-import { objectClone } from '../../tools'
-import { ReadStream } from 'fs'
-import { mocked } from 'ts-jest/utils'
+
+import { objectClone } from '../../tools/index'
 import dirCreate from '../../tools/dir-create'
 import fileStreamCreate from '../../tools/file-stream-create'
 import fileDelete from '../../tools/file-delete'
-import { IContenu, ISection, ITitreEtape } from '../../types'
 
 jest.mock('../../tools/dir-create', () => ({
   __esModule: true,
@@ -114,7 +117,7 @@ describe('sectionsContenuAndFilesGet', () => {
       }
     }
 
-    const newContenu = objectClone(contenu)
+    const newContenu = objectClone(contenu) as IContenu
     newContenu.arm.justificatif = 'prefix-super.pdf'
 
     const res = sectionsContenuAndFilesGet(contenu, [
@@ -148,7 +151,7 @@ describe('sectionsContenuAndFilesGet', () => {
       }
     }
 
-    const newContenu = objectClone(contenu)
+    const newContenu = objectClone(contenu) as IContenu
     newContenu.arm.machines[1].justificatif = 'prefix-fichier2.pdf'
 
     const res = sectionsContenuAndFilesGet(contenu, [

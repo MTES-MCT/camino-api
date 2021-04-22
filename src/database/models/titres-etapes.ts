@@ -1,8 +1,10 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
+
 import { ITitreEtape, ITitrePoint } from '../../types'
 
 import { paysFormat } from './_format/pays'
+
 import {
   heritagePropsFormat,
   heritageContenuFormat

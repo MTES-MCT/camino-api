@@ -1,4 +1,4 @@
-import contenuDatesCheck from './contenu-dates-check'
+import { contenuDatesCheck } from './contenu-dates-check'
 
 import {
   sections,

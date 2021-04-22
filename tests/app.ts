@@ -1,4 +1,5 @@
-import * as express from 'express'
+import express from 'express'
+
 import { graphql } from '../src/server/graphql'
 import { authJwt } from '../src/server/auth-jwt'
 

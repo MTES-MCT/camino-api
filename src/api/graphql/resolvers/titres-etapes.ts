@@ -1,3 +1,5 @@
+import { GraphQLResolveInfo } from 'graphql'
+
 import { ITitreEtape, ITitreEtapeJustificatif, IToken } from '../../../types'
 
 import { debug } from '../../../config/index'
@@ -20,8 +22,7 @@ import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
 import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
-import { GraphQLResolveInfo } from 'graphql'
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
 import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'

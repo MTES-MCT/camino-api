@@ -1,5 +1,6 @@
-import { dbManager } from '../../../../tests/init-db-manager'
 import { IAdministration, IUtilisateur } from '../../../types'
+
+import { dbManager } from '../../../../tests/db-manager'
 import Administrations from '../../models/administrations'
 import Utilisateurs from '../../models/utilisateurs'
 import { utilisateursGet } from '../utilisateurs'

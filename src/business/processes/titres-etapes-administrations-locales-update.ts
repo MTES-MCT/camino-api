@@ -1,3 +1,5 @@
+import PQueue from 'p-queue'
+
 import {
   ITitre,
   IAdministration,
@@ -5,8 +7,6 @@ import {
   ITitreEtape,
   ICommune
 } from '../../types'
-
-import PQueue from 'p-queue'
 
 import {
   titresEtapesAdministrationsCreate,

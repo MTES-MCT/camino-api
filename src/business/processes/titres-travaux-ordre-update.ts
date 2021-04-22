@@ -1,5 +1,6 @@
-import { ITitreTravaux } from '../../types'
 import PQueue from 'p-queue'
+
+import { ITitreTravaux } from '../../types'
 
 import { titreTravauxUpdate } from '../../database/queries/titres-travaux'
 import titreTravauxAscSort from '../utils/titre-elements-sort-asc'

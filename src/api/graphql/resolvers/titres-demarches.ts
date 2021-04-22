@@ -1,14 +1,15 @@
+import { GraphQLResolveInfo } from 'graphql'
+
 import {
   IToken,
   ITitreDemarche,
   ITitreEtapeFiltre,
   ITitreDemarcheColonneId
 } from '../../../types'
-import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
 
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 

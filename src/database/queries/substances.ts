@@ -1,7 +1,9 @@
 import { ISubstanceLegale } from '../../types'
+
+import options from './_options'
+
 import Substances from '../models/substances'
 import SubstancesLegales from '../models/substances-legales'
-import options from './_options'
 
 const substancesGet = async () =>
   Substances.query().withGraphFetched(options.substances.graph).orderBy('nom')

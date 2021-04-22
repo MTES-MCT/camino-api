@@ -1,9 +1,10 @@
-import * as fs from 'fs'
-import * as path from 'path'
-import * as jwt from 'jsonwebtoken'
+import fs from 'fs'
+import path from 'path'
+import jwt from 'jsonwebtoken'
+import request from 'supertest'
 
 import { Index, IPermissionId, IUtilisateur } from '../../src/types'
-import * as request from 'supertest'
+
 import { app } from '../app'
 import {
   utilisateurCreate,

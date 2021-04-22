@@ -4,11 +4,13 @@ import daily from './business/daily'
 import documentsCheck from './tools/documents/check'
 import { matomoCacheInit } from './tools/api-matomo'
 import demarchesDefinitionsCheck from './tools/demarches/definitions-check'
-import './config/logger-cron'
+import { consoleOverride, cronLogger } from './config/logger'
 import { emailSend } from './tools/emails-send'
 import { readFileSync, writeFileSync } from 'fs'
 import { titreTypeDemarcheTypeEtapeTypeCheck } from './tools/demarches/tde-check'
 import { etapeStatutCheck } from './tools/demarches/etape-statut-check'
+
+consoleOverride(cronLogger)
 
 const tasks = async () => {
   console.info('Cron quotidien : démarrage')

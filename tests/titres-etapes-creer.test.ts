@@ -1,4 +1,6 @@
-import { dbManager } from './init-db-manager'
+import each from 'jest-each'
+
+import { dbManager } from './db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
@@ -6,7 +8,6 @@ import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 import Titres from '../src/database/models/titres'
-const each = require('jest-each').default
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,

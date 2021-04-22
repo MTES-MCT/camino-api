@@ -1,3 +1,5 @@
+import dateFormat from 'dateformat'
+
 import {
   ITitreDemarche,
   IActiviteType,
@@ -8,7 +10,6 @@ import {
   ISectionElement
 } from '../../types'
 
-import * as dateFormat from 'dateformat'
 import { metasGet } from '../../database/cache/metas'
 import { titreEtapePropFind } from './titre-etape-prop-find'
 import { titreActiviteValideCheck } from '../utils/titre-activite-valide-check'

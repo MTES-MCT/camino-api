@@ -1,11 +1,11 @@
 import { ICommune, IForet } from '../../types'
 
+import options from './_options'
+
 import Communes from '../models/communes'
 import Departements from '../models/departements'
 import Pays from '../models/pays'
 import Forets from '../models/forets'
-
-import options from './_options'
 import Regions from '../models/regions'
 
 const paysGet = async () => Pays.query().withGraphFetched(options.pays.graph)

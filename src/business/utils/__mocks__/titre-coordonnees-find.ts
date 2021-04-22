@@ -24,21 +24,4 @@ const titrePoints = [
   }
 ] as ITitrePoint[]
 
-const titreGeojson = {
-  type: 'Feature',
-  properties: { etapeId: 'h-cx-courdemanges-1988-oct01-dpu01' },
-  geometry: {
-    type: 'MultiPolygon',
-    coordinates: [
-      [
-        [
-          [1, 1],
-          [0, 1],
-          [1, 1]
-        ]
-      ]
-    ]
-  }
-}
-
-export { titrePoints, titreGeojson }
+export { titrePoints }

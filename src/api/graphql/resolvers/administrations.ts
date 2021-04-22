@@ -1,3 +1,5 @@
+import { GraphQLResolveInfo } from 'graphql'
+
 import {
   IAdministrationActiviteType,
   IAdministrationColonneId,
@@ -6,7 +8,7 @@ import {
   IAdministrationTitreTypeTitreStatut,
   IToken
 } from '../../../types'
-import { GraphQLResolveInfo } from 'graphql'
+
 import { debug } from '../../../config/index'
 import {
   administrationGet,
@@ -25,7 +27,7 @@ import {
 
 import administrationUpdateTask from '../../../business/administration-update'
 
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import { administrationFormat } from '../../_format/administrations'
 import { permissionCheck } from '../../../tools/permission'

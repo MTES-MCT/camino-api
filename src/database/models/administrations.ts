@@ -2,6 +2,7 @@ import { Model, ref } from 'objection'
 import { join } from 'path'
 
 import { IAdministration } from '../../types'
+
 import AdministrationsTitresTypesEtapesTypes from './administrations-titres-types-etapes-types'
 import AdministrationsTitresTypesTitresStatuts from './administrations-titres-types-titres-statuts'
 

@@ -1,6 +1,8 @@
 /* istanbul ignore file */
-import { createLogger, format, Logger, transports } from 'winston'
-import * as util from 'util'
+import util from 'util'
+import winston from 'winston'
+
+const { createLogger, format, transports } = winston
 
 const { combine, timestamp, printf, colorize } = format
 
@@ -25,7 +27,7 @@ const utilFormat = {
   }
 }
 
-const consoleOverride = (logger: Logger) => {
+const consoleOverride = (logger: winston.Logger) => {
   console.info = (...args) => logger.info('', ...args)
   console.warn = (...args) => logger.warn('', ...args)
   console.error = (...args) => logger.error('', ...args)
@@ -36,19 +38,36 @@ const consoleTransport = new transports.Console({
   format: combine(colorize(), timestampFormat, utilFormat, printFormat)
 })
 
-const logger = createLogger({
+const appLogger = createLogger({
   transports: [consoleTransport]
 })
 
 // Si nous sommes en production, alors on met aussi les logs dans un fichier
 if (process.env.NODE_ENV === 'production') {
-  logger.add(
+  appLogger.add(
     new transports.File({
       filename: 'app.log',
       format: combine(timestampFormat, utilFormat, printFormat)
     })
   )
 }
-consoleOverride(logger)
 
-export { timestampFormat, utilFormat, consoleOverride, consoleTransport }
+const htmlFormat = printf(({ level, message, timestamp }) => {
+  if (!message || !message.length) {
+    return ''
+  }
+
+  return `<div>${timestamp} [${level}]: ${message}</div>`
+})
+
+const cronLogger = createLogger({
+  transports: [
+    consoleTransport,
+    new transports.File({
+      filename: 'cron.log',
+      format: combine(timestampFormat, utilFormat, htmlFormat)
+    })
+  ]
+})
+
+export { consoleOverride, appLogger, cronLogger }

@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+
 import { IUnite } from '../../types'
 
 interface Unites extends IUnite {}

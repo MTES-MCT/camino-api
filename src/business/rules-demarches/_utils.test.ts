@@ -1,6 +1,6 @@
-import * as fs from 'fs'
-import * as decamelize from 'decamelize'
-import * as camelcase from 'camelcase'
+import fs from 'fs'
+import decamelize from 'decamelize'
+import camelcase from 'camelcase'
 import { mocked } from 'ts-jest/utils'
 
 import {
@@ -13,6 +13,7 @@ import {
   IContenu,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
+
 import { titreDemarcheEtatValidate } from '../validations/titre-demarche-etat-validate'
 import { demarcheDefinitionFind } from './definitions'
 import { titreContenuFormat } from '../../database/models/_format/titre-contenu'

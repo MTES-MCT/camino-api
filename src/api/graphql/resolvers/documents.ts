@@ -1,8 +1,9 @@
-import { IDocument, IToken, ITitreEtape, IUtilisateur } from '../../../types'
+import { GraphQLResolveInfo } from 'graphql'
 import { FileUpload } from 'graphql-upload'
-
 import { join } from 'path'
-import * as cryptoRandomString from 'crypto-random-string'
+import cryptoRandomString from 'crypto-random-string'
+
+import { IDocument, IToken, ITitreEtape, IUtilisateur } from '../../../types'
 
 import { debug } from '../../../config/index'
 import fileDelete from '../../../tools/file-delete'
@@ -20,8 +21,7 @@ import {
 
 import { documentTypeGet } from '../../../database/queries/metas'
 
-import fieldsBuild from './_fields-build'
-import { GraphQLResolveInfo } from 'graphql'
+import { fieldsBuild } from './_fields-build'
 import fileRename from '../../../tools/file-rename'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { titreActiviteGet } from '../../../database/queries/titres-activites'

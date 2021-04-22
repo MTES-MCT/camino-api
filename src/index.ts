@@ -9,10 +9,12 @@
  */
 
 import './init'
-import * as compression from 'compression'
-import * as cors from 'cors'
-import * as express from 'express'
+import compression from 'compression'
+import cors from 'cors'
+import express from 'express'
+import Sentry from '@sentry/node'
 
+import { port, url } from './config/index'
 import { rest } from './server/rest'
 import { graphql } from './server/graphql'
 import { authJwt, authJwtError } from './server/auth-jwt'
@@ -21,11 +23,9 @@ import { upload } from './server/upload'
 
 import { databaseInit } from './database/init'
 
-import { port, url } from './config/index'
+import { consoleOverride, appLogger } from './config/logger'
 
-import * as Sentry from '@sentry/node'
-import './config/logger'
-
+consoleOverride(appLogger)
 databaseInit()
 
 const app = express()

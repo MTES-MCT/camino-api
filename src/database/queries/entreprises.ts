@@ -1,16 +1,19 @@
+import { raw, QueryBuilder } from 'objection'
+
 import {
   IEntreprise,
   IFields,
   IUtilisateur,
   IEntrepriseColonneId
 } from '../../types'
-import Entreprises from '../models/entreprises'
+
 import options from './_options'
-import { entreprisesQueryModify } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { stringSplit } from './_utils'
-import { raw, QueryBuilder } from 'objection'
+
+import Entreprises from '../models/entreprises'
+import { entreprisesQueryModify } from './permissions/entreprises'
 
 const entreprisesFiltersQueryModify = (
   {

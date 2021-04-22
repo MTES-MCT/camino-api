@@ -1,5 +1,7 @@
-import * as dateFormat from 'dateformat'
+import dateFormat from 'dateformat'
+
 import { ITitreDemarche } from '../../types'
+
 import { titreValideCheck } from './titre-valide-check'
 
 /**

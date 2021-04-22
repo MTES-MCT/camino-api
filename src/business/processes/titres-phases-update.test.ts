@@ -1,6 +1,9 @@
 import { mocked } from 'ts-jest/utils'
 import { titresPhasesUpdate } from './titres-phases-update'
-import * as queries from '../../database/queries/titres-phases'
+import {
+  titrePhasesUpsert,
+  titrePhasesDelete
+} from '../../database/queries/titres-phases'
 import { titresGet } from '../../database/queries/titres'
 
 import {
@@ -37,7 +40,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(1)
     expect(titresPhasesDeleted.length).toEqual(0)
 
-    expect(queries.titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
+    expect(titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
   })
 
   test('met à jour un titre dont une phase est modifiée', async () => {
@@ -50,7 +53,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(1)
     expect(titresPhasesDeleted.length).toEqual(0)
 
-    expect(queries.titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
+    expect(titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
   })
 
   test('met à jour un titre dont une phase est supprimée', async () => {
@@ -63,7 +66,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(0)
     expect(titresPhasesDeleted.length).toEqual(1)
 
-    expect(queries.titrePhasesDelete).toHaveBeenCalledWith([
+    expect(titrePhasesDelete).toHaveBeenCalledWith([
       'h-cx-courdemanges-1988-oct01'
     ])
   })
@@ -78,8 +81,8 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(0)
     expect(titresPhasesDeleted.length).toEqual(0)
 
-    expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
-    expect(queries.titrePhasesUpsert).not.toHaveBeenCalled()
+    expect(titrePhasesDelete).not.toHaveBeenCalled()
+    expect(titrePhasesUpsert).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre si aucune phase n'existe", async () => {
@@ -92,7 +95,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(0)
     expect(titresPhasesDeleted.length).toEqual(0)
 
-    expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
-    expect(queries.titrePhasesUpsert).not.toHaveBeenCalled()
+    expect(titrePhasesDelete).not.toHaveBeenCalled()
+    expect(titrePhasesUpsert).not.toHaveBeenCalled()
   })
 })

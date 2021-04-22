@@ -1,11 +1,12 @@
 import 'dotenv/config'
+
 import './app'
-import { dbManager } from './init-db-manager'
+import { dbManager } from './db-manager'
 import { connection } from '../knex/config'
 
 export default async () => {
   await dbManager.createDbOwnerIfNotExist()
-  // la base de donnée est définie dans package.json
+  // la base de donnée est définie dans packageon
   // par les variables d'env PGDATABASE=camino_tests
   await dbManager.dropDb(connection.database)
   await dbManager.createDb(connection.database)

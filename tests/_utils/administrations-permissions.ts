@@ -1,12 +1,14 @@
+import { IAdministration, IPermissionId, ITitre } from '../../src/types'
+
 import { graphQLCall, queryImport } from './index'
 import { administrationsWithRelations } from './administrations'
-import { IAdministration, IPermissionId, ITitre } from '../../src/types'
+
 import Titres from '../../src/database/models/titres'
-import options from '../../src/database/queries/_options'
-import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-heritage-props-find'
-import { etapeTypeGet } from '../../src/database/queries/metas'
-import { etapeTypeSectionsFormat } from '../../src/api/_format/etapes-types'
 import DemarchesTypes from '../../src/database/models/demarches-types'
+import options from '../../src/database/queries/_options'
+import { etapeTypeGet } from '../../src/database/queries/metas'
+import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-heritage-props-find'
+import { etapeTypeSectionsFormat } from '../../src/api/_format/etapes-types'
 
 const visibleCheck = async (
   administrationId: string,

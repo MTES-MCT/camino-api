@@ -17,26 +17,9 @@ import { dupRemove } from '../../tools/index'
 
 import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
-
-import {
-  titreActiviteFormatFields,
-  titreActiviteFormat
-} from './titres-activites'
-
-import {
-  titreDemarcheFormatFields,
-  titreDemarcheFormat
-} from './titres-demarches'
-
-const titreFormatFields = {
-  surface: {},
-  geojsonMultiPolygon: {},
-  geojsonPoints: {},
-  pays: {},
-  demarches: titreDemarcheFormatFields,
-  activites: titreActiviteFormatFields,
-  administrations: {}
-} as IFields
+import { titreActiviteFormat } from './titres-activites'
+import { titreDemarcheFormat } from './titres-demarches'
+import { titreFormatFields } from './_fields'
 
 const titreTypeSectionsFormat = (
   contenusTitreEtapesIds: IContenusTitreEtapesIds,

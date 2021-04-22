@@ -1,5 +1,6 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
+
 import { ITitreReference } from '../../types'
 
 interface TitresReferences extends ITitreReference {}

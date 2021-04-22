@@ -1,3 +1,5 @@
+import slugify from '@sindresorhus/slugify'
+
 import {
   ITitre,
   ITitreDemarche,
@@ -6,7 +8,7 @@ import {
   ITitrePointReference,
   ITitreTravaux
 } from '../../types'
-import * as slugify from '@sindresorhus/slugify'
+
 import idsUpdate from './ids-update'
 import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
 import titreEtapesSortAsc from './titre-etapes-sort-asc'

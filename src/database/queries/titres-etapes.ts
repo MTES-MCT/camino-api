@@ -9,15 +9,16 @@ import {
   ITitreForet
 } from '../../types'
 
+import options from './_options'
+import graphBuild from './graph/build'
+import { fieldsFormat } from './graph/fields-format'
+
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
 import TitresEtapesJustificatifs from '../models/titres-etapes-justificatifs'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
-import options from './_options'
-import { titresEtapesQueryModify } from './permissions/titres-etapes'
-import graphBuild from './graph/build'
-import { fieldsFormat } from './graph/fields-format'
 import TitresForets from '../models/titres-forets'
+import { titresEtapesQueryModify } from './permissions/titres-etapes'
 
 const titresEtapesQueryBuild = (
   { fields }: { fields?: IFields },

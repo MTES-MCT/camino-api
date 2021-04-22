@@ -1,10 +1,10 @@
 import { app } from './app'
 import { knex } from '../src/knex'
 import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
-import * as userAdd from '../knex/user-add'
-import * as request from 'supertest'
-import * as jwt from 'jsonwebtoken'
-import { dbManager } from './init-db-manager'
+import userAdd from '../knex/user-add'
+import request from 'supertest'
+import jwt from 'jsonwebtoken'
+import { dbManager } from './db-manager'
 
 console.info = jest.fn()
 console.error = jest.fn()

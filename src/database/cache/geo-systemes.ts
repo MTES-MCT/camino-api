@@ -1,5 +1,7 @@
-import * as proj4 from 'proj4'
+import proj4 from 'proj4'
+
 import { IGeoSysteme } from '../../types'
+
 import { geoSystemesGet } from '../queries/metas'
 
 let geoSystemes = [] as IGeoSysteme[]

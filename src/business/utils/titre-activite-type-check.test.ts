@@ -1,4 +1,5 @@
 import { titreActiviteTypeCheck } from './titre-activite-type-check'
+
 import {
   activiteTypeMAxmPxmGuyane,
   activiteTypeMPrmMetropole,

@@ -32,4 +32,4 @@ const propsDatesCheck = <T extends ITitreActivite | ITitreEtape>(
   return null
 }
 
-export default propsDatesCheck
+export { propsDatesCheck }

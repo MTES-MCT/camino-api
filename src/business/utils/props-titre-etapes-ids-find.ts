@@ -3,6 +3,7 @@ import {
   IContenusTitreEtapesIds,
   IContenuId
 } from '../../types'
+
 import { titreContenuTitreEtapeFind } from '../rules/titre-prop-etape-find'
 
 const contenusTitreEtapesIdsFind = (

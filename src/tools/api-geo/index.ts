@@ -1,6 +1,7 @@
+/// <reference types="../../@types/mapbox__geojsonhint" />
 import fetch from 'node-fetch'
-import * as geojsonhint from '@mapbox/geojsonhint'
-import errorLog from '../error-log'
+import geojsonhint from '@mapbox/geojsonhint'
+
 import {
   IGeoJson,
   ICommune,
@@ -9,6 +10,7 @@ import {
   IForet,
   IGeoJsonProperties
 } from '../../types'
+import errorLog from '../error-log'
 
 const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
   try {

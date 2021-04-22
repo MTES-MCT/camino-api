@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+
 import { cacheGet, cacheUpsert } from '../../database/queries/caches'
 
 interface IMatomoSectionData {

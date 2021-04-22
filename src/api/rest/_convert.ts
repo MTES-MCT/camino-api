@@ -1,4 +1,5 @@
-import * as xlsx from 'xlsx'
+import xlsx from 'xlsx'
+
 import { IFormat, Index } from '../../types'
 
 const tableConvert = (

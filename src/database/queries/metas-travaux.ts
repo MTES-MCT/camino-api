@@ -14,14 +14,14 @@ import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 
-import {
-  travauxTypesQueryModify,
-  travauxEtapesTypesQueryModify
-} from './permissions/metas-travaux'
 import TravauxTypesTravauxEtapesTypes from '../models/travaux-types--travaux-etapes-types'
 import TravauxEtapesTypes from '../models/travaux-etapes-types'
 import TravauxEtapesTypesDocumentsTypes from '../models/travaux-etapes-types--documents-types'
 import TravauxEtapesTypesEtapesStatuts from '../models/travaux-types--travaux-etapes-statuts'
+import {
+  travauxTypesQueryModify,
+  travauxEtapesTypesQueryModify
+} from './permissions/metas-travaux'
 
 const travauxTypesGet = async (
   { fields }: { fields?: IFields },

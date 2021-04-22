@@ -1,6 +1,8 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
+
 import { ITitreType } from '../../types'
+
 import TitresTypesTitresStatuts from './titres-types--titres-statuts'
 
 interface TitresTypes extends ITitreType {}

@@ -1,6 +1,7 @@
+import dateFormat from 'dateformat'
+
 import { ITitreDemarche, ITitreEtape } from '../../types'
 
-import * as dateFormat from 'dateformat'
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 

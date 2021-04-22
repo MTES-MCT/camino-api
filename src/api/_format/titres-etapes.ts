@@ -1,4 +1,4 @@
-import { ITitreEtape, IGeoJson, IFields, IEtapeType } from '../../types'
+import { ITitreEtape, IGeoJson, IEtapeType } from '../../types'
 
 import {
   geojsonFeatureMultiPolygon,
@@ -7,13 +7,7 @@ import {
 import { etapeTypeSectionsFormat } from './etapes-types'
 import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
-
-const titreEtapeFormatFields = {
-  geojsonMultiPolygon: {},
-  geojsonPoints: {},
-  pays: {},
-  sections: {}
-} as IFields
+import { titreEtapeFormatFields } from './_fields'
 
 const titreEtapeFormat = (
   titreEtape: ITitreEtape,

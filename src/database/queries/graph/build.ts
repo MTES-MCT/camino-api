@@ -1,5 +1,6 @@
-import { objectClone } from '../../../tools/index'
 import { IFields } from '../../../types'
+
+import { objectClone } from '../../../tools/index'
 
 interface IFieldsFormat {
   (fields: IFields, parent: string): IFields
@@ -58,7 +59,7 @@ const fieldsToString = (
 // - fields: objet contenant les champs de la requête graphQl
 // - format: fonction qui transforme l'objet
 // - root: nom du nœud racine
-// out: string de graph pour la requête avec objection.js
+// out: string de graph pour la requête avec objection
 
 // TODO: à refactoriser. est-ce que le paramètre root sert encore à quelque chose ?
 const graphBuild = (
@@ -69,7 +70,7 @@ const graphBuild = (
   fields = objectClone(fields)
 
   // in: AST de la requête GraphQl
-  // out: string au format 'graph' de objection.js
+  // out: string au format 'graph' de objection
   return fieldsToString(fields, root, format)
 }
 

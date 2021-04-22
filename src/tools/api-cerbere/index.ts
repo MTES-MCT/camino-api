@@ -1,6 +1,6 @@
-import { IUtilisateur } from '../../types'
-import Cerbere = require('cerbere')
+import Cerbere from 'cerbere'
 
+import { IUtilisateur } from '../../types'
 const config = {
   cerbereUrl:
     'https://authentification.din.developpement-durable.gouv.fr/cas/public',

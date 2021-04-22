@@ -27,7 +27,7 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
     const titreId = titreTravaux.titreId
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
 
-    // met à jour l'id des travauxdans le titre par effet de bord
+    // met à jour l'id des travaux dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate([titreId])
 
     logsUpdate({

@@ -61,7 +61,7 @@ import {
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 import { etapeTypeIsValidCheck } from '../../_format/etapes-types'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
@@ -69,7 +69,7 @@ import {
   departementsGet,
   regionsGet
 } from '../../../database/queries/territoires'
-import ordreUpdate from './_ordre-update'
+import { ordreUpdate } from './_ordre-update'
 import { demarcheDefinitionFind } from '../../../business/rules-demarches/definitions'
 import { userSuper } from '../../../database/user-super'
 import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'

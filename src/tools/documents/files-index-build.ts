@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
-import { Index } from '../../types'
 import { basename } from 'path'
+
+import { Index } from '../../types'
 
 const filesIndexBuild = () => {
   const filesNames = execSync('find ./files | grep pdf').toString().split('\n')

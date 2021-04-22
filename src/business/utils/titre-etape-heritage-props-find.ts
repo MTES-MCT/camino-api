@@ -6,7 +6,7 @@ import {
   ITitreSubstance,
   ITitreEntreprise
 } from '../../types'
-import { objectClone } from '../../tools'
+import { objectClone } from '../../tools/index'
 
 const titreEtapePropsIds: (keyof ITitreEtape)[] = [
   'points',

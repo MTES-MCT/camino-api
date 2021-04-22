@@ -1,10 +1,11 @@
-import { IToken, ITitre, ITitreColonneId } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
+
+import { IToken, ITitre, ITitreColonneId } from '../../../types'
 
 import { debug } from '../../../config/index'
 import { titreFormat, titresFormat } from '../../_format/titres'
 
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import {
   titreCreate,

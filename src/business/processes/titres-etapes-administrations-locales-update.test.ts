@@ -1,10 +1,13 @@
 import { mocked } from 'ts-jest/utils'
 
 import { titresEtapesAdministrationsLocalesUpdate } from './titres-etapes-administrations-locales-update'
-
-import * as titreEtapes from '../../database/queries/titres-etapes'
+import {
+  titresEtapesAdministrationsCreate,
+  titreEtapeAdministrationDelete
+} from '../../database/queries/titres-etapes'
 import { titresGet } from '../../database/queries/titres'
 import { administrationsGet } from '../../database/queries/administrations'
+import Administrations from '../../database/models/administrations'
 
 import {
   administrations,
@@ -15,7 +18,6 @@ import {
   titresEtapesAdministrationLocalesExistante,
   titresArm
 } from './__mocks__/titres-etapes-administrations-locales-update-etapes'
-import Administrations from '../../database/models/administrations'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
   titresEtapesAdministrationsCreate: jest.fn().mockImplementation(a => a),
@@ -60,8 +62,8 @@ describe("administrations d'une étape", () => {
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(1)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
 
-    expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
-    expect(titreEtapes.titreEtapeAdministrationDelete).not.toHaveBeenCalled()
+    expect(titresEtapesAdministrationsCreate).toHaveBeenCalled()
+    expect(titreEtapeAdministrationDelete).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour les administrations d'une étape qui n'a pas de commune", async () => {
@@ -75,8 +77,8 @@ describe("administrations d'une étape", () => {
     expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
 
-    expect(titreEtapes.titresEtapesAdministrationsCreate).not.toHaveBeenCalled()
-    expect(titreEtapes.titreEtapeAdministrationDelete).not.toHaveBeenCalled()
+    expect(titresEtapesAdministrationsCreate).not.toHaveBeenCalled()
+    expect(titreEtapeAdministrationDelete).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas d'administration si elle existe déjà dans l'étape", async () => {

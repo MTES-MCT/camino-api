@@ -1,4 +1,5 @@
-import * as MatomoTracker from 'matomo-tracker'
+/// <reference types="../@types/matomo-tracker" />
+import MatomoTracker from 'matomo-tracker'
 
 const matomo =
   process.env.API_MATOMO_ID &&
@@ -11,4 +12,4 @@ const matomo =
       )
     : null
 
-export default matomo
+export { matomo }
