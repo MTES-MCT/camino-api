@@ -52,45 +52,30 @@ const documentsQueryModify = (
 
           c.where(d => {
             d.orWhere(e => {
-              e.where('type.repertoire', 'demarches')
-              e.where(f => {
-                f.orWhereIn(
-                  'etape:demarche:titre:titulaires.id',
-                  entreprisesIds
-                )
-                f.orWhereIn(
-                  'etape:demarche:titre:amodiataires.id',
-                  entreprisesIds
-                )
-              })
+              e.orWhereIn('etape:demarche:titre:titulaires.id', entreprisesIds)
+              e.orWhereIn(
+                'etape:demarche:titre:amodiataires.id',
+                entreprisesIds
+              )
             })
 
             d.orWhere(e => {
-              e.where('type.repertoire', 'travaux')
-              e.where(f => {
-                f.orWhereIn(
-                  'travauxEtape:travaux:titre:titulaires.id',
-                  entreprisesIds
-                )
-                f.orWhereIn(
-                  'travauxEtape:travaux:titre:amodiataires.id',
-                  entreprisesIds
-                )
-              })
+              e.orWhereIn(
+                'travauxEtape:travaux:titre:titulaires.id',
+                entreprisesIds
+              )
+              e.orWhereIn(
+                'travauxEtape:travaux:titre:amodiataires.id',
+                entreprisesIds
+              )
             })
 
             d.orWhere(e => {
-              e.where('type.repertoire', 'activites')
-              e.where(f => {
-                f.orWhereIn('activite:titre:titulaires.id', entreprisesIds)
-                f.orWhereIn('activite:titre:amodiataires.id', entreprisesIds)
-              })
+              e.orWhereIn('activite:titre:titulaires.id', entreprisesIds)
+              e.orWhereIn('activite:titre:amodiataires.id', entreprisesIds)
             })
 
-            d.orWhere(e => {
-              e.where('type.repertoire', 'entreprises')
-              e.whereIn('documents.entrepriseId', entreprisesIds)
-            })
+            d.orWhereIn('documents.entrepriseId', entreprisesIds)
           })
         })
       }
