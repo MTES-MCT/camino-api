@@ -134,16 +134,16 @@ const demarchesValidate = async () => {
         )
         .forEach(demarche => {
           try {
-            const errors = titreDemarcheEtatValidate(
+            const errs = titreDemarcheEtatValidate(
               demarcheDefinition.restrictions,
               demarche.type!,
               demarche.etapes!,
               demarche.titre!
             )
 
-            if (errors.length) {
+            if (errs.length) {
               errors.push(
-                `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errors}`
+                `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errs}`
               )
             }
           } catch (e) {
