@@ -1,5 +1,5 @@
 import { graphQLCall, queryImport } from './_utils/index'
-import { IPermissionId, ITitreEtapeJustificatif } from '../src/types'
+import { ITitreEtapeJustificatif } from '../src/types'
 import { documentCreate, documentGet } from '../src/database/queries/documents'
 import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
@@ -25,18 +25,15 @@ afterAll(async () => {
 describe('documentSupprimer', () => {
   const documentSupprimerQuery = queryImport('documents-supprimer')
 
-  test.each([undefined])(
-    'ne peut pas supprimer un document (utilisateur %s)',
-    async (permissionId: IPermissionId) => {
-      const res = await graphQLCall(
-        documentSupprimerQuery,
-        { id: 'toto' },
-        permissionId
-      )
+  test('ne peut pas supprimer un document (utilisateur anonyme)', async () => {
+    const res = await graphQLCall(
+      documentSupprimerQuery,
+      { id: 'toto' },
+      undefined
+    )
 
-      expect(res.body.errors[0].message).toBe('droits insuffisants')
-    }
-  )
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
+  })
 
   test('ne peut pas supprimer un document inexistant (utilisateur super)', async () => {
     const res = await graphQLCall(

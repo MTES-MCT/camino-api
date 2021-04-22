@@ -1,5 +1,3 @@
-import each from 'jest-each'
-
 import { dbManager } from './db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
@@ -66,9 +64,9 @@ const demarcheCreate = async () => {
 describe('etapeCreer', () => {
   const etapeCreerQuery = queryImport('titre-etape-creer')
 
-  each([undefined, 'editeur']).test(
+  test.each([undefined, 'editeur' as IPermissionId])(
     'ne peut pas créer une étape (utilisateur %s)',
-    async (permissionId: IPermissionId) => {
+    async (permissionId: IPermissionId | undefined) => {
       const res = await graphQLCall(
         etapeCreerQuery,
         { etape: { typeId: '', statutId: '', titreDemarcheId: '', date: '' } },

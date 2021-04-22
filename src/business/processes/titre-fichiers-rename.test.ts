@@ -11,11 +11,12 @@ import {
 } from './__mocks__/titre-fichiers-rename'
 
 jest.mock('fs', () => ({
-  existsSync: jest.fn().mockRejectedValue(true)
+  existsSync: jest.fn().mockResolvedValue(true)
 }))
 
 jest.mock('../../tools/file-rename', () => ({
-  default: jest.fn().mockResolvedValue(true)
+  default: jest.fn().mockResolvedValue(true),
+  __esModule: true
 }))
 
 const fileRenameMock = mocked(fileRename, true)

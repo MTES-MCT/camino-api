@@ -2,7 +2,7 @@ import { FileUpload } from 'graphql-upload'
 import { ReadStream } from 'fs'
 import { mocked } from 'ts-jest/utils'
 
-import { IContenu, ISection, ITitreEtape } from '../../types'
+import { IContenu, IContenuElement, ISection, ITitreEtape } from '../../types'
 
 import {
   contenuElementFilesCreate,
@@ -152,7 +152,8 @@ describe('sectionsContenuAndFilesGet', () => {
     }
 
     const newContenu = objectClone(contenu) as IContenu
-    newContenu.arm.machines[1].justificatif = 'prefix-fichier2.pdf'
+    const elements = newContenu.arm.machines as IContenuElement[]
+    elements[1].justificatif = 'prefix-fichier2.pdf'
 
     const res = sectionsContenuAndFilesGet(contenu, [
       {

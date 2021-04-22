@@ -127,9 +127,11 @@ describe('retourne l’étape en fonction de son héritage', () => {
         prop =>
           (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
       )
+      // @ts-ignore
       titreEtape[propId] = [{ id: 'haha' }, { id: 'toto' }]
 
       const titreEtapeNew = objectClone(titreEtape) as ITitreEtape
+      // @ts-ignore
       titreEtapeNew[propId] = [{ id: 'toto' }, { id: 'tata' }]
 
       expect(
