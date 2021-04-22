@@ -108,22 +108,6 @@ describe('trie les étapes', () => {
     expect(result[2].typeId).toEqual('eof')
   })
 
-  test('la "mnv" doit être après la "aco"', () => {
-    const etapes = [
-      { typeId: 'mnv', date: '2020-01-01', ordre: 119 },
-      { typeId: 'aco', date: '2020-01-01', ordre: 125 }
-    ] as ITitreEtape[]
-
-    const result = titreEtapesSortAscByDate(
-      etapes,
-      'demarches',
-      { id: 'pro' } as IDemarcheType,
-      'arm'
-    )
-    expect(result[0].typeId).toEqual('aco')
-    expect(result[1].typeId).toEqual('mnv')
-  })
-
   test("loggue une erreur si le type d'étape est absent dans la définition", () => {
     const etapes = [
       { typeId: 'mcr', date: '2020-01-01', ordre: 18 },
@@ -163,5 +147,27 @@ describe('trie les étapes', () => {
     )
     expect(result[0].typeId).toEqual('mcp')
     expect(result[1].typeId).toEqual('rcm')
+  })
+
+  test('sur un otroi d’ARM la mnv est après la aco', () => {
+    const etapes = [
+      { typeId: 'aco', date: '2020-01-01' },
+      { typeId: 'mnv', date: '2020-01-01' }
+    ] as ITitreEtape[]
+
+    const result = titreEtapesSortAscByDate(
+      etapes,
+      'demarches',
+      {
+        id: 'oct',
+        etapesTypes: [
+          { id: 'mnv', ordre: 2101, titreTypeId: 'arm' },
+          { id: 'aco', ordre: 2100, titreTypeId: 'arm' }
+        ]
+      } as IDemarcheType,
+      'arm'
+    )
+    expect(result[0].typeId).toEqual('aco')
+    expect(result[1].typeId).toEqual('mnv')
   })
 })
