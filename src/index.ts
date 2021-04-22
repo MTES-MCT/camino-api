@@ -12,7 +12,7 @@ import './init'
 import compression from 'compression'
 import cors from 'cors'
 import express from 'express'
-import Sentry from '@sentry/node'
+import * as Sentry from '@sentry/node'
 
 import { port, url } from './config/index'
 import { rest } from './server/rest'
