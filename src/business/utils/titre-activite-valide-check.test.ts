@@ -1,5 +1,7 @@
-import { ITitreDemarche } from '../../types'
 import { mocked } from 'ts-jest/utils'
+
+import { ITitreDemarche } from '../../types'
+
 import { titreActiviteValideCheck } from './titre-activite-valide-check'
 
 import { titreValideCheck } from './titre-valide-check'

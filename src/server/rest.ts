@@ -1,21 +1,19 @@
 import { IFormat, Index } from '../types'
 
-import * as express from 'express'
+import express from 'express'
 import { join } from 'path'
 
-import { debug } from '../config/index'
+import { IAuthRequest } from './_types'
 
+import { debug } from '../config/index'
 import {
   titres,
   demarches,
   activites,
   utilisateurs,
   entreprises
-} from '../api/rest'
-
+} from '../api/rest/index'
 import { etapeFichier, fichier } from '../api/rest/fichiers'
-
-import { IAuthRequest } from './_types'
 
 const contentTypes = {
   csv: 'text/csv',

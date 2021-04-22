@@ -1,4 +1,4 @@
-import api from '..//tools/api-geo'
+import api from '../tools/api-geo'
 
 const geojson = {
   type: 'Feature',

@@ -1,6 +1,7 @@
+import { mkdirSync, readFileSync, rmdirSync } from 'fs'
+
 import fileRename from './file-rename'
 import fileCreate from './file-create'
-import { mkdirSync, readFileSync, rmdirSync } from 'fs'
 
 console.error = jest.fn()
 console.info = jest.fn()

@@ -1,6 +1,6 @@
 import { IEntrepriseEtablissement, IEntreprise } from '../../types'
 
-import { objectsDiffer } from '../../tools'
+import { objectsDiffer } from '../../tools/index'
 import {
   entreprisesUpsert,
   entreprisesGet

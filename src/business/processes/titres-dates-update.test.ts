@@ -1,4 +1,5 @@
 import { mocked } from 'ts-jest/utils'
+
 import { titresDatesUpdate } from './titres-dates-update'
 import { titreDateFinFind } from '../rules/titre-date-fin-find'
 import { titreDateDebutFind } from '../rules/titre-date-debut-find'
@@ -10,12 +11,15 @@ jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true),
   titresGet: jest.fn()
 }))
+
 jest.mock('../rules/titre-date-fin-find', () => ({
   titreDateFinFind: jest.fn()
 }))
+
 jest.mock('../rules/titre-date-debut-find', () => ({
   titreDateDebutFind: jest.fn()
 }))
+
 jest.mock('../rules/titre-date-demande-find', () => ({
   titreDateDemandeFind: jest.fn()
 }))

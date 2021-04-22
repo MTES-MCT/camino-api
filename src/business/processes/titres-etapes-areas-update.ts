@@ -1,3 +1,5 @@
+import PQueue from 'p-queue'
+
 import {
   ITitreEtape,
   ITitreArea,
@@ -8,10 +10,9 @@ import {
   IForet,
   IApiGeoResult
 } from '../../types'
-import PQueue from 'p-queue'
 
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
-import { apiGeoGet } from '../../tools/api-geo'
+import { apiGeoGet } from '../../tools/api-geo/index'
 import {
   communesGet,
   communesUpsert,

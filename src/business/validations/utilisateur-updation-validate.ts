@@ -7,7 +7,7 @@ import {
   permissionCheck
 } from '../../tools/permission'
 
-import { diffFind } from '../../tools'
+import { diffFind } from '../../tools/index'
 
 /**
  * Valide la mise à jour d'un utilisateur

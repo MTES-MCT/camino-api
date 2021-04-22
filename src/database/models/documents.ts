@@ -1,5 +1,6 @@
 import { Model, Pojo } from 'objection'
 import { join } from 'path'
+
 import { IDocument } from '../../types'
 
 interface Document extends IDocument {}

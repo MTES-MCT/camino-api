@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+
 import { ITravauxTypeTravauxEtapeType } from '../../types'
 
 interface TravauxTypesTravauxEtapesTypes extends ITravauxTypeTravauxEtapeType {}

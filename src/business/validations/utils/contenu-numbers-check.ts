@@ -27,4 +27,4 @@ const contenuNumbersCheck = (sections: ISection[], contenu: IContenu) => {
   return null
 }
 
-export default contenuNumbersCheck
+export { contenuNumbersCheck }

@@ -1,22 +1,23 @@
-import { dbManager } from './init-db-manager'
+import { IPermissionId } from '../src/types'
+import { dbManager } from './db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 import { administrations } from './__mocks__/administrations'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
 import { titreEtapeCreate } from '../src/database/queries/titres-etapes'
-import { IPermissionId } from '../src/types'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 import Titres from '../src/database/models/titres'
-const each = require('jest-each').default
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,
   default: jest.fn()
 }))
+
 jest.mock('../src/tools/file-stream-create', () => ({
   __esModule: true,
   default: jest.fn()
 }))
+
 jest.mock('../src/tools/file-delete', () => ({
   __esModule: true,
   default: jest.fn()
@@ -76,9 +77,9 @@ async function etapeCreate() {
 describe('etapeModifier', () => {
   const etapeModifierQuery = queryImport('titre-etape-modifier')
 
-  each([undefined, 'editeur']).test(
+  test.each([undefined, 'editeur' as IPermissionId])(
     'ne peut pas modifier une étape (utilisateur %s)',
-    async (permissionId: IPermissionId) => {
+    async (permissionId: IPermissionId | undefined) => {
       const res = await graphQLCall(
         etapeModifierQuery,
         {
@@ -245,9 +246,9 @@ describe('etapeModifier', () => {
 describe('etapeSupprimer', () => {
   const etapeSupprimerQuery = queryImport('titre-etape-supprimer')
 
-  each([undefined, 'admin']).test(
+  test.each([undefined, 'admin' as IPermissionId])(
     'ne peut pas supprimer une étape (utilisateur %s)',
-    async (permissionId: IPermissionId) => {
+    async (permissionId: IPermissionId | undefined) => {
       const res = await graphQLCall(
         etapeSupprimerQuery,
         { id: '' },

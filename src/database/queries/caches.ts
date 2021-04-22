@@ -1,5 +1,6 @@
-import { Caches } from '../models/caches'
 import { ICache, ICacheId } from '../../types'
+
+import { Caches } from '../models/caches'
 
 const cacheGet = async (id: ICacheId) => Caches.query().findById(id)
 

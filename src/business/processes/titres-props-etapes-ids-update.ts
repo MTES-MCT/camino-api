@@ -3,7 +3,7 @@ import PQueue from 'p-queue'
 
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { titrePropTitreEtapeFind } from '../rules/titre-prop-etape-find'
-import { objectsDiffer } from '../../tools'
+import { objectsDiffer } from '../../tools/index'
 import { userSuper } from '../../database/user-super'
 
 const titrePropsEtapes = [

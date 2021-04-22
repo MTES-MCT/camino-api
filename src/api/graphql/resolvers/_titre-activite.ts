@@ -1,3 +1,5 @@
+import dateFormat from 'dateformat'
+
 import {
   ISectionElement,
   IContenu,
@@ -6,8 +8,6 @@ import {
   IUtilisateur,
   ITitreActivite
 } from '../../../types'
-
-import * as dateFormat from 'dateformat'
 
 import { emailsSend } from '../../../tools/emails-send'
 

@@ -1,6 +1,7 @@
-import * as nodemailer from 'nodemailer'
+/// <reference types="../@types/nodemailer-html-to-text" />
+import nodemailer from 'nodemailer'
 import { htmlToText } from 'nodemailer-html-to-text'
-import * as emailRegex from 'email-regex'
+import emailRegex from 'email-regex'
 
 const smtpTransportConfig = `smtps://${process.env.EMAIL_API_KEY}:${process.env.EMAIL_API_PASSWORD}@${process.env.EMAIL_SMTP_SERVER}`
 

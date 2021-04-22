@@ -1,4 +1,5 @@
 import { IDemarcheType, ITitre, ITitreEtape, ITitreType } from '../../types'
+
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
 
 describe('teste titreDemarcheUpdatedEtatValidate', () => {

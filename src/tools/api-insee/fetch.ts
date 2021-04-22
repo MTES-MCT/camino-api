@@ -1,16 +1,16 @@
 // https://api.insee.fr/catalogue/site/themes/wso2/subthemes/insee/pages/item-info.jag?name=Sirene&version=V3&provider=insee
 
+import { join } from 'path'
+import fetch from 'node-fetch'
+import PQueue from 'p-queue'
+import makeDir from 'make-dir'
+
 import {
   IApiSirenQueryTypes,
   IApiSirenQueryToken,
   IApiSirenEtablissement,
   IApiSirenUniteLegale
 } from './types'
-
-import { join } from 'path'
-import fetch from 'node-fetch'
-import PQueue from 'p-queue'
-import * as makeDir from 'make-dir'
 
 import errorLog from '../error-log'
 import fileCreate from '../file-create'
@@ -121,7 +121,7 @@ const tokenFetch = async () => {
 const tokenFetchDev = async () => {
   await makeDir(CACHE_DIR)
 
-  const cacheFilePath = join(CACHE_DIR, `insee-token.json`)
+  const cacheFilePath = join(CACHE_DIR, `insee-tokenon`)
 
   try {
     const result = require(`../../../${cacheFilePath}`)
@@ -218,7 +218,7 @@ const typeFetchDev = async (
 
   const cacheFilePath = join(
     CACHE_DIR,
-    `insee-${field}-${ids.map(id => id.slice(-1)[0]).join('-')}.json`
+    `insee-${field}-${ids.map(id => id.slice(-1)[0]).join('-')}on`
   )
 
   try {

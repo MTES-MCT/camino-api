@@ -1,4 +1,12 @@
 import {
+  transaction,
+  Transaction,
+  QueryBuilder,
+  raw,
+  RawBuilder
+} from 'objection'
+
+import {
   ITitreDemarche,
   ITitreEtapeFiltre,
   ITitreDemarcheColonneId,
@@ -7,20 +15,13 @@ import {
   Index,
   IUtilisateur
 } from '../../types'
-import {
-  transaction,
-  Transaction,
-  QueryBuilder,
-  raw,
-  RawBuilder
-} from 'objection'
 
-import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 
+import TitresDemarches from '../models/titres-demarches'
 import { titresDemarchesQueryModify } from './permissions/titres-demarches'
 import { titresFiltersQueryModify } from './_titres-filters'
 

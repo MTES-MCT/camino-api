@@ -1,6 +1,6 @@
-import { ITitreEtape } from '../../types'
-
 import PQueue from 'p-queue'
+
+import { ITitreEtape } from '../../types'
 
 import { titreTravauxEtapeUpdate } from '../../database/queries/titres-travaux-etapes'
 import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'

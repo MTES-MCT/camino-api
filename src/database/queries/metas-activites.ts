@@ -7,17 +7,17 @@ import {
   IFields,
   IUtilisateur
 } from '../../types'
-import ActivitesTypes from '../models/activites-types'
-import ActivitesTypesTitresTypes from '../models/activites-types--titres-types'
 
 import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 
-import { activitesTypesQueryModify } from './permissions/metas'
+import ActivitesTypes from '../models/activites-types'
+import ActivitesTypesTitresTypes from '../models/activites-types--titres-types'
 import ActivitesStatuts from '../models/activites-statuts'
 import ActivitesTypesDocumentsTypes from '../models/activites-types--documents-types'
 import ActivitesTypesPays from '../models/activites-types--pays'
+import { activitesTypesQueryModify } from './permissions/metas'
 
 const activitesTypesGet = async (
   { fields }: { fields?: IFields },

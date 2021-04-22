@@ -1,4 +1,5 @@
 import { IDocumentType, ISection, ITitreActivite } from '../../types'
+
 import { documentsTypesValidate } from './documents-types-validate'
 
 const titreActiviteCompleteCheck = (

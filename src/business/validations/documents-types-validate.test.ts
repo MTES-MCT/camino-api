@@ -1,5 +1,6 @@
-import { documentsTypesValidate } from './documents-types-validate'
 import { IDocument, IDocumentType } from '../../types'
+
+import { documentsTypesValidate } from './documents-types-validate'
 
 describe('teste documentsTypesValidate', () => {
   test('aucun document type n’est possible', () => {

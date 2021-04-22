@@ -1,5 +1,5 @@
 import { IFields } from '../../../types'
-import * as graphqlFields from 'graphql-fields'
+import graphqlFields from 'graphql-fields'
 import { GraphQLResolveInfo } from 'graphql'
 
 // in: info: objet contenant les propriétés de la requête graphQl
@@ -7,4 +7,4 @@ import { GraphQLResolveInfo } from 'graphql'
 const fieldsBuild = (info: GraphQLResolveInfo) =>
   graphqlFields(info, {}, { excludedFields: ['__typename'] }) as IFields
 
-export default fieldsBuild
+export { fieldsBuild }

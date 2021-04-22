@@ -27,4 +27,4 @@ const ordreUpdate = async <I extends { id: string; ordre: number }, O>(
   }
 }
 
-export default ordreUpdate
+export { ordreUpdate }

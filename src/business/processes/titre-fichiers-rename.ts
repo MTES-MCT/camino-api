@@ -1,6 +1,8 @@
-import fileRename from '../../tools/file-rename'
-import { Index, ITitre, ITitreDemarche, ITitreEtape } from '../../types'
 import { existsSync } from 'fs'
+
+import { Index, ITitre, ITitreDemarche, ITitreEtape } from '../../types'
+
+import fileRename from '../../tools/file-rename'
 
 const titreEtapeFilePathPathBuild = (titreEtapeId: string) =>
   `demarches/${titreEtapeId}`

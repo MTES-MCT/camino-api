@@ -1,4 +1,5 @@
 import { mocked } from 'ts-jest/utils'
+
 import { IGeometry } from '../../types'
 
 import { titresEtapesAreasUpdate } from './titres-etapes-areas-update'
@@ -18,7 +19,7 @@ import {
   foret1,
   foret1SurfaceChangee
 } from './__mocks__/titres-etapes-communes-update-etapes'
-import { apiGeoGet } from '../../tools/api-geo'
+import { apiGeoGet } from '../../tools/api-geo/index'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
   __esModule: true,

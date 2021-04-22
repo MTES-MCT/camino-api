@@ -1,3 +1,5 @@
+import { raw, RawBuilder } from 'objection'
+
 import {
   IUtilisateur,
   IFields,
@@ -6,15 +8,13 @@ import {
   IColonne
 } from '../../types'
 
-import { raw, RawBuilder } from 'objection'
-import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
-import { utilisateursQueryModify } from './permissions/utilisateurs'
-
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
-
 import { stringSplit } from './_utils'
+
+import Utilisateurs from '../models/utilisateurs'
+import { utilisateursQueryModify } from './permissions/utilisateurs'
 
 const userGet = async (userId?: string) => {
   if (!userId) return null

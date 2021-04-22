@@ -1,9 +1,10 @@
+import { ITitreEtape } from '../../types'
+
 import {
   etapesSuivantesEnAttenteGet,
   titreEtapeTypeIdRestrictionsFind
 } from './titre-etape-etat-validate'
 import { restrictionsArmRet } from '../rules-demarches/arm/ret'
-import { ITitreEtape } from '../../types'
 import { etatInformationsGet } from '../rules-demarches/etat-cycles'
 
 describe('teste etapesSuivantesEnAttenteGet', () => {

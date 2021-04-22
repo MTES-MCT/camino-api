@@ -1,7 +1,7 @@
 import { ISection, ISectionElement } from '../../types'
 
 import { metasGet } from '../../database/cache/metas'
-import { objectClone } from '../../tools'
+import { objectClone } from '../../tools/index'
 
 const titreSectionElementFormat = (element: ISectionElement) => {
   if (element.valeursMetasNom) {

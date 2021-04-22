@@ -1,7 +1,7 @@
 import { IDevise, IUnite, IEtapeType } from '../../types'
 
-import { devisesGet, unitesGet, etapesTypesGet } from '../queries/metas'
 import { userSuper } from '../user-super'
+import { devisesGet, unitesGet, etapesTypesGet } from '../queries/metas'
 
 const metas = {
   devises: [] as IDevise[],
@@ -11,7 +11,7 @@ const metas = {
 
 const metasInit = async () => {
   // utilisés pour la validation des sections d'étapes
-  // /src/api/resolvers/format/titres-sections.ts
+  // /src/api/resolvers/format/titres-sections
   metas.devises = await devisesGet()
   metas.unites = await unitesGet()
   metas.etapesTypes = await etapesTypesGet(

@@ -10,7 +10,7 @@ import {
 } from '../../../database/queries/entreprises'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import { entrepriseFormat } from '../../_format/entreprises'
 import { emailCheck } from '../../../tools/email-check'

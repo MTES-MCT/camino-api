@@ -1,6 +1,7 @@
+import { QueryBuilder, raw } from 'objection'
+
 import { IUtilisateur } from '../../../types'
 
-import { QueryBuilder, raw } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'

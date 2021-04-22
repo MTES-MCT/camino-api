@@ -1,4 +1,4 @@
-import { dbManager } from './init-db-manager'
+import { dbManager } from './db-manager'
 import { graphQLCall, queryImport } from './_utils/index'
 
 console.info = jest.fn()

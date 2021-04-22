@@ -1,12 +1,12 @@
 import { ITitrePhase } from '../../types'
-import * as dateFormat from 'dateformat'
+import dateFormat from 'dateformat'
+import PQueue from 'p-queue'
 
 import {
   titrePhasesUpsert,
   titrePhasesDelete
 } from '../../database/queries/titres-phases'
 import { titrePhasesFind } from '../rules/titre-phases-find'
-import PQueue from 'p-queue'
 import { titresGet } from '../../database/queries/titres'
 import { userSuper } from '../../database/user-super'
 

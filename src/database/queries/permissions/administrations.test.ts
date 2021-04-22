@@ -1,4 +1,5 @@
-import { dbManager } from '../../../../tests/init-db-manager'
+import { dbManager } from '../../../../tests/db-manager'
+
 import AdministrationsTitresTypes from '../../models/administrations-titres-types'
 import Titres from '../../models/titres'
 import { administrationsTitresQuery } from './administrations'

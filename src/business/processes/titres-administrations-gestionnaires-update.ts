@@ -1,10 +1,10 @@
+import PQueue from 'p-queue'
+
 import {
   IAdministration,
   ITitre,
   ITitreAdministrationGestionnaire
 } from '../../types'
-
-import PQueue from 'p-queue'
 
 import {
   titreAdministrationGestionnaireDelete,

@@ -1,3 +1,5 @@
+import { QueryBuilder } from 'objection'
+
 import {
   IAdministration,
   IAdministrationColonneId,
@@ -20,8 +22,6 @@ import { administrationsQueryModify } from './permissions/administrations'
 import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
 import AdministrationsActivitesTypes from '../models/administrations-activites-types'
-
-import { QueryBuilder } from 'objection'
 
 const administrationsFiltersQueryModify = (
   {

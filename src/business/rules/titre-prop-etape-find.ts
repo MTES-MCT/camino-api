@@ -3,6 +3,7 @@
 // pour laquelle la propriété existe
 
 import { ITitreDemarche, ITitreEtape, IPropId, IContenuId } from '../../types'
+
 import { propValueFind } from '../utils/prop-value-find'
 import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'

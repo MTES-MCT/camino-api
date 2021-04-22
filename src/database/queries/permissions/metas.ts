@@ -1,8 +1,11 @@
+import { raw, QueryBuilder } from 'objection'
+
 import { IUtilisateur } from '../../../types'
+
+import { knex } from '../../../knex'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
-import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import AdministrationsTitresTypes from '../../models/administrations-titres-types'
@@ -24,7 +27,6 @@ import {
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
 } from './administrations'
-import { knex } from '../../../knex'
 
 // récupère les types d'étapes qui ont
 // - les autorisations sur le titre

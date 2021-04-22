@@ -9,7 +9,7 @@ import {
   organismesDepartementsGet
 } from '../../tools/api-administrations/index'
 
-import { objectsDiffer } from '../../tools'
+import { objectsDiffer } from '../../tools/index'
 import { userSuper } from '../../database/user-super'
 
 const administrationsUpdatedFind = (

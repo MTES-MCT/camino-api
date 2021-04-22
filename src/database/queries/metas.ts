@@ -1,3 +1,5 @@
+import { raw } from 'objection'
+
 import {
   IFields,
   IDocumentRepertoire,
@@ -26,8 +28,11 @@ import {
   IEtapeTypeDocumentType
 } from '../../types'
 
-import { raw } from 'objection'
 import { knex } from '../../knex'
+
+import options from './_options'
+import graphBuild from './graph/build'
+import { fieldsFormat } from './graph/fields-format'
 
 import DemarchesTypes from '../models/demarches-types'
 import Devises from '../models/devises'
@@ -45,10 +50,6 @@ import EtapesStatuts from '../models/etapes-statuts'
 import SubstancesLegalesCodes from '../models/substances-legales-codes'
 import Definitions from '../models/definition'
 import AdministrationsTypes from '../models/administrations-types'
-
-import options from './_options'
-import graphBuild from './graph/build'
-import { fieldsFormat } from './graph/fields-format'
 
 import {
   domainesQueryModify,

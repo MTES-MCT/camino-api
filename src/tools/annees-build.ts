@@ -3,6 +3,7 @@
  * @param dateDebut - date de début au format 'yyy-mm-dd'
  * @param dateFin - date de fin au format 'yyy-mm-dd'
  */
+
 const anneesBuild = (dateDebut: string, dateFin: string) => {
   const anneeDebut = new Date(dateDebut).getFullYear()
   const anneeFin = new Date(dateFin).getFullYear()

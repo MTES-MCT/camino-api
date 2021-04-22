@@ -1,7 +1,7 @@
-import { IDocumentType } from '../../types'
-
 import { Model } from 'objection'
 import { join } from 'path'
+
+import { IDocumentType } from '../../types'
 
 interface DocumentsTypes extends IDocumentType {}
 

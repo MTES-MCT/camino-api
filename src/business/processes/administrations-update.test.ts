@@ -1,4 +1,5 @@
 import { mocked } from 'ts-jest/utils'
+
 import { administrationsUpdate } from './administrations-update'
 import {
   organismeDepartementGet,

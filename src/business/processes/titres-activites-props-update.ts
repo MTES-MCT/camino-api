@@ -1,5 +1,6 @@
+import dateFormat from 'dateformat'
+
 import { ITitreActivite } from '../../types'
-import * as dateFormat from 'dateformat'
 
 import { titresActivitesUpsert } from '../../database/queries/titres-activites'
 import { titresGet } from '../../database/queries/titres'

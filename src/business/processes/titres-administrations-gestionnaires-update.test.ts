@@ -1,7 +1,8 @@
 import { mocked } from 'ts-jest/utils'
-import { ITitreAdministrationGestionnaire } from '../../types'
-import { titresAdministrationsGestionnairesUpdate } from './titres-administrations-gestionnaires-update'
 
+import { ITitreAdministrationGestionnaire } from '../../types'
+
+import { titresAdministrationsGestionnairesUpdate } from './titres-administrations-gestionnaires-update'
 import {
   titresAdministrationsGestionnairesCreate,
   titreAdministrationGestionnaireDelete,

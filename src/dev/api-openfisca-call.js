@@ -1,4 +1,4 @@
-import { redevanceCommunaleMinesAurifiereGet } from '..//tools/api-openfisca'
+import { redevanceCommunaleMinesAurifiereGet } from '../tools/api-openfisca'
 
 async function main() {
   const result = await redevanceCommunaleMinesAurifiereGet(

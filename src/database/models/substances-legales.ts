@@ -2,6 +2,7 @@ import { Model } from 'objection'
 import { join } from 'path'
 
 import { ISubstanceLegale } from '../../types'
+
 import SubstancesFiscales from './substances-fiscales'
 
 interface SubstancesLegales extends ISubstanceLegale {}

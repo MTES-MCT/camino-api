@@ -1,7 +1,7 @@
-import { ITitreActivite } from '../../types'
-
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
+
+import { ITitreActivite } from '../../types'
 
 interface TitresActivites extends ITitreActivite {}
 

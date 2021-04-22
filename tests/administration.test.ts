@@ -1,7 +1,7 @@
 import { graphQLCall, queryImport } from './_utils/index'
 
 import { administrationsUpsert } from '../src/database/queries/administrations'
-import { dbManager } from './init-db-manager'
+import { dbManager } from './db-manager'
 
 console.info = jest.fn()
 console.error = jest.fn()

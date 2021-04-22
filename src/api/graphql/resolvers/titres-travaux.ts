@@ -1,17 +1,19 @@
+import { GraphQLResolveInfo } from 'graphql'
+
 import { IToken, ITitreTravaux } from '../../../types'
+
 import {
   titresTravauGet,
   titreTravauxCreate,
   titreTravauxUpdate,
   titreTravauxDelete
 } from '../../../database/queries/titres-travaux'
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 import { titreGet } from '../../../database/queries/titres'
 import { debug } from '../../../config/index'
 import { titreFormat } from '../../_format/titres'
 import titreTravauxUpdateTask from '../../../business/titre-travaux-update'
 
-import { GraphQLResolveInfo } from 'graphql'
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 import { userGet } from '../../../database/queries/utilisateurs'
 

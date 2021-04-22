@@ -1,5 +1,9 @@
+/// <reference types="../@types/geojson-rewind" />
+/// <reference types="../@types/turf-center" />
+import rewind from 'geojson-rewind'
+import center from '@turf/center'
+
 import { ITitrePoint, IGeometry } from '../types'
-import * as rewind from 'geojson-rewind'
 
 // convertit des points
 // en un geojson de type 'MultiPolygon'
@@ -73,4 +77,14 @@ const multiPolygonContoursClose = (groupes: number[][][][]) =>
     }, [])
   )
 
-export { geojsonFeatureMultiPolygon, geojsonFeatureCollectionPoints }
+const geojsonCenter = (points: ITitrePoint[]) => {
+  const geojson = geojsonFeatureMultiPolygon(points)
+
+  return center(geojson).geometry.coordinates
+}
+
+export {
+  geojsonFeatureMultiPolygon,
+  geojsonFeatureCollectionPoints,
+  geojsonCenter
+}

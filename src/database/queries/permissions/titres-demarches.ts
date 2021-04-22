@@ -1,8 +1,9 @@
+import { raw, QueryBuilder } from 'objection'
+
 import { IFields, IUtilisateur } from '../../../types'
 // import { format } from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
-import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'

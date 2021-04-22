@@ -1,11 +1,12 @@
 import { mocked } from 'ts-jest/utils'
+
 import { entreprisesUpdate } from './entreprises-update'
 import { entreprisesGet } from '../../database/queries/entreprises'
 import { entreprisesEtablissementsGet } from '../../database/queries/entreprises-etablissements'
 import {
   apiInseeEntreprisesGet,
   apiInseeEntreprisesEtablissementsGet
-} from '../../tools/api-insee'
+} from '../../tools/api-insee/index'
 
 import {
   dbEntreprisesCreees,
@@ -45,7 +46,7 @@ jest.mock('../../database/queries/entreprises-etablissements', () => ({
 
 // 'jest.mock()' est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../tools/api-insee', () => ({
+jest.mock('../../tools/api-insee/index', () => ({
   __esModule: true,
   apiInseeEntreprisesGet: jest.fn(),
   apiInseeEntreprisesEtablissementsGet: jest.fn()

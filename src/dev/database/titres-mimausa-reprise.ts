@@ -30,12 +30,12 @@ import { entreprisesGet } from '../../database/queries/entreprises'
 import Entreprises from '../../database/models/entreprises'
 import { userSuper } from '../../database/user-super'
 import dirCreate from '../../tools/dir-create'
-import * as fs from 'fs'
+import fs from 'fs'
 import { titreFichiersDelete } from '../../api/graphql/resolvers/_titre-document'
 // import dirCreate from '../../tools/dir-create'
 // import fileRename from '../../tools/file-rename'
-import slugify = require('@sindresorhus/slugify')
-import cryptoRandomString = require('crypto-random-string')
+import slugify from '@sindresorhus/slugify'
+import cryptoRandomString from 'crypto-random-string'
 
 /* eslint-disable camelcase */
 
@@ -62,7 +62,7 @@ interface IDemarcheMimausa {
 // TODO vérifier la reprise avec https://camino.beta.gouv.fr/titres/r-pr-lauziere-1979
 // TODO vérifier la reprise avec https://camino.beta.gouv.fr/titres/r-px-tesson-la-garenne-1972
 
-const demarches: IDemarcheMimausa[] = require('../../../sources/titres-demarches-mimausa.json')
+const demarches: IDemarcheMimausa[] = require('../../../sources/titres-demarches-mimausaon')
 const domaineId = 'r'
 let demarcheTypes = [] as IDemarcheType[]
 let etapeTypeDPU = null as IEtapeType | null

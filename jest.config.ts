@@ -1,7 +1,8 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
+import type { Config } from '@jest/types'
 
-module.exports = {
+const config: Config.InitialOptions = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -53,8 +54,12 @@ module.exports = {
   globalTeardown: './tests/teardown.ts',
 
   // A set of global variables that need to be available in all test environments
-  // globals: {},
-
+  // globals: {
+  //   'ts-jest': {
+  //     useESM: true
+  //   }
+  // },
+  // extensionsToTreatAsEsm: ['.ts'],
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
   //   "node_modules"
@@ -152,7 +157,7 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   // transform: {
   //   '^.+\\.tsx?$': 'ts-jest'
-  // }
+  // },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ['/node_modules/', '<rootDir>/knex/*'],
@@ -169,3 +174,5 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 }
+
+export default config

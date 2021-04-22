@@ -1,8 +1,8 @@
 import { ITitreActivite, ISection } from '../../types'
 
-import contenuNumbersCheck from './utils/contenu-numbers-check'
-import propsDatesCheck from './utils/props-dates-check'
-import contenuDatesCheck from './utils/contenu-dates-check'
+import { contenuNumbersCheck } from './utils/contenu-numbers-check'
+import { propsDatesCheck } from './utils/props-dates-check'
+import { contenuDatesCheck } from './utils/contenu-dates-check'
 
 const datePropsNames = ['date'] as [keyof ITitreActivite]
 

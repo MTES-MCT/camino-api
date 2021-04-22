@@ -1,7 +1,9 @@
-import { IToken, ITitreTravauxEtape } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
+
+import { IToken, ITitreTravauxEtape } from '../../../types'
+
 import { debug } from '../../../config/index'
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import { titresTravauGet } from '../../../database/queries/titres-travaux'
 import { userGet } from '../../../database/queries/utilisateurs'

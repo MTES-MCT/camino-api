@@ -1,5 +1,6 @@
+import dateFormat from 'dateformat'
+
 import { ITitreActivite } from '../../types'
-import * as dateFormat from 'dateformat'
 
 import { titreActiviteTypeCheck } from '../utils/titre-activite-type-check'
 import { anneesBuild } from '../../tools/annees-build'

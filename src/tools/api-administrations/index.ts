@@ -1,9 +1,10 @@
-import { IAdministration } from '../../types'
 // https://etablissements-publics.api.gouv.fr
 import PQueue from 'p-queue'
 import { join } from 'path'
 import fetch from 'node-fetch'
-import * as makeDir from 'make-dir'
+import makeDir from 'make-dir'
+
+import { IAdministration } from '../../types'
 
 import errorLog from '../error-log'
 import fileCreate from '../file-create'
@@ -73,7 +74,7 @@ const organismeDepartementCall = async (departementId: string, nom: string) => {
       await makeDir(CACHE_DIR)
       const cacheFilePath = join(
         CACHE_DIR,
-        `organisme-${departementId}-${nom}.json`
+        `organisme-${departementId}-${nom}on`
       )
 
       try {

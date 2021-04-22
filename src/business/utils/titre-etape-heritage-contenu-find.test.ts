@@ -9,13 +9,14 @@ import {
   ITitreEtape
 } from '../../types'
 
+import { objectClone } from '../../tools/index'
+
+import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
 import {
   etapeSectionsDictionaryBuild,
   heritageContenuFind,
   titreEtapeHeritageContenuFind
 } from './titre-etape-heritage-contenu-find'
-import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
-import { objectClone } from '../../tools'
 
 jest.mock('../../api/_format/etapes-types', () => ({
   etapeTypeSectionsFormat: jest.fn()

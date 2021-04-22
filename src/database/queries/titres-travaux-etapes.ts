@@ -1,9 +1,11 @@
 import { Transaction } from 'objection'
+
 import { IFields, IUtilisateur, ITitreTravauxEtape } from '../../types'
 
 import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
+
 import TitresTravauxEtapes from '../models/titres-travaux-etapes'
 import { titresTravauxEtapesQueryModify } from './permissions/titres-travaux-etapes'
 

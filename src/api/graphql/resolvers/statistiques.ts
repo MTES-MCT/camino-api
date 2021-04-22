@@ -1,10 +1,11 @@
+import { ITitre } from '../../../types'
+
 import { titreEtapePropFind } from '../../../business/rules/titre-etape-prop-find'
 import { titreValideCheck } from '../../../business/utils/titre-valide-check'
 import { debug } from '../../../config/index'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { userSuper } from '../../../database/user-super'
 import { matomoData } from '../../../tools/api-matomo/index'
-import { ITitre } from '../../../types'
 
 const ACTIVITE_ANNEE_DEBUT = 2018
 

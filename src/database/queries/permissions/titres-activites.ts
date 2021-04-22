@@ -1,21 +1,24 @@
+import { raw, QueryBuilder } from 'objection'
+
 import { IUtilisateur, IFields } from '../../../types'
 
-import { raw, QueryBuilder } from 'objection'
+import { knex } from '../../../knex'
+// import fileCreate from '../../../tools/file-create'
+// import { format } from 'sql-formatter'
+
 import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'
 import Documents from '../../models/documents'
 import TitresActivites from '../../models/titres-activites'
 import DocumentsTypes from '../../models/documents-types'
+
 import { documentsQueryModify } from './documents'
 import {
   administrationsTitresQuery,
   administrationsActivitesModify
 } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
-import { knex } from '../../../knex'
-// import fileCreate from '../../../tools/file-create'
-// import { format } from 'sql-formatter'
 
 const activiteStatuts = [
   {

@@ -1,7 +1,9 @@
-import { IToken, ITitreActivite, ITitreActiviteColonneId } from '../../../types'
+import dateFormat from 'dateformat'
 import { GraphQLResolveInfo } from 'graphql'
+
+import { IToken, ITitreActivite, ITitreActiviteColonneId } from '../../../types'
+
 import { debug } from '../../../config/index'
-import * as dateFormat from 'dateformat'
 
 import { titreActiviteEmailsSend } from './_titre-activite'
 import {
@@ -9,7 +11,7 @@ import {
   titreActiviteFormat
 } from '../../_format/titres-activites'
 
-import fieldsBuild from './_fields-build'
+import { fieldsBuild } from './_fields-build'
 
 import {
   titreActiviteGet,

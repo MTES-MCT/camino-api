@@ -1,7 +1,8 @@
 import { knex } from '../../../knex'
-import { dbManager } from '../../../../tests/init-db-manager'
+import { dbManager } from '../../../../tests/db-manager'
 
 import { userSuper } from '../../user-super'
+
 import TitresEtapes from '../../models/titres-etapes'
 import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 import ActivitesTypesDocumentsTypes from '../../models/activites-types--documents-types'

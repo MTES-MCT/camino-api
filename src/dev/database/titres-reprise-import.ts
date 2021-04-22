@@ -4,7 +4,7 @@ import Titres from '../../database/models/titres'
 import options from '../../database/queries/_options'
 import Entreprises from '../../database/models/entreprises'
 
-const titres = require('../../../sources/reprise-titres.json')
+const titres = require('../../../sources/reprise-titre.json')
 
 const main = async () => {
   console.time('Import Titres')

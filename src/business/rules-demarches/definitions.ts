@@ -1,5 +1,6 @@
-import { restrictionsArmRet } from './arm/ret'
 import { IContenuValeur } from '../../types'
+
+import { restrictionsArmRet } from './arm/ret'
 import { restrictionsArmOct } from './arm/oct'
 import { restrictionsArmRenPro } from './arm/ren-pro'
 import { restrictionsAxmOct } from './axm/oct'

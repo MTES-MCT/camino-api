@@ -1,7 +1,9 @@
 import 'dotenv/config'
-import { knexSnakeCaseMappers } from 'objection'
+import objection from 'objection'
 
 import { knexInit } from './knex'
+
+const { knexSnakeCaseMappers } = objection
 
 const connection = {
   host: process.env.PGHOST,

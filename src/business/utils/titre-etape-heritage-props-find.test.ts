@@ -1,14 +1,16 @@
 import {
-  titreEtapeHeritagePropsFind,
-  titreEtapePropsIds
-} from './titre-etape-heritage-props-find'
-import {
   IEntreprise,
   IHeritageProps,
   ITitreEtape,
   ITitrePoint
 } from '../../types'
-import { objectClone } from '../../tools'
+
+import {
+  titreEtapeHeritagePropsFind,
+  titreEtapePropsIds
+} from './titre-etape-heritage-props-find'
+
+import { objectClone } from '../../tools/index'
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
@@ -56,16 +58,16 @@ describe('retourne l’étape en fonction de son héritage', () => {
       // @ts-ignore
       titreEtapePrecedente[propId] = heritageValeur
 
-      const titreEtape = objectClone(titreEtapePrecedente)
-      titreEtape.heritageProps[propId].actif = true
+      const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+      titreEtape.heritageProps![propId].actif = true
       titreEtape[propId] = etapeValeur
       titreEtape.id = 'titreEtapeId'
 
-      const titreEtapeNew = objectClone(titreEtape)
+      const titreEtapeNew = objectClone(titreEtape) as ITitreEtape
       titreEtapeNew[propId] = heritageValeur
       titreEtapePropsIds.forEach(
         prop =>
-          (titreEtapeNew.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+          (titreEtapeNew.heritageProps![prop].etapeId = titreEtapePrecedente.id)
       )
 
       expect(
@@ -88,11 +90,12 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.titulaires.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.titulaires.actif = true
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
     expect(
@@ -117,16 +120,18 @@ describe('retourne l’étape en fonction de son héritage', () => {
       // @ts-ignore
       titreEtapePrecedente[propId] = [{ id: 'toto' }, { id: 'tata' }]
 
-      const titreEtape = objectClone(titreEtapePrecedente)
-      titreEtape.heritageProps[propId].actif = true
+      const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+      titreEtape.heritageProps![propId].actif = true
       titreEtape.id = 'titreEtapeId'
       titreEtapePropsIds.forEach(
         prop =>
-          (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+          (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
       )
+      // @ts-ignore
       titreEtape[propId] = [{ id: 'haha' }, { id: 'toto' }]
 
-      const titreEtapeNew = objectClone(titreEtape)
+      const titreEtapeNew = objectClone(titreEtape) as ITitreEtape
+      // @ts-ignore
       titreEtapeNew[propId] = [{ id: 'toto' }, { id: 'tata' }]
 
       expect(
@@ -149,15 +154,16 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.titulaires.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.titulaires.actif = true
     titreEtape.titulaires = [{ id: 'haha' }, { id: 'toto' }] as IEntreprise[]
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
-    const titreEtapeNew = objectClone(titreEtape)
+    const titreEtapeNew = objectClone(titreEtape) as ITitreEtape
     titreEtapeNew.titulaires = [{ id: 'toto' }] as IEntreprise[]
 
     expect(
@@ -179,15 +185,16 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
-    const titreEtapeNew = objectClone(titreEtape)
+    const titreEtapeNew = objectClone(titreEtape) as ITitreEtape
     titreEtapePropsIds.forEach(
-      prop => (titreEtapeNew.heritageProps[prop].etapeId = 'premiereEtapeId')
+      prop => (titreEtapeNew.heritageProps![prop].etapeId = 'premiereEtapeId')
     )
 
     expect(
@@ -212,11 +219,12 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.points.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.points.actif = true
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
     expect(
@@ -241,18 +249,19 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.points.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.points.actif = true
     titreEtape.id = 'titreEtapeId'
     titreEtape.points = ([
       { id: '3', coordonnees: { x: 1, y: 2 } },
       { id: '4', coordonnees: { x: 2, y: 4 } }
     ] as unknown) as ITitrePoint[]
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
-    const newTitreEtape = objectClone(titreEtape)
+    const newTitreEtape = objectClone(titreEtape) as ITitreEtape
     newTitreEtape.points = titreEtapePrecedente.points
 
     expect(
@@ -274,15 +283,16 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.surface.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.surface.actif = true
     titreEtape.incertitudes = {}
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
-    const newTitreEtape = objectClone(titreEtape)
+    const newTitreEtape = objectClone(titreEtape) as ITitreEtape
     newTitreEtape.incertitudes = { surface: true }
 
     expect(
@@ -303,15 +313,16 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.surface.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.surface.actif = true
     titreEtape.incertitudes = { surface: true }
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
-    const newTitreEtape = objectClone(titreEtape)
+    const newTitreEtape = objectClone(titreEtape) as ITitreEtape
     newTitreEtape.incertitudes = null
 
     expect(
@@ -333,15 +344,16 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const titreEtape = objectClone(titreEtapePrecedente)
-    titreEtape.heritageProps.surface.actif = true
+    const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
+    titreEtape.heritageProps!.surface.actif = true
     titreEtape.incertitudes = null
     titreEtape.id = 'titreEtapeId'
     titreEtapePropsIds.forEach(
-      prop => (titreEtape.heritageProps[prop].etapeId = titreEtapePrecedente.id)
+      prop =>
+        (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)
     )
 
-    const newTitreEtape = objectClone(titreEtape)
+    const newTitreEtape = objectClone(titreEtape) as ITitreEtape
     newTitreEtape.incertitudes = { surface: true }
 
     expect(
@@ -362,7 +374,7 @@ describe('retourne l’étape en fonction de son héritage', () => {
       }, {} as IHeritageProps)
     } as ITitreEtape
 
-    const newTitreEtape = objectClone(titreEtape)
+    const newTitreEtape = objectClone(titreEtape) as ITitreEtape
     newTitreEtape.heritageProps = titreEtapePropsIds.reduce((acc, prop) => {
       acc[prop] = { actif: false, etapeId: undefined }
 

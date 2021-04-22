@@ -1,7 +1,7 @@
 import '../../init'
-import fileCreate from '..//tools/file-create'
+import fileCreate from '../tools/file-create'
 
-import { inseeSirenGet, inseeSiretGet } from '..//tools/api-insee'
+import { inseeSirenGet, inseeSiretGet } from '../tools/api-insee'
 
 const siret1 = '57219916400045'
 const siret2 = '48486050700017'
@@ -25,10 +25,7 @@ async function main() {
 
     console.info(result.length)
 
-    await fileCreate(
-      'tmp/test-entreprises.json',
-      JSON.stringify(result, null, 2)
-    )
+    await fileCreate('tmp/test-entrepriseson', JSON.stringify(result, null, 2))
   }
 
   if (!test) {
@@ -37,7 +34,7 @@ async function main() {
     console.info(etablissements)
 
     await fileCreate(
-      'test-etablissements.json',
+      'test-etablissementson',
       JSON.stringify(etablissements, null, 2)
     )
   }

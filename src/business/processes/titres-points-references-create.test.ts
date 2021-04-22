@@ -1,7 +1,10 @@
 import { mocked } from 'ts-jest/utils'
+
 import { titresPointsReferencesCreate } from './titres-points-references-create'
-import * as queries from '../../database/queries/titres-points'
-import { titresPointsGet } from '../../database/queries/titres-points'
+import {
+  titresPointsGet,
+  titrePointReferenceCreate
+} from '../../database/queries/titres-points'
 import TitresPoints from '../../database/models/titres-points'
 
 jest.mock('../../database/queries/titres-points', () => ({
@@ -36,6 +39,6 @@ describe("références des points d'un titre", () => {
 
     expect(pointsReferencesCreated.length).toEqual(0)
 
-    expect(queries.titrePointReferenceCreate).not.toHaveBeenCalled()
+    expect(titrePointReferenceCreate).not.toHaveBeenCalled()
   })
 })

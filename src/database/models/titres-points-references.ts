@@ -1,5 +1,6 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
+
 import { ITitrePointReference } from '../../types'
 
 interface TitresPointsReferences extends ITitrePointReference {}

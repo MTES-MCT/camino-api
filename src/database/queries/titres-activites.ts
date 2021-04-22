@@ -1,3 +1,5 @@
+import { raw, QueryBuilder, RawBuilder } from 'objection'
+
 import {
   ITitreActivite,
   IFields,
@@ -7,20 +9,17 @@ import {
   IColonne
 } from '../../types'
 
-import { raw, QueryBuilder, RawBuilder } from 'objection'
-
+import options from './_options'
 import { fieldsFormat } from './graph/fields-format'
 import { fieldsTitreAdd } from './graph/fields-add'
 import graphBuild from './graph/build'
 
+import { titresFiltersQueryModify } from './_titres-filters'
 import TitresActivites from '../models/titres-activites'
-import options from './_options'
 import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
-
-import { titresFiltersQueryModify } from './_titres-filters'
 
 /**
  * Modifie la requête en fonction des paramètres de filtre

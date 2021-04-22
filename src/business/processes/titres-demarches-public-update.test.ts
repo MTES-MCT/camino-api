@@ -1,4 +1,5 @@
 import { mocked } from 'ts-jest/utils'
+
 import { titresDemarchesPublicUpdate } from './titres-demarches-public-update'
 import { titresGet } from '../../database/queries/titres'
 

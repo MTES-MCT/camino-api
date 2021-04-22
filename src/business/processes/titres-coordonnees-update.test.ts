@@ -8,6 +8,7 @@ jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true),
   titresGet: jest.fn()
 }))
+
 jest.mock('../utils/titre-coordonnees-find', () => ({
   titreCoordonneesFind: jest.fn()
 }))

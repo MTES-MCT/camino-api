@@ -31,4 +31,4 @@ const contenuDatesCheck = (sections: ISection[], contenu: IContenu) => {
   return null
 }
 
-export default contenuDatesCheck
+export { contenuDatesCheck }

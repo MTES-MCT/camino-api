@@ -1,8 +1,9 @@
+import { raw, QueryBuilder } from 'objection'
+
 import { IUtilisateur } from '../../../types'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
-import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import TravauxTypes from '../../models/travaux-types'

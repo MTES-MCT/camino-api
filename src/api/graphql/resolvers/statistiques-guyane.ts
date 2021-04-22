@@ -1,9 +1,11 @@
-import * as camelcase from 'camelcase'
+import camelcase from 'camelcase'
+
+import { ITitre, ITitreActivite } from '../../../types'
+
 import { debug } from '../../../config/index'
 import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { userSuper } from '../../../database/user-super'
-import { ITitre, ITitreActivite } from '../../../types'
 import { titresSurfaceIndexBuild } from './statistiques'
 
 const statistiquesGuyaneActivitesBuild = (
