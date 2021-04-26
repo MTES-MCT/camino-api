@@ -283,7 +283,13 @@ const activiteModifier = async (
         oldTitreActivite.type!.documentsTypes
       )
 
-      activite.statutId = depose && complete ? 'dep' : 'enc'
+      if (complete) {
+        activite.statutId = 'dep'
+      } else {
+        throw new Error('impossible de valider une activité incomplète')
+      }
+    } else {
+      activite.statutId = 'enc'
     }
 
     await documentsModifier(
