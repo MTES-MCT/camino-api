@@ -11,26 +11,36 @@ import {
   titresSurfaceIndexBuild
 } from './statistiques'
 
-const statistiquesGranulatsMarinsActivitesGet = (
+const statistiquesGranulatsMarinsActivitesFind = (
   titresActivites: ITitreActivite[],
-  init: { [key: string]: number }
+  props: string[]
 ) =>
-  titresActivites.reduce((acc: { [key: string]: number }, ta) => {
-    acc.rapportProductionCount++
-    if (ta.statutId === 'dep') acc.activitesDeposesQuantiteCount++
-    Object.keys(acc).forEach(prop => {
-      if (
-        ta.contenu &&
-        ta.contenu.renseignementsProduction &&
-        ta.contenu.renseignementsProduction[prop]
-      ) {
-        const value = ta.contenu!.renseignementsProduction[prop]
-        acc[prop] += Math.abs(Number(value))
-      }
-    })
+  titresActivites.reduce(
+    (acc: { [key: string]: number }, ta) => {
+      acc.rapportProductionCount++
 
-    return acc
-  }, init)
+      if (ta.statutId === 'dep') acc.activitesDeposesQuantiteCount++
+
+      props.forEach(prop => {
+        if (
+          ta.contenu &&
+          ta.contenu.renseignementsProduction &&
+          ta.contenu.renseignementsProduction[prop]
+        ) {
+          const value = ta.contenu!.renseignementsProduction[prop]
+          acc[prop] += Math.abs(Number(value))
+        }
+      })
+
+      return acc
+    },
+    {
+      rapportProductionCount: 0,
+      activitesDeposesQuantiteCount: 0,
+      volumeGranulatsExtrait: 0,
+      masseGranulatsExtrait: 0
+    }
+  )
 
 type IStatsGranulatsMarinsTitresTypesHistorique =
   | 'titresPrw'
@@ -133,14 +143,9 @@ const statistiquesGranulatsMarinsAnneeBuild = (
   const titresActivitesAnneeFiltered = titresActivites.filter(
     ta => ta.annee === annee
   )
-  const statistiquesActivites = statistiquesGranulatsMarinsActivitesGet(
+  const statistiquesActivites = statistiquesGranulatsMarinsActivitesFind(
     titresActivitesAnneeFiltered,
-    {
-      volumeGranulatsExtrait: 0,
-      masseGranulatsExtrait: 0,
-      activitesDeposesQuantiteCount: 0,
-      rapportProductionCount: 0
-    }
+    ['volumeGranulatsExtrait', 'masseGranulatsExtrait']
   )
 
   const activitesDeposesRatio = statistiquesActivites.rapportProductionCount
@@ -157,17 +162,13 @@ const statistiquesGranulatsMarinsAnneeBuild = (
     titresPrw,
     titresPxw,
     titresCxw,
-    granulatsExtrait: {
-      volumeGranulatsExtrait: Math.floor(
-        statistiquesActivites.volumeGranulatsExtrait
-      ),
-      // ne pas indiquer un tonnage produit nul ou incohérent par rapport au volume produit.
-      // Si l'on ne dispose pas de la donnée tonnage (pour les années antérieures à 2019), appliquer la règle de trois suivante : 1m3 => 1,53 tonne.
-      masseGranulatsExtrait:
-        annee < 2019
-          ? Math.floor(statistiquesActivites.volumeGranulatsExtrait * 1.53)
-          : Math.floor(statistiquesActivites.masseGranulatsExtrait)
-    },
+    volume: Math.floor(statistiquesActivites.volumeGranulatsExtrait),
+    // ne pas indiquer un tonnage produit nul ou incohérent par rapport au volume produit.
+    // Si l'on ne dispose pas de la donnée tonnage (pour les années antérieures à 2019), appliquer la règle de trois suivante : 1m3 => 1,53 tonne.
+    masse:
+      annee < 2019
+        ? Math.floor(statistiquesActivites.volumeGranulatsExtrait * 1.53)
+        : Math.floor(statistiquesActivites.masseGranulatsExtrait),
     activitesDeposesQuantite:
       statistiquesActivites.activitesDeposesQuantiteCount,
     activitesDeposesRatio,
