@@ -6,7 +6,6 @@ import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-u
 import { titresDemarchesPublicUpdate } from './processes/titres-demarches-public-update'
 import { titresDemarchesStatutIdUpdate } from './processes/titres-demarches-statut-ids-update'
 import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
-import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import { titresEtapesOrdreUpdate } from './processes/titres-etapes-ordre-update'
 import { titresPhasesUpdate } from './processes/titres-phases-update'
 import { titresPointsReferencesCreate } from './processes/titres-points-references-create'
@@ -43,17 +42,6 @@ const daily = async () => {
     ] = await titresPhasesUpdate()
     const titresDatesUpdated = await titresDatesUpdate()
     const pointsReferencesCreated = await titresPointsReferencesCreate()
-    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate()
-    const {
-      areasUpdated: communesUpdated = [],
-      titresEtapesAreasUpdated: titresEtapesCommunesUpdated = [],
-      titresEtapesAreasDeleted: titresEtapesCommunesDeleted = []
-    } = titresCommunes
-    const {
-      areasUpdated: foretsUpdated = [],
-      titresEtapesAreasUpdated: titresEtapesForetsUpdated = [],
-      titresEtapesAreasDeleted: titresEtapesForetsDeleted = []
-    } = titresForets
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
@@ -87,12 +75,6 @@ const daily = async () => {
       titresPhasesDeleted,
       titresDatesUpdated,
       pointsReferencesCreated,
-      communesUpdated,
-      titresEtapesCommunesUpdated,
-      titresEtapesCommunesDeleted,
-      foretsUpdated,
-      titresEtapesForetsUpdated,
-      titresEtapesForetsDeleted,
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted,
       titresEtapesAdministrationsLocalesCreated,

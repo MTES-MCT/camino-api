@@ -1,5 +1,6 @@
 import { administrationsUpdate } from './processes/administrations-update'
 import { entreprisesUpdate } from './processes/entreprises-update'
+import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import { logsUpdate } from './_logs-update'
 
 const monthly = async () => {
@@ -19,11 +20,31 @@ const monthly = async () => {
     // mise à jour des administrations grâce à l'API Administration
     const administrationsUpdated = await administrationsUpdate()
 
+    // 3.
+    // mise à jour des forêts et des communes
+    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate()
+    const {
+      areasUpdated: communesUpdated = [],
+      titresEtapesAreasUpdated: titresEtapesCommunesUpdated = [],
+      titresEtapesAreasDeleted: titresEtapesCommunesDeleted = []
+    } = titresCommunes
+    const {
+      areasUpdated: foretsUpdated = [],
+      titresEtapesAreasUpdated: titresEtapesForetsUpdated = [],
+      titresEtapesAreasDeleted: titresEtapesForetsDeleted = []
+    } = titresForets
+
     logsUpdate({
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted,
-      administrationsUpdated
+      administrationsUpdated,
+      communesUpdated,
+      titresEtapesCommunesUpdated,
+      titresEtapesCommunesDeleted,
+      foretsUpdated,
+      titresEtapesForetsUpdated,
+      titresEtapesForetsDeleted
     })
   } catch (e) {
     console.info('erreur:', e)
