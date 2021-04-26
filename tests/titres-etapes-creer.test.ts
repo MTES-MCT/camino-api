@@ -87,14 +87,14 @@ describe('etapeCreer', () => {
     expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
   })
 
-  test('peut créer une étape mfr avec un statut fai (utilisateur super)', async () => {
+  test('peut créer une étape mfr avec un statut dep (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
       {
         etape: {
           typeId: 'mfr',
-          statutId: 'fai',
+          statutId: 'dep',
           titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
@@ -111,7 +111,8 @@ describe('etapeCreer', () => {
             arm: {
               mecanise: { actif: true },
               franchissements: { actif: true }
-            }
+            },
+            demande: { date: { actif: false } }
           },
           contenu: { arm: { mecanise: true, franchissements: 3 } }
         }
@@ -189,14 +190,14 @@ describe('etapeCreer', () => {
     )
   })
 
-  test('ne peut pas créer une étape mfr avec un statut fai avec un champ obligatoire manquant (utilisateur super)', async () => {
+  test('ne peut pas créer une étape mfr avec un statut dep avec un champ obligatoire manquant (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
       {
         etape: {
           typeId: 'mfr',
-          statutId: 'fai',
+          statutId: 'dep',
           titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
@@ -213,7 +214,8 @@ describe('etapeCreer', () => {
             arm: {
               mecanise: { actif: true },
               franchissements: { actif: true }
-            }
+            },
+            demande: { date: { actif: false } }
           }
         }
       },
@@ -249,7 +251,8 @@ describe('etapeCreer', () => {
             arm: {
               mecanise: { actif: true },
               franchissements: { actif: true }
-            }
+            },
+            demande: { date: { actif: false } }
           }
         }
       },

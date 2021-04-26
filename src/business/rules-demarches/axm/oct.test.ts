@@ -3,7 +3,7 @@ import { demarcheEtatsValidate } from '../_utils.test'
 describe('vérifie l’arbre d’octroi d’AXM', () => {
   const octEtatsValidate = demarcheEtatsValidate('oct', 'axm')
 
-  test('peut créer une "mdp" après une "dae"', () => {
+  test('peut créer une "mfr" après une "dae"', () => {
     expect(
       octEtatsValidate([
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },

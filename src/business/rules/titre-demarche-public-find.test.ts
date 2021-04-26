@@ -19,9 +19,23 @@ describe("publicité d'une démarche", () => {
     })
   })
 
+  test("une démarche d'octroi avec demande en construction est visible uniquement par l’entreprise", () => {
+    expect(
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'mfr', statutId: 'aco' }])
+      )
+    ).toMatchObject({ publicLecture: false, entreprisesLecture: true })
+  })
+
   test("une démarche d'octroi sans étape décisive n'est pas publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mdp' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'mfr', statutId: 'dep' }])
+      )
     ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
@@ -43,10 +57,24 @@ describe("publicité d'une démarche", () => {
     ).toMatchObject({ publicLecture: true, entreprisesLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est demande est visible uniquement par l'entreprise", () => {
+  test("une démarche dont l'étape la plus récente est demande en construction est visible uniquement par l'entreprise", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mfr' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'mfr', statutId: 'aco' }])
+      )
     ).toMatchObject({ publicLecture: false, entreprisesLecture: true })
+  })
+
+  test("une démarche dont l'étape la plus récente est demande déposée n’est pas visible", () => {
+    expect(
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'mfr', statutId: 'dep' }])
+      )
+    ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
   test("une démarche dont l'étape la plus récente est décision de l'administration est visible uniquement par l'entreprise", () => {
@@ -322,7 +350,7 @@ describe("publicité d'une démarche", () => {
         titreDemarchePublicFind(
           demarcheTypeId,
           [],
-          etapesBuild([{ typeId: 'mdp' }]),
+          etapesBuild([{ typeId: 'mfr', statutId: 'dep' }]),
           'arm'
         )
       ).toMatchObject({ publicLecture: false })

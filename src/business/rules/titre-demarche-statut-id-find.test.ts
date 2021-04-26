@@ -137,9 +137,13 @@ describe("statut d'une démarche", () => {
     ).toEqual('ind')
   })
 
-  test("une démarche d'octroi d'un titre ARM dont l'étape de mdp a le statut “en instruction”", () => {
+  test("une démarche d'octroi d'un titre ARM dont l'étape de mfr (statut dep) a le statut “en instruction”", () => {
     expect(
-      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'mdp' }]), 'arm')
+      titreDemarcheStatutIdFind(
+        'oct',
+        etapesBuild([{ typeId: 'mfr', statutId: 'dep' }]),
+        'arm'
+      )
     ).toEqual('ins')
   })
 
@@ -185,15 +189,23 @@ describe("statut d'une démarche", () => {
     ).toEqual('des')
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente est mdp a le statut “déposé”", () => {
+  test("une démarche d'octroi dont l'étape la plus récente est mfr (statut dep) a le statut “déposé”", () => {
     expect(
-      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'mdp' }]), 'pxm')
+      titreDemarcheStatutIdFind(
+        'oct',
+        etapesBuild([{ typeId: 'mfr', statutId: 'dep' }]),
+        'pxm'
+      )
     ).toEqual('dep')
   })
 
   test("une démarche d'octroi dont l'étape la plus récente est mfr a le statut “en construction”", () => {
     expect(
-      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'mfr' }]), 'pxm')
+      titreDemarcheStatutIdFind(
+        'oct',
+        etapesBuild([{ typeId: 'mfr', statutId: 'aco' }]),
+        'pxm'
+      )
     ).toEqual('eco')
   })
 

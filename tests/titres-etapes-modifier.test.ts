@@ -116,7 +116,7 @@ describe('etapeModifier', () => {
     expect(res.body.errors[0].message).toBe("l'étape n'existe pas")
   })
 
-  test('peut modifier une étape mfr avec un statut fai (utilisateur super)', async () => {
+  test('peut modifier une étape mfr avec un statut aco (utilisateur super)', async () => {
     const { titreDemarcheId, titreEtapeId } = await etapeCreate()
     const res = await graphQLCall(
       etapeModifierQuery,
@@ -124,7 +124,7 @@ describe('etapeModifier', () => {
         etape: {
           id: titreEtapeId,
           typeId: 'mfr',
-          statutId: 'fai',
+          statutId: 'aco',
           titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
@@ -141,9 +141,13 @@ describe('etapeModifier', () => {
             arm: {
               mecanise: { actif: false },
               franchissements: { actif: false }
-            }
+            },
+            demande: { date: { actif: false } }
           },
-          contenu: { arm: { mecanise: true, franchissements: 3 } }
+          contenu: {
+            arm: { mecanise: true, franchissements: 3 },
+            demande: { date: '2020-01-20' }
+          }
         }
       },
       'super'

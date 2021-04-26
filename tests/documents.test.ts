@@ -151,7 +151,7 @@ describe('documentSupprimer', () => {
               {
                 id: etapeId,
                 typeId: 'mfr',
-                statutId: 'fai',
+                statutId: 'aco',
                 titreDemarcheId: demarcheId,
                 date: ''
               }

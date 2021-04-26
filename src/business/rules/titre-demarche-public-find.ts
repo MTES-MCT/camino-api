@@ -4,9 +4,9 @@ const titreDemarcheEntrepriseLectureFind = (
   entreprisesLecture: boolean,
   titreEtape: ITitreEtape
 ) => {
-  // si le type d'étape est une demande
+  // si le type d'étape est une demande non déposée
   // alors la démarche est visible pour les entreprises titulaires ou amodiataires
-  if (titreEtape.typeId === 'mfr') {
+  if (titreEtape.typeId === 'mfr' && titreEtape.statutId === 'aco') {
     entreprisesLecture = true
   }
 

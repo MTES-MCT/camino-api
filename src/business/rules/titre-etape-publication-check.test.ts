@@ -5,8 +5,8 @@ describe("étape de publication d'une étape", () => {
     expect(titreEtapePublicationCheck('dpu', 'pxm')).toEqual(true)
   })
 
-  test("une étape de mdp n'est pas une étape de publication", () => {
-    expect(titreEtapePublicationCheck('mdp', 'pxm')).toEqual(false)
+  test("une étape de mfr n'est pas une étape de publication", () => {
+    expect(titreEtapePublicationCheck('mfr', 'pxm')).toEqual(false)
   })
 
   test("une étape de dex n'est pas une étape de publication pour un titre non-spécifique", () => {
