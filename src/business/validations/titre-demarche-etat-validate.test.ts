@@ -32,8 +32,8 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'pro' }, { typeId: 'oct' }]
       } as ITitre,
-      { typeId: 'mdp' } as ITitreEtape,
-      [{ id: '1', typeId: 'mfr', statutId: 'fai' }] as ITitreEtape[]
+      { typeId: 'dae' } as ITitreEtape,
+      [{ id: '1', typeId: 'mfr', statutId: 'dep' }] as ITitreEtape[]
     )
 
     expect(valid).toHaveLength(0)
@@ -50,10 +50,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { id: '1', typeId: 'mfr', statutId: 'fai' } as ITitreEtape,
+      { id: '1', typeId: 'mfr', statutId: 'dep' } as ITitreEtape,
       [
-        { id: '1', typeId: 'mfr', statutId: 'fai' },
-        { id: '2', typeId: 'mdp' }
+        { id: '1', typeId: 'mfr', statutId: 'aco' },
+        { id: '2', typeId: 'dae' }
       ] as ITitreEtape[]
     )
 
