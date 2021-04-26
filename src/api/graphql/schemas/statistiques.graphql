@@ -50,17 +50,13 @@ type StatistiqueAnneeTitre {
   surface: Float
 }
 
-type GranulatsExtrait {
-  volumeGranulatsExtrait: Int
-  masseGranulatsExtrait: Int
-}
-
 type StatistiquesGranulatsMarinsAnnee {
   annee: Int
   titresPrw: StatistiqueAnneeTitre
   titresPxw: StatistiqueAnneeTitre
   titresCxw: StatistiqueAnneeTitre
-  granulatsExtrait: GranulatsExtrait
+  volume: Int
+  masse: Int
   activitesDeposesQuantite: Int
   activitesDeposesRatio: Int
   concessionsValides: StatistiqueAnneeTitre
