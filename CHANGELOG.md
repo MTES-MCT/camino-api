@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.80](https://github.com/MTES-MCT/camino-api/compare/v0.24.79...v0.24.80) (2021-04-27)
+
+
+### Features
+
+* **daily:** bouge l’actualisation des forêts et communes dans le monthly ([#737](https://github.com/MTES-MCT/camino-api/issues/737)) ([b57df88](https://github.com/MTES-MCT/camino-api/commit/b57df883d1cd28d5a38703552ad5762739a6afb4))
+
+
+### Bug Fixes
+
+* **activité:** corrige le calcul du statut ([#736](https://github.com/MTES-MCT/camino-api/issues/736)) ([d0c6b94](https://github.com/MTES-MCT/camino-api/commit/d0c6b94dd4e5727d2eb2f4f8641a18312e173433))
+* **documents:** supprime les dernières références à l’ancienne colonne répertoire ([#734](https://github.com/MTES-MCT/camino-api/issues/734)) ([cd0da33](https://github.com/MTES-MCT/camino-api/commit/cd0da3300fe10378a6d0cdbbacb1ab10549b30ea))
+* corrige la description des types d'activités ([#733](https://github.com/MTES-MCT/camino-api/issues/733)) ([8472d6d](https://github.com/MTES-MCT/camino-api/commit/8472d6d991be25c2c6bd5376381717e9612a98fa))
+* **activité:** supprime correctement les fichiers d’une activité lors de la suppression de celle-ci ([#729](https://github.com/MTES-MCT/camino-api/issues/729)) ([8e32638](https://github.com/MTES-MCT/camino-api/commit/8e326387f39ccf736963d11c1a29fbc5eabc6d0c))
+* **activités:** corrige la mise en page de l'email de confirmation ([352e858](https://github.com/MTES-MCT/camino-api/commit/352e858b5d5b31488f6dd7644ce307ef5ad2cbee))
+* **démarches:** corrige le script qui vérifie tous les jours la cohérence des démarches ([b076fbf](https://github.com/MTES-MCT/camino-api/commit/b076fbf5d7146bfba977f279b9f03634f3052b5d))
+* **etapes:** corrige le tri par date des étapes ([#732](https://github.com/MTES-MCT/camino-api/issues/732)) ([64aa7e1](https://github.com/MTES-MCT/camino-api/commit/64aa7e1140fcab3fa49e3845768ebb1547f206d5))
+
 ### [0.24.79](https://github.com/MTES-MCT/camino-api/compare/v0.24.78...v0.24.79) (2021-04-21)
 
 
