@@ -20,7 +20,7 @@ const main = async () => {
   })
   await EtapesTypesEtapesStatuts.query()
     .patch({ etapeStatutId: 'dep' })
-    .where('etapeStatutId', 'fav')
+    .where('etapeStatutId', 'fai')
     .andWhere('etapeTypeId', 'mfr')
 
   await EtapesTypes.query()
@@ -65,6 +65,10 @@ const main = async () => {
         }
         demandeEtape.date = depotDemandeEtape.date
 
+        if (demarche.titreId === 'm-ax-crique-tumuc-humac-2020') {
+          demandeEtape.date = '2020-09-30'
+        }
+
         if (depotDemandeEtape.documents?.length) {
           if (!demandeEtape.documents) {
             demandeEtape.documents = []
@@ -96,6 +100,15 @@ const main = async () => {
         const completed = demarche.etapes.some(etape =>
           ['dex', 'dpu', 'men', 'aca', 'aco'].includes(etape.typeId)
         )
+
+        // https://camino.beta.gouv.fr/titres/m-ax-million-2021, octroi
+        // https://camino.beta.gouv.fr/titres/m-ax-crique-jadfard-2021, octroi
+        // https://camino.beta.gouv.fr/titres/m-ax-crique-benoit-nord-2021, octroi
+        // https://camino.beta.gouv.fr/titres/m-ax-serpent-ouest-2021, octroi
+        // https://camino.beta.gouv.fr/titres/m-pr-coulor-2-2021, octroi
+        // https://camino.beta.gouv.fr/titres/m-ar-crique-bamba-0620-2020 octroi
+        //
+
         if (completed) {
           demandeEtape.statutId = 'dep'
         } else {

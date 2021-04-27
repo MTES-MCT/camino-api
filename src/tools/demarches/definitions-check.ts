@@ -145,6 +145,17 @@ const demarchesValidate = async () => {
               errors.push(
                 `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errs}`
               )
+
+              // console.log(
+              //   '[',
+              //   demarche
+              //     .etapes!.map(
+              //       e =>
+              //         `{ typeId: '${e.typeId}', statutId: '${e.statutId}', date: '${e.date}' }`
+              //     )
+              //     .join(','),
+              //   ']'
+              // )
             }
           } catch (e) {
             errors.push(`${demarche.id} démarche invalide =>\n\t${e}`)

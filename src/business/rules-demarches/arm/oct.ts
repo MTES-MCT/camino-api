@@ -9,7 +9,8 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
   },
   pfd: {
     justeApres: [],
-    avant: [[{ etapeTypeId: 'mcp' }]]
+    avant: [[{ etapeTypeId: 'mcp' }]],
+    separation: ['mcp']
   },
   mcb: {
     apres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]],

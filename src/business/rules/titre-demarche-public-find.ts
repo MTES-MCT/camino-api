@@ -1,28 +1,6 @@
 import { ITitreEtape, IEtapeType } from '../../types'
 
-const titreDemarcheEntrepriseLectureFind = (
-  entreprisesLecture: boolean,
-  titreEtape: ITitreEtape
-) => {
-  // si le type d'étape est une demande non déposée
-  // alors la démarche est visible pour les entreprises titulaires ou amodiataires
-  if (titreEtape.typeId === 'mfr' && titreEtape.statutId === 'aco') {
-    entreprisesLecture = true
-  }
-
-  // si le type d'étape est une décision de l'administration unilatérale ou non
-  // alors la démarche est visible pour les entreprises titulaires ou amodiataires
-  if (['dex', 'dux'].includes(titreEtape.typeId)) {
-    entreprisesLecture = true
-  }
-
-  // les autres cas sont couverts par la visibilité au public
-
-  return entreprisesLecture
-}
-
 const titreDemarchePublicLectureFind = (
-  publicLecture: boolean,
   demarcheTypeId: string,
   demarcheTypeEtapesTypes: IEtapeType[],
   titreEtape: ITitreEtape,
@@ -156,7 +134,7 @@ const titreDemarchePublicLectureFind = (
     return true
   }
 
-  return publicLecture
+  return false
 }
 
 /**
@@ -172,30 +150,25 @@ const titreDemarchePublicFind = (
   demarcheTypeEtapesTypes: IEtapeType[],
   titreEtapes: ITitreEtape[],
   titreTypeId?: string
-) =>
-  // on parcourt successivement toutes les étapes
-  // pour calculer la visibilité de la démarche
-  // en fonction de l'historique
-  titreEtapes.reduce(
-    ({ publicLecture, entreprisesLecture }, titreEtape) => {
-      // on calcule la visibilité au public
-      publicLecture = titreDemarchePublicLectureFind(
-        publicLecture,
-        demarcheTypeId,
-        demarcheTypeEtapesTypes,
-        titreEtape,
-        titreTypeId
-      )
-
-      // si la démarche n'est pas visible au public
-      // alors on calcule la visibilité spéciale pour les entreprises titulaires ou amodiataires
-      entreprisesLecture =
-        publicLecture ||
-        titreDemarcheEntrepriseLectureFind(entreprisesLecture, titreEtape)
-
-      return { publicLecture, entreprisesLecture }
-    },
-    { publicLecture: false, entreprisesLecture: false }
+) => {
+  // calcule la visibilité publique ou non de la démarche
+  const publicLecture = titreEtapes.some(te =>
+    titreDemarchePublicLectureFind(
+      demarcheTypeId,
+      demarcheTypeEtapesTypes,
+      te,
+      titreTypeId
+    )
   )
+
+  // les entreprises titulaires ou amodiataires peuvent voir la démarche
+  // si la démarche est visible au public
+  // ou si la démarche contient une demande ou une décision de l'administration unilatérale
+  const entreprisesLecture =
+    publicLecture ||
+    titreEtapes.some(te => ['mfr', 'dex', 'dux'].includes(te.typeId))
+
+  return { publicLecture, entreprisesLecture }
+}
 
 export { titreDemarchePublicFind }

@@ -42,7 +42,7 @@ const etapeValideCheck = (
   titreStatutId?: string,
   propId?: IPropId
 ) =>
-  ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
+  ['acc', 'fai', 'fav', 'dep', 'exe'].includes(titreEtape.statutId) &&
   (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId

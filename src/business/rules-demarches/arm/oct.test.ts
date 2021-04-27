@@ -198,4 +198,31 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       )
     ).toHaveLength(0)
   })
+
+  test('peut créer une "mnb" après une "aca" favorable', () => {
+    expect(
+      octEtatsValidate(
+        [
+          { typeId: 'sco', statutId: 'fai', date: '2020-09-28' },
+          { typeId: 'vfc', statutId: 'fai', date: '2020-07-16' },
+          { typeId: 'pfc', statutId: 'fai', date: '2020-07-16' },
+          { typeId: 'mnb', statutId: 'fai', date: '2020-07-09' },
+          { typeId: 'aca', statutId: 'fav', date: '2020-06-17' },
+          { typeId: 'sca', statutId: 'fai', date: '2020-06-15' },
+          { typeId: 'rde', statutId: 'fav', date: '2020-02-11' },
+          { typeId: 'aof', statutId: 'fav', date: '2020-02-05' },
+          { typeId: 'eof', statutId: 'fai', date: '2020-02-05' },
+          { typeId: 'mcr', statutId: 'fav', date: '2020-02-05' },
+          { typeId: 'vfd', statutId: 'fai', date: '2020-02-05' },
+          { typeId: 'mcp', statutId: 'fav', date: '2020-01-23' },
+          { typeId: 'dae', statutId: 'exe', date: '2020-01-14' },
+          { typeId: 'pfd', statutId: 'fai', date: '2019-12-12' },
+          { typeId: 'mfr', statutId: 'dep', date: '2019-12-12' }
+        ],
+        {
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
+        }
+      )
+    ).toHaveLength(0)
+  })
 })

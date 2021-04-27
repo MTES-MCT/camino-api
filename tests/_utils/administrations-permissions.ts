@@ -195,7 +195,7 @@ const creationCheck = async (
       {
         etape: {
           typeId: etapeTypeId,
-          statutId: 'fai',
+          statutId: 'dep',
           titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
