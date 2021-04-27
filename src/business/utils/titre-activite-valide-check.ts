@@ -38,7 +38,8 @@ const titreActiviteValideCheck = (
     titreDemarches,
     dateDebut,
     date,
-    titreTypeId
+    titreTypeId,
+    true
   )
 
   // le titre n'est pas valide pour cette période

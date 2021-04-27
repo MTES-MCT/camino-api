@@ -21,11 +21,11 @@ dest: ${to}`
       to = process.env.ADMIN_EMAIL!
     }
 
-    subject = `[Camino] ${subject}`
-
     if (!emailRegex({ exact: true }).test(to)) {
       throw new Error(`adresse email invalide ${to}`)
     }
+
+    subject = `[Camino] ${subject}`
 
     const res = await transport.sendMail({ from, to, subject, html })
     transport.close()
