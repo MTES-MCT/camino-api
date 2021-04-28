@@ -224,7 +224,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
   })
 
   test('ne peut pas ajouter une 2ème demande en construction à une démarche', () => {
-    expect(() =>
+    expect(
       titreDemarcheUpdatedEtatValidate(
         { id: 'oct' } as IDemarcheType,
         {
@@ -241,6 +241,27 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
           { id: '2', typeId: 'dae' }
         ] as ITitreEtape[]
       )
-    ).toThrow()
+    ).toContain('il y a déjà une demande en construction')
+  })
+
+  test('ne peut pas ajouter étape de type inconnu', () => {
+    expect(
+      titreDemarcheUpdatedEtatValidate(
+        { id: 'oct' } as IDemarcheType,
+        {
+          typeId: 'axm',
+          type: ({
+            id: 'axm',
+            contenuIds: []
+          } as unknown) as ITitreType,
+          demarches: [{ typeId: 'oct' }]
+        } as ITitre,
+        { typeId: 'aaa', date: '2022-01-01' } as ITitreEtape,
+        [
+          { id: '1', typeId: 'mfr', statutId: 'aco', date: '2021-01-01' },
+          { id: '2', typeId: 'dae', date: '2021-01-02' }
+        ] as ITitreEtape[]
+      )
+    ).toContain('l’étape aaa n’existe pas dans l’arbre')
   })
 })

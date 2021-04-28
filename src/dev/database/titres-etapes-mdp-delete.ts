@@ -101,18 +101,17 @@ const main = async () => {
           ['dex', 'dpu', 'men', 'aca', 'aco'].includes(etape.typeId)
         )
 
-        // https://camino.beta.gouv.fr/titres/m-ax-million-2021, octroi
-        // https://camino.beta.gouv.fr/titres/m-ax-crique-jadfard-2021, octroi
-        // https://camino.beta.gouv.fr/titres/m-ax-crique-benoit-nord-2021, octroi
-        // https://camino.beta.gouv.fr/titres/m-ax-serpent-ouest-2021, octroi
-        // https://camino.beta.gouv.fr/titres/m-pr-coulor-2-2021, octroi
-        // https://camino.beta.gouv.fr/titres/m-ar-crique-bamba-0620-2020 octroi
-        //
-
         if (completed) {
           demandeEtape.statutId = 'dep'
         } else {
-          // TODO en attente de vérification
+          // https://camino.beta.gouv.fr/titres/m-ax-million-2021, octroi
+          // https://camino.beta.gouv.fr/titres/m-ax-crique-jadfard-2021, octroi
+          // https://camino.beta.gouv.fr/titres/m-ax-crique-benoit-nord-2021, octroi
+          // https://camino.beta.gouv.fr/titres/m-ax-serpent-ouest-2021, octroi
+          // https://camino.beta.gouv.fr/titres/m-pr-coulor-2-2021, octroi
+          // https://camino.beta.gouv.fr/titres/m-ar-crique-bamba-0620-2020 octroi
+          // https://camino.beta.gouv.fr/titres/m-ax-crique-mousse-2019-8baef841 octroi
+
           console.log(
             `https://camino.beta.gouv.fr/titres/${demarche.titreId}, ${
               demarche.type!.nom

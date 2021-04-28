@@ -3,10 +3,7 @@ import {
   IEtapeTypeIdCondition
 } from '../../business/rules-demarches/definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import {
-  titreDemarcheEtatValidate,
-  titreDemarcheUpdatedEtatValidate
-} from '../../business/validations/titre-demarche-etat-validate'
+import { titreDemarcheUpdatedEtatValidate } from '../../business/validations/titre-demarche-etat-validate'
 import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
 import { userSuper } from '../../database/user-super'
 import TitresTypesDemarchesTypesEtapesTypes from '../../database/models/titres-types--demarches-types-etapes-types'

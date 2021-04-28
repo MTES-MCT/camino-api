@@ -165,7 +165,7 @@ const titreDemarcheUpdatedEtatValidate = (
       return []
     }
 
-    throw new Error('il y a déjà une demande en construction')
+    return ['il y a déjà une demande en construction']
   } else {
     // on supprime la demande en construction de la liste des étapes, car elle n’est pas gérée par les arbres
     titreDemarcheEtapesNew = titreDemarcheEtapesNew.filter(

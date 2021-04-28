@@ -1,11 +1,10 @@
-import dateFormat from 'dateformat'
-
 import { ITitreDemarche, ITitreEtape } from '../../types'
 
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 import { titreDemarcheAnnulationDateFinFind } from './titre-demarche-annulation-date-fin-find'
+import { dateAddMonths, datesSubtract } from '../../tools/date'
 
 // entrée
 // - les démarches d'un titre
@@ -207,20 +206,6 @@ const titreDemarcheNormaleDateFinAndDureeFind = (
     duree: duree ? duree + dureeAcc : dureeAcc,
     dateFin: dateFin ? dateAddMonths(dateFin, dureeAcc) : null
   }
-}
-
-// ajoute une durée en mois à une string au format YYYY-MM-DD
-const dateAddMonths = (date: string, months: number) => {
-  const [y, m, d] = date.split('-')
-
-  return dateFormat(new Date(+y, +m - 1 + months, +d), 'yyyy-mm-dd')
-}
-
-const datesSubtract = (dateDebut: string, dateFin: string) => {
-  const [yDebut, mDebut] = dateDebut.split('-')
-  const [yFin, mFin] = dateFin.split('-')
-
-  return +yFin * 12 + +mFin - (+yDebut * 12 + +mDebut)
 }
 
 export default titreDemarcheDateFinAndDureeFind

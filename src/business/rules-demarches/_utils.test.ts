@@ -24,9 +24,6 @@ test('teste EtatsValidate', () => {
 
   expect(octEtatsValidate).toBeTruthy()
   expect(octEtatsValidate([], {})).toHaveLength(0)
-  expect(octEtatsValidate([{ typeId: 'aaa' }], {})).toEqual([
-    'l’étape aaa n’existe pas dans l’arbre'
-  ])
 })
 
 jest.mock('../../database/models/_format/titre-contenu', () => ({
