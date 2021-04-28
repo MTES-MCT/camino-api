@@ -165,4 +165,82 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
 
     expect(valid).toHaveLength(0)
   })
+
+  test('ajoute une demande en construction à une démarche vide', () => {
+    const valid = titreDemarcheUpdatedEtatValidate(
+      { id: 'oct' } as IDemarcheType,
+      {
+        typeId: 'axm',
+        type: ({
+          id: 'axm',
+          contenuIds: []
+        } as unknown) as ITitreType,
+        demarches: [{ typeId: 'oct' }]
+      } as ITitre,
+      { typeId: 'mfr', statutId: 'aco', date: '2030-01-01' } as ITitreEtape,
+      null
+    )
+
+    expect(valid).toHaveLength(0)
+  })
+
+  test('ajoute une demande en construction à une démarche qui contient déjà une étape', () => {
+    const valid = titreDemarcheUpdatedEtatValidate(
+      { id: 'oct' } as IDemarcheType,
+      {
+        typeId: 'axm',
+        type: ({
+          id: 'axm',
+          contenuIds: []
+        } as unknown) as ITitreType,
+        demarches: [{ typeId: 'oct' }]
+      } as ITitre,
+      { typeId: 'mfr', statutId: 'aco' } as ITitreEtape,
+      [{ id: '1', typeId: 'dae', statutId: 'exe' }] as ITitreEtape[]
+    )
+
+    expect(valid).toHaveLength(0)
+  })
+
+  test('modifie une demande en construction à une démarche', () => {
+    const valid = titreDemarcheUpdatedEtatValidate(
+      { id: 'oct' } as IDemarcheType,
+      {
+        typeId: 'axm',
+        type: ({
+          id: 'axm',
+          contenuIds: []
+        } as unknown) as ITitreType,
+        demarches: [{ typeId: 'oct' }]
+      } as ITitre,
+      { id: '1', typeId: 'mfr', statutId: 'aco' } as ITitreEtape,
+      [
+        { id: '1', typeId: 'mfr', statutId: 'aco' },
+        { id: '2', typeId: 'dae' }
+      ] as ITitreEtape[]
+    )
+
+    expect(valid).toHaveLength(0)
+  })
+
+  test('ne peut pas ajouter une 2ème demande en construction à une démarche', () => {
+    expect(() =>
+      titreDemarcheUpdatedEtatValidate(
+        { id: 'oct' } as IDemarcheType,
+        {
+          typeId: 'axm',
+          type: ({
+            id: 'axm',
+            contenuIds: []
+          } as unknown) as ITitreType,
+          demarches: [{ typeId: 'oct' }]
+        } as ITitre,
+        { id: '3', typeId: 'mfr', statutId: 'aco' } as ITitreEtape,
+        [
+          { id: '1', typeId: 'mfr', statutId: 'aco' },
+          { id: '2', typeId: 'dae' }
+        ] as ITitreEtape[]
+      )
+    ).toThrow()
+  })
 })
