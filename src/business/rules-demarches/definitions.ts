@@ -83,7 +83,8 @@ const demarchesDefinitions: IDemarcheDefinition[] = [
     titreTypeId: 'axm',
     demarcheTypeIds: ['oct'],
     restrictions: restrictionsAxmOct,
-    dateDebut: '2020-08-21'
+    // https://camino.beta.gouv.fr/titres/m-ax-crique-tumuc-humac-2020
+    dateDebut: '2020-09-30'
   }
 ]
 

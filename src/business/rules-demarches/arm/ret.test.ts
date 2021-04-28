@@ -15,6 +15,16 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
     ).toEqual(['l’étape "ide" ne peut-être effecutée 2 fois d’affilée'])
   })
 
+  test('ne peut pas faire 2 ide', () => {
+    expect(
+      retEtatsValidate([
+        { typeId: 'ide', date: '2020-05-27' },
+        { typeId: 'mni', date: '2020-06-03' },
+        { typeId: 'ide', date: '2020-07-07' }
+      ])
+    ).toEqual(['l’étape "ide" existe déjà'])
+  })
+
   test('ne peut pas créer une étape "mni" après une "eof"', () => {
     expect(
       retEtatsValidate([

@@ -48,23 +48,13 @@ const titreDemarcheEtapesBuild = (
 const titreDemarcheEtatValidate = (
   demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions,
   demarcheType: IDemarcheType,
+  titreDemarche: ITitreDemarche,
   titreEtapes: ITitreEtape[],
   titre: ITitre
 ) => {
   // Si on tente d’insérer ou de modifier une étape, il faut regarder
   // qu’on puisse la mettre avec son nouveau etapeTypeId à la nouvelle date souhaitée
   // et que les étapes après celle-ci soient toujours possibles
-
-  // Vérifie que toutes les étapes existent dans l’arbre
-  const etapeTypeIdsValid = Object.keys(demarcheDefinitionRestrictions)
-
-  const etapeInconnue = titreEtapes.find(
-    etape => !etapeTypeIdsValid.includes(etape.typeId!)
-  )
-
-  if (etapeInconnue) {
-    return [`l’étape ${etapeInconnue.typeId} n’existe pas dans l’arbre`]
-  }
 
   titreEtapes = titreEtapesSortAscByDate(
     titreEtapes,
@@ -73,34 +63,24 @@ const titreDemarcheEtatValidate = (
     titre.typeId
   )
 
-  // on copie les démarches car on va les modifier en ajoutant les étapes une à une
-  const titreDemarches = titre.demarches
-    ? (objectClone(titre.demarches) as ITitreDemarche[])
-    : []
-
-  const titreDemarche = titreDemarches.find(d => d.typeId === demarcheType.id)
-
-  if (!titreDemarche) {
-    throw new Error(
-      'le titre ne contient pas la démarche en cours de modification'
-    )
-  }
+  // on copie la démarche car on va les modifier en ajoutant les étapes une à une
+  const demarche = objectClone(titreDemarche)
 
   for (let i = 0; i < titreEtapes.length; i++) {
     // On doit recalculer les sections de titre pour chaque étape,
     // car elles ont peut-être été modifiées après l’étape en cours
     const etapes = titreEtapes.slice(0, i)
-    titreDemarche.etapes = etapes
+    demarche.etapes = etapes
 
     const contenusTitreEtapesIds = contenusTitreEtapesIdsFind(
       titre.statutId!,
-      [titreDemarche],
+      [demarche],
       titre.type!.contenuIds
     )
 
     let contenu = null
     if (contenusTitreEtapesIds) {
-      contenu = titreContenuFormat(contenusTitreEtapesIds, [titreDemarche])
+      contenu = titreContenuFormat(contenusTitreEtapesIds, [demarche])
     }
 
     const titreEtapeErrors = titreEtapeEtatValidate(
@@ -135,7 +115,7 @@ const titreDemarcheUpdatedEtatValidate = (
   // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
   if (!demarcheDefinition) return []
 
-  const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
+  let titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
     titreEtape,
     suppression,
     titreDemarcheEtapes
@@ -149,10 +129,54 @@ const titreDemarcheUpdatedEtatValidate = (
   )
     return []
 
+  // vérifie que toutes les étapes existent dans l’arbre
+  const etapeTypeIdsValid = Object.keys(demarcheDefinition.restrictions)
+
+  const etapeInconnue = titreDemarcheEtapesNew.find(
+    etape => !etapeTypeIdsValid.includes(etape.typeId!)
+  )
+  if (etapeInconnue) {
+    return [`l’étape ${etapeInconnue.typeId} n’existe pas dans l’arbre`]
+  }
+
+  // vérifie que la démarche existe dans le titre
+  const titreDemarche = titre.demarches?.find(d => d.typeId === demarcheType.id)
+  if (!titreDemarche) {
+    throw new Error(
+      'le titre ne contient pas la démarche en cours de modification'
+    )
+  }
+
+  // si on essaye d’ajouter ou de modifier une demande non déposée
+  if (
+    titreEtape.typeId === 'mfr' &&
+    titreEtape.statutId !== 'dep' &&
+    !suppression
+  ) {
+    const etapesDemande = titreDemarcheEtapes?.filter(te => te.typeId === 'mfr')
+
+    // si c’est la création de la première demande, pas besoin de faire de vérification avec l’arbre
+    if (!etapesDemande || !etapesDemande.length) {
+      return []
+    }
+
+    // ou si on modifie la demande déja en construction, pas besoin de faire de vérification avec l’arbre
+    if (etapesDemande.length === 1 && titreEtape.id === etapesDemande[0].id) {
+      return []
+    }
+
+    return ['il y a déjà une demande en construction']
+  } else {
+    // on supprime la demande en construction de la liste des étapes, car elle n’est pas gérée par les arbres
+    titreDemarcheEtapesNew = titreDemarcheEtapesNew.filter(
+      te => te.typeId !== 'mfr' || te.statutId !== 'aco'
+    )
+  }
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
   const titreDemarchesErrors = titreDemarcheEtatValidate(
     demarcheDefinition.restrictions,
     demarcheType,
+    titreDemarche,
     titreDemarcheEtapesNew,
     titre
   )

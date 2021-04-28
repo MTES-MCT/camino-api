@@ -4,18 +4,18 @@ import { etatComplementsGet, etatInformationsGet } from '../etat-cycles'
 // https://cacoo.com/diagrams/nStw2pYe0PKBs1lp/B1B05
 const restrictionsArmRenPro: IDemarcheDefinitionRestrictions = {
   mfr: {
-    justeApres: []
-  },
-  mdp: {
-    justeApres: [[{ etapeTypeId: 'mfr' }]],
+    justeApres: [],
     separation: ['mcr']
   },
   mod: {
-    justeApres: [[{ etapeTypeId: 'mdp' }]]
+    justeApres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]]
   },
   ...etatComplementsGet('mca', 'rca', {
     etapeTypeId: 'mcr',
-    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'mod' }]]
+    justeApres: [
+      [{ etapeTypeId: 'mfr', statutId: 'dep' }],
+      [{ etapeTypeId: 'mod' }]
+    ]
   }),
   ...etatInformationsGet('mio', 'rio', {
     etapeTypeId: 'eof',
@@ -45,7 +45,7 @@ const restrictionsArmRenPro: IDemarcheDefinitionRestrictions = {
   },
   des: {
     justeApres: [],
-    apres: [[{ etapeTypeId: 'mdp' }]],
+    apres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]],
     avant: [[{ etapeTypeId: 'css' }], [{ etapeTypeId: 'aof' }]]
   }
 }

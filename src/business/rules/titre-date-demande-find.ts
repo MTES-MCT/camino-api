@@ -19,12 +19,12 @@ const titreDateDemandeFind = (titreDemarches: ITitreDemarche[]) => {
   // alors retourne null
   if (!titreDemarche || !titreDemarche.etapes!.length) return null
 
-  // dans la démarche génratrice, trouve
-  // - la première étape de dépôt
+  // dans la démarche génératrice, trouve
+  // - la demande déposée
   // - ou l'enregistrement de la demande (pour les anciennes ARM)
   const titreEtapesSorted = titreEtapesSortAsc(titreDemarche.etapes!)
-  const titreEtape = titreEtapesSorted.find(te =>
-    ['mdp', 'men'].includes(te.typeId)
+  const titreEtape = titreEtapesSorted.find(
+    te => (te.statutId === 'dep' && te.typeId === 'mfr') || te.typeId === 'men'
   )
 
   // si

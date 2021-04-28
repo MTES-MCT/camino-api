@@ -1,6 +1,6 @@
 import { ISection, IContenu } from '../../../types'
 
-import { dateValidate } from '../../../tools/date-validate'
+import { dateValidate } from '../../../tools/date'
 
 const contenuDatesCheck = (sections: ISection[], contenu: IContenu) => {
   const errors = sections.reduce(

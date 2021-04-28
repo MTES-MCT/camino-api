@@ -1,4 +1,4 @@
-import { dateValidate } from '../../../tools/date-validate'
+import { dateValidate } from '../../../tools/date'
 import { ITitreActivite, ITitreEtape } from '../../../types'
 
 /**

@@ -5,7 +5,7 @@ import { metasGet } from '../../../database/cache/metas'
 import titreEtapesSortAscByDate from '../../../business/utils/titre-etapes-sort-asc-by-date'
 
 const etapesTypesIds = [
-  'mdp',
+  'mfr',
   'spp',
   'mcp',
   'mcr',
@@ -53,7 +53,7 @@ const etapesDatesStatutsBuild = (titreDemarche: ITitreDemarche) => {
     if (!type) return etapesDatesStatuts
 
     // cherche l'étape la plus récente de ce type
-    const etape = etapes.find(e => e.typeId === typeId)
+    const etape = etapes.find(e => e.typeId === typeId && e.statutId !== 'aco')
 
     etapesDatesStatuts[type.nom] = etape?.date || ''
 

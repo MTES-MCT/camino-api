@@ -4,18 +4,16 @@ import { etatInformationsGet } from '../etat-cycles'
 // https://cacoo.com/diagrams/oWuHFa1Y8cCdCqaB/B1B05
 const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
   mfr: {
-    justeApres: []
-  },
-  mdp: {
     separation: ['mcp'],
-    justeApres: [[{ etapeTypeId: 'mfr', statutId: 'fai' }]]
+    justeApres: []
   },
   pfd: {
     justeApres: [],
-    avant: [[{ etapeTypeId: 'mcp' }]]
+    avant: [[{ etapeTypeId: 'mcp' }]],
+    separation: ['mcp']
   },
   mcb: {
-    apres: [[{ etapeTypeId: 'mdp' }]],
+    apres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]],
     avant: [[{ etapeTypeId: 'rde' }]],
     justeApres: [[]],
     final: false
@@ -23,7 +21,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
   rcb: { justeApres: [[{ etapeTypeId: 'mcb' }]] },
   rde: { justeApres: [[{ etapeTypeId: 'rcb' }], []] },
   mcd: {
-    apres: [[{ etapeTypeId: 'mdp' }]],
+    apres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]],
     avant: [[{ etapeTypeId: 'dae' }]],
     justeApres: [[]],
     final: false
@@ -31,7 +29,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
   rcd: { justeApres: [[{ etapeTypeId: 'mcd' }]] },
   dae: { justeApres: [[{ etapeTypeId: 'rcd' }], []] },
   mod: {
-    apres: [[{ etapeTypeId: 'mdp' }]],
+    apres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]],
     avant: [[{ etapeTypeId: 'sca' }]],
     justeApres: [[]],
     final: false
@@ -47,11 +45,11 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
         { etapeTypeId: 'dae', statutId: 'exe' },
-        { etapeTypeId: 'mdp' }
+        { etapeTypeId: 'mfr', statutId: 'dep' }
       ],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
-        { etapeTypeId: 'mdp' }
+        { etapeTypeId: 'mfr', statutId: 'dep' }
       ],
       [{ etapeTypeId: 'mcr', statutId: 'def' }],
       [{ etapeTypeId: 'mom' }],
@@ -222,7 +220,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [],
     final: true,
     apres: [
-      [{ etapeTypeId: 'mdp' }],
+      [{ etapeTypeId: 'mfr', statutId: 'dep' }],
       [{ etapeTypeId: 'pfd' }],
       [{ etapeTypeId: 'rde' }],
       [{ etapeTypeId: 'dae' }]
@@ -238,7 +236,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [],
     final: true,
     apres: [
-      [{ etapeTypeId: 'mdp' }],
+      [{ etapeTypeId: 'mfr', statutId: 'dep' }],
       [{ etapeTypeId: 'pfd' }],
       [{ etapeTypeId: 'rde' }],
       [{ etapeTypeId: 'dae' }]

@@ -1,6 +1,6 @@
 import { IDocument } from '../../types'
 
-import { dateValidate } from '../../tools/date-validate'
+import { dateValidate } from '../../tools/date'
 
 const documentInputValidate = async (document: IDocument) => {
   const errors = [] as string[]

@@ -21,7 +21,7 @@ describe("publicité d'une démarche", () => {
 
   test("une démarche d'octroi sans étape décisive n'est pas publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mdp' }]))
+      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dae' }]))
     ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
@@ -208,7 +208,10 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'dim', statutId: 'rej' }])
+        etapesBuild([
+          { typeId: 'anf', statutId: 'fai' },
+          { typeId: 'dim', statutId: 'rej' }
+        ])
       )
     ).toMatchObject({ publicLecture: false })
   })
@@ -322,7 +325,7 @@ describe("publicité d'une démarche", () => {
         titreDemarchePublicFind(
           demarcheTypeId,
           [],
-          etapesBuild([{ typeId: 'mdp' }]),
+          etapesBuild([{ typeId: 'mfr', statutId: 'dep' }]),
           'arm'
         )
       ).toMatchObject({ publicLecture: false })

@@ -3,7 +3,7 @@ import {
   IEtapeTypeIdCondition
 } from '../../business/rules-demarches/definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { titreDemarcheEtatValidate } from '../../business/validations/titre-demarche-etat-validate'
+import { titreDemarcheUpdatedEtatValidate } from '../../business/validations/titre-demarche-etat-validate'
 import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
 import { userSuper } from '../../database/user-super'
 import TitresTypesDemarchesTypesEtapesTypes from '../../database/models/titres-types--demarches-types-etapes-types'
@@ -134,17 +134,28 @@ const demarchesValidate = async () => {
         )
         .forEach(demarche => {
           try {
-            const errs = titreDemarcheEtatValidate(
-              demarcheDefinition.restrictions,
+            const errs = titreDemarcheUpdatedEtatValidate(
               demarche.type!,
-              demarche.etapes!,
-              demarche.titre!
+              demarche.titre!,
+              demarche.etapes![0],
+              demarche.etapes!
             )
 
             if (errs.length) {
               errors.push(
                 `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errs}`
               )
+
+              // console.log(
+              //   '[',
+              //   demarche
+              //     .etapes!.map(
+              //       e =>
+              //         `{ typeId: '${e.typeId}', statutId: '${e.statutId}', date: '${e.date}' }`
+              //     )
+              //     .join(','),
+              //   ']'
+              // )
             }
           } catch (e) {
             errors.push(`${demarche.id} démarche invalide =>\n\t${e}`)

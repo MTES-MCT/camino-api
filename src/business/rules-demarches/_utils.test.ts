@@ -24,9 +24,6 @@ test('teste EtatsValidate', () => {
 
   expect(octEtatsValidate).toBeTruthy()
   expect(octEtatsValidate([], {})).toHaveLength(0)
-  expect(octEtatsValidate([{ typeId: 'aaa' }], {})).toEqual([
-    'l’étape aaa n’existe pas dans l’arbre'
-  ])
 })
 
 jest.mock('../../database/models/_format/titre-contenu', () => ({
@@ -86,6 +83,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
       demarcheTypeId
     )!.restrictions
 
+    const titreDemarche = { typeId: demarcheTypeId } as ITitreDemarche
     titre = {
       ...titre,
       typeId: titreTypeId,
@@ -93,7 +91,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
         id: titreTypeId,
         contenuIds: []
       } as unknown) as ITitreType,
-      demarches: [{ typeId: demarcheTypeId }] as ITitreDemarche[]
+      demarches: [titreDemarche] as ITitreDemarche[]
     }
 
     return titreDemarcheEtatValidate(
@@ -102,6 +100,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
         id: demarcheTypeId,
         etapesTypes
       } as IDemarcheType,
+      titreDemarche,
       titreDemarcheEtapes as ITitreEtape[],
       titre as ITitre
     )
