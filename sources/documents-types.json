@@ -1,11 +1,43 @@
 [
   {
+    "id": "aac",
+    "nom": "Avis d'un service de l'administration centrale"
+  },
+  {
+    "id": "acd",
+    "nom": "Avis de la commission départementale des mines"
+  },
+  {
+    "id": "acg",
+    "nom": "Avis du conseil général chargé des mines"
+  },
+  {
+    "id": "acm",
+    "nom": "Avis des services civils et militaires"
+  },
+  {
     "id": "acr",
     "nom": "Accusé de réception d'une demande"
   },
   {
+    "id": "adr",
+    "nom": "Avis du directeur régional chargé des mines"
+  },
+  {
+    "id": "aep",
+    "nom": "Avis d'enquête publique"
+  },
+  {
     "id": "aot",
     "nom": "Arrêté autorisant l'ouverture de travaux miniers"
+  },
+  {
+    "id": "apd",
+    "nom": "Arrêté de second donné acte (AP2)"
+  },
+  {
+    "id": "apf",
+    "nom": "Avis du préfet"
   },
   {
     "id": "apm",
@@ -16,10 +48,6 @@
     "nom": "Arrêté de premier donné acte (AP1)"
   },
   {
-    "id": "apd",
-    "nom": "Arrêté de second donné acte (AP2)"
-  },
-  {
     "id": "arm",
     "nom": "Arrêté ministériel"
   },
@@ -28,72 +56,64 @@
     "nom": "Arrêté préfectoral"
   },
   {
+    "id": "arr",
+    "nom": "Arrêté"
+  },
+  {
     "id": "atf",
     "nom": "Attestation fiscale"
-  },
-  {
-    "id": "ave",
-    "nom": "Avenant"
-  },
-  {
-    "id": "aep",
-    "nom": "Avis d'enquête publique"
-  },
-  {
-    "id": "aac",
-    "nom": "Avis d'un service de l'administration centrale"
-  },
-  {
-    "id": "acd",
-    "nom": "Avis de la commission départementale des mines"
   },
   {
     "id": "avc",
     "nom": "Avis de mise en concurrence"
   },
   {
-    "id": "sir",
-    "nom": "Avis de situation au répertoire Sirene"
+    "id": "ave",
+    "nom": "Avenant"
   },
   {
-    "id": "acm",
-    "nom": "Avis des services civils et militaires"
-  },
-  {
-    "id": "acg",
-    "nom": "Avis du conseil général chargé des mines"
-  },
-  {
-    "id": "cdc",
-    "nom": "Cahier des charges"
-  },
-  {
-    "id": "cod",
-    "nom": "Compléments au dossier de demande"
-  },
-  {
-    "id": "cnt",
-    "nom": "Contrat"
+    "id": "avi",
+    "nom": "Avis"
   },
   {
     "id": "cam",
     "nom": "Contrat d'amodiation"
   },
   {
-    "id": "con",
-    "nom": "Convention"
+    "id": "car",
+    "nom": "Carte"
   },
   {
     "id": "cco",
     "nom": "Courrier de demande de compléments"
   },
   {
+    "id": "cdc",
+    "nom": "Cahier des charges"
+  },
+  {
     "id": "cnr",
     "nom": "Courrier de notification de la recevabilité"
   },
   {
+    "id": "cnt",
+    "nom": "Contrat"
+  },
+  {
+    "id": "cod",
+    "nom": "Compléments au dossier de demande"
+  },
+  {
+    "id": "con",
+    "nom": "Convention"
+  },
+  {
     "id": "cur",
     "nom": "Curriculum vitae"
+  },
+  {
+    "id": "dec",
+    "nom": "Décret"
   },
   {
     "id": "dei",
@@ -104,16 +124,16 @@
     "nom": "Décision cas par cas"
   },
   {
-    "id": "dec",
-    "nom": "Décret"
-  },
-  {
-    "id": "dos",
-    "nom": "Dossier"
+    "id": "doe",
+    "nom": "Dossier \"Loi sur l'eau\""
   },
   {
     "id": "dom",
     "nom": "Dossier de demande"
+  },
+  {
+    "id": "dos",
+    "nom": "Dossier"
   },
   {
     "id": "erd",
@@ -132,8 +152,20 @@
     "nom": "Fiche de pésentation"
   },
   {
+    "id": "for",
+    "nom": "Formulaire de demande"
+  },
+  {
     "id": "idm",
     "nom": "Identification de matériel"
+  },
+  {
+    "id": "jcf",
+    "nom": "Justificatif des capacités financières"
+  },
+  {
+    "id": "jct",
+    "nom": "Justificatif des capacités techniques"
   },
   {
     "id": "jid",
@@ -144,20 +176,8 @@
     "nom": "Justificatif de paiement"
   },
   {
-    "id": "jct",
-    "nom": "Justificatif des capacités techniques"
-  },
-  {
     "id": "kbi",
     "nom": "Kbis"
-  },
-  {
-    "id": "lem",
-    "nom": "Lettre de demande"
-  },
-  {
-    "id": "lcm",
-    "nom": "Lettre de saisine des services civils et militaires"
   },
   {
     "id": "lac",
@@ -172,6 +192,18 @@
     "nom": "Lettre de saisine du conseil général chargé des mines"
   },
   {
+    "id": "lcm",
+    "nom": "Lettre de saisine des services civils et militaires"
+  },
+  {
+    "id": "lem",
+    "nom": "Lettre de demande"
+  },
+  {
+    "id": "let",
+    "nom": "Lettre"
+  },
+  {
     "id": "lpf",
     "nom": "Lettre de saisine du préfet"
   },
@@ -184,52 +216,68 @@
     "nom": "Note à l'autorité signataire"
   },
   {
-    "id": "nis",
-    "nom": "Note interne signalée"
-  },
-  {
-    "id": "not",
-    "nom": "Notes"
-  },
-  {
-    "id": "noi",
-    "nom": "Notice d'incidence"
+    "id": "ndc",
+    "nom": "Notification de demande concurrente"
   },
   {
     "id": "ndd",
     "nom": "Notification de décision"
   },
   {
-    "id": "ndc",
-    "nom": "Notification de demande concurrente"
+    "id": "nis",
+    "nom": "Note interne signalée"
   },
   {
-    "id": "ord",
-    "nom": "Ordonnance"
+    "id": "noi",
+    "nom": "Notice d'incidence"
   },
   {
-    "id": "odr",
-    "nom": "Ordonnance du Roi"
+    "id": "not",
+    "nom": "Notes"
   },
   {
     "id": "ocd",
     "nom": "Ordre du jour de la commission départementale des mines"
   },
   {
+    "id": "odr",
+    "nom": "Ordonnance du Roi"
+  },
+  {
+    "id": "ord",
+    "nom": "Ordonnance"
+  },
+  {
+    "id": "pla",
+    "nom": "Plan"
+  },
+  {
+    "id": "pub",
+    "nom": "Publication au JORF"
+  },
+  {
     "id": "rac",
     "nom": "Rapport de l’administration centrale chargé des mines"
   },
   {
-    "id": "rdr",
-    "nom": "Rapport de la direction régionale chargée des mines"
+    "id": "rce",
+    "nom": "Rapport du commissaire enquêteur"
   },
   {
     "id": "rcr",
     "nom": "Rapport de recevabilité"
   },
   {
-    "id": "rce",
-    "nom": "Rapport du commissaire enquêteur"
+    "id": "rdr",
+    "nom": "Rapport de la direction régionale chargée des mines"
+  },
+  {
+    "id": "rdt",
+    "nom": "Récépissé de déclaration d'ouverture des travaux miniers"
+  },
+  {
+    "id": "rec",
+    "nom": "Récépissé \"Loi sur l'eau\""
   },
   {
     "id": "ree",
@@ -240,71 +288,23 @@
     "nom": "Rapport financier d'exploration"
   },
   {
-    "id": "rse",
-    "nom": "Rapport social et économique d'exploration"
-  },
-  {
-    "id": "rec",
-    "nom": "Récépissé \"Loi sur l'eau\""
-  },
-  {
-    "id": "rdt",
-    "nom": "Récépissé de déclaration d'ouverture des travaux miniers"
-  },
-  {
-    "id": "jcf",
-    "nom": "Justificatif des capacités financières"
+    "id": "rgr",
+    "nom": "rapport annuel d'exploitation"
   },
   {
     "id": "rie",
     "nom": "Rapport d’intensité d’exploration"
   },
   {
-    "id": "pub",
-    "nom": "Publication au JORF"
-  },
-  {
-    "id": "let",
-    "nom": "Lettre"
-  },
-  {
-    "id": "apf",
-    "nom": "Avis du préfet"
-  },
-  {
-    "id": "adr",
-    "nom": "Avis du directeur régional chargé des mines"
-  },
-  {
-    "id": "car",
-    "nom": "Carte"
-  },
-  {
-    "id": "avi",
-    "nom": "Avis"
-  },
-  {
-    "id": "rgr",
-    "nom": "rapport annuel d'exploitation"
+    "id": "rse",
+    "nom": "Rapport social et économique d'exploration"
   },
   {
     "id": "rwp",
     "nom": "rapport annuel d'exploitation"
   },
   {
-    "id": "arr",
-    "nom": "Arrêté"
-  },
-  {
-    "id": "pla",
-    "nom": "Plan"
-  },
-  {
-    "id": "doe",
-    "nom": "Dossier \"Loi sur l'eau\""
-  },
-  {
-    "id": "for",
-    "nom": "Formulaire de demande"
+    "id": "sir",
+    "nom": "Avis de situation au répertoire Sirene"
   }
 ]

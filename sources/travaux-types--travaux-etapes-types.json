@@ -1,8 +1,8 @@
 [
   {
     "travaux_type_id": "aom",
-    "ordre": 1,
-    "travaux_etape_type_id": "mfr"
+    "ordre": 3,
+    "travaux_etape_type_id": "aow"
   },
   {
     "travaux_type_id": "aom",
@@ -11,13 +11,8 @@
   },
   {
     "travaux_type_id": "aom",
-    "ordre": 3,
-    "travaux_etape_type_id": "aow"
-  },
-  {
-    "travaux_type_id": "aom",
-    "ordre": 4,
-    "travaux_etape_type_id": "rpu"
+    "ordre": 1,
+    "travaux_etape_type_id": "mfr"
   },
   {
     "travaux_type_id": "aom",
@@ -25,9 +20,14 @@
     "travaux_etape_type_id": "ncl"
   },
   {
+    "travaux_type_id": "aom",
+    "ordre": 4,
+    "travaux_etape_type_id": "rpu"
+  },
+  {
     "travaux_type_id": "apr",
-    "ordre": 1,
-    "travaux_etape_type_id": "mfr"
+    "ordre": 3,
+    "travaux_etape_type_id": "dex"
   },
   {
     "travaux_type_id": "apr",
@@ -36,8 +36,18 @@
   },
   {
     "travaux_type_id": "apr",
-    "ordre": 3,
-    "travaux_etape_type_id": "dex"
+    "ordre": 1,
+    "travaux_etape_type_id": "mfr"
+  },
+  {
+    "travaux_type_id": "dam",
+    "ordre": 11,
+    "travaux_etape_type_id": "awd"
+  },
+  {
+    "travaux_type_id": "dam",
+    "ordre": 7,
+    "travaux_etape_type_id": "awu"
   },
   {
     "travaux_type_id": "dam",
@@ -51,18 +61,13 @@
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 3,
-    "travaux_etape_type_id": "ssr"
+    "ordre": 8,
+    "travaux_etape_type_id": "mfw"
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 4,
-    "travaux_etape_type_id": "scl"
-  },
-  {
-    "travaux_type_id": "dam",
-    "ordre": 5,
-    "travaux_etape_type_id": "ppu"
+    "ordre": 13,
+    "travaux_etape_type_id": "ncl"
   },
   {
     "travaux_type_id": "dam",
@@ -71,13 +76,13 @@
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 7,
-    "travaux_etape_type_id": "awu"
+    "ordre": 5,
+    "travaux_etape_type_id": "ppu"
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 8,
-    "travaux_etape_type_id": "mfw"
+    "ordre": 12,
+    "travaux_etape_type_id": "rpu"
   },
   {
     "travaux_type_id": "dam",
@@ -91,18 +96,13 @@
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 11,
-    "travaux_etape_type_id": "awd"
+    "ordre": 4,
+    "travaux_etape_type_id": "scl"
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 12,
-    "travaux_etape_type_id": "rpu"
-  },
-  {
-    "travaux_type_id": "dam",
-    "ordre": 13,
-    "travaux_etape_type_id": "ncl"
+    "ordre": 3,
+    "travaux_etape_type_id": "ssr"
   },
   {
     "travaux_type_id": "dom",
@@ -111,23 +111,28 @@
   },
   {
     "travaux_type_id": "dom",
-    "ordre": 2,
-    "travaux_etape_type_id": "mdd"
-  },
-  {
-    "travaux_type_id": "dom",
     "ordre": 4,
     "travaux_etape_type_id": "dow"
   },
   {
     "travaux_type_id": "dom",
-    "ordre": 5,
-    "travaux_etape_type_id": "rpu"
+    "ordre": 2,
+    "travaux_etape_type_id": "mdd"
   },
   {
     "travaux_type_id": "dom",
     "ordre": 6,
     "travaux_etape_type_id": "ncl"
+  },
+  {
+    "travaux_type_id": "dom",
+    "ordre": 3,
+    "travaux_etape_type_id": "rdt"
+  },
+  {
+    "travaux_type_id": "dom",
+    "ordre": 5,
+    "travaux_etape_type_id": "rpu"
   },
   {
     "travaux_type_id": "mpm",
@@ -136,32 +141,27 @@
   },
   {
     "travaux_type_id": "mpm",
+    "ordre": 3,
+    "travaux_etape_type_id": "ncl"
+  },
+  {
+    "travaux_type_id": "mpm",
     "ordre": 2,
     "travaux_etape_type_id": "rpu"
   },
   {
-    "travaux_type_id": "mpm",
+    "travaux_type_id": "sup",
     "ordre": 3,
     "travaux_etape_type_id": "ncl"
+  },
+  {
+    "travaux_type_id": "sup",
+    "ordre": 2,
+    "travaux_etape_type_id": "rpu"
   },
   {
     "travaux_type_id": "sup",
     "ordre": 1,
     "travaux_etape_type_id": "sup"
-  },
-  {
-    "travaux_type_id": "sup",
-    "ordre": 2,
-    "travaux_etape_type_id": "rpu"
-  },
-  {
-    "travaux_type_id": "sup",
-    "ordre": 3,
-    "travaux_etape_type_id": "ncl"
-  },
-  {
-    "travaux_type_id": "dom",
-    "ordre": 3,
-    "travaux_etape_type_id": "rdt"
   }
 ]

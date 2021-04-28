@@ -17,6 +17,16 @@
     "ordre": 129
   },
   {
+    "id": "dec",
+    "nom": "déclaration",
+    "ordre": 2
+  },
+  {
+    "id": "dex",
+    "nom": "décision de l'administration",
+    "ordre": 103
+  },
+  {
     "id": "dow",
     "nom": "donné acte de déclaration d'ouverture de travaux minier",
     "ordre": 127
@@ -32,45 +42,6 @@
     "ordre": 7
   },
   {
-    "id": "mfw",
-    "nom": "mémoire de fin de travaux",
-    "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
-    "ordre": 134
-  },
-  {
-    "id": "rdt",
-    "nom": "récépissé de déclaration d'ouverture de travaux miniers",
-    "description": "Courrier par lequel l’administration accuse réception de la déclaration faite au préfet pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.61-1 du code minier.",
-    "ordre": 44
-  },
-  {
-    "id": "rwp",
-    "nom": "récolement partiel",
-    "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
-    "ordre": 133
-  },
-  {
-    "id": "rwt",
-    "nom": "récolement complet",
-    "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
-    "ordre": 135
-  },
-  {
-    "id": "sup",
-    "nom": "décision instituant une servitude d'utilité publique",
-    "ordre": 132
-  },
-  {
-    "id": "dec",
-    "nom": "déclaration",
-    "ordre": 2
-  },
-  {
-    "id": "dex",
-    "nom": "décision de l'administration",
-    "ordre": 103
-  },
-  {
     "id": "mdp",
     "nom": "dépôt de la demande",
     "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
@@ -81,6 +52,12 @@
     "nom": "demande",
     "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
     "ordre": 1
+  },
+  {
+    "id": "mfw",
+    "nom": "mémoire de fin de travaux",
+    "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
+    "ordre": 134
   },
   {
     "id": "ncl",
@@ -101,10 +78,28 @@
     "ordre": 50
   },
   {
+    "id": "rdt",
+    "nom": "récépissé de déclaration d'ouverture de travaux miniers",
+    "description": "Courrier par lequel l’administration accuse réception de la déclaration faite au préfet pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.61-1 du code minier.",
+    "ordre": 44
+  },
+  {
     "id": "rpu",
     "nom": "publication de décision au recueil des actes administratifs",
     "description": "Publication, par le préfet, au recueil des actes administratifs.",
     "ordre": 108
+  },
+  {
+    "id": "rwp",
+    "nom": "récolement partiel",
+    "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
+    "ordre": 133
+  },
+  {
+    "id": "rwt",
+    "nom": "récolement complet",
+    "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
+    "ordre": 135
   },
   {
     "id": "scl",
@@ -117,5 +112,10 @@
     "nom": "saisine des services",
     "description": "Demande de consultation dans le cadre d’un titre minier des chefs de service civils et de l’autorité militaire. Les intéressés ont un mois pour répondre. Au-delà de ce délai,  le silence vaut accord.\n",
     "ordre": 54
+  },
+  {
+    "id": "sup",
+    "nom": "décision instituant une servitude d'utilité publique",
+    "ordre": 132
   }
 ]

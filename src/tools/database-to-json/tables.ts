@@ -1,82 +1,148 @@
 // Liste des noms des tables à sauvegarder au format json
 const tables = [
-  'activites_statuts',
-  'activites_types',
-  'activites_types__titres_types',
-  'activites_types__documents_types',
-  'activites_types__pays',
-  'administrations',
-  'administrations__activites_types',
-  'administrations__titres_types',
-  'administrations__titres_types__etapes_types',
-  'administrations__titres_types__titres_statuts',
-  'administrations_types',
-  'annees',
-  'communes',
-  'definitions',
-  'demarches_statuts',
-  'demarches_types',
-  'departements',
-  'devises',
-  'documents',
-  'documents_types',
-  'domaines',
-  'entreprises',
-  'entreprises_etablissements',
-  'etapes_statuts',
-  'etapes_types',
-  'etapes_types__etapes_statuts',
-  'etapes_types__documents_types',
-  'forets',
-  'frequences',
-  'geo_systemes',
-  'globales',
-  'mois',
-  'pays',
-  'permissions',
-  'phases_statuts',
-  'references_types',
-  'regions',
-  'substances',
-  'substances__substances_legales',
-  'substances_fiscales',
-  'substances_legales',
-  'substances_legales_codes',
-  'titres',
-  'titres_activites',
-  'titres_administrations_gestionnaires',
-  'titres_administrations_locales',
-  'titres_amodiataires',
-  'titres_communes',
-  'titres_demarches',
-  'titres_demarches_liens',
-  'titres_etapes',
-  'titres_etapes_justificatifs',
-  'titres_forets',
-  'titres_phases',
-  'titres_points',
-  'titres_points_references',
-  'titres_references',
-  'titres_statuts',
-  'titres_substances',
-  'titres_titulaires',
-  'titres_travaux',
-  'titres_travaux_etapes',
-  'titres_types',
-  'titres_types__demarches_types',
-  'titres_types__demarches_types__etapes_types',
-  'titres_types__titres_statuts',
-  'titres_types_types',
-  'travaux_types',
-  'travaux_etapes_types',
-  'travaux_types__travaux_etapes_types',
-  'travaux_etapes_types__etapes_statuts',
-  'travaux_etapes_types__documents_types',
-  'trimestres',
-  'unites',
-  'utilisateurs',
-  'utilisateurs__administrations',
-  'utilisateurs__entreprises'
+  { name: 'activites_statuts', orderBy: ['id'] },
+  { name: 'activites_types', orderBy: ['id'] },
+  {
+    name: 'activites_types__documents_types',
+    orderBy: ['activite_type_id', 'document_type_id']
+  },
+  { name: 'activites_types__pays', orderBy: ['pays_id', 'activite_type_id'] },
+  {
+    name: 'activites_types__titres_types',
+    orderBy: ['titre_type_id', 'activite_type_id']
+  },
+  { name: 'administrations', orderBy: ['id'] },
+  {
+    name: 'administrations__activites_types',
+    orderBy: ['activite_type_id', 'administration_id']
+  },
+  {
+    name: 'administrations__titres_types',
+    orderBy: ['administration_id', 'titre_type_id']
+  },
+  {
+    name: 'administrations__titres_types__etapes_types',
+    orderBy: ['administration_id', 'titre_type_id', 'etape_type_id']
+  },
+  {
+    name: 'administrations__titres_types__titres_statuts',
+    orderBy: ['administration_id', 'titre_type_id', 'titre_statut_id']
+  },
+  { name: 'administrations_types', orderBy: ['id'] },
+  { name: 'annees', orderBy: ['id'] },
+  // la table 'caches' n'est pas utile dans les json
+  // { name: 'caches',orderBy: ['id'] },
+  { name: 'communes', orderBy: ['id'] },
+  { name: 'definitions', orderBy: ['id'] },
+  { name: 'demarches_statuts', orderBy: ['id'] },
+  { name: 'demarches_types', orderBy: ['id'] },
+  { name: 'departements', orderBy: ['id'] },
+  { name: 'devises', orderBy: ['id'] },
+  { name: 'documents', orderBy: ['id'] },
+  { name: 'documents_types', orderBy: ['id'] },
+  { name: 'domaines', orderBy: ['id'] },
+  { name: 'entreprises', orderBy: ['id'] },
+  { name: 'entreprises__documents_types', orderBy: ['document_type_id'] },
+  { name: 'entreprises_etablissements', orderBy: ['id'] },
+  { name: 'etapes_statuts', orderBy: ['id'] },
+  { name: 'etapes_types', orderBy: ['id'] },
+  {
+    name: 'etapes_types__documents_types',
+    orderBy: ['etape_type_id', 'document_type_id']
+  },
+  {
+    name: 'etapes_types__etapes_statuts',
+    orderBy: ['etape_type_id', 'etape_statut_id']
+  },
+  { name: 'forets', orderBy: ['id'] },
+  { name: 'frequences', orderBy: ['id'] },
+  { name: 'geo_systemes', orderBy: ['id'] },
+  { name: 'globales', orderBy: ['id'] },
+  { name: 'mois', orderBy: ['id'] },
+  { name: 'pays', orderBy: ['id'] },
+  { name: 'permissions', orderBy: ['id'] },
+  { name: 'phases_statuts', orderBy: ['id'] },
+  { name: 'references_types', orderBy: ['id'] },
+  { name: 'regions', orderBy: ['id'] },
+  { name: 'substances', orderBy: ['id'] },
+  {
+    name: 'substances__substances_legales',
+    orderBy: ['substance_id', 'substance_legale_id']
+  },
+  { name: 'substances_fiscales', orderBy: ['id'] },
+  { name: 'substances_legales', orderBy: ['id'] },
+  { name: 'substances_legales_codes', orderBy: ['id'] },
+  { name: 'titres', orderBy: ['id'] },
+  { name: 'titres_activites', orderBy: ['id'] },
+  {
+    name: 'titres_administrations_gestionnaires',
+    orderBy: ['titre_id', 'administration_id']
+  },
+  {
+    name: 'titres_administrations_locales',
+    orderBy: ['titre_etape_id', 'administration_id']
+  },
+  { name: 'titres_amodiataires', orderBy: ['titre_etape_id', 'entreprise_id'] },
+  { name: 'titres_communes', orderBy: ['titre_etape_id', 'commune_id'] },
+  { name: 'titres_demarches', orderBy: ['id'] },
+  {
+    name: 'titres_demarches_liens',
+    orderBy: ['enfant_titre_demarche_id', 'parent_titre_demarche_id']
+  },
+  { name: 'titres_etapes', orderBy: ['id'] },
+  {
+    name: 'titres_etapes_justificatifs',
+    orderBy: ['titre_etape_id', 'document_id']
+  },
+  { name: 'titres_forets', orderBy: ['titre_etape_id', 'foret_id'] },
+  { name: 'titres_phases', orderBy: ['titre_demarche_id', 'statut_id'] },
+  { name: 'titres_points', orderBy: ['id'] },
+  { name: 'titres_points_references', orderBy: ['id'] },
+  { name: 'titres_references', orderBy: ['titre_id', 'type_id'] },
+  { name: 'titres_statuts', orderBy: ['id'] },
+  { name: 'titres_substances', orderBy: ['titre_etape_id', 'substance_id'] },
+  { name: 'titres_titulaires', orderBy: ['titre_etape_id', 'entreprise_id'] },
+  { name: 'titres_travaux', orderBy: ['id'] },
+  { name: 'titres_travaux_etapes', orderBy: ['id'] },
+  { name: 'titres_types', orderBy: ['id'] },
+  {
+    name: 'titres_types__demarches_types',
+    orderBy: ['titre_type_id', 'demarche_type_id']
+  },
+  {
+    name: 'titres_types__demarches_types__etapes_types',
+    orderBy: ['titre_type_id', 'demarche_type_id', 'etape_type_id']
+  },
+  {
+    name: 'titres_types__titres_statuts',
+    orderBy: ['titre_type_id', 'titre_statut_id']
+  },
+  { name: 'titres_types_types', orderBy: ['id'] },
+  { name: 'travaux_etapes_types', orderBy: ['id'] },
+  {
+    name: 'travaux_etapes_types__documents_types',
+    orderBy: ['travaux_etape_type_id', 'document_type_id']
+  },
+  {
+    name: 'travaux_etapes_types__etapes_statuts',
+    orderBy: ['travaux_etape_type_id', 'etape_statut_id']
+  },
+  { name: 'travaux_types', orderBy: ['id'] },
+  {
+    name: 'travaux_types__travaux_etapes_types',
+    orderBy: ['travaux_type_id', 'travaux_etape_type_id']
+  },
+  { name: 'trimestres', orderBy: ['id'] },
+  { name: 'unites', orderBy: ['id'] },
+  { name: 'utilisateurs', orderBy: ['id'] },
+  {
+    name: 'utilisateurs__administrations',
+    orderBy: ['utilisateur_id', 'administration_id']
+  },
+  {
+    name: 'utilisateurs__entreprises',
+    orderBy: ['utilisateur_id', 'entreprise_id']
+  }
 ]
 
 export { tables }

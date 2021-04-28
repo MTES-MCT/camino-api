@@ -1,5 +1,41 @@
 [
   {
+    "id": "acc",
+    "nom": "accepté",
+    "description": "La demande a fait l’objet d’une décision favorable de l'administration.",
+    "couleur": "success"
+  },
+  {
+    "id": "aco",
+    "nom": "en construction",
+    "couleur": "warning"
+  },
+  {
+    "id": "ajo",
+    "nom": "ajourné",
+    "couleur": "warning"
+  },
+  {
+    "id": "def",
+    "nom": "défavorable",
+    "couleur": "error"
+  },
+  {
+    "id": "dre",
+    "nom": "défavorable avec réserves",
+    "couleur": "warning"
+  },
+  {
+    "id": "enc",
+    "nom": "en cours",
+    "couleur": "success"
+  },
+  {
+    "id": "exe",
+    "nom": "exempté",
+    "couleur": "success"
+  },
+  {
     "id": "fai",
     "nom": "fait",
     "couleur": "success"
@@ -15,40 +51,14 @@
     "couleur": "warning"
   },
   {
-    "id": "def",
-    "nom": "défavorable",
-    "couleur": "error"
-  },
-  {
-    "id": "dre",
-    "nom": "défavorable avec réserves",
-    "couleur": "warning"
-  },
-  {
-    "id": "pro",
-    "nom": "programmé",
-    "couleur": "warning"
-  },
-  {
-    "id": "enc",
-    "nom": "en cours",
-    "couleur": "success"
-  },
-  {
-    "id": "ajo",
-    "nom": "ajourné",
-    "couleur": "warning"
-  },
-  {
     "id": "nul",
     "nom": "non applicable",
     "couleur": "neutral"
   },
   {
-    "id": "acc",
-    "nom": "accepté",
-    "description": "La demande a fait l’objet d’une décision favorable de l'administration.",
-    "couleur": "success"
+    "id": "pro",
+    "nom": "programmé",
+    "couleur": "warning"
   },
   {
     "id": "rej",
@@ -57,14 +67,14 @@
     "couleur": "error"
   },
   {
+    "id": "req",
+    "nom": "requis",
+    "couleur": "neutral"
+  },
+  {
     "id": "ter",
     "nom": "terminé",
     "description": "La démarche engagée unilatéralement par l’administration qui a fait l’objet d’une décision de l’administration. Celle-ci n’a pas fait l’objet d’une demande de la part du titulaire du titre ou de l’autorisation.\n",
     "couleur": "neutral"
-  },
-  {
-    "id": "aco",
-    "nom": "en construction",
-    "couleur": "warning"
   }
 ]

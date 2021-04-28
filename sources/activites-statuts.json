@@ -5,14 +5,14 @@
     "couleur": "error"
   },
   {
-    "id": "enc",
-    "nom": "en construction",
-    "couleur": "warning"
-  },
-  {
     "id": "dep",
     "nom": "déposé",
     "couleur": "success"
+  },
+  {
+    "id": "enc",
+    "nom": "en construction",
+    "couleur": "warning"
   },
   {
     "id": "fer",

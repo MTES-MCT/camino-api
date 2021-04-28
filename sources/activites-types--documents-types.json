@@ -1,9 +1,5 @@
 [
   {
-    "activite_type_id": "wrp",
-    "document_type_id": "rwp"
-  },
-  {
     "activite_type_id": "gra",
     "document_type_id": "rgr"
   },
@@ -31,5 +27,9 @@
     "activite_type_id": "pmd",
     "document_type_id": "rse",
     "optionnel": true
+  },
+  {
+    "activite_type_id": "wrp",
+    "document_type_id": "rwp"
   }
 ]

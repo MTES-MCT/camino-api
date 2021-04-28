@@ -1,9 +1,351 @@
 [
   {
+    "id": "aac",
+    "nom": "avis de direction régionale des affaires culturelles",
+    "description": "Avis sur la situation archéologique du site en question.",
+    "ordre": 81
+  },
+  {
+    "id": "aaf",
+    "nom": "avis de la direction d'alimentation de l'agriculture et de la forêt",
+    "description": "Avis pour un titre minier.",
+    "ordre": 79
+  },
+  {
+    "id": "abd",
+    "nom": "abrogation de la décision",
+    "description": "Suppression de l’acte administratif pour l’avenir.",
+    "ordre": 111,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "abs",
+    "nom": "avis DGTM service milieux naturels, biodiversité, sites et paysages (MNBST)",
+    "description": "Avis du MNBST sur la notice d’impact pour les titres miniers et les autorisations d'exploitation.",
+    "ordre": 76
+  },
+  {
+    "id": "aca",
+    "nom": "avis de la commission des autorisations de recherches minières (CARM)",
+    "ordre": 89,
+    "fondamentale": true,
+    "unique": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "acd",
+    "nom": "avis du conseil départemental de l'environnement et des risques sanitaires et technologiques (Coderst)",
+    "ordre": 137,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "acg",
+    "nom": "avis du conseil général chargé des mines",
+    "description": "Le conseil général chargé des mines donne un avis sur la demande et sur son instruction au ministre chargé des mines. Cet avis n'est pas conforme.",
+    "ordre": 96
+  },
+  {
+    "id": "acl",
+    "nom": "avis d'une collectivité locale",
+    "description": "Avis de la collectivité locale dans le cadre de l’instruction d’un titre.",
+    "ordre": 68,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "aco",
+    "nom": "avenant à l’autorisation de recherche minière",
+    "ordre": 125,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "aec",
+    "nom": "avis de la direction des entreprises, de la concurrence, de la consommation, du travail et de l'emploi",
+    "description": "Avis facultatif sur la situation économique de l’entreprise.",
+    "ordre": 85
+  },
+  {
+    "id": "aep",
+    "nom": "avis d'un président d'EPCI",
+    "description": "Avis du président d’EPCI dans le cadre de l’instruction d’un titre.",
+    "ordre": 67,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "afp",
+    "nom": "avis de la direction régionale des finances publiques",
+    "description": "Avis délivré sur la régularité fiscale de l’entreprise.",
+    "ordre": 84
+  },
+  {
+    "id": "agn",
+    "nom": "avis de la gendarmerie nationale",
+    "description": "Avis sur les titres miniers.",
+    "ordre": 83
+  },
+  {
+    "id": "aim",
+    "nom": "avis de l'Ifremer",
+    "description": "Avis de l’institut français de recherche pour l’exploitation en mer (IFREMER) dans le cadre d’autorisation en mer.",
+    "ordre": 74
+  },
+  {
+    "id": "ama",
+    "nom": "avis d'un maire",
+    "description": "Avis du maire, dans le cadre de l’instruction d’un titre.",
+    "ordre": 66,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ami",
+    "nom": "avis du parc naturel marin",
+    "description": "Avis du parc naturel marin dans le cadre d’autorisation en mer.",
+    "ordre": 75
+  },
+  {
+    "id": "and",
+    "nom": "décision du juge administratif",
+    "description": "Décision à un contentieux ou à un référé.",
+    "ordre": 112,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ane",
+    "nom": "avis de mise en concurrence au JOUE",
+    "description": "Pour les titres miniers H (hydrocarbures), étape par laquelle le ministre chargé des mines publie l'avis de mise en concurrence au Journal officiel de l'Union européenne au frais du demandeur.",
+    "ordre": 48,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "anf",
+    "nom": "avis de mise en concurrence au JORF",
+    "description": "Pour les titres miniers H (hydrocarbures), étape par laquelle le ministre chargé des mines publie l'avis de mise en concurrence au Journal officiel de la République française au frais du demandeur. Pour les titres miniers M (métaux), étape par laquelle le préfet publie l'avis de mise en concurrence au Journal officiel de la République française au frais du demandeur.",
+    "ordre": 47,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "aof",
+    "nom": "avis de l'Office national des forêts",
+    "description": "Avis délivré par l’ONF dans le cadre de l’instruction d’un titre minier.\n",
+    "ordre": 60
+  },
+  {
+    "id": "aop",
+    "nom": "avis de l'Institut national de l'origine et de la qualité",
+    "ordre": 61
+  },
+  {
+    "id": "apd",
+    "nom": "Avis et rapport du directeur régional chargé de l'environnement, de l'aménagement et du logement",
+    "description": "Étape par laquelle le DREAL ou le DEAL rend un avis sur la demande. Cet avis tient compte du rapport rédigé par le service instructeur de la DREAL ou de la DEAL qui s'appuie sur les avis émis par les chefs des services civils et de l'autorité militaire intéressés sur la demande.",
+    "ordre": 69
+  },
+  {
+    "id": "ape",
+    "nom": "avis du Conseil d'Etat",
+    "description": "Le conseil d’État donne au premier ministre et au ministre chargé des mines un avis sur la demande et sur son instruction. Cet avis n'est pas conforme mais si la décision s'écarte de l'avis donné, elle doit être validée en conseil des ministres.",
+    "ordre": 99
+  },
+  {
+    "id": "api",
+    "nom": "avis de l'état major orpaillage et pêche illicite (EMOPI)",
+    "description": "Avis pour tous les titres miniers en Guyane.",
+    "ordre": 82
+  },
+  {
+    "id": "apl",
+    "nom": "avis d'un service administratif local",
+    "ordre": 62
+  },
+  {
+    "id": "apm",
+    "nom": "avis de l'autorité militaire",
+    "description": "Avis de l’autorité militaire, délivré dans le cadre de l’instruction d’un titre minier.",
+    "ordre": 63
+  },
+  {
+    "id": "apn",
+    "nom": "avis du parc national",
+    "description": "Avis du parc national dans le cadre de l’instruction d’un titre.",
+    "ordre": 71
+  },
+  {
+    "id": "apo",
+    "nom": "avis de la commission départementale des mines (CDM)",
+    "description": "L’avis de cette commission est consultatif et donne lieu à des votes des différents membres des collèges. Les représentants des administrations participent également.",
+    "ordre": 87
+  },
+  {
+    "id": "app",
+    "nom": "avis du préfet",
+    "description": "Le préfet émet un avis à l’issue de l’instruction du dossier, prenant en compte les avis délivrés par les services déconcentrés et éventuellement, l’avis de la commission des mines en Guyane.",
+    "ordre": 90,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "apu",
+    "nom": "publication de l'avis de décision implicite",
+    "description": "Le principe adopté par la réglementation actuelle veut que le silence de l’administration pendant un délai fixé vaut accord implicite. Toutefois il existe des décisions implicites de rejets pour certaines catégories de décisions. En particulier pour les titres miniers, l’octroi, la prolongation et la mutation. Les décisions de rejet ne sont pas publiées, les décisions d’acceptation doivent faire l’objet d’un avis au JORF confirmant que cette dernière est acquise. ",
+    "ordre": 42,
+    "unique": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "apw",
+    "nom": "avis du préfet maritime",
+    "description": "Avis pour les titres miniers en mer.",
+    "ordre": 91
+  },
+  {
+    "id": "ari",
+    "nom": "avis de la réunion interservice",
+    "ordre": 73
+  },
+  {
+    "id": "ars",
+    "nom": "avis de l'agence régionale de santé",
+    "description": "Avis pour les titres miniers concernant leur respect de la réglementation sanitaire.",
+    "ordre": 80
+  },
+  {
+    "id": "asl",
+    "nom": "décision du propriétaire du sol",
+    "ordre": 5,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ass",
+    "nom": "avis de la caisse générale de sécurité sociale",
+    "description": "Avis émis par le service de la sécurité sociale sur la situation sociale de l'entreprise.",
+    "ordre": 78
+  },
+  {
+    "id": "auc",
+    "nom": "avis DGTM service aménagement, urbanisme, construction, logement (AUCL)",
+    "description": "Avis de l’AUCL sur la notice d’impact pour les titres miniers et les autorisations d’exploitation. ",
+    "ordre": 77
+  },
+  {
+    "id": "cac",
+    "nom": "consultation des administrations centrales",
+    "ordre": 92
+  },
+  {
+    "id": "cim",
+    "nom": "concertation interministérielle",
+    "description": "Concertation prévue dans le cadre des exploitations de granulats marins par les ministères concernés.",
+    "ordre": 93
+  },
+  {
+    "id": "cod",
+    "nom": "saisine du conseil départemental de l'environnement et des risques sanitaires et technologiques  (Coderst)",
+    "ordre": 64,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "cps",
+    "nom": "confirmation de l'accord du propriétaire du sol",
+    "ordre": 55,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "css",
+    "nom": "classement sans suite",
+    "ordre": 102,
+    "unique": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "dae",
+    "nom": "décision de la mission autorité environnementale (examen au cas par cas du projet)",
+    "ordre": 9,
+    "sections": [
+      {
+        "id": "mea",
+        "nom": "Mission autorité environnementale",
+        "elements": [
+          {
+            "id": "arrete",
+            "nom": "Arrêté préfectoral",
+            "type": "text",
+            "optionnel": true,
+            "description": "Numéro de l'arrêté préfectoral portant décision dans le cadre de l’examen au cas par cas du projet d’autorisation de recherche minière"
+          }
+        ]
+      }
+    ],
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
     "id": "dec",
     "nom": "déclaration",
     "ordre": 2,
     "unique": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "def",
+    "nom": "décision de l'Office national des forêts",
+    "description": "Décision de l’ONF dans le cadre des autorisations d’exploitation (AEX) et des autorisations de recherches minières (ARM) en tant que propriétaire du sol.",
+    "ordre": 70,
+    "fondamentale": true,
+    "unique": true,
+    "date_fin": "2018-10-22",
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "des",
+    "nom": "désistement du demandeur",
+    "description": "Le demandeur signifie son souhait de ne pas donner suite à sa demande. Le désistement met fin à la démarche. Le demandeur ne peut pas se désister de sa demande après qu’une décision ait été rendue sur celle-ci.",
+    "ordre": 12,
+    "unique": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "dex",
+    "nom": "décision de l'administration",
+    "ordre": 103,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "dim",
+    "nom": "décision implicite",
+    "description": "En dehors des décisions implicites, l’autorité administrative compétente (préfet, ministre chargé des mines ou gouvernement) peut prendre une décision express de refus ou d’acceptation par arrêté ou décret en conseil d’État (décision relative aux concessions minières).",
+    "ordre": 101,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "dpu",
+    "nom": "publication de décision au JORF",
+    "description": "En dehors des refus et décisions implicites de rejet, la décision de l’autorité compétente est publiée soit au recueil administratif de la préfecture soit au JORF pour les décisions du préfet et au JORF pour celle du ministre chargé des mines et du gouvernement. Ces publications pour les actes relatifs aux titres miniers sont publiés par extrait.",
+    "ordre": 104,
+    "fondamentale": true,
     "public_lecture": true,
     "entreprises_lecture": true
   },
@@ -14,57 +356,133 @@
     "entreprises_lecture": true
   },
   {
-    "id": "asl",
-    "nom": "décision du propriétaire du sol",
-    "ordre": 5,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "pfd",
-    "nom": "paiement des frais de dossier",
-    "ordre": 13,
-    "unique": true,
-    "sections": [
-      {
-        "id": "paiement",
-        "nom": "Informations sur le paiement",
-        "elements": [
-          {
-            "id": "frais",
-            "nom": "Frais de dossier",
-            "type": "number",
-            "optionnel": true,
-            "description": "Montant en euro des frais de dossier payés"
-          },
-          {
-            "id": "virement",
-            "nom": "Virement banquaire ou postal",
-            "type": "text",
-            "optionnel": true,
-            "description": "Référence communiquée par le demandeur à sa banque"
-          }
-        ]
-      }
-    ],
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mom",
-    "parent_id": "mod",
-    "nom": "modification de la demande (décision de la mission autorité environnementale (examen au cas par cas du projet)",
-    "description": "après une dae",
-    "ordre": 15,
+    "id": "dup",
+    "nom": "publication de décision administrative au JORF",
+    "description": "A la fin d’une instruction, la décision administrative est publiée au JORF  si elle est positive. Pour les instructions relatives aux granulats marins, la décision administrative est publiée au JORF, qu’elle soit positive ou négative.",
+    "ordre": 106,
     "fondamentale": true,
     "public_lecture": true,
     "entreprises_lecture": true
   },
   {
-    "id": "mcd",
+    "id": "dux",
+    "nom": "décision administrative",
+    "description": "Refus ou acceptation à l’issue d’une instruction.",
+    "ordre": 105,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ede",
+    "nom": "expertise DREAL ou DGTM service eau",
+    "description": "Instruction de demande sur la réglementation ayant trait à l’eau par les services de la DGTM.\n",
+    "ordre": 56,
+    "sections": [
+      {
+        "id": "deal",
+        "nom": "DEAL service eau",
+        "elements": [
+          {
+            "id": "motifs",
+            "nom": "Motifs",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "élément d'expertise"
+          },
+          {
+            "id": "agent",
+            "nom": "Agent",
+            "type": "text",
+            "optionnel": true,
+            "description": "Prénom et nom de l'agent chargé de l'expertise"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "edm",
+    "nom": "expertise DGTM service prévention des risques et industries extractives (DATE)",
+    "ordre": 57,
+    "sections": [
+      {
+        "id": "deal",
+        "nom": "DEAL service mines",
+        "elements": [
+          {
+            "id": "motifs",
+            "nom": "Motifs",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "élément d'expertise"
+          },
+          {
+            "id": "agent",
+            "nom": "Agent",
+            "type": "text",
+            "optionnel": true,
+            "description": "Prénom et nom de l'agent chargé de l'expertise"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "eof",
+    "nom": "expertise de l'Office national des forêts",
+    "description": "Expertise effectuée par l’ONF dans le cadre d’une demande d’autorisation de recherches minières (ARM).",
+    "ordre": 59
+  },
+  {
+    "id": "epc",
+    "nom": "clôture de l'enquête publique",
+    "description": "L’enquête publique dure un mois. Il est possible de la prolonger. ",
+    "ordre": 53,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "epu",
+    "nom": "ouverture de l'enquête publique",
+    "description": "L’enquête publique requise pour l’octroi des concessions minières et des permis d’exploitations dans les départements d’outre-mer a lieu après constat de recevabilité du dossier.",
+    "ordre": 51,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "esb",
+    "nom": "expertise DREAL ou DGTM service biodiversité",
+    "description": "Instruction de demande sur la réglementation ayant trait à la biodiversité par les services de la DGTM.",
+    "ordre": 58
+  },
+  {
+    "id": "ide",
+    "nom": "initiation de la démarche de retrait",
+    "description": "Initiative de l’administration qui marque l’engagement d’une démarche de retrait.",
+    "ordre": 10,
+    "unique": true,
+    "acceptation_auto": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ihi",
+    "nom": "informations historiques incomplètes",
+    "description": "Impossibilité de retracer la totalité de la vie administrative du titre.",
+    "ordre": 126,
+    "fondamentale": true,
+    "unique": true,
+    "date_fin": "2018-12-31",
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mca",
     "parent_id": "mco",
-    "nom": "demande de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet)",
-    "description": "après une dae",
-    "ordre": 18,
+    "nom": "demande de compléments (recevabilité de la demande)",
+    "description": "après une mcr",
+    "ordre": 20,
     "sections": [
       {
         "id": "mcox",
@@ -120,11 +538,11 @@
     "entreprises_lecture": true
   },
   {
-    "id": "mca",
+    "id": "mcd",
     "parent_id": "mco",
-    "nom": "demande de compléments (recevabilité de la demande)",
-    "description": "après une mcr",
-    "ordre": 20,
+    "nom": "demande de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet)",
+    "description": "après une dae",
+    "ordre": 18,
     "sections": [
       {
         "id": "mcox",
@@ -147,6 +565,80 @@
         ]
       }
     ],
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mcm",
+    "parent_id": "mco",
+    "nom": "demande de compléments (complétude de la demande)",
+    "description": "après une mcp",
+    "ordre": 17,
+    "sections": [
+      {
+        "id": "mcox",
+        "nom": "Gestion de la demande de compléments",
+        "elements": [
+          {
+            "id": "delaifixe",
+            "nom": "Délai fixé (jour)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
+          },
+          {
+            "id": "datear",
+            "nom": "Accusé de réception",
+            "type": "date",
+            "optionnel": true,
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
+          }
+        ]
+      }
+    ],
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mco",
+    "nom": "demande de compléments",
+    "description": "Étape à l'initiative du service instructeur qui demande des compléments au demandeur et lui fixe un délai maximum pour les transmettre. Cette étape interrompt le décompte du délai dans lequel une décision doit être prise. Cette demande doit faire l'objet d'une lettre recommandée avec demande d'accusé de réception.",
+    "ordre": 16,
+    "sections": [
+      {
+        "id": "mcox",
+        "nom": "Gestion de la demande de compléments",
+        "elements": [
+          {
+            "id": "delaifixe",
+            "nom": "Délai fixé (jour)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
+          },
+          {
+            "id": "datear",
+            "nom": "Accusé de réception",
+            "type": "date",
+            "optionnel": true,
+            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
+          }
+        ]
+      }
+    ],
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mcp",
+    "nom": "complétude de la demande",
+    "description": "Phase d’examen qui permet d’établir que toutes les pièces exigées par la réglementation sont bien fournies par le demandeur. Cet examen ne préjuge pas de la décision qui sera apportée par l’administration. ",
+    "ordre": 40,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mcr",
+    "nom": "recevabilité de la demande",
+    "description": "Acte de l’administration établissant que l’examen de complétude a été mené à bien. Le constat de recevabilité donne lieu à un rapport de la part de l’administration qui constate que le dossier de demande est complet. ",
+    "ordre": 41,
+    "public_lecture": true,
     "entreprises_lecture": true
   },
   {
@@ -180,87 +672,59 @@
     "entreprises_lecture": true
   },
   {
-    "id": "rcm",
-    "parent_id": "rco",
-    "nom": "réception de compléments (complétude de la demande)",
-    "description": "après une mcp",
-    "ordre": 23,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rcd",
-    "parent_id": "rco",
-    "nom": "réception de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet))",
-    "description": "après une dae",
-    "ordre": 24,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rcb",
-    "parent_id": "rco",
-    "nom": "réception de compléments (récépissé de déclaration loi sur l'eau)",
-    "description": "après une rde",
-    "ordre": 25,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "cac",
-    "nom": "consultation des administrations centrales",
-    "ordre": 92
-  },
-  {
-    "id": "ide",
-    "nom": "initiation de la démarche de retrait",
-    "description": "Initiative de l’administration qui marque l’engagement d’une démarche de retrait.",
-    "ordre": 10,
+    "id": "mdp",
+    "nom": "dépôt de la demande",
+    "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
+    "ordre": 6,
     "unique": true,
     "acceptation_auto": true,
     "public_lecture": true,
     "entreprises_lecture": true
   },
   {
-    "id": "rco",
-    "nom": "réception de compléments",
-    "description": "Étape par laquelle le service instructeur accuse réception des compléments transmis par le demandeur. Cette étape permet la reprise du décompte du délai dans lequel une décision doit être prise.",
-    "ordre": 22,
-    "fondamentale": true,
+    "id": "mec",
+    "nom": "avis de demande concurrente",
+    "description": "Annonce à un demandeur qu’une demande concurrente à la sienne a été déposée.",
+    "ordre": 49,
+    "public_lecture": true,
     "entreprises_lecture": true
   },
   {
-    "id": "rca",
-    "parent_id": "rco",
-    "nom": "réception de compléments (recevabilité de la demande)",
-    "description": "après une mcr",
-    "ordre": 26,
-    "fondamentale": true,
+    "id": "men",
+    "nom": "enregistrement de la demande",
+    "description": "L’enregistrement de la demande est une étape de gestion administrative interne du dossier qui se confond au dépôt de la demande lorsqu'elle est numérique et dématérialisée.",
+    "ordre": 8,
+    "unique": true,
+    "acceptation_auto": true,
+    "date_fin": "2018-01-01",
+    "public_lecture": true,
     "entreprises_lecture": true
   },
   {
-    "id": "rcs",
-    "parent_id": "rco",
-    "nom": "réception de compléments (saisine de la CARM)",
-    "description": "après une sca",
-    "ordre": 27,
-    "fondamentale": true,
+    "id": "meo",
+    "nom": "prise en charge par l'Office national des forêts",
+    "ordre": 45,
+    "unique": true,
+    "date_fin": "2020-01-01",
     "entreprises_lecture": true
   },
   {
-    "id": "mim",
+    "id": "mfr",
+    "nom": "demande",
+    "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
+    "ordre": 1,
+    "fondamentale": true,
+    "unique": true,
+    "acceptation_auto": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mia",
     "parent_id": "mif",
-    "nom": "demande d'informations (recevabilité de la demande)",
-    "description": "après une mcr",
-    "ordre": 29,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mio",
-    "parent_id": "mif",
-    "nom": "demande d'informations (expertise de l'Office national des forêts)",
-    "description": "après une eof",
-    "ordre": 30,
+    "nom": "demande d'informations (avis de l'Office national des forêts)",
+    "description": "après une aof",
+    "ordre": 33,
     "entreprises_lecture": true
   },
   {
@@ -280,322 +744,26 @@
     "entreprises_lecture": true
   },
   {
-    "id": "mia",
+    "id": "mif",
+    "nom": "demande d'informations",
+    "description": "Étape à l'initiative du service instructeur pour obtenir des informations qui ne sont pas de nature à interrompre le décompte du délai dans lequel une décision doit être prise. \n",
+    "ordre": 28,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mim",
     "parent_id": "mif",
-    "nom": "demande d'informations (avis de l'Office national des forêts)",
-    "description": "après une aof",
-    "ordre": 33,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rim",
-    "parent_id": "rif",
-    "nom": "réception d'information (recevabilité de la demande)",
+    "nom": "demande d'informations (recevabilité de la demande)",
     "description": "après une mcr",
-    "ordre": 35,
-    "fondamentale": true,
+    "ordre": 29,
     "entreprises_lecture": true
   },
   {
-    "id": "rio",
-    "parent_id": "rif",
-    "nom": "réception d'information (expertise de l'Office national des forêts)",
+    "id": "mio",
+    "parent_id": "mif",
+    "nom": "demande d'informations (expertise de l'Office national des forêts)",
     "description": "après une eof",
-    "ordre": 36,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rid",
-    "parent_id": "rif",
-    "nom": "réception d'information (expertise DGTM / DATE)",
-    "description": "après une edm",
-    "ordre": 37,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rie",
-    "parent_id": "rif",
-    "nom": "réception d'information (avis du DREAL, DEAL ou DGTM)",
-    "description": "après une adp",
-    "ordre": 38,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "ria",
-    "parent_id": "rif",
-    "nom": "réception d'information (avis de l'Office national des forêts)",
-    "description": "après une aof",
-    "ordre": 39,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "meo",
-    "nom": "prise en charge par l'Office national des forêts",
-    "ordre": 45,
-    "unique": true,
-    "date_fin": "2020-01-01",
-    "entreprises_lecture": true
-  },
-  {
-    "id": "cps",
-    "nom": "confirmation de l'accord du propriétaire du sol",
-    "ordre": 55,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "edm",
-    "nom": "expertise DGTM service prévention des risques et industries extractives (DATE)",
-    "ordre": 57,
-    "sections": [
-      {
-        "id": "deal",
-        "nom": "DEAL service mines",
-        "elements": [
-          {
-            "id": "motifs",
-            "nom": "Motifs",
-            "type": "textarea",
-            "optionnel": true,
-            "description": "élément d'expertise"
-          },
-          {
-            "id": "agent",
-            "nom": "Agent",
-            "type": "text",
-            "optionnel": true,
-            "description": "Prénom et nom de l'agent chargé de l'expertise"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "aop",
-    "nom": "avis de l'Institut national de l'origine et de la qualité",
-    "ordre": 61
-  },
-  {
-    "id": "apl",
-    "nom": "avis d'un service administratif local",
-    "ordre": 62
-  },
-  {
-    "id": "cod",
-    "nom": "saisine du conseil départemental de l'environnement et des risques sanitaires et technologiques  (Coderst)",
-    "ordre": 64,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "ari",
-    "nom": "avis de la réunion interservice",
-    "ordre": 73
-  },
-  {
-    "id": "sca",
-    "nom": "saisine de la commission des autorisations de recherches minières (CARM)",
-    "ordre": 88,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "aca",
-    "nom": "avis de la commission des autorisations de recherches minières (CARM)",
-    "ordre": 89,
-    "fondamentale": true,
-    "unique": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "anf",
-    "nom": "avis de mise en concurrence au JORF",
-    "description": "Pour les titres miniers H (hydrocarbures), étape par laquelle le ministre chargé des mines publie l'avis de mise en concurrence au Journal officiel de la République française au frais du demandeur. Pour les titres miniers M (métaux), étape par laquelle le préfet publie l'avis de mise en concurrence au Journal officiel de la République française au frais du demandeur.",
-    "ordre": 47,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "ane",
-    "nom": "avis de mise en concurrence au JOUE",
-    "description": "Pour les titres miniers H (hydrocarbures), étape par laquelle le ministre chargé des mines publie l'avis de mise en concurrence au Journal officiel de l'Union européenne au frais du demandeur.",
-    "ordre": 48,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "epu",
-    "nom": "ouverture de l'enquête publique",
-    "description": "L’enquête publique requise pour l’octroi des concessions minières et des permis d’exploitations dans les départements d’outre-mer a lieu après constat de recevabilité du dossier.",
-    "ordre": 51,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "epc",
-    "nom": "clôture de l'enquête publique",
-    "description": "L’enquête publique dure un mois. Il est possible de la prolonger. ",
-    "ordre": 53,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "scl",
-    "nom": "saisine des collectivités locales",
-    "description": "Consultation pour avis, des collectivités locales dans le cadre de l’instruction d’un titre ou d’une autorisation.",
-    "ordre": 65,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "aof",
-    "nom": "avis de l'Office national des forêts",
-    "description": "Avis délivré par l’ONF dans le cadre de l’instruction d’un titre minier.\n",
-    "ordre": 60
-  },
-  {
-    "id": "apm",
-    "nom": "avis de l'autorité militaire",
-    "description": "Avis de l’autorité militaire, délivré dans le cadre de l’instruction d’un titre minier.",
-    "ordre": 63
-  },
-  {
-    "id": "eof",
-    "nom": "expertise de l'Office national des forêts",
-    "description": "Expertise effectuée par l’ONF dans le cadre d’une demande d’autorisation de recherches minières (ARM).",
-    "ordre": 59
-  },
-  {
-    "id": "ama",
-    "nom": "avis d'un maire",
-    "description": "Avis du maire, dans le cadre de l’instruction d’un titre.",
-    "ordre": 66,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "aep",
-    "nom": "avis d'un président d'EPCI",
-    "description": "Avis du président d’EPCI dans le cadre de l’instruction d’un titre.",
-    "ordre": 67,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "apn",
-    "nom": "avis du parc national",
-    "description": "Avis du parc national dans le cadre de l’instruction d’un titre.",
-    "ordre": 71
-  },
-  {
-    "id": "pnr",
-    "nom": "avis du parc naturel régional",
-    "description": "Avis du parc naturel régional dans le cadre de l’instruction d’un titre.",
-    "ordre": 72
-  },
-  {
-    "id": "aim",
-    "nom": "avis de l'Ifremer",
-    "description": "Avis de l’institut français de recherche pour l’exploitation en mer (IFREMER) dans le cadre d’autorisation en mer.",
-    "ordre": 74
-  },
-  {
-    "id": "auc",
-    "nom": "avis DGTM service aménagement, urbanisme, construction, logement (AUCL)",
-    "description": "Avis de l’AUCL sur la notice d’impact pour les titres miniers et les autorisations d’exploitation. ",
-    "ordre": 77
-  },
-  {
-    "id": "aaf",
-    "nom": "avis de la direction d'alimentation de l'agriculture et de la forêt",
-    "description": "Avis pour un titre minier.",
-    "ordre": 79
-  },
-  {
-    "id": "ars",
-    "nom": "avis de l'agence régionale de santé",
-    "description": "Avis pour les titres miniers concernant leur respect de la réglementation sanitaire.",
-    "ordre": 80
-  },
-  {
-    "id": "aac",
-    "nom": "avis de direction régionale des affaires culturelles",
-    "description": "Avis sur la situation archéologique du site en question.",
-    "ordre": 81
-  },
-  {
-    "id": "agn",
-    "nom": "avis de la gendarmerie nationale",
-    "description": "Avis sur les titres miniers.",
-    "ordre": 83
-  },
-  {
-    "id": "afp",
-    "nom": "avis de la direction régionale des finances publiques",
-    "description": "Avis délivré sur la régularité fiscale de l’entreprise.",
-    "ordre": 84
-  },
-  {
-    "id": "apo",
-    "nom": "avis de la commission départementale des mines (CDM)",
-    "description": "L’avis de cette commission est consultatif et donne lieu à des votes des différents membres des collèges. Les représentants des administrations participent également.",
-    "ordre": 87
-  },
-  {
-    "id": "apw",
-    "nom": "avis du préfet maritime",
-    "description": "Avis pour les titres miniers en mer.",
-    "ordre": 91
-  },
-  {
-    "id": "scg",
-    "nom": "saisine du conseil général chargé des mines",
-    "description": "Étape par laquelle le service instructeur transmet la demande, les différents avis et une proposition de décision du ministre chargé des mines au conseil général chargé des mines pour avis.",
-    "ordre": 94,
-    "acceptation_auto": true
-  },
-  {
-    "id": "rcg",
-    "nom": "rapport du conseil général chargé des mines",
-    "ordre": 95
-  },
-  {
-    "id": "rpe",
-    "nom": "rapport du Conseil d’État",
-    "ordre": 98
-  },
-  {
-    "id": "sas",
-    "nom": "saisine de l'autorité signataire",
-    "ordre": 100
-  },
-  {
-    "id": "css",
-    "nom": "classement sans suite",
-    "ordre": 102,
-    "unique": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "dex",
-    "nom": "décision de l'administration",
-    "ordre": 103,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "pqr",
-    "nom": "publication dans un journal local ou national",
-    "ordre": 109,
-    "public_lecture": true,
+    "ordre": 30,
     "entreprises_lecture": true
   },
   {
@@ -691,6 +859,51 @@
     "entreprises_lecture": true
   },
   {
+    "id": "mni",
+    "parent_id": "mno",
+    "nom": "notification au demandeur (initiation de la démarche de retrait)",
+    "description": "après une ide",
+    "ordre": 120,
+    "sections": [
+      {
+        "id": "suivi",
+        "nom": "Suivi de la démarche",
+        "elements": [
+          {
+            "id": "dateReception",
+            "nom": "Date de réception",
+            "type": "date",
+            "optionnel": true,
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
+          }
+        ]
+      }
+    ],
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mno",
+    "nom": "notification au demandeur",
+    "description": "Notification de la décision au demandeur.",
+    "ordre": 113,
+    "sections": [
+      {
+        "id": "suivi",
+        "nom": "Suivi de la démarche",
+        "elements": [
+          {
+            "id": "dateReception",
+            "nom": "Date de réception",
+            "type": "date",
+            "optionnel": true,
+            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
+          }
+        ]
+      }
+    ],
+    "entreprises_lecture": true
+  },
+  {
     "id": "mns",
     "parent_id": "mno",
     "nom": "notification au demandeur (signature de l’autorisation de recherche minière)",
@@ -737,27 +950,72 @@
     "entreprises_lecture": true
   },
   {
-    "id": "mni",
-    "parent_id": "mno",
-    "nom": "notification au demandeur (initiation de la démarche de retrait)",
-    "description": "après une ide",
-    "ordre": 120,
+    "id": "mod",
+    "nom": "modification de la demande",
+    "description": "Le porteur modifie les caractéristiques fondamentales de sa demande. Cette modification ne change pas le délai de décision implicite. Les possibilités sont limitées au gré de l’avancement de la démarche, en particulier après la mise en concurrence et après la participation du public.\n",
+    "ordre": 14,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "mom",
+    "parent_id": "mod",
+    "nom": "modification de la demande (décision de la mission autorité environnementale (examen au cas par cas du projet)",
+    "description": "après une dae",
+    "ordre": 15,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ncl",
+    "nom": "notification des collectivités locales",
+    "description": "Notification de la décision aux collectivités locales.",
+    "ordre": 121,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "nis",
+    "nom": "note interne signalée",
+    "ordre": 136,
     "sections": [
       {
-        "id": "suivi",
-        "nom": "Suivi de la démarche",
+        "id": "nisi",
+        "nom": "Note interne signalée",
         "elements": [
           {
-            "id": "dateReception",
-            "nom": "Date de réception",
-            "type": "date",
+            "id": "note",
+            "nom": "Notes réservées à l'administration",
+            "type": "textarea",
             "optionnel": true,
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
+            "description": "Informations internes importantes pour la compréhension du suivi de l'instruction de la démarche"
           }
         ]
       }
-    ],
-    "entreprises_lecture": true
+    ]
+  },
+  {
+    "id": "npp",
+    "nom": "notification au préfet",
+    "description": "Note au préfet demandant de notifier la décision à l’intéressé et de prendre les mesures de publicité nécessaires.",
+    "ordre": 107,
+    "sections": [
+      {
+        "id": "nppx",
+        "nom": "Note au préfet",
+        "elements": [
+          {
+            "id": "info",
+            "nom": "Informations complémentaires",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "Informations complémentaires accompagnant la notification de la décision au préfet"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "pfc",
@@ -789,97 +1047,28 @@
     "entreprises_lecture": true
   },
   {
-    "id": "sco",
-    "nom": "signature de l’autorisation de recherche minière",
-    "ordre": 124,
-    "fondamentale": true,
+    "id": "pfd",
+    "nom": "paiement des frais de dossier",
+    "ordre": 13,
     "unique": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "aco",
-    "nom": "avenant à l’autorisation de recherche minière",
-    "ordre": 125,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "acl",
-    "nom": "avis d'une collectivité locale",
-    "description": "Avis de la collectivité locale dans le cadre de l’instruction d’un titre.",
-    "ordre": 68,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "acg",
-    "nom": "avis du conseil général chargé des mines",
-    "description": "Le conseil général chargé des mines donne un avis sur la demande et sur son instruction au ministre chargé des mines. Cet avis n'est pas conforme.",
-    "ordre": 96
-  },
-  {
-    "id": "dux",
-    "nom": "décision administrative",
-    "description": "Refus ou acceptation à l’issue d’une instruction.",
-    "ordre": 105,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rpu",
-    "nom": "publication de décision au recueil des actes administratifs",
-    "description": "Publication, par le préfet, au recueil des actes administratifs.",
-    "ordre": 108,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rtd",
-    "nom": "retrait de la décision",
-    "description": "Sanction administrative consistant à retirer le titre minier dans les cas énumérés dans le code minier.",
-    "ordre": 110,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "and",
-    "nom": "décision du juge administratif",
-    "description": "Décision à un contentieux ou à un référé.",
-    "ordre": 112,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "abd",
-    "nom": "abrogation de la décision",
-    "description": "Suppression de l’acte administratif pour l’avenir.",
-    "ordre": 111,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mno",
-    "nom": "notification au demandeur",
-    "description": "Notification de la décision au demandeur.",
-    "ordre": 113,
     "sections": [
       {
-        "id": "suivi",
-        "nom": "Suivi de la démarche",
+        "id": "paiement",
+        "nom": "Informations sur le paiement",
         "elements": [
           {
-            "id": "dateReception",
-            "nom": "Date de réception",
-            "type": "date",
+            "id": "frais",
+            "nom": "Frais de dossier",
+            "type": "number",
             "optionnel": true,
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation"
+            "description": "Montant en euro des frais de dossier payés"
+          },
+          {
+            "id": "virement",
+            "nom": "Virement banquaire ou postal",
+            "type": "text",
+            "optionnel": true,
+            "description": "Référence communiquée par le demandeur à sa banque"
           }
         ]
       }
@@ -887,150 +1076,16 @@
     "entreprises_lecture": true
   },
   {
-    "id": "ncl",
-    "nom": "notification des collectivités locales",
-    "description": "Notification de la décision aux collectivités locales.",
-    "ordre": 121,
-    "public_lecture": true,
-    "entreprises_lecture": true
+    "id": "pnr",
+    "nom": "avis du parc naturel régional",
+    "description": "Avis du parc naturel régional dans le cadre de l’instruction d’un titre.",
+    "ordre": 72
   },
   {
-    "id": "ihi",
-    "nom": "informations historiques incomplètes",
-    "description": "Impossibilité de retracer la totalité de la vie administrative du titre.",
-    "ordre": 126,
-    "fondamentale": true,
-    "unique": true,
-    "date_fin": "2018-12-31",
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "nis",
-    "nom": "note interne signalée",
-    "ordre": 136,
-    "sections": [
-      {
-        "id": "nisi",
-        "nom": "Note interne signalée",
-        "elements": [
-          {
-            "id": "note",
-            "nom": "Notes réservées à l'administration",
-            "type": "textarea",
-            "optionnel": true,
-            "description": "Informations internes importantes pour la compréhension du suivi de l'instruction de la démarche"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "acd",
-    "nom": "avis du conseil départemental de l'environnement et des risques sanitaires et technologiques (Coderst)",
-    "ordre": 137,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mfr",
-    "nom": "demande",
-    "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
-    "ordre": 1,
-    "fondamentale": true,
-    "unique": true,
-    "acceptation_auto": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "spe",
-    "nom": "saisine du Conseil d'Etat",
-    "description": "Le service instructeur transmet la demande, les différents avis et une proposition de décision du premier ministre et du ministre chargé des mines au conseil d’État pour avis.",
-    "ordre": 97,
-    "acceptation_auto": true
-  },
-  {
-    "id": "men",
-    "nom": "enregistrement de la demande",
-    "description": "L’enregistrement de la demande est une étape de gestion administrative interne du dossier qui se confond au dépôt de la demande lorsqu'elle est numérique et dématérialisée.",
-    "ordre": 8,
-    "unique": true,
-    "acceptation_auto": true,
-    "date_fin": "2018-01-01",
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "spp",
-    "nom": "saisine du préfet",
-    "description": "L’administration centrale transmet la demande au préfet pour qu’il engage son instruction locale.\n",
-    "ordre": 11,
-    "unique": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "des",
-    "nom": "désistement du demandeur",
-    "description": "Le demandeur signifie son souhait de ne pas donner suite à sa demande. Le désistement met fin à la démarche. Le demandeur ne peut pas se désister de sa demande après qu’une décision ait été rendue sur celle-ci.",
-    "ordre": 12,
-    "unique": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mod",
-    "nom": "modification de la demande",
-    "description": "Le porteur modifie les caractéristiques fondamentales de sa demande. Cette modification ne change pas le délai de décision implicite. Les possibilités sont limitées au gré de l’avancement de la démarche, en particulier après la mise en concurrence et après la participation du public.\n",
-    "ordre": 14,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mif",
-    "nom": "demande d'informations",
-    "description": "Étape à l'initiative du service instructeur pour obtenir des informations qui ne sont pas de nature à interrompre le décompte du délai dans lequel une décision doit être prise. \n",
-    "ordre": 28,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "rif",
-    "nom": "réception d'information",
-    "description": "Étape par laquelle le service instructeur reçoit l'information demandée.",
-    "ordre": 34,
-    "fondamentale": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mcp",
-    "nom": "complétude de la demande",
-    "description": "Phase d’examen qui permet d’établir que toutes les pièces exigées par la réglementation sont bien fournies par le demandeur. Cet examen ne préjuge pas de la décision qui sera apportée par l’administration. ",
-    "ordre": 40,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mcr",
-    "nom": "recevabilité de la demande",
-    "description": "Acte de l’administration établissant que l’examen de complétude a été mené à bien. Le constat de recevabilité donne lieu à un rapport de la part de l’administration qui constate que le dossier de demande est complet. ",
-    "ordre": 41,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "apu",
-    "nom": "publication de l'avis de décision implicite",
-    "description": "Le principe adopté par la réglementation actuelle veut que le silence de l’administration pendant un délai fixé vaut accord implicite. Toutefois il existe des décisions implicites de rejets pour certaines catégories de décisions. En particulier pour les titres miniers, l’octroi, la prolongation et la mutation. Les décisions de rejet ne sont pas publiées, les décisions d’acceptation doivent faire l’objet d’un avis au JORF confirmant que cette dernière est acquise. ",
-    "ordre": 42,
-    "unique": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mec",
-    "nom": "avis de demande concurrente",
-    "description": "Annonce à un demandeur qu’une demande concurrente à la sienne a été déposée.",
-    "ordre": 49,
+    "id": "ppc",
+    "nom": "clôture de la participation du public",
+    "description": "La durée de la participation du public doit être au moins égale 15 jours. L’administration doit tenir compte pour sa décision des avis recueillis lors de la participation du public.",
+    "ordre": 52,
     "public_lecture": true,
     "entreprises_lecture": true
   },
@@ -1043,315 +1098,75 @@
     "entreprises_lecture": true
   },
   {
-    "id": "ppc",
-    "nom": "clôture de la participation du public",
-    "description": "La durée de la participation du public doit être au moins égale 15 jours. L’administration doit tenir compte pour sa décision des avis recueillis lors de la participation du public.",
-    "ordre": 52,
+    "id": "pqr",
+    "nom": "publication dans un journal local ou national",
+    "ordre": 109,
     "public_lecture": true,
     "entreprises_lecture": true
-  },
-  {
-    "id": "ssr",
-    "nom": "saisine des services",
-    "description": "Demande de consultation dans le cadre d’un titre minier des chefs de service civils et de l’autorité militaire. Les intéressés ont un mois pour répondre. Au-delà de ce délai,  le silence vaut accord.\n",
-    "ordre": 54
-  },
-  {
-    "id": "esb",
-    "nom": "expertise DREAL ou DGTM service biodiversité",
-    "description": "Instruction de demande sur la réglementation ayant trait à la biodiversité par les services de la DGTM.",
-    "ordre": 58
-  },
-  {
-    "id": "ede",
-    "nom": "expertise DREAL ou DGTM service eau",
-    "description": "Instruction de demande sur la réglementation ayant trait à l’eau par les services de la DGTM.\n",
-    "ordre": 56,
-    "sections": [
-      {
-        "id": "deal",
-        "nom": "DEAL service eau",
-        "elements": [
-          {
-            "id": "motifs",
-            "nom": "Motifs",
-            "type": "textarea",
-            "optionnel": true,
-            "description": "élément d'expertise"
-          },
-          {
-            "id": "agent",
-            "nom": "Agent",
-            "type": "text",
-            "optionnel": true,
-            "description": "Prénom et nom de l'agent chargé de l'expertise"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ami",
-    "nom": "avis du parc naturel marin",
-    "description": "Avis du parc naturel marin dans le cadre d’autorisation en mer.",
-    "ordre": 75
-  },
-  {
-    "id": "abs",
-    "nom": "avis DGTM service milieux naturels, biodiversité, sites et paysages (MNBST)",
-    "description": "Avis du MNBST sur la notice d’impact pour les titres miniers et les autorisations d'exploitation.",
-    "ordre": 76
-  },
-  {
-    "id": "ass",
-    "nom": "avis de la caisse générale de sécurité sociale",
-    "description": "Avis émis par le service de la sécurité sociale sur la situation sociale de l'entreprise.",
-    "ordre": 78
-  },
-  {
-    "id": "api",
-    "nom": "avis de l'état major orpaillage et pêche illicite (EMOPI)",
-    "description": "Avis pour tous les titres miniers en Guyane.",
-    "ordre": 82
-  },
-  {
-    "id": "aec",
-    "nom": "avis de la direction des entreprises, de la concurrence, de la consommation, du travail et de l'emploi",
-    "description": "Avis facultatif sur la situation économique de l’entreprise.",
-    "ordre": 85
-  },
-  {
-    "id": "spo",
-    "nom": "saisine de la commission départementale des mines (CDM)",
-    "description": "Dans les seuls départements d’Outre-mer (Guadeloupe, Guyane, Réunion, Martinique et Mayotte) une commission dédiée à l’examen des demandes minières se réunit comportant les différentes parties prenantes. Cette commission donne un avis consultatif sur le rapport des services déconcentrés. Pour l’instant, cette commission se réunit uniquement en Guyane.",
-    "ordre": 86
-  },
-  {
-    "id": "app",
-    "nom": "avis du préfet",
-    "description": "Le préfet émet un avis à l’issue de l’instruction du dossier, prenant en compte les avis délivrés par les services déconcentrés et éventuellement, l’avis de la commission des mines en Guyane.",
-    "ordre": 90,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "cim",
-    "nom": "concertation interministérielle",
-    "description": "Concertation prévue dans le cadre des exploitations de granulats marins par les ministères concernés.",
-    "ordre": 93
-  },
-  {
-    "id": "dae",
-    "nom": "décision de la mission autorité environnementale (examen au cas par cas du projet)",
-    "ordre": 9,
-    "sections": [
-      {
-        "id": "mea",
-        "nom": "Mission autorité environnementale",
-        "elements": [
-          {
-            "id": "arrete",
-            "nom": "Arrêté préfectoral",
-            "type": "text",
-            "optionnel": true,
-            "description": "Numéro de l'arrêté préfectoral portant décision dans le cadre de l’examen au cas par cas du projet d’autorisation de recherche minière"
-          }
-        ]
-      }
-    ],
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mcm",
-    "parent_id": "mco",
-    "nom": "demande de compléments (complétude de la demande)",
-    "description": "après une mcp",
-    "ordre": 17,
-    "sections": [
-      {
-        "id": "mcox",
-        "nom": "Gestion de la demande de compléments",
-        "elements": [
-          {
-            "id": "delaifixe",
-            "nom": "Délai fixé (jour)",
-            "type": "number",
-            "optionnel": true,
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
-          },
-          {
-            "id": "datear",
-            "nom": "Accusé de réception",
-            "type": "date",
-            "optionnel": true,
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
-          }
-        ]
-      }
-    ],
-    "entreprises_lecture": true
-  },
-  {
-    "id": "vfd",
-    "nom": "validation du paiement des frais de dossier",
-    "description": "Acte attestant que le pétitionnaire d’une autorisation de recherches minières (ARM) a acquitté ses frais de dossier.\n",
-    "ordre": 46,
-    "unique": true,
-    "sections": [
-      {
-        "id": "paiement",
-        "nom": "Informations sur le paiement",
-        "elements": [
-          {
-            "id": "facture",
-            "nom": "Facture ONF",
-            "type": "text",
-            "optionnel": true,
-            "description": "Numéro de facture émise par l'ONF"
-          }
-        ]
-      }
-    ],
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mdp",
-    "nom": "dépôt de la demande",
-    "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
-    "ordre": 6,
-    "unique": true,
-    "acceptation_auto": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "mco",
-    "nom": "demande de compléments",
-    "description": "Étape à l'initiative du service instructeur qui demande des compléments au demandeur et lui fixe un délai maximum pour les transmettre. Cette étape interrompt le décompte du délai dans lequel une décision doit être prise. Cette demande doit faire l'objet d'une lettre recommandée avec demande d'accusé de réception.",
-    "ordre": 16,
-    "sections": [
-      {
-        "id": "mcox",
-        "nom": "Gestion de la demande de compléments",
-        "elements": [
-          {
-            "id": "delaifixe",
-            "nom": "Délai fixé (jour)",
-            "type": "number",
-            "optionnel": true,
-            "description": "Nombre de jours accordés pour produire les compléments demandés. Le delai au delà duquel une décision implicite se forme est suspendu dès réception de cette demande et jusqu'à la production des compléments. Au delà du délai fixé, la demande est suceptible d'être classée sans suite ou instruite en l'état."
-          },
-          {
-            "id": "datear",
-            "nom": "Accusé de réception",
-            "type": "date",
-            "optionnel": true,
-            "description": "Date de l'accusé de réception de la demande de compléments à compter de laquelle commence à courrir le délai accordé pour produire les compléments."
-          }
-        ]
-      }
-    ],
-    "entreprises_lecture": true
-  },
-  {
-    "id": "ape",
-    "nom": "avis du Conseil d'Etat",
-    "description": "Le conseil d’État donne au premier ministre et au ministre chargé des mines un avis sur la demande et sur son instruction. Cet avis n'est pas conforme mais si la décision s'écarte de l'avis donné, elle doit être validée en conseil des ministres.",
-    "ordre": 99
-  },
-  {
-    "id": "dim",
-    "nom": "décision implicite",
-    "description": "En dehors des décisions implicites, l’autorité administrative compétente (préfet, ministre chargé des mines ou gouvernement) peut prendre une décision express de refus ou d’acceptation par arrêté ou décret en conseil d’État (décision relative aux concessions minières).",
-    "ordre": 101,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "dpu",
-    "nom": "publication de décision au JORF",
-    "description": "En dehors des refus et décisions implicites de rejet, la décision de l’autorité compétente est publiée soit au recueil administratif de la préfecture soit au JORF pour les décisions du préfet et au JORF pour celle du ministre chargé des mines et du gouvernement. Ces publications pour les actes relatifs aux titres miniers sont publiés par extrait.",
-    "ordre": 104,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "dup",
-    "nom": "publication de décision administrative au JORF",
-    "description": "A la fin d’une instruction, la décision administrative est publiée au JORF  si elle est positive. Pour les instructions relatives aux granulats marins, la décision administrative est publiée au JORF, qu’elle soit positive ou négative.",
-    "ordre": 106,
-    "fondamentale": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "npp",
-    "nom": "notification au préfet",
-    "description": "Note au préfet demandant de notifier la décision à l’intéressé et de prendre les mesures de publicité nécessaires.",
-    "ordre": 107,
-    "sections": [
-      {
-        "id": "nppx",
-        "nom": "Note au préfet",
-        "elements": [
-          {
-            "id": "info",
-            "nom": "Informations complémentaires",
-            "type": "textarea",
-            "optionnel": true,
-            "description": "Informations complémentaires accompagnant la notification de la décision au préfet"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vfc",
-    "nom": "validation du paiement des frais de dossier complémentaires",
-    "description": "Validation par la direction générale des territoires et des mines (DGTM).",
-    "ordre": 123,
-    "unique": true,
-    "sections": [
-      {
-        "id": "paiement",
-        "nom": "Informations sur le paiement",
-        "elements": [
-          {
-            "id": "facture",
-            "nom": "Facture ONF",
-            "type": "text",
-            "optionnel": true,
-            "description": "Numéro de facture émise par l'ONF"
-          }
-        ]
-      }
-    ],
-    "entreprises_lecture": true
-  },
-  {
-    "id": "def",
-    "nom": "décision de l'Office national des forêts",
-    "description": "Décision de l’ONF dans le cadre des autorisations d’exploitation (AEX) et des autorisations de recherches minières (ARM) en tant que propriétaire du sol.",
-    "ordre": 70,
-    "fondamentale": true,
-    "unique": true,
-    "date_fin": "2018-10-22",
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
-    "id": "apd",
-    "nom": "Avis et rapport du directeur régional chargé de l'environnement, de l'aménagement et du logement",
-    "description": "Étape par laquelle le DREAL ou le DEAL rend un avis sur la demande. Cet avis tient compte du rapport rédigé par le service instructeur de la DREAL ou de la DEAL qui s'appuie sur les avis émis par les chefs des services civils et de l'autorité militaire intéressés sur la demande.",
-    "ordre": 69
   },
   {
     "id": "qae",
     "nom": "demande d'examen au cas par cas ",
     "ordre": 4,
     "unique": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rca",
+    "parent_id": "rco",
+    "nom": "réception de compléments (recevabilité de la demande)",
+    "description": "après une mcr",
+    "ordre": 26,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rcb",
+    "parent_id": "rco",
+    "nom": "réception de compléments (récépissé de déclaration loi sur l'eau)",
+    "description": "après une rde",
+    "ordre": 25,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rcd",
+    "parent_id": "rco",
+    "nom": "réception de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet))",
+    "description": "après une dae",
+    "ordre": 24,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rcg",
+    "nom": "rapport du conseil général chargé des mines",
+    "ordre": 95
+  },
+  {
+    "id": "rcm",
+    "parent_id": "rco",
+    "nom": "réception de compléments (complétude de la demande)",
+    "description": "après une mcp",
+    "ordre": 23,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rco",
+    "nom": "réception de compléments",
+    "description": "Étape par laquelle le service instructeur accuse réception des compléments transmis par le demandeur. Cette étape permet la reprise du décompte du délai dans lequel une décision doit être prise.",
+    "ordre": 22,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rcs",
+    "parent_id": "rco",
+    "nom": "réception de compléments (saisine de la CARM)",
+    "description": "après une sca",
+    "ordre": 27,
+    "fondamentale": true,
     "entreprises_lecture": true
   },
   {
@@ -1395,6 +1210,191 @@
       }
     ],
     "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ria",
+    "parent_id": "rif",
+    "nom": "réception d'information (avis de l'Office national des forêts)",
+    "description": "après une aof",
+    "ordre": 39,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rid",
+    "parent_id": "rif",
+    "nom": "réception d'information (expertise DGTM / DATE)",
+    "description": "après une edm",
+    "ordre": 37,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rie",
+    "parent_id": "rif",
+    "nom": "réception d'information (avis du DREAL, DEAL ou DGTM)",
+    "description": "après une adp",
+    "ordre": 38,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rif",
+    "nom": "réception d'information",
+    "description": "Étape par laquelle le service instructeur reçoit l'information demandée.",
+    "ordre": 34,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rim",
+    "parent_id": "rif",
+    "nom": "réception d'information (recevabilité de la demande)",
+    "description": "après une mcr",
+    "ordre": 35,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rio",
+    "parent_id": "rif",
+    "nom": "réception d'information (expertise de l'Office national des forêts)",
+    "description": "après une eof",
+    "ordre": 36,
+    "fondamentale": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rpe",
+    "nom": "rapport du Conseil d’État",
+    "ordre": 98
+  },
+  {
+    "id": "rpu",
+    "nom": "publication de décision au recueil des actes administratifs",
+    "description": "Publication, par le préfet, au recueil des actes administratifs.",
+    "ordre": 108,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "rtd",
+    "nom": "retrait de la décision",
+    "description": "Sanction administrative consistant à retirer le titre minier dans les cas énumérés dans le code minier.",
+    "ordre": 110,
+    "fondamentale": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "sas",
+    "nom": "saisine de l'autorité signataire",
+    "ordre": 100
+  },
+  {
+    "id": "sca",
+    "nom": "saisine de la commission des autorisations de recherches minières (CARM)",
+    "ordre": 88,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "scg",
+    "nom": "saisine du conseil général chargé des mines",
+    "description": "Étape par laquelle le service instructeur transmet la demande, les différents avis et une proposition de décision du ministre chargé des mines au conseil général chargé des mines pour avis.",
+    "ordre": 94,
+    "acceptation_auto": true
+  },
+  {
+    "id": "scl",
+    "nom": "saisine des collectivités locales",
+    "description": "Consultation pour avis, des collectivités locales dans le cadre de l’instruction d’un titre ou d’une autorisation.",
+    "ordre": 65,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "sco",
+    "nom": "signature de l’autorisation de recherche minière",
+    "ordre": 124,
+    "fondamentale": true,
+    "unique": true,
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "spe",
+    "nom": "saisine du Conseil d'Etat",
+    "description": "Le service instructeur transmet la demande, les différents avis et une proposition de décision du premier ministre et du ministre chargé des mines au conseil d’État pour avis.",
+    "ordre": 97,
+    "acceptation_auto": true
+  },
+  {
+    "id": "spo",
+    "nom": "saisine de la commission départementale des mines (CDM)",
+    "description": "Dans les seuls départements d’Outre-mer (Guadeloupe, Guyane, Réunion, Martinique et Mayotte) une commission dédiée à l’examen des demandes minières se réunit comportant les différentes parties prenantes. Cette commission donne un avis consultatif sur le rapport des services déconcentrés. Pour l’instant, cette commission se réunit uniquement en Guyane.",
+    "ordre": 86
+  },
+  {
+    "id": "spp",
+    "nom": "saisine du préfet",
+    "description": "L’administration centrale transmet la demande au préfet pour qu’il engage son instruction locale.\n",
+    "ordre": 11,
+    "unique": true,
+    "entreprises_lecture": true
+  },
+  {
+    "id": "ssr",
+    "nom": "saisine des services",
+    "description": "Demande de consultation dans le cadre d’un titre minier des chefs de service civils et de l’autorité militaire. Les intéressés ont un mois pour répondre. Au-delà de ce délai,  le silence vaut accord.\n",
+    "ordre": 54
+  },
+  {
+    "id": "vfc",
+    "nom": "validation du paiement des frais de dossier complémentaires",
+    "description": "Validation par la direction générale des territoires et des mines (DGTM).",
+    "ordre": 123,
+    "unique": true,
+    "sections": [
+      {
+        "id": "paiement",
+        "nom": "Informations sur le paiement",
+        "elements": [
+          {
+            "id": "facture",
+            "nom": "Facture ONF",
+            "type": "text",
+            "optionnel": true,
+            "description": "Numéro de facture émise par l'ONF"
+          }
+        ]
+      }
+    ],
+    "entreprises_lecture": true
+  },
+  {
+    "id": "vfd",
+    "nom": "validation du paiement des frais de dossier",
+    "description": "Acte attestant que le pétitionnaire d’une autorisation de recherches minières (ARM) a acquitté ses frais de dossier.\n",
+    "ordre": 46,
+    "unique": true,
+    "sections": [
+      {
+        "id": "paiement",
+        "nom": "Informations sur le paiement",
+        "elements": [
+          {
+            "id": "facture",
+            "nom": "Facture ONF",
+            "type": "text",
+            "optionnel": true,
+            "description": "Numéro de facture émise par l'ONF"
+          }
+        ]
+      }
+    ],
     "entreprises_lecture": true
   }
 ]

@@ -1,111 +1,21 @@
 [
   {
-    "id": "971",
-    "nom": "Guadeloupe",
-    "region_id": "01",
-    "cheflieu_id": "97105"
+    "id": "01",
+    "nom": "Ain",
+    "region_id": "84",
+    "cheflieu_id": "01053"
   },
   {
-    "id": "972",
-    "nom": "Martinique",
-    "region_id": "02",
-    "cheflieu_id": "97209"
+    "id": "02",
+    "nom": "Aisne",
+    "region_id": "32",
+    "cheflieu_id": "02408"
   },
   {
-    "id": "976",
-    "nom": "Mayotte",
-    "region_id": "06",
-    "cheflieu_id": "97608"
-  },
-  {
-    "id": "974",
-    "nom": "La Réunion",
-    "region_id": "04",
-    "cheflieu_id": "97411"
-  },
-  {
-    "id": "14",
-    "nom": "Calvados",
-    "region_id": "28",
-    "cheflieu_id": "14118"
-  },
-  {
-    "id": "27",
-    "nom": "Eure",
-    "region_id": "28",
-    "cheflieu_id": "27229"
-  },
-  {
-    "id": "50",
-    "nom": "Manche",
-    "region_id": "28",
-    "cheflieu_id": "50502"
-  },
-  {
-    "id": "61",
-    "nom": "Orne",
-    "region_id": "28",
-    "cheflieu_id": "61001"
-  },
-  {
-    "id": "76",
-    "nom": "Seine-Maritime",
-    "region_id": "28",
-    "cheflieu_id": "76540"
-  },
-  {
-    "id": "44",
-    "nom": "Loire-Atlantique",
-    "region_id": "52",
-    "cheflieu_id": "44109"
-  },
-  {
-    "id": "49",
-    "nom": "Maine-et-Loire",
-    "region_id": "52",
-    "cheflieu_id": "49007"
-  },
-  {
-    "id": "53",
-    "nom": "Mayenne",
-    "region_id": "52",
-    "cheflieu_id": "53130"
-  },
-  {
-    "id": "72",
-    "nom": "Sarthe",
-    "region_id": "52",
-    "cheflieu_id": "72181"
-  },
-  {
-    "id": "85",
-    "nom": "Vendée",
-    "region_id": "52",
-    "cheflieu_id": "85191"
-  },
-  {
-    "id": "22",
-    "nom": "Côtes-d'Armor",
-    "region_id": "53",
-    "cheflieu_id": "22278"
-  },
-  {
-    "id": "29",
-    "nom": "Finistère",
-    "region_id": "53",
-    "cheflieu_id": "29232"
-  },
-  {
-    "id": "35",
-    "nom": "Ille-et-Vilaine",
-    "region_id": "53",
-    "cheflieu_id": "35238"
-  },
-  {
-    "id": "56",
-    "nom": "Morbihan",
-    "region_id": "53",
-    "cheflieu_id": "56260"
+    "id": "03",
+    "nom": "Allier",
+    "region_id": "84",
+    "cheflieu_id": "03190"
   },
   {
     "id": "04",
@@ -126,34 +36,10 @@
     "cheflieu_id": "06088"
   },
   {
-    "id": "13",
-    "nom": "Bouches-du-Rhône",
-    "region_id": "93",
-    "cheflieu_id": "13055"
-  },
-  {
-    "id": "83",
-    "nom": "Var",
-    "region_id": "93",
-    "cheflieu_id": "83137"
-  },
-  {
-    "id": "84",
-    "nom": "Vaucluse",
-    "region_id": "93",
-    "cheflieu_id": "84007"
-  },
-  {
-    "id": "2A",
-    "nom": "Corse-du-Sud",
-    "region_id": "94",
-    "cheflieu_id": "2A004"
-  },
-  {
-    "id": "2B",
-    "nom": "Haute-Corse",
-    "region_id": "94",
-    "cheflieu_id": "2B033"
+    "id": "07",
+    "nom": "Ardèche",
+    "region_id": "84",
+    "cheflieu_id": "07186"
   },
   {
     "id": "08",
@@ -162,64 +48,16 @@
     "cheflieu_id": "08105"
   },
   {
-    "id": "10",
-    "nom": "Aube",
-    "region_id": "44",
-    "cheflieu_id": "10387"
-  },
-  {
-    "id": "51",
-    "nom": "Marne",
-    "region_id": "44",
-    "cheflieu_id": "51108"
-  },
-  {
-    "id": "52",
-    "nom": "Haute-Marne",
-    "region_id": "44",
-    "cheflieu_id": "52121"
-  },
-  {
-    "id": "55",
-    "nom": "Meuse",
-    "region_id": "44",
-    "cheflieu_id": "55029"
-  },
-  {
-    "id": "57",
-    "nom": "Moselle",
-    "region_id": "44",
-    "cheflieu_id": "57463"
-  },
-  {
-    "id": "67",
-    "nom": "Bas-Rhin",
-    "region_id": "44",
-    "cheflieu_id": "67482"
-  },
-  {
-    "id": "68",
-    "nom": "Haut-Rhin",
-    "region_id": "44",
-    "cheflieu_id": "68066"
-  },
-  {
-    "id": "88",
-    "nom": "Vosges",
-    "region_id": "44",
-    "cheflieu_id": "88160"
-  },
-  {
-    "id": "54",
-    "nom": "Meurthe-et-Moselle",
-    "region_id": "44",
-    "cheflieu_id": "54395"
-  },
-  {
     "id": "09",
     "nom": "Ariège",
     "region_id": "76",
     "cheflieu_id": "09122"
+  },
+  {
+    "id": "10",
+    "nom": "Aube",
+    "region_id": "44",
+    "cheflieu_id": "10387"
   },
   {
     "id": "11",
@@ -232,6 +70,114 @@
     "nom": "Aveyron",
     "region_id": "76",
     "cheflieu_id": "12202"
+  },
+  {
+    "id": "13",
+    "nom": "Bouches-du-Rhône",
+    "region_id": "93",
+    "cheflieu_id": "13055"
+  },
+  {
+    "id": "14",
+    "nom": "Calvados",
+    "region_id": "28",
+    "cheflieu_id": "14118"
+  },
+  {
+    "id": "15",
+    "nom": "Cantal",
+    "region_id": "84",
+    "cheflieu_id": "15014"
+  },
+  {
+    "id": "16",
+    "nom": "Charente",
+    "region_id": "75",
+    "cheflieu_id": "16015"
+  },
+  {
+    "id": "17",
+    "nom": "Charente-Maritime",
+    "region_id": "75",
+    "cheflieu_id": "17300"
+  },
+  {
+    "id": "18",
+    "nom": "Cher",
+    "region_id": "24",
+    "cheflieu_id": "18033"
+  },
+  {
+    "id": "19",
+    "nom": "Corrèze",
+    "region_id": "75",
+    "cheflieu_id": "19272"
+  },
+  {
+    "id": "21",
+    "nom": "Côte-d'Or",
+    "region_id": "27",
+    "cheflieu_id": "21231"
+  },
+  {
+    "id": "22",
+    "nom": "Côtes-d'Armor",
+    "region_id": "53",
+    "cheflieu_id": "22278"
+  },
+  {
+    "id": "23",
+    "nom": "Creuse",
+    "region_id": "75",
+    "cheflieu_id": "23096"
+  },
+  {
+    "id": "24",
+    "nom": "Dordogne",
+    "region_id": "75",
+    "cheflieu_id": "24322"
+  },
+  {
+    "id": "25",
+    "nom": "Doubs",
+    "region_id": "27",
+    "cheflieu_id": "25056"
+  },
+  {
+    "id": "26",
+    "nom": "Drôme",
+    "region_id": "84",
+    "cheflieu_id": "26362"
+  },
+  {
+    "id": "27",
+    "nom": "Eure",
+    "region_id": "28",
+    "cheflieu_id": "27229"
+  },
+  {
+    "id": "28",
+    "nom": "Eure-et-Loir",
+    "region_id": "24",
+    "cheflieu_id": "28085"
+  },
+  {
+    "id": "29",
+    "nom": "Finistère",
+    "region_id": "53",
+    "cheflieu_id": "29232"
+  },
+  {
+    "id": "2A",
+    "nom": "Corse-du-Sud",
+    "region_id": "94",
+    "cheflieu_id": "2A004"
+  },
+  {
+    "id": "2B",
+    "nom": "Haute-Corse",
+    "region_id": "94",
+    "cheflieu_id": "2B033"
   },
   {
     "id": "30",
@@ -252,58 +198,46 @@
     "cheflieu_id": "32013"
   },
   {
+    "id": "33",
+    "nom": "Gironde",
+    "region_id": "75",
+    "cheflieu_id": "33063"
+  },
+  {
     "id": "34",
     "nom": "Hérault",
     "region_id": "76",
     "cheflieu_id": "34172"
   },
   {
-    "id": "46",
-    "nom": "Lot",
-    "region_id": "76",
-    "cheflieu_id": "46042"
+    "id": "35",
+    "nom": "Ille-et-Vilaine",
+    "region_id": "53",
+    "cheflieu_id": "35238"
   },
   {
-    "id": "48",
-    "nom": "Lozère",
-    "region_id": "76",
-    "cheflieu_id": "48095"
+    "id": "36",
+    "nom": "Indre",
+    "region_id": "24",
+    "cheflieu_id": "36044"
   },
   {
-    "id": "65",
-    "nom": "Hautes-Pyrénées",
-    "region_id": "76",
-    "cheflieu_id": "65440"
+    "id": "37",
+    "nom": "Indre-et-Loire",
+    "region_id": "24",
+    "cheflieu_id": "37261"
   },
   {
-    "id": "81",
-    "nom": "Tarn",
-    "region_id": "76",
-    "cheflieu_id": "81004"
+    "id": "38",
+    "nom": "Isère",
+    "region_id": "84",
+    "cheflieu_id": "38185"
   },
   {
-    "id": "82",
-    "nom": "Tarn-et-Garonne",
-    "region_id": "76",
-    "cheflieu_id": "82121"
-  },
-  {
-    "id": "66",
-    "nom": "Pyrénées-Orientales",
-    "region_id": "76",
-    "cheflieu_id": "66136"
-  },
-  {
-    "id": "16",
-    "nom": "Charente",
-    "region_id": "75",
-    "cheflieu_id": "16015"
-  },
-  {
-    "id": "23",
-    "nom": "Creuse",
-    "region_id": "75",
-    "cheflieu_id": "23096"
+    "id": "39",
+    "nom": "Jura",
+    "region_id": "27",
+    "cheflieu_id": "39300"
   },
   {
     "id": "40",
@@ -312,88 +246,10 @@
     "cheflieu_id": "40192"
   },
   {
-    "id": "47",
-    "nom": "Lot-et-Garonne",
-    "region_id": "75",
-    "cheflieu_id": "47001"
-  },
-  {
-    "id": "64",
-    "nom": "Pyrénées-Atlantiques",
-    "region_id": "75",
-    "cheflieu_id": "64445"
-  },
-  {
-    "id": "79",
-    "nom": "Deux-Sèvres",
-    "region_id": "75",
-    "cheflieu_id": "79191"
-  },
-  {
-    "id": "86",
-    "nom": "Vienne",
-    "region_id": "75",
-    "cheflieu_id": "86194"
-  },
-  {
-    "id": "87",
-    "nom": "Haute-Vienne",
-    "region_id": "75",
-    "cheflieu_id": "87085"
-  },
-  {
-    "id": "19",
-    "nom": "Corrèze",
-    "region_id": "75",
-    "cheflieu_id": "19272"
-  },
-  {
-    "id": "24",
-    "nom": "Dordogne",
-    "region_id": "75",
-    "cheflieu_id": "24322"
-  },
-  {
-    "id": "17",
-    "nom": "Charente-Maritime",
-    "region_id": "75",
-    "cheflieu_id": "17300"
-  },
-  {
-    "id": "33",
-    "nom": "Gironde",
-    "region_id": "75",
-    "cheflieu_id": "33063"
-  },
-  {
-    "id": "01",
-    "nom": "Ain",
-    "region_id": "84",
-    "cheflieu_id": "01053"
-  },
-  {
-    "id": "07",
-    "nom": "Ardèche",
-    "region_id": "84",
-    "cheflieu_id": "07186"
-  },
-  {
-    "id": "15",
-    "nom": "Cantal",
-    "region_id": "84",
-    "cheflieu_id": "15014"
-  },
-  {
-    "id": "26",
-    "nom": "Drôme",
-    "region_id": "84",
-    "cheflieu_id": "26362"
-  },
-  {
-    "id": "38",
-    "nom": "Isère",
-    "region_id": "84",
-    "cheflieu_id": "38185"
+    "id": "41",
+    "nom": "Loir-et-Cher",
+    "region_id": "24",
+    "cheflieu_id": "41018"
   },
   {
     "id": "42",
@@ -408,52 +264,160 @@
     "cheflieu_id": "43157"
   },
   {
+    "id": "44",
+    "nom": "Loire-Atlantique",
+    "region_id": "52",
+    "cheflieu_id": "44109"
+  },
+  {
+    "id": "45",
+    "nom": "Loiret",
+    "region_id": "24",
+    "cheflieu_id": "45234"
+  },
+  {
+    "id": "46",
+    "nom": "Lot",
+    "region_id": "76",
+    "cheflieu_id": "46042"
+  },
+  {
+    "id": "47",
+    "nom": "Lot-et-Garonne",
+    "region_id": "75",
+    "cheflieu_id": "47001"
+  },
+  {
+    "id": "48",
+    "nom": "Lozère",
+    "region_id": "76",
+    "cheflieu_id": "48095"
+  },
+  {
+    "id": "49",
+    "nom": "Maine-et-Loire",
+    "region_id": "52",
+    "cheflieu_id": "49007"
+  },
+  {
+    "id": "50",
+    "nom": "Manche",
+    "region_id": "28",
+    "cheflieu_id": "50502"
+  },
+  {
+    "id": "51",
+    "nom": "Marne",
+    "region_id": "44",
+    "cheflieu_id": "51108"
+  },
+  {
+    "id": "52",
+    "nom": "Haute-Marne",
+    "region_id": "44",
+    "cheflieu_id": "52121"
+  },
+  {
+    "id": "53",
+    "nom": "Mayenne",
+    "region_id": "52",
+    "cheflieu_id": "53130"
+  },
+  {
+    "id": "54",
+    "nom": "Meurthe-et-Moselle",
+    "region_id": "44",
+    "cheflieu_id": "54395"
+  },
+  {
+    "id": "55",
+    "nom": "Meuse",
+    "region_id": "44",
+    "cheflieu_id": "55029"
+  },
+  {
+    "id": "56",
+    "nom": "Morbihan",
+    "region_id": "53",
+    "cheflieu_id": "56260"
+  },
+  {
+    "id": "57",
+    "nom": "Moselle",
+    "region_id": "44",
+    "cheflieu_id": "57463"
+  },
+  {
+    "id": "58",
+    "nom": "Nièvre",
+    "region_id": "27",
+    "cheflieu_id": "58194"
+  },
+  {
+    "id": "59",
+    "nom": "Nord",
+    "region_id": "32",
+    "cheflieu_id": "59350"
+  },
+  {
+    "id": "60",
+    "nom": "Oise",
+    "region_id": "32",
+    "cheflieu_id": "60057"
+  },
+  {
+    "id": "61",
+    "nom": "Orne",
+    "region_id": "28",
+    "cheflieu_id": "61001"
+  },
+  {
+    "id": "62",
+    "nom": "Pas-de-Calais",
+    "region_id": "32",
+    "cheflieu_id": "62041"
+  },
+  {
     "id": "63",
     "nom": "Puy-de-Dôme",
     "region_id": "84",
     "cheflieu_id": "63113"
   },
   {
+    "id": "64",
+    "nom": "Pyrénées-Atlantiques",
+    "region_id": "75",
+    "cheflieu_id": "64445"
+  },
+  {
+    "id": "65",
+    "nom": "Hautes-Pyrénées",
+    "region_id": "76",
+    "cheflieu_id": "65440"
+  },
+  {
+    "id": "66",
+    "nom": "Pyrénées-Orientales",
+    "region_id": "76",
+    "cheflieu_id": "66136"
+  },
+  {
+    "id": "67",
+    "nom": "Bas-Rhin",
+    "region_id": "44",
+    "cheflieu_id": "67482"
+  },
+  {
+    "id": "68",
+    "nom": "Haut-Rhin",
+    "region_id": "44",
+    "cheflieu_id": "68066"
+  },
+  {
     "id": "69",
     "nom": "Rhône",
     "region_id": "84",
     "cheflieu_id": "69123"
-  },
-  {
-    "id": "73",
-    "nom": "Savoie",
-    "region_id": "84",
-    "cheflieu_id": "73065"
-  },
-  {
-    "id": "74",
-    "nom": "Haute-Savoie",
-    "region_id": "84",
-    "cheflieu_id": "74010"
-  },
-  {
-    "id": "03",
-    "nom": "Allier",
-    "region_id": "84",
-    "cheflieu_id": "03190"
-  },
-  {
-    "id": "21",
-    "nom": "Côte-d'Or",
-    "region_id": "27",
-    "cheflieu_id": "21231"
-  },
-  {
-    "id": "25",
-    "nom": "Doubs",
-    "region_id": "27",
-    "cheflieu_id": "25056"
-  },
-  {
-    "id": "39",
-    "nom": "Jura",
-    "region_id": "27",
-    "cheflieu_id": "39300"
   },
   {
     "id": "70",
@@ -468,22 +432,22 @@
     "cheflieu_id": "71270"
   },
   {
-    "id": "90",
-    "nom": "Territoire de Belfort",
-    "region_id": "27",
-    "cheflieu_id": "90010"
+    "id": "72",
+    "nom": "Sarthe",
+    "region_id": "52",
+    "cheflieu_id": "72181"
   },
   {
-    "id": "89",
-    "nom": "Yonne",
-    "region_id": "27",
-    "cheflieu_id": "89024"
+    "id": "73",
+    "nom": "Savoie",
+    "region_id": "84",
+    "cheflieu_id": "73065"
   },
   {
-    "id": "58",
-    "nom": "Nièvre",
-    "region_id": "27",
-    "cheflieu_id": "58194"
+    "id": "74",
+    "nom": "Haute-Savoie",
+    "region_id": "84",
+    "cheflieu_id": "74010"
   },
   {
     "id": "75",
@@ -492,10 +456,94 @@
     "cheflieu_id": "75056"
   },
   {
+    "id": "76",
+    "nom": "Seine-Maritime",
+    "region_id": "28",
+    "cheflieu_id": "76540"
+  },
+  {
+    "id": "77",
+    "nom": "Seine-et-Marne",
+    "region_id": "11",
+    "cheflieu_id": "77288"
+  },
+  {
     "id": "78",
     "nom": "Yvelines",
     "region_id": "11",
     "cheflieu_id": "78646"
+  },
+  {
+    "id": "79",
+    "nom": "Deux-Sèvres",
+    "region_id": "75",
+    "cheflieu_id": "79191"
+  },
+  {
+    "id": "80",
+    "nom": "Somme",
+    "region_id": "32",
+    "cheflieu_id": "80021"
+  },
+  {
+    "id": "81",
+    "nom": "Tarn",
+    "region_id": "76",
+    "cheflieu_id": "81004"
+  },
+  {
+    "id": "82",
+    "nom": "Tarn-et-Garonne",
+    "region_id": "76",
+    "cheflieu_id": "82121"
+  },
+  {
+    "id": "83",
+    "nom": "Var",
+    "region_id": "93",
+    "cheflieu_id": "83137"
+  },
+  {
+    "id": "84",
+    "nom": "Vaucluse",
+    "region_id": "93",
+    "cheflieu_id": "84007"
+  },
+  {
+    "id": "85",
+    "nom": "Vendée",
+    "region_id": "52",
+    "cheflieu_id": "85191"
+  },
+  {
+    "id": "86",
+    "nom": "Vienne",
+    "region_id": "75",
+    "cheflieu_id": "86194"
+  },
+  {
+    "id": "87",
+    "nom": "Haute-Vienne",
+    "region_id": "75",
+    "cheflieu_id": "87085"
+  },
+  {
+    "id": "88",
+    "nom": "Vosges",
+    "region_id": "44",
+    "cheflieu_id": "88160"
+  },
+  {
+    "id": "89",
+    "nom": "Yonne",
+    "region_id": "27",
+    "cheflieu_id": "89024"
+  },
+  {
+    "id": "90",
+    "nom": "Territoire de Belfort",
+    "region_id": "27",
+    "cheflieu_id": "90010"
   },
   {
     "id": "91",
@@ -528,81 +576,33 @@
     "cheflieu_id": "95500"
   },
   {
-    "id": "77",
-    "nom": "Seine-et-Marne",
-    "region_id": "11",
-    "cheflieu_id": "77288"
+    "id": "971",
+    "nom": "Guadeloupe",
+    "region_id": "01",
+    "cheflieu_id": "97105"
   },
   {
-    "id": "02",
-    "nom": "Aisne",
-    "region_id": "32",
-    "cheflieu_id": "02408"
-  },
-  {
-    "id": "80",
-    "nom": "Somme",
-    "region_id": "32",
-    "cheflieu_id": "80021"
-  },
-  {
-    "id": "62",
-    "nom": "Pas-de-Calais",
-    "region_id": "32",
-    "cheflieu_id": "62041"
-  },
-  {
-    "id": "59",
-    "nom": "Nord",
-    "region_id": "32",
-    "cheflieu_id": "59350"
-  },
-  {
-    "id": "60",
-    "nom": "Oise",
-    "region_id": "32",
-    "cheflieu_id": "60057"
-  },
-  {
-    "id": "28",
-    "nom": "Eure-et-Loir",
-    "region_id": "24",
-    "cheflieu_id": "28085"
-  },
-  {
-    "id": "36",
-    "nom": "Indre",
-    "region_id": "24",
-    "cheflieu_id": "36044"
-  },
-  {
-    "id": "37",
-    "nom": "Indre-et-Loire",
-    "region_id": "24",
-    "cheflieu_id": "37261"
-  },
-  {
-    "id": "41",
-    "nom": "Loir-et-Cher",
-    "region_id": "24",
-    "cheflieu_id": "41018"
-  },
-  {
-    "id": "18",
-    "nom": "Cher",
-    "region_id": "24",
-    "cheflieu_id": "18033"
-  },
-  {
-    "id": "45",
-    "nom": "Loiret",
-    "region_id": "24",
-    "cheflieu_id": "45234"
+    "id": "972",
+    "nom": "Martinique",
+    "region_id": "02",
+    "cheflieu_id": "97209"
   },
   {
     "id": "973",
     "nom": "Guyane",
     "region_id": "03",
     "cheflieu_id": "97302"
+  },
+  {
+    "id": "974",
+    "nom": "La Réunion",
+    "region_id": "04",
+    "cheflieu_id": "97411"
+  },
+  {
+    "id": "976",
+    "nom": "Mayotte",
+    "region_id": "06",
+    "cheflieu_id": "97608"
   }
 ]

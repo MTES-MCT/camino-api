@@ -1,23 +1,23 @@
 [
   {
-    "titre_type_id": "cxm",
-    "activite_type_id": "grp"
-  },
-  {
-    "titre_type_id": "pxm",
-    "activite_type_id": "grp"
-  },
-  {
     "titre_type_id": "axm",
     "activite_type_id": "grp"
   },
   {
+    "titre_type_id": "axm",
+    "activite_type_id": "grx"
+  },
+  {
     "titre_type_id": "cxm",
     "activite_type_id": "gra"
   },
   {
-    "titre_type_id": "pxm",
-    "activite_type_id": "gra"
+    "titre_type_id": "cxm",
+    "activite_type_id": "grp"
+  },
+  {
+    "titre_type_id": "cxw",
+    "activite_type_id": "wrp"
   },
   {
     "titre_type_id": "prm",
@@ -36,15 +36,15 @@
     "activite_type_id": "pmd"
   },
   {
-    "titre_type_id": "cxw",
-    "activite_type_id": "wrp"
+    "titre_type_id": "pxm",
+    "activite_type_id": "gra"
+  },
+  {
+    "titre_type_id": "pxm",
+    "activite_type_id": "grp"
   },
   {
     "titre_type_id": "pxw",
     "activite_type_id": "wrp"
-  },
-  {
-    "titre_type_id": "axm",
-    "activite_type_id": "grx"
   }
 ]

@@ -1,13 +1,8 @@
 [
   {
-    "id": "min",
-    "nom": "Ministère",
-    "ordre": 1
-  },
-  {
-    "id": "dre",
-    "nom": "Dréal",
-    "ordre": 2
+    "id": "aut",
+    "nom": "Autorité",
+    "ordre": 6
   },
   {
     "id": "dea",
@@ -15,9 +10,14 @@
     "ordre": 3
   },
   {
-    "id": "pre",
-    "nom": "Préfecture",
-    "ordre": 4
+    "id": "dre",
+    "nom": "Dréal",
+    "ordre": 2
+  },
+  {
+    "id": "min",
+    "nom": "Ministère",
+    "ordre": 1
   },
   {
     "id": "ope",
@@ -25,8 +25,8 @@
     "ordre": 5
   },
   {
-    "id": "aut",
-    "nom": "Autorité",
-    "ordre": 6
+    "id": "pre",
+    "nom": "Préfecture",
+    "ordre": 4
   }
 ]

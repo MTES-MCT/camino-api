@@ -340,6 +340,11 @@
   },
   {
     "titre_type_id": "cxr",
+    "titre_statut_id": "ech",
+    "public_lecture": true
+  },
+  {
+    "titre_type_id": "cxr",
     "titre_statut_id": "ind"
   },
   {
@@ -551,6 +556,11 @@
   },
   {
     "titre_type_id": "prr",
+    "titre_statut_id": "ech",
+    "public_lecture": true
+  },
+  {
+    "titre_type_id": "prr",
     "titre_statut_id": "ind"
   },
   {
@@ -707,6 +717,11 @@
   },
   {
     "titre_type_id": "pxr",
+    "titre_statut_id": "ech",
+    "public_lecture": true
+  },
+  {
+    "titre_type_id": "pxr",
     "titre_statut_id": "ind"
   },
   {
@@ -744,21 +759,6 @@
   {
     "titre_type_id": "pxw",
     "titre_statut_id": "val",
-    "public_lecture": true
-  },
-  {
-    "titre_type_id": "cxr",
-    "titre_statut_id": "ech",
-    "public_lecture": true
-  },
-  {
-    "titre_type_id": "prr",
-    "titre_statut_id": "ech",
-    "public_lecture": true
-  },
-  {
-    "titre_type_id": "pxr",
-    "titre_statut_id": "ech",
     "public_lecture": true
   }
 ]
