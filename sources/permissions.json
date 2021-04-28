@@ -1,13 +1,13 @@
 [
   {
-    "id": "super",
-    "nom": "Super",
-    "ordre": 1
-  },
-  {
     "id": "admin",
     "nom": "Admin",
     "ordre": 2
+  },
+  {
+    "id": "defaut",
+    "nom": "Défaut",
+    "ordre": 6
   },
   {
     "id": "editeur",
@@ -15,18 +15,18 @@
     "ordre": 3
   },
   {
-    "id": "lecteur",
-    "nom": "Lecteur",
-    "ordre": 4
-  },
-  {
     "id": "entreprise",
     "nom": "Entreprise",
     "ordre": 5
   },
   {
-    "id": "defaut",
-    "nom": "Défaut",
-    "ordre": 6
+    "id": "lecteur",
+    "nom": "Lecteur",
+    "ordre": 4
+  },
+  {
+    "id": "super",
+    "nom": "Super",
+    "ordre": 1
   }
 ]

@@ -401,6 +401,22 @@
   },
   {
     "substance_id": "meba",
+    "substance_legale_id": "aloh"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "chro"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "cuiv"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "etai"
+  },
+  {
+    "substance_id": "meba",
     "substance_legale_id": "ferx"
   },
   {
@@ -409,15 +425,7 @@
   },
   {
     "substance_id": "meba",
-    "substance_legale_id": "chro"
-  },
-  {
-    "substance_id": "meba",
-    "substance_legale_id": "aloh"
-  },
-  {
-    "substance_id": "meba",
-    "substance_legale_id": "cuiv"
+    "substance_legale_id": "nick"
   },
   {
     "substance_id": "meba",
@@ -425,19 +433,11 @@
   },
   {
     "substance_id": "meba",
-    "substance_legale_id": "zinc"
-  },
-  {
-    "substance_id": "meba",
-    "substance_legale_id": "etai"
-  },
-  {
-    "substance_id": "meba",
     "substance_legale_id": "tita"
   },
   {
     "substance_id": "meba",
-    "substance_legale_id": "nick"
+    "substance_legale_id": "zinc"
   },
   {
     "substance_id": "meco",
@@ -761,6 +761,30 @@
   },
   {
     "substance_id": "suco",
+    "substance_legale_id": "scoc"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scof"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scog"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scoh"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scos"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scow"
+  },
+  {
+    "substance_id": "suco",
     "substance_legale_id": "suco"
   },
   {
@@ -854,29 +878,5 @@
   {
     "substance_id": "zirc",
     "substance_legale_id": "zirc"
-  },
-  {
-    "substance_id": "suco",
-    "substance_legale_id": "scow"
-  },
-  {
-    "substance_id": "suco",
-    "substance_legale_id": "scoc"
-  },
-  {
-    "substance_id": "suco",
-    "substance_legale_id": "scoh"
-  },
-  {
-    "substance_id": "suco",
-    "substance_legale_id": "scof"
-  },
-  {
-    "substance_id": "suco",
-    "substance_legale_id": "scog"
-  },
-  {
-    "substance_id": "suco",
-    "substance_legale_id": "scos"
   }
 ]

@@ -1,35 +1,7 @@
 [
   {
-    "id": "nus",
-    "nom": "Nom d'usage"
-  },
-  {
-    "id": "ifr",
-    "nom": "Ifremer"
-  },
-  {
-    "id": "ptm",
-    "nom": "PTMG"
-  },
-  {
-    "id": "dge",
-    "nom": "DGEC"
-  },
-  {
     "id": "brg",
     "nom": "BRGM"
-  },
-  {
-    "id": "onf",
-    "nom": "ONF"
-  },
-  {
-    "id": "rnt",
-    "nom": "RNTM"
-  },
-  {
-    "id": "irs",
-    "nom": "IRSN"
   },
   {
     "id": "dea",
@@ -38,5 +10,33 @@
   {
     "id": "deb",
     "nom": "DEB"
+  },
+  {
+    "id": "dge",
+    "nom": "DGEC"
+  },
+  {
+    "id": "ifr",
+    "nom": "Ifremer"
+  },
+  {
+    "id": "irs",
+    "nom": "IRSN"
+  },
+  {
+    "id": "nus",
+    "nom": "Nom d'usage"
+  },
+  {
+    "id": "onf",
+    "nom": "ONF"
+  },
+  {
+    "id": "ptm",
+    "nom": "PTMG"
+  },
+  {
+    "id": "rnt",
+    "nom": "RNTM"
   }
 ]

@@ -1,7 +1,24 @@
 [
   {
+    "id": "BL",
+    "nom": "Collectivité d'outre-mer de Saint-Barthélemy"
+  },
+  {
+    "id": "FR",
+    "nom": "République Française",
+    "timezone": "Europe/Paris"
+  },
+  {
+    "id": "GF",
+    "nom": "Département de la Guyane"
+  },
+  {
     "id": "GP",
     "nom": "Département de la Guadeloupe"
+  },
+  {
+    "id": "MF",
+    "nom": "Collectivité d'outre-mer de Saint-Martin"
   },
   {
     "id": "MQ",
@@ -16,12 +33,12 @@
     "nom": "Polynésie Française"
   },
   {
-    "id": "XX",
-    "nom": "Clipperton (Île)"
-  },
-  {
     "id": "PM",
     "nom": "Collectivité Territoriale de Saint-Pierre-et-Miquelon"
+  },
+  {
+    "id": "RE",
+    "nom": "Département de La Réunion"
   },
   {
     "id": "TF",
@@ -32,28 +49,11 @@
     "nom": "Wallis-et-Futuna"
   },
   {
+    "id": "XX",
+    "nom": "Clipperton (Île)"
+  },
+  {
     "id": "YT",
     "nom": "Département de Mayotte"
-  },
-  {
-    "id": "BL",
-    "nom": "Collectivité d'outre-mer de Saint-Barthélemy"
-  },
-  {
-    "id": "MF",
-    "nom": "Collectivité d'outre-mer de Saint-Martin"
-  },
-  {
-    "id": "RE",
-    "nom": "Département de La Réunion"
-  },
-  {
-    "id": "FR",
-    "nom": "République Française",
-    "timezone": "Europe/Paris"
-  },
-  {
-    "id": "GF",
-    "nom": "Département de la Guyane"
   }
 ]

@@ -1,8 +1,8 @@
 [
   {
-    "id": "tri",
-    "nom": "trimestriel",
-    "periodes_nom": "trimestres"
+    "id": "ann",
+    "nom": "annuel",
+    "periodes_nom": "annees"
   },
   {
     "id": "men",
@@ -10,8 +10,8 @@
     "periodes_nom": "mois"
   },
   {
-    "id": "ann",
-    "nom": "annuel",
-    "periodes_nom": "annees"
+    "id": "tri",
+    "nom": "trimestriel",
+    "periodes_nom": "trimestres"
   }
 ]

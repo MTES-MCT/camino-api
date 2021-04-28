@@ -1,197 +1,42 @@
 [
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "dom",
+    "etape_type_id": "aac",
+    "document_type_id": "acm",
     "optionnel": true
   },
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "for",
+    "etape_type_id": "aac",
+    "document_type_id": "avi",
     "optionnel": true
   },
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "car",
+    "etape_type_id": "aaf",
+    "document_type_id": "acm",
     "optionnel": true
   },
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "lem",
+    "etape_type_id": "abd",
+    "document_type_id": "arr",
     "optionnel": true
   },
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "doe",
+    "etape_type_id": "aca",
+    "document_type_id": "avi",
     "optionnel": true
   },
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "dos",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "noi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "cnt",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "cam",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "pla",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "fac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
+    "etape_type_id": "aca",
     "document_type_id": "fip",
     "optionnel": true
   },
   {
-    "etape_type_id": "mfr",
-    "document_type_id": "cod",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "jpa",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "fic",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "dep",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfr",
-    "document_type_id": "rec",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "arp",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "dec",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "con",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "pla",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "cdc",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "dei",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "cnt",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "ord",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "arm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "odr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "cnr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dex",
-    "document_type_id": "ndd",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dae",
-    "document_type_id": "dep",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dae",
-    "document_type_id": "arp",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dae",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dae",
-    "document_type_id": "ndd",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dae",
+    "etape_type_id": "aca",
     "document_type_id": "let",
     "optionnel": true
   },
   {
-    "etape_type_id": "eof",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "eof",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "eof",
-    "document_type_id": "mot",
+    "etape_type_id": "acg",
+    "document_type_id": "aac",
     "optionnel": true
   },
   {
@@ -206,187 +51,12 @@
   },
   {
     "etape_type_id": "acg",
-    "document_type_id": "aac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "acg",
     "document_type_id": "rac",
     "optionnel": true
   },
   {
-    "etape_type_id": "dux",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "pfd",
-    "document_type_id": "jpa",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "pfd",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "pfd",
-    "document_type_id": "fac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "asl",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "asl",
-    "document_type_id": "dei",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "pub",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "dec",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "dei",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "ord",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "arm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "con",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dpu",
-    "document_type_id": "cdc",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "acr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "lem",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "dom",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dup",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "dup",
-    "document_type_id": "pub",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "des",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "des",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "des",
-    "document_type_id": "acr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "des",
-    "document_type_id": "mot",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "des",
-    "document_type_id": "cod",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rpu",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "spp",
-    "document_type_id": "lpf",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "spp",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "anf",
-    "document_type_id": "avc",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "anf",
+    "etape_type_id": "acl",
     "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mco",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mco",
-    "document_type_id": "cco",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mco",
-    "document_type_id": "rcr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "spe",
-    "document_type_id": "lce",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "aco",
-    "document_type_id": "dei",
     "optionnel": true
   },
   {
@@ -401,101 +71,136 @@
   },
   {
     "etape_type_id": "aco",
-    "document_type_id": "ndd",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "aco",
     "document_type_id": "con",
     "optionnel": true
   },
   {
-    "etape_type_id": "rde",
-    "document_type_id": "rec",
+    "etape_type_id": "aco",
+    "document_type_id": "dei",
     "optionnel": true
   },
   {
-    "etape_type_id": "rde",
-    "document_type_id": "arp",
+    "etape_type_id": "aco",
+    "document_type_id": "ndd",
     "optionnel": true
   },
   {
-    "etape_type_id": "mcr",
-    "document_type_id": "rcr",
+    "etape_type_id": "afp",
+    "document_type_id": "acm",
     "optionnel": true
   },
   {
-    "etape_type_id": "mcr",
-    "document_type_id": "cnr",
+    "etape_type_id": "agn",
+    "document_type_id": "acm",
     "optionnel": true
   },
   {
-    "etape_type_id": "mcr",
+    "etape_type_id": "aim",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "ama",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "and",
+    "document_type_id": "dei",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "anf",
+    "document_type_id": "avc",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "anf",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "aof",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "aof",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "aof",
+    "document_type_id": "cnt",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "aof",
     "document_type_id": "let",
     "optionnel": true
   },
   {
-    "etape_type_id": "mcr",
-    "document_type_id": "not",
+    "etape_type_id": "aof",
+    "document_type_id": "mot",
     "optionnel": true
   },
   {
-    "etape_type_id": "mcr",
-    "document_type_id": "rdr",
+    "etape_type_id": "apd",
+    "document_type_id": "adr",
     "optionnel": true
   },
   {
-    "etape_type_id": "mcr",
-    "document_type_id": "fac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rco",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rco",
-    "document_type_id": "cod",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rco",
-    "document_type_id": "car",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "abd",
-    "document_type_id": "arr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "scg",
-    "document_type_id": "lcg",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "scg",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "scg",
+    "etape_type_id": "apd",
     "document_type_id": "rac",
     "optionnel": true
   },
   {
-    "etape_type_id": "scg",
+    "etape_type_id": "apd",
     "document_type_id": "rdr",
     "optionnel": true
   },
   {
-    "etape_type_id": "scg",
-    "document_type_id": "not",
+    "etape_type_id": "ape",
+    "document_type_id": "avi",
     "optionnel": true
   },
   {
-    "etape_type_id": "app",
+    "etape_type_id": "api",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apl",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apl",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apl",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apm",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apm",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apo",
+    "document_type_id": "acd",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "apo",
     "document_type_id": "rdr",
     "optionnel": true
   },
@@ -510,83 +215,58 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "aof",
-    "document_type_id": "mot",
+    "etape_type_id": "app",
+    "document_type_id": "rdr",
     "optionnel": true
   },
   {
-    "etape_type_id": "aof",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "aof",
-    "document_type_id": "cnt",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "aof",
+    "etape_type_id": "apu",
     "document_type_id": "avi",
     "optionnel": true
   },
   {
-    "etape_type_id": "aof",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rif",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rif",
-    "document_type_id": "cod",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rif",
+    "etape_type_id": "apu",
     "document_type_id": "not",
     "optionnel": true
   },
   {
-    "etape_type_id": "rif",
-    "document_type_id": "lem",
+    "etape_type_id": "apw",
+    "document_type_id": "avi",
     "optionnel": true
   },
   {
-    "etape_type_id": "rif",
-    "document_type_id": "car",
+    "etape_type_id": "ars",
+    "document_type_id": "acm",
     "optionnel": true
   },
   {
-    "etape_type_id": "mca",
-    "document_type_id": "cco",
+    "etape_type_id": "asl",
+    "document_type_id": "dei",
     "optionnel": true
   },
   {
-    "etape_type_id": "mca",
-    "document_type_id": "lem",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "vfd",
-    "document_type_id": "fac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "vfd",
-    "document_type_id": "jpa",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mcp",
-    "document_type_id": "fic",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "css",
+    "etape_type_id": "asl",
     "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "ass",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "auc",
+    "document_type_id": "acm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "cac",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "cac",
+    "document_type_id": "lac",
     "optionnel": true
   },
   {
@@ -596,12 +276,222 @@
   },
   {
     "etape_type_id": "css",
-    "document_type_id": "rdr",
+    "document_type_id": "let",
     "optionnel": true
   },
   {
     "etape_type_id": "css",
     "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "css",
+    "document_type_id": "rdr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dae",
+    "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dae",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dae",
+    "document_type_id": "dep",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dae",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dae",
+    "document_type_id": "ndd",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "des",
+    "document_type_id": "acr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "des",
+    "document_type_id": "cod",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "des",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "des",
+    "document_type_id": "mot",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "des",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "arm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "cdc",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "cnr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "cnt",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "con",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "dec",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "dei",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "ndd",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "odr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "ord",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dex",
+    "document_type_id": "pla",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "arm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "cdc",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "con",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "dec",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "dei",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "ord",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dpu",
+    "document_type_id": "pub",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dup",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dup",
+    "document_type_id": "pub",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "dux",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "edm",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "edm",
+    "document_type_id": "rdr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "eof",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "eof",
+    "document_type_id": "mot",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "eof",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "epc",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "epc",
+    "document_type_id": "rce",
     "optionnel": true
   },
   {
@@ -611,112 +501,32 @@
   },
   {
     "etape_type_id": "epu",
-    "document_type_id": "pub",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "epu",
     "document_type_id": "arp",
     "optionnel": true
   },
   {
     "etape_type_id": "epu",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "epu",
     "document_type_id": "not",
     "optionnel": true
   },
   {
     "etape_type_id": "epu",
-    "document_type_id": "let",
+    "document_type_id": "pub",
     "optionnel": true
   },
   {
-    "etape_type_id": "rpe",
-    "document_type_id": "erd",
+    "etape_type_id": "mca",
+    "document_type_id": "cco",
     "optionnel": true
   },
   {
-    "etape_type_id": "apd",
-    "document_type_id": "adr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apd",
-    "document_type_id": "rdr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apd",
-    "document_type_id": "rac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "epc",
-    "document_type_id": "rce",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "epc",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apo",
-    "document_type_id": "acd",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apo",
-    "document_type_id": "rdr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
+    "etape_type_id": "mca",
     "document_type_id": "lem",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
-    "document_type_id": "acr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
-    "document_type_id": "doe",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
-    "document_type_id": "car",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mod",
-    "document_type_id": "ndd",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mcb",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mcb",
-    "document_type_id": "doe",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mcb",
-    "document_type_id": "cod",
     "optionnel": true
   },
   {
@@ -725,108 +535,198 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "ppc",
-    "document_type_id": "rce",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ppc",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apu",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apu",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "scl",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "scl",
-    "document_type_id": "lcm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "scl",
-    "document_type_id": "lac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "sas",
-    "document_type_id": "nas",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "sas",
-    "document_type_id": "not",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "sas",
-    "document_type_id": "lac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ssr",
-    "document_type_id": "lcm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ssr",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ssr",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "edm",
-    "document_type_id": "rdr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "edm",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rca",
+    "etape_type_id": "mcb",
     "document_type_id": "cod",
     "optionnel": true
   },
   {
-    "etape_type_id": "aca",
-    "document_type_id": "fip",
+    "etape_type_id": "mcb",
+    "document_type_id": "doe",
     "optionnel": true
   },
   {
-    "etape_type_id": "aca",
+    "etape_type_id": "mcb",
     "document_type_id": "let",
     "optionnel": true
   },
   {
-    "etape_type_id": "aca",
-    "document_type_id": "avi",
+    "etape_type_id": "mco",
+    "document_type_id": "cco",
     "optionnel": true
   },
   {
-    "etape_type_id": "cac",
-    "document_type_id": "lac",
+    "etape_type_id": "mco",
+    "document_type_id": "let",
     "optionnel": true
   },
   {
-    "etape_type_id": "cac",
-    "document_type_id": "avi",
+    "etape_type_id": "mco",
+    "document_type_id": "rcr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcp",
+    "document_type_id": "fic",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcr",
+    "document_type_id": "cnr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcr",
+    "document_type_id": "fac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcr",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcr",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcr",
+    "document_type_id": "rcr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mcr",
+    "document_type_id": "rdr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mdp",
+    "document_type_id": "acr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mdp",
+    "document_type_id": "dom",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mdp",
+    "document_type_id": "lem",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mdp",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "cam",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "cnt",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "cod",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "dep",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "doe",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "dom",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "dos",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "fac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "fic",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "fip",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "for",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "jpa",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "lem",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "noi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "pla",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mfr",
+    "document_type_id": "rec",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mif",
+    "document_type_id": "cco",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mna",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mnb",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mnb",
+    "document_type_id": "ndd",
     "optionnel": true
   },
   {
@@ -845,8 +745,23 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "mif",
-    "document_type_id": "cco",
+    "etape_type_id": "mno",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mno",
+    "document_type_id": "ndd",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mns",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mnv",
+    "document_type_id": "ave",
     "optionnel": true
   },
   {
@@ -865,98 +780,78 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "mnv",
-    "document_type_id": "ave",
+    "etape_type_id": "mod",
+    "document_type_id": "acr",
     "optionnel": true
   },
   {
-    "etape_type_id": "afp",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apl",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apl",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apl",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mno",
-    "document_type_id": "ndd",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mno",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apm",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apm",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "auc",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rcb",
-    "document_type_id": "doe",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rcb",
+    "etape_type_id": "mod",
     "document_type_id": "car",
     "optionnel": true
   },
   {
-    "etape_type_id": "rtd",
-    "document_type_id": "arp",
+    "etape_type_id": "mod",
+    "document_type_id": "doe",
     "optionnel": true
   },
   {
-    "etape_type_id": "aac",
-    "document_type_id": "avi",
+    "etape_type_id": "mod",
+    "document_type_id": "lem",
     "optionnel": true
   },
   {
-    "etape_type_id": "aac",
-    "document_type_id": "acm",
+    "etape_type_id": "mod",
+    "document_type_id": "let",
     "optionnel": true
   },
   {
-    "etape_type_id": "rcg",
+    "etape_type_id": "mod",
+    "document_type_id": "ndd",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mod",
     "document_type_id": "not",
     "optionnel": true
   },
   {
-    "etape_type_id": "rcg",
-    "document_type_id": "acg",
+    "etape_type_id": "nis",
+    "document_type_id": "arm",
     "optionnel": true
   },
   {
-    "etape_type_id": "rcg",
-    "document_type_id": "rac",
+    "etape_type_id": "pfc",
+    "document_type_id": "fac",
     "optionnel": true
   },
   {
-    "etape_type_id": "rcg",
+    "etape_type_id": "pfd",
+    "document_type_id": "fac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "pfd",
+    "document_type_id": "jpa",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "pfd",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "pnr",
     "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "ppc",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "ppc",
+    "document_type_id": "rce",
     "optionnel": true
   },
   {
@@ -975,6 +870,161 @@
     "optionnel": true
   },
   {
+    "etape_type_id": "rca",
+    "document_type_id": "cod",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rcb",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rcb",
+    "document_type_id": "doe",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rcg",
+    "document_type_id": "acg",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rcg",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rcg",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rcg",
+    "document_type_id": "rac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rco",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rco",
+    "document_type_id": "cod",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rco",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rde",
+    "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rde",
+    "document_type_id": "rec",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rif",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rif",
+    "document_type_id": "cod",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rif",
+    "document_type_id": "lem",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rif",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rif",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rpe",
+    "document_type_id": "erd",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rpu",
+    "document_type_id": "arr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "rtd",
+    "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "sas",
+    "document_type_id": "lac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "sas",
+    "document_type_id": "nas",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "sas",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scg",
+    "document_type_id": "lcg",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scg",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scg",
+    "document_type_id": "not",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scg",
+    "document_type_id": "rac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scg",
+    "document_type_id": "rdr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scl",
+    "document_type_id": "lac",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scl",
+    "document_type_id": "lcm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "scl",
+    "document_type_id": "let",
+    "optionnel": true
+  },
+  {
     "etape_type_id": "sco",
     "document_type_id": "cnt",
     "optionnel": true
@@ -990,43 +1040,33 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "aaf",
-    "document_type_id": "acm",
+    "etape_type_id": "spe",
+    "document_type_id": "lce",
     "optionnel": true
   },
   {
-    "etape_type_id": "mnb",
+    "etape_type_id": "spp",
     "document_type_id": "let",
     "optionnel": true
   },
   {
-    "etape_type_id": "mnb",
-    "document_type_id": "ndd",
+    "etape_type_id": "spp",
+    "document_type_id": "lpf",
     "optionnel": true
   },
   {
-    "etape_type_id": "pfc",
-    "document_type_id": "fac",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ama",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "nis",
-    "document_type_id": "arm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "agn",
+    "etape_type_id": "ssr",
     "document_type_id": "acm",
     "optionnel": true
   },
   {
-    "etape_type_id": "api",
-    "document_type_id": "acm",
+    "etape_type_id": "ssr",
+    "document_type_id": "lcm",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "ssr",
+    "document_type_id": "let",
     "optionnel": true
   },
   {
@@ -1035,53 +1075,13 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "ars",
-    "document_type_id": "acm",
+    "etape_type_id": "vfd",
+    "document_type_id": "fac",
     "optionnel": true
   },
   {
-    "etape_type_id": "pnr",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mna",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mns",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ass",
-    "document_type_id": "acm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "aim",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "acl",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "and",
-    "document_type_id": "dei",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "apw",
-    "document_type_id": "avi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "ape",
-    "document_type_id": "avi",
+    "etape_type_id": "vfd",
+    "document_type_id": "jpa",
     "optionnel": true
   }
 ]

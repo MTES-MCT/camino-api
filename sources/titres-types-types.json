@@ -12,28 +12,10 @@
     "ordre": 2
   },
   {
-    "id": "pr",
-    "nom": "permis exclusif de recherches",
-    "description": "Ce titre minier donne un droit de prospection destiné à faire l’inventaire des gisements sur lesquels le titulaire pourra faire valoir son droit d’inventeur. Il est applicable à tous les domaines miniers excepté les zones spéciales de carrières. Il s’agit généralement de larges périmètres (plusieurs centaines de kilomètres carrés). Sa durée est de cinq ans maximum renouvelable deux fois. Pour les hydrocarbures liquides ou gazeux, l’une de ces trois périodes peut faire l’objet d’une prolongation exceptionnelle de trois ans maximum.",
-    "ordre": 3
-  },
-  {
     "id": "ax",
     "nom": "autorisation d'exploitation",
     "description": "Cette autorisation minière donne un droit d’exploitation d’un gisement de minerais ou de métaux sur une zone n'excédant pas un kilomètre carré dans les départements et régions d’outre-mer. Sa durée de validité est de 4 ans renouvelable une fois.",
     "ordre": 4
-  },
-  {
-    "id": "pc",
-    "nom": "permis exclusif de carrières",
-    "description": "Ce titre minier donne le droit d’exploitation d’un gisement de substances de carrière situé dans le périmètre d’une zone spéciale de carrières. Sa durée maximale est de dix ans et peut faire l’objet de prolongations successives. L’autorité décisionnaire est le ministre chargé des mines et le ministre chargé de l’environnement conjointement.",
-    "ordre": 5
-  },
-  {
-    "id": "px",
-    "nom": "permis d'exploitation",
-    "description": "Ce titre minier donne un droit d’exploitation de gîtes de géothermie (dans un volume déterminé par un périmètre et deux profondeurs). Il est accordé pour trente ans maximum et peut faire l’objet de prolongations successives de quinze ans maximum. Il est également applicable aux mines de minéraux et métaux dans les départements et régions d’outre-mer, pour cinq ans maximum prolongeables deux fois.",
-    "ordre": 6
   },
   {
     "id": "cx",
@@ -46,5 +28,23 @@
     "nom": "indéterminé",
     "description": "Titres et autorisations dont les informations disponibles sont insuffisantes pour en déterminer le statut.",
     "ordre": 8
+  },
+  {
+    "id": "pc",
+    "nom": "permis exclusif de carrières",
+    "description": "Ce titre minier donne le droit d’exploitation d’un gisement de substances de carrière situé dans le périmètre d’une zone spéciale de carrières. Sa durée maximale est de dix ans et peut faire l’objet de prolongations successives. L’autorité décisionnaire est le ministre chargé des mines et le ministre chargé de l’environnement conjointement.",
+    "ordre": 5
+  },
+  {
+    "id": "pr",
+    "nom": "permis exclusif de recherches",
+    "description": "Ce titre minier donne un droit de prospection destiné à faire l’inventaire des gisements sur lesquels le titulaire pourra faire valoir son droit d’inventeur. Il est applicable à tous les domaines miniers excepté les zones spéciales de carrières. Il s’agit généralement de larges périmètres (plusieurs centaines de kilomètres carrés). Sa durée est de cinq ans maximum renouvelable deux fois. Pour les hydrocarbures liquides ou gazeux, l’une de ces trois périodes peut faire l’objet d’une prolongation exceptionnelle de trois ans maximum.",
+    "ordre": 3
+  },
+  {
+    "id": "px",
+    "nom": "permis d'exploitation",
+    "description": "Ce titre minier donne un droit d’exploitation de gîtes de géothermie (dans un volume déterminé par un périmètre et deux profondeurs). Il est accordé pour trente ans maximum et peut faire l’objet de prolongations successives de quinze ans maximum. Il est également applicable aux mines de minéraux et métaux dans les départements et régions d’outre-mer, pour cinq ans maximum prolongeables deux fois.",
+    "ordre": 6
   }
 ]

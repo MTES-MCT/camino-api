@@ -1,51 +1,5 @@
 [
   {
-    "id": "carx",
-    "nom": "substances de carrière",
-    "domaine_id": "c",
-    "description": "Substance minérale ou fossile qui n’est pas qualifiée de substance de mine par l’article L.111-1 du code minier. Certaines d’entres elles sont ajoutées ou retirées de la liste des substances de mine selon leur utilisation dans l’économie.",
-    "substance_legale_code_id": "l100_2"
-  },
-  {
-    "id": "cfxx",
-    "nom": "combustibles fossiles solides",
-    "domaine_id": "f",
-    "description": "A l'exeption de la tourbe",
-    "substance_legale_code_id": "l111_1-1"
-  },
-  {
-    "id": "geob",
-    "nom": "géothermie basse température",
-    "domaine_id": "g",
-    "substance_legale_code_id": "l112_2"
-  },
-  {
-    "id": "geoh",
-    "nom": "géothermie haute température",
-    "domaine_id": "g",
-    "substance_legale_code_id": "l212_2"
-  },
-  {
-    "id": "geom",
-    "nom": "géothermie de minime importance",
-    "domaine_id": "g",
-    "substance_legale_code_id": "l112_3"
-  },
-  {
-    "id": "coox",
-    "nom": "gaz carbonique",
-    "domaine_id": "m",
-    "description": "A l'exception du gaz naturellement contenu dans les eaux qui sont ou qui viendraient à être utilisées pour l'alimentation humaine ou à des fins thérapeutiques",
-    "substance_legale_code_id": "l111_1-13"
-  },
-  {
-    "id": "hydx",
-    "nom": "hydrocarbures liquides ou gazeux",
-    "domaine_id": "h",
-    "description": "A l'exeption de la tourbe",
-    "substance_legale_code_id": "l111_1-1"
-  },
-  {
     "id": "aloh",
     "nom": "bauxite",
     "domaine_id": "m",
@@ -94,10 +48,30 @@
     "substance_legale_code_id": "l111_1-6"
   },
   {
+    "id": "carx",
+    "nom": "substances de carrière",
+    "domaine_id": "c",
+    "description": "Substance minérale ou fossile qui n’est pas qualifiée de substance de mine par l’article L.111-1 du code minier. Certaines d’entres elles sont ajoutées ou retirées de la liste des substances de mine selon leur utilisation dans l’économie.",
+    "substance_legale_code_id": "l100_2"
+  },
+  {
     "id": "ceri",
     "nom": "cérium",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-7"
+  },
+  {
+    "id": "cesi",
+    "nom": "césium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "cfxx",
+    "nom": "combustibles fossiles solides",
+    "domaine_id": "f",
+    "description": "A l'exeption de la tourbe",
+    "substance_legale_code_id": "l111_1-1"
   },
   {
     "id": "chro",
@@ -110,6 +84,13 @@
     "nom": "cobalt",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "coox",
+    "nom": "gaz carbonique",
+    "domaine_id": "m",
+    "description": "A l'exception du gaz naturellement contenu dans les eaux qui sont ou qui viendraient à être utilisées pour l'alimentation humaine ou à des fins thérapeutiques",
+    "substance_legale_code_id": "l111_1-13"
   },
   {
     "id": "cuiv",
@@ -148,6 +129,24 @@
     "substance_legale_code_id": "l111_1-15"
   },
   {
+    "id": "geob",
+    "nom": "géothermie basse température",
+    "domaine_id": "g",
+    "substance_legale_code_id": "l112_2"
+  },
+  {
+    "id": "geoh",
+    "nom": "géothermie haute température",
+    "domaine_id": "g",
+    "substance_legale_code_id": "l212_2"
+  },
+  {
+    "id": "geom",
+    "nom": "géothermie de minime importance",
+    "domaine_id": "g",
+    "substance_legale_code_id": "l112_3"
+  },
+  {
     "id": "germ",
     "nom": "germanium",
     "domaine_id": "m",
@@ -160,6 +159,12 @@
     "substance_legale_code_id": "l111_1-1"
   },
   {
+    "id": "grma",
+    "nom": "granulats marins",
+    "domaine_id": "w",
+    "substance_legale_code_id": "l100_2"
+  },
+  {
     "id": "hafn",
     "nom": "hafnium",
     "domaine_id": "m",
@@ -170,6 +175,19 @@
     "nom": "hélium",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "hydm",
+    "nom": "hydrocarbures solides",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-1"
+  },
+  {
+    "id": "hydx",
+    "nom": "hydrocarbures liquides ou gazeux",
+    "domaine_id": "h",
+    "description": "A l'exeption de la tourbe",
+    "substance_legale_code_id": "l111_1-1"
   },
   {
     "id": "indi",
@@ -264,6 +282,12 @@
     "substance_legale_code_id": "l111_1-6"
   },
   {
+    "id": "radi",
+    "nom": "radium",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
     "id": "rhen",
     "nom": "rhénium",
     "domaine_id": "m",
@@ -276,16 +300,77 @@
     "substance_legale_code_id": "l111_1-10"
   },
   {
+    "id": "rxxx",
+    "nom": "autres éléments radioactifs",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
     "id": "scan",
     "nom": "scandium",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-7"
   },
   {
+    "id": "scoc",
+    "nom": "substances connexes",
+    "domaine_id": "c",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scof",
+    "nom": "substances connexes",
+    "domaine_id": "f",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scog",
+    "nom": "substances connexes",
+    "domaine_id": "g",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scoh",
+    "nom": "substances connexes",
+    "domaine_id": "h",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scor",
+    "nom": "substances connexes",
+    "domaine_id": "r",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scos",
+    "nom": "substances connexes",
+    "domaine_id": "s",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scow",
+    "nom": "substances connexes",
+    "domaine_id": "w",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
     "id": "sele",
     "nom": "sélénium",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-11"
+  },
+  {
+    "id": "skst",
+    "nom": "stockage souterrain",
+    "domaine_id": "s",
+    "substance_legale_code_id": "l211_1"
   },
   {
     "id": "souf",
@@ -324,6 +409,12 @@
     "substance_legale_code_id": "l111_1-15"
   },
   {
+    "id": "thor",
+    "nom": "thorium",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
     "id": "tita",
     "nom": "titane",
     "domaine_id": "m",
@@ -334,6 +425,12 @@
     "nom": "autres éléments des terres rares",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-7"
+  },
+  {
+    "id": "uran",
+    "nom": "uranium",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
   },
   {
     "id": "vana",
@@ -358,102 +455,5 @@
     "nom": "zirconium",
     "domaine_id": "m",
     "substance_legale_code_id": "l111_1-5"
-  },
-  {
-    "id": "cesi",
-    "nom": "césium",
-    "domaine_id": "m",
-    "substance_legale_code_id": "l111_1-10"
-  },
-  {
-    "id": "radi",
-    "nom": "radium",
-    "domaine_id": "r",
-    "substance_legale_code_id": "l111_1-10"
-  },
-  {
-    "id": "rxxx",
-    "nom": "autres éléments radioactifs",
-    "domaine_id": "r",
-    "substance_legale_code_id": "l111_1-10"
-  },
-  {
-    "id": "thor",
-    "nom": "thorium",
-    "domaine_id": "r",
-    "substance_legale_code_id": "l111_1-10"
-  },
-  {
-    "id": "uran",
-    "nom": "uranium",
-    "domaine_id": "r",
-    "substance_legale_code_id": "l111_1-10"
-  },
-  {
-    "id": "skst",
-    "nom": "stockage souterrain",
-    "domaine_id": "s",
-    "substance_legale_code_id": "l211_1"
-  },
-  {
-    "id": "grma",
-    "nom": "granulats marins",
-    "domaine_id": "w",
-    "substance_legale_code_id": "l100_2"
-  },
-  {
-    "id": "hydm",
-    "nom": "hydrocarbures solides",
-    "domaine_id": "m",
-    "substance_legale_code_id": "l111_1-1"
-  },
-  {
-    "id": "scor",
-    "nom": "substances connexes",
-    "domaine_id": "r",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
-  },
-  {
-    "id": "scow",
-    "nom": "substances connexes",
-    "domaine_id": "w",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
-  },
-  {
-    "id": "scoc",
-    "nom": "substances connexes",
-    "domaine_id": "c",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
-  },
-  {
-    "id": "scoh",
-    "nom": "substances connexes",
-    "domaine_id": "h",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
-  },
-  {
-    "id": "scof",
-    "nom": "substances connexes",
-    "domaine_id": "f",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
-  },
-  {
-    "id": "scog",
-    "nom": "substances connexes",
-    "domaine_id": "g",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
-  },
-  {
-    "id": "scos",
-    "nom": "substances connexes",
-    "domaine_id": "s",
-    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
-    "substance_legale_code_id": "l111_1c"
   }
 ]
