@@ -17,15 +17,21 @@ const databaseToJsonExport = async () => {
   })
 
   for (const table of tables) {
-    const fileName = `${table.replace(/_/g, '-')}on`
+    const fileName = `${table.name.replace(/_/g, '-')}.json`
     const filePath = `${dir}/${fileName}`
 
-    const json = format(await knex.from(table))
+    const json = format(
+      await knex.from(table.name).orderBy(
+        table.orderBy.map(column => {
+          return { column, order: 'asc' }
+        })
+      )
+    )
 
     if (json) {
       writeFileSync(filePath, JSON.stringify(json, null, 2))
     } else {
-      console.error(`la table ${table} est vide`)
+      console.error(`la table ${table.name} est vide`)
     }
   }
 }
