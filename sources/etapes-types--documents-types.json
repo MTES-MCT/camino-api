@@ -600,26 +600,6 @@
     "optionnel": true
   },
   {
-    "etape_type_id": "mdp",
-    "document_type_id": "acr",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "dom",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "lem",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mdp",
-    "document_type_id": "let",
-    "optionnel": true
-  },
-  {
     "etape_type_id": "mfr",
     "document_type_id": "cam",
     "optionnel": true

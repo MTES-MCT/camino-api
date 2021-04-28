@@ -672,16 +672,6 @@
     "entreprises_lecture": true
   },
   {
-    "id": "mdp",
-    "nom": "dépôt de la demande",
-    "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
-    "ordre": 6,
-    "unique": true,
-    "acceptation_auto": true,
-    "public_lecture": true,
-    "entreprises_lecture": true
-  },
-  {
     "id": "mec",
     "nom": "avis de demande concurrente",
     "description": "Annonce à un demandeur qu’une demande concurrente à la sienne a été déposée.",
@@ -716,6 +706,19 @@
     "fondamentale": true,
     "unique": true,
     "acceptation_auto": true,
+    "sections": [
+      {
+        "id": "demande",
+        "elements": [
+          {
+            "id": "date",
+            "nom": "Date de la demande",
+            "type": "date",
+            "optionnel": true
+          }
+        ]
+      }
+    ],
     "public_lecture": true,
     "entreprises_lecture": true
   },

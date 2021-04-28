@@ -21,6 +21,11 @@
     "couleur": "error"
   },
   {
+    "id": "dep",
+    "nom": "déposé",
+    "couleur": "success"
+  },
+  {
     "id": "dre",
     "nom": "défavorable avec réserves",
     "couleur": "warning"
