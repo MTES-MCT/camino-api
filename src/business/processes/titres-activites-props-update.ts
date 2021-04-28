@@ -57,7 +57,8 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
             titre.demarches!,
             dateDebut,
             titreActivite.date,
-            titre.typeId
+            titre.typeId,
+            true
           )
 
         if (titreIsValide && titreActivite.suppression) {

@@ -77,4 +77,14 @@ describe("vérifie la validité d'un titre pendant une période en fonction des 
       titreValideCheck(titreDemarches, '2020-01-01', '2020-12-31', 'pxm')
     ).toEqual(false)
   })
+
+  test('retourne vrai si le titre est échu et a une démarche déposée', () => {
+    titreDemarchesEtapesRebuildMock.mockReturnValue(
+      titreDemarches as ITitreDemarche[]
+    )
+    titreStatutIdFindMock.mockReturnValue('ech')
+    expect(
+      titreValideCheck(titreDemarches, '2020-01-01', '2020-12-31', 'pxm', true)
+    ).toEqual(true)
+  })
 })
