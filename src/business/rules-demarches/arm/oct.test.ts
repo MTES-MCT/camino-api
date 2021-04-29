@@ -3,7 +3,7 @@ import { demarcheEtatsValidate } from '../_utils.test'
 describe('vérifie l’arbre d’octroi d’ARM', () => {
   const octEtatsValidate = demarcheEtatsValidate('oct', 'arm')
 
-  test.each(['mfr', 'pfd', 'dae', 'rde'])(
+  test.each(['mfr', 'mfm', 'pfd', 'dae', 'rde'])(
     'peut créer une étape "%s" si il n’existe pas d’autres étapes',
     typeId => {
       expect(octEtatsValidate([{ typeId }])).toHaveLength(0)
@@ -18,6 +18,12 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       ])
     }
   )
+
+  test('ne peut pas créer une étape "mfr" et une "mfm"', () => {
+    expect(octEtatsValidate([{ typeId: 'mfr' }, { typeId: 'mfm' }])).toEqual([
+      'l’étape "mfm" n’est plus possible après "mfr"'
+    ])
+  })
 
   test('ne peut pas créer une étape "mcp" sans "mfr" au statut dep', () => {
     expect(
@@ -98,7 +104,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     expect(
       octEtatsValidate(
         [
-          { typeId: 'mfr', statutId: 'dep', date: '2020-01-01' },
+          { typeId: 'mfm', statutId: 'dep', date: '2020-01-01' },
           { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
           { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
           { typeId: 'mod', date: '2020-01-01' },
@@ -182,7 +188,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       octEtatsValidate(
         [
           { typeId: 'dae', date: '2020-06-22', statutId: 'exe' },
-          { typeId: 'mfr', date: '2020-07-09', statutId: 'dep' },
+          { typeId: 'mfm', date: '2020-07-09', statutId: 'dep' },
           { typeId: 'pfd', date: '2020-07-10', statutId: 'fai' },
           { typeId: 'mcp', date: '2020-07-17', statutId: 'fav' },
           { typeId: 'rde', date: '2020-07-30', statutId: 'fav' },
@@ -217,7 +223,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           { typeId: 'mcp', statutId: 'fav', date: '2020-01-23' },
           { typeId: 'dae', statutId: 'exe', date: '2020-01-14' },
           { typeId: 'pfd', statutId: 'fai', date: '2019-12-12' },
-          { typeId: 'mfr', statutId: 'dep', date: '2019-12-12' }
+          { typeId: 'mfm', statutId: 'dep', date: '2019-12-12' }
         ],
         {
           contenu: { arm: { mecanise: true, franchissements: 3 } }

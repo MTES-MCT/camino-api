@@ -7,6 +7,7 @@ const titreEtapesDecisivesCommunesTypes = ['css', 'rtd', 'abd', 'and']
 
 const titreEtapesDecisivesDemandesTypes = [
   'mfr',
+  'mfm',
   'men',
   'meo',
   'ide',
@@ -234,7 +235,7 @@ const titreDemarcheDemandeStatutIdFind = (
   if (
     ['mcr', 'dex', 'dux'].includes(titreEtapeRecent.typeId) ||
     (titreTypeId === 'arm' &&
-      ((titreEtapeRecent.typeId === 'mfr' &&
+      ((['mfr', 'mfm'].includes(titreEtapeRecent.typeId) &&
         titreEtapeRecent.statutId === 'dep') ||
         ['men', 'meo', 'mcp', 'def', 'aca'].includes(titreEtapeRecent.typeId)))
   ) {
@@ -242,9 +243,9 @@ const titreDemarcheDemandeStatutIdFind = (
     return 'ins'
   }
 
-  //  - le type de l’étape est demande (mfr)
+  //  - le type de l’étape est demande (mfr ou mfm)
   //  - il n’y a pas d’étape après
-  if (titreEtapeRecent.typeId === 'mfr') {
+  if (['mfr', 'mfm'].includes(titreEtapeRecent.typeId)) {
     if (titreEtapeRecent.statutId === 'dep') {
       //  - le statut de la démarche est “déposé”
       return 'dep'

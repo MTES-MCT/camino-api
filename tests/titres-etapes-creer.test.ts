@@ -108,13 +108,9 @@ describe('etapeCreer', () => {
             }
           ),
           heritageContenu: {
-            arm: {
-              mecanise: { actif: true },
-              franchissements: { actif: true }
-            },
             demande: { date: { actif: false } }
           },
-          contenu: { arm: { mecanise: true, franchissements: 3 } }
+          contenu: {}
         }
       },
       'super'
@@ -190,13 +186,13 @@ describe('etapeCreer', () => {
     )
   })
 
-  test('ne peut pas créer une étape mfr avec un statut dep avec un champ obligatoire manquant (utilisateur super)', async () => {
+  test('ne peut pas créer une étape mfm avec un statut dep avec un champ obligatoire manquant (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
       {
         etape: {
-          typeId: 'mfr',
+          typeId: 'mfm',
           statutId: 'dep',
           titreDemarcheId,
           date: '',
@@ -213,7 +209,8 @@ describe('etapeCreer', () => {
           heritageContenu: {
             arm: {
               mecanise: { actif: true },
-              franchissements: { actif: true }
+              franchissements: { actif: true },
+              materiel: { actif: true }
             },
             demande: { date: { actif: false } }
           }
@@ -223,7 +220,7 @@ describe('etapeCreer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'l’élément "Prospection mécanisée" de la section "Caractéristiques ARM" est obligatoire'
+      'une demande mécanisée doit être mécanisée, l’élément "Prospection mécanisée" de la section "Caractéristiques ARM" est obligatoire, l’élément "Matériel" de la section "Caractéristiques ARM" est obligatoire'
     )
   })
 
@@ -248,10 +245,6 @@ describe('etapeCreer', () => {
             }
           ),
           heritageContenu: {
-            arm: {
-              mecanise: { actif: true },
-              franchissements: { actif: true }
-            },
             demande: { date: { actif: false } }
           }
         }

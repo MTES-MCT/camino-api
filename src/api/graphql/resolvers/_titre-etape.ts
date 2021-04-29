@@ -123,6 +123,7 @@ const titreEtapeHeritageContenuBuild = (
   let titreEtapesFiltered = titreEtapes.filter(te => te.date < date).reverse()
 
   titreEtapesFiltered.push(titreEtape)
+  titreEtapesFiltered = titreEtapesFiltered.reverse()
 
   const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
     titreEtapesFiltered,

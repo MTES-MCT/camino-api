@@ -21,7 +21,7 @@ const titresEtapesDemandeACOUpdate = async (titresDemarchesId: string) => {
 
   if (titresDemarche.etapes && titresDemarche.etapes.length > 1) {
     const etapeDemandeACO = titresDemarche.etapes?.find(
-      e => e.typeId === 'mfr' && e.statutId === 'aco'
+      e => ['mfr', 'mfm'].includes(e.typeId) && e.statutId === 'aco'
     )
     if (etapeDemandeACO) {
       const etapes = titresDemarche.etapes!.filter(

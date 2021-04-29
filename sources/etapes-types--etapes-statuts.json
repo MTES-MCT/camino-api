@@ -860,6 +860,16 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "mfm",
+    "etape_statut_id": "aco",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "mfm",
+    "etape_statut_id": "dep",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "mfr",
     "etape_statut_id": "aco",
     "ordre": 1

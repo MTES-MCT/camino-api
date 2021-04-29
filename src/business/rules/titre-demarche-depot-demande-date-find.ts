@@ -7,7 +7,7 @@ import { ITitreEtape } from '../../types'
 
 const titreDemarcheDepotDemandeDateFind = (titreEtapes: ITitreEtape[]) => {
   const titreEtapeDemande = titreEtapes.find(
-    te => te.typeId === 'mfr' && te.statutId === 'dep'
+    te => ['mfr', 'mfm'].includes(te.typeId) && te.statutId === 'dep'
   )
 
   if (titreEtapeDemande) {

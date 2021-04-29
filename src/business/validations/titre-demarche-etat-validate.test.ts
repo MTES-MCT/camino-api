@@ -235,7 +235,7 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
           } as unknown) as ITitreType,
           demarches: [{ typeId: 'oct' }]
         } as ITitre,
-        { id: '3', typeId: 'mfr', statutId: 'aco' } as ITitreEtape,
+        { id: '3', typeId: 'mfm', statutId: 'aco' } as ITitreEtape,
         [
           { id: '1', typeId: 'mfr', statutId: 'aco' },
           { id: '2', typeId: 'dae' }
