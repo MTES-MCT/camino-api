@@ -7,6 +7,7 @@ import { IAuthRequest } from './_types'
 
 import { debug } from '../config/index'
 import {
+  titre,
   titres,
   demarches,
   activites,
@@ -83,6 +84,7 @@ const restify = (resolver: IRestResolver) => async (
   }
 }
 
+rest.get('/titre', restify(titre))
 rest.get('/titres', restify(titres))
 rest.get('/demarches', restify(demarches))
 rest.get('/activites', restify(activites))

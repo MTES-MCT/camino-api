@@ -6,13 +6,13 @@ import {
   IUtilisateursColonneId
 } from '../../types'
 
-import { titresGet } from '../../database/queries/titres'
+import { titreGet, titresGet } from '../../database/queries/titres'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import { entreprisesGet } from '../../database/queries/entreprises'
 import { userGet, utilisateursGet } from '../../database/queries/utilisateurs'
 
-import { titresFormat } from '../_format/titres'
+import { titreFormat, titresFormat } from '../_format/titres'
 import { titreDemarcheFormat } from '../_format/titres-demarches'
 import { titreActiviteFormat } from '../_format/titres-activites'
 import { utilisateurFormat } from '../_format/utilisateurs'
@@ -21,6 +21,7 @@ import { entrepriseFormat } from '../_format/entreprises'
 import { tableConvert } from './_convert'
 import { fileNameCreate } from '../../tools/file-name-create'
 
+import { titreFormatGeojson } from './format/titre'
 import { titresFormatGeojson, titresFormatTable } from './format/titres'
 import { titresDemarchesFormatTable } from './format/titres-demarches'
 import { titresActivitesFormatTable } from './format/titres-activites'
@@ -33,6 +34,60 @@ const formatCheck = (formats: string[], format: string) => {
   if (!formats.includes(format)) {
     throw new Error(`Format « ${format} » non supporté.`)
   }
+}
+
+interface ITitreQueryInput {
+  format?: IFormat
+  id: string
+}
+
+const titre = async (
+  { format = 'geojson', id }: ITitreQueryInput,
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  formatCheck(['geojson'], format)
+
+  const titre = await titreGet(
+    id,
+    {
+      fields: {
+        type: { type: { id: {} } },
+        domaine: { id: {} },
+        statut: { id: {} },
+        references: { type: { id: {} } },
+        substances: { legales: { id: {} } },
+        titulaires: { id: {} },
+        amodiataires: { id: {} },
+        surfaceEtape: { id: {} },
+        points: { references: { geoSysteme: { unite: { id: {} } } } },
+        communes: { departement: { region: { pays: { id: {} } } } },
+        forets: { id: {} },
+        administrationsLocales: { type: { id: {} } },
+        administrationsGestionnaires: { type: { id: {} } }
+      }
+    },
+    user
+  )
+
+  const titreFormatted = titreFormat(titre)
+
+  let contenu
+
+  if (format === 'geojson') {
+    const elements = titreFormatGeojson(titreFormatted)
+
+    contenu = JSON.stringify(elements, null, 2)
+  }
+
+  return contenu
+    ? {
+        nom: fileNameCreate(titre.id, format),
+        format,
+        contenu
+      }
+    : null
 }
 
 interface ITitresQueryInput {
@@ -443,4 +498,4 @@ const entreprises = async (
     : null
 }
 
-export { titres, demarches, activites, utilisateurs, entreprises }
+export { titre, titres, demarches, activites, utilisateurs, entreprises }
