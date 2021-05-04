@@ -22,6 +22,15 @@ Toutes les ressources sont interrogeables avec la méthode `GET`.
 
 ## Ressources
 
+### `/titre`
+
+Retourne un titre.
+
+#### Paramètres
+
+- `format` : format des données (`geojson` uniquement)
+- `id` : identifiant du titre
+
 ### `/titres`
 
 Retourne la liste des titres.
