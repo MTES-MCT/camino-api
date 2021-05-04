@@ -48,7 +48,10 @@ const sectionElementContenuAndFilesGet = (
             childContenuValeur[childSectionElement.id],
             childSectionElement
           )
-          if (childResult.newValue) {
+          if (
+            childResult.newValue !== undefined &&
+            childResult.newValue !== null
+          ) {
             childContenuElement[childSectionElement.id] = childResult.newValue
           }
           if (childResult.newFiles?.length) {
@@ -83,7 +86,11 @@ const sectionsContenuAndFilesGet = (
               sectionElement
             )
 
-            if (!sectionElementResult.newValue) {
+            if (
+              !sectionElementResult ||
+              sectionElementResult.newValue === undefined ||
+              sectionElementResult.newValue === null
+            ) {
               delete contenu[sectionId][elementId]
             } else {
               contenu[sectionId][elementId] = sectionElementResult.newValue

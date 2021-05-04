@@ -173,7 +173,7 @@ const titreDemarchePublicFind = (
   // ou si la démarche contient une demande ou une décision de l'administration unilatérale
   const entreprisesLecture =
     publicLecture ||
-    titreEtapes.some(te => ['mfr', 'dex', 'dux'].includes(te.typeId))
+    titreEtapes.some(te => ['mfr', 'mfm', 'dex', 'dux'].includes(te.typeId))
 
   return { publicLecture, entreprisesLecture }
 }

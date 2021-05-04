@@ -699,6 +699,30 @@
     "entreprises_lecture": true
   },
   {
+    "id": "mfm",
+    "nom": "demande mécanisée",
+    "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
+    "ordre": 2,
+    "fondamentale": true,
+    "unique": true,
+    "acceptation_auto": true,
+    "sections": [
+      {
+        "id": "demande",
+        "elements": [
+          {
+            "id": "date",
+            "nom": "Date de la demande",
+            "type": "date",
+            "optionnel": true
+          }
+        ]
+      }
+    ],
+    "public_lecture": true,
+    "entreprises_lecture": true
+  },
+  {
     "id": "mfr",
     "nom": "demande",
     "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",

@@ -65,6 +65,21 @@ const titreEtapeUpdationValidate = async (
         errors.push(errorsContenu)
       }
     }
+
+    if (titreEtape.typeId === 'mfm' && !titreEtape.contenu?.arm.mecanise) {
+      errors.push('une demande mécanisée doit être mécanisée')
+    }
+
+    if (
+      titreEtape.typeId !== 'mfm' &&
+      titreEtape.heritageContenu &&
+      titreEtape.heritageContenu.arm &&
+      titreEtape.heritageContenu.arm.mecanise &&
+      !titreEtape.heritageContenu.arm.mecanise.actif &&
+      titreEtape.contenu!.arm.mecanise
+    ) {
+      errors.push('une demande non mécanisée ne peut pas devenir mécanisée')
+    }
   }
 
   // 4. si l’étape n’est pas en cours de construction

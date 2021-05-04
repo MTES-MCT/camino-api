@@ -1793,7 +1793,7 @@
     "titre_type_id": "arm",
     "ordre": 100,
     "demarche_type_id": "oct",
-    "etape_type_id": "mfr",
+    "etape_type_id": "mfm",
     "sections": [
       {
         "id": "arm",
@@ -1812,10 +1812,86 @@
             "type": "integer",
             "optionnel": true,
             "description": "Nombre de franchissements de cours d'eau"
+          },
+          {
+            "id": "materiel",
+            "nom": "Matériel",
+            "type": "multiple",
+            "elements": [
+              {
+                "id": "type",
+                "nom": "Type de matériel",
+                "type": "select",
+                "valeurs": [
+                  {
+                    "id": "pelleHydraulique",
+                    "nom": "Pelle hydraulique"
+                  },
+                  {
+                    "id": "motoTariereAutotractee",
+                    "nom": "Moto tarière autotractée"
+                  },
+                  {
+                    "id": "quad",
+                    "nom": "Quad"
+                  },
+                  {
+                    "id": "autre",
+                    "nom": "Autre matériel autorisé"
+                  }
+                ],
+                "optionnel": false
+              },
+              {
+                "id": "marque",
+                "nom": "Marque",
+                "type": "text",
+                "optionnel": false
+              },
+              {
+                "id": "modele",
+                "nom": "Modèle",
+                "type": "text",
+                "optionnel": false
+              },
+              {
+                "id": "numero",
+                "nom": "N° d’identification",
+                "type": "text",
+                "optionnel": false
+              },
+              {
+                "id": "proprietaire",
+                "nom": "Nom du propriétaire",
+                "type": "text",
+                "optionnel": false
+              },
+              {
+                "id": "tonnage",
+                "nom": "Tonnage",
+                "type": "integer",
+                "optionnel": true,
+                "description": "Le tonnage maximum autorisé est fixé à 21 tonnes."
+              },
+              {
+                "id": "justificatif",
+                "nom": "Justificatif",
+                "type": "file",
+                "optionnel": false,
+                "description": "facture d’achat ou contrat de location"
+              }
+            ],
+            "optionnel": false
           }
         ]
       }
     ]
+  },
+  {
+    "titre_type_id": "arm",
+    "ordre": 100,
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr"
   },
   {
     "titre_type_id": "arm",
