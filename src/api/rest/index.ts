@@ -53,41 +53,24 @@ const titre = async (
     id!,
     {
       fields: {
-        type: { type: { id: {} } },
-        domaine: { id: {} },
-        statut: { id: {} },
-        references: { type: { id: {} } },
-        substances: { legales: { id: {} } },
-        titulaires: { id: {} },
-        amodiataires: { id: {} },
-        surfaceEtape: { id: {} },
-        points: { references: { geoSysteme: { unite: { id: {} } } } },
-        communes: { departement: { region: { pays: { id: {} } } } },
-        forets: { id: {} },
-        administrationsLocales: { type: { id: {} } },
-        administrationsGestionnaires: { type: { id: {} } }
+        points: { references: { geoSysteme: { unite: { id: {} } } } }
       }
     },
     user
   )
 
-  const titreFormatted = titreFormat(titre)
+  const titreFormatted = titreFormat(titre, {
+    geojsonMultiPolygon: {},
+    geojsonPoints: {}
+  })
 
-  let contenu
+  const titreGeojson = titreFormatGeojson(titreFormatted)
 
-  if (format === 'geojson') {
-    const elements = titreFormatGeojson(titreFormatted)
-
-    contenu = JSON.stringify(elements, null, 2)
+  return {
+    nom: fileNameCreate(titre.id, format),
+    format,
+    contenu: JSON.stringify(titreGeojson, null, 2)
   }
-
-  return contenu
-    ? {
-        nom: fileNameCreate(titre.id, format),
-        format,
-        contenu
-      }
-    : null
 }
 
 interface ITitresQueryInput {
