@@ -14,7 +14,6 @@ import TitresTypes from '../../models/titres-types'
 import DemarchesTypes from '../../models/demarches-types'
 import EtapesTypes from '../../models/etapes-types'
 import Titres from '../../models/titres'
-import TitresDemarches from '../../models/titres-demarches'
 import TitresEtapes from '../../models/titres-etapes'
 import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
 import TitresActivites from '../../models/titres-activites'
@@ -145,21 +144,19 @@ const etapesTypesQueryModify = (
   // -> restreint aux types d'étapes du type de la démarche
 
   if (titreDemarcheId) {
-    q.whereExists(
-      TitresDemarches.query()
-        .findById(titreDemarcheId)
-        .joinRelated('titre')
-        .join('titresTypes__demarchesTypes__etapesTypes as tde', b => {
-          b.on(knex.raw('?? = ??', ['tde.etapeTypeId', 'etapesTypes.id']))
-            .andOn(
-              knex.raw('?? = ??', [
-                'tde.demarcheTypeId',
-                'titresDemarches.typeId'
-              ])
-            )
-            .andOn(knex.raw('?? = ??', ['tde.titreTypeId', 'titre.typeId']))
-        })
+    q.leftJoin(
+      'titresDemarches as td',
+      raw('?? = ?', ['td.id', titreDemarcheId])
     )
+    q.leftJoin('titres as t', 't.id', 'td.titreId')
+    q.leftJoin('titresTypes__demarchesTypes__etapesTypes as tde', b => {
+      b.on(knex.raw('?? = ??', ['tde.etapeTypeId', 'etapesTypes.id']))
+      b.andOn(knex.raw('?? = ??', ['tde.demarcheTypeId', 'td.typeId']))
+      b.andOn(knex.raw('?? = ??', ['tde.titreTypeId', 't.typeId']))
+    })
+
+    q.andWhereRaw('?? is not null', ['tde.titre_type_id'])
+    q.orderBy('tde.ordre')
 
     // si
     // - l'étape n'est pas unique

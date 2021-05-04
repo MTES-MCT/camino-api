@@ -349,7 +349,7 @@ const etapesTypesGet = async (
     ? graphBuild(fields, 'etapesTypes', fieldsFormat)
     : options.etapesTypes.graph
 
-  const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')
+  const q = EtapesTypes.query().withGraphFetched(graph)
 
   if (titreDemarcheId) {
     etapesTypesQueryModify(q, user, {
@@ -357,6 +357,8 @@ const etapesTypesGet = async (
       titreEtapeId,
       uniqueCheck
     })
+  } else {
+    q.orderBy('ordre')
   }
 
   return q
