@@ -21,7 +21,7 @@ const titreContenuTableFormat = (contenu?: IContenu | null) =>
       )
     : {}
 
-const titresFormatTable = (titres: ITitre[]) =>
+const titresTableFormat = (titres: ITitre[]) =>
   titres.map(titre => {
     const { communes, departements, regions } = titreTerritoiresFind(titre)
 
@@ -81,53 +81,62 @@ const titresFormatTable = (titres: ITitre[]) =>
     return titreNew
   })
 
-const titresFormatGeojson = (titres: ITitre[]) => ({
+const titreGeojsonPropertiesFormat = (titre: ITitre) => {
+  const { communes, departements, regions } = titreTerritoiresFind(titre)
+
+  const separator = ', '
+
+  return {
+    id: titre.id,
+    nom: titre.nom,
+    type: titre.type!.type.nom,
+    domaine: titre.domaine!.nom,
+    date_debut: titre.dateDebut,
+    date_fin: titre.dateFin,
+    date_demande: titre.dateDemande,
+    statut: titre.statut!.nom,
+    substances: titre.substances!.map(s => s.nom).join(separator) || null,
+    surface_km2: titre.surface,
+    communes: communes.join(separator),
+    forets: titre.forets?.map(f => f.nom).join(separator),
+    departements: departements.join(separator),
+    regions: regions.join(separator),
+    administrations_noms: titre.administrations!.map(a => a.nom),
+    titulaires_noms: titre.titulaires!.map(e => e.nom).join(separator) || null,
+    titulaires_legal:
+      titre
+        .titulaires!.map(e => e.legalEtranger || e.legalSiren)
+        .join(separator) || null,
+    amodiataires_noms:
+      titre.amodiataires!.map(e => e.nom).join(separator) || null,
+    amodiataires_legal:
+      titre
+        .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
+        .join(separator) || null,
+    references:
+      titre.references &&
+      titre.references
+        .map(reference => `${reference.type!.nom}: ${reference.nom}`)
+        .join(separator),
+    ...titreContenuTableFormat(titre.contenu)
+  }
+}
+
+const titreGeojsonFormat = (titre: ITitre) => ({
   type: 'FeatureCollection',
-  features: titres.map(titre => {
-    const { communes, departements, regions } = titreTerritoiresFind(titre)
+  properties: titreGeojsonPropertiesFormat(titre),
+  features: titre.geojsonPoints
+    ? [titre.geojsonMultiPolygon].concat(titre.geojsonPoints.features)
+    : titre.geojsonMultiPolygon
+})
 
-    const separator = ', '
-
-    return {
-      type: 'Feature',
-      geometry: titre.geojsonMultiPolygon?.geometry,
-      properties: {
-        id: titre.id,
-        nom: titre.nom,
-        type: titre.type!.type.nom,
-        domaine: titre.domaine!.nom,
-        date_debut: titre.dateDebut,
-        date_fin: titre.dateFin,
-        date_demande: titre.dateDemande,
-        statut: titre.statut!.nom,
-        substances: titre.substances!.map(s => s.nom).join(separator) || null,
-        surface_km2: titre.surface,
-        communes: communes.join(separator),
-        forets: titre.forets?.map(f => f.nom).join(separator),
-        departements: departements.join(separator),
-        regions: regions.join(separator),
-        administrations_noms: titre.administrations!.map(a => a.nom),
-        titulaires_noms:
-          titre.titulaires!.map(e => e.nom).join(separator) || null,
-        titulaires_legal:
-          titre
-            .titulaires!.map(e => e.legalEtranger || e.legalSiren)
-            .join(separator) || null,
-        amodiataires_noms:
-          titre.amodiataires!.map(e => e.nom).join(separator) || null,
-        amodiataires_legal:
-          titre
-            .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
-            .join(separator) || null,
-        references:
-          titre.references &&
-          titre.references
-            .map(reference => `${reference.type!.nom}: ${reference.nom}`)
-            .join(separator),
-        ...titreContenuTableFormat(titre.contenu)
-      }
-    }
-  })
+const titresGeojsonFormat = (titres: ITitre[]) => ({
+  type: 'FeatureCollection',
+  features: titres.map(titre => ({
+    type: 'Feature',
+    geometry: titre.geojsonMultiPolygon?.geometry,
+    properties: titreGeojsonPropertiesFormat(titre)
+  }))
 })
 
 const titreTerritoiresFind = (titre: ITitre) =>
@@ -197,4 +206,4 @@ const titreTerritoiresFind = (titre: ITitre) =>
     { communes: [], departements: [], regions: [] }
   )
 
-export { titresFormatGeojson, titresFormatTable }
+export { titresGeojsonFormat, titreGeojsonFormat, titresTableFormat }

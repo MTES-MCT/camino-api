@@ -6,13 +6,13 @@ import {
   IUtilisateursColonneId
 } from '../../types'
 
-import { titresGet } from '../../database/queries/titres'
+import { titreGet, titresGet } from '../../database/queries/titres'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import { entreprisesGet } from '../../database/queries/entreprises'
 import { userGet, utilisateursGet } from '../../database/queries/utilisateurs'
 
-import { titresFormat } from '../_format/titres'
+import { titreFormat, titresFormat } from '../_format/titres'
 import { titreDemarcheFormat } from '../_format/titres-demarches'
 import { titreActiviteFormat } from '../_format/titres-activites'
 import { utilisateurFormat } from '../_format/utilisateurs'
@@ -21,7 +21,11 @@ import { entrepriseFormat } from '../_format/entreprises'
 import { tableConvert } from './_convert'
 import { fileNameCreate } from '../../tools/file-name-create'
 
-import { titresFormatGeojson, titresFormatTable } from './format/titres'
+import {
+  titresGeojsonFormat,
+  titreGeojsonFormat,
+  titresTableFormat
+} from './format/titres'
 import { titresDemarchesFormatTable } from './format/titres-demarches'
 import { titresActivitesFormatTable } from './format/titres-activites'
 import { utilisateursFormatTable } from './format/utilisateurs'
@@ -32,6 +36,48 @@ import { matomo } from '../../tools/matomo'
 const formatCheck = (formats: string[], format: string) => {
   if (!formats.includes(format)) {
     throw new Error(`Format « ${format} » non supporté.`)
+  }
+}
+
+interface ITitreQueryInput {
+  format?: IFormat
+  id?: string | null
+}
+
+const titreFields = {
+  type: { type: { id: {} } },
+  domaine: { id: {} },
+  statut: { id: {} },
+  references: { type: { id: {} } },
+  substances: { legales: { id: {} } },
+  titulaires: { id: {} },
+  amodiataires: { id: {} },
+  surfaceEtape: { id: {} },
+  points: { id: {} },
+  communes: { departement: { region: { pays: { id: {} } } } },
+  forets: { id: {} },
+  administrationsLocales: { type: { id: {} } },
+  administrationsGestionnaires: { type: { id: {} } }
+}
+
+const titre = async (
+  { format = 'geojson', id }: ITitreQueryInput,
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  formatCheck(['geojson'], format)
+
+  const titre = await titreGet(id!, { fields: titreFields }, user)
+
+  const titreFormatted = titreFormat(titre)
+
+  const titreGeojson = titreGeojsonFormat(titreFormatted)
+
+  return {
+    nom: fileNameCreate(titre.id, format),
+    format,
+    contenu: JSON.stringify(titreGeojson, null, 2)
   }
 }
 
@@ -82,23 +128,7 @@ const titres = async (
       references,
       territoires
     },
-    {
-      fields: {
-        type: { type: { id: {} } },
-        domaine: { id: {} },
-        statut: { id: {} },
-        references: { type: { id: {} } },
-        substances: { legales: { id: {} } },
-        titulaires: { id: {} },
-        amodiataires: { id: {} },
-        surfaceEtape: { id: {} },
-        points: { id: {} },
-        communes: { departement: { region: { pays: { id: {} } } } },
-        forets: { id: {} },
-        administrationsLocales: { type: { id: {} } },
-        administrationsGestionnaires: { type: { id: {} } }
-      }
-    },
+    { fields: titreFields },
     user
   )
 
@@ -107,11 +137,11 @@ const titres = async (
   let contenu
 
   if (format === 'geojson') {
-    const elements = titresFormatGeojson(titresFormatted)
+    const elements = titresGeojsonFormat(titresFormatted)
 
     contenu = JSON.stringify(elements, null, 2)
   } else if (['csv', 'xlsx', 'ods'].includes(format)) {
-    const elements = titresFormatTable(titresFormatted)
+    const elements = titresTableFormat(titresFormatted)
 
     contenu = tableConvert('titres', elements, format)
   } else {
@@ -443,4 +473,4 @@ const entreprises = async (
     : null
 }
 
-export { titres, demarches, activites, utilisateurs, entreprises }
+export { titre, titres, demarches, activites, utilisateurs, entreprises }
