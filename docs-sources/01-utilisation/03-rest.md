@@ -28,7 +28,7 @@ Retourne un titre.
 
 #### Paramètres
 
-- `format` : format des données (`geojson` par défaut)
+- `format` : format des données (`geojson` uniquement)
 - `id` : identifiant du titre
 
 ### `/titres`
