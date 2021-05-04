@@ -1,3 +1,16 @@
+# import * from 'scalars.graphql'
+# import * from 'administrations.graphql'
+# import * from 'entreprises.graphql'
+# import * from 'titres-demarches.graphql'
+# import * from 'metas.graphql'
+# import * from 'substances.graphql'
+# import * from 'points.graphql'
+# import * from 'geojsons.graphql'
+# import * from 'points.graphql'
+# import * from 'territoires.graphql'
+# import * from 'titres-activites.graphql'
+# import * from 'titres-travaux.graphql'
+
 type Titres {
   elements: [Titre]
   page: Int

@@ -69,6 +69,7 @@ const restify = (resolver: IRestResolver) => async (
 
       res.sendFile(filePath, options, err => {
         if (err) console.error(`erreur de téléchargement ${err}`)
+        res.status(404).end()
       })
     } else {
       res.send(contenu)

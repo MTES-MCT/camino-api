@@ -1,3 +1,7 @@
+# import * from 'titres.graphql'
+# import * from 'titres-etapes.graphql'
+# import * from 'metas.graphql'
+
 type Demarches {
   elements: [Demarche]
   page: Int

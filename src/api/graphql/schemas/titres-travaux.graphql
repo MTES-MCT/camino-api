@@ -1,3 +1,8 @@
+# import * from 'titres.graphql'
+# import * from 'metas.graphql'
+# import * from 'metas-travaux.graphql'
+# import * from 'titres-travaux-etapes.graphql'
+
 type Travaux {
   elements: [Travail]
   page: Int

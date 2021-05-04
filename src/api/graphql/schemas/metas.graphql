@@ -1,3 +1,6 @@
+# import * from 'scalars.graphql'
+# import * from 'metas.graphql'
+
 "Domaine minier"
 type Domaine {
   "Id composée d'une seule lettre"
@@ -246,12 +249,6 @@ type Definition {
   couleur: Couleur
   ordre: Int
   elements: [Definition]
-}
-
-type Permission {
-  id: ID!
-  nom: String
-  ordre: Int!
 }
 
 type TitreTypeTitreStatut {

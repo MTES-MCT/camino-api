@@ -1,3 +1,4 @@
+# import * from 'scalars.graphql'
 # import * from 'administrations.graphql'
 # import * from 'calendrier.graphql'
 # import * from 'documents.graphql'
@@ -15,14 +16,8 @@
 # import * from 'titres-etapes.graphql'
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
-# import * from 'titres-travaux-demarches.graphql'
+# import * from 'titres-travaux.graphql'
 # import * from 'titres-travaux-etapes.graphql'
-
-"Type du contenu json"
-scalar Json
-
-"Type du fichier"
-scalar FileUpload
 
 """
 # API de Camino

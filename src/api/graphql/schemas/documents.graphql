@@ -1,3 +1,8 @@
+# import * from 'entreprises.graphql'
+# import * from 'metas.graphql'
+# import * from 'titres-etapes.graphql'
+# import * from 'scalars.graphql'
+
 "Document attaché à une étape de démarche"
 type Document {
   """

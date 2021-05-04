@@ -1,10 +1,12 @@
-type Utilisateurs {
-  elements: [Utilisateur]
-  intervalle: Int
-  page: Int
-  colonne: String
-  ordre: String
-  total: Int
+# import * from 'scalars.graphql'
+# import * from 'administrations.graphql'
+# import * from 'entreprises.graphql'
+# import * from 'metas.graphql'
+
+type Permission {
+  id: ID!
+  nom: String
+  ordre: Int!
 }
 
 type Utilisateur {
@@ -26,6 +28,15 @@ type Utilisateur {
   utilisateursCreation: Boolean
 
   sections: Sections
+}
+
+type Utilisateurs {
+  elements: [Utilisateur]
+  intervalle: Int
+  page: Int
+  colonne: String
+  ordre: String
+  total: Int
 }
 
 type Sections {

@@ -1,0 +1,5 @@
+"Type du contenu json"
+scalar Json
+
+"Type du fichier"
+scalar FileUpload

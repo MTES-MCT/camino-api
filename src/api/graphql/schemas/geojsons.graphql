@@ -1,3 +1,6 @@
+# import * from 'titres-etapes.graphql'
+# import * from 'points.graphql'
+
 type GeojsonMultiPolygon {
   type: FeatureType!
   properties: EtapeId!

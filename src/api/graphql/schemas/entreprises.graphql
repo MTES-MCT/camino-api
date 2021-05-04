@@ -1,3 +1,7 @@
+# import * from 'utilisateurs.graphql'
+# import * from 'titres.graphql'
+# import * from 'documents.graphql'
+
 type Entreprises {
   elements: [Entreprise]
   intervalle: Int

@@ -1,3 +1,5 @@
+# import * from 'metas.graphql'
+
 type TravauxType {
   id: ID!
   nom: String!

@@ -1,3 +1,8 @@
+# import * from 'scalars.graphql'
+# import * from 'titres.graphql'
+# import * from 'documents.graphql'
+# import * from 'metas-activites.graphql'
+
 type Activites {
   elements: [Activite]
   page: Int
