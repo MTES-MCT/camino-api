@@ -12,10 +12,11 @@ const titreFormatGeojson = (titre: ITitre) => ({
     id: titre.id,
     nom: titre.nom
   },
-  features: cloneAndClean([
-    titre.geojsonMultiPolygon,
-    ...titre.geojsonPoints?.features!
-  ])
+  features: cloneAndClean(
+    [titre.geojsonMultiPolygon].concat(
+      titre.geojsonPoints ? titre.geojsonPoints.features : []
+    )
+  )
 })
 
 export { titreFormatGeojson }

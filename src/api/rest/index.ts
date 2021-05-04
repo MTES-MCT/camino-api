@@ -38,7 +38,7 @@ const formatCheck = (formats: string[], format: string) => {
 
 interface ITitreQueryInput {
   format?: IFormat
-  id: string
+  id?: string | null
 }
 
 const titre = async (
@@ -50,7 +50,7 @@ const titre = async (
   formatCheck(['geojson'], format)
 
   const titre = await titreGet(
-    id,
+    id!,
     {
       fields: {
         type: { type: { id: {} } },
