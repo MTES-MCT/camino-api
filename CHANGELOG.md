@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.81](https://github.com/MTES-MCT/camino-api/compare/v0.24.80...v0.24.81) (2021-05-04)
+
+
+### Features
+
+* **activités:** créé des activités pour les titres échus dont la dernière démarche est déposée ([#739](https://github.com/MTES-MCT/camino-api/issues/739)) ([aab4ede](https://github.com/MTES-MCT/camino-api/commit/aab4ede825dbd37afdc70aea6e97e5ebb0e26532))
+* **demande:** fusionne les étapes de demande et de dépot de demande ([#738](https://github.com/MTES-MCT/camino-api/issues/738)) ([f1a55c5](https://github.com/MTES-MCT/camino-api/commit/f1a55c5810ff72e69c622e40d609c510b4c011c7))
+
 ### [0.24.80](https://github.com/MTES-MCT/camino-api/compare/v0.24.79...v0.24.80) (2021-04-27)
 
 
