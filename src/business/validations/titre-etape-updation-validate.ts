@@ -88,7 +88,7 @@ const titreEtapeUpdationValidate = async (
     if (sections.length) {
       sections.forEach(s =>
         s.elements?.forEach(e => {
-          if (!e.optionnel) {
+          if (!e.optionnel && !['radio', 'checkbox'].includes(e.type)) {
             if (
               !titreEtape.contenu ||
               titreEtape.contenu[s.id][e.id] === undefined ||

@@ -10,6 +10,10 @@ const titreSectionElementFormat = (element: ISectionElement) => {
     delete element.valeursMetasNom
   }
 
+  if (['radio', 'checkbox'].includes(element.type)) {
+    element.optionnel = false
+  }
+
   return element
 }
 
