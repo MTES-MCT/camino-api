@@ -21,8 +21,11 @@ import { entrepriseFormat } from '../_format/entreprises'
 import { tableConvert } from './_convert'
 import { fileNameCreate } from '../../tools/file-name-create'
 
-import { titreFormatGeojson } from './format/titre'
-import { titresFormatGeojson, titresFormatTable } from './format/titres'
+import {
+  titresGeojsonFormat,
+  titreGeojsonFormat,
+  titresTableFormat
+} from './format/titres'
 import { titresDemarchesFormatTable } from './format/titres-demarches'
 import { titresActivitesFormatTable } from './format/titres-activites'
 import { utilisateursFormatTable } from './format/utilisateurs'
@@ -41,6 +44,22 @@ interface ITitreQueryInput {
   id?: string | null
 }
 
+const titreFields = {
+  type: { type: { id: {} } },
+  domaine: { id: {} },
+  statut: { id: {} },
+  references: { type: { id: {} } },
+  substances: { legales: { id: {} } },
+  titulaires: { id: {} },
+  amodiataires: { id: {} },
+  surfaceEtape: { id: {} },
+  points: { id: {} },
+  communes: { departement: { region: { pays: { id: {} } } } },
+  forets: { id: {} },
+  administrationsLocales: { type: { id: {} } },
+  administrationsGestionnaires: { type: { id: {} } }
+}
+
 const titre = async (
   { format = 'geojson', id }: ITitreQueryInput,
   userId?: string
@@ -49,22 +68,11 @@ const titre = async (
 
   formatCheck(['geojson'], format)
 
-  const titre = await titreGet(
-    id!,
-    {
-      fields: {
-        points: { references: { geoSysteme: { unite: { id: {} } } } }
-      }
-    },
-    user
-  )
+  const titre = await titreGet(id!, { fields: titreFields }, user)
 
-  const titreFormatted = titreFormat(titre, {
-    geojsonMultiPolygon: {},
-    geojsonPoints: {}
-  })
+  const titreFormatted = titreFormat(titre)
 
-  const titreGeojson = titreFormatGeojson(titreFormatted)
+  const titreGeojson = titreGeojsonFormat(titreFormatted)
 
   return {
     nom: fileNameCreate(titre.id, format),
@@ -120,23 +128,7 @@ const titres = async (
       references,
       territoires
     },
-    {
-      fields: {
-        type: { type: { id: {} } },
-        domaine: { id: {} },
-        statut: { id: {} },
-        references: { type: { id: {} } },
-        substances: { legales: { id: {} } },
-        titulaires: { id: {} },
-        amodiataires: { id: {} },
-        surfaceEtape: { id: {} },
-        points: { id: {} },
-        communes: { departement: { region: { pays: { id: {} } } } },
-        forets: { id: {} },
-        administrationsLocales: { type: { id: {} } },
-        administrationsGestionnaires: { type: { id: {} } }
-      }
-    },
+    { fields: titreFields },
     user
   )
 
@@ -145,11 +137,11 @@ const titres = async (
   let contenu
 
   if (format === 'geojson') {
-    const elements = titresFormatGeojson(titresFormatted)
+    const elements = titresGeojsonFormat(titresFormatted)
 
     contenu = JSON.stringify(elements, null, 2)
   } else if (['csv', 'xlsx', 'ods'].includes(format)) {
-    const elements = titresFormatTable(titresFormatted)
+    const elements = titresTableFormat(titresFormatted)
 
     contenu = tableConvert('titres', elements, format)
   } else {
