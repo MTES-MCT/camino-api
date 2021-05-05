@@ -4,7 +4,8 @@ import {
   IEntreprise,
   IFields,
   IUtilisateur,
-  IEntrepriseColonneId
+  IEntrepriseColonneId,
+  IEntrepriseTitreType
 } from '../../types'
 
 import options from './_options'
@@ -14,6 +15,7 @@ import { stringSplit } from './_utils'
 
 import Entreprises from '../models/entreprises'
 import { entreprisesQueryModify } from './permissions/entreprises'
+import EntreprisesTitresTypes from '../models/entreprises-titres-types'
 
 const entreprisesFiltersQueryModify = (
   {
@@ -163,11 +165,25 @@ const entrepriseUpsert = async (entreprise: IEntreprise) =>
 const entrepriseDelete = async (id: string) =>
   Entreprises.query().deleteById(id).first().returning('*')
 
+const entrepriseTitreTypeUpsert = async (
+  entrepriseTitreType: IEntrepriseTitreType
+) =>
+  EntreprisesTitresTypes.query().upsertGraph(entrepriseTitreType, {
+    insertMissing: true
+  })
+
+const entrepriseTitreTypeDelete = async (
+  entrepriseId: string,
+  titreTypeId: string
+) => EntreprisesTitresTypes.query().deleteById([entrepriseId, titreTypeId])
+
 export {
   entrepriseGet,
   entreprisesGet,
   entreprisesCount,
   entreprisesUpsert,
   entrepriseUpsert,
-  entrepriseDelete
+  entrepriseDelete,
+  entrepriseTitreTypeUpsert,
+  entrepriseTitreTypeDelete
 }

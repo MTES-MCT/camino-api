@@ -1,48 +1,3 @@
-const documentsRelateTrue = ['type']
-const documentsRelateFalse = [] as string[]
-
-const documents = {
-  graph: `[type, etapesAssociees]`,
-  update: {
-    insertMissing: true,
-    relate: documentsRelateTrue,
-    unrelate: documentsRelateFalse
-  }
-}
-
-const entreprisesEtablissements = {
-  update: { insertMissing: true }
-}
-
-const entreprisesRelateTrue = [] as string[]
-const entreprisesRelateFalse = [
-  ...documentsRelateFalse.map(k => `documents.${k}`)
-]
-
-const entreprises = {
-  graph: `[utilisateurs.permission, etablissements(orderDesc), documents.${documents.graph}]`,
-  update: {
-    insertMissing: true,
-    relate: entreprisesRelateTrue,
-    unrelate: entreprisesRelateTrue
-  }
-}
-
-const utilisateursRelateTrue = ['permission', 'administrations', 'entreprises']
-
-const utilisateursRelateFalse = [
-  ...entreprisesRelateFalse.map(k => `entreprises.${k}`)
-]
-
-const utilisateurs = {
-  graph: `[permission, administrations.[titresTypes, activitesTypes], entreprises.etablissements]`,
-  update: {
-    relate: utilisateursRelateTrue,
-    unrelate: utilisateursRelateTrue,
-    noDelete: utilisateursRelateFalse
-  }
-}
-
 const substances = {
   graph: `legales.[code, domaine]`
 }
@@ -85,6 +40,51 @@ const travauxTypes = {
 
 const titresTypes = {
   graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
+}
+
+const documentsRelateTrue = ['type']
+const documentsRelateFalse = [] as string[]
+
+const documents = {
+  graph: `[type, etapesAssociees]`,
+  update: {
+    insertMissing: true,
+    relate: documentsRelateTrue,
+    unrelate: documentsRelateFalse
+  }
+}
+
+const entreprisesEtablissements = {
+  update: { insertMissing: true }
+}
+
+const entreprisesRelateTrue = [] as string[]
+const entreprisesRelateFalse = [
+  ...documentsRelateFalse.map(k => `documents.${k}`)
+]
+
+const entreprises = {
+  graph: `[utilisateurs.permission, etablissements(orderDesc), documents.${documents.graph}, titresTypes.${titresTypes.graph}]`,
+  update: {
+    insertMissing: true,
+    relate: entreprisesRelateTrue,
+    unrelate: entreprisesRelateTrue
+  }
+}
+
+const utilisateursRelateTrue = ['permission', 'administrations', 'entreprises']
+
+const utilisateursRelateFalse = [
+  ...entreprisesRelateFalse.map(k => `entreprises.${k}`)
+]
+
+const utilisateurs = {
+  graph: `[permission, administrations.[titresTypes, activitesTypes], entreprises.etablissements]`,
+  update: {
+    relate: utilisateursRelateTrue,
+    unrelate: utilisateursRelateTrue,
+    noDelete: utilisateursRelateFalse
+  }
 }
 
 const administrationsRelateTrue = [
