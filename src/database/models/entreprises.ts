@@ -88,6 +88,20 @@ class Entreprises extends Model {
         from: 'entreprises.id',
         to: 'documents.entrepriseId'
       }
+    },
+
+    titresTypes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'titres-types'),
+      join: {
+        from: 'entreprises.id',
+        through: {
+          from: 'entreprises__titresTypes.entrepriseId',
+          to: 'entreprises__titresTypes.titreTypeId',
+          extra: ['titresCreation']
+        },
+        to: 'titresTypes.id'
+      }
     }
   }
 

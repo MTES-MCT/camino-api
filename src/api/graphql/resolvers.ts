@@ -168,7 +168,8 @@ import {
   entreprise,
   entreprises,
   entrepriseCreer,
-  entrepriseModifier
+  entrepriseModifier,
+  entrepriseTitreTypeModifier
 } from './resolvers/entreprises'
 import {
   administration,
@@ -300,6 +301,7 @@ export default {
   utilisateurEmailModifier,
   entrepriseCreer,
   entrepriseModifier,
+  entrepriseTitreTypeModifier,
   administrationModifier,
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,

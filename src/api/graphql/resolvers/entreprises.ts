@@ -1,4 +1,9 @@
-import { IEntreprise, IEntrepriseColonneId, IToken } from '../../../types'
+import {
+  IEntreprise,
+  IEntrepriseColonneId,
+  IEntrepriseTitreType,
+  IToken
+} from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
@@ -6,6 +11,8 @@ import {
   entrepriseGet,
   entreprisesCount,
   entreprisesGet,
+  entrepriseTitreTypeDelete,
+  entrepriseTitreTypeUpsert,
   entrepriseUpsert
 } from '../../../database/queries/entreprises'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
@@ -16,6 +23,7 @@ import { entrepriseFormat } from '../../_format/entreprises'
 import { emailCheck } from '../../../tools/email-check'
 import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
 import { userGet } from '../../../database/queries/utilisateurs'
+import { permissionCheck } from '../../../tools/permission'
 
 const entreprise = async (
   { id }: { id: string },
@@ -232,4 +240,47 @@ const entrepriseModifier = async (
   }
 }
 
-export { entreprise, entreprises, entrepriseCreer, entrepriseModifier }
+const entrepriseTitreTypeModifier = async (
+  { entrepriseTitreType }: { entrepriseTitreType: IEntrepriseTitreType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (!entrepriseTitreType.titresCreation) {
+      await entrepriseTitreTypeDelete(
+        entrepriseTitreType.entrepriseId,
+        entrepriseTitreType.titreTypeId
+      )
+    } else {
+      await entrepriseTitreTypeUpsert(entrepriseTitreType)
+    }
+
+    return await entrepriseGet(
+      entrepriseTitreType.entrepriseId,
+      { fields },
+      user
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export {
+  entreprise,
+  entreprises,
+  entrepriseCreer,
+  entrepriseModifier,
+  entrepriseTitreTypeModifier
+}

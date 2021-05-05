@@ -1,6 +1,7 @@
 # import * from 'utilisateurs.graphql'
 # import * from 'titres.graphql'
 # import * from 'documents.graphql'
+# import * from 'metas.graphql'
 
 type Entreprises {
   elements: [Entreprise]
@@ -32,6 +33,9 @@ type Entreprise {
   titulaireTitres: [Titre]
   amodiataireTitres: [Titre]
   documents: [Document]
+
+  titresTypes: [TitreType]
+
   archive: Boolean
   operateur: Boolean
 
@@ -82,4 +86,10 @@ input InputEntrepriseModification {
   telephone: String
   email: String
   archive: Boolean
+}
+
+input InputEntrepriseTitreType {
+  entrepriseId: ID!
+  titreTypeId: ID!
+  titresCreation: Boolean
 }

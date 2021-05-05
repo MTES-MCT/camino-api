@@ -307,6 +307,12 @@ interface ITitreEntreprise extends IEntreprise {
   operateur?: boolean
 }
 
+interface IEntrepriseTitreType {
+  entrepriseId: string
+  titreTypeId: string
+  titresCreation: boolean
+}
+
 interface IEtapeStatut {
   id: string
   nom: string
@@ -1005,6 +1011,7 @@ export {
   IDomaine,
   IEntreprise,
   IEntrepriseEtablissement,
+  IEntrepriseTitreType,
   IEtapeStatut,
   IEtapeType,
   IForet,

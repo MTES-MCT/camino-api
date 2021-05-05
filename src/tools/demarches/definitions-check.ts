@@ -146,7 +146,7 @@ const demarchesValidate = async () => {
                 `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errs}`
               )
 
-              // console.log(
+              // console.info(
               //   '[',
               //   demarche
               //     .etapes!.map(

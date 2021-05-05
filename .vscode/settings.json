@@ -3,7 +3,7 @@
     "source.fixAll.eslint": true
   },
   "eslint.alwaysShowStatus": true,
-  "javascript.implicitProjectConfig.checkJs": true,
+  "js/ts.implicitProjectConfig.checkJs": true,
   "peacock.affectActivityBar": true,
   "peacock.affectStatusBar": true,
   "peacock.color": "#215732",

@@ -361,6 +361,10 @@ type Mutation {
     administrationActiviteType: InputAdministrationActiviteType!
   ): Administration
 
+  entrepriseTitreTypeModifier(
+    entrepriseTitreType: InputEntrepriseTitreType!
+  ): Entreprise
+
   "Crée une démarche de travaux et met à jour le titre minier"
   travauxCreer(travaux: InputTravauxCreation!): Titre
 

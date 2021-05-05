@@ -117,7 +117,7 @@ const main = async () => {
           // https://camino.beta.gouv.fr/titres/m-ar-crique-bamba-0620-2020 octroi
           // https://camino.beta.gouv.fr/titres/m-ax-crique-mousse-2019-8baef841 octroi
 
-          console.log(
+          console.info(
             `https://camino.beta.gouv.fr/titres/${demarche.titreId}, ${
               demarche.type!.nom
             }`

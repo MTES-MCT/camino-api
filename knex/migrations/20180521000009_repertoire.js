@@ -39,6 +39,22 @@ exports.up = knex =>
         .notNullable()
       table.primary(['documentTypeId'])
     })
+    .createTable('entreprises__titresTypes', table => {
+      table
+        .string('entrepriseId')
+        .index()
+        .references('entreprises.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
+        .notNullable()
+      table
+        .string('titreTypeId')
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
+      table.boolean('titresCreation')
+      table.primary(['entrepriseId', 'titreTypeId'])
+    })
     .createTable('administrationsTypes', table => {
       table.string('id', 64).primary()
       table.string('nom').notNullable()

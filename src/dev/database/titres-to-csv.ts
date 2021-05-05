@@ -15,7 +15,7 @@ async function main() {
 
   await fileCreate('titres-echus.csv', fileContent)
 
-  console.log(`fichier créé avec ${titres.length} lignes`)
+  console.info(`fichier créé avec ${titres.length} lignes`)
   process.exit(0)
 }
 
