@@ -1,17 +1,24 @@
 import { IFields } from '../../../types'
 
+const fieldsEntreprisesTitresCreationAdd = (fields: IFields = {}) => {
+  if (!fields.titresTypes) {
+    fields.titresTypes = { id: {} }
+  }
+
+  return fields
+}
+
 // ajoute les champs nécessaire pour obtenir le sous-objet titre
 // pour vérifier si l'utilisateur a les droits sur les titres
 const fieldsTitreAdd = (fields: IFields) => {
   if (!fields.titre) {
     fields.titre = {
-      id: {},
-      nom: {}
+      id: {}
     }
   }
 
   if (!fields.titre.type) {
-    fields.titre.type = { id: {}, type: { nom: {} } }
+    fields.titre.type = { id: {}, type: { id: {} } }
   }
 
   if (!fields.titre.type.autorisationsTitresStatuts) {
@@ -19,11 +26,11 @@ const fieldsTitreAdd = (fields: IFields) => {
   }
 
   if (!fields.titre.domaine) {
-    fields.titre.domaine = { id: {}, nom: {} }
+    fields.titre.domaine = { id: {} }
   }
 
   if (!fields.titre.statut) {
-    fields.titre.statut = { id: {}, nom: {} }
+    fields.titre.statut = { id: {} }
   }
 
   if (!fields.titre.titulaires) {
@@ -88,4 +95,4 @@ const titresFieldsAdd = (fields: IFields) => {
   return fields
 }
 
-export { fieldsTitreAdd, titresFieldsAdd }
+export { fieldsTitreAdd, titresFieldsAdd, fieldsEntreprisesTitresCreationAdd }

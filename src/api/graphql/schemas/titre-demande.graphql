@@ -1,0 +1,11 @@
+type TitreDemandeIds {
+  titreId: ID!
+  titreEtapeId: ID!
+}
+
+input InputTitreDemande {
+  nom: String!
+  entrepriseId: ID!
+  titreTypeId: ID!
+  mecanise: Boolean
+}

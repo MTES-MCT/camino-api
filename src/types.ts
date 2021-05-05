@@ -298,6 +298,7 @@ interface IEntreprise {
   etablissements?: IEntrepriseEtablissement[] | null
   utilisateurs?: IUtilisateur[] | null
   titulaireTitres?: ITitre[] | null
+  titresTypes: ITitreType[]
   amodiataireTitres?: ITitre[] | null
   modification?: boolean | null
   archive?: boolean | null
@@ -981,6 +982,13 @@ interface IDefinition {
   elements?: IDefinition[]
 }
 
+interface ITitreDemande {
+  nom: string
+  titreTypeId: string
+  entrepriseId: string
+  mecanise?: boolean
+}
+
 export {
   Index,
   IFields,
@@ -1097,5 +1105,6 @@ export {
   IHeritageContenu,
   ICache,
   ICacheId,
-  IActiviteTypePays
+  IActiviteTypePays,
+  ITitreDemande
 }

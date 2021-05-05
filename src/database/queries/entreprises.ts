@@ -16,6 +16,9 @@ import { stringSplit } from './_utils'
 import Entreprises from '../models/entreprises'
 import { entreprisesQueryModify } from './permissions/entreprises'
 import EntreprisesTitresTypes from '../models/entreprises-titres-types'
+import { permissionCheck } from '../../tools/permission'
+import { fieldsEntreprisesTitresCreationAdd } from './graph/fields-add'
+import { utilisateurGet } from './utilisateurs'
 
 const entreprisesFiltersQueryModify = (
   {
@@ -177,6 +180,32 @@ const entrepriseTitreTypeDelete = async (
   titreTypeId: string
 ) => EntreprisesTitresTypes.query().deleteById([entrepriseId, titreTypeId])
 
+const titreDemandeEntreprisesGet = async (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  if (!user) return []
+  let entreprises = [] as IEntreprise[]
+
+  if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
+    entreprises = await entreprisesGet({ archive: false }, { fields }, user)
+  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
+    const utilisateur = await utilisateurGet(
+      user.id,
+      { fields: { entreprises: fieldsEntreprisesTitresCreationAdd(fields) } },
+      user
+    )
+
+    if (utilisateur.entreprises) {
+      entreprises = utilisateur.entreprises.filter(e =>
+        e.titresTypes.some(tt => tt.titresCreation)
+      )
+    }
+  }
+
+  return entreprises
+}
+
 export {
   entrepriseGet,
   entreprisesGet,
@@ -185,5 +214,6 @@ export {
   entrepriseUpsert,
   entrepriseDelete,
   entrepriseTitreTypeUpsert,
-  entrepriseTitreTypeDelete
+  entrepriseTitreTypeDelete,
+  titreDemandeEntreprisesGet
 }

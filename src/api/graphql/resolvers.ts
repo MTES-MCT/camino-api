@@ -169,7 +169,8 @@ import {
   entreprises,
   entrepriseCreer,
   entrepriseModifier,
-  entrepriseTitreTypeModifier
+  entrepriseTitreTypeModifier,
+  entreprisesTitresCreation
 } from './resolvers/entreprises'
 import {
   administration,
@@ -202,6 +203,8 @@ import {
   travauxEtapeModifier,
   travauxEtapeSupprimer
 } from './resolvers/titres-travaux-etapes'
+
+import { titreDemandeCreer } from './resolvers/titre-demande'
 
 export default {
   //  types
@@ -302,6 +305,7 @@ export default {
   entrepriseCreer,
   entrepriseModifier,
   entrepriseTitreTypeModifier,
+  entreprisesTitresCreation,
   administrationModifier,
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,
@@ -374,5 +378,7 @@ export default {
   activiteTypeDocumentTypeModifier,
   activiteTypeDocumentTypeSupprimer,
   activiteTypePaysCreer,
-  activiteTypePaysSupprimer
+  activiteTypePaysSupprimer,
+
+  titreDemandeCreer
 }
