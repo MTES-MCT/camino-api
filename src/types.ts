@@ -298,7 +298,7 @@ interface IEntreprise {
   etablissements?: IEntrepriseEtablissement[] | null
   utilisateurs?: IUtilisateur[] | null
   titulaireTitres?: ITitre[] | null
-  titresTypes: ITitreType[]
+  titresTypes?: ITitreType[]
   amodiataireTitres?: ITitre[] | null
   modification?: boolean | null
   archive?: boolean | null
@@ -984,7 +984,8 @@ interface IDefinition {
 
 interface ITitreDemande {
   nom: string
-  titreTypeId: string
+  typeId: string
+  domaineId: string
   entrepriseId: string
   mecanise?: boolean
 }

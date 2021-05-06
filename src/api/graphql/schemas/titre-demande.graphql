@@ -6,6 +6,7 @@ type TitreDemandeIds {
 input InputTitreDemande {
   nom: String!
   entrepriseId: ID!
-  titreTypeId: ID!
+  domaineId: ID!
+  typeId: ID!
   mecanise: Boolean
 }

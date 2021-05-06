@@ -344,6 +344,5 @@ export {
   domainesQueryModify,
   administrationsEtapesTypesPropsQuery,
   etapesTypesQueryModify,
-  permissionsQueryModify,
-  titresTypesQueryModify
+  permissionsQueryModify
 }

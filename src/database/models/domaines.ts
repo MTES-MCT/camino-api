@@ -28,6 +28,20 @@ class Domaines extends Model {
         to: 'titresTypes.domaineId'
       }
     }
+
+    // ça pourrait servir, mais…
+    // types: {
+    //   relation: Model.HasManyRelation,
+    //   modelClass: join(__dirname, 'titres-types-types'),
+    //   join: {
+    //     from: 'domaines.id',
+    //     through: {
+    //       from: 'titresTypes.domaineId',
+    //       to: 'titresTypes.typeId'
+    //     },
+    //     to: 'titresTypesTypes.id'
+    //   }
+    // }
   }
 
   public static modifiers: Modifiers = {

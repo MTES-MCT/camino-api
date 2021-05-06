@@ -185,25 +185,26 @@ const titreDemandeEntreprisesGet = async (
   user: IUtilisateur | null
 ) => {
   if (!user) return []
-  let entreprises = [] as IEntreprise[]
 
   if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
-    entreprises = await entreprisesGet({ archive: false }, { fields }, user)
-  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
+    return entreprisesGet({ archive: false }, { fields }, user)
+  }
+
+  if (permissionCheck(user?.permissionId, ['entreprise'])) {
     const utilisateur = await utilisateurGet(
       user.id,
       { fields: { entreprises: fieldsEntreprisesTitresCreationAdd(fields) } },
       user
     )
 
-    if (utilisateur.entreprises) {
-      entreprises = utilisateur.entreprises.filter(e =>
-        e.titresTypes.some(tt => tt.titresCreation)
-      )
-    }
+    if (!utilisateur.entreprises) return []
+
+    return utilisateur.entreprises.filter(e =>
+      e.titresTypes!.some(tt => tt.titresCreation)
+    )
   }
 
-  return entreprises
+  return []
 }
 
 export {
