@@ -220,7 +220,7 @@ describe('etapeCreer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'une demande mécanisée doit être mécanisée, l’élément "Prospection mécanisée" de la section "Caractéristiques ARM" est obligatoire, l’élément "Matériel" de la section "Caractéristiques ARM" est obligatoire'
+      'une demande mécanisée doit être mécanisée, l’élément "Matériel" de la section "Caractéristiques ARM" est obligatoire'
     )
   })
 

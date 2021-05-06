@@ -1532,14 +1532,12 @@
             "id": "entreprise",
             "nom": "Entreprise",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'entreprise porteuse de la demande est identifiées (extrait Kbis de moins d’un an, déclaration INSEE du statut d’Auto Entrepreneur, justificatif de création de société en cours, (présence code SIRET et APE)."
           },
           {
             "id": "representantLegal",
             "nom": "Représentant légal",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le réprésentant légal de l'entité porteuse de la demande est identifié (Identité, coordonnées, justificatif d'identité - CNI / passeport / carte de résident en cours de validité)."
           },
           {
@@ -1559,63 +1557,54 @@
             "id": "nomSecteur",
             "nom": "Nom de secteur",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le nom de secteur est cohérent avec l'appellation courante de l'ARM."
           },
           {
             "id": "duree",
             "nom": "Durée",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'autorisation est demandée pour une durée maximum de 4 mois à compter de la date de l'autorisation."
           },
           {
             "id": "surfaceDemandee",
             "nom": "Surfaces demandées",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Les surfaces demandées n'excéde pas 3 km², sous la forme de 1 à 3 carrés ou rectangles d'une superficie de 1 km² chacun, tous situés sur le même bassin versant. Les carrés mesurent 1 km de côté et les rectangles 0,5 km de largeur et 2 km de longueur. L'espacement de leurs centres n'est pas supérieur à 4 km."
           },
           {
             "id": "surfaceMaximumDetenue",
             "nom": "Surfaces maximum détenues",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'opérateur ne détient pas d'autorisation de recherches sur une surface supérieure à 3 km²."
           },
           {
             "id": "localisationPerimetres",
             "nom": "Localisation des périmètres",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Les périmètres est transmis dans un fichier numérique réutilisable (au format \".geojson\"). Le système de coordonnées légal en vigueur est le RGFG95 (ESPG: 2972) avec une précision métrique."
           },
           {
             "id": "cheminements",
             "nom": "Cheminements prévisionnels à emprunter",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Ces tracés sont élaborés uniquement à partir du réseau carrossable, jusqu'à et à l'intérieur de l'ARM."
           },
           {
             "id": "localisationCheminements",
             "nom": "Localisation des cheminements prévisionnels à emprunter",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'ensemble de ces tracés est transmis dans un fichier numérique réutilisable (au format \".geojson\"). Le système de coordonnées légal en vigueur est le RGFG95 (ESPG: 2972) avec une précision métrique."
           },
           {
             "id": "carte500000",
             "nom": "Carte synthétique 1/500 000",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le document cartographique inclut les périmètres demandés"
           },
           {
             "id": "carte50000",
             "nom": "Carte synthétique 1/50 000",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le document cartographique inclut les périmètres demandés, le tracé des cheminements prévisionnels à emprunter, la position des points de franchissement."
           },
           {
@@ -1635,49 +1624,42 @@
             "id": "descriptionProjet",
             "nom": "Description du projet de recherches minières mécanisées",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le projet de recherches minières est décrit : le programme de prospection, les méthodes de travail projetées, les moyens techniques mobilisés, les moyens humains employés."
           },
           {
             "id": "recepisseLSE",
             "nom": "Récépissé de déclaration loi sur l'eau",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'étape de récépissé de déclaration loi sur l'eau est présente et favorable."
           },
           {
             "id": "recepisseCasParCas",
             "nom": "Décision d'examen au cas par cas",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'étape de décision dans le cadre de l'examen au cas par cas est présente et favorable."
           },
           {
             "id": "franchissementsCoursDeau",
             "nom": "Franchissements de cours d'eau",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Les franchissements de cours d'eau sont indiqués."
           },
           {
             "id": "localisationPointsFranchissementsCoursDeau",
             "nom": "Localisation des points de franchissement de cours d'eau",
             "type": "checkbox",
-            "optionnel": true,
             "description": "L'ensemble de ces point est transmis dans un fichier numérique réutilisable (au format \".geojson\"). Le système de coordonnées légal en vigueur est le RGFG95 (ESPG: 2972) avec une précision métrique."
           },
           {
             "id": "descriptionMateriel",
             "nom": "Description du matériel",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le matériel utilisé et son origine (acquisition, location) sont décrits."
           },
           {
             "id": "tonnageMaximum",
             "nom": "Tonnage maximum autorisé",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le tonnage maximum des pelles mécaniques autorisées fixé à 21 tonnes est respecté."
           },
           {
@@ -1697,14 +1679,12 @@
             "id": "justificatifsCapacitesTechniques",
             "nom": "Justificatifs des capacités techniques",
             "type": "checkbox",
-            "optionnel": true,
             "description": "La justification des capacités techniques s'appuie sur la présentation de l'activité professionnelle actuelle et les références professionnelles en matière minière du demandeur (curriculum vitae, ou à défaut, les formations suivies). S'il s'agit d'une personne morale les références professionnelles des cadres chargés du suivi et de la conduite des travaux sont présentées."
           },
           {
             "id": "responsableTravaux",
             "nom": "Responsable des travaux",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le responsable des travaux est identifié (Identité, coordonnées, justificatif d'identité - CNI / passeport / carte de résident en cours de validité)."
           },
           {
@@ -1724,21 +1704,18 @@
             "id": "planFinancement",
             "nom": "Plan de financement",
             "type": "checkbox",
-            "optionnel": true,
             "description": "Le plan inclut le montant de la dépense totale envisagée en euros pour conduire la prospection et le plan prévisionnel de financement associé."
           },
           {
             "id": "justificationCapacitesFinancieres",
             "nom": "Justificatifs des capacités financières",
             "type": "checkbox",
-            "optionnel": true,
             "description": "La démonstration des capacités financières à exercer une activité d'exploration comporte la justification des ressources financières disponibles correspondant au plan de financement."
           },
           {
             "id": "justificatifSituationFiscale",
             "nom": "Justificatif de situation fiscale",
             "type": "checkbox",
-            "optionnel": true,
             "description": "La justification de situation fiscale régulière est présentée (attestation ou justificatif des services fiscaux, déclaration unique DGFIP, moratoire accordé par la même autorité) excepté pour les sociétés créées dans l'année."
           },
           {
@@ -1803,7 +1780,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": false,
             "description": ""
           },
           {
@@ -1869,7 +1845,7 @@
               {
                 "id": "tonnage",
                 "nom": "Tonnage",
-                "type": "integer",
+                "type": "number",
                 "optionnel": true,
                 "description": "Le tonnage maximum autorisé est fixé à 21 tonnes."
               },
@@ -1967,7 +1943,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": true,
             "description": ""
           },
           {
@@ -1995,7 +1970,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": true,
             "description": ""
           },
           {
@@ -2035,7 +2009,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": true,
             "description": ""
           },
           {
@@ -2084,7 +2057,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": true,
             "description": ""
           }
         ]
@@ -2105,7 +2077,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": true,
             "description": ""
           },
           {
@@ -2157,7 +2128,6 @@
             "id": "mecanise",
             "nom": "Prospection mécanisée",
             "type": "radio",
-            "optionnel": true,
             "description": ""
           },
           {
@@ -2196,8 +2166,7 @@
           {
             "id": "mecanise",
             "nom": "Prospection mécanisée",
-            "type": "radio",
-            "optionnel": true
+            "type": "radio"
           }
         ]
       },
@@ -11924,6 +11893,12 @@
     "ordre": 1100,
     "demarche_type_id": "pr1",
     "etape_type_id": "css"
+  },
+  {
+    "titre_type_id": "prh",
+    "ordre": 150,
+    "demarche_type_id": "pr1",
+    "etape_type_id": "des"
   },
   {
     "titre_type_id": "prh",
