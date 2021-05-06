@@ -2,13 +2,13 @@ import { ITitreDemarche, ITitreTypeTitreStatut } from '../../types'
 
 const titrePublicFind = (
   titreStatutId: string,
-  titresTypesStatuts: ITitreTypeTitreStatut[],
+  titresTypesTitresStatuts: ITitreTypeTitreStatut[],
   titreDemarches: ITitreDemarche[]
 ) => {
   const entreprisesLecture = true
   let publicLecture = false
 
-  const titreTypeTitreStatut = titresTypesStatuts.find(
+  const titreTypeTitreStatut = titresTypesTitresStatuts.find(
     a => a.titreStatutId === titreStatutId
   )
 

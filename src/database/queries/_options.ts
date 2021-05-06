@@ -39,7 +39,7 @@ const travauxTypes = {
 }
 
 const titresTypes = {
-  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, titresTypesTitresStatuts]`
 }
 
 const documentsRelateTrue = ['type']
@@ -188,7 +188,7 @@ const titresTypesRelateFalse = [
   'demarchesTypes.etapesTypes',
   'demarchesTypes.etapesTypes.etapesStatuts',
   'demarchesTypes.etapesTypes',
-  'autorisationsTitresStatuts'
+  'titresTypesTitresStatuts'
 ]
 
 const titresDemarchesRelateTrue = [

@@ -19,6 +19,7 @@ import EntreprisesTitresTypes from '../models/entreprises-titres-types'
 import { permissionCheck } from '../../tools/permission'
 import { fieldsEntreprisesTitresCreationAdd } from './graph/fields-add'
 import { utilisateurGet } from './utilisateurs'
+import { titresCreationQuery } from './permissions/metas'
 
 const entreprisesFiltersQueryModify = (
   {
@@ -186,7 +187,19 @@ const titreDemandeEntreprisesGet = async (
 ) => {
   if (!user) return []
 
-  if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    return entreprisesGet({ archive: false }, { fields }, user)
+  }
+
+  if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
+    if (!user.administrations) return []
+
+    const titresCreation = await titresCreationQuery(
+      user.administrations?.map(a => a.id)
+    ).first()
+
+    if (!titresCreation) return []
+
     return entreprisesGet({ archive: false }, { fields }, user)
   }
 

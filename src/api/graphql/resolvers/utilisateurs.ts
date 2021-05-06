@@ -144,7 +144,7 @@ const utilisateurs = async (
   }
 }
 
-const moi = async (_: never, context: IToken) => {
+const moi = async (_: never, context: IToken, info: GraphQLResolveInfo) => {
   try {
     // vérifie que la base de données est remplie au démarrage du serveur
     // TODO:
@@ -155,7 +155,13 @@ const moi = async (_: never, context: IToken) => {
 
     const user = await userGet(context.user?.id)
 
-    return userFormat(user)
+    if (!user) throw new Error('utilisateur inconnu')
+
+    const fields = fieldsBuild(info)
+
+    const utilisateur = await utilisateurGet(user.id, { fields }, user)
+
+    return userFormat(utilisateur)
   } catch (e) {
     if (debug) {
       console.error(e)

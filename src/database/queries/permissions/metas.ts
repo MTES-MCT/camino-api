@@ -76,14 +76,10 @@ const administrationsEtapesTypesPropsQuery = (
         )
     )
 
-const titresCreationQuery = (
-  administrationsIds: string[],
-  titresTypesAlias: string
-) =>
+const titresCreationQuery = (administrationsIds: string[]) =>
   AdministrationsTitresTypes.query()
     .alias('a_tt')
     .select(raw('true'))
-    .whereRaw('?? = ??', ['a_tt.titreTypeId', `${titresTypesAlias}.id`])
     .whereIn('a_tt.administrationId', administrationsIds)
     .where('a_tt.gestionnaire', true)
 
@@ -102,9 +98,9 @@ const titresTypesQueryModify = (
     const administrationsIds = user.administrations.map(e => e.id)
 
     q.select(
-      titresCreationQuery(administrationsIds, 'titresTypes').as(
-        'titresCreation'
-      )
+      titresCreationQuery(administrationsIds)
+        .as('titresCreation')
+        .whereRaw('?? = ??', ['a_tt.titreTypeId', `titresTypes.id`])
     )
   } else {
     q.select(raw('false').as('titresCreation'))
@@ -344,5 +340,6 @@ export {
   domainesQueryModify,
   administrationsEtapesTypesPropsQuery,
   etapesTypesQueryModify,
-  permissionsQueryModify
+  permissionsQueryModify,
+  titresCreationQuery
 }

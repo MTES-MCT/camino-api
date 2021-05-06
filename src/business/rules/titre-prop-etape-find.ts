@@ -29,7 +29,7 @@ const etapeAmodiataireFind = (
   return false
 }
 
-// - si l'étape est acceptée, fait ou favorable
+// - si l'étape est acceptée, fait, déposée ou favorable
 // - et
 //   - si la démarche est un octroi, une demande de titre d'exploitation ou une mutation partielle
 //    - ou si il s'agit d'une étape de décision
@@ -42,7 +42,7 @@ const etapeValideCheck = (
   titreStatutId?: string,
   propId?: IPropId
 ) =>
-  ['acc', 'fai', 'fav', 'dep', 'exe'].includes(titreEtape.statutId) &&
+  ['acc', 'fai', 'fav', 'dep'].includes(titreEtape.statutId) &&
   (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId
@@ -60,6 +60,16 @@ const titreDemarchePropTitreEtapeFind = (
   titreDemarches: ITitreDemarche[]
 ) =>
   titreEtapesSortDesc(titreDemarcheEtapes).find((titreEtape: ITitreEtape) => {
+    // fait remonter le titulaire d'une demande d'octroi
+    // pour qu'il ait la visibilité sur le titre
+    if (
+      propId === 'titulaires' &&
+      ['mfm', 'mfr'].includes(titreEtape.typeId) &&
+      titreStatutId === 'dmi'
+    ) {
+      return true
+    }
+
     const isEtapeValide = etapeValideCheck(
       titreEtape,
       titreDemarcheTypeId,

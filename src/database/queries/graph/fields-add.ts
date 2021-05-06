@@ -21,8 +21,8 @@ const fieldsTitreAdd = (fields: IFields) => {
     fields.titre.type = { id: {}, type: { id: {} } }
   }
 
-  if (!fields.titre.type.autorisationsTitresStatuts) {
-    fields.titre.type.autorisationsTitresStatuts = { id: {} }
+  if (!fields.titre.type.titresTypesTitresStatuts) {
+    fields.titre.type.titresTypesTitresStatuts = { id: {} }
   }
 
   if (!fields.titre.domaine) {

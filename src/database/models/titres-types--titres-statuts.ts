@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 import { ITitreTypeTitreStatut } from '../../types'
 
 interface TitresTypesTitresStatuts extends ITitreTypeTitreStatut {}
@@ -18,6 +18,12 @@ class TitresTypesTitresStatuts extends Model {
   }
 
   public static idColumn = ['titreTypeId', 'titreStatutId']
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy([{ column: 'titreTypeId' }, { column: 'titreStatutId' }])
+    }
+  }
 }
 
 export default TitresTypesTitresStatuts

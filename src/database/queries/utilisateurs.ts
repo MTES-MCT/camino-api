@@ -19,11 +19,9 @@ import { utilisateursQueryModify } from './permissions/utilisateurs'
 const userGet = async (userId?: string) => {
   if (!userId) return null
 
-  const user = await Utilisateurs.query().findById(userId)
-
-  const q = utilisateursQueryBuild({}, {}, user)
-
-  return q.findById(userId)
+  return Utilisateurs.query()
+    .withGraphFetched(options.utilisateurs.graph)
+    .findById(userId)
 }
 
 const utilisateursQueryBuild = (

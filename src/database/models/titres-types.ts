@@ -65,7 +65,7 @@ class TitresTypes extends Model {
       }
     },
 
-    autorisationsTitresStatuts: {
+    titresTypesTitresStatuts: {
       relation: Model.HasManyRelation,
       modelClass: TitresTypesTitresStatuts,
       join: {

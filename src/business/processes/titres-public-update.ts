@@ -19,7 +19,7 @@ const titresPublicUpdate = async (titresIds?: string[]) => {
     { ids: titresIds },
     {
       fields: {
-        type: { autorisationsTitresStatuts: { id: {} } },
+        type: { titresTypesTitresStatuts: { id: {} } },
         demarches: { id: {} }
       }
     },
@@ -33,7 +33,7 @@ const titresPublicUpdate = async (titresIds?: string[]) => {
   titres.forEach(titre => {
     const { publicLecture, entreprisesLecture } = titrePublicFind(
       titre.statutId!,
-      titre.type!.autorisationsTitresStatuts!,
+      titre.type!.titresTypesTitresStatuts!,
       titre.demarches || []
     )
 

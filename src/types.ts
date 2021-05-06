@@ -896,7 +896,7 @@ interface ITitreType {
   archive?: boolean | null
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
-  autorisationsTitresStatuts?: ITitreTypeTitreStatut[] | null
+  titresTypesTitresStatuts?: ITitreTypeTitreStatut[] | null
   contenuIds?: IContenuId[] | null
   sections?: ISection[] | null
   gestionnaire?: boolean | null
