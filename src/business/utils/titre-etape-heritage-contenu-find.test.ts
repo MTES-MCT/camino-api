@@ -190,7 +190,7 @@ describe('retourne le contenu de l’étape en fonction de son héritage', () =>
     }
     const prevTitreEtape = {
       id: 'prevEtapeId',
-      contenu: { section: { element: 'toto' } } as IContenu,
+      contenu: { section: { element: [{ meca: 'toto' }] } } as IContenu,
       heritageContenu
     } as ITitreEtape
 
@@ -201,8 +201,22 @@ describe('retourne le contenu de l’étape en fonction de son héritage', () =>
     titreEtape.heritageContenu!.section.element.actif = true
 
     const dictionary = {
-      [prevTitreEtape.id]: [{ id: 'section', elements: [{ id: 'element' }] }],
-      [titreEtape.id]: [{ id: 'section', elements: [{ id: 'element' }] }]
+      [prevTitreEtape.id]: [
+        {
+          id: 'section',
+          elements: [
+            { id: 'element', type: 'multiple', elements: [{ id: 'meca' }] }
+          ]
+        }
+      ],
+      [titreEtape.id]: [
+        {
+          id: 'section',
+          elements: [
+            { id: 'element', type: 'multiple', elements: [{ id: 'meca' }] }
+          ]
+        }
+      ]
     } as Index<ISection[]>
 
     expect(
