@@ -18,7 +18,8 @@ import {
   titreDemarchesProPointsModPhaseEch,
   titreDemarchesProPointsModPhaseVal,
   titreDemarchesMutPointsMod,
-  titreDemarchesProModPhaseEch
+  titreDemarchesProModPhaseEch,
+  titreDemarchesOctTitulairesACO
 } from './__mocks__/titre-prop-etape-find-demarches'
 
 describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
@@ -147,6 +148,16 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
       ).toEqual('h-cx-courdemanges-1981-oct01-dpu01')
     }
   )
+
+  test("trouve l'id de l’unique étape de la démarche d’octroi contenant la propriété 'titulaires'", () => {
+    expect(
+      titrePropTitreEtapeFind(
+        'titulaires',
+        titreDemarchesOctTitulairesACO.demarches,
+        titreDemarchesOctTitulairesACO.statutId
+      )?.id
+    ).toEqual('h-cx-courdemanges-1982-oct01-mfr01')
+  })
 
   // amodiataires
 

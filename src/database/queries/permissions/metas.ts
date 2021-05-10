@@ -76,6 +76,18 @@ const administrationsEtapesTypesPropsQuery = (
         )
     )
 
+const entreprisesEtapesTypesPropsQuery = (entreprisesIds: string[]) =>
+  TitresEtapes.query()
+    .alias('te_entreprise')
+    .select(raw('true'))
+    .joinRelated('titulaires')
+    .joinRelated('demarche')
+    .andWhere('demarche.typeId', 'oct')
+    .whereIn('te_entreprise.typeId', ['mfr', 'mfm'])
+    .andWhere('te_entreprise.statutId', 'aco')
+    .whereIn('titulaires.id', entreprisesIds)
+    .first()
+
 const titresCreationQuery = (administrationsIds: string[]) =>
   AdministrationsTitresTypes.query()
     .alias('a_tt')
@@ -183,11 +195,11 @@ const etapesTypesQueryModify = (
     q.where(b => {
       // types d'étapes visibles en tant que titulaire ou amodiataire
       if (permissionCheck(user?.permissionId, ['entreprise'])) {
-        b.orWhere('entreprisesLecture', true)
+        b.orWhere('td.entreprisesLecture', true)
       }
 
       // types d'étapes publiques
-      b.orWhere('publicLecture', true)
+      b.orWhere('td.publicLecture', true)
     })
   }
 
@@ -212,9 +224,35 @@ const etapesTypesQueryModify = (
     } else {
       q.select(raw('false').as('etapesCreation'))
     }
+  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
+    if (titreEtapeId && user?.entreprises?.length) {
+      const etapesCreationQuery = entreprisesEtapesTypesPropsQuery(
+        user.entreprises.map(({ id }) => id)
+      )
+        .andWhere('te_entreprise.id', titreEtapeId)
+        .andWhereRaw('?? = ??', ['te_entreprise.typeId', 'etapesTypes.id'])
+      q.select(etapesCreationQuery.as('etapesCreation'))
+    } else {
+      q.select(raw('false').as('etapesCreation'))
+    }
   } else {
     q.select(raw('false').as('etapesCreation'))
   }
+
+  //    return TitresEtapes.query()
+  //       .alias('te_entreprise')
+  //       .select(raw('true'))
+  //       .joinRelated('titulaires')
+  //       .joinRelated('demarche')
+  //       .whereRaw('?? = ??', ['titresEtapes.id', 'te_entreprise.id'])
+  //       .andWhere('demarche.typeId', 'oct')
+  //       .whereIn('te_entreprise.typeId', ['mfr', 'mfm'])
+  //       .andWhere('te_entreprise.statutId', 'aco')
+  //       .whereIn(
+  //         'titulaires.id',
+  //         user.entreprises.map(({ id }) => id)
+  //       )
+  //       .first()
 
   // fileCreate('dev/tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
@@ -339,6 +377,7 @@ export {
   demarchesTypesQueryModify,
   domainesQueryModify,
   administrationsEtapesTypesPropsQuery,
+  entreprisesEtapesTypesPropsQuery,
   etapesTypesQueryModify,
   permissionsQueryModify,
   titresCreationQuery

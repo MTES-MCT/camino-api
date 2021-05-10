@@ -11,7 +11,10 @@ import TitresEtapes from '../../models/titres-etapes'
 import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 import { documentsQueryModify } from './documents'
-import { administrationsEtapesTypesPropsQuery } from './metas'
+import {
+  administrationsEtapesTypesPropsQuery,
+  entreprisesEtapesTypesPropsQuery
+} from './metas'
 import {
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
@@ -36,6 +39,13 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
         'titresEtapes.titreDemarcheId'
       ])
       .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
+  } else if (
+    permissionCheck(user?.permissionId, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
+    return entreprisesEtapesTypesPropsQuery(
+      user.entreprises.map(({ id }) => id)
+    ).whereRaw('?? = ??', ['titresEtapes.id', 'te_entreprise.id'])
   }
 
   return raw('false')
