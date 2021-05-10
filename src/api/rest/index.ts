@@ -248,7 +248,8 @@ const demarches = async (
         titre: {
           id: {},
           titulaires: { id: {} },
-          amodiataires: { id: {} }
+          amodiataires: { id: {} },
+          references: { id: {} }
         },
         etapes: { type: { etapesStatuts: { id: {} } } }
       }
