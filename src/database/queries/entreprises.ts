@@ -70,7 +70,7 @@ const entreprisesQueryBuild = (
 
   const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
 
-  entreprisesQueryModify(q, { fields }, user)
+  entreprisesQueryModify(q, user)
 
   return q
 }

@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IUtilisateur, IFields } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { knex } from '../../../knex'
 // import fileCreate from '../../../tools/file-create'
@@ -37,17 +37,11 @@ const activiteStatuts = [
 
 const titreActivitesCount = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const activiteStatutsRequested = activiteStatuts.filter(
-    activiteStatut =>
-      fields && Object.keys(fields).includes(activiteStatut.name)
-  )
-
   q.groupBy('titres.id')
 
-  if (activiteStatutsRequested.length === 0) return q
+  if (activiteStatuts.length === 0) return q
 
   if (
     permissionCheck(user?.permissionId, [
@@ -63,7 +57,7 @@ const titreActivitesCount = (
       .select('activitesCount.titreId')
       .leftJoinRelated('titre')
 
-    activiteStatutsRequested.forEach(({ id, name }) => {
+    activiteStatuts.forEach(({ id, name }) => {
       q.select(`activitesCountJoin.${name}`)
 
       titresActivitesCountQuery.select(
@@ -130,7 +124,7 @@ const titreActivitesCount = (
     )
   } else if (!user || permissionCheck(user?.permissionId, ['defaut'])) {
     // les utilisateurs non-authentifiés ou défaut ne peuvent voir aucune activité
-    activiteStatutsRequested.forEach(({ name }) => {
+    activiteStatuts.forEach(({ name }) => {
       q.select(raw('0').as(name))
     })
   }

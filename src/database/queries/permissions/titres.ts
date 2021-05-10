@@ -1,6 +1,6 @@
 import { QueryBuilder, raw } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 // import sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
@@ -44,7 +44,6 @@ const titresAdministrationsModificationQuery = (
 
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('titres.*')
@@ -176,7 +175,6 @@ const titresQueryModify = (
   q.modifyGraph('demarches', b => {
     titresDemarchesQueryModify(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-      { fields },
       user
     )
   })
@@ -185,12 +183,11 @@ const titresQueryModify = (
   q.modifyGraph('travaux', b => {
     titresTravauxQueryModify(
       b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
-      { fields },
       user
     )
   })
 
-  titreActivitesCount(q, { fields }, user)
+  titreActivitesCount(q, user)
 
   // visibilité des activités
   q.modifyGraph('activites', b => {

@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 // import { format } from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
@@ -21,7 +21,6 @@ import { entreprisesTitresQuery } from './entreprises'
 
 const titresDemarchesQueryModify = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('titresDemarches.*').leftJoinRelated('titre')
@@ -33,7 +32,6 @@ const titresDemarchesQueryModify = (
           Titres,
           Titres | Titres[]
         >).alias('titres'),
-        { fields },
         user
       )
     )
@@ -99,11 +97,7 @@ const titresDemarchesQueryModify = (
   })
 
   q.modifyGraph('titre', a =>
-    titresQueryModify(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      { fields },
-      user
-    )
+    titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
   )
 
   // fileCreate('sql.sql', format(q.toKnexQuery().toString()))

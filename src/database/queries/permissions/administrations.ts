@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { knex } from '../../../knex'
 
@@ -15,7 +15,6 @@ import { utilisateursQueryModify } from './utilisateurs'
 
 const administrationsQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('administrations.*')
@@ -40,11 +39,7 @@ const administrationsQueryModify = (
   }
 
   q.modifyGraph('gestionnaireTitres', a =>
-    titresQueryModify(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      { fields },
-      user
-    )
+    titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
       // on group by administrationId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy(
@@ -54,11 +49,7 @@ const administrationsQueryModify = (
   )
 
   q.modifyGraph('localeTitres', a =>
-    titresQueryModify(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      { fields },
-      user
-    )
+    titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
       // on group by administrationId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id', 'titresAdministrationsLocales.administrationId')
@@ -67,7 +58,6 @@ const administrationsQueryModify = (
   q.modifyGraph('utilisateurs', b => {
     utilisateursQueryModify(
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-      { fields },
       user
     )
   })

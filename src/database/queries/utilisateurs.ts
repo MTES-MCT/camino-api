@@ -39,7 +39,7 @@ const utilisateursQueryBuild = (
 
   const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
 
-  utilisateursQueryModify(q, { fields }, user)
+  utilisateursQueryModify(q, user)
 
   return q
 }

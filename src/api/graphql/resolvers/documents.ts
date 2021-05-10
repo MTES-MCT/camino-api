@@ -32,6 +32,7 @@ import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-e
 import { entrepriseGet } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentRepertoireFind } from '../../../tools/documents/document-repertoire-find'
+import { permissionCheck } from '../../../tools/permission'
 
 const documentFileDirPathFind = (document: IDocument) => {
   const repertoire = documentRepertoireFind(document)
@@ -162,6 +163,10 @@ const documentCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
+    if (!user) {
+      throw new Error('droit insuffisants')
+    }
+
     await documentPermissionsCheck(document, user)
 
     const documentType = await documentTypeGet(document.typeId)
@@ -188,11 +193,16 @@ const documentCreer = async (
       await documentFileCreate(document, document.fichierNouveau.file)
     }
 
-    if (document.publicLecture) {
+    if (
+      document.publicLecture ||
+      permissionCheck(user.permissionId, ['entreprise'])
+    ) {
       document.entreprisesLecture = true
     }
 
     delete document.fichierNouveau
+
+    console.log(document)
 
     const documentUpdated = await documentCreate(document)
 
@@ -213,6 +223,10 @@ const documentModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
+    if (!user) {
+      throw new Error('droit insuffisants')
+    }
+
     const documentOld = await documentGet(document.id, {}, user)
     if (!documentOld) throw new Error("le document n'existe pas")
 
@@ -232,7 +246,10 @@ const documentModifier = async (
       throw new Error(e.join(', '))
     }
 
-    if (document.publicLecture) {
+    if (
+      document.publicLecture ||
+      permissionCheck(user.permissionId, ['entreprise'])
+    ) {
       document.entreprisesLecture = true
     }
 

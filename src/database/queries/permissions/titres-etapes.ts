@@ -8,6 +8,7 @@ import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
+import Entreprises from '../../models/entreprises'
 import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 import { documentsQueryModify } from './documents'
@@ -19,7 +20,7 @@ import {
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
 } from './administrations'
-import { entreprisesTitresQuery } from './entreprises'
+import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -121,11 +122,9 @@ const titresEtapesQueryModify = (
 
   // TODO: restreindre avec titreEtapeModificationQueryBuild(user)
   q.select(
-    raw(
-      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
-        ? 'type.fondamentale'
-        : 'false'
-    ).as('justificatifsAssociation')
+    raw('type.fondamentale AND (?)', [
+      titreEtapeModificationQueryBuild(user)
+    ]).as('justificatifsAssociation')
   )
 
   // si il existe un type de document pour le type d’étape
@@ -149,6 +148,20 @@ const titresEtapesQueryModify = (
   q.modifyGraph('justificatifs', b => {
     documentsQueryModify(
       b as QueryBuilder<Documents, Documents | Documents[]>,
+      user
+    )
+  })
+
+  q.modifyGraph('titulaires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    )
+  })
+
+  q.modifyGraph('amodiataires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
       user
     )
   })

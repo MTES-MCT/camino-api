@@ -48,7 +48,7 @@ describe('entreprisesQueryModify', () => {
 
       await Utilisateurs.query().insertGraph(mockUser)
 
-      const q = entreprisesQueryModify(Entreprises.query(), {}, mockUser)
+      const q = entreprisesQueryModify(Entreprises.query(), mockUser)
 
       expect(await q.first()).toMatchObject(
         Object.assign(mockEntreprise1, { modification })

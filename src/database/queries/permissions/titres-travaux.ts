@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { permissionCheck } from '../../../tools/permission'
 
@@ -62,7 +62,6 @@ const titreTravauxEtapesQuery = (travauxAlias: string) =>
 
 const titresTravauxQueryModify = (
   q: QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('titresTravaux.*').leftJoinRelated('titre')
@@ -128,11 +127,7 @@ const titresTravauxQueryModify = (
   })
 
   q.modifyGraph('titre', a =>
-    titresQueryModify(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      { fields },
-      user
-    )
+    titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
   )
 
   return q
