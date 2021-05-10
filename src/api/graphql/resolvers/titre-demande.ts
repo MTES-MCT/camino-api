@@ -41,6 +41,10 @@ const titreDemandeCreer = async (
     }
 
     if (permissionCheck(user.permissionId, ['entreprise'])) {
+      if (titreDemande.references?.length) {
+        throw new Error('permissions insuffisantes')
+      }
+
       const entreprises = await titreDemandeEntreprisesGet(
         { fields: { id: {} } },
         user
@@ -82,7 +86,8 @@ const titreDemandeCreer = async (
       {
         nom: titreDemande.nom,
         typeId: titreDemande.typeId,
-        domaineId: titreDemande.domaineId
+        domaineId: titreDemande.domaineId,
+        references: titreDemande.references
       } as ITitre,
       { fields: {} }
     )

@@ -988,6 +988,7 @@ interface ITitreDemande {
   domaineId: string
   entrepriseId: string
   mecanise?: boolean
+  references?: ITitreReference[]
 }
 
 export {

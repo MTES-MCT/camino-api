@@ -1,3 +1,5 @@
+# import * from 'titres.graphql'
+
 type TitreDemandeIds {
   titreId: ID!
   titreEtapeId: ID!
@@ -9,4 +11,5 @@ input InputTitreDemande {
   domaineId: ID!
   typeId: ID!
   mecanise: Boolean
+  references: [InputReference]
 }
