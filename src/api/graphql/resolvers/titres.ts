@@ -85,7 +85,8 @@ const titres = async (
     const fields = fieldsBuild(info).elements
 
     if (perimetre?.length !== 4) {
-      throw new Error('un périmètre doit avoir 4 points');
+      throw new Error('un périmètre doit avoir 4 points')
+
     }
 
     const [titres, total] = await Promise.all([
