@@ -21,6 +21,7 @@ services:
     networks:
       - default
       - nginx-proxy
+    restart: unless-stopped
   cron:
     container_name: camino_api_cron
     build: .
@@ -35,6 +36,7 @@ services:
     networks:
       - default
       - nginx-proxy
+    restart: unless-stopped
   db:
     container_name: camino_api_db
     image: postgres:12
@@ -49,6 +51,7 @@ services:
       - data:/var/lib/postgresql/data
     networks:
       - default
+    restart: unless-stopped
 
 volumes:
   data: {}
