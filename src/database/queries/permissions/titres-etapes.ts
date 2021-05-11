@@ -1,8 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
 import { IUtilisateur } from '../../../types'
-// import sqlFormatter from 'sql-formatter'
-// import fileCreate from '../../../tools/file-create'
 
 import { permissionCheck } from '../../../tools/permission'
 
@@ -165,8 +163,6 @@ const titresEtapesQueryModify = (
       user
     )
   })
-
-  // fileCreate('test-5.sql', sqlFormatter.format(q.toKnexQuery().toString()))
 
   return q
 }

@@ -36,6 +36,7 @@ const titreEtapeUpdationValidate = async (
     sections,
     titreEtape.heritageContenu
   )
+
   errors.push(...errorsHeritageContenu)
 
   if (sections.length) {
@@ -76,7 +77,9 @@ const titreEtapeUpdationValidate = async (
       titreEtape.heritageContenu.arm &&
       titreEtape.heritageContenu.arm.mecanise &&
       !titreEtape.heritageContenu.arm.mecanise.actif &&
-      titreEtape.contenu!.arm.mecanise
+      titreEtape.contenu &&
+      titreEtape.contenu.arm &&
+      titreEtape.contenu.arm.mecanise
     ) {
       errors.push('une demande non mécanisée ne peut pas devenir mécanisée')
     }

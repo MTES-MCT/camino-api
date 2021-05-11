@@ -108,6 +108,15 @@ const main = async () => {
     .where('typeId', 'mfr')
     .andWhereRaw("((contenu->>'arm')::json->>'mecanise')::boolean is true")
 
+  const mfrEtapes = await TitresEtapes.query().where('typeId', 'mfr')
+
+  for (const e of mfrEtapes) {
+    delete e.heritageContenu!.arm
+    await TitresEtapes.query()
+      .patch({ heritageContenu: e.heritageContenu })
+      .where('id', e.id)
+  }
+
   // on supprime la section « arm » des mfr
   mfrTDE.sections = null
   await TitresTypesDemarchesTypesEtapesTypes.query().upsertGraph(mfrTDE)
