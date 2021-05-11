@@ -16,6 +16,10 @@ import { stringSplit } from './_utils'
 import Entreprises from '../models/entreprises'
 import { entreprisesQueryModify } from './permissions/entreprises'
 import EntreprisesTitresTypes from '../models/entreprises-titres-types'
+import { permissionCheck } from '../../tools/permission'
+import { fieldsEntreprisesTitresCreationAdd } from './graph/fields-add'
+import { utilisateurGet } from './utilisateurs'
+import { titresCreationQuery } from './permissions/metas'
 
 const entreprisesFiltersQueryModify = (
   {
@@ -66,7 +70,7 @@ const entreprisesQueryBuild = (
 
   const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
 
-  entreprisesQueryModify(q, { fields }, user)
+  entreprisesQueryModify(q, user)
 
   return q
 }
@@ -177,6 +181,45 @@ const entrepriseTitreTypeDelete = async (
   titreTypeId: string
 ) => EntreprisesTitresTypes.query().deleteById([entrepriseId, titreTypeId])
 
+const titreDemandeEntreprisesGet = async (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  if (!user) return []
+
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    return entreprisesGet({ archive: false }, { fields }, user)
+  }
+
+  if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
+    if (!user.administrations) return []
+
+    const titresCreation = await titresCreationQuery(
+      user.administrations?.map(a => a.id)
+    ).first()
+
+    if (!titresCreation) return []
+
+    return entreprisesGet({ archive: false }, { fields }, user)
+  }
+
+  if (permissionCheck(user?.permissionId, ['entreprise'])) {
+    const utilisateur = await utilisateurGet(
+      user.id,
+      { fields: { entreprises: fieldsEntreprisesTitresCreationAdd(fields) } },
+      user
+    )
+
+    if (!utilisateur.entreprises) return []
+
+    return utilisateur.entreprises.filter(e =>
+      e.titresTypes!.some(tt => tt.titresCreation)
+    )
+  }
+
+  return []
+}
+
 export {
   entrepriseGet,
   entreprisesGet,
@@ -185,5 +228,6 @@ export {
   entrepriseUpsert,
   entrepriseDelete,
   entrepriseTitreTypeUpsert,
-  entrepriseTitreTypeDelete
+  entrepriseTitreTypeDelete,
+  titreDemandeEntreprisesGet
 }

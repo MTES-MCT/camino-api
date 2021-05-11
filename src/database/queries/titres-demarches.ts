@@ -145,7 +145,7 @@ const titresDemarchesQueryBuild = (
 
   const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
 
-  titresDemarchesQueryModify(q, { fields }, user)
+  titresDemarchesQueryModify(q, user)
 
   return q
 }

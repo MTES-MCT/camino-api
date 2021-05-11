@@ -1,0 +1,15 @@
+# import * from 'titres.graphql'
+
+type TitreDemandeIds {
+  titreId: ID!
+  titreEtapeId: ID!
+}
+
+input InputTitreDemande {
+  nom: String!
+  entrepriseId: ID!
+  domaineId: ID!
+  typeId: ID!
+  mecanise: Boolean
+  references: [InputReference]
+}

@@ -76,14 +76,22 @@ const administrationsEtapesTypesPropsQuery = (
         )
     )
 
-const titresCreationQuery = (
-  administrationsIds: string[],
-  titresTypesAlias: string
-) =>
+const entreprisesEtapesTypesPropsQuery = (entreprisesIds: string[]) =>
+  TitresEtapes.query()
+    .alias('te_entreprise')
+    .select(raw('true'))
+    .joinRelated('titulaires')
+    .joinRelated('demarche')
+    .andWhere('demarche.typeId', 'oct')
+    .whereIn('te_entreprise.typeId', ['mfr', 'mfm'])
+    .andWhere('te_entreprise.statutId', 'aco')
+    .whereIn('titulaires.id', entreprisesIds)
+    .first()
+
+const titresCreationQuery = (administrationsIds: string[]) =>
   AdministrationsTitresTypes.query()
     .alias('a_tt')
     .select(raw('true'))
-    .whereRaw('?? = ??', ['a_tt.titreTypeId', `${titresTypesAlias}.id`])
     .whereIn('a_tt.administrationId', administrationsIds)
     .where('a_tt.gestionnaire', true)
 
@@ -102,9 +110,9 @@ const titresTypesQueryModify = (
     const administrationsIds = user.administrations.map(e => e.id)
 
     q.select(
-      titresCreationQuery(administrationsIds, 'titresTypes').as(
-        'titresCreation'
-      )
+      titresCreationQuery(administrationsIds)
+        .as('titresCreation')
+        .whereRaw('?? = ??', ['a_tt.titreTypeId', `titresTypes.id`])
     )
   } else {
     q.select(raw('false').as('titresCreation'))
@@ -187,11 +195,11 @@ const etapesTypesQueryModify = (
     q.where(b => {
       // types d'étapes visibles en tant que titulaire ou amodiataire
       if (permissionCheck(user?.permissionId, ['entreprise'])) {
-        b.orWhere('entreprisesLecture', true)
+        b.orWhere('td.entreprisesLecture', true)
       }
 
       // types d'étapes publiques
-      b.orWhere('publicLecture', true)
+      b.orWhere('td.publicLecture', true)
     })
   }
 
@@ -212,6 +220,17 @@ const etapesTypesQueryModify = (
         .where('demarchesModification.id', titreDemarcheId)
         .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'etapesTypes.id'])
 
+      q.select(etapesCreationQuery.as('etapesCreation'))
+    } else {
+      q.select(raw('false').as('etapesCreation'))
+    }
+  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
+    if (titreEtapeId && user?.entreprises?.length) {
+      const etapesCreationQuery = entreprisesEtapesTypesPropsQuery(
+        user.entreprises.map(({ id }) => id)
+      )
+        .andWhere('te_entreprise.id', titreEtapeId)
+        .andWhereRaw('?? = ??', ['te_entreprise.typeId', 'etapesTypes.id'])
       q.select(etapesCreationQuery.as('etapesCreation'))
     } else {
       q.select(raw('false').as('etapesCreation'))
@@ -343,7 +362,8 @@ export {
   demarchesTypesQueryModify,
   domainesQueryModify,
   administrationsEtapesTypesPropsQuery,
+  entreprisesEtapesTypesPropsQuery,
   etapesTypesQueryModify,
   permissionsQueryModify,
-  titresTypesQueryModify
+  titresCreationQuery
 }

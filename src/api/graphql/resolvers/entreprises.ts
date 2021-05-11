@@ -13,7 +13,8 @@ import {
   entreprisesGet,
   entrepriseTitreTypeDelete,
   entrepriseTitreTypeUpsert,
-  entrepriseUpsert
+  entrepriseUpsert,
+  titreDemandeEntreprisesGet
 } from '../../../database/queries/entreprises'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 
@@ -48,6 +49,28 @@ const entreprise = async (
   }
 }
 
+const entreprisesTitresCreation = async (
+  _: never,
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    const fields = fieldsBuild(info)
+
+    const entreprises = await titreDemandeEntreprisesGet({ fields }, user)
+
+    return entreprises.map(entrepriseFormat)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const entreprises = async (
   {
     etapeId,
@@ -67,6 +90,7 @@ const entreprises = async (
     noms?: string | null
     archive?: boolean | null
     etapeUniquement?: boolean | null
+    titresCreation?: boolean | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -282,5 +306,6 @@ export {
   entreprises,
   entrepriseCreer,
   entrepriseModifier,
-  entrepriseTitreTypeModifier
+  entrepriseTitreTypeModifier,
+  entreprisesTitresCreation
 }

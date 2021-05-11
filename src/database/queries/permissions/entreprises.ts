@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { knex } from '../../../knex'
 
@@ -15,9 +15,11 @@ import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
 import { documentsQueryModify } from './documents'
 
+// import fileCreate from '../../../tools/file-create'
+// import { format } from 'sql-formatter'
+
 const entreprisesQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('entreprises.*')
@@ -42,22 +44,14 @@ const entreprisesQueryModify = (
   }
 
   q.modifyGraph('titulaireTitres', a =>
-    titresQueryModify(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      { fields: fields?.titulaireTitres },
-      user
-    )
+    titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
       // on group by entrepriseId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id', 'titresTitulaires.entrepriseId')
   )
 
   q.modifyGraph('amodiataireTitres', a =>
-    titresQueryModify(
-      a as QueryBuilder<Titres, Titres | Titres[]>,
-      { fields: fields?.amodiataireTitres },
-      user
-    )
+    titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
       // on group by entrepriseId au cas où il y a une aggrégation
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id', 'titresAmodiataires.entrepriseId')
@@ -66,7 +60,6 @@ const entreprisesQueryModify = (
   q.modifyGraph('utilisateurs', b => {
     utilisateursQueryModify(
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-      { fields },
       user
     )
   })
@@ -77,6 +70,8 @@ const entreprisesQueryModify = (
       user
     )
   })
+
+  // fileCreate('test.sql', format(q.toKnexQuery().toString()))
 
   return q
 }

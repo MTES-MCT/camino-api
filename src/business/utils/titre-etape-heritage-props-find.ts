@@ -117,13 +117,25 @@ const titreEtapeHeritagePropsFind = (
 
   let newTitreEtape = titreEtape
 
+  if (!titreEtape.heritageProps) {
+    newTitreEtape = objectClone(newTitreEtape)
+    newTitreEtape.heritageProps = {}
+    hasChanged = true
+  }
+
   titreEtapePropsIds.forEach(propId => {
-    const heritage = titreEtape.heritageProps
-      ? titreEtape.heritageProps[propId]
-      : null
+    const heritage = newTitreEtape.heritageProps![propId]
+
+    if (!heritage) {
+      newTitreEtape = objectClone(newTitreEtape)
+      hasChanged = true
+      newTitreEtape.heritageProps![propId] = { actif: false, etapeId: null }
+    }
+
     const prevHeritage = prevTitreEtape?.heritageProps
       ? prevTitreEtape?.heritageProps[propId]
       : null
+
     const etapeId =
       prevHeritage?.etapeId && prevHeritage?.actif
         ? prevHeritage.etapeId
@@ -193,14 +205,7 @@ const titreEtapeHeritagePropsFind = (
     if ((etapeId || heritage?.etapeId) && etapeId !== heritage?.etapeId) {
       hasChanged = true
       newTitreEtape = objectClone(newTitreEtape)
-      if (!newTitreEtape.heritageProps) {
-        newTitreEtape.heritageProps = {}
-      }
-
-      if (!newTitreEtape.heritageProps[propId]) {
-        newTitreEtape.heritageProps[propId] = { actif: false }
-      }
-      newTitreEtape.heritageProps[propId].etapeId = etapeId
+      newTitreEtape.heritageProps![propId].etapeId = etapeId
     }
   })
 

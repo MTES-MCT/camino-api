@@ -153,3 +153,9 @@ sudo chmod -R g+x /srv/scripts/
 # rend les fichiers du dossier `backups` accessibles en écriture pour le groupe
 sudo chmod -R g+w /srv/backups/
 ```
+
+## Automatisation
+
+Sur le serveur de prod, une tache cron lance automatiquement un backup toute les nuits.
+
+Pour éditer le fichier `sudo crontab -l -u git`.

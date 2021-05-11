@@ -13,7 +13,7 @@
                 "run-script",
                 "dev:daily"
             ],
-            "port": 8080
+            "port": 3000
         },
         {
             "type": "node",
@@ -24,7 +24,7 @@
                 "run-script",
                 "dev"
             ],
-            "port": 8080
+            "port": 3000
         }
     ]
 }

@@ -237,6 +237,29 @@ const titreDemarchesOctMfrPoints = {
   ] as unknown) as ITitreDemarche[]
 }
 
+const titreDemarchesOctTitulairesACO = {
+  statutId: 'dmi',
+  demarches: [
+    {
+      id: 'h-cx-courdemanges-1982-oct01',
+      titreId: 'h-cx-courdemanges-1982',
+      typeId: 'oct',
+      statutId: 'acc',
+      etapes: [
+        {
+          id: 'h-cx-courdemanges-1982-oct01-mfr01',
+          titreDemarcheId: 'h-cx-courdemanges-1982-oct01',
+          typeId: 'mfr',
+          statutId: 'aco',
+          ordre: 1,
+          dateFin: '2018-12-31',
+          titulaires: [{ id: 'fr-123456789' }]
+        }
+      ]
+    }
+  ] as ITitreDemarche[]
+}
+
 const titreDemarchesOctAmodiatairesPassee = {
   statutId: 'val',
   demarches: [
@@ -526,6 +549,7 @@ export {
   titreDemarchesOctPointsMutInstruction,
   titreDemarchesOctAccDpuRej,
   titreDemarchesOctMfrPoints,
+  titreDemarchesOctTitulairesACO,
   titreDemarchesOctAmodiatairesPassee,
   titreDemarchesOctAmodiatairesValide,
   titreDemarchesOctAmodiatairesMod,

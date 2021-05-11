@@ -1,6 +1,6 @@
 import { QueryBuilder, raw } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 // import sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
@@ -11,6 +11,7 @@ import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
 import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
+import Entreprises from '../../models/entreprises'
 
 import {
   titresActivitesQueryModify,
@@ -23,7 +24,7 @@ import {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresQuery
 } from './administrations'
-import { entreprisesTitresQuery } from './entreprises'
+import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 
 const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
@@ -44,7 +45,6 @@ const titresAdministrationsModificationQuery = (
 
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('titres.*')
@@ -176,7 +176,6 @@ const titresQueryModify = (
   q.modifyGraph('demarches', b => {
     titresDemarchesQueryModify(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-      { fields },
       user
     )
   })
@@ -185,12 +184,11 @@ const titresQueryModify = (
   q.modifyGraph('travaux', b => {
     titresTravauxQueryModify(
       b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
-      { fields },
       user
     )
   })
 
-  titreActivitesCount(q, { fields }, user)
+  titreActivitesCount(q, user)
 
   // visibilité des activités
   q.modifyGraph('activites', b => {
@@ -202,6 +200,20 @@ const titresQueryModify = (
       b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
+  })
+
+  q.modifyGraph('titulaires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    ).select('titresTitulaires.operateur')
+  })
+
+  q.modifyGraph('amodiataires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    ).select('titresAmodiataires.operateur')
   })
 
   return q

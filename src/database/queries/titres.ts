@@ -38,7 +38,7 @@ const titresQueryBuild = (
 
   const q = Titres.query().withGraphFetched(graph)
 
-  titresQueryModify(q, { fields }, user)
+  titresQueryModify(q, user)
 
   return q
 }

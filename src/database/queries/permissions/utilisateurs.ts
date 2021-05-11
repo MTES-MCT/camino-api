@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IFields, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { knex } from '../../../knex'
 import { permissionCheck } from '../../../tools/permission'
@@ -12,7 +12,6 @@ import { entreprisesQueryModify } from './entreprises'
 
 const utilisateursQueryModify = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-  { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
   q.select('utilisateurs.*')
@@ -133,7 +132,6 @@ const utilisateursQueryModify = (
   q.modifyGraph('entreprises', u =>
     entreprisesQueryModify(
       u as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
-      { fields },
       user
     )
   )

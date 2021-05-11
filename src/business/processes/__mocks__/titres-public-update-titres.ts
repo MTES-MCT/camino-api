@@ -4,7 +4,7 @@ const titresPublicModifie = [
   ({
     typeId: 'cxh',
     type: {
-      autorisationsTitresStatuts: []
+      titresTypesTitresStatuts: []
     },
     demarches: [],
     publicLecture: true,
@@ -16,7 +16,7 @@ const titresPublicIdentique = [
   ({
     typeId: 'cxh',
     type: {
-      autorisationsTitresStatuts: []
+      titresTypesTitresStatuts: []
     },
     demarches: null,
     publicLecture: false,

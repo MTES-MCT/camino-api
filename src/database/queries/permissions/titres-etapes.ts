@@ -1,22 +1,24 @@
 import { raw, QueryBuilder } from 'objection'
 
 import { IUtilisateur } from '../../../types'
-// import sqlFormatter from 'sql-formatter'
-// import fileCreate from '../../../tools/file-create'
 
 import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
+import Entreprises from '../../models/entreprises'
 import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 import { documentsQueryModify } from './documents'
-import { administrationsEtapesTypesPropsQuery } from './metas'
+import {
+  administrationsEtapesTypesPropsQuery,
+  entreprisesEtapesTypesPropsQuery
+} from './metas'
 import {
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery
 } from './administrations'
-import { entreprisesTitresQuery } from './entreprises'
+import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -36,6 +38,13 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
         'titresEtapes.titreDemarcheId'
       ])
       .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
+  } else if (
+    permissionCheck(user?.permissionId, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
+    return entreprisesEtapesTypesPropsQuery(
+      user.entreprises.map(({ id }) => id)
+    ).whereRaw('?? = ??', ['titresEtapes.id', 'te_entreprise.id'])
   }
 
   return raw('false')
@@ -111,11 +120,9 @@ const titresEtapesQueryModify = (
 
   // TODO: restreindre avec titreEtapeModificationQueryBuild(user)
   q.select(
-    raw(
-      permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])
-        ? 'type.fondamentale'
-        : 'false'
-    ).as('justificatifsAssociation')
+    raw('type.fondamentale AND (?)', [
+      titreEtapeModificationQueryBuild(user)
+    ]).as('justificatifsAssociation')
   )
 
   // si il existe un type de document pour le type d’étape
@@ -143,7 +150,19 @@ const titresEtapesQueryModify = (
     )
   })
 
-  // fileCreate('test-5.sql', sqlFormatter.format(q.toKnexQuery().toString()))
+  q.modifyGraph('titulaires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    ).select('titresTitulaires.operateur')
+  })
+
+  q.modifyGraph('amodiataires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    ).select('titresAmodiataires.operateur')
+  })
 
   return q
 }

@@ -298,6 +298,7 @@ interface IEntreprise {
   etablissements?: IEntrepriseEtablissement[] | null
   utilisateurs?: IUtilisateur[] | null
   titulaireTitres?: ITitre[] | null
+  titresTypes?: ITitreType[]
   amodiataireTitres?: ITitre[] | null
   modification?: boolean | null
   archive?: boolean | null
@@ -895,7 +896,7 @@ interface ITitreType {
   archive?: boolean | null
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
-  autorisationsTitresStatuts?: ITitreTypeTitreStatut[] | null
+  titresTypesTitresStatuts?: ITitreTypeTitreStatut[] | null
   contenuIds?: IContenuId[] | null
   sections?: ISection[] | null
   gestionnaire?: boolean | null
@@ -979,6 +980,15 @@ interface IDefinition {
   description?: string | null
   couleur?: string
   elements?: IDefinition[]
+}
+
+interface ITitreDemande {
+  nom: string
+  typeId: string
+  domaineId: string
+  entrepriseId: string
+  mecanise?: boolean
+  references?: ITitreReference[]
 }
 
 export {
@@ -1097,5 +1107,6 @@ export {
   IHeritageContenu,
   ICache,
   ICacheId,
-  IActiviteTypePays
+  IActiviteTypePays,
+  ITitreDemande
 }

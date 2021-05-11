@@ -18,6 +18,7 @@
 # import * from 'utilisateurs.graphql'
 # import * from 'titres-travaux.graphql'
 # import * from 'titres-travaux-etapes.graphql'
+# import * from 'titre-demande.graphql'
 
 """
 # API de Camino
@@ -205,6 +206,8 @@ type Query {
     archive: Boolean
     etapeUniquement: Boolean
   ): Entreprises
+
+  entreprisesTitresCreation: [Entreprise]
 
   "Administration en fonction de son id"
   administration(id: ID!): Administration
@@ -556,4 +559,6 @@ type Mutation {
   activiteTypePaysSupprimer(
     activiteTypePays: InputActiviteTypePays!
   ): [ActiviteTypePays]
+
+  titreDemandeCreer(titreDemande: InputTitreDemande): TitreDemandeIds
 }

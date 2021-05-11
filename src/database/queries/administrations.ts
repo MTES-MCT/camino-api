@@ -72,7 +72,7 @@ const administrationsQueryBuild = (
 
   const q = Administrations.query().withGraphFetched(graph)
 
-  administrationsQueryModify(q, { fields }, user)
+  administrationsQueryModify(q, user)
 
   return q
 }

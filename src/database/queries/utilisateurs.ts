@@ -1,4 +1,4 @@
-import { raw, RawBuilder } from 'objection'
+import { raw, RawBuilder, QueryBuilder } from 'objection'
 
 import {
   IUtilisateur,
@@ -21,12 +21,30 @@ const userGet = async (userId?: string) => {
 
   const user = await Utilisateurs.query().findById(userId)
 
-  const q = utilisateursQueryBuild({}, {}, user)
+  const q = utilisateursQueryBuild(
+    { fields: { administrations: { id: {} }, entreprises: { id: {} } } },
+    user
+  )
 
   return q.findById(userId)
 }
 
 const utilisateursQueryBuild = (
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'utilisateur', fieldsFormat)
+    : options.utilisateurs.graph
+
+  const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
+
+  utilisateursQueryModify(q, user)
+
+  return q
+}
+
+const utilisateursFiltersQueryModify = (
   {
     entrepriseIds,
     administrationIds,
@@ -40,17 +58,8 @@ const utilisateursQueryBuild = (
     noms?: string | null
     emails?: string | null
   },
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  q: QueryBuilder<Utilisateurs, Utilisateurs[]>
 ) => {
-  const graph = fields
-    ? graphBuild(fields, 'utilisateur', fieldsFormat)
-    : options.utilisateurs.graph
-
-  const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
-
-  utilisateursQueryModify(q, { fields }, user)
-
   if (permissionIds) {
     q.whereIn('permissionId', permissionIds)
   }
@@ -127,7 +136,7 @@ const utilisateurGet = async (
   { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
-  const q = utilisateursQueryBuild({}, { fields }, user)
+  const q = utilisateursQueryBuild({ fields }, user)
 
   return q.findById(id)
 }
@@ -185,7 +194,9 @@ const utilisateursGet = async (
   { fields }: { fields?: IFields } = {},
   user: IUtilisateur | null
 ) => {
-  const q = utilisateursQueryBuild(
+  const q = utilisateursQueryBuild({ fields }, user)
+
+  utilisateursFiltersQueryModify(
     {
       entrepriseIds,
       administrationIds,
@@ -193,8 +204,7 @@ const utilisateursGet = async (
       noms,
       emails
     },
-    { fields },
-    user
+    q
   )
 
   if (colonne) {
@@ -240,7 +250,9 @@ const utilisateursCount = async (
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = utilisateursQueryBuild(
+  const q = utilisateursQueryBuild({ fields }, user)
+
+  utilisateursFiltersQueryModify(
     {
       entrepriseIds,
       administrationIds,
@@ -248,8 +260,7 @@ const utilisateursCount = async (
       noms,
       emails
     },
-    { fields },
-    user
+    q
   )
 
   const utilisateurs = ((await q) as unknown) as { total: number }[]
