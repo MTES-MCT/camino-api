@@ -11,6 +11,7 @@ import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
 import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
+import Entreprises from '../../models/entreprises'
 
 import {
   titresActivitesQueryModify,
@@ -23,7 +24,7 @@ import {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresQuery
 } from './administrations'
-import { entreprisesTitresQuery } from './entreprises'
+import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 
 const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
@@ -199,6 +200,20 @@ const titresQueryModify = (
       b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
+  })
+
+  q.modifyGraph('titulaires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    ).select('titresTitulaires.operateur')
+  })
+
+  q.modifyGraph('amodiataires', b => {
+    entreprisesQueryModify(
+      b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    ).select('titresAmodiataires.operateur')
   })
 
   return q

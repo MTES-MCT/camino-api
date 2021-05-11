@@ -15,6 +15,9 @@ import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
 import { documentsQueryModify } from './documents'
 
+// import fileCreate from '../../../tools/file-create'
+// import { format } from 'sql-formatter'
+
 const entreprisesQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
   user: IUtilisateur | null
@@ -67,6 +70,8 @@ const entreprisesQueryModify = (
       user
     )
   })
+
+  // fileCreate('test.sql', format(q.toKnexQuery().toString()))
 
   return q
 }

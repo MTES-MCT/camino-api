@@ -239,21 +239,6 @@ const etapesTypesQueryModify = (
     q.select(raw('false').as('etapesCreation'))
   }
 
-  //    return TitresEtapes.query()
-  //       .alias('te_entreprise')
-  //       .select(raw('true'))
-  //       .joinRelated('titulaires')
-  //       .joinRelated('demarche')
-  //       .whereRaw('?? = ??', ['titresEtapes.id', 'te_entreprise.id'])
-  //       .andWhere('demarche.typeId', 'oct')
-  //       .whereIn('te_entreprise.typeId', ['mfr', 'mfm'])
-  //       .andWhere('te_entreprise.statutId', 'aco')
-  //       .whereIn(
-  //         'titulaires.id',
-  //         user.entreprises.map(({ id }) => id)
-  //       )
-  //       .first()
-
   // fileCreate('dev/tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
 

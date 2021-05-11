@@ -154,14 +154,14 @@ const titresEtapesQueryModify = (
     entreprisesQueryModify(
       b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
       user
-    )
+    ).select('titresTitulaires.operateur')
   })
 
   q.modifyGraph('amodiataires', b => {
     entreprisesQueryModify(
       b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
       user
-    )
+    ).select('titresAmodiataires.operateur')
   })
 
   return q

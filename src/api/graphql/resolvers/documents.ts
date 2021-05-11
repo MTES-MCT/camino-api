@@ -202,8 +202,6 @@ const documentCreer = async (
 
     delete document.fichierNouveau
 
-    console.log(document)
-
     const documentUpdated = await documentCreate(document)
 
     return documentUpdated
