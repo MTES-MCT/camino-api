@@ -41,8 +41,6 @@ const titreActivitesCount = (
 ) => {
   q.groupBy('titres.id')
 
-  if (activiteStatuts.length === 0) return q
-
   if (
     permissionCheck(user?.permissionId, [
       'super',
