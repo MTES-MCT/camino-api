@@ -18,7 +18,10 @@ query Titres(
     references: $references
     territoires: $territoires
   ) {
-    ...titre
+    total
+    elements {
+      ...titre
+    }
   }
 }
 
@@ -44,12 +47,7 @@ fragment titre on Titre {
   references {
     ...reference
   }
-  volume
   surface
-  volumeUnite {
-    id
-    nom
-  }
   substances {
     ...titreSubstance
   }
@@ -108,16 +106,6 @@ fragment etape on Etape {
   date
   duree
   surface
-  volume
-  volumeUnite {
-    id
-    nom
-  }
-  engagement
-  engagementDevise {
-    id
-    nom
-  }
   type {
     id
     nom
@@ -288,8 +276,9 @@ fragment titreSubstance on TitreSubstance {
 
 fragment document on Document {
   id
-  nom
-  type
+  type {
+    id
+  }
   url
   uri
   fichier

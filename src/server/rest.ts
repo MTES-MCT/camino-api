@@ -32,7 +32,13 @@ interface IRestResolverResult {
 }
 
 type IRestResolver = (
-  params: Index<unknown>,
+  {
+    params,
+    query
+  }: {
+    params: Index<unknown>
+    query: Index<unknown>
+  },
   userId?: string
 ) => Promise<IRestResolverResult | null>
 
@@ -44,7 +50,10 @@ const restify = (resolver: IRestResolver) => async (
   next: express.NextFunction
 ) => {
   try {
-    const result = await resolver({ ...req.query, ...req.params }, req.user?.id)
+    const result = await resolver(
+      { query: req.query, params: req.params },
+      req.user?.id
+    )
 
     if (!result) {
       throw new Error('erreur: aucun résultat')
@@ -84,7 +93,7 @@ const restify = (resolver: IRestResolver) => async (
   }
 }
 
-rest.get('/titre', restify(titre))
+rest.get('/titres/:id', restify(titre))
 rest.get('/titres', restify(titres))
 rest.get('/demarches', restify(demarches))
 rest.get('/activites', restify(activites))

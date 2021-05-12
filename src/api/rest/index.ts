@@ -39,11 +39,6 @@ const formatCheck = (formats: string[], format: string) => {
   }
 }
 
-interface ITitreQueryInput {
-  format?: IFormat
-  id?: string | null
-}
-
 const titreFields = {
   type: { type: { id: {} } },
   domaine: { id: {} },
@@ -60,24 +55,36 @@ const titreFields = {
   administrationsGestionnaires: { type: { id: {} } }
 }
 
+interface ITitreInput {
+  query: { format?: IFormat }
+  params: { id?: string | null }
+}
+
 const titre = async (
-  { format = 'geojson', id }: ITitreQueryInput,
+  { query: { format = 'json' }, params: { id } }: ITitreInput,
   userId?: string
 ) => {
   const user = await userGet(userId)
 
-  formatCheck(['geojson'], format)
+  formatCheck(['geojson', 'json'], format)
 
   const titre = await titreGet(id!, { fields: titreFields }, user)
 
   const titreFormatted = titreFormat(titre)
+  let contenu
 
-  const titreGeojson = titreGeojsonFormat(titreFormatted)
+  if (format === 'geojson') {
+    const titreGeojson = titreGeojsonFormat(titreFormatted)
+
+    contenu = JSON.stringify(titreGeojson, null, 2)
+  } else {
+    contenu = JSON.stringify(titreFormatted, null, 2)
+  }
 
   return {
     nom: fileNameCreate(titre.id, format),
     format,
-    contenu: JSON.stringify(titreGeojson, null, 2)
+    contenu
   }
 }
 
@@ -97,18 +104,20 @@ interface ITitresQueryInput {
 
 const titres = async (
   {
-    format = 'json',
-    ordre,
-    colonne,
-    typesIds,
-    domainesIds,
-    statutsIds,
-    substances,
-    noms,
-    entreprises,
-    references,
-    territoires
-  }: ITitresQueryInput,
+    query: {
+      format = 'json',
+      ordre,
+      colonne,
+      typesIds,
+      domainesIds,
+      statutsIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    }
+  }: { query: ITitresQueryInput },
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -145,7 +154,7 @@ const titres = async (
 
     contenu = tableConvert('titres', elements, format)
   } else {
-    contenu = JSON.stringify(titresFormatted)
+    contenu = JSON.stringify(titresFormatted, null, 2)
   }
 
   if (matomo) {
@@ -202,22 +211,24 @@ interface ITitresDemarchesQueryInput {
 
 const demarches = async (
   {
-    format = 'json',
-    ordre,
-    colonne,
-    typesIds,
-    statutsIds,
-    etapesInclues,
-    etapesExclues,
-    titresTypesIds,
-    titresDomainesIds,
-    titresStatutsIds,
-    titresNoms,
-    titresEntreprises,
-    titresSubstances,
-    titresReferences,
-    titresTerritoires
-  }: ITitresDemarchesQueryInput,
+    query: {
+      format = 'json',
+      ordre,
+      colonne,
+      typesIds,
+      statutsIds,
+      etapesInclues,
+      etapesExclues,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds,
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires
+    }
+  }: { query: ITitresDemarchesQueryInput },
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -268,7 +279,7 @@ const demarches = async (
 
     contenu = tableConvert('demarches', elements, format)
   } else {
-    contenu = JSON.stringify(demarchesFormatted)
+    contenu = JSON.stringify(demarchesFormatted, null, 2)
   }
 
   return contenu
@@ -299,21 +310,23 @@ interface ITitresActivitesQueryInput {
 
 const activites = async (
   {
-    format = 'json',
-    ordre,
-    colonne,
-    typesIds,
-    statutsIds,
-    annees,
-    titresNoms,
-    titresEntreprises,
-    titresSubstances,
-    titresReferences,
-    titresTerritoires,
-    titresTypesIds,
-    titresDomainesIds,
-    titresStatutsIds
-  }: ITitresActivitesQueryInput,
+    query: {
+      format = 'json',
+      ordre,
+      colonne,
+      typesIds,
+      statutsIds,
+      annees,
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds
+    }
+  }: { query: ITitresActivitesQueryInput },
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -363,7 +376,7 @@ const activites = async (
 
     contenu = tableConvert('activites', elements, format)
   } else {
-    contenu = JSON.stringify(titresActivitesFormatted)
+    contenu = JSON.stringify(titresActivitesFormatted, null, 2)
   }
 
   return contenu
@@ -388,15 +401,17 @@ interface IUtilisateursQueryInput {
 
 const utilisateurs = async (
   {
-    format = 'json',
-    colonne,
-    ordre,
-    entrepriseIds,
-    administrationIds,
-    permissionIds,
-    noms,
-    emails
-  }: IUtilisateursQueryInput,
+    query: {
+      format = 'json',
+      colonne,
+      ordre,
+      entrepriseIds,
+      administrationIds,
+      permissionIds,
+      noms,
+      emails
+    }
+  }: { query: IUtilisateursQueryInput },
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -426,7 +441,7 @@ const utilisateurs = async (
 
     contenu = tableConvert('utilisateurs', elements, format)
   } else {
-    contenu = JSON.stringify(utilisateursFormatted)
+    contenu = JSON.stringify(utilisateursFormatted, null, 2)
   }
 
   return contenu
@@ -444,7 +459,7 @@ interface IEntreprisesQueryInput {
 }
 
 const entreprises = async (
-  { format = 'json', noms }: IEntreprisesQueryInput,
+  { query: { format = 'json', noms } }: { query: IEntreprisesQueryInput },
   userId?: string
 ) => {
   const user = await userGet(userId)
@@ -462,7 +477,7 @@ const entreprises = async (
 
     contenu = tableConvert('entreprises', elements, format)
   } else {
-    contenu = JSON.stringify(entreprisesFormatted)
+    contenu = JSON.stringify(entreprisesFormatted, null, 2)
   }
 
   return contenu

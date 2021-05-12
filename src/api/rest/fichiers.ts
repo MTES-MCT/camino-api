@@ -11,7 +11,7 @@ import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { documentRepertoireFind } from '../../tools/documents/document-repertoire-find'
 
 const fichier = async (
-  { documentId }: { documentId?: string },
+  { params: { documentId } }: { params: { documentId?: string } },
   userId?: string
 ) => {
   if (!documentId) {
@@ -99,7 +99,9 @@ const etapeIdPathGet = (
 }
 
 const etapeFichier = async (
-  { etapeId, fichierNom }: { etapeId?: string; fichierNom?: string },
+  {
+    params: { etapeId, fichierNom }
+  }: { params: { etapeId?: string; fichierNom?: string } },
   userId?: string
 ) => {
   if (!etapeId) {
