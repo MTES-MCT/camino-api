@@ -16,6 +16,8 @@ type Etape {
   """
   id: ID!
 
+  titreDemarcheId: ID!
+
   "Type de l'étape"
   type: EtapeType!
 
@@ -90,13 +92,15 @@ type Etape {
 type EtapeHeritage {
   type: EtapeType
 
-  "Durée de la démarche"
+  titreDemarcheId: ID!
+
+  "Durée de l'étape"
   duree: Int
 
-  "Date de début de la démarche"
+  "Date de début de l'étape"
   dateDebut: String
 
-  "Date de fin de la démarche"
+  "Date de fin de l'étape"
   dateFin: String
 
   "Surface en Km² du titre"

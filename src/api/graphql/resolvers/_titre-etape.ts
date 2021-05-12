@@ -224,6 +224,7 @@ const titreEtapeHeritageBuild = (
   }
 
   titreEtape.type = etapeType
+  titreEtape.titreDemarcheId = titreDemarche.id
 
   return titreEtape
 }
