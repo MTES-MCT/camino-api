@@ -78,14 +78,16 @@ const administrationsEtapesTypesPropsQuery = (
 
 const entreprisesEtapesTypesPropsQuery = (entreprisesIds: string[]) =>
   TitresEtapes.query()
-    .alias('te_entreprise')
+    .alias('e_te')
     .select(raw('true'))
-    .joinRelated('titulaires')
-    .joinRelated('demarche')
+    .leftJoinRelated('titulaires.titresTypes')
+    .leftJoinRelated('demarche.titre')
     .andWhere('demarche.typeId', 'oct')
-    .whereIn('te_entreprise.typeId', ['mfr', 'mfm'])
-    .andWhere('te_entreprise.statutId', 'aco')
+    .whereIn('e_te.typeId', ['mfr', 'mfm'])
+    .andWhere('e_te.statutId', 'aco')
     .whereIn('titulaires.id', entreprisesIds)
+    .whereRaw('?? = ??', ['demarche:titre.typeId', 'titulaires:titresTypes.id'])
+    .whereRaw('?? is true', ['titulaires:titresTypesJoin.titresCreation'])
     .first()
 
 const titresCreationQuery = (administrationsIds: string[]) =>
@@ -229,8 +231,9 @@ const etapesTypesQueryModify = (
       const etapesCreationQuery = entreprisesEtapesTypesPropsQuery(
         user.entreprises.map(({ id }) => id)
       )
-        .andWhere('te_entreprise.id', titreEtapeId)
-        .andWhereRaw('?? = ??', ['te_entreprise.typeId', 'etapesTypes.id'])
+        .andWhere('e_te.id', titreEtapeId)
+        .andWhereRaw('?? = ??', ['e_te.typeId', 'etapesTypes.id'])
+
       q.select(etapesCreationQuery.as('etapesCreation'))
     } else {
       q.select(raw('false').as('etapesCreation'))
