@@ -29,4 +29,3 @@ fragment entreprise on Entreprise {
   email
   archive
 }
-

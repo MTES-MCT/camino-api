@@ -1,7 +1,7 @@
 mutation demarcheSupprimer($id: ID!) {
-  demarcheSupprimer(id: $id){
+  demarcheSupprimer(id: $id) {
     id
-    demarches{
+    demarches {
       id
     }
   }

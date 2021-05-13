@@ -1,5 +1,5 @@
 mutation UtilisateurSupprimer($id: ID!) {
-  utilisateurSupprimer(id: $id){
+  utilisateurSupprimer(id: $id) {
     id
   }
 }

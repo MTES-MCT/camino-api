@@ -1,5 +1,5 @@
 mutation UtilisateurEmailModifier($emailToken: String!) {
-  utilisateurEmailModifier(emailToken: $emailToken){
+  utilisateurEmailModifier(emailToken: $emailToken) {
     utilisateur {
       id
       email

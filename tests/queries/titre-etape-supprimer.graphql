@@ -1,5 +1,5 @@
 mutation EtapeSupprimer($id: ID!) {
-  etapeSupprimer(id: $id){
+  etapeSupprimer(id: $id) {
     id
   }
 }

@@ -1,5 +1,5 @@
 query Entreprises($archive: Boolean) {
-  entreprises(archive: $archive){
+  entreprises(archive: $archive) {
     elements {
       ...entreprise
     }

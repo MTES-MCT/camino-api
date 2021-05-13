@@ -45,13 +45,13 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "docs": "rm -rf docs && typedoc src --sourcefile-url-prefix \"https://github.com/MTES-MCT/camino-api/blob/master/\"",
     "documents:check": "node ./dist/scripts/documents-check.js",
-    "lint": "eslint --fix .",
+    "lint": "prettier --write . && eslint --fix .",
     "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && conventional-github-releaser",
     "start": "node ./dist/index.js",
-    "test": "eslint . && npm run build && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --forceExit",
+    "test": "prettier --check . && eslint . && npm run build && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --forceExit",
     "test:unit": "npm run lint && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --watch",
     "test:integration": "cross-env PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch --testTimeout=20000",
-    "ci:lint": "eslint .",
+    "ci:lint": "prettier --check . && eslint .",
     "ci:test-unit": "cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --ci --runInBand --detectOpenHandles --forceExit",
     "ci:test-integration": "cross-env PGDATABASE=camino_tests JWT_SECRET=secret-tests JWT_SECRET_REFRESH=refresh-secret jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit --testTimeout=20000",
     "ci:codecov": "codecov"
@@ -143,7 +143,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-tsdoc": "^0.2.14",
@@ -180,7 +179,6 @@
       "jest/globals": true
     },
     "plugins": [
-      "prettier",
       "jest",
       "@typescript-eslint"
     ],
@@ -191,7 +189,6 @@
       "no-return-await": "error",
       "default-param-last": 0,
       "no-unused-vars": 0,
-      "prettier/prettier": "error",
       "@typescript-eslint/explicit-function-return-type": 0,
       "@typescript-eslint/explicit-module-boundary-types": 0,
       "@typescript-eslint/no-empty-interface": 0,
