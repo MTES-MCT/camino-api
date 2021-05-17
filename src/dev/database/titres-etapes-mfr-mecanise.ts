@@ -6,6 +6,7 @@ import TitresTypesDemarchesTypesEtapesTypes from '../../database/models/titres-t
 import { objectClone } from '../../tools'
 import TitresEtapes from '../../database/models/titres-etapes'
 import AdministrationsTitresTypesEtapesTypes from '../../database/models/administrations-titres-types-etapes-types'
+import EtapesTypesDocumentsTypes from '../../database/models/etapes-types--documents-types'
 
 const main = async () => {
   const mfr = await EtapesTypes.query().findById('mfr')
@@ -28,6 +29,15 @@ const main = async () => {
     ordre: 2
   })
 
+  const documentsTypes = await EtapesTypesDocumentsTypes.query().where(
+    'etapeTypeId',
+    'mfr'
+  )
+  for (const documentsType of documentsTypes) {
+    documentsType.etapeTypeId = 'mfm'
+    await EtapesTypesDocumentsTypes.query().insertGraph(documentsType)
+  }
+
   const mfrTDE = await TitresTypesDemarchesTypesEtapesTypes.query()
     .where('titreTypeId', 'arm')
     .andWhere('demarcheTypeId', 'oct')
@@ -43,7 +53,7 @@ const main = async () => {
       id: 'materiel',
       nom: 'Matériel',
       type: 'multiple',
-      optionnel: false,
+      optionnel: true,
       elements: [
         {
           id: 'type',
