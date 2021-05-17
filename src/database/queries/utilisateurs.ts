@@ -117,18 +117,8 @@ const userByEmailGet = async (
     .first()
 }
 
-const userByRefreshTokenGet = async (
-  refreshToken: string,
-  { fields }: { fields?: IFields } = {}
-) => {
-  const graph = fields
-    ? graphBuild(fields, 'utilisateur', fieldsFormat)
-    : options.utilisateurs.graph
-
-  return Utilisateurs.query()
-    .withGraphFetched(graph)
-    .where('refreshToken', refreshToken)
-    .first()
+const userByRefreshTokenGet = async (refreshToken: string) => {
+  return Utilisateurs.query().where('refreshToken', refreshToken).first()
 }
 
 const utilisateurGet = async (
