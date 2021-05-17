@@ -171,13 +171,17 @@ const moi = async (_: never, context: IToken, info: GraphQLResolveInfo) => {
   }
 }
 
-const utilisateurTokenCreer = async ({
-  email,
-  motDePasse
-}: {
-  email: string
-  motDePasse: string
-}) => {
+const utilisateurTokenCreer = async (
+  {
+    email,
+    motDePasse
+  }: {
+    email: string
+    motDePasse: string
+  },
+  _: never,
+  info: GraphQLResolveInfo
+) => {
   try {
     email = email.toLowerCase()
     if (!emailCheck(email)) {
@@ -201,8 +205,16 @@ const utilisateurTokenCreer = async ({
 
     await utilisateurUpdate(user.id, { refreshToken })
 
+    const fields = fieldsBuild(info)
+
+    const utilisateur = await utilisateurGet(
+      user.id,
+      { fields: fields.utilisateur },
+      user
+    )
+
     return {
-      utilisateur: userFormat(user),
+      utilisateur: userFormat(utilisateur),
       accessToken,
       refreshToken
     }
@@ -216,30 +228,31 @@ const utilisateurTokenCreer = async ({
 }
 
 const utilisateurTokenRafraichir = async (
-  {
-    refreshToken
-  }: {
-    refreshToken: string
-  },
-  context: IToken,
+  { refreshToken }: { refreshToken: string },
+  _: never,
   info: GraphQLResolveInfo
 ) => {
   try {
     jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH!)
 
-    const fields = fieldsBuild(info)
+    const user = await userByRefreshTokenGet(refreshToken)
 
-    const user = await userByRefreshTokenGet(refreshToken, {
-      fields: fields.utilisateur
-    })
     if (!user) {
       throw new Error('refresh token inconnu')
     }
 
     const tokens = userTokensCreate(user)
 
+    const fields = fieldsBuild(info)
+
+    const utilisateur = await utilisateurGet(
+      user.id,
+      { fields: fields.utilisateur },
+      user
+    )
+
     return {
-      utilisateur: userFormat(user),
+      utilisateur: userFormat(utilisateur),
       ...tokens
     }
   } catch (e) {
@@ -263,7 +276,11 @@ const utilisateurCerbereUrlObtenir = async ({ url }: { url: string }) => {
   }
 }
 
-const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
+const utilisateurCerbereTokenCreer = async (
+  { ticket }: { ticket: string },
+  _: never,
+  info: GraphQLResolveInfo
+) => {
   try {
     // authentification cerbere et récuperation de l'utilisateur
     const cerbereUtilisateur = await cerbereLogin(ticket)
@@ -272,21 +289,25 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
       throw new Error('aucun utilisateur sur Cerbère')
     }
 
-    let utilisateur = await userByEmailGet(cerbereUtilisateur.email!)
+    let user = await userByEmailGet(cerbereUtilisateur.email!)
 
     // si l'utilisateur n'existe pas encore en base
     // alors on le crée en lui générant un mot de passe aléatoire
-    if (!utilisateur) {
+    if (!user) {
       cerbereUtilisateur.motDePasse = cryptoRandomString({ length: 16 })
 
-      utilisateur = await utilisateurCreer(
-        { utilisateur: cerbereUtilisateur },
-        { user: { email: cerbereUtilisateur.email } } as IToken
-      )
+      user = await utilisateurCreer({ utilisateur: cerbereUtilisateur }, {
+        user: { email: cerbereUtilisateur.email }
+      } as IToken)
     }
 
-    // charge l’utilisateur totalement
-    utilisateur = (await userGet(utilisateur.id))!
+    const fields = fieldsBuild(info)
+
+    const utilisateur = await utilisateurGet(
+      user.id,
+      { fields: fields.utilisateur },
+      user
+    )
 
     return {
       ...userTokensCreate(utilisateur),
