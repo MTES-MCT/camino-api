@@ -44,7 +44,7 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   ) {
     return entreprisesEtapesTypesPropsQuery(
       user.entreprises.map(({ id }) => id)
-    ).whereRaw('?? = ??', ['titresEtapes.id', 'te_entreprise.id'])
+    ).whereRaw('?? = ??', ['titresEtapes.id', 'e_te.id'])
   }
 
   return raw('false')
