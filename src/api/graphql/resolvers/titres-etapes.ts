@@ -57,7 +57,7 @@ const etape = async (
     )
 
     if (!titreEtape) {
-      throw new Error("l'étape' n'existe pas")
+      throw new Error("l'étape n'existe pas")
     }
 
     const titreDemarche = await titreDemarcheGet(
