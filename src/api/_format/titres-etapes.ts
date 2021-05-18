@@ -8,6 +8,7 @@ import { etapeTypeSectionsFormat } from './etapes-types'
 import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
 import { titreEtapeFormatFields } from './_fields'
+import { titreDemarcheFormat } from './titres-demarches'
 
 const titreEtapeFormat = (
   titreEtape: ITitreEtape,
@@ -15,6 +16,14 @@ const titreEtapeFormat = (
   demarcheTypeEtapesTypes: IEtapeType[],
   fields = titreEtapeFormatFields
 ) => {
+  if (titreEtape.demarche) {
+    titreEtape.demarche = titreDemarcheFormat(
+      titreEtape.demarche,
+      titreTypeId,
+      fields.demarche
+    )
+  }
+
   if (titreEtape.type) {
     titreEtape.type.sections = etapeTypeSectionsFormat(
       titreEtape.type,
