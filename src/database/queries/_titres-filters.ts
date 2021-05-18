@@ -48,7 +48,7 @@ const titresFiltersQueryModify = (
   name: ITitreTableName = 'titres',
   root: ITitreRootName = 'titres'
 ) => {
-  if (perimetre?.length) {
+  if (perimetre?.length === 4) {
     q.leftJoinRelated(jointureFormat(name, 'points'))
     q.whereRaw(
       `('(' || ? || ',' || ? || '),(' || ? || ',' || ? || ')')::box @> ?? `,
