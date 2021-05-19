@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.82](https://github.com/MTES-MCT/camino-api/compare/v0.24.81...v0.24.82) (2021-05-19)
+
+
+### Features
+
+* **demande:** ajoute les types de document pour une demande mécanisée et rend le matériel optionnel ([b253e41](https://github.com/MTES-MCT/camino-api/commit/b253e41783b2cca0e6936e7c10041619b702b327))
+* ajoute une demande de titre ([#747](https://github.com/MTES-MCT/camino-api/issues/747)) ([c620eaf](https://github.com/MTES-MCT/camino-api/commit/c620eaf0d83394bc4cdaeaee6da7a48ce1d41a31))
+* édite une étape ([#751](https://github.com/MTES-MCT/camino-api/issues/751)) ([3dcf5e2](https://github.com/MTES-MCT/camino-api/commit/3dcf5e2ec29be20dd8c374289b0a99c233938e20))
+* expose l'id de la démarche dans une étape ([50bbf57](https://github.com/MTES-MCT/camino-api/commit/50bbf570929b00ac7445719aef3786633e209d6c))
+* **demande:** ajoute le type d’étape « demande mécanisée » ([#742](https://github.com/MTES-MCT/camino-api/issues/742)) ([8327273](https://github.com/MTES-MCT/camino-api/commit/8327273d154fc6c0f8b4b9b1c678650eae693f9f))
+* **entreprise:** ajoute une propriété titresCreation ([#746](https://github.com/MTES-MCT/camino-api/issues/746)) ([d5aa7ee](https://github.com/MTES-MCT/camino-api/commit/d5aa7ee9f28772408f645032130bff7aef6bcc03))
+
+
+### Bug Fixes
+
+* corrige une erreur sur la liste de titres ([adf6743](https://github.com/MTES-MCT/camino-api/commit/adf6743ad337149abea620dfdad6e53b3c3b3a71))
+* corrige une faute d'orthographe ([87497dd](https://github.com/MTES-MCT/camino-api/commit/87497dd6bc7125e325f8644440c4e4f403e3eb80))
+* **étapes:** les éléments de type radio et checkbox ne sont plus optionnel ([#745](https://github.com/MTES-MCT/camino-api/issues/745)) ([4318591](https://github.com/MTES-MCT/camino-api/commit/431859179b1d26f77b9019d507467c80bc290210))
+* **etapestypes:** retourne les etapesTypes dans le bon ordre ([#744](https://github.com/MTES-MCT/camino-api/issues/744)) ([13c4e9a](https://github.com/MTES-MCT/camino-api/commit/13c4e9a29841372996740d8309fa9bb6007bce28))
+* **export:** ajoute les références de titres dans les exports des démarches ([#749](https://github.com/MTES-MCT/camino-api/issues/749)) ([44b7679](https://github.com/MTES-MCT/camino-api/commit/44b76799e670b0443d45bec8c0fd0259bb7e21d6))
+* **titres:** vérifie le nombre de points du périmètre pour la requête de titres ([#750](https://github.com/MTES-MCT/camino-api/issues/750)) ([5890890](https://github.com/MTES-MCT/camino-api/commit/589089058f47904a8a88087ccc6650d7b2cb1f7a))
+* corrige le chargement d'un utilisateur ([#752](https://github.com/MTES-MCT/camino-api/issues/752)) ([50aed43](https://github.com/MTES-MCT/camino-api/commit/50aed43e37ea17aa75b603092585994ad9e1e004))
+* **héritage:** corrige l’héritage récurrent à propos des valeurs null et undefined ([#748](https://github.com/MTES-MCT/camino-api/issues/748)) ([c5034d2](https://github.com/MTES-MCT/camino-api/commit/c5034d2d4b14fe7454499ff323d899635c9bbea8))
+
 ### [0.24.81](https://github.com/MTES-MCT/camino-api/compare/v0.24.80...v0.24.81) (2021-05-04)
 
 
