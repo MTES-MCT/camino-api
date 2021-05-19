@@ -25,7 +25,8 @@ import {
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
   IUtilisateur,
-  IEtapeTypeDocumentType
+  IEtapeTypeDocumentType,
+  IEtapeTypeJustificatifType
 } from '../../types'
 
 import { knex } from '../../knex'
@@ -65,6 +66,7 @@ import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarc
 import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
+import EtapesTypesJustificatifsTypes from '../models/etapes-types--justificatifs-types'
 
 const permissionsGet = async (
   _a: never,
@@ -277,6 +279,35 @@ const etapeTypeDocumentTypeDelete = async (
   etapeTypeId: string,
   documentTypeId: string
 ) => EtapesTypesDocumentsTypes.query().deleteById([etapeTypeId, documentTypeId])
+
+const etapesTypesJustificatifsTypesGet = async () =>
+  EtapesTypesJustificatifsTypes.query().orderBy([
+    'etapeTypeId',
+    'documentTypeId'
+  ])
+
+const etapeTypeJustificatifTypeUpdate = async (
+  etapeTypeId: string,
+  documentTypeId: string,
+  props: Partial<IEtapeTypeJustificatifType>
+) =>
+  EtapesTypesJustificatifsTypes.query().patchAndFetchById(
+    [etapeTypeId, documentTypeId],
+    props
+  )
+
+const etapeTypeJustificatifTypeCreate = async (
+  etapeTypeJustificatifType: IEtapeTypeJustificatifType
+) => EtapesTypesJustificatifsTypes.query().insert(etapeTypeJustificatifType)
+
+const etapeTypeJustificatifTypeDelete = async (
+  etapeTypeId: string,
+  documentTypeId: string
+) =>
+  EtapesTypesJustificatifsTypes.query().deleteById([
+    etapeTypeId,
+    documentTypeId
+  ])
 
 /**
  * retourne les statuts de titre visible par l’utilisateur
@@ -537,5 +568,9 @@ export {
   etapesTypesDocumentsTypesGet,
   etapeTypeDocumentTypeUpdate,
   etapeTypeDocumentTypeCreate,
-  etapeTypeDocumentTypeDelete
+  etapeTypeDocumentTypeDelete,
+  etapesTypesJustificatifsTypesGet,
+  etapeTypeJustificatifTypeUpdate,
+  etapeTypeJustificatifTypeCreate,
+  etapeTypeJustificatifTypeDelete
 }

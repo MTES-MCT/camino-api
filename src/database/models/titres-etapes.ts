@@ -139,24 +139,6 @@ class TitresEtapes extends Model {
       }
     },
 
-    documentsTypes: {
-      relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
-      join: {
-        from: 'titresEtapes.typeId',
-        to: 'etapesTypes__documentsTypes.etapeTypeId'
-      }
-    },
-
-    justificatifsTypes: {
-      relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
-      join: {
-        from: 'titresEtapes.typeId',
-        to: 'etapesTypes__justificatifsTypes.etapeTypeId'
-      }
-    },
-
     justificatifs: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'documents'),
