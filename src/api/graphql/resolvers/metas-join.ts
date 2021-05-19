@@ -5,7 +5,8 @@ import {
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
   IToken,
-  IEtapeTypeDocumentType
+  IEtapeTypeDocumentType,
+  IEtapeTypeJustificatifType
 } from '../../../types'
 
 import { debug } from '../../../config/index'
@@ -39,11 +40,18 @@ import {
   etapesTypesDocumentsTypesGet,
   etapeTypeDocumentTypeUpdate,
   etapeTypeDocumentTypeCreate,
-  etapeTypeDocumentTypeDelete
+  etapeTypeDocumentTypeDelete,
+  etapesTypesJustificatifsTypesGet,
+  etapeTypeJustificatifTypeUpdate,
+  etapeTypeJustificatifTypeCreate,
+  etapeTypeJustificatifTypeDelete
 } from '../../../database/queries/metas'
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 import { userSuper } from '../../../database/user-super'
-import { etapeTypeDocumentTypeUsedCheck } from '../../../database/queries/permissions/documents'
+import {
+  etapeTypeDocumentTypeUsedCheck,
+  etapeTypeJustificatifTypeUsedCheck
+} from '../../../database/queries/permissions/documents'
 import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'
 
 const titresTypes = async (_: never, context: IToken) => {
@@ -706,6 +714,127 @@ const etapeTypeDocumentTypeSupprimer = async (
   }
 }
 
+//
+
+const etapesTypesJustificatifsTypes = async (_: never, context: IToken) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
+
+    return etapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeTypeJustificatifTypeModifier = async (
+  {
+    etapeTypeJustificatifType
+  }: { etapeTypeJustificatifType: IEtapeTypeJustificatifType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await etapeTypeJustificatifTypeUpdate(
+      etapeTypeJustificatifType.etapeTypeId,
+      etapeTypeJustificatifType.documentTypeId,
+      etapeTypeJustificatifType
+    )
+
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
+
+    return etapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeTypeJustificatifTypeCreer = async (
+  {
+    etapeTypeJustificatifType
+  }: { etapeTypeJustificatifType: IEtapeTypeJustificatifType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await etapeTypeJustificatifTypeCreate(etapeTypeJustificatifType)
+
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
+
+    return etapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeTypeJustificatifTypeSupprimer = async (
+  {
+    etapeTypeJustificatifType
+  }: { etapeTypeJustificatifType: IEtapeTypeJustificatifType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const used = await etapeTypeJustificatifTypeUsedCheck(
+      etapeTypeJustificatifType.etapeTypeId,
+      etapeTypeJustificatifType.documentTypeId
+    )
+
+    if (used) {
+      throw new Error(
+        'impossible de supprimer cette jointure car elle est utilisée'
+      )
+    }
+
+    await etapeTypeJustificatifTypeDelete(
+      etapeTypeJustificatifType.etapeTypeId,
+      etapeTypeJustificatifType.documentTypeId
+    )
+
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
+
+    return etapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   titresTypes,
   titreTypeModifier,
@@ -730,5 +859,9 @@ export {
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
-  etapeTypeDocumentTypeSupprimer
+  etapeTypeDocumentTypeSupprimer,
+  etapesTypesJustificatifsTypes,
+  etapeTypeJustificatifTypeModifier,
+  etapeTypeJustificatifTypeCreer,
+  etapeTypeJustificatifTypeSupprimer
 }

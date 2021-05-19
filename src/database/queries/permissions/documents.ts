@@ -136,4 +136,22 @@ const etapeTypeDocumentTypeUsedCheck = async (
   return (res[0] as any).count !== '0'
 }
 
-export { documentsQueryModify, etapeTypeDocumentTypeUsedCheck }
+const etapeTypeJustificatifTypeUsedCheck = async (
+  etapeTypeId: string,
+  documentTypeId: string
+) => {
+  const res = await TitresEtapesJustificatifs.query()
+    .joinRelated('etape')
+    .joinRelated('document')
+    .where('etape.typeId', etapeTypeId)
+    .andWhere('document.typeId', documentTypeId)
+    .count()
+
+  return (res[0] as any).count !== '0'
+}
+
+export {
+  documentsQueryModify,
+  etapeTypeDocumentTypeUsedCheck,
+  etapeTypeJustificatifTypeUsedCheck
+}

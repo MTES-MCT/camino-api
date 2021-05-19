@@ -181,6 +181,7 @@ type Query {
   titresTypesDemarchesTypesEtapesTypes: [TitreTypeDemarcheTypeEtapeType]
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   etapesTypesDocumentsTypes: [EtapeTypeDocumentType]
+  etapesTypesJustificatifsTypes: [EtapeTypeJustificatifType]
   travauxTypesTravauxEtapesTypes: [TravauxTypeTravauxEtapeType]
   travauxEtapesTypesDocumentsTypes: [TravauxEtapeTypeDocumentType]
   travauxEtapesTypesEtapesStatuts: [TravauxEtapeTypeEtapeStatut]
@@ -495,6 +496,18 @@ type Mutation {
   etapeTypeDocumentTypeSupprimer(
     etapeTypeDocumentType: InputEtapeTypeDocumentType!
   ): [EtapeTypeDocumentType]
+
+  etapeTypeJustificatifTypeModifier(
+    etapeTypeJustificatifType: InputEtapeTypeJustificatifType!
+  ): [EtapeTypeJustificatifType]
+
+  etapeTypeJustificatifTypeCreer(
+    etapeTypeJustificatifType: InputEtapeTypeJustificatifType!
+  ): [EtapeTypeJustificatifType]
+
+  etapeTypeJustificatifTypeSupprimer(
+    etapeTypeJustificatifType: InputEtapeTypeJustificatifType!
+  ): [EtapeTypeJustificatifType]
 
   travauxTypeTravauxEtapeTypeModifier(
     travauxTypeTravauxEtapeType: InputTravauxTypeTravauxEtapeType!

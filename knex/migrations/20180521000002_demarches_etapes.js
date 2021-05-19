@@ -122,26 +122,10 @@ exports.up = knex => {
       table.boolean('optionnel')
       table.primary(['etapeTypeId', 'documentTypeId'])
     })
-    .createTable('etapesTypes__justificatifsTypes', table => {
-      table
-        .string('etapeTypeId', 3)
-        .index()
-        .references('etapesTypes.id')
-        .notNullable()
-        .onDelete('CASCADE')
-      table
-        .string('documentTypeId', 3)
-        .index()
-        .references('entreprises__documentsTypes.id')
-        .notNullable()
-      table.boolean('optionnel')
-      table.primary(['etapeTypeId', 'documentTypeId'])
-    })
 }
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('etapesTypes__justificatifsTypes')
     .dropTable('etapesTypes__documentsTypes')
     .dropTable('etapesTypes__etapesStatuts')
     .dropTable('etapesStatuts')
