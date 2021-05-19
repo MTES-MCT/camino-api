@@ -327,6 +327,8 @@ interface IEtapeTypeDocumentType {
   optionnel?: boolean
 }
 
+interface IEtapeTypeJustificatifType extends IEtapeTypeDocumentType {}
+
 interface IEtapeType {
   id: string
   nom: string
@@ -1045,6 +1047,7 @@ export {
   IActiviteTypeTitreType,
   IEtapeTypeEtapeStatut,
   IEtapeTypeDocumentType,
+  IEtapeTypeJustificatifType,
   ITravauxTypeTravauxEtapeType,
   ITravauxEtapeTypeEtapeStatut,
   ITravauxEtapeTypeDocumentType,
