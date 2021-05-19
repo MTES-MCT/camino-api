@@ -414,11 +414,21 @@ const documentsTypesGet = async ({
 
       q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
     } else if (repertoire === 'entreprises') {
-      q.join(
-        'entreprises__documentsTypes as e_dt',
-        'e_dt.documentTypeId',
-        'documentsTypes.id'
-      )
+      if (typeId) {
+        q.join('etapesTypes__justificatifsTypes as et_jt', b => {
+          b.on(knex.raw('?? = ?', ['et_jt.etapeTypeId', typeId]))
+          b.on(
+            knex.raw('?? = ??', ['et_jt.documentTypeId', 'documentsTypes.id'])
+          )
+        })
+        q.select(raw('?? is true', ['et_jt.optionnel']).as('optionnel'))
+      } else {
+        q.join(
+          'entreprises__documentsTypes as e_dt',
+          'e_dt.documentTypeId',
+          'documentsTypes.id'
+        )
+      }
     }
   }
 

@@ -17,6 +17,7 @@ const titresTypes_demarchesTypes_etapesTypes = require('../../sources/titres-typ
 const etapesStatuts = require('../../sources/etapes-statuts.json')
 const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
 const etapesTypes_documentsTypes = require('../../sources/etapes-types--documents-types.json')
+const etapesTypes_justificatifsTypes = require('../../sources/etapes-types--justificatifs-types.json')
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
 const unites = require('../../sources/unites.json')
@@ -53,6 +54,7 @@ const seed = (module.exports = seeding(async ({ insert }) => {
       titresTypes_demarchesTypes_etapesTypes
     ),
     insert('etapesTypes__documentsTypes', etapesTypes_documentsTypes),
+    insert('etapesTypes__justificatifs', etapesTypes_justificatifsTypes),
     insert('etapesTypes__etapesStatuts', etapesTypes_etapesStatuts)
   ])
 }))
