@@ -21,9 +21,8 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
       throw new Error(`les travaux ${titreTravaux} n'existent pas`)
     }
 
-    const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate(
-      [titreTravauxId]
-    )
+    const titresTravauxEtapesOrdreUpdated =
+      await titresTravauxEtapesOrdreUpdate([titreTravauxId])
     const titreId = titreTravaux.titreId
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
 

@@ -360,7 +360,8 @@ const titresTypesDemarchesTypesEtapesTypes = async (
       throw new Error('droits insuffisants')
     }
 
-    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes =
+      await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -394,7 +395,8 @@ const titreTypeDemarcheTypeEtapeTypeModifier = async (
 
     await titresEtapesHeritageContenuUpdate()
 
-    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes =
+      await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -423,7 +425,8 @@ const titreTypeDemarcheTypeEtapeTypeCreer = async (
 
     await titresEtapesHeritageContenuUpdate()
 
-    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes =
+      await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -475,7 +478,8 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
       titreTypeDemarcheTypeEtapeType.etapeTypeId
     )
 
-    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes =
+      await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {

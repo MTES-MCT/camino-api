@@ -1,8 +1,7 @@
 const { dbManagerConfig } = require('./db-manager-config')
 const chalk = require('chalk')
-const dbManager = require('knex-db-manager').databaseManagerFactory(
-  dbManagerConfig
-)
+const dbManager =
+  require('knex-db-manager').databaseManagerFactory(dbManagerConfig)
 
 const run = async () => {
   try {

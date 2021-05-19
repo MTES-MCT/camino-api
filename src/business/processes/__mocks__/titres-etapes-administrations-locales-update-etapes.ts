@@ -57,7 +57,7 @@ const titresEtapesCommunes = [
   }
 ] as Titres[]
 
-const titresEtapesCommunesVides = ([
+const titresEtapesCommunesVides = [
   {
     id: 'titre-id',
     demarches: [
@@ -76,7 +76,7 @@ const titresEtapesCommunesVides = ([
       }
     ]
   }
-] as unknown) as Titres[]
+] as unknown as Titres[]
 
 const titresEtapesCommunesMemeCommune = [
   {
@@ -102,7 +102,7 @@ const titresEtapesCommunesMemeCommune = [
   }
 ] as Titres[]
 
-const titresEtapesAdministrationLocalesInexistante = ([
+const titresEtapesAdministrationLocalesInexistante = [
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -119,7 +119,7 @@ const titresEtapesAdministrationLocalesInexistante = ([
       }
     ]
   }
-] as unknown) as Titres[]
+] as unknown as Titres[]
 
 const titresEtapesAdministrationLocalesExistante = [
   {

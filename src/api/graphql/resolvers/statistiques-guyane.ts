@@ -118,13 +118,8 @@ const statistiquesGuyaneAnneeBuild = (
 ) => {
   const titresFiltered = titresSurfaceIndexBuild(titres, annee)
 
-  const {
-    titresArm,
-    titresPrm,
-    titresAxm,
-    titresPxm,
-    titresCxm
-  } = statistiquesGuyaneTitresBuild(titresFiltered)
+  const { titresArm, titresPrm, titresAxm, titresPxm, titresCxm } =
+    statistiquesGuyaneTitresBuild(titresFiltered)
 
   // les activités de type grp de l'année
   const titresActivitesGrpFiltered = titresActivites.filter(

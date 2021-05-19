@@ -14,6 +14,6 @@ const dbManager = knexDbManager.databaseManagerFactory({
   }
 })
 
-knexInstanceSet((dbManager.knexInstance() as unknown) as Knex<any, unknown[]>)
+knexInstanceSet(dbManager.knexInstance() as unknown as Knex<any, unknown[]>)
 
 export { dbManager }

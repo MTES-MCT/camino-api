@@ -105,12 +105,12 @@ const fieldsFormat = (fields: IFields, parent: string) => {
   // ajoute `(orderDesc)` à certaine propriétés
   if (fieldsOrderDesc.includes(parent)) {
     // TODO: est ce qu'on peut faire un typage plus propre ?
-    fields.$modifier = ('orderDesc' as unknown) as IFields
+    fields.$modifier = 'orderDesc' as unknown as IFields
   }
 
   // ajoute `(orderAsc)` à certaine propriétés
   if (fieldsOrderAsc.includes(parent)) {
-    fields.$modifier = ('orderAsc' as unknown) as IFields
+    fields.$modifier = 'orderAsc' as unknown as IFields
   }
 
   if (fields.administrations) {
@@ -152,7 +152,7 @@ const fieldsFormat = (fields: IFields, parent: string) => {
 
     // trie les types de titres
     if (fields.type) {
-      fields.type.$modifier = ('orderAsc' as unknown) as IFields
+      fields.type.$modifier = 'orderAsc' as unknown as IFields
     }
 
     // ajouter titulaires et amodiataires

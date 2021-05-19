@@ -53,7 +53,7 @@ const format = (elements: IFields[]) =>
 
 const fieldFormat = (field: IFields, key: string) => {
   if (key === 'coordonnees') {
-    const coordonnees = (field[key] as unknown) as ICoordonnees
+    const coordonnees = field[key] as unknown as ICoordonnees
 
     return `${coordonnees.x},${coordonnees.y}`
   }

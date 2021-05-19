@@ -16,15 +16,15 @@ const titreEtapesSectionsSansElement = [
 
 const titreEtapeSansContenu = { duree: 1, contenu: null } as ITitreEtape
 
-const titreEtapeNombresValides = ({
+const titreEtapeNombresValides = {
   duree: 1,
   contenu: { section: { nombre: 1 } }
-} as unknown) as ITitreEtape
+} as unknown as ITitreEtape
 
-const titreEtapeNombresNegatifs = ({
+const titreEtapeNombresNegatifs = {
   duree: -1,
   contenu: { section: { nombre: -1 } }
-} as unknown) as ITitreEtape
+} as unknown as ITitreEtape
 
 export {
   titreEtapesSections,

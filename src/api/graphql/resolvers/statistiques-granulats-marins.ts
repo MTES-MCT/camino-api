@@ -133,11 +133,8 @@ const statistiquesGranulatsMarinsAnneeBuild = (
   // les titres créés dans l'année et leur surface lors de l'octroi
   const titresFiltered = titresSurfaceIndexBuild(titres, annee)
 
-  const {
-    titresPrw,
-    titresPxw,
-    titresCxw
-  } = statistiquesGranulatsMarinsTitresGet(titresFiltered)
+  const { titresPrw, titresPxw, titresCxw } =
+    statistiquesGranulatsMarinsTitresGet(titresFiltered)
 
   // les activités de l'année
   const titresActivitesAnneeFiltered = titresActivites.filter(

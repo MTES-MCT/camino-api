@@ -103,10 +103,11 @@ const main = async () => {
 
   await TitresTypesDemarchesTypesEtapesTypes.query().insertGraph(mfmTDE)
 
-  const administrationsTitresTypesEtapesTypes = await AdministrationsTitresTypesEtapesTypes.query().where(
-    'etapeTypeId',
-    'mfr'
-  )
+  const administrationsTitresTypesEtapesTypes =
+    await AdministrationsTitresTypesEtapesTypes.query().where(
+      'etapeTypeId',
+      'mfr'
+    )
 
   for (const a of administrationsTitresTypesEtapesTypes) {
     a.etapeTypeId = 'mfm'

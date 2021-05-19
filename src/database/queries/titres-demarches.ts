@@ -204,7 +204,7 @@ const titresDemarchesCount = async (
     q
   )
 
-  const titresDemarches = ((await q) as unknown) as { total: number }[]
+  const titresDemarches = (await q) as unknown as { total: number }[]
 
   return titresDemarches.length
 }

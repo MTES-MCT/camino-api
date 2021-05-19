@@ -2,7 +2,7 @@ import Titres from '../../../database/models/titres'
 import { ITitrePhase } from '../../../types'
 
 const titresSansPhase = [
-  ({
+  {
     id: 'h-cx-courdemanges-1988',
     demarches: [
       {
@@ -14,7 +14,7 @@ const titresSansPhase = [
         etapes: []
       }
     ]
-  } as unknown) as Titres
+  } as unknown as Titres
 ]
 
 const titresUnePhase = [
@@ -99,7 +99,7 @@ const titresUnePhaseMiseAJour = [
 ]
 
 const titresPhaseASupprimer = [
-  ({
+  {
     id: 'h-cx-courdemanges-1988',
     demarches: [
       {
@@ -117,7 +117,7 @@ const titresPhaseASupprimer = [
         etapes: []
       }
     ]
-  } as unknown) as Titres
+  } as unknown as Titres
 ]
 
 const titresUnePhaseSansChangement = [

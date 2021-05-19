@@ -162,31 +162,29 @@ const titreTerritoiresFind = (titre: ITitre) =>
           },
           region
         ) => {
-          const {
-            regionDepartements,
-            regionCommunes
-          } = region.departements!.reduce(
-            (
-              {
-                regionDepartements,
-                regionCommunes
-              }: { regionDepartements: string[]; regionCommunes: string[] },
-              departement
-            ) => {
-              regionDepartements.push(departement.nom)
-              regionCommunes.push(
-                ...departement.communes!.map(
-                  commune =>
-                    `${commune.nom} (${
-                      Math.round(commune.surface! / 100) / 10000
-                    })`
+          const { regionDepartements, regionCommunes } =
+            region.departements!.reduce(
+              (
+                {
+                  regionDepartements,
+                  regionCommunes
+                }: { regionDepartements: string[]; regionCommunes: string[] },
+                departement
+              ) => {
+                regionDepartements.push(departement.nom)
+                regionCommunes.push(
+                  ...departement.communes!.map(
+                    commune =>
+                      `${commune.nom} (${
+                        Math.round(commune.surface! / 100) / 10000
+                      })`
+                  )
                 )
-              )
 
-              return { regionDepartements, regionCommunes }
-            },
-            { regionDepartements: [], regionCommunes: [] }
-          )
+                return { regionDepartements, regionCommunes }
+              },
+              { regionDepartements: [], regionCommunes: [] }
+            )
 
           payRegions.push(region.nom)
           payDepartements.push(...regionDepartements)

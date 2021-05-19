@@ -6,12 +6,7 @@ describe('liste les années entre deux dates', () => {
     expect(anneesBuild('2020-12-07', '2020-10-05')).toEqual([2020])
     expect(anneesBuild('2020-12-01', '2020-12-05')).toEqual([2020])
     expect(anneesBuild('2015-12-01', '2020-12-05')).toEqual([
-      2015,
-      2016,
-      2017,
-      2018,
-      2019,
-      2020
+      2015, 2016, 2017, 2018, 2019, 2020
     ])
   })
 })

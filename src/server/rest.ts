@@ -44,54 +44,56 @@ type IRestResolver = (
 
 const rest = express.Router()
 
-const restify = (resolver: IRestResolver) => async (
-  req: IAuthRequest,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  try {
-    const result = await resolver(
-      { query: req.query, params: req.params },
-      req.user?.id
-    )
+const restify =
+  (resolver: IRestResolver) =>
+  async (
+    req: IAuthRequest,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const result = await resolver(
+        { query: req.query, params: req.params },
+        req.user?.id
+      )
 
-    if (!result) {
-      throw new Error('erreur: aucun résultat')
-    }
-
-    const { nom, format, contenu, filePath } = result
-
-    res.header(
-      'Content-disposition',
-      `attachment; filename=${encodeURIComponent(nom)}`
-    )
-    res.header('Content-Type', contentTypes[format])
-
-    if (filePath) {
-      const options = {
-        dotfiles: 'deny',
-        headers: {
-          'x-sent': true,
-          'x-timestamp': Date.now()
-        },
-        root: join(process.cwd(), 'files')
+      if (!result) {
+        throw new Error('erreur: aucun résultat')
       }
 
-      res.sendFile(filePath, options, err => {
-        if (err) console.error(`erreur de téléchargement ${err}`)
-        res.status(404).end()
-      })
-    } else {
-      res.send(contenu)
-    }
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
+      const { nom, format, contenu, filePath } = result
 
-    next(e)
+      res.header(
+        'Content-disposition',
+        `attachment; filename=${encodeURIComponent(nom)}`
+      )
+      res.header('Content-Type', contentTypes[format])
+
+      if (filePath) {
+        const options = {
+          dotfiles: 'deny',
+          headers: {
+            'x-sent': true,
+            'x-timestamp': Date.now()
+          },
+          root: join(process.cwd(), 'files')
+        }
+
+        res.sendFile(filePath, options, err => {
+          if (err) console.error(`erreur de téléchargement ${err}`)
+          res.status(404).end()
+        })
+      } else {
+        res.send(contenu)
+      }
+    } catch (e) {
+      if (debug) {
+        console.error(e)
+      }
+
+      next(e)
+    }
   }
-}
 
 rest.get('/titres/:id', restify(titre))
 rest.get('/titres', restify(titres))

@@ -34,9 +34,9 @@ const titreDemarcheIdFind = (titreDemarche: ITitreDemarche, titre: ITitre) => {
       titre.demarches!.filter(d => d.typeId === titreDemarche.typeId)
     ).findIndex(d => d === titreDemarche) + 1
 
-  return `${titre.id}-${
-    titreDemarche.typeId
-  }${titreDemarcheTypeOrder.toString().padStart(2, '0')}`
+  return `${titre.id}-${titreDemarche.typeId}${titreDemarcheTypeOrder
+    .toString()
+    .padStart(2, '0')}`
 }
 
 const titreTravauxIdFind = (titreTravaux: ITitreTravaux, titre: ITitre) => {
@@ -45,9 +45,9 @@ const titreTravauxIdFind = (titreTravaux: ITitreTravaux, titre: ITitre) => {
       titre.travaux!.filter(d => d.typeId === titreTravaux.typeId)
     ).findIndex(d => d.id === titreTravaux.id) + 1
 
-  return `${titre.id}-${
-    titreTravaux.typeId
-  }${titreTravauxTypeOrder.toString().padStart(2, '0')}`
+  return `${titre.id}-${titreTravaux.typeId}${titreTravauxTypeOrder
+    .toString()
+    .padStart(2, '0')}`
 }
 
 const titreEtapeIdFind = (
@@ -59,9 +59,9 @@ const titreEtapeIdFind = (
       titreDemarche.etapes!.filter(e => e.typeId === titreEtape.typeId)
     ).findIndex(e => e === titreEtape) + 1
 
-  return `${titreDemarche.id}-${
-    titreEtape.typeId
-  }${titreEtapeTypeOrder.toString().padStart(2, '0')}`
+  return `${titreDemarche.id}-${titreEtape.typeId}${titreEtapeTypeOrder
+    .toString()
+    .padStart(2, '0')}`
 }
 
 const titrePointIdFind = (titrePoint: ITitrePoint, titreEtape: ITitreEtape) =>

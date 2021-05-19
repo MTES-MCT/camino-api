@@ -157,8 +157,9 @@ const organismesDepartementsGet = async (
   departementsIdsNoms: { departementId: string; nom: string }[]
 ) => {
   const administrationsOrganismesRequests = departementsIdsNoms.map(
-    ({ departementId, nom }) => () =>
-      organismeDepartementGet(departementId, nom)
+    ({ departementId, nom }) =>
+      () =>
+        organismeDepartementGet(departementId, nom)
   )
 
   const queue = new PQueue({ concurrency: 10 })

@@ -143,10 +143,8 @@ const titreEtapeAdministrationsLocalesBuild = (
 ) => {
   if (!titreEtape.communes || !titreEtape.communes.length) return []
 
-  const {
-    titreDepartementsIds,
-    titreRegionsIds
-  } = titreEtapeAdministrationsRegionsAndDepartementsBuild(titreEtape.communes)
+  const { titreDepartementsIds, titreRegionsIds } =
+    titreEtapeAdministrationsRegionsAndDepartementsBuild(titreEtape.communes)
 
   // calcule toutes les administrations qui couvrent ces départements et régions
   return administrations.reduce(
@@ -193,11 +191,12 @@ const titresEtapesAdministrationsLocalesBuild = (
         (titresEtapesAdministrationsLocales, titreDemarche) =>
           titreDemarche.etapes!.reduce(
             (titresEtapesAdministrationsLocales, titreEtape) => {
-              const titreEtapeAdministrationsLocales = titreEtapeAdministrationsLocalesBuild(
-                titre.typeId,
-                titreEtape,
-                administrations
-              ) as ITitreAdministrationLocale[]
+              const titreEtapeAdministrationsLocales =
+                titreEtapeAdministrationsLocalesBuild(
+                  titre.typeId,
+                  titreEtape,
+                  administrations
+                ) as ITitreAdministrationLocale[]
 
               titresEtapesAdministrationsLocales.push({
                 titreEtapeAdministrationsLocalesOld: titreEtape.administrations,
@@ -239,10 +238,8 @@ const titresEtapesAdministrationsLocalesUpdate = async (
 
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
-  const titresEtapesAdministrationsLocales = titresEtapesAdministrationsLocalesBuild(
-    titres,
-    administrations
-  )
+  const titresEtapesAdministrationsLocales =
+    titresEtapesAdministrationsLocalesBuild(titres, administrations)
 
   const {
     titresEtapesAdministrationsLocalesToCreate,
@@ -251,8 +248,10 @@ const titresEtapesAdministrationsLocalesUpdate = async (
     titresEtapesAdministrationsLocales
   )
 
-  let titresEtapesAdministrationsLocalesCreated = [] as ITitreAdministrationLocale[]
-  const titresEtapesAdministrationsLocalesDeleted = [] as ITitreAdministrationLocale[]
+  let titresEtapesAdministrationsLocalesCreated =
+    [] as ITitreAdministrationLocale[]
+  const titresEtapesAdministrationsLocalesDeleted =
+    [] as ITitreAdministrationLocale[]
 
   if (titresEtapesAdministrationsLocalesToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
@@ -263,8 +262,7 @@ const titresEtapesAdministrationsLocalesUpdate = async (
           await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
 
           const log = {
-            type:
-              'titre / démarche / étape : administration locale (suppression) ->',
+            type: 'titre / démarche / étape : administration locale (suppression) ->',
             value: `${titreEtapeId}: ${administrationId}`
           }
 
@@ -282,13 +280,13 @@ const titresEtapesAdministrationsLocalesUpdate = async (
   }
 
   if (titresEtapesAdministrationsLocalesToCreate.length) {
-    titresEtapesAdministrationsLocalesCreated = await titresEtapesAdministrationsCreate(
-      titresEtapesAdministrationsLocalesToCreate
-    )
+    titresEtapesAdministrationsLocalesCreated =
+      await titresEtapesAdministrationsCreate(
+        titresEtapesAdministrationsLocalesToCreate
+      )
 
     const log = {
-      type:
-        'titres / démarches / étapes : administrations locales (création) ->',
+      type: 'titres / démarches / étapes : administrations locales (création) ->',
       value: titresEtapesAdministrationsLocalesCreated
         .map(tea => JSON.stringify(tea))
         .join(', ')

@@ -45,8 +45,7 @@ export default [
   },
   {
     code: '3110',
-    nom:
-      "Représentation ou agence commerciale d'état ou organisme public étranger immatriculé au RCS "
+    nom: "Représentation ou agence commerciale d'état ou organisme public étranger immatriculé au RCS "
   },
   {
     code: '3120',
@@ -70,13 +69,11 @@ export default [
   },
   {
     code: '4110',
-    nom:
-      "Établissement public national à caractère industriel ou commercial doté d'un comptable public "
+    nom: "Établissement public national à caractère industriel ou commercial doté d'un comptable public "
   },
   {
     code: '4120',
-    nom:
-      "Établissement public national à caractère industriel ou commercial non doté d'un comptable public "
+    nom: "Établissement public national à caractère industriel ou commercial non doté d'un comptable public "
   },
   {
     code: '4130',
@@ -144,8 +141,7 @@ export default [
   },
   {
     code: '5370',
-    nom:
-      'Société de Participations Financières de Profession Libérale Société en commandite par actions (SPFPL SCA)'
+    nom: 'Société de Participations Financières de Profession Libérale Société en commandite par actions (SPFPL SCA)'
   },
   {
     code: '5385',
@@ -217,8 +213,7 @@ export default [
   },
   {
     code: '5470',
-    nom:
-      'Société de Participations Financières de Profession Libérale Société à responsabilité limitée (SPFPL SARL)'
+    nom: 'Société de Participations Financières de Profession Libérale Société à responsabilité limitée (SPFPL SARL)'
   },
   {
     code: '5485',
@@ -250,8 +245,7 @@ export default [
   },
   {
     code: '5522',
-    nom:
-      "SA immobilière pour le commerce et l'industrie (SICOMI) à conseil d'administration"
+    nom: "SA immobilière pour le commerce et l'industrie (SICOMI) à conseil d'administration"
   },
   {
     code: '5525',
@@ -259,13 +253,11 @@ export default [
   },
   {
     code: '5530',
-    nom:
-      "SA d'aménagement foncier et d'équipement rural (SAFER) à conseil d'administration"
+    nom: "SA d'aménagement foncier et d'équipement rural (SAFER) à conseil d'administration"
   },
   {
     code: '5531',
-    nom:
-      "Société anonyme mixte d'intérêt agricole (SMIA) à conseil d'administration "
+    nom: "Société anonyme mixte d'intérêt agricole (SMIA) à conseil d'administration "
   },
   {
     code: '5532',
@@ -313,8 +305,7 @@ export default [
   },
   {
     code: '5558',
-    nom:
-      "SA coopérative ouvrière de production (SCOP) à conseil d'administration"
+    nom: "SA coopérative ouvrière de production (SCOP) à conseil d'administration"
   },
   {
     code: '5559',
@@ -326,13 +317,11 @@ export default [
   },
   {
     code: '5570',
-    nom:
-      "Société de Participations Financières de Profession Libérale Société anonyme à conseil d'administration (SPFPL SA à conseil d'administration)"
+    nom: "Société de Participations Financières de Profession Libérale Société anonyme à conseil d'administration (SPFPL SA à conseil d'administration)"
   },
   {
     code: '5585',
-    nom:
-      "Société d'exercice libéral à forme anonyme à conseil d'administration "
+    nom: "Société d'exercice libéral à forme anonyme à conseil d'administration "
   },
   {
     code: '5599',
@@ -428,8 +417,7 @@ export default [
   },
   {
     code: '5670',
-    nom:
-      'Société de Participations Financières de Profession Libérale Société anonyme à Directoire (SPFPL SA à directoire)'
+    nom: 'Société de Participations Financières de Profession Libérale Société anonyme à Directoire (SPFPL SA à directoire)'
   },
   {
     code: '5685',
@@ -445,13 +433,11 @@ export default [
   },
   {
     code: '5720',
-    nom:
-      'Société par actions simplifiée à associé unique ou société par actions simplifiée unipersonnelle'
+    nom: 'Société par actions simplifiée à associé unique ou société par actions simplifiée unipersonnelle'
   },
   {
     code: '5770',
-    nom:
-      'Société de Participations Financières de Profession Libérale Société par actions simplifiée (SPFPL SAS)'
+    nom: 'Société de Participations Financières de Profession Libérale Société par actions simplifiée (SPFPL SAS)'
   },
   {
     code: '5785',
@@ -667,8 +653,7 @@ export default [
   },
   {
     code: '6901',
-    nom:
-      'Autre personne de droit privé inscrite au registre du commerce et des sociétés'
+    nom: 'Autre personne de droit privé inscrite au registre du commerce et des sociétés'
   },
   {
     code: '7111',
@@ -692,8 +677,7 @@ export default [
   },
   {
     code: '7160',
-    nom:
-      "Service déconcentré à compétence nationale d'un ministère (hors Défense)"
+    nom: "Service déconcentré à compétence nationale d'un ministère (hors Défense)"
   },
   {
     code: '7171',
@@ -797,8 +781,7 @@ export default [
   },
   {
     code: '7349',
-    nom:
-      'Autre établissement public local de coopération non spécialisé ou entente'
+    nom: 'Autre établissement public local de coopération non spécialisé ou entente'
   },
   {
     code: '7351',
@@ -882,13 +865,11 @@ export default [
   },
   {
     code: '7382',
-    nom:
-      "Établissement public national ayant fonction d'administration centrale "
+    nom: "Établissement public national ayant fonction d'administration centrale "
   },
   {
     code: '7383',
-    nom:
-      'Établissement public national à caractère scientifique culturel et professionnel'
+    nom: 'Établissement public national à caractère scientifique culturel et professionnel'
   },
   {
     code: '7384',
@@ -896,8 +877,7 @@ export default [
   },
   {
     code: '7385',
-    nom:
-      'Autre établissement public national administratif à compétence territoriale limitée'
+    nom: 'Autre établissement public national administratif à compétence territoriale limitée'
   },
   {
     code: '7389',
@@ -945,8 +925,7 @@ export default [
   },
   {
     code: '8160',
-    nom:
-      'Régime vieillesse ne dépendant pas du régime général de la Sécurité Sociale'
+    nom: 'Régime vieillesse ne dépendant pas du régime général de la Sécurité Sociale'
   },
   {
     code: '8170',
@@ -990,8 +969,7 @@ export default [
   },
   {
     code: '8470',
-    nom:
-      'Centre technique industriel ou comité professionnel du développement économique'
+    nom: 'Centre technique industriel ou comité professionnel du développement économique'
   },
   {
     code: '8490',

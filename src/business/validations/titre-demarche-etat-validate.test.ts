@@ -8,10 +8,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { typeId: 'mfr', date: '2030-01-01' } as ITitreEtape,
@@ -26,10 +26,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'pro' }, { typeId: 'oct' }]
       } as ITitre,
       { typeId: 'dae' } as ITitreEtape,
@@ -44,10 +44,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr', statutId: 'dep' } as ITitreEtape,
@@ -65,10 +65,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape,
@@ -84,10 +84,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape,
@@ -103,10 +103,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         { id: 'oct' } as IDemarcheType,
         {
           typeId: 'arm',
-          type: ({
+          type: {
             id: 'arm',
             contenuIds: []
-          } as unknown) as ITitreType,
+          } as unknown as ITitreType,
           demarches: [{ typeId: 'pro' }]
         } as ITitre,
         { id: '1', typeId: 'mfr' } as ITitreEtape,
@@ -119,10 +119,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         { id: 'oct' } as IDemarcheType,
         {
           typeId: 'arm',
-          type: ({
+          type: {
             id: 'arm',
             contenuIds: []
-          } as unknown) as ITitreType
+          } as unknown as ITitreType
         } as ITitre,
         { id: '1', typeId: 'mfr' } as ITitreEtape,
         [] as ITitreEtape[]
@@ -135,10 +135,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape,
@@ -154,10 +154,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
-        type: ({
+        type: {
           id: 'arm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { typeId: 'mfr', date: '1030-01-01' } as ITitreEtape
@@ -171,10 +171,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'axm',
-        type: ({
+        type: {
           id: 'axm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { typeId: 'mfr', statutId: 'aco', date: '2030-01-01' } as ITitreEtape,
@@ -189,10 +189,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'axm',
-        type: ({
+        type: {
           id: 'axm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { typeId: 'mfr', statutId: 'aco' } as ITitreEtape,
@@ -207,10 +207,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: 'oct' } as IDemarcheType,
       {
         typeId: 'axm',
-        type: ({
+        type: {
           id: 'axm',
           contenuIds: []
-        } as unknown) as ITitreType,
+        } as unknown as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr', statutId: 'aco' } as ITitreEtape,
@@ -229,10 +229,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         { id: 'oct' } as IDemarcheType,
         {
           typeId: 'axm',
-          type: ({
+          type: {
             id: 'axm',
             contenuIds: []
-          } as unknown) as ITitreType,
+          } as unknown as ITitreType,
           demarches: [{ typeId: 'oct' }]
         } as ITitre,
         { id: '3', typeId: 'mfm', statutId: 'aco' } as ITitreEtape,
@@ -250,10 +250,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         { id: 'oct' } as IDemarcheType,
         {
           typeId: 'axm',
-          type: ({
+          type: {
             id: 'axm',
             contenuIds: []
-          } as unknown) as ITitreType,
+          } as unknown as ITitreType,
           demarches: [{ typeId: 'oct' }]
         } as ITitre,
         { typeId: 'aaa', date: '2022-01-01' } as ITitreEtape,

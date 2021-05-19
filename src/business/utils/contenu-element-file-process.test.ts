@@ -187,7 +187,7 @@ describe('sectionsContenuAndFilesGet', () => {
 describe('contenuElementFileProcess', () => {
   test('enregistre les nouveaux fichiers sur le disque', async () => {
     const file = {
-      createReadStream: () => (({} as unknown) as ReadStream),
+      createReadStream: () => ({} as unknown as ReadStream),
       filename: 'toto.pdf',
       encoding: 'utf-8',
       mimetype: 'application/pdf'
@@ -249,7 +249,7 @@ describe('contenuElementFileProcess', () => {
       'demarches',
       'etapeId',
       sections,
-      [({ contenu } as unknown) as ITitreEtape],
+      [{ contenu } as unknown as ITitreEtape],
       oldContenu
     )
 

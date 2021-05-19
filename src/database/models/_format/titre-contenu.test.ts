@@ -9,7 +9,7 @@ describe('formatage du contenu', () => {
           section: { prop1: 'etape-id', prop2: 'etape-id' }
         },
         [
-          ({
+          {
             id: 'demarche-id',
             etapes: [
               {
@@ -22,7 +22,7 @@ describe('formatage du contenu', () => {
                 }
               }
             ]
-          } as unknown) as ITitreDemarche
+          } as unknown as ITitreDemarche
         ]
       )
     ).toMatchObject({ section: { prop1: 'valeur 1', prop2: 'valeur 2' } })
@@ -42,13 +42,13 @@ describe('formatage du contenu', () => {
 
     expect(
       titreContenuFormat({ section: { prop: 'etape-id' } }, [
-        ({ id: 'demarche-id', etapes: null } as unknown) as ITitreDemarche
+        { id: 'demarche-id', etapes: null } as unknown as ITitreDemarche
       ])
     ).toMatchObject({})
 
     expect(
       titreContenuFormat({ section: { prop: 'etape-id' } }, [
-        ({ id: 'demarche-id', etapes: [] } as unknown) as ITitreDemarche
+        { id: 'demarche-id', etapes: [] } as unknown as ITitreDemarche
       ])
     ).toMatchObject({})
   })

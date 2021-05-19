@@ -16,9 +16,9 @@ import { propsDatesCheck } from './utils/props-dates-check'
 import { contenuDatesCheck } from './utils/contenu-dates-check'
 import { documentsTypesValidate } from './documents-types-validate'
 
-const numberProps = (['duree', 'surface'] as unknown) as [keyof ITitreEtape]
+const numberProps = ['duree', 'surface'] as unknown as [keyof ITitreEtape]
 
-const dateProps = (['date', 'dateDebut', 'dateFin'] as unknown) as [
+const dateProps = ['date', 'dateDebut', 'dateFin'] as unknown as [
   keyof ITitreEtape
 ]
 

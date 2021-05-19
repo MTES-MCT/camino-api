@@ -80,7 +80,8 @@ const redevanceCommunaleMinesAurifiereGet = async (
 
       acc.societes[entreprise.id] = {
         quantite_aurifere_kg: orNetKg,
-        redevance_communale_des_mines_aurifere_kg: redevanceCommunaleDesMinesAurifereKg
+        redevance_communale_des_mines_aurifere_kg:
+          redevanceCommunaleDesMinesAurifereKg
       }
 
       return acc

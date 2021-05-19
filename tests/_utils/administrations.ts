@@ -128,31 +128,33 @@ const administrationsWithRelations = sources.administrations.data.map(
         return titreType
       })
 
-    a.titresTypesTitresStatuts = sources.administrations__titresTypes__titresStatuts.data
-      .filter(attts => attts.administrationId === a.id)
-      .map(attts => {
-        attts.titreType = sources.titresTypes.data.find(
-          tt => tt.id === attts.titreTypeId
-        )
-        attts.titreStatut = sources.titresStatuts.data.find(
-          ts => ts.id === attts.titreStatutId
-        )
+    a.titresTypesTitresStatuts =
+      sources.administrations__titresTypes__titresStatuts.data
+        .filter(attts => attts.administrationId === a.id)
+        .map(attts => {
+          attts.titreType = sources.titresTypes.data.find(
+            tt => tt.id === attts.titreTypeId
+          )
+          attts.titreStatut = sources.titresStatuts.data.find(
+            ts => ts.id === attts.titreStatutId
+          )
 
-        return attts
-      })
+          return attts
+        })
 
-    a.titresTypesEtapesTypes = sources.administrations__titresTypes__etapesTypes.data
-      .filter(attet => attet.administrationId === a.id)
-      .map(attet => {
-        attet.titreType = sources.titresTypes.data.find(
-          tt => tt.id === attet.titreTypeId
-        )
-        attet.etapeType = sources.etapesTypes.data.find(
-          te => te.id === attet.etapeTypeId
-        )
+    a.titresTypesEtapesTypes =
+      sources.administrations__titresTypes__etapesTypes.data
+        .filter(attet => attet.administrationId === a.id)
+        .map(attet => {
+          attet.titreType = sources.titresTypes.data.find(
+            tt => tt.id === attet.titreTypeId
+          )
+          attet.etapeType = sources.etapesTypes.data.find(
+            te => te.id === attet.etapeTypeId
+          )
 
-        return attet
-      })
+          return attet
+        })
 
     return a
   }

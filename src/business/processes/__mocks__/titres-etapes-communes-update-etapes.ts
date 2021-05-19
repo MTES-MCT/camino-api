@@ -35,16 +35,16 @@ const commune2 = {
   surface: 4
 } as Communes
 
-const titresEtapesSansPoints = ({
+const titresEtapesSansPoints = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
   statutId: 'acc',
   ordre: 2,
   date: '1988-03-11'
-} as unknown) as TitresEtapes
+} as unknown as TitresEtapes
 
-const titresEtapesPoints = ({
+const titresEtapesPoints = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -52,9 +52,9 @@ const titresEtapesPoints = ({
   ordre: 2,
   date: '1988-03-11',
   points: [1, 2]
-} as unknown) as TitresEtapes
+} as unknown as TitresEtapes
 
-const titresEtapesPointsMemeCommune = ({
+const titresEtapesPointsMemeCommune = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -62,9 +62,9 @@ const titresEtapesPointsMemeCommune = ({
   ordre: 2,
   date: '1988-03-11',
   points: [1, 2]
-} as unknown) as TitresEtapes
+} as unknown as TitresEtapes
 
-const titresEtapesPointsVides = ({
+const titresEtapesPointsVides = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -72,9 +72,9 @@ const titresEtapesPointsVides = ({
   ordre: 2,
   date: '1988-03-11',
   points: []
-} as unknown) as TitresEtapes
+} as unknown as TitresEtapes
 
-const titresEtapesPointsCommuneInexistante = ({
+const titresEtapesPointsCommuneInexistante = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -83,9 +83,9 @@ const titresEtapesPointsCommuneInexistante = ({
   date: '1988-03-11',
   points: [],
   communes: [commune1]
-} as unknown) as TitresEtapes
+} as unknown as TitresEtapes
 
-const titresEtapesPointsCommuneExistante = ({
+const titresEtapesPointsCommuneExistante = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -95,7 +95,7 @@ const titresEtapesPointsCommuneExistante = ({
   points: [1, 2],
   communes: [commune1],
   forets: [foret1]
-} as unknown) as TitresEtapes
+} as unknown as TitresEtapes
 
 export {
   commune1,

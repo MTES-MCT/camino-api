@@ -11,7 +11,7 @@ const activiteType = {
   }
 }
 
-const titresActivitesToUpdate = ([
+const titresActivitesToUpdate = [
   {
     id: 'titre-id',
     typeId: 'axm',
@@ -49,9 +49,9 @@ const titresActivitesToUpdate = ([
       }
     ]
   }
-] as unknown) as Titres[]
+] as unknown as Titres[]
 
-const titresActivitesNotToUpdate = ([
+const titresActivitesNotToUpdate = [
   {
     id: 'titre-id',
     typeId: 'axm'
@@ -91,6 +91,6 @@ const titresActivitesNotToUpdate = ([
       }
     ]
   }
-] as unknown) as Titres[]
+] as unknown as Titres[]
 
 export { titresActivitesToUpdate, titresActivitesNotToUpdate }

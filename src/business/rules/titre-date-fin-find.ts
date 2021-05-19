@@ -5,9 +5,9 @@ import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-fi
 
 const titreDateFinFind = (titreDemarches: ITitreDemarche[]) => {
   // la dernière démarche dont le statut est acceptée ou terminée
-  const titreDemarche = (titreDemarchesSortAsc(
-    titreDemarches
-  ) as ITitreDemarche[])
+  const titreDemarche = (
+    titreDemarchesSortAsc(titreDemarches) as ITitreDemarche[]
+  )
     .reverse()
     .find(titreDemarche => ['acc', 'ter'].includes(titreDemarche.statutId!))
 

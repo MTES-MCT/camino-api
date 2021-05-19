@@ -45,10 +45,8 @@ const titreDemarcheUpdate = async (
     ])
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titreId])
     const titresPublicUpdated = await titresPublicUpdate([titreId])
-    const [
-      titresPhasesUpdated = [],
-      titresPhasesDeleted = []
-    ] = await titresPhasesUpdate([titreId])
+    const [titresPhasesUpdated = [], titresPhasesDeleted = []] =
+      await titresPhasesUpdate([titreId])
     const titresDatesUpdated = await titresDatesUpdate([titreId])
     const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
       titreId

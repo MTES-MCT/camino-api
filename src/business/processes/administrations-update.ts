@@ -34,10 +34,10 @@ const administrationsUpdatedFind = (
   }, [])
 
 const apiAdministrationGetTest = async () =>
-  (organismeDepartementGet(
+  organismeDepartementGet(
     '01',
     'prefecture'
-  ) as unknown) as IAdministration | null
+  ) as unknown as IAdministration | null
 
 const apiAdministrationsGet = async (departementsIds: string[]) => {
   const departementsIdsNoms = departementsIds.map(departementId => ({

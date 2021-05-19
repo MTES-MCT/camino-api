@@ -53,7 +53,7 @@ describe("construction des activités d'un titre", () => {
       aujourdhui,
       'titre-id',
       'pxm',
-      [({ id: 'demarche-id' } as unknown) as ITitreDemarche]
+      [{ id: 'demarche-id' } as unknown as ITitreDemarche]
     )
 
     expect(titreActivites3.length).toEqual(0)
@@ -66,7 +66,7 @@ describe("construction des activités d'un titre", () => {
       aujourdhui,
       'titre-id',
       'pxm',
-      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche],
+      [{ id: 'demarche-id', phase: {} } as unknown as ITitreDemarche],
       [{ typeId: 'gra', annee: 2018, periodeId: 1 }] as ITitreActivite[]
     )
 
@@ -80,7 +80,7 @@ describe("construction des activités d'un titre", () => {
       aujourdhui,
       'titre-id',
       'pxm',
-      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
+      [{ id: 'demarche-id', phase: {} } as unknown as ITitreDemarche]
     )
 
     expect(res.length).toEqual(0)
@@ -110,10 +110,10 @@ describe("construction des activités d'un titre", () => {
       'titre-id',
       'pxm',
       [
-        ({
+        {
           id: 'demarche-id',
           phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' }
-        } as unknown) as ITitreDemarche
+        } as unknown as ITitreDemarche
       ]
     )
 
@@ -127,7 +127,7 @@ describe("construction des activités d'un titre", () => {
       aujourdhui,
       'titre-id',
       'pxm',
-      [({ id: 'demarche-id', phase: {} } as unknown) as ITitreDemarche]
+      [{ id: 'demarche-id', phase: {} } as unknown as ITitreDemarche]
     )
 
     expect(titreActivites.length).toEqual(0)
@@ -141,7 +141,7 @@ describe("construction des activités d'un titre", () => {
       'titre-id',
       'pxm',
       [
-        ({
+        {
           id: 'demarche-id',
           statutId: 'acc',
           typeId: 'oct',
@@ -155,7 +155,7 @@ describe("construction des activités d'un titre", () => {
               substances: []
             }
           ]
-        } as unknown) as ITitreDemarche
+        } as unknown as ITitreDemarche
       ]
     )
 
@@ -168,7 +168,7 @@ describe("construction des activités d'un titre", () => {
       'titre-id',
       'pxm',
       [
-        ({
+        {
           id: 'demarche-id',
           statutId: 'acc',
           typeId: 'oct',
@@ -182,29 +182,29 @@ describe("construction des activités d'un titre", () => {
               substances: null
             }
           ]
-        } as unknown) as ITitreDemarche
+        } as unknown as ITitreDemarche
       ]
     )
 
     expect(titreActivitesB).toEqual([])
 
     const titreActivitesD = titreActivitesBuild(
-      ({
+      {
         id: 'gra',
         frequence: { periodesNom: 'annees', annees: [1] },
         sections: [{ id: 'renseignements' }]
-      } as unknown) as IActiviteType,
+      } as unknown as IActiviteType,
       [2018],
       aujourdhui,
       'titre-id',
       'pxm',
       [
-        ({
+        {
           id: 'demarche-id',
           statutId: 'acc',
           typeId: 'oct',
           phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' }
-        } as unknown) as ITitreDemarche
+        } as unknown as ITitreDemarche
       ]
     )
 

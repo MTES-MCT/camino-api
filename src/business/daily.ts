@@ -29,17 +29,17 @@ const daily = async () => {
     console.info('mise à jour quotidienne')
 
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate()
-    const titresEtapesHeritagePropsUpdated = await titresEtapesHeritagePropsUpdate()
-    const titresEtapesHeritageContenuUpdated = await titresEtapesHeritageContenuUpdate()
+    const titresEtapesHeritagePropsUpdated =
+      await titresEtapesHeritagePropsUpdate()
+    const titresEtapesHeritageContenuUpdated =
+      await titresEtapesHeritageContenuUpdate()
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate()
     const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate()
     const titresStatutIdUpdated = await titresStatutIdsUpdate()
     const titresPublicUpdated = await titresPublicUpdate()
-    const [
-      titresPhasesUpdated = [],
-      titresPhasesDeleted = []
-    ] = await titresPhasesUpdate()
+    const [titresPhasesUpdated = [], titresPhasesDeleted = []] =
+      await titresPhasesUpdate()
     const titresDatesUpdated = await titresDatesUpdate()
     const pointsReferencesCreated = await titresPointsReferencesCreate()
     const {
@@ -54,10 +54,12 @@ const daily = async () => {
     const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate()
 
     const titresCoordonneesUpdated = await titresCoordonneesUpdate()
-    const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate()
+    const titresTravauxEtapesOrdreUpdated =
+      await titresTravauxEtapesOrdreUpdate()
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate()
     const titresActivitesCreated = await titresActivitesUpdate()
-    const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate()
+    const titresActivitesStatutIdsUpdated =
+      await titresActivitesStatutIdsUpdate()
     const titresActivitesPropsUpdated = await titresActivitesPropsUpdate()
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate()

@@ -74,8 +74,10 @@ const dbEntreprisesInexistantes = [] as Entreprises[]
 const dbEntreprisesEtablissementsInexistants = [] as EntreprisesEtablissements[]
 const apiEntreprisesInexistantes = [] as Entreprises[]
 
-const apiEntreprisesEtablissmentsInexistantes = [] as EntreprisesEtablissements[]
-const apiEntreprisesEtablissementsSupprimeees = [] as EntreprisesEtablissements[]
+const apiEntreprisesEtablissmentsInexistantes =
+  [] as EntreprisesEtablissements[]
+const apiEntreprisesEtablissementsSupprimeees =
+  [] as EntreprisesEtablissements[]
 
 export {
   dbEntreprisesCreees,

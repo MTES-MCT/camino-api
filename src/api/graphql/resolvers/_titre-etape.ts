@@ -179,9 +179,8 @@ const titreEtapeHeritageContenuBuild = (
           heritageContenu[sectionId][elementId].etapeId
 
         if (etapeId) {
-          heritageContenu![sectionId][
-            elementId
-          ].etape = titreEtapesFiltered.find(({ id }) => id === etapeId)
+          heritageContenu![sectionId][elementId].etape =
+            titreEtapesFiltered.find(({ id }) => id === etapeId)
         }
       })
     })

@@ -1,12 +1,12 @@
 import { IActiviteType, ITitreDemarche } from '../../../types'
 
-const activiteTypeGra = ({
+const activiteTypeGra = {
   id: 'gra',
   frequence: { periodesNom: 'annees', annees: [1] },
   sections: [{ id: 'substancesFiscales' }]
-} as unknown) as IActiviteType
+} as unknown as IActiviteType
 
-const activiteTypeGrp = ({
+const activiteTypeGrp = {
   id: 'grp',
   frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] },
   sections: [
@@ -41,7 +41,7 @@ const activiteTypeGrp = ({
       ]
     }
   ]
-} as unknown) as IActiviteType
+} as unknown as IActiviteType
 
 const titreActivitesGra = [
   {

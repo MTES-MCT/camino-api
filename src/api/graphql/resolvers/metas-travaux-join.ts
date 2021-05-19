@@ -36,7 +36,8 @@ const travauxTypesTravauxEtapesTypes = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const travauxTypesTravauxEtapesTypes = await travauxTypesTravauxEtapesTypesGet()
+    const travauxTypesTravauxEtapesTypes =
+      await travauxTypesTravauxEtapesTypesGet()
 
     return travauxTypesTravauxEtapesTypes
   } catch (e) {
@@ -67,7 +68,8 @@ const travauxTypeTravauxEtapeTypeModifier = async (
       travauxTypeTravauxEtapeType
     )
 
-    const travauxTypesTravauxEtapesTypes = await travauxTypesTravauxEtapesTypesGet()
+    const travauxTypesTravauxEtapesTypes =
+      await travauxTypesTravauxEtapesTypesGet()
 
     return travauxTypesTravauxEtapesTypes
   } catch (e) {
@@ -94,7 +96,8 @@ const travauxTypeTravauxEtapeTypeCreer = async (
 
     await travauxTypeTravauxEtapeTypeCreate(travauxTypeTravauxEtapeType)
 
-    const travauxTypesTravauxEtapesTypes = await travauxTypesTravauxEtapesTypesGet()
+    const travauxTypesTravauxEtapesTypes =
+      await travauxTypesTravauxEtapesTypesGet()
 
     return travauxTypesTravauxEtapesTypes
   } catch (e) {
@@ -124,7 +127,8 @@ const travauxTypeTravauxEtapeTypeSupprimer = async (
       travauxTypeTravauxEtapeType.travauxEtapeTypeId
     )
 
-    const travauxTypesTravauxEtapesTypes = await travauxTypesTravauxEtapesTypesGet()
+    const travauxTypesTravauxEtapesTypes =
+      await travauxTypesTravauxEtapesTypesGet()
 
     return travauxTypesTravauxEtapesTypes
   } catch (e) {
@@ -146,7 +150,8 @@ const travauxEtapesTypesDocumentsTypes = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const travauxEtapesTypesDocumentsTypes = await travauxEtapesTypesDocumentsTypesGet()
+    const travauxEtapesTypesDocumentsTypes =
+      await travauxEtapesTypesDocumentsTypesGet()
 
     return travauxEtapesTypesDocumentsTypes
   } catch (e) {
@@ -177,7 +182,8 @@ const travauxEtapeTypeDocumentTypeModifier = async (
       travauxEtapeTypeDocumentType
     )
 
-    const travauxEtapesTypesDocumentsTypes = await travauxEtapesTypesDocumentsTypesGet()
+    const travauxEtapesTypesDocumentsTypes =
+      await travauxEtapesTypesDocumentsTypesGet()
 
     return travauxEtapesTypesDocumentsTypes
   } catch (e) {
@@ -204,7 +210,8 @@ const travauxEtapeTypeDocumentTypeCreer = async (
 
     await travauxEtapeTypeDocumentTypeCreate(travauxEtapeTypeDocumentType)
 
-    const travauxEtapesTypesDocumentsTypes = await travauxEtapesTypesDocumentsTypesGet()
+    const travauxEtapesTypesDocumentsTypes =
+      await travauxEtapesTypesDocumentsTypesGet()
 
     return travauxEtapesTypesDocumentsTypes
   } catch (e) {
@@ -234,7 +241,8 @@ const travauxEtapeTypeDocumentTypeSupprimer = async (
       travauxEtapeTypeDocumentType.documentTypeId
     )
 
-    const travauxEtapesTypesDocumentsTypes = await travauxEtapesTypesDocumentsTypesGet()
+    const travauxEtapesTypesDocumentsTypes =
+      await travauxEtapesTypesDocumentsTypesGet()
 
     return travauxEtapesTypesDocumentsTypes
   } catch (e) {
@@ -256,7 +264,8 @@ const travauxEtapesTypesEtapesStatuts = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const travauxEtapesTypesEtapesStatuts = await travauxEtapesTypesEtapesStatutsGet()
+    const travauxEtapesTypesEtapesStatuts =
+      await travauxEtapesTypesEtapesStatutsGet()
 
     return travauxEtapesTypesEtapesStatuts
   } catch (e) {
@@ -287,7 +296,8 @@ const travauxEtapeTypeEtapeStatutModifier = async (
       travauxEtapeTypeEtapeStatut
     )
 
-    const travauxEtapesTypesEtapesStatuts = await travauxEtapesTypesEtapesStatutsGet()
+    const travauxEtapesTypesEtapesStatuts =
+      await travauxEtapesTypesEtapesStatutsGet()
 
     return travauxEtapesTypesEtapesStatuts
   } catch (e) {
@@ -314,7 +324,8 @@ const travauxEtapeTypeEtapeStatutCreer = async (
 
     await travauxEtapeTypeEtapeStatutCreate(travauxEtapeTypeEtapeStatut)
 
-    const travauxEtapesTypesEtapesStatuts = await travauxEtapesTypesEtapesStatutsGet()
+    const travauxEtapesTypesEtapesStatuts =
+      await travauxEtapesTypesEtapesStatutsGet()
 
     return travauxEtapesTypesEtapesStatuts
   } catch (e) {
@@ -344,7 +355,8 @@ const travauxEtapeTypeEtapeStatutSupprimer = async (
       travauxEtapeTypeEtapeStatut.etapeStatutId
     )
 
-    const travauxEtapesTypesEtapesStatuts = await travauxEtapesTypesEtapesStatutsGet()
+    const travauxEtapesTypesEtapesStatuts =
+      await travauxEtapesTypesEtapesStatutsGet()
 
     return travauxEtapesTypesEtapesStatuts
   } catch (e) {

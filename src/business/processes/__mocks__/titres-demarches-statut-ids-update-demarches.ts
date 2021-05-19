@@ -1,7 +1,7 @@
 import Titres from '../../../database/models/titres'
 
 const titresDemarchesStatutModifie = [
-  ({
+  {
     demarches: [
       {
         id: 'h-cx-courdemanges-1988-oct01',
@@ -30,11 +30,11 @@ const titresDemarchesStatutModifie = [
         ]
       }
     ]
-  } as unknown) as Titres
+  } as unknown as Titres
 ]
 
 const titresDemarchesStatutIdentique = [
-  ({
+  {
     demarches: [
       {
         id: 'h-cx-courdemanges-1988-oct01',
@@ -63,11 +63,11 @@ const titresDemarchesStatutIdentique = [
         ]
       }
     ]
-  } as unknown) as Titres
+  } as unknown as Titres
 ]
 
 const titresDemarchesSansEtape = [
-  ({
+  {
     demarches: [
       {
         id: 'h-cx-courdemanges-1988-oct01',
@@ -78,7 +78,7 @@ const titresDemarchesSansEtape = [
         etapes: null
       }
     ]
-  } as unknown) as Titres
+  } as unknown as Titres
 ]
 
 export {

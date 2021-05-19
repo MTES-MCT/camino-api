@@ -208,10 +208,10 @@ describe('retourne l’étape en fonction de son héritage', () => {
   test('l’étape n’est pas modifiée si pas de changement sur les points', () => {
     const titreEtapePrecedente = {
       id: 'titreEtapePrecedenteId',
-      points: ([
+      points: [
         { coordonnees: { x: 1, y: 2 } },
         { coordonnees: { x: 2, y: 3 } }
-      ] as unknown) as ITitrePoint[],
+      ] as unknown as ITitrePoint[],
       heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
         acc[prop] = { actif: false, etapeId: null }
 
@@ -238,10 +238,10 @@ describe('retourne l’étape en fonction de son héritage', () => {
   test('l’étape est modifiée si changement sur les points', () => {
     const titreEtapePrecedente = {
       id: 'titreEtapePrecedenteId',
-      points: ([
+      points: [
         { id: '1', coordonnees: { x: 1, y: 2 }, references: [{ id: '23' }] },
         { id: '2', coordonnees: { x: 2, y: 3 }, references: [] }
-      ] as unknown) as ITitrePoint[],
+      ] as unknown as ITitrePoint[],
       heritageProps: titreEtapePropsIds.reduce((acc, prop) => {
         acc[prop] = { actif: false, etapeId: null }
 
@@ -252,10 +252,10 @@ describe('retourne l’étape en fonction de son héritage', () => {
     const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
     titreEtape.heritageProps!.points.actif = true
     titreEtape.id = 'titreEtapeId'
-    titreEtape.points = ([
+    titreEtape.points = [
       { id: '3', coordonnees: { x: 1, y: 2 } },
       { id: '4', coordonnees: { x: 2, y: 4 } }
-    ] as unknown) as ITitrePoint[]
+    ] as unknown as ITitrePoint[]
     titreEtapePropsIds.forEach(
       prop =>
         (titreEtape.heritageProps![prop].etapeId = titreEtapePrecedente.id)

@@ -230,7 +230,7 @@ describe('id de plusieurs titres', () => {
       } as ITitre,
       relationsIdsUpdatedIndex
     })
-    titreGetMock.mockResolvedValue((null as unknown) as Titres)
+    titreGetMock.mockResolvedValue(null as unknown as Titres)
 
     const titresIdsUpdatedIndex = await titresIdsUpdate()
 

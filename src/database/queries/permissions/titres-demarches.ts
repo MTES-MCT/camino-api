@@ -28,10 +28,12 @@ const titresDemarchesQueryModify = (
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
     q.whereExists(
       titresQueryModify(
-        (TitresDemarches.relatedQuery('titre') as QueryBuilder<
-          Titres,
-          Titres | Titres[]
-        >).alias('titres'),
+        (
+          TitresDemarches.relatedQuery('titre') as QueryBuilder<
+            Titres,
+            Titres | Titres[]
+          >
+        ).alias('titres'),
         user
       )
     )

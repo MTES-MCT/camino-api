@@ -5,10 +5,10 @@ import titrePublicFind from './titre-public-find'
 const demarchesBuild = (etapesProps: Partial<ITitreDemarche>[]) =>
   etapesProps.map(
     (etapeProps, i) =>
-      (({
+      ({
         ...etapeProps,
         ordre: i + 1
-      } as unknown) as ITitreDemarche)
+      } as unknown as ITitreDemarche)
   )
 
 describe("publicité d'un titre", () => {

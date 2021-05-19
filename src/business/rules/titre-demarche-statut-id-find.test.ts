@@ -5,10 +5,10 @@ import { titreDemarcheStatutIdFind } from './titre-demarche-statut-id-find'
 const etapesBuild = (etapesProps: Partial<ITitreEtape>[]) =>
   etapesProps.map(
     (etapeProps, i) =>
-      (({
+      ({
         ...etapeProps,
         ordre: i + 1
-      } as unknown) as ITitreEtape)
+      } as unknown as ITitreEtape)
   )
 
 describe("statut d'une démarche", () => {

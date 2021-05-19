@@ -104,9 +104,9 @@ class TitresActivites extends Model {
 
   public $parseJson(json: Pojo) {
     if (!json.id && json.titreId && json.typeId && json.periodeId) {
-      const id = `${json.titreId}-${json.typeId}-${
-        json.annee
-      }-${json.periodeId.toString().padStart(2, '0')}`
+      const id = `${json.titreId}-${json.typeId}-${json.annee}-${json.periodeId
+        .toString()
+        .padStart(2, '0')}`
       json.id = id
     }
 

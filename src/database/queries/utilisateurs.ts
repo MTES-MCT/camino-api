@@ -253,7 +253,7 @@ const utilisateursCount = async (
     q
   )
 
-  const utilisateurs = ((await q) as unknown) as { total: number }[]
+  const utilisateurs = (await q) as unknown as { total: number }[]
 
   return utilisateurs.length
 }

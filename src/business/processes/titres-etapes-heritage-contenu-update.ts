@@ -51,15 +51,12 @@ const titresEtapesHeritageContenuUpdate = async (
         titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
           const titreEtapesFiltered = titreEtapes.slice(0, index).reverse()
 
-          const {
-            contenu,
-            heritageContenu,
-            hasChanged
-          } = titreEtapeHeritageContenuFind(
-            titreEtapesFiltered,
-            titreEtape,
-            etapeSectionsDictionary
-          )
+          const { contenu, heritageContenu, hasChanged } =
+            titreEtapeHeritageContenuFind(
+              titreEtapesFiltered,
+              titreEtape,
+              etapeSectionsDictionary
+            )
 
           if (hasChanged) {
             queue.add(async () => {
@@ -69,8 +66,7 @@ const titresEtapesHeritageContenuUpdate = async (
               })
 
               const log = {
-                type:
-                  'titre / démarche / étape : héritage du contenu (mise à jour) ->',
+                type: 'titre / démarche / étape : héritage du contenu (mise à jour) ->',
                 value: `${titreEtape.id}`
               }
 

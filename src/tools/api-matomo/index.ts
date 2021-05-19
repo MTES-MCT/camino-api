@@ -213,12 +213,8 @@ const matomoCacheInit = async () => {
     reutilisationsCountGet(),
     titresModifiesCountGet(duree)
   ])
-  const {
-    recherches,
-    actions,
-    sessionDuree,
-    telechargements
-  } = matomoResults[0]
+  const { recherches, actions, sessionDuree, telechargements } =
+    matomoResults[0]
 
   // nombre d'erreurs signalées
   const signalements = matomoResults[1]

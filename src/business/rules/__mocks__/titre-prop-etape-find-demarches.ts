@@ -135,7 +135,7 @@ const titreDemarchesOctMutPoints = {
 
 const titreDemarchesOctPointsMutInstruction = {
   statutId: 'val',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1985-mut01',
       titreId: 'h-cx-courdemanges-1985',
@@ -183,12 +183,12 @@ const titreDemarchesOctPointsMutInstruction = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesOctAccDpuRej = {
   statutId: 'val',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1984-oct01',
       titreId: 'h-cx-courdemanges-1984',
@@ -212,12 +212,12 @@ const titreDemarchesOctAccDpuRej = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesOctMfrPoints = {
   statutId: 'val',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1983-oct01',
       titreId: 'h-cx-courdemanges-1983',
@@ -234,7 +234,7 @@ const titreDemarchesOctMfrPoints = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesOctTitulairesACO = {
@@ -317,7 +317,7 @@ const titreDemarchesOctAmodiatairesValide = {
 
 const titreDemarchesOctAmodiatairesMod = {
   statutId: 'mod',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1981-amo01',
       titreId: 'h-cx-courdemanges-1981',
@@ -364,12 +364,12 @@ const titreDemarchesOctAmodiatairesMod = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesProPointsModPhaseEch = {
   statutId: 'mod',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1981-pro01',
       titreId: 'h-cx-courdemanges-1981',
@@ -404,12 +404,12 @@ const titreDemarchesProPointsModPhaseEch = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesProPointsModPhaseVal = {
   statutId: 'mod',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1981-pro01',
       titreId: 'h-cx-courdemanges-1981',
@@ -444,12 +444,12 @@ const titreDemarchesProPointsModPhaseVal = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesMutPointsMod = {
   statutId: 'mod',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1981-mut01',
       titreId: 'h-cx-courdemanges-1981',
@@ -484,12 +484,12 @@ const titreDemarchesMutPointsMod = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 const titreDemarchesProModPhaseEch = {
   statutId: 'mod',
-  demarches: ([
+  demarches: [
     {
       id: 'h-cx-courdemanges-1981-pro01',
       titreId: 'h-cx-courdemanges-1981',
@@ -539,7 +539,7 @@ const titreDemarchesProModPhaseEch = {
         }
       ]
     }
-  ] as unknown) as ITitreDemarche[]
+  ] as unknown as ITitreDemarche[]
 }
 
 export {

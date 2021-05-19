@@ -106,7 +106,7 @@ const administrationsCount = async (
 
   if (!q) return 0
 
-  const administrations = ((await q) as unknown) as { total: number }[]
+  const administrations = (await q) as unknown as { total: number }[]
 
   return administrations.length
 }

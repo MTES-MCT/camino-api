@@ -243,9 +243,8 @@ const titreActivitesBuild = (
   // aucune activité ne peut être créées
   if (!titreDemarches?.some(d => d.phase)) return []
 
-  const periodes = activiteType.frequence![
-    activiteType.frequence!.periodesNom!
-  ]!
+  const periodes =
+    activiteType.frequence![activiteType.frequence!.periodesNom!]!
   const months = 12 / periodes.length
   const periodesIndexes = [...new Array(periodes.length)]
 

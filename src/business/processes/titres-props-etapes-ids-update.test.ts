@@ -26,7 +26,7 @@ describe("propriétés (étape) d'un titre", () => {
       id: 'etape-id'
     } as ITitreEtape)
     titresGetMock.mockResolvedValue([
-      ({ propsTitreEtapesIds: { titulaires: null } } as unknown) as Titres
+      { propsTitreEtapesIds: { titulaires: null } } as unknown as Titres
     ])
 
     const titresUpdatedRequests = await titresPropsEtapesIdsUpdate()
@@ -38,7 +38,7 @@ describe("propriétés (étape) d'un titre", () => {
   test("supprime un id d'étape qui est null dans les étapes", async () => {
     titrePropTitreEtapeFindMock.mockReturnValue(null)
     titresGetMock.mockResolvedValue([
-      ({ propsTitreEtapesIds: { titulaires: null } } as unknown) as Titres
+      { propsTitreEtapesIds: { titulaires: null } } as unknown as Titres
     ])
 
     const titresUpdatedRequests = await titresPropsEtapesIdsUpdate()
@@ -49,7 +49,7 @@ describe("propriétés (étape) d'un titre", () => {
   test('ne trouve pas de propriétés dans les étapes', async () => {
     titrePropTitreEtapeFindMock.mockReturnValue(null)
     titresGetMock.mockResolvedValue([
-      ({ propsTitreEtapesIds: {} } as unknown) as Titres
+      { propsTitreEtapesIds: {} } as unknown as Titres
     ])
 
     const titresUpdatedRequests = await titresPropsEtapesIdsUpdate()

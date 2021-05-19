@@ -131,10 +131,8 @@ const titresAdministrationsGestionnairesUpdate = async (
 
   const administrations = await administrationsGet({}, {}, userSuper)
 
-  const {
-    titresAsGsToCreate,
-    titresAsGsToDelete
-  } = titresAsGsToCreateAndDeleteBuild(titres, administrations)
+  const { titresAsGsToCreate, titresAsGsToDelete } =
+    titresAsGsToCreateAndDeleteBuild(titres, administrations)
 
   let titresAsGsCreated = [] as ITitreAdministrationGestionnaire[]
   const titresAsGsDeleted = [] as string[]

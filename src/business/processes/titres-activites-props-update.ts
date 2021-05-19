@@ -36,9 +36,8 @@ const titresActivitesPropsUpdate = async (titresIds?: string[]) => {
 
       return titre.activites.reduce((acc, titreActivite) => {
         const activiteType = titreActivite.type!
-        const periodes = activiteType.frequence![
-          activiteType.frequence!.periodesNom!
-        ]!
+        const periodes =
+          activiteType.frequence![activiteType.frequence!.periodesNom!]!
 
         const periodeMonths = 12 / periodes.length
 

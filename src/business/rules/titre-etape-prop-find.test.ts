@@ -12,7 +12,7 @@ describe("valeur d'une propriété pour une étape", () => {
       titreEtapePropFind(
         'titulaires',
         date,
-        ([] as unknown) as ITitreDemarche[],
+        [] as unknown as ITitreDemarche[],
         'pxm'
       )
     ).toEqual(null)
@@ -23,7 +23,7 @@ describe("valeur d'une propriété pour une étape", () => {
       titreEtapePropFind(
         'titulaires',
         date,
-        ([{}, { etapes: [] }] as unknown) as ITitreDemarche[],
+        [{}, { etapes: [] }] as unknown as ITitreDemarche[],
         'pxm'
       )
     ).toEqual(null)
@@ -64,7 +64,7 @@ describe("valeur d'une propriété pour une étape", () => {
       titreEtapePropFind(
         'surface',
         date,
-        ([
+        [
           {
             id: 'demarche-01',
             statutId: 'acc',
@@ -86,7 +86,7 @@ describe("valeur d'une propriété pour une étape", () => {
               }
             ]
           }
-        ] as unknown) as ITitreDemarche[],
+        ] as unknown as ITitreDemarche[],
         'pxm'
       )
     ).toEqual(0)
@@ -97,7 +97,7 @@ describe("valeur d'une propriété pour une étape", () => {
       titreEtapePropFind(
         'titulaires',
         date,
-        ([
+        [
           {
             id: 'demarche-01',
             typeId: 'oct',
@@ -110,7 +110,7 @@ describe("valeur d'une propriété pour une étape", () => {
               }
             ]
           }
-        ] as unknown) as ITitreDemarche[],
+        ] as unknown as ITitreDemarche[],
         'pxm'
       )
     ).toBeNull()

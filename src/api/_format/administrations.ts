@@ -20,9 +20,8 @@ const administrationFormat = (administration: IAdministration) => {
   administration.localeTitres =
     administration.localeTitres && titresFormat(administration.localeTitres)
 
-  administration.utilisateurs = administration.utilisateurs?.map(
-    utilisateurFormat
-  )
+  administration.utilisateurs =
+    administration.utilisateurs?.map(utilisateurFormat)
 
   return administration
 }

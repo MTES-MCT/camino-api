@@ -54,12 +54,13 @@ const elementsGet = <T>(fileName: string): T[] => {
 }
 
 const etapesTypesGet = (demarcheTypeId: string, titreTypeId: string) => {
-  const titresTypesDemarchesTypesEtapesTypes = elementsGet<ITitreTypeDemarcheTypeEtapeType>(
-    'titres-types--demarches-types--etapes-types.json'
-  ).filter(
-    tde =>
-      tde.titreTypeId === titreTypeId && tde.demarcheTypeId === demarcheTypeId
-  )
+  const titresTypesDemarchesTypesEtapesTypes =
+    elementsGet<ITitreTypeDemarcheTypeEtapeType>(
+      'titres-types--demarches-types--etapes-types.json'
+    ).filter(
+      tde =>
+        tde.titreTypeId === titreTypeId && tde.demarcheTypeId === demarcheTypeId
+    )
 
   return elementsGet<IEtapeType>('etapes-types.json').filter(etapeType =>
     titresTypesDemarchesTypesEtapesTypes.find(
@@ -87,10 +88,10 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     titre = {
       ...titre,
       typeId: titreTypeId,
-      type: ({
+      type: {
         id: titreTypeId,
         contenuIds: []
-      } as unknown) as ITitreType,
+      } as unknown as ITitreType,
       demarches: [titreDemarche] as ITitreDemarche[]
     }
 

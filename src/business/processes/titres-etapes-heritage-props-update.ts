@@ -45,18 +45,15 @@ const titresEtapesHeritagePropsUpdate = async (
       titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
         const titreEtapePrecedente = index > 0 ? titreEtapes[index - 1] : null
 
-        const {
-          hasChanged,
-          titreEtape: newTitreEtape
-        } = titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
+        const { hasChanged, titreEtape: newTitreEtape } =
+          titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
 
         if (hasChanged) {
           queue.add(async () => {
             await titreEtapeUpsert(newTitreEtape)
 
             const log = {
-              type:
-                'titre / démarche / étape : héritage des propriétés (mise à jour) ->',
+              type: 'titre / démarche / étape : héritage des propriétés (mise à jour) ->',
               value: `${titreEtape.id}`
             }
 

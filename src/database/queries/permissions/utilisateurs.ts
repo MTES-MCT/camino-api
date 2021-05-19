@@ -25,10 +25,12 @@ const utilisateursQueryModify = (
     const administrationsIds = user.administrations.map(e => e.id)
 
     q.whereExists(
-      (Utilisateurs.relatedQuery('administrations') as QueryBuilder<
-        Administrations,
-        Administrations | Administrations[]
-      >).whereIn('administrations.id', administrationsIds)
+      (
+        Utilisateurs.relatedQuery('administrations') as QueryBuilder<
+          Administrations,
+          Administrations | Administrations[]
+        >
+      ).whereIn('administrations.id', administrationsIds)
     )
   } else if (
     permissionCheck(user?.permissionId, ['entreprise']) &&
@@ -39,10 +41,12 @@ const utilisateursQueryModify = (
     const entreprisesIds = user.entreprises.map(e => e.id)
 
     q.whereExists(
-      (Utilisateurs.relatedQuery('entreprises') as QueryBuilder<
-        Entreprises,
-        Entreprises | Entreprises[]
-      >).whereIn('entreprises.id', entreprisesIds)
+      (
+        Utilisateurs.relatedQuery('entreprises') as QueryBuilder<
+          Entreprises,
+          Entreprises | Entreprises[]
+        >
+      ).whereIn('entreprises.id', entreprisesIds)
     )
   } else if (user && permissionCheck(user?.permissionId, ['defaut'])) {
     // un utilisateur "defaut" ne voit que son propre profil

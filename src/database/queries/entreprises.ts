@@ -91,7 +91,7 @@ const entreprisesCount = async (
   entreprisesFiltersQueryModify({ noms, archive }, q)
   if (!q) return 0
 
-  const entreprises = ((await q) as unknown) as { total: number }[]
+  const entreprises = (await q) as unknown as { total: number }[]
 
   return entreprises.length
 }

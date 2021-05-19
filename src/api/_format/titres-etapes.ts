@@ -33,9 +33,9 @@ const titreEtapeFormat = (
     }
 
     if (fields.geojsonPoints) {
-      titreEtape.geojsonPoints = (geojsonFeatureCollectionPoints(
+      titreEtape.geojsonPoints = geojsonFeatureCollectionPoints(
         titreEtape.points
-      ) as unknown) as IGeoJson
+      ) as unknown as IGeoJson
     }
   }
 
@@ -44,9 +44,8 @@ const titreEtapeFormat = (
     delete titreEtape.heritageContenu
   }
 
-  titreEtape.administrations = titreEtape.administrations?.map(
-    administrationFormat
-  )
+  titreEtape.administrations =
+    titreEtape.administrations?.map(administrationFormat)
 
   titreEtape.titulaires = titreEtape.titulaires?.map(entrepriseFormat)
 

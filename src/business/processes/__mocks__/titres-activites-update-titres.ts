@@ -1,12 +1,12 @@
 import ActivitesTypes from '../../../database/models/activites-types'
 import Titres from '../../../database/models/titres'
 
-const titresSansActivite = ([
+const titresSansActivite = [
   {
     id: 'h-cx-courdemanges-1988',
     activites: []
   }
-] as unknown) as Titres[]
+] as unknown as Titres[]
 
 const titresToutesActivites = [
   {
@@ -20,12 +20,12 @@ const titresToutesActivites = [
   }
 ] as Titres[]
 
-const titreActiviteTypeGuyane = ({
+const titreActiviteTypeGuyane = {
   id: 'grp',
   dateDebut: 2018,
   nom: "rapport d'activité",
   frequenceId: 'tri'
-} as unknown) as ActivitesTypes
+} as unknown as ActivitesTypes
 
 const titreActivitesTypes = [titreActiviteTypeGuyane]
 

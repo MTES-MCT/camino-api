@@ -18,7 +18,7 @@ const titresDemarchesPublicModifie = [
   }
 ] as Titres[]
 
-const titresDemarchesPublicIdentique = ([
+const titresDemarchesPublicIdentique = [
   {
     typeId: 'cxh',
     demarches: [
@@ -45,6 +45,6 @@ const titresDemarchesPublicIdentique = ([
       }
     ]
   }
-] as unknown) as Titres[]
+] as unknown as Titres[]
 
 export { titresDemarchesPublicModifie, titresDemarchesPublicIdentique }

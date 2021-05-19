@@ -387,10 +387,8 @@ const titresEtapesAreaUpdate = async (
     console.info(log.type, log.value)
   }
 
-  const {
-    titresEtapesAreasToUpdate,
-    titresEtapesAreasToDelete
-  } = titresEtapesAreasToUpdateAndDeleteBuild(titresEtapesAreasIndex, areaType)
+  const { titresEtapesAreasToUpdate, titresEtapesAreasToDelete } =
+    titresEtapesAreasToUpdateAndDeleteBuild(titresEtapesAreasIndex, areaType)
 
   const titresEtapesAreasUpdated: string[] = []
   const titresEtapesAreasDeleted: string[] = []

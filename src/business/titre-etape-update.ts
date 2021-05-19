@@ -45,20 +45,17 @@ const titreEtapeUpdate = async (
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
     }
 
-    const titresEtapesDemandeEnConstructionUpdated = await titresEtapesDemandeACOUpdate(
-      titreDemarcheId
-    )
+    const titresEtapesDemandeEnConstructionUpdated =
+      await titresEtapesDemandeACOUpdate(titreDemarcheId)
 
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate([
       titreDemarcheId
     ])
 
-    const titresEtapesHeritagePropsUpdated = await titresEtapesHeritagePropsUpdate(
-      [titreDemarcheId]
-    )
-    const titresEtapesHeritageContenuUpdated = await titresEtapesHeritageContenuUpdate(
-      [titreDemarcheId]
-    )
+    const titresEtapesHeritagePropsUpdated =
+      await titresEtapesHeritagePropsUpdate([titreDemarcheId])
+    const titresEtapesHeritageContenuUpdated =
+      await titresEtapesHeritageContenuUpdate([titreDemarcheId])
 
     titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
@@ -72,10 +69,8 @@ const titreEtapeUpdate = async (
     ])
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titreId])
     const titresPublicUpdated = await titresPublicUpdate([titreId])
-    const [
-      titresPhasesUpdated = [],
-      titresPhasesDeleted = []
-    ] = await titresPhasesUpdate([titreId])
+    const [titresPhasesUpdated = [], titresPhasesDeleted = []] =
+      await titresPhasesUpdate([titreId])
     const titresDatesUpdated = await titresDatesUpdate([titreId])
     let communesUpdated = [] as IArea[]
     let titresEtapesCommunesUpdated = [] as string[]

@@ -11,7 +11,7 @@ const titresDemarchesEtapes = [
 ]
 
 const titresDemarchesEtapesVides = [
-  ({ etapes: [], titre: { typeId: '' } } as unknown) as TitresDemarches
+  { etapes: [], titre: { typeId: '' } } as unknown as TitresDemarches
 ]
 
 export { titresDemarchesEtapes, titresDemarchesEtapesVides }

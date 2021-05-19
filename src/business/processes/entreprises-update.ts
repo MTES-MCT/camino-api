@@ -113,9 +113,8 @@ const entreprisesUpdate = async () => {
   }
 
   const entreprisesNew = await apiInseeEntreprisesGet(sirens)
-  const entreprisesEtablissementsNew = await apiInseeEntreprisesEtablissementsGet(
-    sirens
-  )
+  const entreprisesEtablissementsNew =
+    await apiInseeEntreprisesEtablissementsGet(sirens)
 
   const entreprisesToUpdate = entreprisesToUpdateBuild(
     entreprisesOld,
