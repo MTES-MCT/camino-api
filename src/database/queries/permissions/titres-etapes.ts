@@ -19,6 +19,8 @@ import {
   administrationsTitresQuery
 } from './administrations'
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
+import { titresDemarchesQueryModify } from './titres-demarches'
+import TitresDemarches from '../../models/titres-demarches'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -135,6 +137,13 @@ const titresEtapesQueryModify = (
   )
 
   q.select(titreEtapeModificationQueryBuild(user).as('modification'))
+
+  q.modifyGraph('demarche', b => {
+    titresDemarchesQueryModify(
+      b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
+      user
+    )
+  })
 
   q.modifyGraph('documents', b => {
     documentsQueryModify(

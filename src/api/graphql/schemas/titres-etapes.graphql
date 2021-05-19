@@ -6,6 +6,7 @@
 # import * from 'points.graphql'
 # import * from 'territoires.graphql'
 # import * from 'documents.graphql'
+# import * from 'titres-demarches.graphql'
 
 "Étape d'une démarche effectuée sur un titre minier"
 type Etape {
@@ -17,6 +18,8 @@ type Etape {
   id: ID!
 
   titreDemarcheId: ID!
+
+  demarche: Demarche
 
   "Type de l'étape"
   type: EtapeType!

@@ -29,28 +29,49 @@ const etapeAmodiataireFind = (
   return false
 }
 
-// - si l'étape est acceptée, fait, déposée ou favorable
-// - et
-//   - si la démarche est un octroi, une demande de titre d'exploitation ou une mutation partielle
-//    - ou si il s'agit d'une étape de décision
-//    - ou si le titre est en modification en instance
-//      - et que la prop est points, surface, substances ou  communes
-
 const etapeValideCheck = (
   titreEtape: ITitreEtape,
   titreDemarcheTypeId: string,
   titreStatutId?: string,
   propId?: IPropId
-) =>
-  ['acc', 'fai', 'fav', 'dep'].includes(titreEtape.statutId) &&
-  (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
+) => {
+  // si l'étape est une demande et que le titre est en demande initiale (statut réservé au octroi)
+  if (['mfm', 'mfr'].includes(titreEtape.typeId) && titreStatutId === 'dmi') {
+    return true
+  }
+
+  // si l'étape n'a pas le statut acceptée, fait, déposée ou favorable
+  if (!['acc', 'fai', 'fav', 'dep'].includes(titreEtape.statutId)) {
+    return false
+  }
+
+  // si la démarche est un octroi, une demande de titre d'exploitation ou une mutation partielle
+  if (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId)) {
+    return true
+  }
+  // si il s'agit d'une étape de décision
+  if (
     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId
-    ) ||
-    (propId &&
-      titreStatutId &&
-      ['points', 'surface', 'communes', 'forets'].includes(propId) &&
-      titreStatutId === 'mod'))
+    )
+  ) {
+    return true
+  }
+
+  // si
+  // - le titre est en modification en instance
+  // - et que la prop est points, surface, substances ou communes
+  if (
+    propId &&
+    titreStatutId &&
+    ['points', 'surface', 'communes', 'forets'].includes(propId) &&
+    titreStatutId === 'mod'
+  ) {
+    return true
+  }
+
+  return false
+}
 
 const titreDemarchePropTitreEtapeFind = (
   propId: IPropId,
@@ -60,16 +81,6 @@ const titreDemarchePropTitreEtapeFind = (
   titreDemarches: ITitreDemarche[]
 ) =>
   titreEtapesSortDesc(titreDemarcheEtapes).find((titreEtape: ITitreEtape) => {
-    // fait remonter le titulaire d'une demande d'octroi
-    // pour qu'il ait la visibilité sur le titre
-    if (
-      propId === 'titulaires' &&
-      ['mfm', 'mfr'].includes(titreEtape.typeId) &&
-      titreStatutId === 'dmi'
-    ) {
-      return true
-    }
-
     const isEtapeValide = etapeValideCheck(
       titreEtape,
       titreDemarcheTypeId,
