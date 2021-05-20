@@ -178,7 +178,7 @@ const etapeCreer = async (
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
     const etapeType = await etapeTypeGet(etape.typeId, {
-      fields: { documentsTypes: { id: {} } }
+      fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } }
     })
 
     if (!etapeType) {
@@ -196,7 +196,8 @@ const etapeCreer = async (
       titreDemarche,
       titreDemarche.titre,
       sections,
-      etapeType.documentsTypes!
+      etapeType.documentsTypes!,
+      etapeType.justificatifsTypes!
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -282,7 +283,7 @@ const etapeModifier = async (
     if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
 
     const etapeType = await etapeTypeGet(etape.typeId, {
-      fields: { documentsTypes: { id: {} } }
+      fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } }
     })
     if (!etapeType) {
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
@@ -299,7 +300,8 @@ const etapeModifier = async (
       titreDemarche,
       titreDemarche.titre,
       sections,
-      etapeType.documentsTypes!
+      etapeType.documentsTypes!,
+      etapeType.justificatifsTypes!
     )
 
     if (rulesErrors.length) {

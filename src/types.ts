@@ -346,6 +346,7 @@ interface IEtapeType {
   etapesCreation?: boolean | null
   unique?: boolean | null
   documentsTypes?: IDocumentType[]
+  justificatifsTypes?: IDocumentType[]
 }
 
 interface IForet extends IArea {}
