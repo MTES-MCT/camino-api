@@ -179,6 +179,7 @@ input InputEtapeCreation {
   heritageContenu: Json
   contenu: Json
   documents: [InputDocument]
+  justificatifs: [InputJustificatif]
 }
 
 input InputEtapeModification {
@@ -201,6 +202,7 @@ input InputEtapeModification {
   heritageContenu: Json
   contenu: Json
   documents: [InputDocument]
+  justificatifs: [InputJustificatif]
 }
 
 input InputEtapeFiltre {

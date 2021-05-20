@@ -169,6 +169,8 @@ type EtapeType {
   etapesCreation: Boolean
 
   documentsTypes: [DocumentType]
+
+  justificatifsTypes: [DocumentType]
 }
 
 "Statut d'une étape de démarche de titre minier"
