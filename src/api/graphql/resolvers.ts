@@ -133,7 +133,11 @@ import {
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
-  etapeTypeDocumentTypeSupprimer
+  etapeTypeDocumentTypeSupprimer,
+  etapesTypesJustificatifsTypes,
+  etapeTypeJustificatifTypeModifier,
+  etapeTypeJustificatifTypeCreer,
+  etapeTypeJustificatifTypeSupprimer
 } from './resolvers/metas-join'
 
 import {
@@ -263,6 +267,7 @@ export default {
   titresTypesDemarchesTypesEtapesTypes,
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
+  etapesTypesJustificatifsTypes,
   travauxTypesTravauxEtapesTypes,
   travauxEtapesTypesDocumentsTypes,
   travauxEtapesTypesEtapesStatuts,
@@ -357,6 +362,10 @@ export default {
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer,
+
+  etapeTypeJustificatifTypeModifier,
+  etapeTypeJustificatifTypeCreer,
+  etapeTypeJustificatifTypeSupprimer,
 
   travauxTypeTravauxEtapeTypeModifier,
   travauxTypeTravauxEtapeTypeCreer,

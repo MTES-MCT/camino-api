@@ -25,7 +25,8 @@ import {
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
   IUtilisateur,
-  IEtapeTypeDocumentType
+  IEtapeTypeDocumentType,
+  IEtapeTypeJustificatifType
 } from '../../types'
 
 import { knex } from '../../knex'
@@ -65,6 +66,7 @@ import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarc
 import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
+import EtapesTypesJustificatifsTypes from '../models/etapes-types--justificatifs-types'
 
 const permissionsGet = async (
   _a: never,
@@ -278,6 +280,35 @@ const etapeTypeDocumentTypeDelete = async (
   documentTypeId: string
 ) => EtapesTypesDocumentsTypes.query().deleteById([etapeTypeId, documentTypeId])
 
+const etapesTypesJustificatifsTypesGet = async () =>
+  EtapesTypesJustificatifsTypes.query().orderBy([
+    'etapeTypeId',
+    'documentTypeId'
+  ])
+
+const etapeTypeJustificatifTypeUpdate = async (
+  etapeTypeId: string,
+  documentTypeId: string,
+  props: Partial<IEtapeTypeJustificatifType>
+) =>
+  EtapesTypesJustificatifsTypes.query().patchAndFetchById(
+    [etapeTypeId, documentTypeId],
+    props
+  )
+
+const etapeTypeJustificatifTypeCreate = async (
+  etapeTypeJustificatifType: IEtapeTypeJustificatifType
+) => EtapesTypesJustificatifsTypes.query().insert(etapeTypeJustificatifType)
+
+const etapeTypeJustificatifTypeDelete = async (
+  etapeTypeId: string,
+  documentTypeId: string
+) =>
+  EtapesTypesJustificatifsTypes.query().deleteById([
+    etapeTypeId,
+    documentTypeId
+  ])
+
 /**
  * retourne les statuts de titre visible par l’utilisateur
  * @param user - utilisateur
@@ -414,11 +445,21 @@ const documentsTypesGet = async ({
 
       q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
     } else if (repertoire === 'entreprises') {
-      q.join(
-        'entreprises__documentsTypes as e_dt',
-        'e_dt.documentTypeId',
-        'documentsTypes.id'
-      )
+      if (typeId) {
+        q.join('etapesTypes__justificatifsTypes as et_jt', b => {
+          b.on(knex.raw('?? = ?', ['et_jt.etapeTypeId', typeId]))
+          b.on(
+            knex.raw('?? = ??', ['et_jt.documentTypeId', 'documentsTypes.id'])
+          )
+        })
+        q.select(raw('?? is true', ['et_jt.optionnel']).as('optionnel'))
+      } else {
+        q.join(
+          'entreprises__documentsTypes as e_dt',
+          'e_dt.documentTypeId',
+          'documentsTypes.id'
+        )
+      }
     }
   }
 
@@ -527,5 +568,9 @@ export {
   etapesTypesDocumentsTypesGet,
   etapeTypeDocumentTypeUpdate,
   etapeTypeDocumentTypeCreate,
-  etapeTypeDocumentTypeDelete
+  etapeTypeDocumentTypeDelete,
+  etapesTypesJustificatifsTypesGet,
+  etapeTypeJustificatifTypeUpdate,
+  etapeTypeJustificatifTypeCreate,
+  etapeTypeJustificatifTypeDelete
 }

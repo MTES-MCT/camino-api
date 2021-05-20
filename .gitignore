@@ -18,6 +18,7 @@ node_modules
 !/sources/titres-statuts.json
 /sources/utilisateurs*.json
 /sources/entreprises*.json
+!/sources/entreprises--documents-types.json
 /sources/documents.json
 /sources/communes.json
 /sources/forets.json

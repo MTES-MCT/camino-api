@@ -207,9 +207,25 @@ exports.up = knex =>
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
     })
+    .createTable('etapesTypes__justificatifsTypes', table => {
+      table
+        .string('etapeTypeId', 3)
+        .index()
+        .references('etapesTypes.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table
+        .string('documentTypeId', 3)
+        .index()
+        .references('entreprises__documentsTypes.documentTypeId')
+        .notNullable()
+      table.boolean('optionnel')
+      table.primary(['etapeTypeId', 'documentTypeId'])
+    })
 
 exports.down = knex =>
   knex.schema
+    .dropTable('etapesTypes__justificatifsTypes')
     .dropTable('utilisateurs__administrations')
     .dropTable('utilisateurs__entreprises')
     .dropTable('utilisateurs')

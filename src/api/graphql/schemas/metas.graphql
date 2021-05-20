@@ -310,6 +310,12 @@ type EtapeTypeDocumentType {
   optionnel: Boolean
 }
 
+type EtapeTypeJustificatifType {
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
+}
+
 input InputDomaine {
   "Id composée d'une seule lettre"
   id: ID!
@@ -493,6 +499,12 @@ input InputEtapeTypeEtapeStatut {
 }
 
 input InputEtapeTypeDocumentType {
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
+}
+
+input InputEtapeTypeJustificatifType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean

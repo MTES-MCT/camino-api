@@ -51,6 +51,10 @@ const tables = [
     orderBy: ['etape_type_id', 'document_type_id']
   },
   {
+    name: 'etapes_types__justificatifs_types',
+    orderBy: ['etape_type_id', 'document_type_id']
+  },
+  {
     name: 'etapes_types__etapes_statuts',
     orderBy: ['etape_type_id', 'etape_statut_id']
   },

@@ -21,6 +21,7 @@ import {
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 import { titresDemarchesQueryModify } from './titres-demarches'
 import TitresDemarches from '../../models/titres-demarches'
+import EtapesTypesJustificatifsTypes from '../../models/etapes-types--justificatifs-types'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -62,6 +63,26 @@ const titreEtapeCreationDocumentsModify = (
     .first()
 
   q.select(raw('EXISTS(?)', [query]).as('documentsCreation'))
+}
+
+const titreEtapeCreationJustificatifsModify = (
+  q: QueryBuilder<any, any | any[]>,
+  typeIdAlias: string,
+  user: IUtilisateur | null
+) => {
+  //
+
+  // si il existe un type de justificatif pour le type d’étape
+  const query = EtapesTypesJustificatifsTypes.query()
+    .where(raw('?? = ??', [typeIdAlias, 'etapeTypeId']))
+    .first()
+
+  q.select(
+    raw('EXISTS(?) AND (?)', [
+      query,
+      titreEtapeModificationQueryBuild(user)
+    ]).as('justificatifsAssociation')
+  )
 }
 
 /**
@@ -120,12 +141,7 @@ const titresEtapesQueryModify = (
     })
   }
 
-  // TODO: restreindre avec titreEtapeModificationQueryBuild(user)
-  q.select(
-    raw('type.fondamentale AND (?)', [
-      titreEtapeModificationQueryBuild(user)
-    ]).as('justificatifsAssociation')
-  )
+  titreEtapeCreationJustificatifsModify(q, 'type.id', user)
 
   // si il existe un type de document pour le type d’étape
   titreEtapeCreationDocumentsModify(q, 'type.id')
