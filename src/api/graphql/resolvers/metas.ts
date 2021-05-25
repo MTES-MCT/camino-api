@@ -62,7 +62,10 @@ import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
 import { fieldsBuild } from './_fields-build'
-import { etapeTypeIsValidCheck } from '../../_format/etapes-types'
+import {
+  etapeTypeFormat,
+  etapeTypeIsValidCheck
+} from '../../_format/etapes-types'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import {
@@ -264,10 +267,11 @@ const demarcheEtapesTypesGet = async (
 
   if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
 
+  const demarcheTypeEtapesTypes = titreDemarche.type!.etapesTypes
   // si on modifie une étape
   // vérifie que son type est possible sur la démarche
   if (titreEtape) {
-    const etapeType = titreDemarche.type!.etapesTypes.find(
+    const etapeType = demarcheTypeEtapesTypes.find(
       et => et.id === titreEtape.typeId
     )
 
@@ -294,16 +298,18 @@ const demarcheEtapesTypesGet = async (
     user
   )
 
-  const etapesTypesFormatted = etapesTypes.filter(etapeType =>
-    etapeTypeIsValidCheck(
-      etapeType,
-      date,
-      titre,
-      titreDemarche.type!,
-      titreDemarche.etapes,
-      titreEtape
+  const etapesTypesFormatted = etapesTypes
+    .filter(etapeType =>
+      etapeTypeIsValidCheck(
+        etapeType,
+        date,
+        titre,
+        titreDemarche.type!,
+        titreDemarche.etapes,
+        titreEtape
+      )
     )
-  )
+    .map(et => etapeTypeFormat(et, demarcheTypeEtapesTypes, titre.typeId))
 
   return etapesTypesFormatted
 }

@@ -49,6 +49,20 @@ const etapeTypeSectionsFormat = (
   return titreSectionsFormat(sections)
 }
 
+const etapeTypeFormat = (
+  etapeType: IEtapeType,
+  demarcheTypeEtapesTypes: IEtapeType[],
+  titreTypeId: string
+) => {
+  etapeType.sections = etapeTypeSectionsFormat(
+    etapeType,
+    demarcheTypeEtapesTypes,
+    titreTypeId
+  )
+
+  return etapeType
+}
+
 const etapeTypeDateFinCheck = (
   etapeType: IEtapeType,
   titreEtapes?: ITitreEtape[] | null
@@ -95,4 +109,4 @@ const etapeTypeIsValidCheck = (
   return etapeTypeIsValid
 }
 
-export { etapeTypeIsValidCheck, etapeTypeSectionsFormat }
+export { etapeTypeIsValidCheck, etapeTypeSectionsFormat, etapeTypeFormat }
