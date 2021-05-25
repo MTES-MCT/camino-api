@@ -1,6 +1,11 @@
 import { GraphQLResolveInfo } from 'graphql'
 
-import { ITitreEtape, ITitreEtapeJustificatif, IToken } from '../../../types'
+import {
+  ITitreEtape,
+  ITitreEtapeJustificatif,
+  IToken,
+  IUtilisateur
+} from '../../../types'
 
 import { debug } from '../../../config/index'
 
@@ -35,6 +40,27 @@ import {
   contenuElementFilesDelete,
   sectionsContenuAndFilesGet
 } from '../../../business/utils/contenu-element-file-process'
+import { permissionCheck } from '../../../tools/permission'
+import dateFormat from 'dateformat'
+
+const demandeDepose = (
+  etape: ITitreEtape,
+  depose: boolean | undefined,
+  user: IUtilisateur
+) => {
+  if (depose) {
+    if (!['mfm', 'mfr'].includes(etape.typeId)) {
+      throw new Error('seules les demandes peuvent être déposées')
+    }
+
+    etape.statutId = 'dep'
+    if (permissionCheck(user.permissionId, ['entreprise'])) {
+      etape.date = dateFormat(new Date(), 'yyyy-mm-dd')
+    }
+  }
+
+  return etape
+}
 
 const etape = async (
   { id }: { id: string },
@@ -143,7 +169,7 @@ const etapeHeritage = async (
 }
 
 const etapeCreer = async (
-  { etape }: { etape: ITitreEtape },
+  { etape, depose }: { etape: ITitreEtape; depose?: boolean },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -184,6 +210,8 @@ const etapeCreer = async (
     if (!etapeType) {
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
+
+    etape = demandeDepose(etape, depose, user!)
 
     const sections = etapeTypeSectionsFormat(
       etapeType,
@@ -245,7 +273,7 @@ const etapeCreer = async (
 }
 
 const etapeModifier = async (
-  { etape }: { etape: ITitreEtape },
+  { etape, depose }: { etape: ITitreEtape; depose?: boolean },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -288,6 +316,8 @@ const etapeModifier = async (
     if (!etapeType) {
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
+
+    etape = demandeDepose(etape, depose, user!)
 
     const sections = etapeTypeSectionsFormat(
       etapeType,
