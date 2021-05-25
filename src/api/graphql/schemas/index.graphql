@@ -310,10 +310,10 @@ type Mutation {
   demarcheSupprimer(id: ID!): Titre
 
   "Crée une étape et met à jour le titre minier"
-  etapeCreer(etape: InputEtapeCreation!): Titre
+  etapeCreer(etape: InputEtapeCreation!, depose: Boolean): Titre
 
   "Modifie une étape et met à jour le titre minier"
-  etapeModifier(etape: InputEtapeModification!): Titre
+  etapeModifier(etape: InputEtapeModification!, depose: Boolean): Titre
 
   "Supprime une étape et met à jour le titre minier"
   etapeSupprimer(id: ID!): Titre
