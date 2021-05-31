@@ -32,6 +32,35 @@ import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
 import { titreDemarcheUpdationValidate } from '../../../business/validations/titre-demarche-updation-validate'
 import { userGet } from '../../../database/queries/utilisateurs'
 
+const demarche = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const fields = fieldsBuild(info)
+    const user = await userGet(context.user?.id)
+
+    const titreDemarche = await titreDemarcheGet(id, { fields }, user)
+
+    if (!titreDemarche) {
+      throw new Error("la démarche n'existe pas")
+    }
+
+    return titreDemarcheFormat(
+      titreDemarche,
+      titreDemarche.titre!.typeId,
+      fields.elements
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const demarches = async (
   {
     page,
@@ -283,4 +312,10 @@ const demarcheSupprimer = async (
   }
 }
 
-export { demarches, demarcheCreer, demarcheModifier, demarcheSupprimer }
+export {
+  demarche,
+  demarches,
+  demarcheCreer,
+  demarcheModifier,
+  demarcheSupprimer
+}
