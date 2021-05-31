@@ -24,9 +24,7 @@ const titreDateDemandeFind = (titreDemarches: ITitreDemarche[]) => {
   // - ou l'enregistrement de la demande (pour les anciennes ARM)
   const titreEtapesSorted = titreEtapesSortAsc(titreDemarche.etapes!)
   const titreEtape = titreEtapesSorted.find(
-    te =>
-      (te.statutId === 'dep' && ['mfr', 'mfm'].includes(te.typeId)) ||
-      te.typeId === 'men'
+    te => (te.statutId === 'dep' && te.typeId === 'mfr') || te.typeId === 'men'
   )
 
   // si

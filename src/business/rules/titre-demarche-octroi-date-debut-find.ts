@@ -40,7 +40,7 @@ const titreDemarcheOctroiDateDebutFind = (
           'aco'
         ].includes(typeId) &&
           demarcheOctroi.statutId === 'acc') ||
-        ['mfr', 'mfm'].includes(typeId)
+        typeId === 'mfr'
     ) ||
     // sinon utilise la première étape (chronologique) de l'octroi
     etapes[etapes.length - 1]

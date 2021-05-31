@@ -6,6 +6,7 @@ import { IPermissionId } from '../src/types'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 import Titres from '../src/database/models/titres'
+import TitresTypesDemarchesTypesEtapesTypes from '../src/database/models/titres-types--demarches-types-etapes-types'
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,
@@ -24,6 +25,16 @@ console.error = jest.fn()
 
 beforeAll(async () => {
   await dbManager.populateDb()
+
+  const mfrTDE = await TitresTypesDemarchesTypesEtapesTypes.query()
+    .where('titreTypeId', 'arm')
+    .andWhere('demarcheTypeId', 'oct')
+    .andWhere('etapeTypeId', 'mfr')
+    .first()
+  mfrTDE!
+    .sections!.find(s => s.id === 'arm')!
+    .elements!.find(e => e.id === 'franchissements')!.optionnel = false
+  await TitresTypesDemarchesTypesEtapesTypes.query().upsertGraph(mfrTDE)
 })
 
 beforeEach(async () => {
@@ -108,9 +119,13 @@ describe('etapeCreer', () => {
             }
           ),
           heritageContenu: {
+            arm: {
+              mecanise: { actif: true },
+              franchissements: { actif: true }
+            },
             demande: { date: { actif: false } }
           },
-          contenu: {}
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
         }
       },
       'super'
@@ -186,13 +201,13 @@ describe('etapeCreer', () => {
     )
   })
 
-  test('ne peut pas créer une étape mfm avec un statut dep avec un champ obligatoire manquant (utilisateur super)', async () => {
+  test('ne peut pas créer une étape mfr avec un statut dep avec un champ obligatoire manquant (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
       {
         etape: {
-          typeId: 'mfm',
+          typeId: 'mfr',
           statutId: 'dep',
           titreDemarcheId,
           date: '',
@@ -209,8 +224,7 @@ describe('etapeCreer', () => {
           heritageContenu: {
             arm: {
               mecanise: { actif: true },
-              franchissements: { actif: true },
-              materiel: { actif: true }
+              franchissements: { actif: true }
             },
             demande: { date: { actif: false } }
           }
@@ -220,7 +234,7 @@ describe('etapeCreer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'une demande mécanisée doit être mécanisée, l’élément "Matériel" de la section "Caractéristiques ARM" est obligatoire'
+      'l’élément "Franchissements de cours d\'eau" de la section "Caractéristiques ARM" est obligatoire'
     )
   })
 
@@ -245,6 +259,10 @@ describe('etapeCreer', () => {
             }
           ),
           heritageContenu: {
+            arm: {
+              mecanise: { actif: true },
+              franchissements: { actif: true }
+            },
             demande: { date: { actif: false } }
           }
         }

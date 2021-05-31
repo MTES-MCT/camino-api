@@ -49,7 +49,7 @@ const demandeDepose = (
   user: IUtilisateur
 ) => {
   if (depose) {
-    if (!['mfm', 'mfr'].includes(etape.typeId)) {
+    if (etape.typeId !== 'mfr') {
       throw new Error('seules les demandes peuvent être déposées')
     }
 
@@ -57,7 +57,7 @@ const demandeDepose = (
     if (permissionCheck(user.permissionId, ['entreprise'])) {
       etape.date = dateFormat(new Date(), 'yyyy-mm-dd')
     }
-  } else if (depose === false && ['mfm', 'mfr'].includes(etape.typeId)) {
+  } else if (depose === false && etape.typeId === 'mfr') {
     etape.statutId = 'aco'
   }
 

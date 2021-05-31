@@ -70,12 +70,8 @@ const titreEtapeUpdationValidate = async (
       }
     }
 
-    if (titreEtape.typeId === 'mfm' && !titreEtape.contenu?.arm.mecanise) {
-      errors.push('une demande mécanisée doit être mécanisée')
-    }
-
     if (
-      titreEtape.typeId !== 'mfm' &&
+      titreEtape.typeId !== 'mfr' &&
       titreEtape.heritageContenu &&
       titreEtape.heritageContenu.arm &&
       titreEtape.heritageContenu.arm.mecanise &&

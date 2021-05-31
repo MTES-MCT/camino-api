@@ -83,7 +83,7 @@ const entreprisesEtapesTypesPropsQuery = (entreprisesIds: string[]) =>
     .leftJoinRelated('titulaires.titresTypes')
     .leftJoinRelated('demarche.titre')
     .andWhere('demarche.typeId', 'oct')
-    .whereIn('e_te.typeId', ['mfr', 'mfm'])
+    .andWhere('e_te.typeId', 'mfr')
     .andWhere('e_te.statutId', 'aco')
     .whereIn('titulaires.id', entreprisesIds)
     .whereRaw('?? = ??', ['demarche:titre.typeId', 'titulaires:titresTypes.id'])

@@ -1566,6 +1566,12 @@
             "description": "L'autorisation est demandée pour une durée maximum de 4 mois à compter de la date de l'autorisation."
           },
           {
+            "id": "descriptionProjet",
+            "nom": "Description du projet de recherches minières ",
+            "type": "checkbox",
+            "description": "Le projet de recherches minières est décrit : le programme de prospection, les méthodes de travail projetées, les moyens techniques mobilisés, les moyens humains employés."
+          },
+          {
             "id": "surfaceDemandee",
             "nom": "Surfaces demandées",
             "type": "checkbox",
@@ -1621,16 +1627,10 @@
         "nom": "Informations sur la prospection mécanisée",
         "elements": [
           {
-            "id": "descriptionProjet",
-            "nom": "Description du projet de recherches minières mécanisées",
-            "type": "checkbox",
-            "description": "Le projet de recherches minières est décrit : le programme de prospection, les méthodes de travail projetées, les moyens techniques mobilisés, les moyens humains employés."
-          },
-          {
             "id": "recepisseLSE",
-            "nom": "Récépissé de déclaration loi sur l'eau",
+            "nom": "Dossier loi sur l'eau",
             "type": "checkbox",
-            "description": "L'étape de récépissé de déclaration loi sur l'eau est présente et favorable."
+            "description": "Le dossier de déclaration loi sur l'eau est présent."
           },
           {
             "id": "recepisseCasParCas",
@@ -1770,7 +1770,7 @@
     "titre_type_id": "arm",
     "ordre": 100,
     "demarche_type_id": "oct",
-    "etape_type_id": "mfm",
+    "etape_type_id": "mfr",
     "sections": [
       {
         "id": "arm",
@@ -1788,86 +1788,10 @@
             "type": "integer",
             "optionnel": true,
             "description": "Nombre de franchissements de cours d'eau"
-          },
-          {
-            "id": "materiel",
-            "nom": "Matériel",
-            "type": "multiple",
-            "elements": [
-              {
-                "id": "type",
-                "nom": "Type de matériel",
-                "type": "select",
-                "valeurs": [
-                  {
-                    "id": "pelleHydraulique",
-                    "nom": "Pelle hydraulique"
-                  },
-                  {
-                    "id": "motoTariereAutotractee",
-                    "nom": "Moto tarière autotractée"
-                  },
-                  {
-                    "id": "quad",
-                    "nom": "Quad"
-                  },
-                  {
-                    "id": "autre",
-                    "nom": "Autre matériel autorisé"
-                  }
-                ],
-                "optionnel": false
-              },
-              {
-                "id": "marque",
-                "nom": "Marque",
-                "type": "text",
-                "optionnel": false
-              },
-              {
-                "id": "modele",
-                "nom": "Modèle",
-                "type": "text",
-                "optionnel": false
-              },
-              {
-                "id": "numero",
-                "nom": "N° d’identification",
-                "type": "text",
-                "optionnel": false
-              },
-              {
-                "id": "proprietaire",
-                "nom": "Nom du propriétaire",
-                "type": "text",
-                "optionnel": false
-              },
-              {
-                "id": "tonnage",
-                "nom": "Tonnage",
-                "type": "number",
-                "optionnel": true,
-                "description": "Le tonnage maximum autorisé est fixé à 21 tonnes."
-              },
-              {
-                "id": "justificatif",
-                "nom": "Justificatif",
-                "type": "file",
-                "optionnel": false,
-                "description": "facture d’achat ou contrat de location"
-              }
-            ],
-            "optionnel": false
           }
         ]
       }
     ]
-  },
-  {
-    "titre_type_id": "arm",
-    "ordre": 100,
-    "demarche_type_id": "oct",
-    "etape_type_id": "mfr"
   },
   {
     "titre_type_id": "arm",

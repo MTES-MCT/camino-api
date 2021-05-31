@@ -990,7 +990,6 @@ interface ITitreDemande {
   typeId: string
   domaineId: string
   entrepriseId: string
-  mecanise?: boolean
   references?: ITitreReference[]
 }
 

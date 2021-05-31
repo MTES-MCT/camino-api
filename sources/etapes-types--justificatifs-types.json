@@ -1,45 +1,5 @@
 [
   {
-    "etape_type_id": "mfm",
-    "document_type_id": "atf",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "cur",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "idm",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "jcf",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "jct",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "jid",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "kbi",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "mfm",
-    "document_type_id": "sir",
-    "optionnel": true
-  },
-  {
     "etape_type_id": "mfr",
     "document_type_id": "atf",
     "optionnel": true
