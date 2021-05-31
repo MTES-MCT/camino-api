@@ -138,9 +138,14 @@ describe('etapeModifier', () => {
             }
           ),
           heritageContenu: {
+            arm: {
+              mecanise: { actif: false },
+              franchissements: { actif: false }
+            },
             demande: { date: { actif: false } }
           },
           contenu: {
+            arm: { mecanise: true, franchissements: 3 },
             demande: { date: '2020-01-20' }
           }
         }

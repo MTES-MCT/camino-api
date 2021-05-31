@@ -36,7 +36,7 @@ const etapeValideCheck = (
   propId?: IPropId
 ) => {
   // si l'étape est une demande et que le titre est en demande initiale (statut réservé au octroi)
-  if (['mfm', 'mfr'].includes(titreEtape.typeId) && titreStatutId === 'dmi') {
+  if (titreEtape.typeId === 'mfr' && titreStatutId === 'dmi') {
     return true
   }
 

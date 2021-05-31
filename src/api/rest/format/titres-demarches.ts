@@ -6,7 +6,6 @@ import titreEtapesSortAscByDate from '../../../business/utils/titre-etapes-sort-
 
 const etapesTypesIds = [
   'mfr',
-  'mfm',
   'spp',
   'mcp',
   'mcr',

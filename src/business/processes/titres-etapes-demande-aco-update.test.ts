@@ -31,24 +31,21 @@ describe('date de la demande en construction', () => {
     expect(titreEtapeUpdateMock).not.toHaveBeenCalled()
   })
 
-  test.each(['mfr', 'mfm'])(
-    'met à jour la date de la demande en construction',
-    async (typeId: string) => {
-      titreDemarcheGetMock.mockResolvedValue({
-        etapes: [
-          { id: '1', typeId, statutId: 'aco', date: '2020-01-01' },
-          { id: '2', typeId: 'rde', statutId: 'fav', date: '2020-01-03' }
-        ]
-      } as TitresDemarches)
-      const titresDemarchesOrdreUpdated = await titresEtapesDemandeACOUpdate(
-        'titreDemarcheId'
-      )
-      expect(titresDemarchesOrdreUpdated.length).toEqual(1)
-      expect(titreEtapeUpdateMock).toHaveBeenCalledWith('1', {
-        date: '2020-01-04'
-      })
-    }
-  )
+  test('met à jour la date de la demande en construction', async () => {
+    titreDemarcheGetMock.mockResolvedValue({
+      etapes: [
+        { id: '1', typeId: 'mfr', statutId: 'aco', date: '2020-01-01' },
+        { id: '2', typeId: 'rde', statutId: 'fav', date: '2020-01-03' }
+      ]
+    } as TitresDemarches)
+    const titresDemarchesOrdreUpdated = await titresEtapesDemandeACOUpdate(
+      'titreDemarcheId'
+    )
+    expect(titresDemarchesOrdreUpdated.length).toEqual(1)
+    expect(titreEtapeUpdateMock).toHaveBeenCalledWith('1', {
+      date: '2020-01-04'
+    })
+  })
 
   test('ne met pas à jour la date de la demande en construction si elle n’a pas changée', async () => {
     titreDemarcheGetMock.mockResolvedValue({

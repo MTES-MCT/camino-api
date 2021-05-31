@@ -110,23 +110,16 @@ const titreDemandeCreer = async (
       userSuper
     )
 
-    const etapeTypeId =
-      titreDemande.typeId === 'arm' && titreDemande.mecanise ? 'mfm' : 'mfr'
-
     const date = dateFormat(new Date(), 'yyyy-mm-dd')
     const titreDemarcheId = titre.demarches![0].id
 
     let titreEtape = {
       titreDemarcheId,
-      typeId: etapeTypeId,
+      typeId: 'mfr',
       statutId: 'aco',
       date,
       titulaires: [{ id: titreDemande.entrepriseId }]
     } as ITitreEtape
-
-    if (etapeTypeId === 'mfm') {
-      titreEtape.contenu = { arm: { mecanise: true } }
-    }
 
     titreEtape = await titreEtapeUpsert(titreEtape)
 

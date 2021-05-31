@@ -10,6 +10,5 @@ input InputTitreDemande {
   entrepriseId: ID!
   domaineId: ID!
   typeId: ID!
-  mecanise: Boolean
   references: [InputReference]
 }

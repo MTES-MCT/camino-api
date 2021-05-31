@@ -120,13 +120,6 @@
   {
     "administration_id": "aut-mrae-guyane-01",
     "titre_type_id": "arm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "aut-mrae-guyane-01",
-    "titre_type_id": "arm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -372,11 +365,6 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
-    "etape_type_id": "dae"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
     "etape_type_id": "def",
     "creation_interdit": true,
     "modification_interdit": true
@@ -399,26 +387,6 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
-    "etape_type_id": "mcb"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mcd"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mcm"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mco"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
     "etape_type_id": "mcp",
     "creation_interdit": true,
     "modification_interdit": true
@@ -429,11 +397,6 @@
     "etape_type_id": "mcr",
     "creation_interdit": true,
     "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mcs"
   },
   {
     "administration_id": "dea-guyane-01",
@@ -452,41 +415,9 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mia"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mid"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mif"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mim"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mio"
   },
   {
     "administration_id": "dea-guyane-01",
@@ -557,61 +488,6 @@
     "etape_type_id": "pfd",
     "creation_interdit": true,
     "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rcb"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rcd"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rcm"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rco"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rcs"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rde"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "ria"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rid"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rif"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rim"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "rio"
   },
   {
     "administration_id": "dea-guyane-01",
@@ -721,13 +597,6 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -910,13 +779,6 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "prm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -1030,13 +892,6 @@
     "administration_id": "dea-guyane-01",
     "titre_type_id": "pxm",
     "etape_type_id": "dpu",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -1170,13 +1025,6 @@
     "administration_id": "dre-aura-01",
     "titre_type_id": "cxm",
     "etape_type_id": "men",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -1373,13 +1221,6 @@
     "administration_id": "dre-aura-01",
     "titre_type_id": "prm",
     "etape_type_id": "men",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -1540,13 +1381,6 @@
   {
     "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -1737,13 +1571,6 @@
     "administration_id": "dre-bfc-01",
     "titre_type_id": "prm",
     "etape_type_id": "men",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -1904,13 +1731,6 @@
   {
     "administration_id": "dre-grand-est-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -2101,13 +1921,6 @@
     "administration_id": "dre-grand-est-01",
     "titre_type_id": "prm",
     "etape_type_id": "men",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -2268,13 +2081,6 @@
   {
     "administration_id": "dre-occitanie-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -2465,13 +2271,6 @@
     "administration_id": "dre-occitanie-01",
     "titre_type_id": "prm",
     "etape_type_id": "men",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -2684,13 +2483,6 @@
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
     "etape_type_id": "meo",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -3168,13 +2960,6 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "axm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -3555,13 +3340,6 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -3915,13 +3693,6 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "mfm",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
     "etape_type_id": "mfr",
     "creation_interdit": true,
     "modification_interdit": true
@@ -4265,13 +4036,6 @@
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
     "etape_type_id": "mec",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
@@ -4755,11 +4519,6 @@
     "etape_type_id": "men",
     "creation_interdit": true,
     "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mfm"
   },
   {
     "administration_id": "ope-onf-973-01",
@@ -5282,13 +5041,6 @@
     "administration_id": "pre-97302-01",
     "titre_type_id": "arm",
     "etape_type_id": "meo",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "pre-97302-01",
-    "titre_type_id": "arm",
-    "etape_type_id": "mfm",
     "creation_interdit": true,
     "modification_interdit": true
   },
