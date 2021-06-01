@@ -155,7 +155,7 @@ const moi = async (_: never, context: IToken, info: GraphQLResolveInfo) => {
 
     const user = await userGet(context.user?.id)
 
-    if (!user) throw new Error('utilisateur inconnu')
+    if (!user) return null
 
     const fields = fieldsBuild(info)
 
