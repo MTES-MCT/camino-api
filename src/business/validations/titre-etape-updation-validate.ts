@@ -84,34 +84,6 @@ const titreEtapeUpdationValidate = async (
     }
   }
 
-  const justificatifsTypesIds = [] as string[]
-  if (titreEtape.justificatifs?.length) {
-    for (const justificatif of titreEtape.justificatifs) {
-      const document = await documentGet(
-        justificatif.id,
-        { fields: { type: { id: {} } } },
-        userSuper
-      )
-      if (!document) {
-        errors.push('impossible de lier un justificatif')
-      }
-
-      if (!justificatifsTypes.map(({ id }) => id).includes(document.typeId)) {
-        errors.push(
-          `impossible de lier un justificatif de type ${document.type?.nom}`
-        )
-      }
-      justificatifsTypesIds.push(document.typeId)
-    }
-  }
-  justificatifsTypes
-    .filter(({ optionnel }) => !optionnel)
-    .forEach(jt => {
-      if (!justificatifsTypesIds.includes(jt.id)) {
-        errors.push(`un justificatif obligatoire est manquant`)
-      }
-    })
-
   // 4. si l’étape n’est pas en cours de construction
   if (titreEtape.statutId !== 'aco') {
     // les éléments non optionnel des sections sont renseignés
@@ -167,6 +139,35 @@ const titreEtapeUpdationValidate = async (
         errors.push(...documentsErrors)
       }
     }
+
+    // les justificatifs obligatoires sont tous présents
+    const justificatifsTypesIds = [] as string[]
+    if (titreEtape.justificatifs?.length) {
+      for (const justificatif of titreEtape.justificatifs) {
+        const document = await documentGet(
+          justificatif.id,
+          { fields: { type: { id: {} } } },
+          userSuper
+        )
+        if (!document) {
+          errors.push('impossible de lier un justificatif')
+        }
+
+        if (!justificatifsTypes.map(({ id }) => id).includes(document.typeId)) {
+          errors.push(
+            `impossible de lier un justificatif de type ${document.type?.nom}`
+          )
+        }
+        justificatifsTypesIds.push(document.typeId)
+      }
+    }
+    justificatifsTypes
+      .filter(({ optionnel }) => !optionnel)
+      .forEach(jt => {
+        if (!justificatifsTypesIds.includes(jt.id)) {
+          errors.push(`un justificatif obligatoire est manquant`)
+        }
+      })
   }
 
   if (errors.length) {
