@@ -50,8 +50,8 @@ const heritageContenuFind = (
         prevTitreEtape.contenu[sectionId][elementId]) as IContenuValeur
 
       if (
-        ((oldValue !== null && value !== undefined) ||
-          (oldValue !== undefined && value !== null)) &&
+        (oldValue !== undefined || value !== null) &&
+        (oldValue !== null || value !== undefined) &&
         ((elementType !== 'multiple' && oldValue !== value) ||
           JSON.stringify(oldValue) !== JSON.stringify(value))
       ) {
