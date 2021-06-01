@@ -5,11 +5,15 @@ import { titreEtapeDemarcheEtapeTypeFind } from '../utils/titre-etape-demarche-e
 
 const titreEtapeTypeAndStatusValidate = (
   etapeTypeId: string,
-  etapeStatutId: string,
+  etapeStatutId: string | undefined,
   etapesTypes: IEtapeType[],
   demarcheTypeNom: string
 ) => {
   try {
+    if (!etapeStatutId) {
+      return [`le statut est obligatoire`]
+    }
+
     const etapeType = titreEtapeDemarcheEtapeTypeFind(
       etapeTypeId,
       etapesTypes,

@@ -162,7 +162,7 @@ type HeritageProp {
 
 input InputEtapeCreation {
   typeId: ID!
-  statutId: ID!
+  statutId: ID
   titreDemarcheId: ID!
   date: String!
   ordre: Int
@@ -185,7 +185,7 @@ input InputEtapeCreation {
 input InputEtapeModification {
   id: ID!
   typeId: ID!
-  statutId: ID!
+  statutId: ID
   titreDemarcheId: ID!
   date: String!
   ordre: Int

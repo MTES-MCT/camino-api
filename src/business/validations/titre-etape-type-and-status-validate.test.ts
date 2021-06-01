@@ -14,6 +14,21 @@ const titreEtapeDemarcheEtapeTypeFindMock = mocked(
 )
 
 describe("valide le type et le statut d'une étape en fonction du type de titre et du type de démarche", () => {
+  test('le statut est obligatoire', () => {
+    expect(
+      titreEtapeTypeAndStatusValidate(
+        'xxx',
+        undefined,
+        [
+          {
+            id: 'xxx',
+            etapesStatuts: [{ id: 'ok' }]
+          }
+        ] as IEtapeType[],
+        ''
+      )
+    ).toEqual(['le statut est obligatoire'])
+  })
   test("le type et le statut de l'étape correspondent au type de titre et de démarche", () => {
     titreEtapeDemarcheEtapeTypeFindMock.mockReturnValue({
       id: 'xxx',
