@@ -27,6 +27,7 @@ import {
 } from './resolvers/documents'
 
 import {
+  demarche,
   demarches,
   demarcheCreer,
   demarcheModifier,
@@ -218,6 +219,7 @@ export default {
   //  queries
   etape,
   etapeHeritage,
+  demarche,
   demarches,
   demarchesTypes,
   demarchesStatuts,

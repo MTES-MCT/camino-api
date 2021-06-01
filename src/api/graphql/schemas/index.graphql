@@ -80,6 +80,9 @@ type Query {
     titresTerritoires: String
   ): Demarches
 
+  "Démarche en fonction de son id"
+  demarche(id: ID!): Demarche
+
   "Étape en fonction de son id"
   etape(id: ID!): Etape
 
