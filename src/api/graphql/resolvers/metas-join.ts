@@ -44,7 +44,8 @@ import {
   etapesTypesJustificatifsTypesGet,
   etapeTypeJustificatifTypeUpdate,
   etapeTypeJustificatifTypeCreate,
-  etapeTypeJustificatifTypeDelete
+  etapeTypeJustificatifTypeDelete,
+  etapeTypeGet
 } from '../../../database/queries/metas'
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 import { userSuper } from '../../../database/user-super'
@@ -754,6 +755,16 @@ const etapeTypeJustificatifTypeModifier = async (
       throw new Error('droits insuffisants')
     }
 
+    const etapeType = await etapeTypeGet(
+      etapeTypeJustificatifType.etapeTypeId,
+      { fields: {} }
+    )
+    if (!etapeType.fondamentale) {
+      throw new Error(
+        `le type d’étape ${etapeType.id} (${etapeType.nom}) n’est pas fondamentale`
+      )
+    }
+
     await etapeTypeJustificatifTypeUpdate(
       etapeTypeJustificatifType.etapeTypeId,
       etapeTypeJustificatifType.documentTypeId,
@@ -784,6 +795,16 @@ const etapeTypeJustificatifTypeCreer = async (
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
+    }
+
+    const etapeType = await etapeTypeGet(
+      etapeTypeJustificatifType.etapeTypeId,
+      { fields: {} }
+    )
+    if (!etapeType.fondamentale) {
+      throw new Error(
+        `le type d’étape ${etapeType.id} (${etapeType.nom}) n’est pas fondamentale`
+      )
     }
 
     await etapeTypeJustificatifTypeCreate(etapeTypeJustificatifType)
