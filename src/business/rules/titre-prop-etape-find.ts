@@ -32,7 +32,7 @@ const etapeAmodiataireFind = (
 const etapeValideCheck = (
   titreEtape: ITitreEtape,
   titreDemarcheTypeId: string,
-  titreStatutId?: string,
+  titreStatutId: string,
   propId?: IPropId
 ) => {
   // si l'étape est une demande et que le titre est en demande initiale (statut réservé au octroi)
@@ -105,11 +105,12 @@ const titreDemarchePropTitreEtapeFind = (
 const titreDemarcheContenuTitreEtapeFind = (
   { sectionId, elementId }: IContenuId,
   titreDemarcheEtapes: ITitreEtape[],
-  titreDemarcheTypeId: string
+  titreDemarcheTypeId: string,
+  titreStatutId: string
 ) =>
   titreEtapesSortDesc(titreDemarcheEtapes).find(
     titreEtape =>
-      etapeValideCheck(titreEtape, titreDemarcheTypeId) &&
+      etapeValideCheck(titreEtape, titreDemarcheTypeId, titreStatutId) &&
       // détermine si l'étape contient la section et l'élément
       titreEtape.contenu &&
       titreEtape.contenu[sectionId] &&
@@ -214,7 +215,8 @@ const titreContenuTitreEtapeFind = (
       return titreDemarcheContenuTitreEtapeFind(
         { sectionId, elementId },
         titreDemarche.etapes!,
-        titreDemarche.typeId
+        titreDemarche.typeId,
+        titreStatutId
       )
     },
     null

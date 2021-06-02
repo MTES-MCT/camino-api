@@ -307,4 +307,54 @@ describe("id de l'étape qui a un contenu", () => {
     expect(etape1?.id).toEqual('etape-id')
     expect(etape2?.id).toEqual('etape-id')
   })
+
+  test("ne retourne pas l'id de la demande si le titre n’est pas en dmi", () => {
+    const etape = titreContenuTitreEtapeFind(
+      { sectionId: 'arm', elementId: 'mecanisee' },
+      [
+        {
+          id: 'demarche-id',
+          titreId: 'titre-id',
+          typeId: 'oct',
+          etapes: [
+            {
+              id: 'etape-id',
+              titreDemarcheId: 'demarche-id',
+              typeId: 'mfr',
+              date: '2020-01-03',
+              statutId: 'aco',
+              contenu: { arm: { mecanisee: true } }
+            }
+          ]
+        }
+      ] as ITitreDemarche[],
+      'val'
+    )
+    expect(etape).toBeNull()
+  })
+
+  test("retourne l'id de la demande si le titre est en dmi", () => {
+    const etape = titreContenuTitreEtapeFind(
+      { sectionId: 'arm', elementId: 'mecanisee' },
+      [
+        {
+          id: 'demarche-id',
+          titreId: 'titre-id',
+          typeId: 'oct',
+          etapes: [
+            {
+              id: 'etape-id',
+              titreDemarcheId: 'demarche-id',
+              typeId: 'mfr',
+              date: '2020-01-03',
+              statutId: 'aco',
+              contenu: { arm: { mecanisee: true } }
+            }
+          ]
+        }
+      ] as ITitreDemarche[],
+      'dmi'
+    )
+    expect(etape!.id).toEqual('etape-id')
+  })
 })
