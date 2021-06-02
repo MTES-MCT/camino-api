@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.83](https://github.com/MTES-MCT/camino-api/compare/v0.24.82...v0.24.83) (2021-06-02)
+
+
+### Features
+
+* **api:** expose une démarche ([#760](https://github.com/MTES-MCT/camino-api/issues/760)) ([c9b177c](https://github.com/MTES-MCT/camino-api/commit/c9b177c9978867bec1e22ccdda5843a29c555cf5))
+* **api:** expose une démarche ([#760](https://github.com/MTES-MCT/camino-api/issues/760)) ([f8a0c4b](https://github.com/MTES-MCT/camino-api/commit/f8a0c4b64bbfac4fcbcab7bb2de6c29d06af2609))
+* **api:** récupére la démarche et le titre depuis une étape ([#753](https://github.com/MTES-MCT/camino-api/issues/753)) ([2435738](https://github.com/MTES-MCT/camino-api/commit/24357380b326ad609b6c0fbd81dd6288ed94c1fe))
+* **demande:** permet de déposer une demande ([#757](https://github.com/MTES-MCT/camino-api/issues/757)) ([eeb48a9](https://github.com/MTES-MCT/camino-api/commit/eeb48a9c7d3cedede93e327f42c15c5c01cd2ab1))
+* **demande:** supprime le type d’étape demande mécanisée ([#759](https://github.com/MTES-MCT/camino-api/issues/759)) ([5019eb1](https://github.com/MTES-MCT/camino-api/commit/5019eb1a25db4f08bf57f2b05abbcbfc6d33d405))
+* **étape:** rend le statut facultatif pour une demande ([#761](https://github.com/MTES-MCT/camino-api/issues/761)) ([acbb589](https://github.com/MTES-MCT/camino-api/commit/acbb589ab7a16d9b03f58b7a7d62176a92b31e13))
+* **justificatifs:** permet d’ajouter les justificatifs à la création/modification d’une étape ([#756](https://github.com/MTES-MCT/camino-api/issues/756)) ([e433436](https://github.com/MTES-MCT/camino-api/commit/e433436b666da2af13e9a92158a3db827ee2171e))
+* défini des types de justificatifs par types d'étape ([#755](https://github.com/MTES-MCT/camino-api/issues/755)) ([061ebf6](https://github.com/MTES-MCT/camino-api/commit/061ebf652789d51a4a1c51ac04bfdaa258f02d1a))
+
+
+### Bug Fixes
+
+* **étape:** vérifie les justificatifs obligatoires que si l’étape n’est pas en construction ([e16b840](https://github.com/MTES-MCT/camino-api/commit/e16b8403f7c9b9d04d63df51fb55cb43e2c88e14))
+* **heritage:** supprime les héritages sur des données absentes ([#762](https://github.com/MTES-MCT/camino-api/issues/762)) ([8cac06f](https://github.com/MTES-MCT/camino-api/commit/8cac06fbd80d9fa0462a5ede2274f8a7b14fd1d6))
+* **métas:** interdit de mettre des justificatifs sur une étape non fondamentale ([ddbef6a](https://github.com/MTES-MCT/camino-api/commit/ddbef6a0682bd6879602286b492c1310973e23bd))
+* **titre:** remonte les propriétés spécifiques sur le titre quand il est en demande initiale ([#763](https://github.com/MTES-MCT/camino-api/issues/763)) ([863ad2e](https://github.com/MTES-MCT/camino-api/commit/863ad2eaa6bbb6f752b7605db85fec2af4951ddd))
+* formate les types d'étapes ([#758](https://github.com/MTES-MCT/camino-api/issues/758)) ([8bbc520](https://github.com/MTES-MCT/camino-api/commit/8bbc520f612710a8aed7a6e5e6fa50129f9f4a01))
+
 ### [0.24.82](https://github.com/MTES-MCT/camino-api/compare/v0.24.81...v0.24.82) (2021-05-19)
 
 
