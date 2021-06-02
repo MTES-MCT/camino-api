@@ -269,6 +269,82 @@ describe('retourne le contenu de l’étape en fonction de son héritage', () =>
       }
     })
   })
+
+  test('l’étape n’est pas modifiée si l’héritage est actif, la valeur est null et que le contenu de l’étape précédente est vide', () => {
+    const heritageContenu: IHeritageContenu = {
+      section: { element: { actif: false, etapeId: null } }
+    }
+    const prevTitreEtape = {
+      id: 'prevEtapeId',
+      heritageContenu,
+      contenu: null
+    } as ITitreEtape
+
+    const titreEtape = {
+      id: 'etapeId',
+      contenu: { section: {} } as IContenu,
+      heritageContenu
+    } as ITitreEtape
+    titreEtape.heritageContenu!.section.element.actif = true
+    titreEtape.heritageContenu!.section.element.etapeId = 'prevEtapeId'
+
+    const dictionary = {
+      [prevTitreEtape.id]: [{ id: 'section', elements: [{ id: 'element' }] }],
+      [titreEtape.id]: [{ id: 'section', elements: [{ id: 'element' }] }]
+    } as Index<ISection[]>
+
+    expect(
+      titreEtapeHeritageContenuFind(
+        [prevTitreEtape, titreEtape],
+        titreEtape,
+        dictionary
+      )
+    ).toEqual({
+      hasChanged: false,
+      contenu: { section: {} },
+      heritageContenu: {
+        section: { element: { actif: true, etapeId: prevTitreEtape.id } }
+      }
+    })
+  })
+
+  test('l’étape n’est pas modifiée si l’héritage est actif, le contenu est vide et que la valeur de l’étape précédente est null', () => {
+    const heritageContenu: IHeritageContenu = {
+      section: { element: { actif: false, etapeId: null } }
+    }
+    const prevTitreEtape = {
+      id: 'prevEtapeId',
+      heritageContenu,
+      contenu: { autre: {} } as IContenu
+    } as ITitreEtape
+
+    const titreEtape = {
+      id: 'etapeId',
+      contenu: null,
+      heritageContenu
+    } as ITitreEtape
+    titreEtape.heritageContenu!.section.element.actif = true
+    titreEtape.heritageContenu!.section.element.etapeId = 'prevEtapeId'
+
+    const dictionary = {
+      [prevTitreEtape.id]: [{ id: 'section', elements: [{ id: 'element' }] }],
+      [titreEtape.id]: [{ id: 'section', elements: [{ id: 'element' }] }]
+    } as Index<ISection[]>
+
+    expect(
+      titreEtapeHeritageContenuFind(
+        [prevTitreEtape, titreEtape],
+        titreEtape,
+        dictionary
+      )
+    ).toEqual({
+      hasChanged: false,
+      contenu: null,
+      heritageContenu: {
+        section: { element: { actif: true, etapeId: prevTitreEtape.id } }
+      }
+    })
+  })
 })
 
 describe('construit le dictionnaire les sections', () => {
