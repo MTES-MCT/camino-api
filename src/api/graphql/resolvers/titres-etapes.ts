@@ -33,7 +33,7 @@ import { titreEtapeFormat } from '../../_format/titres-etapes'
 import { etapeTypeGet } from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
-import { documentsModifier } from './documents'
+import { documentsLier } from './documents'
 import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
 import {
   contenuElementFilesCreate,
@@ -260,9 +260,10 @@ const etapeCreer = async (
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
-    await documentsModifier(
+    await documentsLier(
       context,
-      { id: etapeUpdated.id, documents },
+      documents.map(({ id }) => id),
+      etapeUpdated.id,
       'titreEtapeId'
     )
 
@@ -331,7 +332,6 @@ const etapeModifier = async (
 
     etape = demandeDepose(etape, user!)
 
-    // TODO à remettre dans titreEtapeUpdationValidate quand on supprimera les files dans les sections
     const sections = etapeTypeSectionsFormat(
       etapeType,
       titreDemarche.type!.etapesTypes,
@@ -363,8 +363,15 @@ const etapeModifier = async (
     if (etape.points) {
       etape.points = titreEtapePointsCalc(etape.points)
     }
-
-    await documentsModifier(context, etape, 'titreEtapeId', titreEtapeOld)
+    const documents = etape.documents || []
+    await documentsLier(
+      context,
+      documents.map(({ id }) => id),
+      etape.id,
+      'titreEtapeId',
+      titreEtapeOld
+    )
+    delete etape.documents
 
     const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,

@@ -54,9 +54,13 @@ const fichier = async (
     dossier = document.travauxEtape!.id
   }
 
-  const nom = `${document.date}-${dossier}-${document.typeId}.${format}`
+  const nom = `${document.date}-${dossier ? dossier + '-' : ''}${
+    document.typeId
+  }.${format}`
 
-  const filePath = `${repertoire}/${dossier}/${document.id}.${document.fichierTypeId}`
+  const filePath = `${repertoire}/${dossier ? dossier + '/' : ''}${
+    document.id
+  }.${document.fichierTypeId}`
 
   return {
     nom,
