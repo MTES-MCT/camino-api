@@ -22,7 +22,13 @@ const userGet = async (userId?: string) => {
   const user = await Utilisateurs.query().findById(userId)
 
   const q = utilisateursQueryBuild(
-    { fields: { administrations: { id: {} }, entreprises: { id: {} } } },
+    {
+      fields: {
+        administrations: { id: {} },
+        entreprises: { id: {} },
+        permission: { id: {} }
+      }
+    },
     user
   )
 
