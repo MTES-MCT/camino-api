@@ -126,4 +126,15 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
       ])
     ).toContain('l’étape "rtd" n’est plus possible après "ama", "dex", "abd"')
   })
+
+  test('peut créer une "css" après un refus du propriétaire du sol', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
+        { typeId: 'mfr', date: '2020-01-01', statutId: 'dep' },
+        { typeId: 'asl', date: '2020-01-03', statutId: 'def' },
+        { typeId: 'css', date: '2020-01-04' }
+      ])
+    ).toHaveLength(0)
+  })
 })

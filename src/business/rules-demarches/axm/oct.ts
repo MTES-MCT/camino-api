@@ -1,6 +1,7 @@
 import { IDemarcheDefinitionRestrictions } from '../definitions'
 import { etatInformationsGet } from '../etat-cycles'
 
+// https://cacoo.com/diagrams/sa6BiSBs5fwtQFXi/249D0
 const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
   dsl: {
     avant: [[{ etapeTypeId: 'asl' }]],
@@ -191,11 +192,9 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
   css: {
     justeApres: [[]],
     apres: [
-      [
-        { etapeTypeId: 'mfr', statutId: 'dep' },
-        { etapeTypeId: 'asl', statutId: 'def' },
-        { etapeTypeId: 'dae', statutId: 'req' }
-      ]
+      [{ etapeTypeId: 'mfr', statutId: 'dep' }],
+      [{ etapeTypeId: 'asl', statutId: 'def' }],
+      [{ etapeTypeId: 'dae', statutId: 'req' }]
     ],
     avant: [
       [{ etapeTypeId: 'dex' }],
