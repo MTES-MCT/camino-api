@@ -45,8 +45,8 @@ import dateFormat from 'dateformat'
 
 const demandeDepose = (
   etape: ITitreEtape,
-  depose: boolean | undefined,
-  user: IUtilisateur
+  user: IUtilisateur,
+  depose = false
 ) => {
   if (depose) {
     if (etape.typeId !== 'mfr') {
@@ -57,7 +57,7 @@ const demandeDepose = (
     if (permissionCheck(user.permissionId, ['entreprise'])) {
       etape.date = dateFormat(new Date(), 'yyyy-mm-dd')
     }
-  } else if (depose === false && etape.typeId === 'mfr') {
+  } else if (etape.typeId === 'mfr' && !etape.statutId) {
     etape.statutId = 'aco'
   }
 
@@ -171,7 +171,7 @@ const etapeHeritage = async (
 }
 
 const etapeCreer = async (
-  { etape, depose }: { etape: ITitreEtape; depose?: boolean },
+  { etape }: { etape: ITitreEtape },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -213,7 +213,7 @@ const etapeCreer = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
-    etape = demandeDepose(etape, depose, user!)
+    etape = demandeDepose(etape, user!)
 
     const sections = etapeTypeSectionsFormat(
       etapeType,
@@ -275,7 +275,7 @@ const etapeCreer = async (
 }
 
 const etapeModifier = async (
-  { etape, depose }: { etape: ITitreEtape; depose?: boolean },
+  { etape }: { etape: ITitreEtape },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -319,7 +319,7 @@ const etapeModifier = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
-    etape = demandeDepose(etape, depose, user!)
+    etape = demandeDepose(etape, user!)
 
     const sections = etapeTypeSectionsFormat(
       etapeType,
@@ -370,6 +370,86 @@ const etapeModifier = async (
       demarche.etapes,
       titreEtapeOld.contenu
     )
+
+    const titreUpdatedId = await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId
+    )
+
+    const fields = fieldsBuild(info)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+
+    return titreFormat(titreUpdated)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeDeposer = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    let titreEtape = await titreEtapeGet(id, { fields: {} }, user)
+
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
+    if (!titreEtape.modification) throw new Error('droits insuffisants')
+    if (titreEtape.typeId !== 'mfr')
+      throw new Error('seule une demande peut-être déposée')
+
+    const titreDemarche = await titreDemarcheGet(
+      titreEtape.titreDemarcheId,
+      {
+        fields: {
+          type: { etapesTypes: { etapesStatuts: { id: {} } } },
+          titre: {
+            type: { demarchesTypes: { id: {} } },
+            demarches: { etapes: { id: {} } }
+          },
+          etapes: { type: { id: {} } }
+        }
+      },
+      userSuper
+    )
+
+    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
+
+    const etapeType = await etapeTypeGet(titreEtape.typeId, {
+      fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } }
+    })
+    if (!etapeType) {
+      throw new Error(`le type d'étape "${titreEtape.typeId}" n'existe pas`)
+    }
+
+    titreEtape = demandeDepose(titreEtape, user!, true)
+
+    const sections = etapeTypeSectionsFormat(
+      etapeType,
+      titreDemarche.type!.etapesTypes,
+      titreDemarche.titre!.typeId
+    )
+
+    const rulesErrors = await titreEtapeUpdationValidate(
+      titreEtape,
+      titreDemarche,
+      titreDemarche.titre,
+      sections,
+      etapeType.documentsTypes!,
+      etapeType.justificatifsTypes!
+    )
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
+    const etapeUpdated = await titreEtapeUpsert(titreEtape)
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -585,6 +665,7 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
+  etapeDeposer,
   etapeJustificatifsAssocier,
   etapeJustificatifDissocier
 }
