@@ -3,7 +3,8 @@ import {
   ITitreDemarche,
   ITitre,
   IDocumentType,
-  ISection
+  ISection,
+  IDocument
 } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
@@ -15,8 +16,6 @@ import { contenuNumbersCheck } from './utils/contenu-numbers-check'
 import { propsDatesCheck } from './utils/props-dates-check'
 import { contenuDatesCheck } from './utils/contenu-dates-check'
 import { documentsTypesValidate } from './documents-types-validate'
-import { documentGet } from '../../database/queries/documents'
-import { userSuper } from '../../database/user-super'
 
 const numberProps = ['duree', 'surface'] as unknown as [keyof ITitreEtape]
 
@@ -24,13 +23,14 @@ const dateProps = ['date', 'dateDebut', 'dateFin'] as unknown as [
   keyof ITitreEtape
 ]
 
-const titreEtapeUpdationValidate = async (
+const titreEtapeUpdationValidate = (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
   titre: ITitre,
   sections: ISection[],
   documentsTypes: IDocumentType[],
-  justificatifsTypes: IDocumentType[]
+  justificatifsTypes: IDocumentType[],
+  justificatifs?: IDocument[] | null
 ) => {
   const errors = []
 
@@ -86,88 +86,15 @@ const titreEtapeUpdationValidate = async (
 
   // 4. si l’étape n’est pas en cours de construction
   if (titreEtape.statutId !== 'aco') {
-    // les éléments non optionnel des sections sont renseignés
-    if (sections.length) {
-      sections.forEach(s =>
-        s.elements?.forEach(e => {
-          if (!e.optionnel && !['radio', 'checkbox'].includes(e.type)) {
-            if (
-              !titreEtape.contenu ||
-              titreEtape.contenu[s.id][e.id] === undefined ||
-              titreEtape.contenu[s.id][e.id] === null ||
-              titreEtape.contenu[s.id][e.id] === ''
-            ) {
-              errors.push(
-                `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-              )
-            } else if (e.type === 'multiple') {
-              const values = titreEtape!.contenu[s.id][e.id] as []
-              if (!values?.length) {
-                errors.push(
-                  `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-                )
-              } else {
-                e.elements?.forEach(prop => {
-                  if (!prop.optionnel) {
-                    values.forEach(v => {
-                      if (
-                        !v[prop.id] ||
-                        v[prop.id] === undefined ||
-                        v[prop.id] === null
-                      ) {
-                        errors.push(
-                          `le champ "${prop.id}" de l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-                        )
-                      }
-                    })
-                  }
-                })
-              }
-            }
-          }
-        })
+    errors.push(
+      ...titreEtapeCompleteValidate(
+        titreEtape,
+        sections,
+        documentsTypes,
+        justificatifsTypes,
+        justificatifs
       )
-    }
-
-    // les fichiers obligatoires sont tous renseignés et complets
-    if (documentsTypes!.length) {
-      const documentsErrors = documentsTypesValidate(
-        titreEtape.documents,
-        documentsTypes
-      )
-      if (documentsErrors.length) {
-        errors.push(...documentsErrors)
-      }
-    }
-
-    // les justificatifs obligatoires sont tous présents
-    const justificatifsTypesIds = [] as string[]
-    if (titreEtape.justificatifs?.length) {
-      for (const justificatif of titreEtape.justificatifs) {
-        const document = await documentGet(
-          justificatif.id,
-          { fields: { type: { id: {} } } },
-          userSuper
-        )
-        if (!document) {
-          errors.push('impossible de lier un justificatif')
-        }
-
-        if (!justificatifsTypes.map(({ id }) => id).includes(document.typeId)) {
-          errors.push(
-            `impossible de lier un justificatif de type ${document.type?.nom}`
-          )
-        }
-        justificatifsTypesIds.push(document.typeId)
-      }
-    }
-    justificatifsTypes
-      .filter(({ optionnel }) => !optionnel)
-      .forEach(jt => {
-        if (!justificatifsTypesIds.includes(jt.id)) {
-          errors.push(`un justificatif obligatoire est manquant`)
-        }
-      })
+    )
   }
 
   if (errors.length) {
@@ -177,7 +104,97 @@ const titreEtapeUpdationValidate = async (
   return titreEtapeUpdationBusinessValidate(titreEtape, titreDemarche, titre)
 }
 
-const titreEtapeUpdationBusinessValidate = async (
+const titreEtapeCompleteValidate = (
+  titreEtape: ITitreEtape,
+  sections: ISection[],
+  documentsTypes: IDocumentType[],
+  justificatifsTypes: IDocumentType[],
+  justificatifs?: IDocument[] | null
+) => {
+  const errors = [] as string[]
+  // les éléments non optionnel des sections sont renseignés
+  if (sections.length) {
+    sections.forEach(s =>
+      s.elements?.forEach(e => {
+        if (!e.optionnel && !['radio', 'checkbox'].includes(e.type)) {
+          if (
+            !titreEtape.contenu ||
+            titreEtape.contenu[s.id][e.id] === undefined ||
+            titreEtape.contenu[s.id][e.id] === null ||
+            titreEtape.contenu[s.id][e.id] === ''
+          ) {
+            errors.push(
+              `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+            )
+          } else if (e.type === 'multiple') {
+            const values = titreEtape!.contenu[s.id][e.id] as []
+            if (!values?.length) {
+              errors.push(
+                `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+              )
+            } else {
+              e.elements?.forEach(prop => {
+                if (!prop.optionnel) {
+                  values.forEach(v => {
+                    if (
+                      !v[prop.id] ||
+                      v[prop.id] === undefined ||
+                      v[prop.id] === null
+                    ) {
+                      errors.push(
+                        `le champ "${prop.id}" de l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+                      )
+                    }
+                  })
+                }
+              })
+            }
+          }
+        }
+      })
+    )
+  }
+
+  // les fichiers obligatoires sont tous renseignés et complets
+  if (documentsTypes!.length) {
+    const documentsErrors = documentsTypesValidate(
+      titreEtape.documents,
+      documentsTypes
+    )
+    if (documentsErrors.length) {
+      errors.push(...documentsErrors)
+    }
+  }
+
+  // les justificatifs obligatoires sont tous présents
+  const justificatifsTypesIds = [] as string[]
+  if (titreEtape.justificatifs?.length) {
+    for (const justificatif of titreEtape.justificatifs) {
+      const document = justificatifs?.find(({ id }) => id === justificatif.id)
+      if (!document) {
+        errors.push('impossible de lier un justificatif')
+      }
+
+      if (!justificatifsTypes.map(({ id }) => id).includes(document!.typeId)) {
+        errors.push(
+          `impossible de lier un justificatif de type ${document!.typeId}`
+        )
+      }
+      justificatifsTypesIds.push(document!.typeId)
+    }
+  }
+  justificatifsTypes
+    .filter(({ optionnel }) => !optionnel)
+    .forEach(jt => {
+      if (!justificatifsTypesIds.includes(jt.id)) {
+        errors.push(`un justificatif obligatoire est manquant`)
+      }
+    })
+
+  return errors
+}
+
+const titreEtapeUpdationBusinessValidate = (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
   titre: ITitre
@@ -218,4 +235,4 @@ const titreEtapeUpdationBusinessValidate = async (
   return errors
 }
 
-export { titreEtapeUpdationValidate }
+export { titreEtapeUpdationValidate, titreEtapeCompleteValidate }

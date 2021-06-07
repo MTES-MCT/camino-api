@@ -9,6 +9,7 @@ import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
 import { titreEtapeFormatFields } from './_fields'
 import { titreDemarcheFormat } from './titres-demarches'
+import { titreEtapeCompleteValidate } from '../../business/validations/titre-etape-updation-validate'
 
 const titreEtapeFormat = (
   titreEtape: ITitreEtape,
@@ -59,6 +60,22 @@ const titreEtapeFormat = (
   titreEtape.titulaires = titreEtape.titulaires?.map(entrepriseFormat)
 
   titreEtape.amodiataires = titreEtape.amodiataires?.map(entrepriseFormat)
+
+  if (
+    titreEtape.typeId === 'mfr' &&
+    titreEtape.statutId === 'aco' &&
+    titreEtape.modification
+  ) {
+    const errors = titreEtapeCompleteValidate(
+      { ...titreEtape, statutId: 'dep' },
+      titreEtape.type!.sections!,
+      titreEtape.type!.documentsTypes!,
+      titreEtape.type!.justificatifsTypes!,
+      titreEtape.justificatifs
+    )
+
+    titreEtape.deposable = errors.length === 0
+  }
 
   return titreEtape
 }

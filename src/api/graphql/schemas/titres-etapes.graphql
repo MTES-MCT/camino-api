@@ -89,6 +89,7 @@ type Etape {
   suppression: Boolean
   justificatifsAssociation: Boolean
   documentsCreation: Boolean
+  deposable: Boolean
 }
 
 "Étape d'une démarche effectuée sur un titre minier"

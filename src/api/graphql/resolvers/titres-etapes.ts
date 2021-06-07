@@ -42,6 +42,7 @@ import {
 } from '../../../business/utils/contenu-element-file-process'
 import { permissionCheck } from '../../../tools/permission'
 import dateFormat from 'dateformat'
+import { documentsGet } from '../../../database/queries/documents'
 
 const demandeDepose = (
   etape: ITitreEtape,
@@ -221,13 +222,22 @@ const etapeCreer = async (
       titreDemarche.titre!.typeId
     )
 
-    const rulesErrors = await titreEtapeUpdationValidate(
+    const justificatifs = etape.justificatifs
+      ? await documentsGet(
+          { ids: etape.justificatifs.map(({ id }) => id) },
+          { fields: { type: { id: {} } } },
+          userSuper
+        )
+      : null
+
+    const rulesErrors = titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
       sections,
       etapeType.documentsTypes!,
-      etapeType.justificatifsTypes!
+      etapeType.justificatifsTypes!,
+      justificatifs
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
@@ -321,19 +331,29 @@ const etapeModifier = async (
 
     etape = demandeDepose(etape, user!)
 
+    // TODO à remettre dans titreEtapeUpdationValidate quand on supprimera les files dans les sections
     const sections = etapeTypeSectionsFormat(
       etapeType,
       titreDemarche.type!.etapesTypes,
       titreDemarche.titre!.typeId
     )
 
-    const rulesErrors = await titreEtapeUpdationValidate(
+    const justificatifs = etape.justificatifs
+      ? await documentsGet(
+          { ids: etape.justificatifs.map(({ id }) => id) },
+          { fields: { type: { id: {} } } },
+          userSuper
+        )
+      : null
+
+    const rulesErrors = titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
       sections,
       etapeType.documentsTypes!,
-      etapeType.justificatifsTypes!
+      etapeType.justificatifsTypes!,
+      justificatifs
     )
 
     if (rulesErrors.length) {
@@ -397,57 +417,30 @@ const etapeDeposer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    let titreEtape = await titreEtapeGet(id, { fields: {} }, user)
+    let titreEtape = await titreEtapeGet(id, { fields: { id: {} } }, user)
 
     if (!titreEtape) throw new Error("l'étape n'existe pas")
-    if (!titreEtape.modification) throw new Error('droits insuffisants')
-    if (titreEtape.typeId !== 'mfr')
-      throw new Error('seule une demande peut-être déposée')
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
       {
         fields: {
-          type: { etapesTypes: { etapesStatuts: { id: {} } } },
-          titre: {
-            type: { demarchesTypes: { id: {} } },
-            demarches: { etapes: { id: {} } }
-          },
-          etapes: { type: { id: {} } }
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} }
         }
       },
       userSuper
     )
 
-    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
+    titreEtape = titreEtapeFormat(
+      titreEtape,
+      titreDemarche.titre!.typeId,
+      titreDemarche.type!.etapesTypes
+    )
 
-    const etapeType = await etapeTypeGet(titreEtape.typeId, {
-      fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } }
-    })
-    if (!etapeType) {
-      throw new Error(`le type d'étape "${titreEtape.typeId}" n'existe pas`)
-    }
+    if (!titreEtape.deposable) throw new Error('droits insuffisants')
 
     titreEtape = demandeDepose(titreEtape, user!, true)
-
-    const sections = etapeTypeSectionsFormat(
-      etapeType,
-      titreDemarche.type!.etapesTypes,
-      titreDemarche.titre!.typeId
-    )
-
-    const rulesErrors = await titreEtapeUpdationValidate(
-      titreEtape,
-      titreDemarche,
-      titreDemarche.titre,
-      sections,
-      etapeType.documentsTypes!,
-      etapeType.justificatifsTypes!
-    )
-
-    if (rulesErrors.length) {
-      throw new Error(rulesErrors.join(', '))
-    }
 
     const etapeUpdated = await titreEtapeUpsert(titreEtape)
 
