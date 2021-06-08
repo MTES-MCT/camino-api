@@ -815,6 +815,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   heritageContenu?: IHeritageContenu | null
   justificatifsAssociation?: boolean | null
   documentsCreation?: boolean | null
+  deposable?: boolean | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {

@@ -167,7 +167,6 @@ const fieldsFormat = (fields: IFields, parent: string) => {
       fields.type.administrations = { id: {} }
     }
   }
-
   if (['utilisateurs', 'utilisateur'].includes(parent)) {
     if (fields.sections) {
       delete fields.sections
@@ -183,6 +182,29 @@ const fieldsFormat = (fields: IFields, parent: string) => {
       fields.activitesAbsentes
     ) {
       fields.activites = { id: {} }
+    }
+  }
+
+  // pour calculer la propriété « déposable » sur les étapes
+  if (['etapes', 'etape'].includes(parent)) {
+    if (!fields.documents) {
+      fields.documents = { id: {} }
+    }
+
+    if (!fields.justificatifs) {
+      fields.justificatifs = { id: {} }
+    }
+
+    if (!fields.type) {
+      fields.type = { id: {} }
+    }
+
+    if (!fields.type.documentsTypes) {
+      fields.type.documentsTypes = { id: {} }
+    }
+
+    if (!fields.type.justificatifsTypes) {
+      fields.type.justificatifsTypes = { id: {} }
     }
   }
 

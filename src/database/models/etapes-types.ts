@@ -21,7 +21,7 @@ class EtapesTypes extends Model {
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
       sections: { type: 'json' },
-      unique: { type: 'boolean' },
+      unique: { type: ['boolean', 'null'] },
       ordre: { type: 'integer' },
       publicLecture: { type: 'boolean' },
       entreprisesLecture: { type: 'boolean' }

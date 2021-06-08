@@ -28,7 +28,7 @@ const documentGet = async (
 }
 
 const documentsGet = async (
-  { entreprisesIds }: { entreprisesIds?: string[] },
+  { ids, entreprisesIds }: { ids?: string[]; entreprisesIds?: string[] },
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
@@ -37,6 +37,10 @@ const documentsGet = async (
     : options.documents.graph
 
   const q = Document.query().withGraphFetched(graph)
+
+  if (ids?.length) {
+    q.whereIn('documents.id', ids)
+  }
 
   if (entreprisesIds?.length) {
     q.whereIn('entrepriseId', entreprisesIds)
