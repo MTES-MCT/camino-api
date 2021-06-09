@@ -130,6 +130,7 @@
   "devDependencies": {
     "@jest/types": "^27.0.0-next.8",
     "@types/knex-db-manager": "^0.6.1",
+    "@types/node-mailjet": "^3.3.4",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
@@ -147,6 +148,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "jest": "^27.0.0-next.9",
+    "node-mailjet": "^3.3.4",
     "nodemon": "^2.0.7",
     "npm-check-updates": "^11.5.13",
     "pg-escape": "^0.2.0",

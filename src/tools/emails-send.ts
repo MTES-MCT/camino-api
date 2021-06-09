@@ -3,9 +3,9 @@ import nodemailer from 'nodemailer'
 import { htmlToText } from 'nodemailer-html-to-text'
 import emailRegex from 'email-regex'
 
-const smtpTransportConfig = `smtps://${process.env.EMAIL_API_KEY}:${process.env.EMAIL_API_PASSWORD}@${process.env.EMAIL_SMTP_SERVER}`
+const smtpTransportConfig = `smtps://${process.env.API_MAILJET_KEY}:${process.env.API_MAILJET_SECRET}@${process.env.API_MAILJET_SERVER}`
 
-const from = process.env.EMAIL_USER
+const from = process.env.API_MAILJET_EMAIL
 
 const transport = nodemailer.createTransport(smtpTransportConfig)
 

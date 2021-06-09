@@ -956,6 +956,7 @@ interface IUtilisateur {
   permissionModification?: boolean | null
   entreprisesCreation?: boolean | null
   utilisateursCreation?: boolean | null
+  newsletter?: boolean | null
   refreshToken?: string | null
 }
 

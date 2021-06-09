@@ -20,6 +20,7 @@ type Utilisateur {
   entreprises: [Entreprise]
   permission: Permission
   preferences: Json
+  newsletter: Boolean
 
   modification: Boolean
   suppression: Boolean

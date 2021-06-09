@@ -26,7 +26,8 @@ class Utilisateurs extends Model {
       telephoneMobile: { type: ['string', 'null'] },
       permissionId: { type: 'string', maxLength: 12 },
       preferences: { type: ['json', 'null'] },
-      refreshToken: { type: ['string', 'null'] }
+      refreshToken: { type: ['string', 'null'] },
+      boolean: { type: ['string', 'null'] }
     }
   }
 
