@@ -27,7 +27,7 @@ const documentsQueryModify = (
     // repertoire = activites
     q.leftJoinRelated('activite.titre.[titulaires, amodiataires]')
 
-    // repertoire = activites
+    // repertoire = travaux
     q.leftJoinRelated('travauxEtape.travaux.titre.[titulaires, amodiataires]')
   }
 
@@ -38,6 +38,14 @@ const documentsQueryModify = (
   ) {
     q.where(b => {
       b.orWhere('documents.publicLecture', true)
+
+      // autorise à voir les docs temporaires
+      b.orWhere(c => {
+        c.whereNull('documents.entrepriseId')
+        c.whereNull('documents.titreEtapeId')
+        c.whereNull('documents.titreActiviteId')
+        c.whereNull('documents.titreTravauxEtapeId')
+      })
 
       if (
         permissionCheck(user?.permissionId, ['entreprise']) &&

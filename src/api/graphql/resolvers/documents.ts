@@ -8,7 +8,6 @@ import { IDocument, IToken, ITitreEtape, IUtilisateur } from '../../../types'
 import { debug } from '../../../config/index'
 import fileDelete from '../../../tools/file-delete'
 import fileStreamCreate from '../../../tools/file-stream-create'
-import dirCreate from '../../../tools/dir-create'
 
 import {
   documentsGet,
@@ -31,22 +30,9 @@ import { documentUpdationValidate } from '../../../business/validations/document
 import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
 import { entrepriseGet } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
-import { documentRepertoireFind } from '../../../tools/documents/document-repertoire-find'
 import { permissionCheck } from '../../../tools/permission'
-
-const documentFileDirPathFind = (document: IDocument) => {
-  const repertoire = documentRepertoireFind(document)
-
-  return `files/${repertoire}/${
-    document.titreEtapeId ||
-    document.titreActiviteId ||
-    document.entrepriseId ||
-    document.titreTravauxEtapeId
-  }`
-}
-
-const documentFilePathFind = (document: IDocument, dirPath: string) =>
-  `${dirPath}/${document.id}.${document.fichierTypeId}`
+import { userSuper } from '../../../database/user-super'
+import { documentFilePathFind } from '../../../tools/documents/document-path-find'
 
 const errorEtapesAssocieesUpdate = (
   etapesAssociees: ITitreEtape[],
@@ -60,11 +46,7 @@ const documentFileCreate = async (
   document: IDocument,
   fileUpload: FileUpload
 ) => {
-  const dirPath = documentFileDirPathFind(document)
-
-  await dirCreate(dirPath)
-
-  const documentFilePath = documentFilePathFind(document, dirPath)
+  const documentFilePath = await documentFilePathFind(document, true)
   const { createReadStream } = await fileUpload
 
   await fileStreamCreate(
@@ -98,17 +80,6 @@ const documentPermissionsCheck = async (
   document: IDocument,
   user: IUtilisateur | null
 ) => {
-  if (
-    !document.titreEtapeId &&
-    !document.titreActiviteId &&
-    !document.entrepriseId &&
-    !document.titreTravauxEtapeId
-  ) {
-    throw new Error(
-      "id d'étape, d'activité, d'entreprise ou d'étape de travaux manquant"
-    )
-  }
-
   if (!user) throw new Error('droits insuffisants')
 
   if (document.titreEtapeId) {
@@ -158,10 +129,12 @@ const documentPermissionsCheck = async (
 
 const documentCreer = async (
   { document }: { document: IDocument },
-  context: IToken
+  context: IToken,
+  info?: GraphQLResolveInfo
 ) => {
   try {
     const user = await userGet(context.user?.id)
+    const fields = fieldsBuild(info!)
 
     if (!user) {
       throw new Error('droit insuffisants')
@@ -202,7 +175,9 @@ const documentCreer = async (
 
     delete document.fichierNouveau
 
-    const documentUpdated = await documentCreate(document)
+    const { id } = await documentCreate(document)
+
+    const documentUpdated = await documentGet(id, { fields }, user)
 
     return documentUpdated
   } catch (e) {
@@ -271,10 +246,11 @@ const documentModifier = async (
       await documentIdUpdate(documentOld.id, documentUpdated)
 
       if (!documentFichierNouveau && document.fichier && documentOld.fichier) {
-        const dirPath = documentFileDirPathFind(documentUpdated)
-
-        const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
-        const documentFilePath = documentFilePathFind(documentUpdated, dirPath)
+        const documentOldFilePath = await documentFilePathFind(documentOld)
+        const documentFilePath = await documentFilePathFind(
+          documentUpdated,
+          true
+        )
 
         await fileRename(documentOldFilePath, documentFilePath)
       }
@@ -285,8 +261,7 @@ const documentModifier = async (
       (documentFichierNouveau || !documentUpdated.fichier) &&
       documentOld.fichier
     ) {
-      const dirPath = documentFileDirPathFind(documentOld)
-      const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
+      const documentOldFilePath = await documentFilePathFind(documentOld)
 
       try {
         await fileDelete(join(process.cwd(), documentOldFilePath))
@@ -349,8 +324,7 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     await documentPermissionsCheck(documentOld, user)
 
     if (documentOld.fichier) {
-      const dirPath = documentFileDirPathFind(documentOld)
-      const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
+      const documentOldFilePath = await documentFilePathFind(documentOld)
 
       try {
         await fileDelete(join(process.cwd(), documentOldFilePath))
@@ -370,6 +344,41 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     }
 
     throw e
+  }
+}
+
+const documentsLier = async (
+  context: IToken,
+  documentIds: string[],
+  parentId: string,
+  propParentId: 'titreActiviteId' | 'titreEtapeId',
+  oldParent?: { documents?: IDocument[] | null }
+) => {
+  if (oldParent?.documents?.length) {
+    // supprime les anciens documents ou ceux qui n'ont pas de fichier
+    const oldDocumentsIds = oldParent.documents.map(d => d.id)
+    for (const oldDocumentId of oldDocumentsIds) {
+      const documentId = documentIds.find(id => id === oldDocumentId)
+
+      if (!documentId) {
+        await documentSupprimer({ id: oldDocumentId }, context)
+      }
+    }
+  }
+
+  // lie des documents
+  for (const documentId of documentIds) {
+    const document = await documentGet(documentId, { fields: {} }, userSuper)
+
+    if (!document[propParentId]) {
+      const documentPath = await documentFilePathFind(document)
+      await documentUpdate(document.id, { [propParentId]: parentId })
+      document[propParentId] = parentId
+
+      const newDocumentPath = await documentFilePathFind(document, true)
+
+      await fileRename(documentPath, newDocumentPath)
+    }
   }
 }
 
@@ -411,5 +420,6 @@ export {
   documentCreer,
   documentModifier,
   documentSupprimer,
-  documentsModifier
+  documentsModifier,
+  documentsLier
 }

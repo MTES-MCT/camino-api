@@ -253,7 +253,12 @@ interface IDevise {
   ordre: number
 }
 
-type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'travaux'
+type IDocumentRepertoire =
+  | 'demarches'
+  | 'activites'
+  | 'entreprises'
+  | 'travaux'
+  | 'tmp'
 
 interface IDocumentType {
   id: string
@@ -971,8 +976,8 @@ interface IToken {
 
 interface ITokenUser {
   id: string
-  email: string
-  iat: number
+  email?: string
+  iat?: number
 }
 
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'

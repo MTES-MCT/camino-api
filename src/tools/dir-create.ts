@@ -4,7 +4,7 @@ import errorLog from './error-log'
 
 const dirCreate = async (name: string) =>
   new Promise((resolve, reject) => {
-    mkdir(name, (err: any) => {
+    mkdir(name, { recursive: true }, (err: any) => {
       if (err) {
         if (err.message.match('EEXIST')) {
           return resolve(`dossier déjà existant ${name}`)

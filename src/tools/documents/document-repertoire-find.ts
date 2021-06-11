@@ -1,8 +1,6 @@
 import { IDocument, IDocumentRepertoire } from '../../types'
 
-const documentRepertoireFind = (
-  document: IDocument
-): IDocumentRepertoire | null => {
+const documentRepertoireFind = (document: IDocument): IDocumentRepertoire => {
   if (document.titreActiviteId) {
     return 'activites'
   }
@@ -19,7 +17,7 @@ const documentRepertoireFind = (
     return 'entreprises'
   }
 
-  return null
+  return 'tmp'
 }
 
 export { documentRepertoireFind }

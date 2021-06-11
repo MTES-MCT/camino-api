@@ -9,6 +9,7 @@ import { emailsSend } from './tools/api-mailjet/emails'
 import { readFileSync, writeFileSync } from 'fs'
 import { titreTypeDemarcheTypeEtapeTypeCheck } from './tools/demarches/tde-check'
 import { etapeStatutCheck } from './tools/demarches/etape-statut-check'
+import { documentsClean } from './tools/documents/clean'
 
 consoleOverride(cronLogger)
 
@@ -18,6 +19,7 @@ const tasks = async () => {
   writeFileSync('cron.log', '')
 
   await daily()
+  await documentsClean()
   await documentsCheck()
   await demarchesDefinitionsCheck()
   await titreTypeDemarcheTypeEtapeTypeCheck()
