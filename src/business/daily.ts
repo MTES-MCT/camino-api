@@ -21,7 +21,7 @@ import { titresEtapesHeritageContenuUpdate } from './processes/titres-etapes-her
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import { logsUpdate } from './_logs-update'
-import { utilisateursNewsletterUpdate } from './processes/utilisateurs-newsletter-update.js'
+import { utilisateursNewsletterUpdate } from './processes/utilisateurs-newsletter-update'
 
 const daily = async () => {
   try {
