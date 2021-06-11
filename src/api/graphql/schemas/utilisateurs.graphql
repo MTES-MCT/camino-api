@@ -20,6 +20,7 @@ type Utilisateur {
   entreprises: [Entreprise]
   permission: Permission
   preferences: Json
+  newsletter: Boolean
 
   modification: Boolean
   suppression: Boolean
@@ -63,6 +64,7 @@ input InputUtilisateurModification {
   permissionId: ID
   entreprises: [InputId]
   administrations: [InputId]
+  newsletter: Boolean
   preferences: Json
 }
 
@@ -76,5 +78,6 @@ input InputUtilisateurCreation {
   permissionId: ID
   entreprises: [InputId]
   administrations: [InputId]
+  newsletter: Boolean
   preferences: Json
 }

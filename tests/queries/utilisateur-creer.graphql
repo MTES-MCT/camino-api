@@ -22,6 +22,7 @@ fragment utilisateur on Utilisateur {
   permission {
     ...permission
   }
+  newsletter
 }
 
 fragment permission on Permission {

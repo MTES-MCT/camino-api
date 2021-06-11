@@ -181,6 +181,7 @@ exports.up = knex =>
         .references('permissions.id')
         .notNullable()
       table.json('preferences')
+      table.boolean('newsletter')
     })
     .createTable('utilisateurs__entreprises', table => {
       table

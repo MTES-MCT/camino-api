@@ -294,6 +294,8 @@ type Mutation {
   "Modifie l’email de l’utilisateur à l’aide du token reçu dans l’email de vérification"
   utilisateurEmailModifier(emailToken: String!): UtilisateurToken
 
+  newsletterInscrire(email: String!): String
+
   "Crée un titre minier"
   titreCreer(titre: InputTitreCreation!): Titre
 
