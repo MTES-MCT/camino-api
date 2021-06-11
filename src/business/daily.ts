@@ -21,6 +21,7 @@ import { titresEtapesHeritageContenuUpdate } from './processes/titres-etapes-her
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import { logsUpdate } from './_logs-update'
+import { utilisateursNewsletterUpdate } from './processes/utilisateurs-newsletter-update.js'
 
 const daily = async () => {
   try {
@@ -63,6 +64,7 @@ const daily = async () => {
     const titresActivitesPropsUpdated = await titresActivitesPropsUpdate()
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate()
+    const utilisateursUpdated = await utilisateursNewsletterUpdate()
 
     logsUpdate({
       titresEtapesOrdreUpdated,
@@ -89,7 +91,8 @@ const daily = async () => {
       titresActivitesCreated,
       titresActivitesStatutIdsUpdated,
       titresActivitesPropsUpdated,
-      titresUpdatedIndex
+      titresUpdatedIndex,
+      utilisateursUpdated
     })
   } catch (e) {
     console.info('erreur:', e)

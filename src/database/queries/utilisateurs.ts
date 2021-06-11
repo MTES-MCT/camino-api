@@ -52,12 +52,14 @@ const utilisateursQueryBuild = (
 
 const utilisateursFiltersQueryModify = (
   {
+    ids,
     entrepriseIds,
     administrationIds,
     permissionIds,
     noms,
     emails
   }: {
+    ids?: string[]
     entrepriseIds?: string[]
     administrationIds?: string[]
     permissionIds?: string[]
@@ -66,6 +68,10 @@ const utilisateursFiltersQueryModify = (
   },
   q: QueryBuilder<Utilisateurs, Utilisateurs[]>
 ) => {
+  if (ids) {
+    q.whereIn('id', ids)
+  }
+
   if (permissionIds) {
     q.whereIn('permissionId', permissionIds)
   }
@@ -171,6 +177,7 @@ const utilisateursGet = async (
     page,
     colonne,
     ordre,
+    ids,
     entrepriseIds,
     administrationIds,
     permissionIds,
@@ -181,6 +188,7 @@ const utilisateursGet = async (
     page?: number | null
     colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
+    ids?: string[]
     entrepriseIds?: string[]
     administrationIds?: string[]
     permissionIds?: string[]
@@ -194,6 +202,7 @@ const utilisateursGet = async (
 
   utilisateursFiltersQueryModify(
     {
+      ids,
       entrepriseIds,
       administrationIds,
       permissionIds,
@@ -231,15 +240,17 @@ const utilisateursGet = async (
 
 const utilisateursCount = async (
   {
+    ids,
     entrepriseIds,
     administrationIds,
     permissionIds,
     noms,
     emails
   }: {
-    entrepriseIds?: string[] | undefined
-    administrationIds?: string[] | undefined
-    permissionIds?: string[] | undefined
+    ids?: string[]
+    entrepriseIds?: string[]
+    administrationIds?: string[]
+    permissionIds?: string[]
     noms?: string | null
     emails?: string | null
   },
@@ -249,13 +260,7 @@ const utilisateursCount = async (
   const q = utilisateursQueryBuild({ fields }, user)
 
   utilisateursFiltersQueryModify(
-    {
-      entrepriseIds,
-      administrationIds,
-      permissionIds,
-      noms,
-      emails
-    },
+    { ids, entrepriseIds, administrationIds, permissionIds, noms, emails },
     q
   )
 

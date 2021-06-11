@@ -9,7 +9,7 @@ import {
   ITitreActivite
 } from '../../../types'
 
-import { emailsSend } from '../../../tools/emails-send'
+import { emailsSend } from '../../../tools/api-mailjet/emails'
 
 const elementHtmlBuild = (
   sectionId: string,

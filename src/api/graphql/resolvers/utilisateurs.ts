@@ -15,7 +15,7 @@ import { login as cerbereLogin } from '../../../tools/api-cerbere/index'
 import { databaseInit } from '../../../database/init'
 
 import { debug } from '../../../config/index'
-import { emailSend } from '../../../tools/emails-send'
+import { emailsSend } from '../../../tools/api-mailjet/emails'
 import { fieldsBuild } from './_fields-build'
 
 import {
@@ -38,6 +38,10 @@ import { emailCheck } from '../../../tools/email-check'
 import { utilisateurEditionCheck } from '../../_permissions/utilisateur'
 import { utilisateurFormat } from '../../_format/utilisateurs'
 import { userFormat } from '../../_format/users'
+import {
+  newsletterSubscriberCheck,
+  newsletterSubscriberUpdate
+} from '../../../tools/api-mailjet/newsletter'
 
 const userIdGenerate = async (): Promise<string> => {
   const id = cryptoRandomString({ length: 6 })
@@ -380,6 +384,12 @@ const utilisateurCreer = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(utilisateur.motDePasse!, 10)
 
+    if (!utilisateur.newsletter) {
+      utilisateur.newsletter = await newsletterSubscriberCheck(
+        utilisateur.email
+      )
+    }
+
     const utilisateurUpdated = await utilisateurCreate(
       {
         id: await userIdGenerate(),
@@ -388,8 +398,8 @@ const utilisateurCreer = async (
       { fields: {} }
     )
 
-    emailSend(
-      process.env.ADMIN_EMAIL!,
+    emailsSend(
+      [process.env.ADMIN_EMAIL!],
       `Nouvel utilisateur ${utilisateurUpdated.email} créé`,
       `L'utilisateur ${utilisateurUpdated.nom} ${utilisateurUpdated.prenom} vient de se créer un compte : ${process.env.UI_URL}/utilisateurs/${utilisateurUpdated.id}`
     )
@@ -439,7 +449,7 @@ const utilisateurCreationMessageEnvoyer = async ({
       return url
     }
 
-    emailSend(email, subject, html)
+    emailsSend([email], subject, html)
 
     return 'email envoyé'
   } catch (e) {
@@ -518,6 +528,11 @@ const utilisateurModifier = async (
     const fields = fieldsBuild(info)
 
     const utilisateurUpdated = await utilisateurUpsert(utilisateur, { fields })
+
+    newsletterSubscriberUpdate(
+      utilisateurUpdated.email!,
+      !!utilisateurUpdated.newsletter
+    )
 
     return utilisateurFormat(utilisateurUpdated)
   } catch (e) {
@@ -658,7 +673,7 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
     const subject = `Initialisation de votre mot de passe`
     const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
-    emailSend(email, subject, html)
+    emailsSend([email], subject, html)
 
     return 'email envoyé'
   } catch (e) {
@@ -767,7 +782,7 @@ const utilisateurEmailMessageEnvoyer = async (
     const subject = `Vérification de votre nouvel email`
     const html = `<p>Pour valider votre nouvel email, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
-    emailSend(email, subject, html)
+    emailsSend([email], subject, html)
 
     return 'email envoyé'
   } catch (e) {

@@ -64,6 +64,7 @@ input InputUtilisateurModification {
   permissionId: ID
   entreprises: [InputId]
   administrations: [InputId]
+  newsletter: Boolean
   preferences: Json
 }
 
@@ -77,5 +78,6 @@ input InputUtilisateurCreation {
   permissionId: ID
   entreprises: [InputId]
   administrations: [InputId]
+  newsletter: Boolean
   preferences: Json
 }
