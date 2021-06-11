@@ -724,7 +724,6 @@ interface ITitreDemarcheOrTravaux {
   statutId?: string | null
   statut?: IDemarcheStatut | null
   ordre?: number | null
-  etapes?: ITitreEtape[] | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   modification?: boolean | null
@@ -744,10 +743,12 @@ interface ITitreDemarche extends ITitreDemarcheOrTravaux {
   modification?: boolean | null
   etapesCreation?: boolean | null
   suppression?: boolean | null
+  etapes?: ITitreEtape[] | null
 }
 
 interface ITitreTravaux extends ITitreDemarcheOrTravaux {
   type?: ITravauxType | null
+  travauxEtapes?: ITitreEtape[] | null
 }
 
 interface IDocument {

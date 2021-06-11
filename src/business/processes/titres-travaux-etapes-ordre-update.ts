@@ -16,7 +16,7 @@ const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
     { titresTravauxIds },
     {
       fields: {
-        etapes: { id: {} },
+        travauxEtapes: { id: {} },
         type: { travauxEtapesTypes: { id: {} } },
         titre: { id: {} }
       }
@@ -27,9 +27,9 @@ const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
   const titresTravauxEtapesIdsUpdated = [] as string[]
 
   titresTravaux.forEach(titreTravau => {
-    if (titreTravau.etapes) {
+    if (titreTravau.travauxEtapes) {
       const titreTravauxEtapeSorted = titreEtapesSortAscByDate(
-        titreTravau.etapes,
+        titreTravau.travauxEtapes,
         'travaux',
         titreTravau.type,
         titreTravau.titre?.typeId

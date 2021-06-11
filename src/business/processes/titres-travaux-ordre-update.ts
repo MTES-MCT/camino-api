@@ -14,7 +14,7 @@ const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
 
   const titres = await titresGet(
     { ids: titresIds },
-    { fields: { travaux: { etapes: { id: {} } } } },
+    { fields: { travaux: { travauxEtapes: { id: {} } } } },
     userSuper
   )
 

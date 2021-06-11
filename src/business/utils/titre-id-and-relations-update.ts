@@ -3,6 +3,7 @@ import slugify from '@sindresorhus/slugify'
 import {
   ITitre,
   ITitreDemarche,
+  ITitreDemarcheOrTravaux,
   ITitreEtape,
   ITitrePoint,
   ITitrePointReference,
@@ -50,13 +51,24 @@ const titreTravauxIdFind = (titreTravaux: ITitreTravaux, titre: ITitre) => {
     .padStart(2, '0')}`
 }
 
-const titreEtapeIdFind = (
+const titreDemarcheEtapeIdFind = (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche
+) => titreEtapeIdFind(titreEtape, titreDemarche, titreDemarche.etapes!)
+
+const titreTravauxEtapeIdFind = (
+  titreEtape: ITitreEtape,
+  titreTravaux: ITitreTravaux
+) => titreEtapeIdFind(titreEtape, titreTravaux, titreTravaux.travauxEtapes!)
+
+const titreEtapeIdFind = (
+  titreEtape: ITitreEtape,
+  titreDemarche: ITitreDemarche | ITitreDemarcheOrTravaux,
+  etapes: ITitreEtape[]
 ) => {
   const titreEtapeTypeOrder =
     titreEtapesSortAsc(
-      titreDemarche.etapes!.filter(e => e.typeId === titreEtape.typeId)
+      etapes.filter(e => e.typeId === titreEtape.typeId)
     ).findIndex(e => e === titreEtape) + 1
 
   return `${titreDemarche.id}-${titreEtape.typeId}${titreEtapeTypeOrder
@@ -88,7 +100,7 @@ const titreRelation = {
         {
           name: 'etapes',
           props: ['titreDemarcheId'],
-          idFind: titreEtapeIdFind,
+          idFind: titreDemarcheEtapeIdFind,
           relations: [
             {
               props: ['heritageProps'],
@@ -136,9 +148,9 @@ const titreRelation = {
       idFind: titreTravauxIdFind,
       relations: [
         {
-          name: 'etapes',
+          name: 'travauxEtapes',
           props: ['titreTravauxId'],
-          idFind: titreEtapeIdFind
+          idFind: titreTravauxEtapeIdFind
         }
       ]
     }
