@@ -859,6 +859,28 @@ const userTokensCreate = ({ id, email }: IUtilisateur) => {
   }
 }
 
+const newsletterInscrire = async ({ email }: { email: string }) => {
+  try {
+    const utilisateur = await userByEmailGet(email, { fields: {} })
+
+    if (utilisateur?.newsletter) {
+      return 'email inscrit à la newsletter'
+    }
+
+    if (utilisateur) {
+      await utilisateurUpdate(utilisateur.id, { newsletter: true })
+    }
+
+    return newsletterSubscriberUpdate(email, true)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   utilisateur,
   utilisateurs,
@@ -875,5 +897,6 @@ export {
   utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser,
   utilisateurEmailMessageEnvoyer,
-  utilisateurEmailModifier
+  utilisateurEmailModifier,
+  newsletterInscrire
 }

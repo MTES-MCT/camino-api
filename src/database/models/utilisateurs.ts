@@ -27,7 +27,7 @@ class Utilisateurs extends Model {
       permissionId: { type: 'string', maxLength: 12 },
       preferences: { type: ['json', 'null'] },
       refreshToken: { type: ['string', 'null'] },
-      boolean: { type: ['string', 'null'] }
+      newsletter: { type: ['boolean', 'null'] }
     }
   }
 

@@ -84,15 +84,15 @@ const contactListCheck = async (email: string) => {
 }
 
 const contactListSubscribe = async (email: string, Action: string) => {
-  const contactResult = await mailjet
-    .get('contact', { version: 'v3' })
+  const contactResult = (await mailjet
+    .post('contact', { version: 'v3' })
     .id(encodeURIComponent(email))
     .action('managecontactslists')
     .request({
       ContactsLists: [{ Action, ListID: contactListId }]
-    })
+    })) as { body: { Data: IContactListAdd[] } }
 
-  const contactListAdded = contactResult.body.Data[0] as IContactListAdd
+  const contactListAdded = contactResult.body.Data[0]
 
   if (contactListAdded) return true
 
@@ -127,7 +127,6 @@ const newsletterSubscribersFind = async () => {
 
     return emails
   } catch (e) {
-    console.error(e)
     throw new Error(e)
   }
 }
@@ -135,9 +134,8 @@ const newsletterSubscribersFind = async () => {
 const newsletterSubscriberCheck = async (email: string) => {
   try {
     // est ce que le contact est inscrit à la liste
-    return contactListCheck(email)
+    return await contactListCheck(email)
   } catch (e) {
-    console.error(e)
     throw new Error(e)
   }
 }
@@ -158,27 +156,31 @@ const newsletterSubscriberUpdate = async (
 
       // est ce que le contact est inscrit à la liste
       const contactList = await contactListCheck(email)
+      if (contactList) return 'email déjà inscrit à la newsletter'
 
       // si non, on l'inscrit
-      if (!contactList) {
-        await contactListSubscribe(email, 'addforce')
-      }
+      await contactListSubscribe(email, 'addforce')
+
+      return 'email inscrit à la newsletter'
     } else {
       // est ce que le contact existe
       const contact = await contactGet(email)
 
       // si oui,
-      if (contact) {
-        // est ce que le contact est inscrit à la liste
-        const contactList = await contactListCheck(email)
+      if (!contact) return "cet email n'est pas enregistré"
 
-        // si oui, on le désinscrit
-        if (contactList) {
-          await contactListSubscribe(email, 'unsub')
-        }
-      }
+      // est ce que le contact est inscrit à la liste
+      const contactList = await contactListCheck(email)
+      if (!contactList) return "cet email n'est pas inscrit à la newsletter"
+
+      // si oui, on le désinscrit
+      await contactListSubscribe(email, 'unsub')
+
+      return 'email désinscrit à la newsletter'
     }
-  } catch (e) {}
+  } catch (e) {
+    throw new Error(e)
+  }
 }
 
 export {
