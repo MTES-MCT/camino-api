@@ -281,14 +281,14 @@ const titresActivites = {
 const titresTravauxRelateTrue = [
   'statut',
   'type',
-  ...titresTravauxEtapesRelateTrue.map(k => `etapes.${k}`)
+  ...titresTravauxEtapesRelateTrue.map(k => `travauxEtapes.${k}`)
 ]
 
 const titresTravauxRelateFalse = [] as string[]
 
 const titresTravaux = {
   graph: `[type.${travauxTypes.graph}, statut, 
-     etapes(orderDesc).${titresTravauxEtapes.graph}]`,
+     travauxEtapes(orderDesc).${titresTravauxEtapes.graph}]`,
 
   update: {
     relate: titresTravauxRelateTrue,

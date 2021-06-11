@@ -49,7 +49,7 @@ class TitresTravaux extends Model {
       }
     },
 
-    etapes: {
+    travauxEtapes: {
       relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'titres-travaux-etapes'),
       join: {

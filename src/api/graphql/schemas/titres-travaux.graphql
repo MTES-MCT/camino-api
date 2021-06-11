@@ -18,7 +18,7 @@ type Travail {
   ordre: Int!
   statut: DemarcheStatut!
   titre: Titre
-  etapes: [TravauxEtape]
+  travauxEtapes: [TravauxEtape]
   modification: Boolean
   etapesCreation: Boolean
   suppression: Boolean

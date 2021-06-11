@@ -116,7 +116,7 @@ const titresTravauxQueryModify = (
     )
   )
 
-  q.modifyGraph('etapes', b => {
+  q.modifyGraph('travauxEtapes', b => {
     titresTravauxEtapesQueryModify(
       b as QueryBuilder<
         TitresTravauxEtapes,

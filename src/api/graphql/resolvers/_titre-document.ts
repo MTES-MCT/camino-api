@@ -34,20 +34,31 @@ const titreEtapesOrActivitesFichiersDelete = async (
   }
 }
 
-const titreDemarchesOrTravauxFichiersDelete = async (
+const titreDemarchesFichiersDelete = async (
   repertoire: IDocumentRepertoire,
-  demarchesOrTravaux?: ITitreDemarche[] | ITitreTravaux[] | null
+  demarches?: ITitreDemarche[] | null
 ) => {
-  if (demarchesOrTravaux?.length) {
-    for (const dt of demarchesOrTravaux) {
+  if (demarches?.length) {
+    for (const dt of demarches) {
       await titreEtapesOrActivitesFichiersDelete(repertoire, dt.etapes)
     }
   }
 }
 
+const titreTravauxFichiersDelete = async (
+  repertoire: IDocumentRepertoire,
+  travaux?: ITitreTravaux[] | null
+) => {
+  if (travaux?.length) {
+    for (const dt of travaux) {
+      await titreEtapesOrActivitesFichiersDelete(repertoire, dt.travauxEtapes)
+    }
+  }
+}
+
 const titreFichiersDelete = async (titre: ITitre) => {
-  await titreDemarchesOrTravauxFichiersDelete('demarches', titre.demarches)
-  await titreDemarchesOrTravauxFichiersDelete('travaux', titre.travaux)
+  await titreDemarchesFichiersDelete('demarches', titre.demarches)
+  await titreTravauxFichiersDelete('travaux', titre.travaux)
   await titreEtapesOrActivitesFichiersDelete('activites', titre.activites)
 }
 

@@ -14,7 +14,7 @@ const titresTravauxEtapesQueryBuild = (
   user: IUtilisateur | null
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'etapes', fieldsFormat)
+    ? graphBuild(fields, 'travauxEtapes', fieldsFormat)
     : options.titresTravauxEtapes.graph
 
   const q = TitresTravauxEtapes.query().skipUndefined().withGraphFetched(graph)
