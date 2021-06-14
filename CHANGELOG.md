@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.84](https://github.com/MTES-MCT/camino-api/compare/v0.24.83...v0.24.84) (2021-06-14)
+
+
+### Features
+
+* **documents:** créé un document avant l’entité associée ([#764](https://github.com/MTES-MCT/camino-api/issues/764)) ([5726ccf](https://github.com/MTES-MCT/camino-api/commit/5726ccfb7e01d48cdb8d940fb2b46f524918371d))
+* récupère les inscriptions sur mailjet ([#768](https://github.com/MTES-MCT/camino-api/issues/768)) ([72d3dda](https://github.com/MTES-MCT/camino-api/commit/72d3dda9cdfa95c68055927567e1b082a05f65b0))
+* **demande:** ajoute une mutation pour pouvoir déposer une demande ([#767](https://github.com/MTES-MCT/camino-api/issues/767)) ([35f9091](https://github.com/MTES-MCT/camino-api/commit/35f9091a9a001793c215380b49989cd426f7b1a5))
+
+
+### Bug Fixes
+
+* corrige les imports ([048f916](https://github.com/MTES-MCT/camino-api/commit/048f91608e87f8cfcd5735a2cf76dc2a3191cb47))
+* **aex:** permet de classer sans suite une AEX après un refus du propriétaire du sol ([#765](https://github.com/MTES-MCT/camino-api/issues/765)) ([276e8bc](https://github.com/MTES-MCT/camino-api/commit/276e8bcce1df82948ff81e42a3481f37c6bb9ce2))
+* **utilisateurs:** corrige l’accès aux utilisateurs par un admin ([#766](https://github.com/MTES-MCT/camino-api/issues/766)) ([df4dc83](https://github.com/MTES-MCT/camino-api/commit/df4dc837ce17327ad9db7b1f2db101b47247078d))
+
 ### [0.24.83](https://github.com/MTES-MCT/camino-api/compare/v0.24.82...v0.24.83) (2021-06-02)
 
 
