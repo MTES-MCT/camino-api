@@ -21,9 +21,7 @@ const userCredentialsCheck = async (email: string, motDePasse: string) => {
 
     if (!user) return null
   } catch (e) {
-    const err = new Error(`Erreur technique : ${e.message}`)
-
-    throw err
+    throw new Error(`Erreur technique : ${e.message}, email ${email} invalide`)
   }
 
   const valid = bcrypt.compareSync(motDePasse, user.motDePasse!)
