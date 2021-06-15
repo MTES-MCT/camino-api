@@ -1,10 +1,11 @@
-import { IDocumentType, ISection, ITitreActivite } from '../../types'
+import { IDocument, IDocumentType, ISection, ITitreActivite } from '../../types'
 
 import { documentsTypesValidate } from './documents-types-validate'
 
 const titreActiviteCompleteCheck = (
   titreActivite: ITitreActivite,
   activiteSections: ISection[],
+  documents?: IDocument[] | null,
   documentsTypes?: IDocumentType[]
 ) => {
   const activiteComplete = activiteSections.every(s =>
@@ -24,10 +25,7 @@ const titreActiviteCompleteCheck = (
     return false
   }
 
-  const documentsErrors = documentsTypesValidate(
-    titreActivite.documents,
-    documentsTypes
-  )
+  const documentsErrors = documentsTypesValidate(documents, documentsTypes)
 
   return !documentsErrors.length
 }

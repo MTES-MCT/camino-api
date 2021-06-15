@@ -19,8 +19,8 @@ import {
 import titreTravauxEtapeUpdateTask from '../../../business/titre-travaux-etape-update'
 
 import { fichiersRepertoireDelete } from './_titre-document'
-import { documentsModifier } from './documents'
 import { travauxEtapeTypeGet } from '../../../database/queries/metas-travaux'
+import { documentsLier } from './documents'
 
 const travauxEtapeCreer = async (
   { etape }: { etape: ITitreTravauxEtape },
@@ -68,11 +68,11 @@ const travauxEtapeCreer = async (
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 
-    await documentsModifier(
+    await documentsLier(
       context,
-      info,
-      { id: travauxEtapeUpdated.id, documents },
-      'titreEtapeId'
+      documents.map(({ id }) => id),
+      travauxEtapeUpdated.id,
+      'titreTravauxEtapeId'
     )
 
     const titreUpdatedId = await titreTravauxEtapeUpdateTask(
@@ -122,14 +122,15 @@ const travauxEtapeModifier = async (
     if (!travauxEtapeType) {
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
-
-    await documentsModifier(
+    const documents = etape.documents || []
+    await documentsLier(
       context,
-      info,
-      etape,
-      'titreEtapeId',
+      documents.map(({ id }) => id),
+      etape.id,
+      'titreTravauxEtapeId',
       titreTravauxEtapeOld
     )
+    delete etape.documents
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 

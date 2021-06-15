@@ -30,8 +30,9 @@ import { titreActiviteInputValidate } from '../../../business/validations/titre-
 import { titreActiviteCompleteCheck } from '../../../business/validations/titre-activite-complete-check'
 import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
 import { userSuper } from '../../../database/user-super'
-import { documentsModifier } from './documents'
 import { fichiersRepertoireDelete } from './_titre-document'
+import { documentsLier } from './documents'
+import { documentsGet } from '../../../database/queries/documents'
 
 /**
  * Retourne une activité
@@ -277,9 +278,18 @@ const activiteModifier = async (
     const fields = fieldsBuild(info)
 
     if (depose) {
+      const documents = activite.documents
+        ? await documentsGet(
+            { ids: activite.documents?.map(({ id }) => id) },
+            { fields: { id: {} } },
+            userSuper
+          )
+        : []
+
       const complete = titreActiviteCompleteCheck(
         activite,
         oldTitreActivite.sections,
+        documents,
         oldTitreActivite.type!.documentsTypes
       )
 
@@ -292,13 +302,15 @@ const activiteModifier = async (
       activite.statutId = 'enc'
     }
 
-    await documentsModifier(
+    const documents = activite.documents || []
+    await documentsLier(
       context,
-      info,
-      activite,
+      documents.map(({ id }) => id),
+      activite.id,
       'titreActiviteId',
       oldTitreActivite
     )
+    delete activite.documents
 
     await titreActiviteUpdateQuery(activite.id, activite)
     const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
