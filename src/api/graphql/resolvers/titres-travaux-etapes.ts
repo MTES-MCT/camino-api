@@ -70,6 +70,7 @@ const travauxEtapeCreer = async (
 
     await documentsModifier(
       context,
+      info,
       { id: travauxEtapeUpdated.id, documents },
       'titreEtapeId'
     )
@@ -124,6 +125,7 @@ const travauxEtapeModifier = async (
 
     await documentsModifier(
       context,
+      info,
       etape,
       'titreEtapeId',
       titreTravauxEtapeOld

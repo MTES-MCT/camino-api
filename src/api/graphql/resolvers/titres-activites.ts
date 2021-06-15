@@ -294,6 +294,7 @@ const activiteModifier = async (
 
     await documentsModifier(
       context,
+      info,
       activite,
       'titreActiviteId',
       oldTitreActivite

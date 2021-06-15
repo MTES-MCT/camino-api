@@ -130,11 +130,16 @@ const documentPermissionsCheck = async (
 const documentCreer = async (
   { document }: { document: IDocument },
   context: IToken,
-  info?: GraphQLResolveInfo
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = await userGet(context.user?.id)
-    const fields = fieldsBuild(info!)
+    let fields = fieldsBuild(info)
+
+    // FIXME à supprimer après le refactor des activités et des travaux
+    if (fields.documents) {
+      fields = fields.documents
+    }
 
     if (!user) {
       throw new Error('droit insuffisants')
@@ -384,6 +389,7 @@ const documentsLier = async (
 
 const documentsModifier = async (
   context: IToken,
+  info: GraphQLResolveInfo,
   parent: { id: string; documents?: IDocument[] | null },
   propParentId: 'titreActiviteId' | 'titreEtapeId',
   oldParent?: { documents?: IDocument[] | null }
@@ -408,7 +414,7 @@ const documentsModifier = async (
       if (document.id) {
         await documentModifier({ document }, context)
       } else {
-        await documentCreer({ document }, context)
+        await documentCreer({ document }, context, info)
       }
     }
   }
