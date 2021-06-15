@@ -496,8 +496,14 @@ interface ITitreTypeTitreStatut {
   publicLecture: boolean
 }
 
+interface IMetasMetas {
+  id: string
+  nom: string
+}
+
 interface ITitreTypeDemarcheType {
   titreTypeId: string
+  titreType: IMetasMetas
   demarcheTypeId: string
   dureeMax?: number | null
   acceptationImplicite?: boolean | null

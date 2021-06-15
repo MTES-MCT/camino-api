@@ -180,7 +180,26 @@ const titreTypeTitreStatutDelete = async (
 ) => TitresTypesTitresStatuts.query().deleteById([titreTypeId, titreStatutId])
 
 const titresTypesDemarchesTypesGet = async () =>
-  TitresTypesDemarchesTypes.query().orderBy(['titreTypeId', 'demarcheTypeId'])
+  TitresTypesDemarchesTypes.query()
+    .join(
+      'titresTypes',
+      'titresTypes__demarchesTypes.titre_type_id',
+      'titresTypes.id'
+    )
+    .join('titresTypesTypes', 'titresTypes.type_id', 'titresTypesTypes.id')
+    .join('domaines', 'titresTypes.domaine_id', 'domaines.id')
+    .join(
+      'demarchesTypes',
+      'titresTypes__demarchesTypes.demarche_type_id',
+      'demarchesTypes.id'
+    )
+    .select(
+      'titresTypes__demarchesTypes.*',
+      'titresTypesTypes.nom as titreTypeNom',
+      'domaines.nom as domaineNom',
+      'demarchesTypes.nom as demarcheTypeNom'
+    )
+    .orderBy(['titreTypeId', 'demarcheTypeId'])
 
 const titreTypeDemarcheTypeUpdate = async (
   titreTypeId: string,

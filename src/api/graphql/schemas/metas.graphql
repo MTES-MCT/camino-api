@@ -264,9 +264,19 @@ type TitreTypeTitreStatut {
   publicLecture: Boolean
 }
 
+type MetasMetas {
+  id: ID!
+  nom: String
+}
+
 type TitreTypeDemarcheType {
+  titreType: MetasMetas
   titreTypeId: ID!
+  titreTypeNom: String
+  domaineNom: String
+  demarcheType: MetasMetas
   demarcheTypeId: ID!
+  demarcheTypeNom: String
   dureeMax: Int
   acceptationImplicite: Boolean
   delaiImplicite: Int

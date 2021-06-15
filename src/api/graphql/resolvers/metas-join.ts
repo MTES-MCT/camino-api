@@ -264,7 +264,17 @@ const titresTypesDemarchesTypes = async (_: never, context: IToken) => {
 
     const titresTypesDemarchesTypes = await titresTypesDemarchesTypesGet()
 
-    return titresTypesDemarchesTypes
+    return titresTypesDemarchesTypes.map(ttdt => {
+      ttdt.titreType = {
+        id: ttdt.titreTypeId,
+        nom: `${ttdt.titreTypeNom} (${ttdt.domaineNom})`
+      }
+      ttdt.demarcheType = {
+        id: ttdt.demarcheTypeId,
+        nom: ttdt.demarcheTypeNom
+      }
+      return ttdt
+    })
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -369,8 +379,7 @@ const titresTypesDemarchesTypesEtapesTypes = async (
       throw new Error('droits insuffisants')
     }
 
-    const titresTypesDemarchesTypesEtapesTypes =
-      await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -404,8 +413,7 @@ const titreTypeDemarcheTypeEtapeTypeModifier = async (
 
     await titresEtapesHeritageContenuUpdate()
 
-    const titresTypesDemarchesTypesEtapesTypes =
-      await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -434,8 +442,7 @@ const titreTypeDemarcheTypeEtapeTypeCreer = async (
 
     await titresEtapesHeritageContenuUpdate()
 
-    const titresTypesDemarchesTypesEtapesTypes =
-      await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -487,8 +494,7 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
       titreTypeDemarcheTypeEtapeType.etapeTypeId
     )
 
-    const titresTypesDemarchesTypesEtapesTypes =
-      await titresTypesDemarchesTypesEtapesTypesGet()
+    const titresTypesDemarchesTypesEtapesTypes = await titresTypesDemarchesTypesEtapesTypesGet()
 
     return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
@@ -729,8 +735,7 @@ const etapesTypesJustificatifsTypes = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const etapesTypesJustificatifsTypes =
-      await etapesTypesJustificatifsTypesGet()
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
 
     return etapesTypesJustificatifsTypes
   } catch (e) {
@@ -771,8 +776,7 @@ const etapeTypeJustificatifTypeModifier = async (
       etapeTypeJustificatifType
     )
 
-    const etapesTypesJustificatifsTypes =
-      await etapesTypesJustificatifsTypesGet()
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
 
     return etapesTypesJustificatifsTypes
   } catch (e) {
@@ -809,8 +813,7 @@ const etapeTypeJustificatifTypeCreer = async (
 
     await etapeTypeJustificatifTypeCreate(etapeTypeJustificatifType)
 
-    const etapesTypesJustificatifsTypes =
-      await etapesTypesJustificatifsTypesGet()
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
 
     return etapesTypesJustificatifsTypes
   } catch (e) {
@@ -851,8 +854,7 @@ const etapeTypeJustificatifTypeSupprimer = async (
       etapeTypeJustificatifType.documentTypeId
     )
 
-    const etapesTypesJustificatifsTypes =
-      await etapesTypesJustificatifsTypesGet()
+    const etapesTypesJustificatifsTypes = await etapesTypesJustificatifsTypesGet()
 
     return etapesTypesJustificatifsTypes
   } catch (e) {
