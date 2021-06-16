@@ -135,7 +135,7 @@ const titresFiltersQueryModify = (
               fields.map(() => 'lower(??) like ?').join(' or ') +
               ') > 0'
           )
-          .join(') and (')})`,
+          .join(') or (')})`,
         entreprisesArray.flatMap(e =>
           fields.flatMap(f => [f, `%${e.toLowerCase()}%`])
         )
