@@ -345,6 +345,9 @@ type Mutation {
     depose: Boolean
   ): Activite
 
+  "Dépose une activité"
+  activiteDeposer(id: ID!): Activite
+
   "Supprime une activité"
   activiteSupprimer(id: ID!): Activite
 

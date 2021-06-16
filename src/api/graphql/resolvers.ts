@@ -193,7 +193,8 @@ import {
   activites,
   activitesAnnees,
   activiteModifier,
-  activiteSupprimer
+  activiteSupprimer,
+  activiteDeposer
 } from './resolvers/titres-activites'
 import { statistiquesGlobales } from './resolvers/statistiques'
 import { statistiquesGuyane } from './resolvers/statistiques-guyane'
@@ -299,6 +300,7 @@ export default {
   documentSupprimer,
   activiteModifier,
   activiteSupprimer,
+  activiteDeposer,
   utilisateurTokenCreer,
   utilisateurTokenRafraichir,
   utilisateurCerbereTokenCreer,

@@ -682,6 +682,7 @@ interface ITitreActivite {
   modification?: boolean | null
   suppression?: boolean | null
   documentsCreation?: boolean | null
+  deposable?: boolean | null
 }
 
 interface ITitreAdministrationGestionnaire {
