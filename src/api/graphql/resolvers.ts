@@ -201,12 +201,14 @@ import { statistiquesGuyane } from './resolvers/statistiques-guyane'
 import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-marins'
 
 import {
+  travaux,
   travauxCreer,
   travauxModifier,
   travauxSupprimer
 } from './resolvers/titres-travaux'
 
 import {
+  travauxEtape,
   travauxEtapeCreer,
   travauxEtapeModifier,
   travauxEtapeSupprimer
@@ -324,9 +326,11 @@ export default {
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
   administrationActiviteTypeModifier,
+  travaux,
   travauxCreer,
   travauxModifier,
   travauxSupprimer,
+  travauxEtape,
   travauxEtapeCreer,
   travauxEtapeModifier,
   travauxEtapeSupprimer,

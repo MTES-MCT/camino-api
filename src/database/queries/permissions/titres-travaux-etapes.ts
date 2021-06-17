@@ -11,7 +11,11 @@ import TravauxEtapesTypesDocumentsTypes from '../../models/travaux-etapes-types-
 import { documentsQueryModify } from './documents'
 import { administrationsTitresQuery } from './administrations'
 import { entreprisesTitresQuery } from './entreprises'
-import { titreTravauxModificationQuery } from './titres-travaux'
+import {
+  titresTravauxQueryModify,
+  titreTravauxModificationQuery
+} from './titres-travaux'
+import TitresTravaux from '../../models/titres-travaux'
 
 const titreTravauxEtapeCreationDocumentsModify = (
   q: QueryBuilder<any, any | any[]>,
@@ -87,6 +91,13 @@ const titresTravauxEtapesQueryModify = (
   )
 
   titreTravauxEtapeCreationDocumentsModify(q, 'type.id')
+
+  q.modifyGraph('travaux', b => {
+    titresTravauxQueryModify(
+      b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
+      user
+    )
+  })
 
   q.modifyGraph('documents', b => {
     documentsQueryModify(

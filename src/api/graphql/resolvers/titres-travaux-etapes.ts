@@ -22,6 +22,32 @@ import { fichiersRepertoireDelete } from './_titre-document'
 import { travauxEtapeTypeGet } from '../../../database/queries/metas-travaux'
 import { documentsLier } from './documents'
 
+const travauxEtape = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    const fields = fieldsBuild(info)
+
+    const travauxEtape = await titreTravauxEtapeGet(id, { fields }, user)
+
+    if (!travauxEtape) {
+      throw new Error("l'étape n'existe pas")
+    }
+
+    return travauxEtape
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const travauxEtapeCreer = async (
   { etape }: { etape: ITitreTravauxEtape },
   context: IToken,
@@ -63,14 +89,14 @@ const travauxEtapeCreer = async (
       )
     }
 
-    const documents = etape.documents || []
-    delete etape.documents
+    const documentIds = etape.documentIds || []
+    delete etape.documentIds
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 
     await documentsLier(
       context,
-      documents.map(({ id }) => id),
+      documentIds,
       travauxEtapeUpdated.id,
       'titreTravauxEtapeId'
     )
@@ -122,15 +148,15 @@ const travauxEtapeModifier = async (
     if (!travauxEtapeType) {
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
-    const documents = etape.documents || []
+    const documentIds = etape.documentIds || []
     await documentsLier(
       context,
-      documents.map(({ id }) => id),
+      documentIds,
       etape.id,
       'titreTravauxEtapeId',
       titreTravauxEtapeOld
     )
-    delete etape.documents
+    delete etape.documentIds
 
     const travauxEtapeUpdated = await titreTravauxEtapeUpsert(etape)
 
@@ -194,4 +220,9 @@ const travauxEtapeSupprimer = async (
   }
 }
 
-export { travauxEtapeCreer, travauxEtapeModifier, travauxEtapeSupprimer }
+export {
+  travauxEtape,
+  travauxEtapeCreer,
+  travauxEtapeModifier,
+  travauxEtapeSupprimer
+}
