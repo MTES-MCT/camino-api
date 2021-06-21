@@ -8,7 +8,6 @@ import {
 } from '../types'
 
 const logsUpdate = ({
-  titresEtapesDemandeEnConstructionUpdated,
   titresEtapesOrdreUpdated,
   titresEtapesHeritagePropsUpdated,
   titresEtapesHeritageContenuUpdated,
@@ -46,7 +45,6 @@ const logsUpdate = ({
   administrationsUpdated,
   utilisateursUpdated
 }: {
-  titresEtapesDemandeEnConstructionUpdated?: string[]
   titresEtapesOrdreUpdated?: string[]
   titresEtapesHeritagePropsUpdated?: string[]
   titresEtapesHeritageContenuUpdated?: string[]
@@ -87,12 +85,6 @@ const logsUpdate = ({
   console.info()
   console.info('-')
   console.info('tâches exécutées:')
-
-  if (titresEtapesDemandeEnConstructionUpdated?.length) {
-    console.info(
-      `mise à jour: ${titresEtapesDemandeEnConstructionUpdated.length} étape(s) en construction (date)`
-    )
-  }
 
   if (titresEtapesOrdreUpdated?.length) {
     console.info(

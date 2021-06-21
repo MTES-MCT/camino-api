@@ -21,7 +21,6 @@ import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
 import { userSuper } from '../database/user-super'
-import { titresEtapesDemandeACOUpdate } from './processes/titres-etapes-demande-aco-update'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -44,9 +43,6 @@ const titreEtapeUpdate = async (
     if (!titreDemarche) {
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
     }
-
-    const titresEtapesDemandeEnConstructionUpdated =
-      await titresEtapesDemandeACOUpdate(titreDemarcheId)
 
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate([
       titreDemarcheId
@@ -125,7 +121,6 @@ const titreEtapeUpdate = async (
     }
 
     logsUpdate({
-      titresEtapesDemandeEnConstructionUpdated,
       titresEtapesOrdreUpdated,
       titresEtapesHeritagePropsUpdated,
       titresEtapesHeritageContenuUpdated,
