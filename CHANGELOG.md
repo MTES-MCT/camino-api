@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.86](https://github.com/MTES-MCT/camino-api/compare/v0.24.85...v0.24.86) (2021-06-21)
+
+
+### Features
+
+* **demande:** initialise la durée des ARM à 4 mois ([2ab5050](https://github.com/MTES-MCT/camino-api/commit/2ab5050ba0181dbf306ee8d3dcfc748e707e764c))
+
+
+### Bug Fixes
+
+* **demande:** ne recalcule plus automatiquement la date de la demande en construction ([b691a22](https://github.com/MTES-MCT/camino-api/commit/b691a22160b62c973bbb377b719d70706beae7f1))
+
 ### [0.24.85](https://github.com/MTES-MCT/camino-api/compare/v0.24.84...v0.24.85) (2021-06-15)
 
 
