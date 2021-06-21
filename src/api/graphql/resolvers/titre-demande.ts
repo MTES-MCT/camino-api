@@ -80,7 +80,6 @@ const titreDemandeCreer = async (
       if (!user || !titreType?.titresCreation)
         throw new Error('droits insuffisants')
     }
-
     // insert le titre dans la base
     let titre = await titreCreate(
       {
@@ -118,6 +117,7 @@ const titreDemandeCreer = async (
       typeId: 'mfr',
       statutId: 'aco',
       date,
+      duree: titreDemande.typeId === 'arm' ? 4 : undefined,
       titulaires: [{ id: titreDemande.entrepriseId }]
     } as ITitreEtape
 
