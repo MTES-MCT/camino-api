@@ -71,11 +71,15 @@ const matomoMainDataGet = async (duree: number) => {
   const dataCurrent = matomoVisitData[monthsArray[monthsArray.length - 1]]
 
   // nombre d'action du dernier mois
-  const actions = dataCurrent.nb_actions_per_visit.toString()
+  const actions = dataCurrent.nb_actions_per_visit
+    ? dataCurrent.nb_actions_per_visit.toString()
+    : '0'
   // temps de session du dernier mois
   const sessionDuree = timeFormat(dataCurrent.avg_time_on_site)
   // nombre de téléchargements du dernier mois
-  const telechargements = dataCurrent.nb_downloads.toString()
+  const telechargements = dataCurrent.nb_downloads
+    ? dataCurrent.nb_downloads.toString()
+    : '0'
 
   return { recherches, actions, sessionDuree, telechargements }
 }
@@ -185,6 +189,12 @@ const titresModifiesCountGet = async (duree: number) => {
   return Object.keys(matomoVisitData).reduce(
     (acc: { mois: string; quantite: number }[], month) => {
       const monthDataArray = matomoVisitData[month] as IMatomoSectionData[]
+
+      if (!monthDataArray) {
+        acc.push({ mois: month, quantite: 0 })
+
+        return acc
+      }
 
       const nbEvents = monthDataArray.reduce((nbEventsByMonth, monthData) => {
         const nbEventsBySection = nbEventsBySectionGet(monthData, month)
