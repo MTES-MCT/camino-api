@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.87](https://github.com/MTES-MCT/camino-api/compare/v0.24.86...v0.24.87) (2021-06-23)
+
+
+### Bug Fixes
+
+* **matomo:** corrige les statistiques si un mois n'a pas de donnée ([ff77790](https://github.com/MTES-MCT/camino-api/commit/ff7779094b8b5bd02af45943f02bd3968ad5b434))
+
 ### [0.24.86](https://github.com/MTES-MCT/camino-api/compare/v0.24.85...v0.24.86) (2021-06-21)
 
 
