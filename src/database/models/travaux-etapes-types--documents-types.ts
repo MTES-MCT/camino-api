@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import { join } from 'path'
 import { ITravauxEtapeTypeDocumentType } from '../../types'
 
 interface TravauxEtapesTypesDocumentsTypes
@@ -19,6 +20,25 @@ class TravauxEtapesTypesDocumentsTypes extends Model {
   }
 
   public static idColumn = ['travauxEtapeTypeId', 'documentTypeId']
+
+  public static relationMappings = {
+    travauxEtapeType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'travaux-etapes-types'),
+      join: {
+        from: 'travauxEtapesTypes__documentsTypes.travauxEtapeTypeId',
+        to: 'travauxEtapesTypes.id'
+      }
+    },
+    documentType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'documents-types'),
+      join: {
+        from: 'travauxEtapesTypes__documentsTypes.documentTypeId',
+        to: 'documentsTypes.id'
+      }
+    }
+  }
 }
 
 export default TravauxEtapesTypesDocumentsTypes

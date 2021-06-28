@@ -76,10 +76,9 @@ const travauxEtapesTypesGet = async (
 }
 
 const travauxTypesTravauxEtapesTypesGet = async () =>
-  TravauxTypesTravauxEtapesTypes.query().orderBy([
-    'travauxTypeId',
-    'travauxEtapeTypeId'
-  ])
+  TravauxTypesTravauxEtapesTypes.query()
+    .withGraphFetched(options.travauxTypesTravauxEtapesTypes.graph)
+    .orderBy(['travauxTypeId', 'travauxEtapeTypeId'])
 
 const travauxTypeTravauxEtapeTypeUpdate = async (
   travauxTypeId: string,
@@ -108,10 +107,9 @@ const travauxTypeTravauxEtapeTypeDelete = async (
   ])
 
 const travauxEtapesTypesDocumentsTypesGet = async () =>
-  TravauxEtapesTypesDocumentsTypes.query().orderBy([
-    'travauxEtapeTypeId',
-    'documentTypeId'
-  ])
+  TravauxEtapesTypesDocumentsTypes.query()
+    .withGraphFetched(options.travauxEtapesTypesDocumentsTypes.graph)
+    .orderBy(['travauxEtapeTypeId', 'documentTypeId'])
 
 const travauxEtapeTypeDocumentTypeUpdate = async (
   travauxEtapeTypeId: string,
@@ -140,10 +138,9 @@ const travauxEtapeTypeDocumentTypeDelete = async (
   ])
 
 const travauxEtapesTypesEtapesStatutsGet = async () =>
-  TravauxEtapesTypesEtapesStatuts.query().orderBy([
-    'travauxEtapeTypeId',
-    'etapeStatutId'
-  ])
+  TravauxEtapesTypesEtapesStatuts.query()
+    .withGraphFetched(options.travauxEtapesTypesEtapesStatuts.graph)
+    .orderBy(['travauxEtapeTypeId', 'etapeStatutId'])
 
 const travauxEtapeTypeEtapeStatutUpdate = async (
   travauxEtapeTypeId: string,

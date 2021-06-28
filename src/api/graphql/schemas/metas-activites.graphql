@@ -29,18 +29,24 @@ type ActiviteType {
 
 type ActiviteTypeTitreType {
   activiteTypeId: ID!
+  activiteType: ActiviteType
   titreTypeId: ID!
+  titreType: TitreType
 }
 
 type ActiviteTypeDocumentType {
   activiteTypeId: ID!
+  activiteType: ActiviteType
   documentTypeId: ID!
+  documentType: DocumentType
   optionnel: Boolean
 }
 
 type ActiviteTypePays {
   activiteTypeId: ID!
+  activiteType: ActiviteType
   paysId: ID!
+  pays: Pays
 }
 
 input InputActiviteStatut {

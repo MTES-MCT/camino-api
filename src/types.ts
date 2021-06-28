@@ -503,6 +503,7 @@ interface ITitreTypeTitreStatut {
 
 interface ITitreTypeDemarcheType {
   titreTypeId: string
+  titreType?: ITitreType | null
   demarcheTypeId: string
   dureeMax?: number | null
   acceptationImplicite?: boolean | null
@@ -904,7 +905,9 @@ interface ITitreType {
   domaineId: string
   typeId: string
   archive?: boolean | null
+  domaine: IDomaine
   type: ITitreTypeType
+  nom?: string | null
   demarchesTypes?: IDemarcheType[] | null
   titresTypesTitresStatuts?: ITitreTypeTitreStatut[] | null
   contenuIds?: IContenuId[] | null
@@ -922,6 +925,7 @@ interface ITitreTypeType {
 
 interface ITitreTypeDemarcheTypeEtapeType {
   titreTypeId: string
+  titreType?: ITitreType
   demarcheTypeId: string
   etapeTypeId: string
 

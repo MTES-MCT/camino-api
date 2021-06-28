@@ -20,6 +20,7 @@ type Domaine {
 type TitreType {
   "Id composée de trois lettres"
   id: ID!
+  nom: String
 
   domaineId: String!
   domaine: Domaine!
@@ -266,7 +267,9 @@ type TitreTypeTitreStatut {
 
 type TitreTypeDemarcheType {
   titreTypeId: ID!
+  titreType: TitreType
   demarcheTypeId: ID!
+  demarcheType: DemarcheType
   dureeMax: Int
   acceptationImplicite: Boolean
   delaiImplicite: Int
@@ -294,27 +297,36 @@ type TitreTypeEtapeType {
 
 type TitreTypeDemarcheTypeEtapeType {
   titreTypeId: ID!
+  titreType: TitreType
   demarcheTypeId: ID!
+  demarcheType: DemarcheType
   etapeTypeId: ID!
+  etapeType: EtapeType
   ordre: Int!
   sections: Json
 }
 
 type EtapeTypeEtapeStatut {
   etapeTypeId: ID!
+  etapeType: EtapeType
   etapeStatutId: ID!
+  etapeStatut: EtapeStatut
   ordre: Int!
 }
 
 type EtapeTypeDocumentType {
   etapeTypeId: ID!
+  etapeType: EtapeType
   documentTypeId: ID!
+  documentType: DocumentType
   optionnel: Boolean
 }
 
 type EtapeTypeJustificatifType {
   etapeTypeId: ID!
+  etapeType: EtapeType
   documentTypeId: ID!
+  documentType: DocumentType
   optionnel: Boolean
 }
 

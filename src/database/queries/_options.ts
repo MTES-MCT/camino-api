@@ -26,6 +26,18 @@ const etapesTypes = {
   graph: `[etapesStatuts]`
 }
 
+const etapesTypesDocumentsTypes = {
+  graph: `[etapeType, documentType]`
+}
+
+const etapesTypesJustificatifsTypes = {
+  graph: `[etapeType, documentType]`
+}
+
+const etapesTypesEtapesStatuts = {
+  graph: `[etapeType, etapeStatut]`
+}
+
 const demarchesTypes = {
   graph: `[etapesTypes.${etapesTypes.graph}]`
 }
@@ -39,7 +51,31 @@ const travauxTypes = {
 }
 
 const titresTypes = {
-  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, titresTypesTitresStatuts]`
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, titresTypesTitresStatuts, domaine]`
+}
+
+const titresTypesTitresStatuts = {
+  graph: `[titreType.[domaine,type], titreStatut]`
+}
+
+const titresTypesDemarchesTypes = {
+  graph: `[titreType.[domaine,type], demarcheType]`
+}
+
+const titresTypesDemarchesTypesEtapesTypes = {
+  graph: `[titreType.[domaine,type], demarcheType, etapeType]`
+}
+
+const travauxEtapesTypesDocumentsTypes = {
+  graph: `[travauxEtapeType, documentType]`
+}
+
+const travauxEtapesTypesEtapesStatuts = {
+  graph: `[travauxEtapeType, etapeStatut]`
+}
+
+const travauxTypesTravauxEtapesTypes = {
+  graph: `[travauxType, travauxEtapeType]`
 }
 
 const documentsRelateTrue = ['type']
@@ -259,6 +295,18 @@ const activitesTypes = {
   }
 }
 
+const activitesTypesDocumentsTypes = {
+  graph: `[activiteType, documentType]`
+}
+
+const activitesTypesPays = {
+  graph: `[activiteType, pays]`
+}
+
+const activitesTypesTitresTypes = {
+  graph: `[activiteType, titreType.[domaine,type]]`
+}
+
 const titresActivitesRelateTrue = ['type', 'statut', 'utilisateur']
 
 const titresActivitesRelateFalse = [
@@ -394,6 +442,9 @@ const titres = {
 
 export default {
   activitesTypes,
+  activitesTypesDocumentsTypes,
+  activitesTypesPays,
+  activitesTypesTitresTypes,
   administrations,
   communes,
   demarchesTypes,
@@ -402,6 +453,9 @@ export default {
   entreprises,
   entreprisesEtablissements,
   etapesTypes,
+  etapesTypesDocumentsTypes,
+  etapesTypesJustificatifsTypes,
+  etapesTypesEtapesStatuts,
   geoSystemes,
   pays,
   points,
@@ -414,6 +468,12 @@ export default {
   titresTravaux,
   titresTravauxEtapes,
   titresTypes,
+  titresTypesDemarchesTypes,
+  titresTypesDemarchesTypesEtapesTypes,
+  titresTypesTitresStatuts,
+  travauxEtapesTypesDocumentsTypes,
+  travauxEtapesTypesEtapesStatuts,
+  travauxTypesTravauxEtapesTypes,
   travauxTypes,
   travauxEtapesTypes,
   utilisateurs

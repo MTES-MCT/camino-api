@@ -162,7 +162,11 @@ const titresTypesTitresStatuts = async (_: never, context: IToken) => {
 
     const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
 
-    return titresTypesTitresStatuts
+    return titresTypesTitresStatuts.map(ttts => {
+      ttts.titreType!.nom = `${ttts.titreType?.type.nom} (${ttts.titreType?.domaine.nom})`
+
+      return ttts
+    })
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -264,7 +268,11 @@ const titresTypesDemarchesTypes = async (_: never, context: IToken) => {
 
     const titresTypesDemarchesTypes = await titresTypesDemarchesTypesGet()
 
-    return titresTypesDemarchesTypes
+    return titresTypesDemarchesTypes.map(ttdt => {
+      ttdt.titreType!.nom = `${ttdt.titreType?.type.nom} (${ttdt.titreType?.domaine.nom})`
+
+      return ttdt
+    })
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -372,7 +380,11 @@ const titresTypesDemarchesTypesEtapesTypes = async (
     const titresTypesDemarchesTypesEtapesTypes =
       await titresTypesDemarchesTypesEtapesTypesGet()
 
-    return titresTypesDemarchesTypesEtapesTypes
+    return titresTypesDemarchesTypesEtapesTypes.map(ttdtet => {
+      ttdtet.titreType!.nom = `${ttdtet.titreType?.type.nom} (${ttdtet.titreType?.domaine.nom})`
+
+      return ttdtet
+    })
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -54,7 +54,9 @@ const activiteTypeDelete = async (activiteTypeId: string) =>
   ActivitesTypes.query().deleteById(activiteTypeId)
 
 const activitesTypesTitresTypesGet = async () =>
-  ActivitesTypesTitresTypes.query()
+  ActivitesTypesTitresTypes.query().withGraphFetched(
+    options.activitesTypesTitresTypes.graph
+  )
 
 const activiteTypeTitreTypeCreate = async (
   activiteTypeTitreType: IActiviteTypeTitreType
@@ -70,7 +72,9 @@ const activiteTypeTitreTypeDelete = async ({
   ActivitesTypesTitresTypes.query().deleteById([activiteTypeId, titreTypeId])
 
 const activitesTypesDocumentsTypesGet = async () =>
-  ActivitesTypesDocumentsTypes.query()
+  ActivitesTypesDocumentsTypes.query().withGraphFetched(
+    options.activitesTypesDocumentsTypes.graph
+  )
 
 const activiteTypeDocumentTypeCreate = async (
   activiteTypeDocumentType: IActiviteTypeDocumentType
@@ -98,7 +102,8 @@ const activiteTypeDocumentTypeDelete = async ({
     documentTypeId
   ])
 
-const activitesTypesPaysGet = async () => ActivitesTypesPays.query()
+const activitesTypesPaysGet = async () =>
+  ActivitesTypesPays.query().withGraphFetched(options.activitesTypesPays.graph)
 
 const activiteTypePaysCreate = async (activiteTypePays: IActiviteTypePays) =>
   ActivitesTypesPays.query().insertAndFetch(activiteTypePays)
