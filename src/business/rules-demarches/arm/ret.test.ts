@@ -32,7 +32,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mni', date: '2020-01-02' },
         { typeId: 'rif', date: '2020-01-03' },
         { typeId: 'eof', date: '2020-01-04' },
-        { typeId: 'mni' }
+        { typeId: 'mni', date: '2020-01-05' }
       ])
     ).toEqual(['l’étape "mni" n’est pas possible juste après "eof"'])
   })
@@ -73,10 +73,10 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
   test('ne peut pas créer une "aof" après une "css"', () => {
     expect(
       retEtatsValidate([
-        { typeId: 'ide' },
-        { typeId: 'mni' },
-        { typeId: 'css' },
-        { typeId: 'aof' }
+        { typeId: 'ide', date: '2020-01-01' },
+        { typeId: 'mni', date: '2020-01-02' },
+        { typeId: 'css', date: '2020-01-03' },
+        { typeId: 'aof', date: '2020-01-04' }
       ])
     ).toEqual(['l’étape "aof" n’est pas possible juste après "css"'])
   })
@@ -90,10 +90,10 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
   test('peut créer une "mio" juste après une "rif"', () => {
     expect(
       retEtatsValidate([
-        { typeId: 'ide' },
-        { typeId: 'mni' },
-        { typeId: 'rif' },
-        { typeId: 'mio' }
+        { typeId: 'ide', date: '2020-01-01' },
+        { typeId: 'mni', date: '2020-01-02' },
+        { typeId: 'rif', date: '2020-01-03' },
+        { typeId: 'mio', date: '2020-01-04' }
       ])
     ).toHaveLength(0)
   })
@@ -126,11 +126,11 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
   test('ne peut pas créer une "eof" juste après une "mio"', () => {
     expect(
       retEtatsValidate([
-        { typeId: 'ide' },
-        { typeId: 'mni' },
-        { typeId: 'rif' },
-        { typeId: 'mio' },
-        { typeId: 'eof' }
+        { typeId: 'ide', date: '2020-01-01' },
+        { typeId: 'mni', date: '2020-01-02' },
+        { typeId: 'rif', date: '2020-01-03' },
+        { typeId: 'mio', date: '2020-01-04' },
+        { typeId: 'eof', date: '2020-01-05' }
       ])
     ).toEqual(['l’étape "eof" n’est pas possible juste après "mio"'])
   })
@@ -159,11 +159,11 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
   test('peut créer une "css" apres une "mio"', () => {
     expect(
       retEtatsValidate([
-        { typeId: 'ide' },
-        { typeId: 'mni' },
-        { typeId: 'rif' },
-        { typeId: 'mio' },
-        { typeId: 'css' }
+        { typeId: 'ide', date: '2020-01-01' },
+        { typeId: 'mni', date: '2020-01-02' },
+        { typeId: 'rif', date: '2020-01-03' },
+        { typeId: 'mio', date: '2020-01-04' },
+        { typeId: 'css', date: '2020-01-05' }
       ])
     ).toHaveLength(0)
   })
@@ -196,7 +196,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'css', date: '2020-01-02' },
         { typeId: 'mni', date: '2020-01-01' },
         { typeId: 'ide', date: '2020-01-01' },
-        { typeId: 'mni' }
+        { typeId: 'mni', date: '2020-01-03' }
       ])
     ).toEqual(['l’étape "mni" n’est pas possible juste après "css"'])
   })

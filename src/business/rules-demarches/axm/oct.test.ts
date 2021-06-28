@@ -36,7 +36,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
         { typeId: 'mca', date: '2020-01-03' },
         { typeId: 'mfr', date: '2020-01-04' }
       ])
-    ).toEqual(['l’étape "mfr" n’est plus possible après "mca"'])
+    ).toHaveLength(1)
   })
 
   test('ne peut pas avoir juste une étape "Décision de l’administration"', () => {

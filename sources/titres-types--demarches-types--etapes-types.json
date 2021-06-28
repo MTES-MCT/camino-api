@@ -2436,7 +2436,7 @@
   },
   {
     "titre_type_id": "arm",
-    "ordre": 610,
+    "ordre": 1200,
     "demarche_type_id": "ret",
     "etape_type_id": "mnc"
   },
@@ -2736,7 +2736,7 @@
   },
   {
     "titre_type_id": "axm",
-    "ordre": 100,
+    "ordre": 152,
     "demarche_type_id": "oct",
     "etape_type_id": "mfr"
   },

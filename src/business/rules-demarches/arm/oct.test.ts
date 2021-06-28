@@ -225,4 +225,25 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       )
     ).toHaveLength(0)
   })
+
+  test('les étapes sont vérifiées dans le bon ordre', () => {
+    expect(
+      octEtatsValidate(
+        [
+          { typeId: 'aof', statutId: 'fav', date: '2021-06-08' },
+          { typeId: 'eof', statutId: 'fai', date: '2021-06-02' },
+          { typeId: 'mcp', statutId: 'fav', date: '2021-05-20' },
+          { typeId: 'mcr', statutId: 'fav', date: '2021-05-20' },
+          { typeId: 'vfd', statutId: 'fai', date: '2021-05-20' },
+          { typeId: 'pfd', statutId: 'fai', date: '2021-05-20' },
+          { typeId: 'dae', statutId: 'exe', date: '2021-05-20' },
+          { typeId: 'mfr', statutId: 'dep', date: '2021-05-20' },
+          { typeId: 'rde', statutId: 'fav', date: '2021-04-09' }
+        ],
+        {
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
+        }
+      )
+    ).toHaveLength(0)
+  })
 })

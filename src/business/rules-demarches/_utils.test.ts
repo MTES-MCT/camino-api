@@ -62,10 +62,21 @@ const etapesTypesGet = (demarcheTypeId: string, titreTypeId: string) => {
         tde.titreTypeId === titreTypeId && tde.demarcheTypeId === demarcheTypeId
     )
 
-  return elementsGet<IEtapeType>('etapes-types.json').filter(etapeType =>
-    titresTypesDemarchesTypesEtapesTypes.find(
-      tde => tde.etapeTypeId === etapeType.id
-    )
+  return elementsGet<IEtapeType>('etapes-types.json').reduce(
+    (acc, etapeType) => {
+      const tde = titresTypesDemarchesTypesEtapesTypes.find(
+        tde => tde.etapeTypeId === etapeType.id
+      )
+
+      if (tde) {
+        etapeType.titreTypeId = tde.titreTypeId
+        etapeType.ordre = tde.ordre
+        acc.push(etapeType)
+      }
+
+      return acc
+    },
+    [] as IEtapeType[]
   )
 }
 
