@@ -29,7 +29,7 @@ describe('vérifie l’arbre d’octroi d’une PRM', () => {
         { typeId: 'rpu', date: '2020-01-19' }
       ])
     ).toContain(
-      'l’étape "rpu" n’est pas possible après "scl", "ssr", "npp", "mno"'
+      'l’étape "rpu" n’est pas possible après "ssr", "scl", "npp", "mno"'
     )
   })
 

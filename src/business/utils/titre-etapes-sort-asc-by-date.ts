@@ -82,6 +82,14 @@ const titreEtapesSortAscByDate = (
       if (aJusteApresB && !bJusteApresA) {
         return 1
       }
+
+      if (aRestriction.final) {
+        return 1
+      }
+
+      if (bRestriction.final) {
+        return -1
+      }
     }
 
     // on utilise l'ordre du type d'étape
@@ -98,9 +106,9 @@ const titreEtapesSortAscByDate = (
       et => et.id === b.typeId && et.titreTypeId === titreTypeId
     )
 
-    if (!aType || !bType) return a.ordre! - b.ordre!
+    if (aType && bType) return aType.ordre - bType.ordre
 
-    return aType.ordre - bType.ordre || a.ordre! - b.ordre!
+    return a.ordre! - b.ordre!
   })
 }
 

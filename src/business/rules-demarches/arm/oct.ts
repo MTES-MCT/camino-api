@@ -51,7 +51,6 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
         { etapeTypeId: 'mfr', statutId: 'dep' }
       ],
-      [{ etapeTypeId: 'mcr', statutId: 'def' }],
       [{ etapeTypeId: 'mom' }],
       [{ etapeTypeId: 'rcm' }]
     ]
