@@ -191,10 +191,12 @@ const documentCreer = async (
 
 const documentModifier = async (
   { document }: { document: IDocument },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = await userGet(context.user?.id)
+    const fields = fieldsBuild(info)
 
     if (!user) {
       throw new Error('droit insuffisants')
@@ -277,7 +279,7 @@ const documentModifier = async (
       await documentFileCreate(documentUpdated, documentFichierNouveau.file)
     }
 
-    return documentUpdated
+    return await documentGet(documentUpdated.id, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)
