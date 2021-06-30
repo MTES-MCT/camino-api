@@ -11,6 +11,7 @@ import {
 import { titreSectionsFormat } from './titres-sections'
 
 import { titreActiviteFormatFields } from './_fields'
+import { titreActiviteCompleteCheck } from '../../business/validations/titre-activite-complete-check'
 
 const titreActiviteContenuFormat = (
   sections: ISection[],
@@ -43,7 +44,7 @@ const titreActiviteFormat = (
   fields: IFields = titreActiviteFormatFields
 ) => {
   // si les sections contiennent des élements sur cette activité
-  if (fields.sections && ta.sections?.length) {
+  if (ta.sections?.length) {
     ta.sections = titreSectionsFormat(ta.sections)
   }
 
@@ -66,6 +67,15 @@ const titreActiviteFormat = (
     ta.periode = ta.type.frequence[ta.type.frequence.periodesNom]!.find(
       p => p.id === ta.periodeId
     ) as IAnnee | ITrimestre | IMois
+  }
+
+  if (ta.statutId === 'enc' && ta.modification) {
+    ta.deposable = titreActiviteCompleteCheck(
+      ta.sections,
+      ta.contenu,
+      ta.documents,
+      ta.type!.documentsTypes
+    )
   }
 
   return ta

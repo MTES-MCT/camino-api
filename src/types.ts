@@ -682,6 +682,7 @@ interface ITitreActivite {
   modification?: boolean | null
   suppression?: boolean | null
   documentsCreation?: boolean | null
+  deposable?: boolean | null
 }
 
 interface ITitreAdministrationGestionnaire {
@@ -797,6 +798,7 @@ interface ITitreEtapeOrTitreTravauxEtape {
   documents?: IDocument[] | null
   modification?: boolean | null
   suppression?: boolean | null
+  documentIds?: string[] | null
 }
 
 interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -812,6 +814,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   amodiataires?: ITitreEntreprise[] | null
   administrations?: IAdministration[] | null
   justificatifs?: IDocument[] | null
+  justificatifIds?: string[] | null
   communes?: ICommune[] | null
   forets?: IForet[] | null
   incertitudes?: ITitreIncertitudes | null

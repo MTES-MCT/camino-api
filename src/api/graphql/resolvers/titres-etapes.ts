@@ -222,13 +222,15 @@ const etapeCreer = async (
       titreDemarche.titre!.typeId
     )
 
-    const justificatifs = etape.justificatifs
+    const justificatifs = etape.justificatifIds?.length
       ? await documentsGet(
-          { ids: etape.justificatifs.map(({ id }) => id) },
+          { ids: etape.justificatifIds },
           { fields: { type: { id: {} } } },
           userSuper
         )
       : null
+    delete etape.justificatifIds
+    etape.justificatifs = justificatifs
 
     const rulesErrors = titreEtapeUpdationValidate(
       etape,
@@ -247,8 +249,8 @@ const etapeCreer = async (
       etape.points = titreEtapePointsCalc(etape.points)
     }
 
-    const documents = etape.documents || []
-    delete etape.documents
+    const documentIds = etape.documentIds || []
+    delete etape.documentIds
 
     const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,
@@ -260,12 +262,7 @@ const etapeCreer = async (
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
-    await documentsLier(
-      context,
-      documents.map(({ id }) => id),
-      etapeUpdated.id,
-      'titreEtapeId'
-    )
+    await documentsLier(context, documentIds, etapeUpdated.id, 'titreEtapeId')
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -338,13 +335,15 @@ const etapeModifier = async (
       titreDemarche.titre!.typeId
     )
 
-    const justificatifs = etape.justificatifs
+    const justificatifs = etape.justificatifIds?.length
       ? await documentsGet(
-          { ids: etape.justificatifs.map(({ id }) => id) },
+          { ids: etape.justificatifIds },
           { fields: { type: { id: {} } } },
           userSuper
         )
       : null
+    delete etape.justificatifIds
+    etape.justificatifs = justificatifs
 
     const rulesErrors = titreEtapeUpdationValidate(
       etape,
@@ -363,15 +362,15 @@ const etapeModifier = async (
     if (etape.points) {
       etape.points = titreEtapePointsCalc(etape.points)
     }
-    const documents = etape.documents || []
+    const documentIds = etape.documentIds || []
     await documentsLier(
       context,
-      documents.map(({ id }) => id),
+      documentIds,
       etape.id,
       'titreEtapeId',
       titreEtapeOld
     )
-    delete etape.documents
+    delete etape.documentIds
 
     const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,

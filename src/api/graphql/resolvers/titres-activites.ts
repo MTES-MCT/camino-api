@@ -1,7 +1,7 @@
 import dateFormat from 'dateformat'
 import { GraphQLResolveInfo } from 'graphql'
 
-import { IToken, ITitreActivite, ITitreActiviteColonneId } from '../../../types'
+import { ITitreActivite, ITitreActiviteColonneId, IToken } from '../../../types'
 
 import { debug } from '../../../config/index'
 
@@ -14,12 +14,12 @@ import {
 import { fieldsBuild } from './_fields-build'
 
 import {
+  titreActiviteDelete,
   titreActiviteGet,
-  titresActivitesCount,
-  titresActivitesGet,
-  titresActivitesAnneesGet,
   titreActiviteUpdate as titreActiviteUpdateQuery,
-  titreActiviteDelete
+  titresActivitesAnneesGet,
+  titresActivitesCount,
+  titresActivitesGet
 } from '../../../database/queries/titres-activites'
 import {
   userGet,
@@ -27,11 +27,10 @@ import {
 } from '../../../database/queries/utilisateurs'
 
 import { titreActiviteInputValidate } from '../../../business/validations/titre-activite-input-validate'
-import { titreActiviteCompleteCheck } from '../../../business/validations/titre-activite-complete-check'
 import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
 import { userSuper } from '../../../database/user-super'
-import { documentsModifier } from './documents'
 import { fichiersRepertoireDelete } from './_titre-document'
+import { documentsLier } from './documents'
 
 /**
  * Retourne une activité
@@ -227,8 +226,84 @@ const activitesAnnees = async (_: never, context: IToken) => {
   }
 }
 
+const activiteDeposer = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!user) throw new Error('droits insuffisants')
+
+    const activite = await titreActiviteGet(
+      id,
+      {
+        fields: {
+          documents: { id: {} },
+          type: { documentsTypes: { id: {} } }
+        }
+      },
+      user
+    )
+
+    if (!activite) throw new Error("l'activité n'existe pas")
+    const fields = fieldsBuild(info)
+
+    if (!titreActiviteFormat(activite, fields).deposable)
+      throw new Error('droits insuffisants')
+
+    await titreActiviteUpdateQuery(activite.id, {
+      statutId: 'dep',
+      utilisateurId: user.id,
+      dateSaisie: dateFormat(new Date(), 'yyyy-mm-dd')
+    })
+    const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
+
+    if (!activiteRes) throw new Error("l'activité n'existe pas")
+    const activiteFormated = titreActiviteFormat(activiteRes, fields)
+
+    const titre = activiteFormated.titre!
+
+    const isAmodiataire = titre.amodiataires?.some(t =>
+      user.entreprises?.some(e => e.id === t.id)
+    )
+
+    const entrepriseIds = isAmodiataire
+      ? titre.amodiataires?.map(t => t.id)
+      : titre.titulaires?.map(t => t.id)
+
+    const utilisateurs = await utilisateursGet(
+      {
+        entrepriseIds,
+        noms: undefined,
+        administrationIds: undefined,
+        permissionIds: undefined
+      },
+      { fields: {} },
+      userSuper
+    )
+
+    await titreActiviteEmailsSend(
+      activiteFormated,
+      activiteFormated.titre!.nom,
+      user,
+      utilisateurs,
+      activite.type!.email
+    )
+
+    return activiteFormated
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const activiteModifier = async (
-  { activite, depose }: { activite: ITitreActivite; depose: boolean },
+  { activite }: { activite: ITitreActivite & { documentIds?: string[] } },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -262,9 +337,8 @@ const activiteModifier = async (
     }
 
     activite.utilisateurId = user.id
-
-    const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
-    activite.dateSaisie = aujourdhui
+    activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
+    activite.statutId = 'enc'
 
     if (activite.contenu) {
       activite.contenu = titreActiviteContenuFormat(
@@ -276,68 +350,22 @@ const activiteModifier = async (
 
     const fields = fieldsBuild(info)
 
-    if (depose) {
-      const complete = titreActiviteCompleteCheck(
-        activite,
-        oldTitreActivite.sections,
-        oldTitreActivite.type!.documentsTypes
-      )
-
-      if (complete) {
-        activite.statutId = 'dep'
-      } else {
-        throw new Error('impossible de valider une activité incomplète')
-      }
-    } else {
-      activite.statutId = 'enc'
-    }
-
-    await documentsModifier(
+    const documentIds = activite.documentIds || []
+    await documentsLier(
       context,
-      info,
-      activite,
+      documentIds,
+      activite.id,
       'titreActiviteId',
       oldTitreActivite
     )
+    delete activite.documentIds
 
     await titreActiviteUpdateQuery(activite.id, activite)
     const activiteRes = await titreActiviteGet(activite.id, { fields }, user)
 
     if (!activiteRes) throw new Error("l'activité n'existe pas")
-    const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
-    if (activiteRes.statutId === 'dep') {
-      const titre = activiteFormated.titre!
-
-      const isAmodiataire = titre.amodiataires?.some(t =>
-        user.entreprises?.some(e => e.id === t.id)
-      )
-
-      const entrepriseIds = isAmodiataire
-        ? titre.amodiataires?.map(t => t.id)
-        : titre.titulaires?.map(t => t.id)
-
-      const utilisateurs = await utilisateursGet(
-        {
-          entrepriseIds,
-          noms: undefined,
-          administrationIds: undefined,
-          permissionIds: undefined
-        },
-        { fields: {} },
-        userSuper
-      )
-
-      await titreActiviteEmailsSend(
-        activiteFormated,
-        activiteFormated.titre!.nom,
-        user,
-        utilisateurs,
-        oldTitreActivite.type!.email
-      )
-    }
-
-    return activiteFormated
+    return titreActiviteFormat(activiteRes, fields)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -381,5 +409,6 @@ export {
   activites,
   activitesAnnees,
   activiteModifier,
-  activiteSupprimer
+  activiteSupprimer,
+  activiteDeposer
 }

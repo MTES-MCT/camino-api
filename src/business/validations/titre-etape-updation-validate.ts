@@ -168,19 +168,16 @@ const titreEtapeCompleteValidate = (
 
   // les justificatifs obligatoires sont tous présents
   const justificatifsTypesIds = [] as string[]
-  if (titreEtape.justificatifs?.length) {
-    for (const justificatif of titreEtape.justificatifs) {
-      const document = justificatifs?.find(({ id }) => id === justificatif.id)
-      if (!document) {
-        errors.push('impossible de lier un justificatif')
-      }
-
-      if (!justificatifsTypes.map(({ id }) => id).includes(document!.typeId)) {
+  if (justificatifs?.length) {
+    for (const justificatif of justificatifs) {
+      if (
+        !justificatifsTypes.map(({ id }) => id).includes(justificatif!.typeId)
+      ) {
         errors.push(
-          `impossible de lier un justificatif de type ${document!.typeId}`
+          `impossible de lier un justificatif de type ${justificatif!.typeId}`
         )
       }
-      justificatifsTypesIds.push(document!.typeId)
+      justificatifsTypesIds.push(justificatif!.typeId)
     }
   }
   justificatifsTypes

@@ -5,13 +5,17 @@ import dirCreate from '../dir-create'
 const documentFilePathFind = async (document: IDocument, creation = false) => {
   const repertoire = documentRepertoireFind(document)
 
-  const dirPath = `files/${repertoire}/${
+  const parentId =
     document.titreEtapeId ||
     document.titreActiviteId ||
     document.entrepriseId ||
-    document.titreTravauxEtapeId ||
-    ''
-  }`
+    document.titreTravauxEtapeId
+
+  let dirPath = `files/${repertoire}`
+
+  if (parentId) {
+    dirPath += `/${parentId}`
+  }
 
   if (creation) {
     await dirCreate(dirPath)

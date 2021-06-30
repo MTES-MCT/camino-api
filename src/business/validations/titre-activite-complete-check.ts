@@ -1,22 +1,23 @@
-import { IDocumentType, ISection, ITitreActivite } from '../../types'
+import { IContenu, IDocument, IDocumentType, ISection } from '../../types'
 
 import { documentsTypesValidate } from './documents-types-validate'
 
 const titreActiviteCompleteCheck = (
-  titreActivite: ITitreActivite,
-  activiteSections: ISection[],
+  sections: ISection[],
+  contenu?: IContenu | null,
+  documents?: IDocument[] | null,
   documentsTypes?: IDocumentType[]
 ) => {
-  const activiteComplete = activiteSections.every(s =>
+  const activiteComplete = sections.every(s =>
     s.elements?.every(
       e =>
         e.optionnel ||
-        (titreActivite.contenu &&
+        (contenu &&
           (e.type === 'checkboxes'
-            ? (titreActivite.contenu[s.id][e.id] as string[]).length
-            : titreActivite.contenu[s.id][e.id] !== undefined &&
-              titreActivite.contenu[s.id][e.id] !== null &&
-              titreActivite.contenu[s.id][e.id] !== ''))
+            ? (contenu[s.id][e.id] as string[]).length
+            : contenu[s.id][e.id] !== undefined &&
+              contenu[s.id][e.id] !== null &&
+              contenu[s.id][e.id] !== ''))
     )
   )
 
@@ -24,10 +25,7 @@ const titreActiviteCompleteCheck = (
     return false
   }
 
-  const documentsErrors = documentsTypesValidate(
-    titreActivite.documents,
-    documentsTypes
-  )
+  const documentsErrors = documentsTypesValidate(documents, documentsTypes)
 
   return !documentsErrors.length
 }

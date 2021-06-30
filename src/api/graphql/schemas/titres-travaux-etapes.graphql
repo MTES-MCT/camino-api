@@ -1,6 +1,7 @@
 # import * from 'scalars.graphql'
 # import * from 'metas.graphql'
 # import * from 'documents.graphql'
+# import * from 'titres-travaux.graphql'
 
 type TravauxEtape {
   id: ID!
@@ -15,6 +16,7 @@ type TravauxEtape {
   modification: Boolean
   suppression: Boolean
   documentsCreation: Boolean
+  travaux: Travail
 }
 
 input InputTravauxEtapeCreation {
@@ -26,7 +28,7 @@ input InputTravauxEtapeCreation {
   duree: Int
   surface: Float
   contenu: Json
-  documents: [InputDocument]
+  documentIds: [ID]
 }
 
 input InputTravauxEtapeModification {
@@ -39,5 +41,5 @@ input InputTravauxEtapeModification {
   duree: Int
   surface: Float
   contenu: Json
-  documents: [InputDocument]
+  documentIds: [ID]
 }

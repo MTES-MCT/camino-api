@@ -83,8 +83,14 @@ type Query {
   "Démarche en fonction de son id"
   demarche(id: ID!): Demarche
 
-  "Étape en fonction de son id"
+  "Étape d’une démarche en fonction de son id"
   etape(id: ID!): Etape
+
+  "Travaux en fonction de son id"
+  travaux(id: ID!): Travail
+
+  "Étape d’un travaux en fonction de son id"
+  travauxEtape(id: ID!): TravauxEtape
 
   etapeHeritage(date: String!, titreDemarcheId: ID!, typeId: ID!): EtapeHeritage
 
@@ -344,6 +350,9 @@ type Mutation {
     activite: InputActiviteModification!
     depose: Boolean
   ): Activite
+
+  "Dépose une activité"
+  activiteDeposer(id: ID!): Activite
 
   "Supprime une activité"
   activiteSupprimer(id: ID!): Activite

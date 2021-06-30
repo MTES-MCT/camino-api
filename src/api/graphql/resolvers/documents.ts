@@ -134,12 +134,7 @@ const documentCreer = async (
 ) => {
   try {
     const user = await userGet(context.user?.id)
-    let fields = fieldsBuild(info)
-
-    // FIXME à supprimer après le refactor des activités et des travaux
-    if (fields.documents) {
-      fields = fields.documents
-    }
+    const fields = fieldsBuild(info)
 
     if (!user) {
       throw new Error('droit insuffisants')
@@ -356,7 +351,7 @@ const documentsLier = async (
   context: IToken,
   documentIds: string[],
   parentId: string,
-  propParentId: 'titreActiviteId' | 'titreEtapeId',
+  propParentId: 'titreActiviteId' | 'titreEtapeId' | 'titreTravauxEtapeId',
   oldParent?: { documents?: IDocument[] | null }
 ) => {
   if (oldParent?.documents?.length) {
@@ -387,45 +382,10 @@ const documentsLier = async (
   }
 }
 
-const documentsModifier = async (
-  context: IToken,
-  info: GraphQLResolveInfo,
-  parent: { id: string; documents?: IDocument[] | null },
-  propParentId: 'titreActiviteId' | 'titreEtapeId',
-  oldParent?: { documents?: IDocument[] | null }
-) => {
-  const documents = parent.documents || []
-  if (oldParent?.documents?.length) {
-    // supprime les anciens documents ou ceux qui n'ont pas de fichier
-    const oldDocumentsIds = oldParent.documents.map(d => d.id)
-    for (const oldDocumentId of oldDocumentsIds) {
-      const document = documents.find(d => d.id === oldDocumentId)
-
-      if (!document || !(document.fichier || document.fichierNouveau)) {
-        await documentSupprimer({ id: oldDocumentId }, context)
-      }
-    }
-  }
-
-  // met à jour ou ajoute les documents
-  for (const document of documents) {
-    document[propParentId] = parent.id
-    if ((document.fichier || document.fichierNouveau) && document.date) {
-      if (document.id) {
-        await documentModifier({ document }, context)
-      } else {
-        await documentCreer({ document }, context, info)
-      }
-    }
-  }
-  delete parent.documents
-}
-
 export {
   documents,
   documentCreer,
   documentModifier,
   documentSupprimer,
-  documentsModifier,
   documentsLier
 }

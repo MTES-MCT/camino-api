@@ -28,10 +28,11 @@ type Activite {
   modification: Boolean
   suppression: Boolean
   documentsCreation: Boolean
+  deposable: Boolean
 }
 
 input InputActiviteModification {
   id: ID!
   contenu: Json
-  documents: [InputDocument]
+  documentIds: [ID!]
 }

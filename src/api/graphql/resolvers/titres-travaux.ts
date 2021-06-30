@@ -17,6 +17,31 @@ import titreTravauxUpdateTask from '../../../business/titre-travaux-update'
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 import { userGet } from '../../../database/queries/utilisateurs'
 
+const travaux = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const fields = fieldsBuild(info)
+    const user = await userGet(context.user?.id)
+
+    const titreTravaux = await titresTravauGet(id, { fields }, user)
+
+    if (!titreTravaux) {
+      throw new Error("le travail n'existe pas")
+    }
+
+    return titreTravaux
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const travauxCreer = async (
   { travaux }: { travaux: ITitreTravaux },
   context: IToken,
@@ -133,4 +158,4 @@ const travauxSupprimer = async (
   }
 }
 
-export { travauxCreer, travauxModifier, travauxSupprimer }
+export { travauxCreer, travauxModifier, travauxSupprimer, travaux }

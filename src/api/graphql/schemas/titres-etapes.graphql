@@ -179,8 +179,8 @@ input InputEtapeCreation {
   heritageProps: InputHeritageProps
   heritageContenu: Json
   contenu: Json
-  documents: [InputDocument]
-  justificatifs: [InputJustificatif]
+  documentIds: [ID]
+  justificatifIds: [ID]
 }
 
 input InputEtapeModification {
@@ -202,8 +202,8 @@ input InputEtapeModification {
   heritageProps: InputHeritageProps
   heritageContenu: Json
   contenu: Json
-  documents: [InputDocument]
-  justificatifs: [InputJustificatif]
+  documentIds: [ID]
+  justificatifIds: [ID]
 }
 
 input InputEtapeFiltre {

@@ -166,6 +166,14 @@ const fieldsFormat = (fields: IFields, parent: string) => {
     if (!fields.type.administrations) {
       fields.type.administrations = { id: {} }
     }
+
+    if (!fields.type.documentsTypes) {
+      fields.type.documentsTypes = { id: {} }
+    }
+
+    if (!fields.documents) {
+      fields.documents = { id: {} }
+    }
   }
   if (['utilisateurs', 'utilisateur'].includes(parent)) {
     if (fields.sections) {

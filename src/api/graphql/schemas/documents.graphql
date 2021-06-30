@@ -106,7 +106,3 @@ input InputDocument {
   publicLecture: Boolean
   entreprisesLecture: Boolean
 }
-
-input InputJustificatif {
-  id: ID!
-}
