@@ -43,6 +43,8 @@ import {
 import { permissionCheck } from '../../../tools/permission'
 import dateFormat from 'dateformat'
 import { documentsGet } from '../../../database/queries/documents'
+import { titreEtapeEmailsSend } from './_titre-etape-email'
+import { objectClone } from '../../../tools'
 
 const demandeDepose = (
   etape: ITitreEtape,
@@ -269,6 +271,14 @@ const etapeCreer = async (
       etapeUpdated.titreDemarcheId
     )
 
+    await titreEtapeEmailsSend(
+      etape,
+      titreDemarche.typeId,
+      titreDemarche.titre.nom,
+      titreDemarche.titreId,
+      titreDemarche.titre.typeId,
+      user!
+    )
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
@@ -402,6 +412,16 @@ const etapeModifier = async (
       etapeUpdated.titreDemarcheId
     )
 
+    await titreEtapeEmailsSend(
+      etape,
+      titreDemarche.typeId,
+      titreDemarche.titre.nom,
+      titreDemarche.titreId,
+      titreDemarche.titre.typeId,
+      user!,
+      titreEtapeOld
+    )
+
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
 
@@ -426,6 +446,7 @@ const etapeDeposer = async (
     let titreEtape = await titreEtapeGet(id, { fields: { id: {} } }, user)
 
     if (!titreEtape) throw new Error("l'étape n'existe pas")
+    const titreEtapeOld = objectClone(titreEtape)
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
@@ -453,6 +474,16 @@ const etapeDeposer = async (
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
       etapeUpdated.titreDemarcheId
+    )
+
+    await titreEtapeEmailsSend(
+      etapeUpdated,
+      titreDemarche.typeId,
+      titreDemarche.titre!.nom,
+      titreDemarche.titreId,
+      titreDemarche.titre!.typeId,
+      user!,
+      titreEtapeOld
     )
 
     const fields = fieldsBuild(info)

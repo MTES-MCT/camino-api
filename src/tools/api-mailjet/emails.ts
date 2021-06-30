@@ -23,11 +23,11 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
     // si on est pas sur le serveur de prod
     // l'adresse email du destinataire est remplacée
     if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
-      subject = `[dev]${subject}`
-      emails = [process.env.ADMIN_EMAIL!]
+      subject = `[dev] ${subject}`
       html = `<p style="color: red">destinataire(s): ${emails.join(
         ', '
       )} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV}</p> ${html}`
+      emails = [process.env.ADMIN_EMAIL!]
     }
 
     subject = `[Camino] ${subject}`
