@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.88](https://github.com/MTES-MCT/camino-api/compare/v0.24.87...v0.24.88) (2021-07-02)
+
+
+### Features
+
+* **notifications:** envoie des notifications à différentes administration lors d’une demande d’ARM ([ccc5ca5](https://github.com/MTES-MCT/camino-api/commit/ccc5ca540d78a303d87ec722b4b0f38e78386fb5))
+
+
+### Bug Fixes
+
+* **arbre:** corrige le calcul de l’ordre dans les arbres d’instructions ([#775](https://github.com/MTES-MCT/camino-api/issues/775)) ([25738e8](https://github.com/MTES-MCT/camino-api/commit/25738e875003786160aa15fa40865039c81935fe))
+* **document:** retourne correctement le document après sa modification ([08c9c16](https://github.com/MTES-MCT/camino-api/commit/08c9c1680e2ead59e37135072d592015e4b02d50))
+* **notifications:** corrige le contenu des emails pour les notifications sur les ARM ([45c894e](https://github.com/MTES-MCT/camino-api/commit/45c894edb33208c812e77467f4fc42f3d5afffd0))
+* **travaux:** corrige l’ordre des étapes de travaux ([c8b7a86](https://github.com/MTES-MCT/camino-api/commit/c8b7a868746ffe70e17116bf911fefb85d01ef17))
+
 ### [0.24.87](https://github.com/MTES-MCT/camino-api/compare/v0.24.86...v0.24.87) (2021-06-23)
 
 
