@@ -273,6 +273,7 @@ const etapeCreer = async (
 
     await titreEtapeEmailsSend(
       etape,
+      etapeType,
       titreDemarche.typeId,
       titreDemarche.titre.nom,
       titreDemarche.titreId,
@@ -414,6 +415,7 @@ const etapeModifier = async (
 
     await titreEtapeEmailsSend(
       etape,
+      etapeType,
       titreDemarche.typeId,
       titreDemarche.titre.nom,
       titreDemarche.titreId,
@@ -443,7 +445,11 @@ const etapeDeposer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    let titreEtape = await titreEtapeGet(id, { fields: { id: {} } }, user)
+    let titreEtape = await titreEtapeGet(
+      id,
+      { fields: { type: { id: {} } } },
+      user
+    )
 
     if (!titreEtape) throw new Error("l'étape n'existe pas")
     const titreEtapeOld = objectClone(titreEtape)
@@ -478,6 +484,7 @@ const etapeDeposer = async (
 
     await titreEtapeEmailsSend(
       etapeUpdated,
+      titreEtape.type!,
       titreDemarche.typeId,
       titreDemarche.titre!.nom,
       titreDemarche.titreId,

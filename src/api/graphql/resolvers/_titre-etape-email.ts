@@ -1,19 +1,20 @@
-import { ITitreEtape, IUtilisateur } from '../../../types'
+import { IEtapeType, ITitreEtape, IUtilisateur } from '../../../types'
 
 import { emailsSend } from '../../../tools/api-mailjet/emails'
 
 const emailContentFormat = (
-  subject: string,
+  etapeNom: string,
+  titreNom: string,
   titreId: string,
   user: IUtilisateur
 ) =>
   `
-  <h1>${subject}</h1>
+  <h3>L’étape « ${etapeNom} » de la demande pour l’ARM ${titreNom} vient d’être réalisée.</h3>
   
   <hr>
   
-  <b>Lien</b> : ${process.env.UI_URL}/titres/${titreId} <br>
-  <b>Effectué par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
+  <b>Lien</b> : <a href="${process.env.UI_URL}/titres/${titreId}">${process.env.UI_URL}/titres/${titreId}</a> <br>
+  <b>Effectué par</b> : ${user.prenom} ${user.nom} (${user.email})<br>
   
   `
 
@@ -29,6 +30,7 @@ const etapeStatusUpdated = (
 
 const emailGet = (
   etape: ITitreEtape,
+  etapeType: IEtapeType,
   demarcheTypeId: string,
   titreNom: string,
   titreId: string,
@@ -37,8 +39,7 @@ const emailGet = (
   oldEtape?: ITitreEtape
 ): { subject: string; content: string; emails: string[] } | null => {
   const emails = [] as string[]
-  let subject = ''
-  let content = ''
+  let title = ''
 
   if (demarcheTypeId === 'oct' && titreTypeId === 'arm') {
     // lorsque la demande est déposée
@@ -46,19 +47,19 @@ const emailGet = (
       emails.push('ptmg@ctguyane.fr')
       emails.push('pole.minier@onf.fr')
 
-      subject = 'Nouvelle demande déposée'
+      title = 'Nouvelle demande déposée'
 
       // lorsque le PTMG déclare le dossier complet
     } else if (etapeStatusUpdated(etape, 'mcp', 'fav', oldEtape)) {
       emails.push('pole.minier@onf.fr')
 
-      subject = 'Nouveau dossier complet'
+      title = 'Nouveau dossier complet'
 
       // lorsque la demande est complète
     } else if (etapeStatusUpdated(etape, 'mcr', 'fav', oldEtape)) {
       emails.push('mc.remd.deal-guyane@developpement-durable.gouv.fr')
 
-      subject = 'Nouvelle demande complète'
+      title = 'Nouvelle demande complète'
     }
   }
 
@@ -66,18 +67,15 @@ const emailGet = (
     return null
   }
 
-  subject = `${titreNom} |`
-  if (etape.type) {
-    subject += ` ${etape.type!.nom} |`
-  }
-  subject += ` ${subject}`
-  content = emailContentFormat(subject, titreId, user)
+  const subject = `${titreNom} | ${etapeType.nom} | ${title}`
+  const content = emailContentFormat(etapeType.nom, titreNom, titreId, user)
 
   return { subject, content, emails }
 }
 
 const titreEtapeEmailsSend = async (
   etape: ITitreEtape,
+  etapeType: IEtapeType,
   demarcheTypeId: string,
   titreNom: string,
   titreId: string,
@@ -87,6 +85,7 @@ const titreEtapeEmailsSend = async (
 ) => {
   const email = emailGet(
     etape,
+    etapeType,
     demarcheTypeId,
     titreNom,
     titreId,
