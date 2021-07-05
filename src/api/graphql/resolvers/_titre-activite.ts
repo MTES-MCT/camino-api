@@ -139,9 +139,12 @@ const titreActiviteEmailsSend = async (
   activite: ITitreActivite,
   titreNom: string,
   user: IUtilisateur,
-  utilisateurs: IUtilisateur[],
+  utilisateurs: IUtilisateur[] | undefined | null,
   adminEmail?: string | null
 ) => {
+  if (!utilisateurs || !utilisateurs.length) {
+    return
+  }
   const subject = titreActiviteEmailTitleFormat(activite, titreNom)
   const content = titreActiviteEmailFormat(activite, subject, user)
   const emails = titreActiviteEmailsGet(utilisateurs)

@@ -34,11 +34,11 @@ const fieldsTitreAdd = (fields: IFields) => {
   }
 
   if (!fields.titre.titulaires) {
-    fields.titre.titulaires = {}
+    fields.titre.titulaires = { id: {} }
   }
 
   if (!fields.titre.amodiataires) {
-    fields.titre.amodiataires = {}
+    fields.titre.amodiataires = { id: {} }
   }
 
   return fields
