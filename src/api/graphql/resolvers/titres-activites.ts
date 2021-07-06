@@ -31,6 +31,7 @@ import { titreActiviteDeletionValidate } from '../../../business/validations/tit
 import { userSuper } from '../../../database/user-super'
 import { fichiersRepertoireDelete } from './_titre-document'
 import { documentsLier } from './documents'
+import { titreGet } from '../../../database/queries/titres'
 
 /**
  * Retourne une activité
@@ -263,7 +264,11 @@ const activiteDeposer = async (
     if (!activiteRes) throw new Error("l'activité n'existe pas")
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
-    const titre = activiteFormated.titre!
+    const titre = await titreGet(
+      activiteRes.titreId,
+      { fields: { titulaires: { id: {} }, amodiataires: { id: {} } } },
+      userSuper
+    )
 
     const isAmodiataire = titre.amodiataires?.some(t =>
       user.entreprises?.some(e => e.id === t.id)
@@ -273,24 +278,30 @@ const activiteDeposer = async (
       ? titre.amodiataires?.map(t => t.id)
       : titre.titulaires?.map(t => t.id)
 
-    const utilisateurs = await utilisateursGet(
-      {
-        entrepriseIds,
-        noms: undefined,
-        administrationIds: undefined,
-        permissionIds: undefined
-      },
-      { fields: {} },
-      userSuper
-    )
+    if (entrepriseIds?.length) {
+      const utilisateurs = await utilisateursGet(
+        {
+          entrepriseIds,
+          noms: undefined,
+          administrationIds: undefined,
+          permissionIds: undefined
+        },
+        { fields: {} },
+        userSuper
+      )
 
-    await titreActiviteEmailsSend(
-      activiteFormated,
-      activiteFormated.titre!.nom,
-      user,
-      utilisateurs,
-      activite.type!.email
-    )
+      await titreActiviteEmailsSend(
+        activiteFormated,
+        activiteFormated.titre!.nom,
+        user,
+        utilisateurs,
+        activite.type!.email
+      )
+    } else {
+      console.error(
+        `impossible d’envoyer d’email pour le dépôt de l’activité ${id}`
+      )
+    }
 
     return activiteFormated
   } catch (e) {

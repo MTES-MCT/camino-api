@@ -20,6 +20,13 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
       }
     })
 
+    // Garde-fou pas top mais efficace pour éviter d’envoyer des emails à trop de gens
+    if (emails.length > 40) {
+      throw new Error(
+        `email non envoyé car trop de destinataires pour l’email ${subject}`
+      )
+    }
+
     // si on est pas sur le serveur de prod
     // l'adresse email du destinataire est remplacée
     if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
