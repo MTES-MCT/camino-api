@@ -15,6 +15,7 @@ import {
   titreEtapeDelete,
   titreEtapeGet,
   titreEtapeJustificatifsDelete,
+  titreEtapeUpdate,
   titreEtapeUpsert,
   titresEtapesJustificatifsUpsert
 } from '../../../database/queries/titres-etapes'
@@ -46,25 +47,27 @@ import { documentsGet } from '../../../database/queries/documents'
 import { titreEtapeEmailsSend } from './_titre-etape-email'
 import { objectClone } from '../../../tools'
 
-const demandeDepose = (
+const statutIdAndDateGet = (
   etape: ITitreEtape,
   user: IUtilisateur,
   depose = false
-) => {
+): { date: string; statutId: string } => {
+  const result = { date: etape.date, statutId: etape.statutId }
+
   if (depose) {
     if (etape.typeId !== 'mfr') {
       throw new Error('seules les demandes peuvent être déposées')
     }
 
-    etape.statutId = 'dep'
+    result.statutId = 'dep'
     if (permissionCheck(user.permissionId, ['entreprise'])) {
-      etape.date = dateFormat(new Date(), 'yyyy-mm-dd')
+      result.date = dateFormat(new Date(), 'yyyy-mm-dd')
     }
   } else if (etape.typeId === 'mfr' && !etape.statutId) {
-    etape.statutId = 'aco'
+    result.statutId = 'aco'
   }
 
-  return etape
+  return result
 }
 
 const etape = async (
@@ -216,7 +219,9 @@ const etapeCreer = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
-    etape = demandeDepose(etape, user!)
+    const { statutId, date } = statutIdAndDateGet(etape, user!)
+    etape.statutId = statutId
+    etape.date = date
 
     const sections = etapeTypeSectionsFormat(
       etapeType,
@@ -338,7 +343,9 @@ const etapeModifier = async (
       throw new Error(`le type d'étape "${etape.typeId}" n'existe pas`)
     }
 
-    etape = demandeDepose(etape, user!)
+    const { statutId, date } = statutIdAndDateGet(etape, user!)
+    etape.statutId = statutId
+    etape.date = date
 
     const sections = etapeTypeSectionsFormat(
       etapeType,
@@ -473,9 +480,16 @@ const etapeDeposer = async (
 
     if (!titreEtape.deposable) throw new Error('droits insuffisants')
 
-    titreEtape = demandeDepose(titreEtape, user!, true)
+    const statutIdAndDate = statutIdAndDateGet(titreEtape, user!, true)
 
-    const etapeUpdated = await titreEtapeUpsert(titreEtape)
+    await titreEtapeUpdate(titreEtape.id, statutIdAndDate)
+    const etapeUpdated = await titreEtapeGet(
+      titreEtape.id,
+      {
+        fields: { id: {} }
+      },
+      user
+    )
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
