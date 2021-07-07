@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.90](https://github.com/MTES-MCT/camino-api/compare/v0.24.89...v0.24.90) (2021-07-07)
+
+
+### Features
+
+* **emails:** rend l’envoie d’emails plus fiable ([#777](https://github.com/MTES-MCT/camino-api/issues/777)) ([892cee4](https://github.com/MTES-MCT/camino-api/commit/892cee4c0e752080106ea1ce585fd36652fba0a1))
+
+
+### Bug Fixes
+
+* **étape:** corrige les modifications par effet de bord pendant le dépôt d’une demande ([#778](https://github.com/MTES-MCT/camino-api/issues/778)) ([05d36cf](https://github.com/MTES-MCT/camino-api/commit/05d36cf5e60b64de5946db50fb22ed54f28b4420))
+
 ### [0.24.89](https://github.com/MTES-MCT/camino-api/compare/v0.24.88...v0.24.89) (2021-07-05)
 
 
