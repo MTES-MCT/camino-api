@@ -134,11 +134,7 @@ const activitesTypesTitresTypes = async (_: never, context: IToken) => {
 
     const activitesTypesTitresTypes = await activitesTypesTitresTypesGet()
 
-    return activitesTypesTitresTypes.map(attt => {
-      attt.titreType!.nom = `${attt.titreType?.type.nom} (${attt.titreType?.domaine.nom})`
-
-      return attt
-    })
+    return activitesTypesTitresTypes
   } catch (e) {
     if (debug) {
       console.error(e)

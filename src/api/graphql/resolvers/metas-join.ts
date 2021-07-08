@@ -54,6 +54,8 @@ import {
   etapeTypeJustificatifTypeUsedCheck
 } from '../../../database/queries/permissions/documents'
 import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'
+import { GraphQLResolveInfo } from 'graphql'
+import { fieldsBuild } from './_fields-build'
 
 const titresTypes = async (_: never, context: IToken) => {
   try {
@@ -152,7 +154,11 @@ const titreTypeSupprimer = async (
 
 //
 
-const titresTypesTitresStatuts = async (_: never, context: IToken) => {
+const titresTypesTitresStatuts = async (
+  _: never,
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
     const user = await userGet(context.user?.id)
 
@@ -160,13 +166,9 @@ const titresTypesTitresStatuts = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
+    const fields = fieldsBuild(info)
 
-    return titresTypesTitresStatuts.map(ttts => {
-      ttts.titreType!.nom = `${ttts.titreType?.type.nom} (${ttts.titreType?.domaine.nom})`
-
-      return ttts
-    })
+    return await titresTypesTitresStatutsGet(_, { fields })
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -193,7 +195,12 @@ const titreTypeTitreStatutModifier = async (
       titreTypeTitreStatut
     )
 
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
+    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet(
+      null as never,
+      {
+        fields: { id: {} }
+      }
+    )
 
     return titresTypesTitresStatuts
   } catch (e) {
@@ -218,7 +225,10 @@ const titreTypeTitreStatutCreer = async (
 
     await titreTypeTitreStatutCreate(titreTypeTitreStatut)
 
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
+    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet(
+      null as never,
+      { fields: { id: {} } }
+    )
 
     return titresTypesTitresStatuts
   } catch (e) {
@@ -246,7 +256,10 @@ const titreTypeTitreStatutSupprimer = async (
       titreTypeTitreStatut.titreStatutId
     )
 
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
+    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet(
+      null as never,
+      { fields: { id: {} } }
+    )
 
     return titresTypesTitresStatuts
   } catch (e) {
@@ -268,11 +281,7 @@ const titresTypesDemarchesTypes = async (_: never, context: IToken) => {
 
     const titresTypesDemarchesTypes = await titresTypesDemarchesTypesGet()
 
-    return titresTypesDemarchesTypes.map(ttdt => {
-      ttdt.titreType!.nom = `${ttdt.titreType?.type.nom} (${ttdt.titreType?.domaine.nom})`
-
-      return ttdt
-    })
+    return titresTypesDemarchesTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -380,11 +389,7 @@ const titresTypesDemarchesTypesEtapesTypes = async (
     const titresTypesDemarchesTypesEtapesTypes =
       await titresTypesDemarchesTypesEtapesTypesGet()
 
-    return titresTypesDemarchesTypesEtapesTypes.map(ttdtet => {
-      ttdtet.titreType!.nom = `${ttdtet.titreType?.type.nom} (${ttdtet.titreType?.domaine.nom})`
-
-      return ttdtet
-    })
+    return titresTypesDemarchesTypesEtapesTypes
   } catch (e) {
     if (debug) {
       console.error(e)

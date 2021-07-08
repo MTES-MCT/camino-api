@@ -157,10 +157,18 @@ const titreTypeCreate = async (titreType: ITitreType) =>
 
 const titreTypeDelete = async (id: string) => TitresTypes.query().deleteById(id)
 
-const titresTypesTitresStatutsGet = async () =>
-  TitresTypesTitresStatuts.query()
-    .withGraphFetched(options.titresTypesTitresStatuts.graph)
+const titresTypesTitresStatutsGet = async (
+  _: never,
+  { fields }: { fields?: IFields }
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'titresTypesTitresStatuts', fieldsFormat)
+    : options.titresTypesTitresStatuts.graph
+
+  return TitresTypesTitresStatuts.query()
+    .withGraphFetched(graph)
     .orderBy(['titreTypeId', 'titreStatutId'])
+}
 
 const titreTypeTitreStatutUpdate = async (
   titreTypeId: string,
