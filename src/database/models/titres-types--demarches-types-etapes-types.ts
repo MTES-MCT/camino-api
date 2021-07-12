@@ -1,6 +1,7 @@
 import { Model } from 'objection'
 import { ITitreTypeDemarcheTypeEtapeType } from '../../types'
 import EtapesTypes from './etapes-types'
+import { join } from 'path'
 
 interface TitresTypesDemarchesTypesEtapesTypes
   extends ITitreTypeDemarcheTypeEtapeType {}
@@ -30,6 +31,28 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
       join: {
         from: 'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
         to: 'etapesTypes.id'
+      }
+    },
+
+    documentsTypes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'documents-types'),
+      join: {
+        from: [
+          'titresTypes__demarchesTypes__etapesTypes.titreTypeId',
+          'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
+          'titresTypes__demarchesTypes__etapesTypes.etapeTypeId'
+        ],
+        through: {
+          from: [
+            'titresTypes__demarchesTypes__etapesTypes__documentsTypes.titreTypeId',
+            'titresTypes__demarchesTypes__etapesTypes__documentsTypes.demarcheTypeId',
+            'titresTypes__demarchesTypes__etapesTypes__documentsTypes.etapeTypeId'
+          ],
+          to: 'titresTypes__demarchesTypes__etapesTypes__documentsTypes.documentTypeId',
+          extra: ['optionnel']
+        },
+        to: 'documentsTypes.id'
       }
     }
   }

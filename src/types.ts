@@ -332,6 +332,12 @@ interface IEtapeTypeDocumentType {
   optionnel?: boolean
 }
 
+interface ITitreTypeDemarcheTypeEtapeTypeDocumentType
+  extends IEtapeTypeDocumentType {
+  titreTypeId: string
+  demarcheTypeId: string
+}
+
 interface IEtapeTypeJustificatifType extends IEtapeTypeDocumentType {}
 
 interface IEtapeType {
@@ -931,6 +937,7 @@ interface ITitreTypeDemarcheTypeEtapeType {
   sections?: ISection[] | null
   ordre: number
   etapeType?: IEtapeType
+  documentsTypes?: IDocumentType[] | null
 }
 
 interface IUnite {
@@ -1096,6 +1103,7 @@ export {
   ITitreType,
   ITitreTypeType,
   ITitreTypeDemarcheTypeEtapeType,
+  ITitreTypeDemarcheTypeEtapeTypeDocumentType,
   ITitreEntreprise,
   ITravauxType,
   ITravauxEtapeType,

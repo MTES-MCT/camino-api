@@ -14,6 +14,7 @@ const titresTypes__demarchesTypes = require('../../sources/titres-types--demarch
 const demarchesStatuts = require('../../sources/demarches-statuts.json')
 const etapesTypes = require('../../sources/etapes-types.json')
 const titresTypes_demarchesTypes_etapesTypes = require('../../sources/titres-types--demarches-types--etapes-types.json')
+const titresTypes_demarchesTypes_etapesTypes_documentsTypes = require('../../sources/titres-types--demarches-types--etapes-types--documents-types.json')
 const etapesStatuts = require('../../sources/etapes-statuts.json')
 const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
 const etapesTypes_documentsTypes = require('../../sources/etapes-types--documents-types.json')
@@ -53,6 +54,10 @@ const seed = (module.exports = seeding(async ({ insert }) => {
     insert(
       'titresTypes__demarchesTypes__etapesTypes',
       titresTypes_demarchesTypes_etapesTypes
+    ),
+    insert(
+      'titresTypes__demarchesTypes__etapesTypes__documentsTypes',
+      titresTypes_demarchesTypes_etapesTypes_documentsTypes
     ),
     insert('etapesTypes__documentsTypes', etapesTypes_documentsTypes),
     insert('etapesTypes__etapesStatuts', etapesTypes_etapesStatuts),
