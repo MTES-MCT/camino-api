@@ -27,19 +27,25 @@ type TravauxEtapeType {
 
 type TravauxTypeTravauxEtapeType {
   travauxTypeId: ID!
+  travauxType: TravauxType
   travauxEtapeTypeId: ID!
+  travauxEtapeType: TravauxEtapeType
   ordre: Int!
 }
 
 type TravauxEtapeTypeDocumentType {
   travauxEtapeTypeId: ID!
+  travauxEtapeType: TravauxEtapeType
   documentTypeId: ID!
+  documentType: DocumentType
   optionnel: Boolean
 }
 
 type TravauxEtapeTypeEtapeStatut {
   travauxEtapeTypeId: ID!
+  travauxEtapeType: TravauxEtapeType
   etapeStatutId: ID!
+  etapeStatut: EtapeStatut
   ordre: Int!
 }
 

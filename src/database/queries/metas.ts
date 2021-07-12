@@ -157,8 +157,18 @@ const titreTypeCreate = async (titreType: ITitreType) =>
 
 const titreTypeDelete = async (id: string) => TitresTypes.query().deleteById(id)
 
-const titresTypesTitresStatutsGet = async () =>
-  TitresTypesTitresStatuts.query().orderBy(['titreTypeId', 'titreStatutId'])
+const titresTypesTitresStatutsGet = async (
+  _: never,
+  { fields }: { fields?: IFields }
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'titresTypesTitresStatuts', fieldsFormat)
+    : options.titresTypesTitresStatuts.graph
+
+  return TitresTypesTitresStatuts.query()
+    .withGraphFetched(graph)
+    .orderBy(['titreTypeId', 'titreStatutId'])
+}
 
 const titreTypeTitreStatutUpdate = async (
   titreTypeId: string,
@@ -180,7 +190,9 @@ const titreTypeTitreStatutDelete = async (
 ) => TitresTypesTitresStatuts.query().deleteById([titreTypeId, titreStatutId])
 
 const titresTypesDemarchesTypesGet = async () =>
-  TitresTypesDemarchesTypes.query().orderBy(['titreTypeId', 'demarcheTypeId'])
+  TitresTypesDemarchesTypes.query()
+    .withGraphFetched(options.titresTypesDemarchesTypes.graph)
+    .orderBy(['titreTypeId', 'demarcheTypeId'])
 
 const titreTypeDemarcheTypeUpdate = async (
   titreTypeId: string,
@@ -202,11 +214,9 @@ const titreTypeDemarcheTypeDelete = async (
 ) => TitresTypesDemarchesTypes.query().deleteById([titreTypeId, demarcheTypeId])
 
 const titresTypesDemarchesTypesEtapesTypesGet = async () =>
-  TitresTypesDemarchesTypesEtapesTypes.query().orderBy([
-    'titreTypeId',
-    'demarcheTypeId',
-    'etapeTypeId'
-  ])
+  TitresTypesDemarchesTypesEtapesTypes.query()
+    .withGraphFetched(options.titresTypesDemarchesTypesEtapesTypes.graph)
+    .orderBy(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
 
 const titreTypeDemarcheTypeEtapeTypeUpdate = async (
   titreTypeId: string,
@@ -237,7 +247,9 @@ const titreTypeDemarcheTypeEtapeTypeDelete = async (
   ])
 
 const etapesTypesEtapesStatutsGet = async () =>
-  EtapesTypesEtapesStatuts.query().orderBy(['etapeTypeId', 'etapeStatutId'])
+  EtapesTypesEtapesStatuts.query()
+    .withGraphFetched(options.etapesTypesEtapesStatuts.graph)
+    .orderBy(['etapeTypeId', 'etapeStatutId'])
 
 const etapeTypeEtapeStatutUpdate = async (
   etapeTypeId: string,
@@ -259,7 +271,9 @@ const etapeTypeEtapeStatutDelete = async (
 ) => EtapesTypesEtapesStatuts.query().deleteById([etapeTypeId, etapeStatutId])
 
 const etapesTypesDocumentsTypesGet = async () =>
-  EtapesTypesDocumentsTypes.query().orderBy(['etapeTypeId', 'documentTypeId'])
+  EtapesTypesDocumentsTypes.query()
+    .withGraphFetched(options.etapesTypesDocumentsTypes.graph)
+    .orderBy(['etapeTypeId', 'documentTypeId'])
 
 const etapeTypeDocumentTypeUpdate = async (
   etapeTypeId: string,
@@ -281,10 +295,9 @@ const etapeTypeDocumentTypeDelete = async (
 ) => EtapesTypesDocumentsTypes.query().deleteById([etapeTypeId, documentTypeId])
 
 const etapesTypesJustificatifsTypesGet = async () =>
-  EtapesTypesJustificatifsTypes.query().orderBy([
-    'etapeTypeId',
-    'documentTypeId'
-  ])
+  EtapesTypesJustificatifsTypes.query()
+    .withGraphFetched(options.etapesTypesDocumentsTypes.graph)
+    .orderBy(['etapeTypeId', 'documentTypeId'])
 
 const etapeTypeJustificatifTypeUpdate = async (
   etapeTypeId: string,

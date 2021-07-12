@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import { join } from 'path'
 import { ITitreTypeDemarcheTypeEtapeType } from '../../types'
 import EtapesTypes from './etapes-types'
 
@@ -24,6 +25,22 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
   public static idColumn = ['titreTypeId', 'demarcheTypeId', 'etapeTypeId']
 
   public static relationMappings = {
+    titreType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'titres-types'),
+      join: {
+        from: 'titresTypes__demarchesTypes__etapesTypes.titreTypeId',
+        to: 'titresTypes.id'
+      }
+    },
+    demarcheType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'demarches-types'),
+      join: {
+        from: 'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
+        to: 'demarchesTypes.id'
+      }
+    },
     etapeType: {
       relation: Model.BelongsToOneRelation,
       modelClass: EtapesTypes,

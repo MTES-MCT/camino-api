@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import { join } from 'path'
 
 import { IActiviteTypeDocumentType } from '../../types'
 
@@ -19,6 +20,25 @@ class ActivitesTypesDocumentsTypes extends Model {
   }
 
   public static idColumn = ['activiteTypeId', 'documentTypeId']
+
+  public static relationMappings = {
+    activiteType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'activites-types'),
+      join: {
+        from: 'activitesTypes__documentsTypes.activiteTypeId',
+        to: 'activitesTypes.id'
+      }
+    },
+    documentType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'documents-types'),
+      join: {
+        from: 'activitesTypes__documentsTypes.documentTypeId',
+        to: 'documentsTypes.id'
+      }
+    }
+  }
 }
 
 export default ActivitesTypesDocumentsTypes

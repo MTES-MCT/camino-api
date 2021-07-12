@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import { join } from 'path'
 
 import { IActiviteTypePays } from '../../types'
 
@@ -18,6 +19,25 @@ class ActivitesTypesPays extends Model {
   }
 
   public static idColumn = ['activiteTypeId', 'paysId']
+
+  public static relationMappings = {
+    activiteType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'activites-types'),
+      join: {
+        from: 'activitesTypes__pays.activiteTypeId',
+        to: 'activitesTypes.id'
+      }
+    },
+    pays: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'pays'),
+      join: {
+        from: 'activitesTypes__pays.paysId',
+        to: 'pays.id'
+      }
+    }
+  }
 }
 
 export default ActivitesTypesPays
