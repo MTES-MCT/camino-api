@@ -1,5 +1,6 @@
 import {
   IDemarcheType,
+  IDocumentType,
   IEtapeType,
   ISection,
   ITitre,
@@ -49,15 +50,50 @@ const etapeTypeSectionsFormat = (
   return titreSectionsFormat(sections)
 }
 
+const documentsTypesFormat = (
+  documentsTypes: IDocumentType[] | undefined | null,
+  documentsTypesSpecifiques: IDocumentType[] | undefined | null
+): IDocumentType[] => {
+  const result: IDocumentType[] = []
+
+  if (documentsTypes?.length) {
+    result.push(...documentsTypes)
+  }
+
+  if (documentsTypesSpecifiques?.length) {
+    documentsTypesSpecifiques.forEach(documentTypeSpecifique => {
+      const documentType = result.find(
+        ({ id }) => id === documentTypeSpecifique.id
+      )
+
+      // Si il est déjà présent, on override juste son attribut « optionnel »
+      if (documentType) {
+        documentType.optionnel = documentTypeSpecifique.optionnel
+      } else {
+        result.push(documentTypeSpecifique)
+      }
+    })
+  }
+
+  return result
+}
+
 const etapeTypeFormat = (
   etapeType: IEtapeType,
   demarcheTypeEtapesTypes: IEtapeType[],
-  titreTypeId: string
+  titreTypeId: string,
+  documentsTypesSpecifiques: IDocumentType[] | null | undefined
 ) => {
   etapeType.sections = etapeTypeSectionsFormat(
     etapeType,
     demarcheTypeEtapesTypes,
     titreTypeId
+  )
+
+  // on ajoute les documents spécifiques
+  etapeType.documentsTypes = documentsTypesFormat(
+    etapeType.documentsTypes,
+    documentsTypesSpecifiques
   )
 
   return etapeType
@@ -109,4 +145,9 @@ const etapeTypeIsValidCheck = (
   return etapeTypeIsValid
 }
 
-export { etapeTypeIsValidCheck, etapeTypeSectionsFormat, etapeTypeFormat }
+export {
+  etapeTypeIsValidCheck,
+  etapeTypeSectionsFormat,
+  etapeTypeFormat,
+  documentsTypesFormat
+}

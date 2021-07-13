@@ -72,7 +72,6 @@ class TitresTravauxEtapes extends Model {
   public $formatDatabaseJson(json: Pojo) {
     delete json.modification
     delete json.suppression
-    delete json.documentsCreation
     json = super.$formatDatabaseJson(json)
 
     return json
@@ -85,7 +84,6 @@ class TitresTravauxEtapes extends Model {
 
     delete json.modification
     delete json.suppression
-    delete json.documentsCreation
     json = super.$parseJson(json)
 
     return json

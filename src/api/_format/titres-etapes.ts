@@ -29,7 +29,8 @@ const titreEtapeFormat = (
     titreEtape.type = etapeTypeFormat(
       titreEtape.type,
       demarcheTypeEtapesTypes,
-      titreTypeId
+      titreTypeId,
+      titreEtape.documentsTypesSpecifiques
     )
   }
 

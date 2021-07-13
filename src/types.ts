@@ -687,7 +687,6 @@ interface ITitreActivite {
   documents?: IDocument[] | null
   modification?: boolean | null
   suppression?: boolean | null
-  documentsCreation?: boolean | null
   deposable?: boolean | null
 }
 
@@ -805,6 +804,7 @@ interface ITitreEtapeOrTitreTravauxEtape {
   modification?: boolean | null
   suppression?: boolean | null
   documentIds?: string[] | null
+  documentsTypesSpecifiques?: IDocumentType[] | null
 }
 
 interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
@@ -828,8 +828,6 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
-  justificatifsAssociation?: boolean | null
-  documentsCreation?: boolean | null
   deposable?: boolean | null
 }
 

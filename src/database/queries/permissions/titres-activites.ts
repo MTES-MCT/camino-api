@@ -11,7 +11,6 @@ import { permissionCheck } from '../../../tools/permission'
 import Titres from '../../models/titres'
 import Documents from '../../models/documents'
 import TitresActivites from '../../models/titres-activites'
-import DocumentsTypes from '../../models/documents-types'
 
 import { documentsQueryModify } from './documents'
 import {
@@ -233,19 +232,6 @@ const titresActivitesPropsQueryModify = (
 
   if (!permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('false').as('suppression'))
-  }
-
-  if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
-    const documentsTypesQuery = DocumentsTypes.query()
-      .alias('documentsTypesQuery')
-      .select(raw('true'))
-      .joinRelated('activitesTypes')
-      .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
-      .groupBy('documentsTypesQuery.id')
-
-    q.select(documentsTypesQuery.as('documentsCreation'))
-  } else {
-    q.select(raw('false').as('documentsCreation'))
   }
 
   // fileCreate('dev/tmp/titres-activites.sql', format(q.toKnexQuery().toString()))

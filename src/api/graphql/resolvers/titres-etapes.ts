@@ -1,11 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql'
 
-import {
-  ITitreEtape,
-  ITitreEtapeJustificatif,
-  IToken,
-  IUtilisateur
-} from '../../../types'
+import { ITitreEtape, IToken, IUtilisateur } from '../../../types'
 
 import { debug } from '../../../config/index'
 
@@ -14,10 +9,8 @@ import { titreFormat } from '../../_format/titres'
 import {
   titreEtapeDelete,
   titreEtapeGet,
-  titreEtapeJustificatifsDelete,
   titreEtapeUpdate,
-  titreEtapeUpsert,
-  titresEtapesJustificatifsUpsert
+  titreEtapeUpsert
 } from '../../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
@@ -31,11 +24,17 @@ import { titreEtapeUpdationValidate } from '../../../business/validations/titre-
 import { fieldsBuild } from './_fields-build'
 import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
 import { titreEtapeFormat } from '../../_format/titres-etapes'
-import { etapeTypeGet } from '../../../database/queries/metas'
+import {
+  etapeTypeGet,
+  titreTypeDemarcheTypeEtapeTypeGet
+} from '../../../database/queries/metas'
 import { userSuper } from '../../../database/user-super'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentsLier } from './documents'
-import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
+import {
+  documentsTypesFormat,
+  etapeTypeSectionsFormat
+} from '../../_format/etapes-types'
 import {
   contenuElementFilesCreate,
   contenuElementFilesDelete,
@@ -159,8 +158,25 @@ const etapeHeritage = async (
       userSuper
     )
 
-    const etapeType = await etapeTypeGet(typeId, { fields: {} })
-    const titreEtape = titreEtapeHeritageBuild(date, etapeType, titreDemarche)
+    const etapeType = await etapeTypeGet(typeId, {
+      fields: { documentsTypes: { id: {} } }
+    })
+
+    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
+      {
+        titreTypeId: titreDemarche.titre!.typeId,
+        demarcheTypeId: titreDemarche.typeId,
+        etapeTypeId: etapeType.id
+      },
+      { fields: { documentsTypes: { id: {} } } }
+    )
+
+    const titreEtape = titreEtapeHeritageBuild(
+      date,
+      etapeType,
+      titreDemarche,
+      tde
+    )
 
     return titreEtapeFormat(
       titreEtape,
@@ -223,10 +239,25 @@ const etapeCreer = async (
     etape.statutId = statutId
     etape.date = date
 
+    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
+      {
+        titreTypeId: titreDemarche.titre.typeId,
+        demarcheTypeId: titreDemarche.typeId,
+        etapeTypeId: etapeType.id
+      },
+      { fields: { documentsTypes: { id: {} } } }
+    )
+
     const sections = etapeTypeSectionsFormat(
       etapeType,
+      // todo simplifier via tde.sections
       titreDemarche.type!.etapesTypes,
       titreDemarche.titre!.typeId
+    )
+
+    const documentsTypes = documentsTypesFormat(
+      etapeType.documentsTypes,
+      tde.documentsTypes
     )
 
     const justificatifs = etape.justificatifIds?.length
@@ -244,7 +275,7 @@ const etapeCreer = async (
       titreDemarche,
       titreDemarche.titre,
       sections,
-      etapeType.documentsTypes!,
+      documentsTypes,
       etapeType.justificatifsTypes!,
       justificatifs
     )
@@ -347,10 +378,25 @@ const etapeModifier = async (
     etape.statutId = statutId
     etape.date = date
 
+    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
+      {
+        titreTypeId: titreDemarche.titre.typeId,
+        demarcheTypeId: titreDemarche.typeId,
+        etapeTypeId: etapeType.id
+      },
+      { fields: { documentsTypes: { id: {} } } }
+    )
+
     const sections = etapeTypeSectionsFormat(
       etapeType,
+      // todo simplifier via tde.sections
       titreDemarche.type!.etapesTypes,
       titreDemarche.titre!.typeId
+    )
+
+    const documentsTypes = documentsTypesFormat(
+      etapeType.documentsTypes,
+      tde.documentsTypes
     )
 
     const justificatifs = etape.justificatifIds?.length
@@ -368,7 +414,7 @@ const etapeModifier = async (
       titreDemarche,
       titreDemarche.titre,
       sections,
-      etapeType.documentsTypes!,
+      documentsTypes,
       etapeType.justificatifsTypes!,
       justificatifs
     )
@@ -587,136 +633,11 @@ const etapeSupprimer = async (
   }
 }
 
-const etapeJustificatifsAssocier = async (
-  { id, documentsIds }: { id: string; documentsIds: string[] },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    const titreEtape = await titreEtapeGet(
-      id,
-      { fields: { justificatifs: { id: {} } } },
-      user
-    )
-
-    if (!titreEtape) throw new Error("l'étape n'existe pas")
-
-    if (!titreEtape.justificatifsAssociation)
-      throw new Error('droits insuffisants')
-
-    const titreDemarche = await titreDemarcheGet(
-      titreEtape.titreDemarcheId,
-      { fields: {} },
-      user
-    )
-
-    if (!titreDemarche) throw new Error("la démarche n'existe pas")
-
-    const titre = await titreGet(
-      titreDemarche.titreId,
-      {
-        fields: {
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
-      },
-      user
-    )
-
-    if (!titre) throw new Error("le titre n'existe pas")
-
-    await titreEtapeJustificatifsDelete(titreEtape.id)
-
-    const titreEtapeId = titreEtape.id
-
-    if (documentsIds.length) {
-      await titresEtapesJustificatifsUpsert(
-        documentsIds.map(
-          documentId =>
-            ({ documentId, titreEtapeId } as ITitreEtapeJustificatif)
-        )
-      )
-    }
-
-    const fields = fieldsBuild(info)
-
-    const titreUpdated = await titreGet(titre.id, { fields }, user)
-
-    return titreFormat(titreUpdated)
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const etapeJustificatifDissocier = async (
-  { id, documentId }: { id: string; documentId: string },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    const titreEtape = await titreEtapeGet(
-      id,
-      { fields: { justificatifs: { id: {} } } },
-      user
-    )
-
-    if (!titreEtape) throw new Error("l'étape n'existe pas")
-
-    if (!titreEtape.justificatifsAssociation)
-      throw new Error('droits insuffisants')
-
-    const titreDemarche = await titreDemarcheGet(
-      titreEtape.titreDemarcheId,
-      { fields: {} },
-      user
-    )
-
-    if (!titreDemarche) throw new Error("la démarche n'existe pas")
-
-    const titre = await titreGet(
-      titreDemarche.titreId,
-      {
-        fields: {
-          administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
-      },
-      user
-    )
-
-    if (!titre) throw new Error("le titre n'existe pas")
-
-    await titreEtapeJustificatifsDelete(titreEtape.id, documentId)
-
-    const fields = fieldsBuild(info)
-
-    const titreUpdated = await titreGet(titre.id, { fields }, user)
-
-    return titreFormat(titreUpdated)
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
 export {
   etape,
   etapeHeritage,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeDeposer,
-  etapeJustificatifsAssocier,
-  etapeJustificatifDissocier
+  etapeDeposer
 }

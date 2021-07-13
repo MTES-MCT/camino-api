@@ -7,7 +7,8 @@ import {
   ITitreDemarche,
   ITitreEtape,
   IHeritageContenu,
-  ISection
+  ISection,
+  ITitreTypeDemarcheTypeEtapeType
 } from '../../../types'
 
 import { geoConvert } from '../../../tools/geo-convert'
@@ -192,7 +193,8 @@ const titreEtapeHeritageContenuBuild = (
 const titreEtapeHeritageBuild = (
   date: string,
   etapeType: IEtapeType,
-  titreDemarche: ITitreDemarche
+  titreDemarche: ITitreDemarche,
+  titreTypeDemarcheTypeEtapeType: ITitreTypeDemarcheTypeEtapeType
 ) => {
   let titreEtape = {} as ITitreEtape
 
@@ -224,6 +226,9 @@ const titreEtapeHeritageBuild = (
 
   titreEtape.type = etapeType
   titreEtape.titreDemarcheId = titreDemarche.id
+
+  titreEtape.documentsTypesSpecifiques =
+    titreTypeDemarcheTypeEtapeType.documentsTypes
 
   return titreEtape
 }

@@ -208,6 +208,27 @@ const titresTypesDemarchesTypesEtapesTypesGet = async () =>
     'etapeTypeId'
   ])
 
+const titreTypeDemarcheTypeEtapeTypeGet = async (
+  {
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId
+  }: {
+    titreTypeId: string
+    demarcheTypeId: string
+    etapeTypeId: string
+  },
+  { fields }: { fields?: IFields }
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'titresTypesDemarchesTypesEtapesTypes', fieldsFormat)
+    : []
+
+  return TitresTypesDemarchesTypesEtapesTypes.query()
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId])
+    .withGraphFetched(graph)
+}
+
 const titreTypeDemarcheTypeEtapeTypeUpdate = async (
   titreTypeId: string,
   demarcheTypeId: string,
@@ -558,6 +579,7 @@ export {
   titreTypeDemarcheTypeCreate,
   titreTypeDemarcheTypeDelete,
   titresTypesDemarchesTypesEtapesTypesGet,
+  titreTypeDemarcheTypeEtapeTypeGet,
   titreTypeDemarcheTypeEtapeTypeUpdate,
   titreTypeDemarcheTypeEtapeTypeCreate,
   titreTypeDemarcheTypeEtapeTypeDelete,

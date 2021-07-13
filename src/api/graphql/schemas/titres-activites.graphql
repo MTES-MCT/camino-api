@@ -27,7 +27,6 @@ type Activite {
 
   modification: Boolean
   suppression: Boolean
-  documentsCreation: Boolean
   deposable: Boolean
 }
 

@@ -7,7 +7,6 @@ import { permissionCheck } from '../../../tools/permission'
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
 import Entreprises from '../../models/entreprises'
-import EtapesTypesDocumentsTypes from '../../models/etapes-types--documents-types'
 
 import { documentsQueryModify } from './documents'
 import {
@@ -21,7 +20,6 @@ import {
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 import { titresDemarchesQueryModify } from './titres-demarches'
 import TitresDemarches from '../../models/titres-demarches'
-import EtapesTypesJustificatifsTypes from '../../models/etapes-types--justificatifs-types'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -53,38 +51,6 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   return raw('false')
 }
 
-const titreEtapeCreationDocumentsModify = (
-  q: QueryBuilder<any, any | any[]>,
-  typeIdAlias: string
-) => {
-  // si il existe un type de document pour le type d’étape
-  const query = EtapesTypesDocumentsTypes.query()
-    .where(raw('?? = ??', [typeIdAlias, 'etapeTypeId']))
-    .first()
-
-  q.select(raw('EXISTS(?)', [query]).as('documentsCreation'))
-}
-
-const titreEtapeCreationJustificatifsModify = (
-  q: QueryBuilder<any, any | any[]>,
-  typeIdAlias: string,
-  user: IUtilisateur | null
-) => {
-  //
-
-  // si il existe un type de justificatif pour le type d’étape
-  const query = EtapesTypesJustificatifsTypes.query()
-    .where(raw('?? = ??', [typeIdAlias, 'etapeTypeId']))
-    .first()
-
-  q.select(
-    raw('EXISTS(?) AND (?)', [
-      query,
-      titreEtapeModificationQueryBuild(user)
-    ]).as('justificatifsAssociation')
-  )
-}
-
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
  *
@@ -97,6 +63,24 @@ const titresEtapesQueryModify = (
   user: IUtilisateur | null
 ) => {
   q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
+
+  // on ajoute les champs spécifiques à tde directement via la requête
+  q.leftJoin(
+    'titresTypes__demarchesTypes__etapesTypes__documentsTypes as tded',
+    b => {
+      b.andOn('tded.titreTypeId', 'demarche:titre.typeId')
+      b.andOn('tded.demarcheTypeId', 'demarche.typeId')
+      b.andOn('tded.etapeTypeId', 'type.id')
+    }
+  )
+  q.leftJoin('documentsTypes as dt', 'dt.id', 'tded.documentTypeId')
+  q.select(raw('jsonb_agg(dt)').as('documentsTypesSpecifiques'))
+  q.select(
+    raw("COALESCE(json_agg(dt) FILTER (WHERE dt.id IS NOT NULL), '[]')").as(
+      'documentsTypesSpecifiques'
+    )
+  )
+  q.groupBy('titresEtapes.id')
 
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
     q.where(b => {
@@ -140,11 +124,6 @@ const titresEtapesQueryModify = (
       }
     })
   }
-
-  titreEtapeCreationJustificatifsModify(q, 'type.id', user)
-
-  // si il existe un type de document pour le type d’étape
-  titreEtapeCreationDocumentsModify(q, 'type.id')
 
   q.select(
     raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(

@@ -373,13 +373,16 @@ const documentsLier = async (
     const document = await documentGet(documentId, { fields: {} }, userSuper)
 
     if (!document[propParentId]) {
-      const documentPath = await documentFilePathFind(document)
       await documentUpdate(document.id, { [propParentId]: parentId })
-      document[propParentId] = parentId
 
-      const newDocumentPath = await documentFilePathFind(document, true)
+      if (document.fichier) {
+        const documentPath = await documentFilePathFind(document)
+        document[propParentId] = parentId
 
-      await fileRename(documentPath, newDocumentPath)
+        const newDocumentPath = await documentFilePathFind(document, true)
+
+        await fileRename(documentPath, newDocumentPath)
+      }
     }
   }
 }

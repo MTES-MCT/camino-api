@@ -14,8 +14,7 @@ const documentsTypesValidate = (
           !documents?.find(
             d =>
               d.typeId === dt.id &&
-              !!(d.fichier || d.fichierNouveau) &&
-              d.fichierTypeId &&
+              !!(d.fichier || d.fichierNouveau || d.uri || d.url) &&
               d.date
           )
         ) {
