@@ -107,8 +107,6 @@ const titreEtapeHeritageContenuBuild = (
   date: string,
   etapeType: IEtapeType,
   sections: ISection[],
-  etapesTypes: IEtapeType[],
-  titreTypeId: string,
   titreEtapes?: ITitreEtape[] | null
 ) => {
   if (!titreEtapes) {
@@ -126,11 +124,8 @@ const titreEtapeHeritageContenuBuild = (
   titreEtapesFiltered.push(titreEtape)
   titreEtapesFiltered = titreEtapesFiltered.reverse()
 
-  const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
-    titreEtapesFiltered,
-    etapesTypes,
-    titreTypeId
-  )
+  const etapeSectionsDictionary =
+    etapeSectionsDictionaryBuild(titreEtapesFiltered)
 
   titreEtape.heritageContenu = sections.reduce(
     (heritageContenu: IHeritageContenu, section) => {
@@ -205,9 +200,8 @@ const titreEtapeHeritageBuild = (
   titreEtape.modification = true
 
   const sections = etapeTypeSectionsFormat(
-    etapeType,
-    titreDemarche.type!.etapesTypes!,
-    titreDemarche.titre!.typeId
+    etapeType.sections,
+    titreEtape.sectionsSpecifiques
   )
 
   if (sections.length) {
@@ -215,8 +209,6 @@ const titreEtapeHeritageBuild = (
       date,
       etapeType,
       sections,
-      titreDemarche.type!.etapesTypes,
-      titreDemarche.titre!.typeId,
       titreDemarche.etapes
     )
 

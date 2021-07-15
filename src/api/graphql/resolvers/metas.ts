@@ -310,9 +310,7 @@ const demarcheEtapesTypesGet = async (
         titreEtape
       )
     )
-    .map(et =>
-      etapeTypeFormat(et, demarcheTypeEtapesTypes, titre.typeId, undefined)
-    )
+    .map(et => etapeTypeFormat(et, undefined, undefined))
 
   return etapesTypesFormatted
 }

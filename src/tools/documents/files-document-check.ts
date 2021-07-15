@@ -5,7 +5,6 @@ import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { userSuper } from '../../database/user-super'
 import { contenuFilesGet } from '../../business/utils/contenu-element-file-process'
 import { etapeTypeSectionsFormat } from '../../api/_format/etapes-types'
-import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 
 const etapeGet = (str: string) => str.split('-').slice(0, -1).join('-')
 
@@ -23,18 +22,9 @@ const contenuFilesCheck = async (filePath: string) => {
     userSuper
   )
   if (etape) {
-    const demarche = await titreDemarcheGet(
-      etape.titreDemarcheId,
-      {
-        fields: { titre: { id: {} }, type: { etapesTypes: { id: {} } } }
-      },
-      userSuper
-    )
-
     const sections = etapeTypeSectionsFormat(
-      etape.type!,
-      demarche.type!.etapesTypes,
-      demarche.titre!.typeId
+      etape.type!.sections,
+      etape.sectionsSpecifiques
     )
     const contenuFiles = contenuFilesGet(etape.contenu, sections)
 

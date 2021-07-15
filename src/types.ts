@@ -805,6 +805,7 @@ interface ITitreEtapeOrTitreTravauxEtape {
   suppression?: boolean | null
   documentIds?: string[] | null
   documentsTypesSpecifiques?: IDocumentType[] | null
+  sectionsSpecifiques?: ISection[] | null
 }
 
 interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {

@@ -51,20 +51,19 @@ const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   return raw('false')
 }
 
-/**
- * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
- *
- * @params q - requête d'étape(s)
- * @params user - utilisateur connecté
- * @returns une requête d'étape(s)
- */
-const titresEtapesQueryModify = (
-  q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
-  user: IUtilisateur | null
+const specifiquesAdd = (
+  q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>
 ) => {
-  q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
+  // sections spécifiques
+  q.leftJoin('titresTypes__demarchesTypes__etapesTypes as tde', b => {
+    b.andOn('tde.titreTypeId', 'demarche:titre.typeId')
+    b.andOn('tde.demarcheTypeId', 'demarche.typeId')
+    b.andOn('tde.etapeTypeId', 'type.id')
+  })
+  q.select(raw('tde.sections').as('sectionsSpecifiques'))
+  q.groupBy('tde.sections')
 
-  // on ajoute les champs spécifiques à tde directement via la requête
+  // documents spécifiques
   q.leftJoin(
     'titresTypes__demarchesTypes__etapesTypes__documentsTypes as tded',
     b => {
@@ -81,6 +80,24 @@ const titresEtapesQueryModify = (
     )
   )
   q.groupBy('titresEtapes.id')
+
+  return q
+}
+
+/**
+ * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
+ *
+ * @params q - requête d'étape(s)
+ * @params user - utilisateur connecté
+ * @returns une requête d'étape(s)
+ */
+const titresEtapesQueryModify = (
+  q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
+  user: IUtilisateur | null
+) => {
+  q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
+
+  q = specifiquesAdd(q)
 
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
     q.where(b => {

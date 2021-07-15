@@ -351,18 +351,16 @@ describe('construit le dictionnaire les sections', () => {
   const etapeTypeSectionsFormatMock = mocked(etapeTypeSectionsFormat, true)
 
   test('retourne un dictionnaire vide', () => {
-    const dictionary = etapeSectionsDictionaryBuild([], [], 'arm')
+    const dictionary = etapeSectionsDictionaryBuild([])
     expect(dictionary).toEqual({})
   })
 
   test('retourne un dictionnaire vide car pas de sections', () => {
     etapeTypeSectionsFormatMock.mockReturnValue([])
 
-    const dictionary = etapeSectionsDictionaryBuild(
-      [{ id: 'etapeId', type: { id: 'mfr' } as IEtapeType }] as ITitreEtape[],
-      [],
-      'arm'
-    )
+    const dictionary = etapeSectionsDictionaryBuild([
+      { id: 'etapeId', type: { id: 'mfr' } as IEtapeType }
+    ] as ITitreEtape[])
     expect(dictionary).toEqual({})
   })
 
@@ -381,7 +379,7 @@ describe('construit le dictionnaire les sections', () => {
       } as IEtapeType
     } as ITitreEtape
 
-    const dictionary = etapeSectionsDictionaryBuild([etape], [], 'arm')
+    const dictionary = etapeSectionsDictionaryBuild([etape])
     expect(dictionary).toEqual({ [etape.id]: [sections] })
   })
 })

@@ -97,8 +97,7 @@ const etape = async (
       titreEtape.titreDemarcheId,
       {
         fields: {
-          titre: { id: {} },
-          type: { etapesTypes: { id: {} } }
+          id: {}
         }
       },
       user
@@ -106,11 +105,7 @@ const etape = async (
 
     if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
-    return titreEtapeFormat(
-      titreEtape,
-      titreDemarche.titre!.typeId,
-      titreDemarche.type!.etapesTypes!
-    )
+    return titreEtapeFormat(titreEtape)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -143,7 +138,6 @@ const etapeHeritage = async (
       titreDemarcheId,
       {
         fields: {
-          type: { etapesTypes: { id: {} } },
           titre: { id: {} },
           etapes: {
             type: { id: {} },
@@ -178,11 +172,7 @@ const etapeHeritage = async (
       tde
     )
 
-    return titreEtapeFormat(
-      titreEtape,
-      titreDemarche.titre!.typeId,
-      titreDemarche.type!.etapesTypes
-    )
+    return titreEtapeFormat(titreEtape)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -248,12 +238,7 @@ const etapeCreer = async (
       { fields: { documentsTypes: { id: {} } } }
     )
 
-    const sections = etapeTypeSectionsFormat(
-      etapeType,
-      // todo simplifier via tde.sections
-      titreDemarche.type!.etapesTypes,
-      titreDemarche.titre!.typeId
-    )
+    const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
 
     const documentsTypes = documentsTypesFormat(
       etapeType.documentsTypes,
@@ -387,12 +372,7 @@ const etapeModifier = async (
       { fields: { documentsTypes: { id: {} } } }
     )
 
-    const sections = etapeTypeSectionsFormat(
-      etapeType,
-      // todo simplifier via tde.sections
-      titreDemarche.type!.etapesTypes,
-      titreDemarche.titre!.typeId
-    )
+    const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
 
     const documentsTypes = documentsTypesFormat(
       etapeType.documentsTypes,
@@ -511,18 +491,13 @@ const etapeDeposer = async (
       titreEtape.titreDemarcheId,
       {
         fields: {
-          type: { etapesTypes: { id: {} } },
           titre: { id: {} }
         }
       },
       userSuper
     )
 
-    titreEtape = titreEtapeFormat(
-      titreEtape,
-      titreDemarche.titre!.typeId,
-      titreDemarche.type!.etapesTypes
-    )
+    titreEtape = titreEtapeFormat(titreEtape)
 
     if (!titreEtape.deposable) throw new Error('droits insuffisants')
 

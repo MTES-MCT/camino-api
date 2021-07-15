@@ -1,4 +1,4 @@
-import { ITitreEtape, IGeoJson, IEtapeType } from '../../types'
+import { ITitreEtape, IGeoJson } from '../../types'
 
 import {
   geojsonFeatureMultiPolygon,
@@ -13,14 +13,11 @@ import { titreEtapeCompleteValidate } from '../../business/validations/titre-eta
 
 const titreEtapeFormat = (
   titreEtape: ITitreEtape,
-  titreTypeId: string,
-  demarcheTypeEtapesTypes: IEtapeType[],
   fields = titreEtapeFormatFields
 ) => {
   if (titreEtape.demarche) {
     titreEtape.demarche = titreDemarcheFormat(
       titreEtape.demarche,
-      titreTypeId,
       fields.demarche
     )
   }
@@ -28,8 +25,7 @@ const titreEtapeFormat = (
   if (titreEtape.type) {
     titreEtape.type = etapeTypeFormat(
       titreEtape.type,
-      demarcheTypeEtapesTypes,
-      titreTypeId,
+      titreEtape.sectionsSpecifiques,
       titreEtape.documentsTypesSpecifiques
     )
   }

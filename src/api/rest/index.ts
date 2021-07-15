@@ -269,7 +269,7 @@ const demarches = async (
   )
 
   const demarchesFormatted = titresDemarches.map(titreDemarche =>
-    titreDemarcheFormat(titreDemarche, titreDemarche.titre!.typeId)
+    titreDemarcheFormat(titreDemarche)
   )
 
   let contenu = ''

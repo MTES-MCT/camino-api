@@ -47,11 +47,7 @@ const demarche = async (
       throw new Error("la démarche n'existe pas")
     }
 
-    return titreDemarcheFormat(
-      titreDemarche,
-      titreDemarche.titre!.typeId,
-      fields.elements
-    )
+    return titreDemarcheFormat(titreDemarche, fields.elements)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -157,11 +153,7 @@ const demarches = async (
     ])
 
     const demarchesFormatted = titresDemarches.map(titreDemarche =>
-      titreDemarcheFormat(
-        titreDemarche,
-        titreDemarche.titre!.typeId,
-        fields.elements
-      )
+      titreDemarcheFormat(titreDemarche, fields.elements)
     )
 
     return {
