@@ -156,7 +156,7 @@ describe('etapeModifier', () => {
     expect(res.body.errors).toBeUndefined()
   })
 
-  test('ne peut pas modifier une étape acg avec un statut fav (utilisateur super)', async () => {
+  test('peut modifier une étape mia avec un statut fai (utilisateur super)', async () => {
     const { titreDemarcheId, titreEtapeId } = await etapeCreate()
 
     const res = await graphQLCall(
@@ -164,8 +164,8 @@ describe('etapeModifier', () => {
       {
         etape: {
           id: titreEtapeId,
-          typeId: 'acg',
-          statutId: 'fav',
+          typeId: 'mia',
+          statutId: 'fai',
           titreDemarcheId,
           date: ''
         }
@@ -176,7 +176,7 @@ describe('etapeModifier', () => {
     expect(res.body.errors).toBeUndefined()
   })
 
-  test('ne peut pas modifier une étape acg avec un statut fai (utilisateur admin)', async () => {
+  test('ne peut pas modifier une étape mia avec un statut fav (utilisateur admin)', async () => {
     const { titreDemarcheId, titreEtapeId } = await etapeCreate()
 
     const res = await graphQLCall(
@@ -184,8 +184,8 @@ describe('etapeModifier', () => {
       {
         etape: {
           id: titreEtapeId,
-          typeId: 'acg',
-          statutId: 'fai',
+          typeId: 'mia',
+          statutId: 'fav',
           titreDemarcheId,
           date: ''
         }
@@ -195,7 +195,7 @@ describe('etapeModifier', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
+      'statut de l\'étape "fav" invalide pour une type d\'étape mia pour une démarche de type octroi'
     )
   })
 

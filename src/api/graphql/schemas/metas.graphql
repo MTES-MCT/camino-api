@@ -300,6 +300,14 @@ type TitreTypeDemarcheTypeEtapeType {
   sections: Json
 }
 
+type TitreTypeDemarcheTypeEtapeTypeDocumentType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
+}
+
 type EtapeTypeEtapeStatut {
   etapeTypeId: ID!
   etapeStatutId: ID!
@@ -492,6 +500,14 @@ input InputTitreTypeDemarcheTypeEtapeType {
   etapeTypeId: ID!
   ordre: Int
   sections: Json
+}
+
+input InputTitreTypeDemarcheTypeEtapeTypeDocumentType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  documentTypeId: ID!
+  optionnel: Boolean
 }
 
 input InputEtapeTypeEtapeStatut {

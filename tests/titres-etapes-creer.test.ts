@@ -134,27 +134,27 @@ describe('etapeCreer', () => {
     expect(res.body.errors).toBeUndefined()
   })
 
-  test('ne peut pas créer une étape acg avec un statut fai (utilisateur admin)', async () => {
+  test('ne peut pas créer une étape mia avec un statut fav (utilisateur admin)', async () => {
     const titreDemarcheId = await demarcheCreate()
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'acg', statutId: 'fai', titreDemarcheId, date: '' } },
+      { etape: { typeId: 'mia', statutId: 'fav', titreDemarcheId, date: '' } },
       'admin',
       administrations.ptmg.id
     )
 
     expect(res.body.errors[0].message).toBe(
-      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
+      'statut de l\'étape "fav" invalide pour une type d\'étape mia pour une démarche de type octroi'
     )
   })
 
-  test('peut créer une étape acg avec un statut fav (utilisateur super)', async () => {
+  test('peut créer une étape mia avec un statut fai (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'acg', statutId: 'fav', titreDemarcheId, date: '' } },
+      { etape: { typeId: 'mia', statutId: 'fai', titreDemarcheId, date: '' } },
       'super'
     )
 

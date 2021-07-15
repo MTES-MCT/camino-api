@@ -6,7 +6,8 @@ import {
   IEtapeTypeEtapeStatut,
   IToken,
   IEtapeTypeDocumentType,
-  IEtapeTypeJustificatifType
+  IEtapeTypeJustificatifType,
+  ITitreTypeDemarcheTypeEtapeTypeDocumentType
 } from '../../../types'
 
 import { debug } from '../../../config/index'
@@ -45,7 +46,11 @@ import {
   etapeTypeJustificatifTypeUpdate,
   etapeTypeJustificatifTypeCreate,
   etapeTypeJustificatifTypeDelete,
-  etapeTypeGet
+  etapeTypeGet,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate
 } from '../../../database/queries/metas'
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 import { userSuper } from '../../../database/user-super'
@@ -510,6 +515,135 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
 
 //
 
+const titresTypesDemarchesTypesEtapesTypesDocumentsTypes = async (
+  _: never,
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const titresTypesDemarchesTypesEtapesTypesDocumentsTypes =
+      await titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesDocumentsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier = async (
+  {
+    titreTypeDemarcheTypeEtapeTypeDocumentType
+  }: {
+    titreTypeDemarcheTypeEtapeTypeDocumentType: ITitreTypeDemarcheTypeEtapeTypeDocumentType
+  },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate(
+      titreTypeDemarcheTypeEtapeTypeDocumentType.titreTypeId,
+      titreTypeDemarcheTypeEtapeTypeDocumentType.demarcheTypeId,
+      titreTypeDemarcheTypeEtapeTypeDocumentType.etapeTypeId,
+      titreTypeDemarcheTypeEtapeTypeDocumentType.documentTypeId,
+      { optionnel: titreTypeDemarcheTypeEtapeTypeDocumentType.optionnel }
+    )
+
+    const titresTypesDemarchesTypesEtapesTypesDocumentsTypes =
+      await titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesDocumentsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer = async (
+  {
+    titreTypeDemarcheTypeEtapeTypeDocumentType
+  }: {
+    titreTypeDemarcheTypeEtapeTypeDocumentType: ITitreTypeDemarcheTypeEtapeTypeDocumentType
+  },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate(
+      titreTypeDemarcheTypeEtapeTypeDocumentType
+    )
+
+    const titresTypesDemarchesTypesEtapesTypesDocumentsTypes =
+      await titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesDocumentsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer = async (
+  {
+    titreTypeDemarcheTypeEtapeTypeDocumentType
+  }: {
+    titreTypeDemarcheTypeEtapeTypeDocumentType: ITitreTypeDemarcheTypeEtapeTypeDocumentType
+  },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete(
+      titreTypeDemarcheTypeEtapeTypeDocumentType.titreTypeId,
+      titreTypeDemarcheTypeEtapeTypeDocumentType.demarcheTypeId,
+      titreTypeDemarcheTypeEtapeTypeDocumentType.etapeTypeId,
+      titreTypeDemarcheTypeEtapeTypeDocumentType.documentTypeId
+    )
+
+    const titresTypesDemarchesTypesEtapesTypesDocumentsTypes =
+      await titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesDocumentsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+//
+
 const etapesTypesEtapesStatuts = async (_: never, context: IToken) => {
   try {
     const user = await userGet(context.user?.id)
@@ -889,6 +1023,10 @@ export {
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
   titreTypeDemarcheTypeEtapeTypeSupprimer,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypes,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer,
   etapesTypesEtapesStatuts,
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,

@@ -26,7 +26,8 @@ import {
   IEtapeTypeEtapeStatut,
   IUtilisateur,
   IEtapeTypeDocumentType,
-  IEtapeTypeJustificatifType
+  IEtapeTypeJustificatifType,
+  ITitreTypeDemarcheTypeEtapeTypeDocumentType
 } from '../../types'
 
 import { knex } from '../../knex'
@@ -67,6 +68,7 @@ import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
 import EtapesTypesJustificatifsTypes from '../models/etapes-types--justificatifs-types'
+import TitresTypesDemarchesTypesEtapesTypesDocumentsTypes from '../models/titres-types--demarches-types-etapes-types-documents-types'
 
 const permissionsGet = async (
   _a: never,
@@ -255,6 +257,45 @@ const titreTypeDemarcheTypeEtapeTypeDelete = async (
     titreTypeId,
     demarcheTypeId,
     etapeTypeId
+  ])
+
+const titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet = async () =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().orderBy([
+    'titreTypeId',
+    'demarcheTypeId',
+    'etapeTypeId',
+    'documentTypeId'
+  ])
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string,
+  titreTypeDemarcheTypeEtapeTypeDocumentType: Partial<ITitreTypeDemarcheTypeEtapeTypeDocumentType>
+) =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query()
+    .patch(titreTypeDemarcheTypeEtapeTypeDocumentType)
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId, documentTypeId])
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate = async (
+  titreTypeDemarcheTypeEtapeTypeDocumentType: ITitreTypeDemarcheTypeEtapeTypeDocumentType
+) =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().insertAndFetch(
+    titreTypeDemarcheTypeEtapeTypeDocumentType
+  )
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string
+) =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().deleteById([
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId,
+    documentTypeId
   ])
 
 const etapesTypesEtapesStatutsGet = async () =>
@@ -583,6 +624,10 @@ export {
   titreTypeDemarcheTypeEtapeTypeUpdate,
   titreTypeDemarcheTypeEtapeTypeCreate,
   titreTypeDemarcheTypeEtapeTypeDelete,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete,
   etapesTypesEtapesStatutsGet,
   etapeTypeEtapeStatutUpdate,
   etapeTypeEtapeStatutCreate,

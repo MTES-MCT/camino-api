@@ -1,4 +1,4 @@
-import { raw, Transaction } from 'objection'
+import { Transaction } from 'objection'
 import {
   ITitreEtape,
   ITitreCommune,
