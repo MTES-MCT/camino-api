@@ -241,6 +241,8 @@ type Query {
 
   "Définitions et descriptions"
   definitions: [Definition]
+
+  pays: [Pays]
 }
 
 """

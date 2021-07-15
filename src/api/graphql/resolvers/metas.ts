@@ -70,6 +70,7 @@ import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import {
   departementsGet,
+  paysGet,
   regionsGet
 } from '../../../database/queries/territoires'
 import { ordreUpdate } from './_ordre-update'
@@ -402,6 +403,20 @@ const administrationsTypes = async () => {
     const administrationsTypes = await administrationsTypesGet()
 
     return administrationsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const pays = async () => {
+  try {
+    const pays = await paysGet()
+
+    return pays
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -975,5 +990,6 @@ export {
   permissionModifier,
   documentTypeModifier,
   referenceTypeModifier,
-  geoSystemeModifier
+  geoSystemeModifier,
+  pays
 }

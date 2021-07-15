@@ -54,8 +54,14 @@ import {
   etapeTypeJustificatifTypeUsedCheck
 } from '../../../database/queries/permissions/documents'
 import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'
+import { GraphQLResolveInfo } from 'graphql'
+import { fieldsBuild } from './_fields-build'
 
-const titresTypes = async (_: never, context: IToken) => {
+const titresTypes = async (
+  _: never,
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
     const user = await userGet(context.user?.id)
 
@@ -63,7 +69,9 @@ const titresTypes = async (_: never, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    const titresTypes = await titresTypesGet(null as never, {})
+    const fields = fieldsBuild(info)
+
+    const titresTypes = await titresTypesGet(null as never, { fields })
 
     return titresTypes
   } catch (e) {

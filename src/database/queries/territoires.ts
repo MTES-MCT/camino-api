@@ -9,6 +9,7 @@ import Forets from '../models/forets'
 import Regions from '../models/regions'
 
 const paysGet = async () => Pays.query().withGraphFetched(options.pays.graph)
+
 const departementsGet = async () => Departements.query()
 
 const regionsGet = async () => Regions.query()
