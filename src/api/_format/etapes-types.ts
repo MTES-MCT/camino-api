@@ -66,7 +66,8 @@ const documentsTypesFormat = (
 const etapeTypeFormat = (
   etapeType: IEtapeType,
   sectionsSpecifiques: ISection[] | null | undefined,
-  documentsTypesSpecifiques: IDocumentType[] | null | undefined
+  documentsTypesSpecifiques: IDocumentType[] | null | undefined,
+  justificatifsTypesSpecifiques: IDocumentType[] | null | undefined
 ) => {
   etapeType.sections = etapeTypeSectionsFormat(
     etapeType.sections,
@@ -77,6 +78,12 @@ const etapeTypeFormat = (
   etapeType.documentsTypes = documentsTypesFormat(
     etapeType.documentsTypes,
     documentsTypesSpecifiques
+  )
+
+  // on ajoute les justificatifs spécifiques
+  etapeType.justificatifsTypes = documentsTypesFormat(
+    etapeType.justificatifsTypes,
+    justificatifsTypesSpecifiques
   )
 
   return etapeType

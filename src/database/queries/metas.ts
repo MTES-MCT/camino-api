@@ -27,7 +27,8 @@ import {
   IUtilisateur,
   IEtapeTypeDocumentType,
   IEtapeTypeJustificatifType,
-  ITitreTypeDemarcheTypeEtapeTypeDocumentType
+  ITitreTypeDemarcheTypeEtapeTypeDocumentType,
+  ITitreTypeDemarcheTypeEtapeTypeJustificatifType
 } from '../../types'
 
 import { knex } from '../../knex'
@@ -69,6 +70,7 @@ import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
 import EtapesTypesJustificatifsTypes from '../models/etapes-types--justificatifs-types'
 import TitresTypesDemarchesTypesEtapesTypesDocumentsTypes from '../models/titres-types--demarches-types-etapes-types-documents-types'
+import TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes from '../models/titres-types--demarches-types-etapes-types-justificatifs-types'
 
 const permissionsGet = async (
   _a: never,
@@ -292,6 +294,45 @@ const titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete = async (
   documentTypeId: string
 ) =>
   TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().deleteById([
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId,
+    documentTypeId
+  ])
+
+const titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet = async () =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().orderBy([
+    'titreTypeId',
+    'demarcheTypeId',
+    'etapeTypeId',
+    'documentTypeId'
+  ])
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeUpdate = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string,
+  titreTypeDemarcheTypeEtapeTypeJustificatifType: Partial<ITitreTypeDemarcheTypeEtapeTypeJustificatifType>
+) =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query()
+    .patch(titreTypeDemarcheTypeEtapeTypeJustificatifType)
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId, documentTypeId])
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreate = async (
+  titreTypeDemarcheTypeEtapeTypeJustificatifType: ITitreTypeDemarcheTypeEtapeTypeJustificatifType
+) =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().insertAndFetch(
+    titreTypeDemarcheTypeEtapeTypeJustificatifType
+  )
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeDelete = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string
+) =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().deleteById([
     titreTypeId,
     demarcheTypeId,
     etapeTypeId,
@@ -628,6 +669,10 @@ export {
   titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeUpdate,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeDelete,
   etapesTypesEtapesStatutsGet,
   etapeTypeEtapeStatutUpdate,
   etapeTypeEtapeStatutCreate,

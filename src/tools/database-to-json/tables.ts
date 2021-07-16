@@ -127,6 +127,15 @@ const tables = [
     ]
   },
   {
+    name: 'titres_types__demarches_types__etapes_types__justificatifs_t',
+    orderBy: [
+      'titre_type_id',
+      'demarche_type_id',
+      'etape_type_id',
+      'document_type_id'
+    ]
+  },
+  {
     name: 'titres_types__titres_statuts',
     orderBy: ['titre_type_id', 'titre_statut_id']
   },

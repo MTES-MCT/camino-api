@@ -7,7 +7,8 @@ import {
   IToken,
   IEtapeTypeDocumentType,
   IEtapeTypeJustificatifType,
-  ITitreTypeDemarcheTypeEtapeTypeDocumentType
+  ITitreTypeDemarcheTypeEtapeTypeDocumentType,
+  ITitreTypeDemarcheTypeEtapeTypeJustificatifType
 } from '../../../types'
 
 import { debug } from '../../../config/index'
@@ -50,7 +51,11 @@ import {
   titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete,
-  titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeUpdate,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeDelete
 } from '../../../database/queries/metas'
 import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 import { userSuper } from '../../../database/user-super'
@@ -644,6 +649,135 @@ const titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer = async (
 
 //
 
+const titresTypesDemarchesTypesEtapesTypesJustificatifsTypes = async (
+  _: never,
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const titresTypesDemarchesTypesEtapesTypesJustificatifsTypes =
+      await titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier = async (
+  {
+    titreTypeDemarcheTypeEtapeTypeJustificatifType
+  }: {
+    titreTypeDemarcheTypeEtapeTypeJustificatifType: ITitreTypeDemarcheTypeEtapeTypeJustificatifType
+  },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDemarcheTypeEtapeTypeJustificatifTypeUpdate(
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.titreTypeId,
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.demarcheTypeId,
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.etapeTypeId,
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.documentTypeId,
+      { optionnel: titreTypeDemarcheTypeEtapeTypeJustificatifType.optionnel }
+    )
+
+    const titresTypesDemarchesTypesEtapesTypesJustificatifsTypes =
+      await titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer = async (
+  {
+    titreTypeDemarcheTypeEtapeTypeJustificatifType
+  }: {
+    titreTypeDemarcheTypeEtapeTypeJustificatifType: ITitreTypeDemarcheTypeEtapeTypeJustificatifType
+  },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreate(
+      titreTypeDemarcheTypeEtapeTypeJustificatifType
+    )
+
+    const titresTypesDemarchesTypesEtapesTypesJustificatifsTypes =
+      await titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer = async (
+  {
+    titreTypeDemarcheTypeEtapeTypeJustificatifType
+  }: {
+    titreTypeDemarcheTypeEtapeTypeJustificatifType: ITitreTypeDemarcheTypeEtapeTypeJustificatifType
+  },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDemarcheTypeEtapeTypeJustificatifTypeDelete(
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.titreTypeId,
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.demarcheTypeId,
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.etapeTypeId,
+      titreTypeDemarcheTypeEtapeTypeJustificatifType.documentTypeId
+    )
+
+    const titresTypesDemarchesTypesEtapesTypesJustificatifsTypes =
+      await titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet()
+
+    return titresTypesDemarchesTypesEtapesTypesJustificatifsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+//
+
 const etapesTypesEtapesStatuts = async (_: never, context: IToken) => {
   try {
     const user = await userGet(context.user?.id)
@@ -1027,6 +1161,10 @@ export {
   titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypes,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer,
   etapesTypesEtapesStatuts,
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,

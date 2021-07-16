@@ -1,6 +1,12 @@
 import { GraphQLResolveInfo } from 'graphql'
 
-import { ITitreEtape, IToken, IUtilisateur } from '../../../types'
+import {
+  IEtapeType,
+  ITitreDemarche,
+  ITitreEtape,
+  IToken,
+  IUtilisateur
+} from '../../../types'
 
 import { debug } from '../../../config/index'
 
@@ -156,20 +162,16 @@ const etapeHeritage = async (
       fields: { documentsTypes: { id: {} } }
     })
 
-    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
-      {
-        titreTypeId: titreDemarche.titre!.typeId,
-        demarcheTypeId: titreDemarche.typeId,
-        etapeTypeId: etapeType.id
-      },
-      { fields: { documentsTypes: { id: {} } } }
-    )
+    const { sections, documentsTypes, justificatifsTypes } =
+      await specifiquesGet(titreDemarche, etapeType)
 
     const titreEtape = titreEtapeHeritageBuild(
       date,
       etapeType,
       titreDemarche,
-      tde
+      sections,
+      documentsTypes,
+      justificatifsTypes
     )
 
     return titreEtapeFormat(titreEtape)
@@ -180,6 +182,34 @@ const etapeHeritage = async (
 
     throw e
   }
+}
+
+const specifiquesGet = async (
+  titreDemarche: ITitreDemarche,
+  etapeType: IEtapeType
+) => {
+  const tde = await titreTypeDemarcheTypeEtapeTypeGet(
+    {
+      titreTypeId: titreDemarche.titre!.typeId,
+      demarcheTypeId: titreDemarche.typeId,
+      etapeTypeId: etapeType.id
+    },
+    { fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } } }
+  )
+
+  const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
+
+  const documentsTypes = documentsTypesFormat(
+    etapeType.documentsTypes,
+    tde.documentsTypes
+  )
+
+  const justificatifsTypes = documentsTypesFormat(
+    etapeType.justificatifsTypes,
+    tde.justificatifsTypes
+  )
+
+  return { sections, documentsTypes, justificatifsTypes }
 }
 
 const etapeCreer = async (
@@ -229,21 +259,8 @@ const etapeCreer = async (
     etape.statutId = statutId
     etape.date = date
 
-    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
-      {
-        titreTypeId: titreDemarche.titre.typeId,
-        demarcheTypeId: titreDemarche.typeId,
-        etapeTypeId: etapeType.id
-      },
-      { fields: { documentsTypes: { id: {} } } }
-    )
-
-    const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
-
-    const documentsTypes = documentsTypesFormat(
-      etapeType.documentsTypes,
-      tde.documentsTypes
-    )
+    const { sections, documentsTypes, justificatifsTypes } =
+      await specifiquesGet(titreDemarche, etapeType)
 
     const justificatifs = etape.justificatifIds?.length
       ? await documentsGet(
@@ -261,7 +278,7 @@ const etapeCreer = async (
       titreDemarche.titre,
       sections,
       documentsTypes,
-      etapeType.justificatifsTypes!,
+      justificatifsTypes,
       justificatifs
     )
     if (rulesErrors.length) {
@@ -363,21 +380,8 @@ const etapeModifier = async (
     etape.statutId = statutId
     etape.date = date
 
-    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
-      {
-        titreTypeId: titreDemarche.titre.typeId,
-        demarcheTypeId: titreDemarche.typeId,
-        etapeTypeId: etapeType.id
-      },
-      { fields: { documentsTypes: { id: {} } } }
-    )
-
-    const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
-
-    const documentsTypes = documentsTypesFormat(
-      etapeType.documentsTypes,
-      tde.documentsTypes
-    )
+    const { sections, documentsTypes, justificatifsTypes } =
+      await specifiquesGet(titreDemarche, etapeType)
 
     const justificatifs = etape.justificatifIds?.length
       ? await documentsGet(
@@ -395,7 +399,7 @@ const etapeModifier = async (
       titreDemarche.titre,
       sections,
       documentsTypes,
-      etapeType.justificatifsTypes!,
+      justificatifsTypes,
       justificatifs
     )
 

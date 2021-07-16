@@ -8,7 +8,7 @@ import {
   ITitreEtape,
   IHeritageContenu,
   ISection,
-  ITitreTypeDemarcheTypeEtapeType
+  IDocumentType
 } from '../../../types'
 
 import { geoConvert } from '../../../tools/geo-convert'
@@ -22,7 +22,6 @@ import {
   etapeSectionsDictionaryBuild,
   titreEtapeHeritageContenuFind
 } from '../../../business/utils/titre-etape-heritage-contenu-find'
-import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
 
 const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
   const uniteRatio = uniteRatioFind(pointReferenceFind(titrePoints))
@@ -189,7 +188,9 @@ const titreEtapeHeritageBuild = (
   date: string,
   etapeType: IEtapeType,
   titreDemarche: ITitreDemarche,
-  titreTypeDemarcheTypeEtapeType: ITitreTypeDemarcheTypeEtapeType
+  sections: ISection[],
+  documentsTypes: IDocumentType[],
+  justificatifsTypes: IDocumentType[]
 ) => {
   let titreEtape = {} as ITitreEtape
 
@@ -198,11 +199,6 @@ const titreEtapeHeritageBuild = (
   }
 
   titreEtape.modification = true
-
-  const sections = etapeTypeSectionsFormat(
-    etapeType.sections,
-    titreEtape.sectionsSpecifiques
-  )
 
   if (sections.length) {
     const { contenu, heritageContenu } = titreEtapeHeritageContenuBuild(
@@ -218,9 +214,8 @@ const titreEtapeHeritageBuild = (
 
   titreEtape.type = etapeType
   titreEtape.titreDemarcheId = titreDemarche.id
-
-  titreEtape.documentsTypesSpecifiques =
-    titreTypeDemarcheTypeEtapeType.documentsTypes
+  titreEtape.documentsTypesSpecifiques = documentsTypes
+  titreEtape.justificatifsTypesSpecifiques = justificatifsTypes
 
   return titreEtape
 }

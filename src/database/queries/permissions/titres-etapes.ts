@@ -72,11 +72,25 @@ const specifiquesAdd = (
       b.andOn('tded.etapeTypeId', 'type.id')
     }
   )
-  q.leftJoin('documentsTypes as dt', 'dt.id', 'tded.documentTypeId')
-  q.select(raw('jsonb_agg(dt)').as('documentsTypesSpecifiques'))
+  q.leftJoin('documentsTypes as dt1', 'dt1.id', 'tded.documentTypeId')
   q.select(
-    raw("COALESCE(json_agg(dt) FILTER (WHERE dt.id IS NOT NULL), '[]')").as(
+    raw("COALESCE(json_agg(dt1) FILTER (WHERE dt1.id IS NOT NULL), '[]')").as(
       'documentsTypesSpecifiques'
+    )
+  )
+  // justificatifs spécifiques
+  q.leftJoin(
+    'titresTypes__demarchesTypes__etapesTypes__justificatifsT as tdef',
+    b => {
+      b.andOn('tdef.titreTypeId', 'demarche:titre.typeId')
+      b.andOn('tdef.demarcheTypeId', 'demarche.typeId')
+      b.andOn('tdef.etapeTypeId', 'type.id')
+    }
+  )
+  q.leftJoin('documentsTypes as dt2', 'dt2.id', 'tdef.documentTypeId')
+  q.select(
+    raw("COALESCE(json_agg(dt2) FILTER (WHERE dt2.id IS NOT NULL), '[]')").as(
+      'justificatifsTypesSpecifiques'
     )
   )
   q.groupBy('titresEtapes.id')

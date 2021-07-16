@@ -332,13 +332,16 @@ interface IEtapeTypeDocumentType {
   optionnel?: boolean
 }
 
+interface IEtapeTypeJustificatifType extends IEtapeTypeDocumentType {}
+
 interface ITitreTypeDemarcheTypeEtapeTypeDocumentType
   extends IEtapeTypeDocumentType {
   titreTypeId: string
   demarcheTypeId: string
 }
 
-interface IEtapeTypeJustificatifType extends IEtapeTypeDocumentType {}
+interface ITitreTypeDemarcheTypeEtapeTypeJustificatifType
+  extends ITitreTypeDemarcheTypeEtapeTypeDocumentType {}
 
 interface IEtapeType {
   id: string
@@ -805,6 +808,7 @@ interface ITitreEtapeOrTitreTravauxEtape {
   suppression?: boolean | null
   documentIds?: string[] | null
   documentsTypesSpecifiques?: IDocumentType[] | null
+  justificatifsTypesSpecifiques?: IDocumentType[] | null
   sectionsSpecifiques?: ISection[] | null
 }
 
@@ -937,6 +941,7 @@ interface ITitreTypeDemarcheTypeEtapeType {
   ordre: number
   etapeType?: IEtapeType
   documentsTypes?: IDocumentType[] | null
+  justificatifsTypes?: IDocumentType[] | null
 }
 
 interface IUnite {
@@ -1103,6 +1108,7 @@ export {
   ITitreTypeType,
   ITitreTypeDemarcheTypeEtapeType,
   ITitreTypeDemarcheTypeEtapeTypeDocumentType,
+  ITitreTypeDemarcheTypeEtapeTypeJustificatifType,
   ITitreEntreprise,
   ITravauxType,
   ITravauxEtapeType,

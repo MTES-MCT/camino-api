@@ -12,6 +12,7 @@ node_modules
 /sources/titres-*.json
 !/sources/titres-types--demarches-types--etapes-types.json
 !/sources/titres-types--demarches-types--etapes-types--documents-types.json
+!/sources/titres-types--demarches-types--etapes-types--justificatifs-t.json
 !/sources/titres-types--demarches-types.json
 !/sources/titres-types--titres-statuts.json
 !/sources/titres-types-types.json
