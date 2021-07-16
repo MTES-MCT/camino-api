@@ -98,7 +98,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-aof',
           typeId: 'aof',
-          ordre: 0,
+          ordre: 8,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -106,7 +106,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-eof',
           typeId: 'eof',
-          ordre: 0,
+          ordre: 7,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -114,7 +114,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-edm',
           typeId: 'edm',
-          ordre: 0,
+          ordre: 6,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -122,7 +122,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-ede',
           typeId: 'ede',
-          ordre: 0,
+          ordre: 5,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -130,7 +130,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-pfd',
           typeId: 'pfd',
-          ordre: 0,
+          ordre: 4,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -138,7 +138,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-pfc',
           typeId: 'pfc',
-          ordre: 0,
+          ordre: 3,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -146,7 +146,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-vfd',
           typeId: 'vfd',
-          ordre: 0,
+          ordre: 2,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'
@@ -154,7 +154,7 @@ const titreEtapesPubliques = {
         {
           id: 'titre-id-demarche-id-vfc',
           typeId: 'vfc',
-          ordre: 0,
+          ordre: 1,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
           date: '2020-02-02'

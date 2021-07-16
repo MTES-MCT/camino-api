@@ -7,7 +7,8 @@ import {
   ITitreDemarche,
   ITitreEtape,
   IHeritageContenu,
-  ISection
+  ISection,
+  IDocumentType
 } from '../../../types'
 
 import { geoConvert } from '../../../tools/geo-convert'
@@ -106,8 +107,6 @@ const titreEtapeHeritageContenuBuild = (
   date: string,
   etapeType: IEtapeType,
   sections: ISection[],
-  etapesTypes: IEtapeType[],
-  titreTypeId: string,
   titreEtapes?: ITitreEtape[] | null
 ) => {
   if (!titreEtapes) {
@@ -125,11 +124,8 @@ const titreEtapeHeritageContenuBuild = (
   titreEtapesFiltered.push(titreEtape)
   titreEtapesFiltered = titreEtapesFiltered.reverse()
 
-  const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
-    titreEtapesFiltered,
-    etapesTypes,
-    titreTypeId
-  )
+  const etapeSectionsDictionary =
+    etapeSectionsDictionaryBuild(titreEtapesFiltered)
 
   titreEtape.heritageContenu = sections.reduce(
     (heritageContenu: IHeritageContenu, section) => {
@@ -192,7 +188,10 @@ const titreEtapeHeritageContenuBuild = (
 const titreEtapeHeritageBuild = (
   date: string,
   etapeType: IEtapeType,
-  titreDemarche: ITitreDemarche
+  titreDemarche: ITitreDemarche,
+  sectionsSpecifiques: ISection[],
+  documentsTypesSpecifiques: IDocumentType[],
+  justificatifsTypesSpecifiques: IDocumentType[]
 ) => {
   let titreEtape = {} as ITitreEtape
 
@@ -203,18 +202,14 @@ const titreEtapeHeritageBuild = (
   titreEtape.modification = true
 
   const sections = etapeTypeSectionsFormat(
-    etapeType,
-    titreDemarche.type!.etapesTypes!,
-    titreDemarche.titre!.typeId
+    etapeType.sections,
+    sectionsSpecifiques
   )
-
-  if (sections.length) {
+  if (sections?.length) {
     const { contenu, heritageContenu } = titreEtapeHeritageContenuBuild(
       date,
       etapeType,
-      sections,
-      titreDemarche.type!.etapesTypes,
-      titreDemarche.titre!.typeId,
+      sectionsSpecifiques,
       titreDemarche.etapes
     )
 
@@ -224,6 +219,9 @@ const titreEtapeHeritageBuild = (
 
   titreEtape.type = etapeType
   titreEtape.titreDemarcheId = titreDemarche.id
+  titreEtape.sectionsSpecifiques = sectionsSpecifiques
+  titreEtape.documentsTypesSpecifiques = documentsTypesSpecifiques
+  titreEtape.justificatifsTypesSpecifiques = justificatifsTypesSpecifiques
 
   return titreEtape
 }

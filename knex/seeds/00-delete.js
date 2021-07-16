@@ -85,6 +85,7 @@ const seed = seeding(async ({ del }) => {
     del('definitions'),
     del('permissions'),
     del('titresTypes__demarchesTypes'),
+    del('titresTypes_demarchesTypes_etapesTypes_documentsTypes'),
     del('titresTypes__demarchesTypes__etapesTypes'),
     del('entreprises__documents_types'),
     del('etapesTypes__justificatifsTypes'),

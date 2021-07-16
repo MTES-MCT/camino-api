@@ -21,9 +21,7 @@ const titresEtapesHeritageContenuUpdate = async (
     { titresDemarchesIds },
     {
       fields: {
-        type: { etapesTypes: { id: {} } },
-        etapes: { type: { id: {} } },
-        titre: { id: {} }
+        etapes: { type: { id: {} } }
       }
     },
     userSuper
@@ -38,9 +36,7 @@ const titresEtapesHeritageContenuUpdate = async (
   titresDemarches.forEach(titreDemarche => {
     if (titreDemarche.etapes?.length) {
       const etapeSectionsDictionary = etapeSectionsDictionaryBuild(
-        titreDemarche.etapes,
-        titreDemarche.type!.etapesTypes!,
-        titreDemarche.titre!.typeId
+        titreDemarche.etapes
       )
 
       const titreEtapes = titreDemarche.etapes

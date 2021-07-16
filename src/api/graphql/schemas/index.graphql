@@ -188,6 +188,8 @@ type Query {
 
   titresTypesDemarchesTypes: [TitreTypeDemarcheType]
   titresTypesDemarchesTypesEtapesTypes: [TitreTypeDemarcheTypeEtapeType]
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypes: [TitreTypeDemarcheTypeEtapeTypeDocumentType]
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypes: [TitreTypeDemarcheTypeEtapeTypeDocumentType]
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
   etapesTypesDocumentsTypes: [EtapeTypeDocumentType]
   etapesTypesJustificatifsTypes: [EtapeTypeJustificatifType]
@@ -333,10 +335,6 @@ type Mutation {
 
   "Dépose une demande et met à jour le titre minier"
   etapeDeposer(id: ID!): Titre
-
-  etapeJustificatifsAssocier(id: ID!, documentsIds: [ID]!): Titre
-
-  etapeJustificatifDissocier(id: ID!, documentId: ID): Titre
 
   "Crée un document et met à jour le titre minier"
   documentCreer(document: InputDocumentCreation!): Document
@@ -491,6 +489,30 @@ type Mutation {
   titreTypeDemarcheTypeEtapeTypeSupprimer(
     titreTypeDemarcheTypeEtapeType: InputTitreTypeDemarcheTypeEtapeType!
   ): [TitreTypeDemarcheTypeEtapeType]
+
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier(
+    titreTypeDemarcheTypeEtapeTypeDocumentType: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ): [TitreTypeDemarcheTypeEtapeTypeDocumentType]
+
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer(
+    titreTypeDemarcheTypeEtapeTypeDocumentType: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ): [TitreTypeDemarcheTypeEtapeTypeDocumentType]
+
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer(
+    titreTypeDemarcheTypeEtapeTypeDocumentType: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ): [TitreTypeDemarcheTypeEtapeTypeDocumentType]
+
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier(
+    titreTypeDemarcheTypeEtapeTypeJustificatifType: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ): [TitreTypeDemarcheTypeEtapeTypeDocumentType]
+
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer(
+    titreTypeDemarcheTypeEtapeTypeJustificatifType: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ): [TitreTypeDemarcheTypeEtapeTypeDocumentType]
+
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer(
+    titreTypeDemarcheTypeEtapeTypeJustificatifType: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ): [TitreTypeDemarcheTypeEtapeTypeDocumentType]
 
   etapeTypeEtapeStatutModifier(
     etapeTypeEtapeStatut: InputEtapeTypeEtapeStatut!

@@ -122,10 +122,60 @@ exports.up = knex => {
       table.boolean('optionnel')
       table.primary(['etapeTypeId', 'documentTypeId'])
     })
+    .createTable(
+      'titresTypes__demarchesTypes__etapesTypes__documentsTypes',
+      table => {
+        table.string('titreTypeId', 3).index().notNullable()
+        table.string('demarcheTypeId', 7).index().notNullable()
+        table.string('etapeTypeId', 3).index().notNullable()
+        table
+          .string('documentTypeId', 3)
+          .index()
+          .references('documentsTypes.id')
+          .notNullable()
+        table.boolean('optionnel')
+        table.primary([
+          'titreTypeId',
+          'demarcheTypeId',
+          'etapeTypeId',
+          'documentTypeId'
+        ])
+        table
+          .foreign(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
+          .references(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
+          .inTable('titresTypes__demarchesTypes__etapesTypes')
+      }
+    )
+    .createTable(
+      'titresTypes__demarchesTypes__etapesTypes__justificatifsT',
+      table => {
+        table.string('titreTypeId', 3).index().notNullable()
+        table.string('demarcheTypeId', 7).index().notNullable()
+        table.string('etapeTypeId', 3).index().notNullable()
+        table
+          .string('documentTypeId', 3)
+          .index()
+          .references('documentsTypes.id')
+          .notNullable()
+        table.boolean('optionnel')
+        table.primary([
+          'titreTypeId',
+          'demarcheTypeId',
+          'etapeTypeId',
+          'documentTypeId'
+        ])
+        table
+          .foreign(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
+          .references(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
+          .inTable('titresTypes__demarchesTypes__etapesTypes')
+      }
+    )
 }
 
 exports.down = knex => {
   return knex.schema
+    .dropTable('titresTypes__demarchesTypes__etapesTypes__justificatifsT')
+    .dropTable('titresTypes__demarchesTypes__etapesTypes__documentsTypes')
     .dropTable('etapesTypes__documentsTypes')
     .dropTable('etapesTypes__etapesStatuts')
     .dropTable('etapesStatuts')

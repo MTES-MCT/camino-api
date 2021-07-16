@@ -87,8 +87,6 @@ type Etape {
 
   modification: Boolean
   suppression: Boolean
-  justificatifsAssociation: Boolean
-  documentsCreation: Boolean
   deposable: Boolean
 }
 

@@ -1,6 +1,5 @@
 import {
   IContenuValeur,
-  IEtapeType,
   Index,
   ISection,
   ISectionElementType,
@@ -146,16 +145,11 @@ const titreEtapeHeritageContenuFind = (
   )
 }
 
-const etapeSectionsDictionaryBuild = (
-  titreEtapes: ITitreEtape[],
-  demarcheTypeEtapesTypes: IEtapeType[],
-  titreTypeId: string
-) =>
+const etapeSectionsDictionaryBuild = (titreEtapes: ITitreEtape[]) =>
   titreEtapes.reduce((acc: { [id: string]: ISection[] }, e) => {
     const sections = etapeTypeSectionsFormat(
-      e.type!,
-      demarcheTypeEtapesTypes,
-      titreTypeId
+      e.type!.sections,
+      e.sectionsSpecifiques
     )
 
     if (sections.length) {

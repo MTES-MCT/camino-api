@@ -208,9 +208,10 @@ class TitresEtapes extends Model {
 
     delete json.modification
     delete json.suppression
-    delete json.justificatifsAssociation
-    delete json.documentsCreation
     delete json.deposable
+    delete json.sectionsSpecifiques
+    delete json.documentsTypesSpecifiques
+    delete json.justificatifsTypesSpecifiques
     json = super.$formatDatabaseJson(json)
 
     return json
@@ -266,9 +267,10 @@ class TitresEtapes extends Model {
     delete json.geojsonPoints
     delete json.modification
     delete json.suppression
-    delete json.justificatifsAssociation
-    delete json.documentsCreation
     delete json.deposable
+    delete json.sectionsTypesSpecifiques
+    delete json.documentsTypesSpecifiques
+    delete json.justificatifsTypesSpecifiques
     json = super.$parseJson(json)
 
     return json

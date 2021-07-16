@@ -15,9 +15,7 @@ import {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeDeposer,
-  etapeJustificatifsAssocier,
-  etapeJustificatifDissocier
+  etapeDeposer
 } from './resolvers/titres-etapes'
 
 import {
@@ -130,6 +128,14 @@ import {
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
   titreTypeDemarcheTypeEtapeTypeSupprimer,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypes,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypes,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer,
   etapesTypesEtapesStatuts,
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
@@ -273,6 +279,8 @@ export default {
   titresTypesTitresStatuts,
   titresTypesDemarchesTypes,
   titresTypesDemarchesTypesEtapesTypes,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypes,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypes,
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
   etapesTypesJustificatifsTypes,
@@ -297,8 +305,6 @@ export default {
   etapeModifier,
   etapeSupprimer,
   etapeDeposer,
-  etapeJustificatifsAssocier,
-  etapeJustificatifDissocier,
   documentCreer,
   documentModifier,
   documentSupprimer,
@@ -368,6 +374,14 @@ export default {
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
   titreTypeDemarcheTypeEtapeTypeSupprimer,
+
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer,
+
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer,
 
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,

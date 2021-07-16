@@ -26,7 +26,9 @@ import {
   IEtapeTypeEtapeStatut,
   IUtilisateur,
   IEtapeTypeDocumentType,
-  IEtapeTypeJustificatifType
+  IEtapeTypeJustificatifType,
+  ITitreTypeDemarcheTypeEtapeTypeDocumentType,
+  ITitreTypeDemarcheTypeEtapeTypeJustificatifType
 } from '../../types'
 
 import { knex } from '../../knex'
@@ -67,6 +69,8 @@ import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
 import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
 import EtapesTypesJustificatifsTypes from '../models/etapes-types--justificatifs-types'
+import TitresTypesDemarchesTypesEtapesTypesDocumentsTypes from '../models/titres-types--demarches-types-etapes-types-documents-types'
+import TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes from '../models/titres-types--demarches-types-etapes-types-justificatifs-types'
 
 const permissionsGet = async (
   _a: never,
@@ -208,6 +212,27 @@ const titresTypesDemarchesTypesEtapesTypesGet = async () =>
     'etapeTypeId'
   ])
 
+const titreTypeDemarcheTypeEtapeTypeGet = async (
+  {
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId
+  }: {
+    titreTypeId: string
+    demarcheTypeId: string
+    etapeTypeId: string
+  },
+  { fields }: { fields?: IFields }
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'titresTypesDemarchesTypesEtapesTypes', fieldsFormat)
+    : []
+
+  return TitresTypesDemarchesTypesEtapesTypes.query()
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId])
+    .withGraphFetched(graph)
+}
+
 const titreTypeDemarcheTypeEtapeTypeUpdate = async (
   titreTypeId: string,
   demarcheTypeId: string,
@@ -234,6 +259,84 @@ const titreTypeDemarcheTypeEtapeTypeDelete = async (
     titreTypeId,
     demarcheTypeId,
     etapeTypeId
+  ])
+
+const titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet = async () =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().orderBy([
+    'titreTypeId',
+    'demarcheTypeId',
+    'etapeTypeId',
+    'documentTypeId'
+  ])
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string,
+  titreTypeDemarcheTypeEtapeTypeDocumentType: Partial<ITitreTypeDemarcheTypeEtapeTypeDocumentType>
+) =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query()
+    .patch(titreTypeDemarcheTypeEtapeTypeDocumentType)
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId, documentTypeId])
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate = async (
+  titreTypeDemarcheTypeEtapeTypeDocumentType: ITitreTypeDemarcheTypeEtapeTypeDocumentType
+) =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().insertAndFetch(
+    titreTypeDemarcheTypeEtapeTypeDocumentType
+  )
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string
+) =>
+  TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().deleteById([
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId,
+    documentTypeId
+  ])
+
+const titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet = async () =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().orderBy([
+    'titreTypeId',
+    'demarcheTypeId',
+    'etapeTypeId',
+    'documentTypeId'
+  ])
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeUpdate = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string,
+  titreTypeDemarcheTypeEtapeTypeJustificatifType: Partial<ITitreTypeDemarcheTypeEtapeTypeJustificatifType>
+) =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query()
+    .patch(titreTypeDemarcheTypeEtapeTypeJustificatifType)
+    .findById([titreTypeId, demarcheTypeId, etapeTypeId, documentTypeId])
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreate = async (
+  titreTypeDemarcheTypeEtapeTypeJustificatifType: ITitreTypeDemarcheTypeEtapeTypeJustificatifType
+) =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().insertAndFetch(
+    titreTypeDemarcheTypeEtapeTypeJustificatifType
+  )
+
+const titreTypeDemarcheTypeEtapeTypeJustificatifTypeDelete = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  documentTypeId: string
+) =>
+  TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().deleteById([
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId,
+    documentTypeId
   ])
 
 const etapesTypesEtapesStatutsGet = async () =>
@@ -558,9 +661,18 @@ export {
   titreTypeDemarcheTypeCreate,
   titreTypeDemarcheTypeDelete,
   titresTypesDemarchesTypesEtapesTypesGet,
+  titreTypeDemarcheTypeEtapeTypeGet,
   titreTypeDemarcheTypeEtapeTypeUpdate,
   titreTypeDemarcheTypeEtapeTypeCreate,
   titreTypeDemarcheTypeEtapeTypeDelete,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypesGet,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeUpdate,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeDelete,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypesGet,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeUpdate,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeDelete,
   etapesTypesEtapesStatutsGet,
   etapeTypeEtapeStatutUpdate,
   etapeTypeEtapeStatutCreate,

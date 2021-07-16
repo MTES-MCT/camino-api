@@ -127,7 +127,7 @@ const titreFormat = (t: ITitre, fields: IFields = titreFormatFields) => {
 
   if (fields.demarches && t.demarches?.length) {
     t.demarches = t.demarches.map(td =>
-      titreDemarcheFormat(td, t.typeId, fields.demarches)
+      titreDemarcheFormat(td, fields.demarches)
     )
   }
 

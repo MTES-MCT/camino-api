@@ -1,5 +1,6 @@
 import {
   IDemarcheType,
+  IDocumentType,
   IEtapeType,
   ISection,
   ITitre,
@@ -13,51 +14,76 @@ import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
 
 const etapeTypeSectionsFormat = (
-  etapeType: IEtapeType,
-  demarcheTypeEtapesTypes: IEtapeType[],
-  titreTypeId: string
+  sections: ISection[] | undefined | null,
+  sectionsSpecifiques: ISection[] | undefined | null
 ) => {
-  // cherche le type d'étape parmi les types d'étapes de la démarche
-  // pour récupérer les sections spécifiques configurées dans t_d_e
-  const demarcheEtapeType = demarcheTypeEtapesTypes.find(
-    et => et.id === etapeType.id && et.titreTypeId === titreTypeId
-  )
+  let result: ISection[] = []
 
-  let sectionsSpecifiques = [] as ISection[]
-
-  if (demarcheEtapeType?.sectionsSpecifiques) {
-    sectionsSpecifiques = demarcheEtapeType.sectionsSpecifiques
+  if (sectionsSpecifiques?.length) {
+    result.push(...sectionsSpecifiques)
   }
-
-  let sections = [] as ISection[]
 
   // fusion des sections par défaut de l'étape type
   // avec les sections spécifiques au type / démarche / étape
   // si deux sections ont la même id, seule la custom est conservée
-  if (sectionsSpecifiques.length && etapeType.sections?.length) {
-    sections = dupRemove(
-      'id',
-      sectionsSpecifiques,
-      etapeType.sections
-    ) as ISection[]
-  } else if (sectionsSpecifiques.length) {
-    sections = sectionsSpecifiques
-  } else if (etapeType.sections?.length) {
-    sections = etapeType.sections
+  if (result.length && sections?.length) {
+    result = dupRemove('id', result, sections) as ISection[]
+  } else if (sections?.length) {
+    result = sections
   }
 
-  return titreSectionsFormat(sections)
+  return titreSectionsFormat(result)
+}
+
+const documentsTypesFormat = (
+  documentsTypes: IDocumentType[] | undefined | null,
+  documentsTypesSpecifiques: IDocumentType[] | undefined | null
+): IDocumentType[] => {
+  const result: IDocumentType[] = []
+
+  if (documentsTypes?.length) {
+    result.push(...documentsTypes)
+  }
+
+  if (documentsTypesSpecifiques?.length) {
+    documentsTypesSpecifiques.forEach(documentTypeSpecifique => {
+      const documentType = result.find(
+        ({ id }) => id === documentTypeSpecifique.id
+      )
+
+      // Si il est déjà présent, on override juste son attribut « optionnel »
+      if (documentType) {
+        documentType.optionnel = documentTypeSpecifique.optionnel
+      } else {
+        result.push(documentTypeSpecifique)
+      }
+    })
+  }
+
+  return result
 }
 
 const etapeTypeFormat = (
   etapeType: IEtapeType,
-  demarcheTypeEtapesTypes: IEtapeType[],
-  titreTypeId: string
+  sectionsSpecifiques: ISection[] | null | undefined,
+  documentsTypesSpecifiques: IDocumentType[] | null | undefined,
+  justificatifsTypesSpecifiques: IDocumentType[] | null | undefined
 ) => {
   etapeType.sections = etapeTypeSectionsFormat(
-    etapeType,
-    demarcheTypeEtapesTypes,
-    titreTypeId
+    etapeType.sections,
+    sectionsSpecifiques
+  )
+
+  // on ajoute les documents spécifiques
+  etapeType.documentsTypes = documentsTypesFormat(
+    etapeType.documentsTypes,
+    documentsTypesSpecifiques
+  )
+
+  // on ajoute les justificatifs spécifiques
+  etapeType.justificatifsTypes = documentsTypesFormat(
+    etapeType.justificatifsTypes,
+    justificatifsTypesSpecifiques
   )
 
   return etapeType
@@ -109,4 +135,9 @@ const etapeTypeIsValidCheck = (
   return etapeTypeIsValid
 }
 
-export { etapeTypeIsValidCheck, etapeTypeSectionsFormat, etapeTypeFormat }
+export {
+  etapeTypeIsValidCheck,
+  etapeTypeSectionsFormat,
+  etapeTypeFormat,
+  documentsTypesFormat
+}

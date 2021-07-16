@@ -6,7 +6,6 @@ import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
 import TitresTravauxEtapes from '../../models/titres-travaux-etapes'
-import TravauxEtapesTypesDocumentsTypes from '../../models/travaux-etapes-types--documents-types'
 
 import { documentsQueryModify } from './documents'
 import { administrationsTitresQuery } from './administrations'
@@ -16,18 +15,6 @@ import {
   titreTravauxModificationQuery
 } from './titres-travaux'
 import TitresTravaux from '../../models/titres-travaux'
-
-const titreTravauxEtapeCreationDocumentsModify = (
-  q: QueryBuilder<any, any | any[]>,
-  typeIdAlias: string
-) => {
-  // si il existe un type de document pour le type d’étape
-  const query = TravauxEtapesTypesDocumentsTypes.query()
-    .where(raw('?? = ??', [typeIdAlias, 'travauxEtapeTypeId']))
-    .first()
-
-  q.select(raw('EXISTS(?)', [query]).as('documentsCreation'))
-}
 
 /**
  * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
@@ -89,8 +76,6 @@ const titresTravauxEtapesQueryModify = (
       user
     ).as('modification')
   )
-
-  titreTravauxEtapeCreationDocumentsModify(q, 'type.id')
 
   q.modifyGraph('travaux', b => {
     titresTravauxQueryModify(

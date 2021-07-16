@@ -55,20 +55,6 @@ describe('teste documentsTypesValidate', () => {
     expect(errors).toHaveLength(1)
   })
 
-  test('il manque le type de fichier à un document obligatoire', () => {
-    const errors = documentsTypesValidate(
-      [
-        {
-          typeId: 'arr',
-          fichier: true,
-          date: '2002-10-10'
-        }
-      ] as IDocument[],
-      [{ id: 'arr', optionnel: false }] as IDocumentType[]
-    )
-    expect(errors).toHaveLength(1)
-  })
-
   test('le document obligatoire est complet', () => {
     const errors = documentsTypesValidate(
       [

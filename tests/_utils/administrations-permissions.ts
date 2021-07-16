@@ -6,7 +6,10 @@ import { administrationsWithRelations } from './administrations'
 import Titres from '../../src/database/models/titres'
 import DemarchesTypes from '../../src/database/models/demarches-types'
 import options from '../../src/database/queries/_options'
-import { etapeTypeGet } from '../../src/database/queries/metas'
+import {
+  etapeTypeGet,
+  titreTypeDemarcheTypeEtapeTypeGet
+} from '../../src/database/queries/metas'
 import { titreEtapePropsIds } from '../../src/business/utils/titre-etape-heritage-props-find'
 import { etapeTypeSectionsFormat } from '../../src/api/_format/etapes-types'
 
@@ -147,11 +150,16 @@ const creationCheck = async (
       .withGraphFetched(options.demarchesTypes.graph)
       .findById(demarcheCreated.body.data.demarcheCreer.demarches[0].type!.id)
 
-    const sections = etapeTypeSectionsFormat(
-      etapeType,
-      demarcheType.etapesTypes,
-      titreTypeId
+    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
+      {
+        titreTypeId: titreTypeId,
+        demarcheTypeId: demarcheType.id,
+        etapeTypeId: etapeType.id
+      },
+      { fields: { documentsTypes: { id: {} } } }
     )
+
+    const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
 
     const heritageContenu = sections.reduce((acc, section) => {
       if (!acc[section.id]) {
