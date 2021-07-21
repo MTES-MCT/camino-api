@@ -115,21 +115,21 @@ const titreEtapeHeritagePropsFind = (
 ) => {
   let hasChanged = false
 
-  let newTitreEtape = titreEtape
+  const partialTitreEtape: Partial<ITitreEtape> = {
+    heritageProps: titreEtape.heritageProps
+  }
 
   if (!titreEtape.heritageProps) {
-    newTitreEtape = objectClone(newTitreEtape)
-    newTitreEtape.heritageProps = {}
+    partialTitreEtape.heritageProps = {}
     hasChanged = true
   }
 
   titreEtapePropsIds.forEach(propId => {
-    const heritage = newTitreEtape.heritageProps![propId]
+    const heritage = partialTitreEtape.heritageProps![propId]
 
     if (!heritage) {
-      newTitreEtape = objectClone(newTitreEtape)
       hasChanged = true
-      newTitreEtape.heritageProps![propId] = { actif: false, etapeId: null }
+      partialTitreEtape.heritageProps![propId] = { actif: false, etapeId: null }
     }
 
     const prevHeritage = prevTitreEtape?.heritageProps
@@ -148,67 +148,76 @@ const titreEtapeHeritagePropsFind = (
 
         if (!titreEtapePropCheck(propId, oldValue, newValue)) {
           hasChanged = true
-          newTitreEtape = objectClone(newTitreEtape)
 
           if (propId === 'points') {
-            newTitreEtape.points = titrePointsIdsUpdate(
+            partialTitreEtape.points = titrePointsIdsUpdate(
               newValue as ITitrePoint[],
-              newTitreEtape.id
+              titreEtape.id
             )
           } else if (propId === 'amodiataires' || propId === 'titulaires') {
-            newTitreEtape[propId] = newValue as IEntreprise[]
+            partialTitreEtape[propId] = newValue as IEntreprise[]
           } else if (propId === 'substances') {
-            newTitreEtape[propId] = newValue as ITitreSubstance[]
+            partialTitreEtape[propId] = newValue as ITitreSubstance[]
           } else if (propId === 'dateDebut' || propId === 'dateFin') {
-            newTitreEtape[propId] = newValue as string
+            partialTitreEtape[propId] = newValue as string
           } else if (propId === 'duree' || propId === 'surface') {
-            newTitreEtape[propId] = newValue as number
+            partialTitreEtape[propId] = newValue as number
           }
         }
 
         const incertitudePropId = propId as keyof ITitreIncertitudes
 
         if (
-          newTitreEtape.incertitudes &&
+          titreEtape.incertitudes &&
           prevTitreEtape.incertitudes &&
-          newTitreEtape.incertitudes[incertitudePropId] !==
+          titreEtape.incertitudes[incertitudePropId] !==
             prevTitreEtape.incertitudes[incertitudePropId]
         ) {
           hasChanged = true
-          newTitreEtape = objectClone(newTitreEtape)
-          newTitreEtape.incertitudes![incertitudePropId] =
-            prevTitreEtape.incertitudes[incertitudePropId]
-        } else if (newTitreEtape.incertitudes && !prevTitreEtape.incertitudes) {
+          partialTitreEtape.incertitudes = {
+            [incertitudePropId]: prevTitreEtape.incertitudes[incertitudePropId]
+          }
+        } else if (titreEtape.incertitudes && !prevTitreEtape.incertitudes) {
           hasChanged = true
-          newTitreEtape = objectClone(newTitreEtape)
-          newTitreEtape.incertitudes = null
+          partialTitreEtape.incertitudes = null
         } else if (
           prevTitreEtape.incertitudes &&
           prevTitreEtape.incertitudes[incertitudePropId] &&
-          !newTitreEtape.incertitudes
+          !titreEtape.incertitudes
         ) {
           hasChanged = true
-          newTitreEtape = objectClone(newTitreEtape)
-          newTitreEtape.incertitudes = {}
-          newTitreEtape.incertitudes![incertitudePropId] =
-            prevTitreEtape.incertitudes[incertitudePropId]
+          partialTitreEtape.incertitudes = {
+            [incertitudePropId]: prevTitreEtape.incertitudes[incertitudePropId]
+          }
         }
       } else {
         // l’étape précédente a été supprimée, il faut donc désactiver l’héritage
         hasChanged = true
-        newTitreEtape = objectClone(newTitreEtape)
-        newTitreEtape.heritageProps![propId].actif = false
+        partialTitreEtape.heritageProps![propId].actif = false
       }
     }
 
     if ((etapeId || heritage?.etapeId) && etapeId !== heritage?.etapeId) {
       hasChanged = true
-      newTitreEtape = objectClone(newTitreEtape)
-      newTitreEtape.heritageProps![propId].etapeId = etapeId
+      partialTitreEtape.heritageProps![propId].etapeId = etapeId
     }
   })
 
-  return { hasChanged, titreEtape: newTitreEtape }
+  let titreEtapeUpdated = titreEtape
+  if (hasChanged) {
+    titreEtapeUpdated = objectClone(titreEtape)
+
+    Object.keys(partialTitreEtape).forEach(
+      (key: string) =>
+        ((titreEtapeUpdated as any)[key] = (partialTitreEtape as any)[key])
+    )
+  }
+
+  return {
+    hasChanged,
+    titreEtapeUpdated,
+    partialTitreEtape
+  }
 }
 
 export { titreEtapeHeritagePropsFind, titreEtapePropsIds }

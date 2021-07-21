@@ -78,6 +78,7 @@ type PointReference {
 }
 
 input InputPoint {
+  id: ID
   groupe: Int!
   contour: Int!
   point: Int!
@@ -90,6 +91,7 @@ input InputPoint {
 }
 
 input InputPointReference {
+  id: ID
   geoSystemeId: ID!
   coordonnees: InputCoordonnees!
   opposable: Boolean

@@ -7,6 +7,7 @@ import { titreCreate } from '../src/database/queries/titres'
 import { titreEtapeCreate } from '../src/database/queries/titres-etapes'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 import Titres from '../src/database/models/titres'
+import { userSuper } from '../src/database/user-super'
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,
@@ -63,13 +64,16 @@ async function etapeCreate() {
   })
 
   const titreEtapeId = 'etape-test-id'
-  await titreEtapeCreate({
-    id: titreEtapeId,
-    typeId: 'mfr',
-    statutId: 'fai',
-    titreDemarcheId,
-    date: ''
-  })
+  await titreEtapeCreate(
+    {
+      id: titreEtapeId,
+      typeId: 'mfr',
+      statutId: 'fai',
+      titreDemarcheId,
+      date: ''
+    },
+    userSuper
+  )
 
   return { titreDemarcheId, titreEtapeId }
 }

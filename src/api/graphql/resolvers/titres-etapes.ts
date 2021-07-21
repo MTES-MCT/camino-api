@@ -305,7 +305,7 @@ const etapeCreer = async (
     )
     etape.contenu = contenu
 
-    const etapeUpdated = await titreEtapeUpsert(etape)
+    const etapeUpdated = await titreEtapeUpsert(etape, user!)
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
@@ -438,7 +438,7 @@ const etapeModifier = async (
     )
     etape.contenu = contenu
 
-    const etapeUpdated = await titreEtapeUpsert(etape)
+    const etapeUpdated = await titreEtapeUpsert(etape, user!)
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
@@ -515,7 +515,7 @@ const etapeDeposer = async (
 
     const statutIdAndDate = statutIdAndDateGet(titreEtape, user!, true)
 
-    await titreEtapeUpdate(titreEtape.id, statutIdAndDate)
+    await titreEtapeUpdate(titreEtape.id, statutIdAndDate, user!)
     const etapeUpdated = await titreEtapeGet(
       titreEtape.id,
       {
@@ -595,7 +595,7 @@ const etapeSupprimer = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    await titreEtapeDelete(id)
+    await titreEtapeDelete(id, user!)
 
     await fichiersRepertoireDelete(id, 'demarches')
 

@@ -90,9 +90,12 @@ const titreEtapeHeritagePropsBuild = (
     const titreEtapePrecedente =
       index > 0 ? titreEtapesFiltered[index - 1] : null
 
-    const { titreEtape } = titreEtapeHeritagePropsFind(te, titreEtapePrecedente)
+    const { titreEtapeUpdated } = titreEtapeHeritagePropsFind(
+      te,
+      titreEtapePrecedente
+    )
 
-    titreEtapesFiltered[index] = titreEtape
+    titreEtapesFiltered[index] = titreEtapeUpdated
   })
 
   const newTitreEtape = titreEtapesFiltered[titreEtapesFiltered.length - 1]

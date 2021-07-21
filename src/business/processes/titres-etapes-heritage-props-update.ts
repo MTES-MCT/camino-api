@@ -2,7 +2,7 @@ import PQueue from 'p-queue'
 
 import { ITitreEtape } from '../../types'
 
-import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
+import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titreEtapeHeritagePropsFind } from '../utils/titre-etape-heritage-props-find'
 import { userSuper } from '../../database/user-super'
@@ -45,12 +45,12 @@ const titresEtapesHeritagePropsUpdate = async (
       titreEtapes.forEach((titreEtape: ITitreEtape, index: number) => {
         const titreEtapePrecedente = index > 0 ? titreEtapes[index - 1] : null
 
-        const { hasChanged, titreEtape: newTitreEtape } =
+        const { hasChanged, titreEtapeUpdated, partialTitreEtape } =
           titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
 
         if (hasChanged) {
           queue.add(async () => {
-            await titreEtapeUpsert(newTitreEtape)
+            await titreEtapeUpdate(titreEtape.id, partialTitreEtape, userSuper)
 
             const log = {
               type: 'titre / démarche / étape : héritage des propriétés (mise à jour) ->',
@@ -63,7 +63,7 @@ const titresEtapesHeritagePropsUpdate = async (
           })
 
           // met à jour l'étape pour l'itération suivante
-          titreEtapes[index] = newTitreEtape
+          titreEtapes[index] = titreEtapeUpdated
         }
       })
     }

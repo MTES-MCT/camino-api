@@ -19,6 +19,12 @@ import TitresEtapesJustificatifs from '../models/titres-etapes-justificatifs'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
 import TitresForets from '../models/titres-forets'
 import { titresEtapesQueryModify } from './permissions/titres-etapes'
+import {
+  createLogCreate,
+  deleteLogCreate,
+  patchLogCreate,
+  upsertLogCreate
+} from './logs'
 
 const titresEtapesQueryBuild = (
   { fields }: { fields?: IFields },
@@ -88,25 +94,48 @@ const titresEtapesGet = async (
   return q
 }
 
-const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
-  TitresEtapes.query()
+const titreEtapeCreate = async (
+  titreEtape: ITitreEtape,
+  user: IUtilisateur
+) => {
+  const newValue = await TitresEtapes.query()
     .insertAndFetch(titreEtape)
     .withGraphFetched(options.titresEtapes.graph)
 
-const titreEtapeUpdate = async (id: string, titreEtape: Partial<ITitreEtape>) =>
-  TitresEtapes.query().patchAndFetchById(id, { ...titreEtape, id })
+  await createLogCreate(titreEtape.id, user.id)
 
-const titreEtapeDelete = async (id: string, trx?: Transaction) =>
-  TitresEtapes.query(trx)
-    .deleteById(id)
-    .withGraphFetched(options.titresEtapes.graph)
-    .returning('*')
+  return newValue
+}
 
-const titreEtapeUpsert = async (titreEtape: ITitreEtape, trx?: Transaction) =>
-  TitresEtapes.query(trx)
-    .upsertGraph(titreEtape, options.titresEtapes.update)
-    .withGraphFetched(options.titresEtapes.graph)
-    .returning('*')
+const titreEtapeUpdate = async (
+  id: string,
+  titreEtape: Partial<ITitreEtape>,
+  user: IUtilisateur
+) => {
+  return patchLogCreate<TitresEtapes>(id, titreEtape, TitresEtapes, user.id)
+}
+
+const titreEtapeDelete = async (
+  id: string,
+  user: IUtilisateur,
+  trx?: Transaction
+) => {
+  const result = await TitresEtapes.query(trx).delete().where('id', id)
+
+  await deleteLogCreate(id, user.id)
+
+  return result
+}
+
+const titreEtapeUpsert = async (titreEtape: ITitreEtape, user: IUtilisateur) =>
+  upsertLogCreate<TitresEtapes>(
+    titreEtape.id,
+    titreEtape,
+    TitresEtapes,
+    options.titresEtapes.update,
+    options.titresEtapes.graph,
+    user.id
+  )
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
 

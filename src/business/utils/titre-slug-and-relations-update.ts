@@ -8,7 +8,8 @@ import {
   ITitreEtape,
   ITitrePoint,
   ITitrePointReference,
-  ITitreTravaux
+  ITitreTravaux,
+  IUtilisateur
 } from '../../types'
 
 import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
@@ -108,7 +109,11 @@ const titreActiviteSlugFind = (titreActivite: ITitreActivite, titre: ITitre) =>
 interface ITitreRelation {
   name: string
   slugFind: (...args: any[]) => string
-  update: (id: string, element: { slug: string }) => Promise<any>
+  update: (
+    id: string,
+    element: { slug: string },
+    user: IUtilisateur
+  ) => Promise<any>
   relations?: ITitreRelation[]
 }
 
@@ -167,7 +172,7 @@ const relationsSlugsUpdate = async (
     for (const element of parent[relation.name]) {
       const slug = relation.slugFind(element, parent)
       if (slug !== element.slug) {
-        await relation.update(element.id, { slug })
+        await relation.update(element.id, { slug }, userSuper)
         hasChanged = true
       }
       if (relation.relations) {
