@@ -14,11 +14,17 @@ type Demarches {
 "Démarches effectuées sur un titre minier"
 type Demarche {
   """
-  Id composée de la concaténation:
-  - de l'id du titre
+  Id unique
   - du type de la démarche
   """
   id: ID!
+
+  """
+  Slug composé de la concaténation:
+  - de l'id du titre
+  - du type de la démarche
+  """
+  slug: String
 
   "Type de la démarche composé de trois lettres"
   type: DemarcheType!

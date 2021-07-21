@@ -5,6 +5,7 @@ mutation TitreCreer($titre: InputTitreCreation!) {
 }
 
 fragment titre on Titre {
-  nom
   id
+  slug
+  nom
 }

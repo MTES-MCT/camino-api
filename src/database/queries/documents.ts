@@ -65,7 +65,7 @@ const documentUpsert = async (document: IDocument, tr?: Transaction) =>
 const documentUpdate = async (id: string, props: Partial<IDocument>) =>
   Document.query()
     .withGraphFetched(options.documents.graph)
-    .patchAndFetchById(id, props)
+    .patchAndFetchById(id, { ...props, id })
 
 const documentDelete = async (id: string, tr?: Transaction) =>
   Document.query(tr)

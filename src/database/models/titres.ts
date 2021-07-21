@@ -30,6 +30,7 @@ class Titres extends Model {
     required: ['id', 'nom', 'domaineId', 'typeId'],
     properties: {
       id: { type: 'string' },
+      slug: { type: 'string' },
       nom: { type: 'string' },
       domaineId: { type: 'string', maxLength: 1 },
       typeId: { type: 'string', maxLength: 3 },

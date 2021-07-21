@@ -2,6 +2,7 @@ import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
 
 import { ITitreTravauxEtape } from '../../types'
+import { idGenerate } from './_format/id-create'
 
 interface TitresTravauxEtapes extends ITitreTravauxEtape {}
 
@@ -14,6 +15,7 @@ class TitresTravauxEtapes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 128 },
+      slug: { type: 'string' },
       titreTravauxId: { type: 'string', maxLength: 128 },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
@@ -78,8 +80,12 @@ class TitresTravauxEtapes extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    if (!json.id && json.titreTravauxId && json.typeId) {
-      json.id = `${json.titreTravauxId}-${json.typeId}99`
+    if (!json.id) {
+      json.id = idGenerate()
+    }
+
+    if (!json.slug && json.titreTravauxId && json.typeId) {
+      json.slug = `${json.titreTravauxId}-${json.typeId}99`
     }
 
     delete json.modification

@@ -19,7 +19,7 @@ import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresEtapesHeritagePropsUpdate } from './processes/titres-etapes-heritage-props-update'
 import { titresEtapesHeritageContenuUpdate } from './processes/titres-etapes-heritage-contenu-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
+import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { logsUpdate } from './_logs-update'
 import { utilisateursNewsletterUpdate } from './processes/utilisateurs-newsletter-update'
 
@@ -62,8 +62,7 @@ const daily = async () => {
     const titresActivitesStatutIdsUpdated =
       await titresActivitesStatutIdsUpdate()
     const titresActivitesPropsUpdated = await titresActivitesPropsUpdate()
-    // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate()
+    const titresUpdatedIndex = await titresSlugsUpdate()
     const utilisateursUpdated = await utilisateursNewsletterUpdate()
 
     logsUpdate({

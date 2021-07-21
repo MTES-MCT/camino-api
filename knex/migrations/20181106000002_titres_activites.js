@@ -1,6 +1,7 @@
 exports.up = knex =>
   knex.schema.createTable('titresActivites', table => {
     table.string('id').primary()
+    table.string('slug').index()
     table
       .string('titreId', 128)
       .index()

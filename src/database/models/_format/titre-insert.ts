@@ -1,10 +1,15 @@
 import slugify from '@sindresorhus/slugify'
 import { Pojo } from 'objection'
 import cryptoRandomString from 'crypto-random-string'
+import { idGenerate } from './id-create'
 
 const titreInsertFormat = (json: Pojo) => {
-  if (!json.id && json.domaineId && json.typeId && json.nom) {
-    json.id = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
+  if (!json.id) {
+    json.id = idGenerate()
+  }
+
+  if (!json.slug && json.domaineId && json.typeId && json.nom) {
+    json.slug = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
       json.nom
     )}-${cryptoRandomString({ length: 4 })}`
   }

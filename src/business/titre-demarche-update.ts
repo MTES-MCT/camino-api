@@ -9,7 +9,7 @@ import { titresPhasesUpdate } from './processes/titres-phases-update'
 import { titresDatesUpdate } from './processes/titres-dates-update'
 import { titresDemarchesOrdreUpdate } from './processes/titres-demarches-ordre-update'
 import { titresPublicUpdate } from './processes/titres-public-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
+import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
@@ -60,8 +60,7 @@ const titreDemarcheUpdate = async (
       titreId
     ])
 
-    // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate([titreId])
+    const titresUpdatedIndex = await titresSlugsUpdate([titreId])
     const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
     if (titreIdTmp) {
       titreId = titreIdTmp

@@ -1,4 +1,4 @@
-import { transaction, Transaction, raw, RawBuilder } from 'objection'
+import { Transaction, raw, RawBuilder } from 'objection'
 
 import {
   ITitre,
@@ -61,25 +61,12 @@ const titreGet = async (
 
   q.context({ fetchHeritage })
 
-  return q.findById(id)
-}
-
-const titreFromIdGet = async (
-  id: string,
-  element: 'etape',
-  { fields }: { fields?: IFields },
-  user: IUtilisateur | null
-) => {
-  const q = titresQueryBuild({ fields }, user)
-
-  if (element === 'etape') {
-    q.joinRelated('demarches.etapes')
-    q.where('demarches:etapes.id', id)
-  }
-
-  const titre = (await q.first()) as ITitre
-
-  return titre
+  return q
+    .andWhere(b => {
+      b.orWhere('titres.id', id)
+      b.orWhere('titres.slug', id)
+    })
+    .first()
 }
 
 const titresColonnes = {
@@ -142,7 +129,8 @@ const titresGet = async (
     noms,
     entreprises,
     references,
-    territoires
+    territoires,
+    slugs
   }: {
     intervalle?: number | null
     page?: number | null
@@ -158,6 +146,7 @@ const titresGet = async (
     entreprises?: string | null
     references?: string | null
     territoires?: string | null
+    slugs?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
@@ -166,6 +155,10 @@ const titresGet = async (
 
   if (ids) {
     q.whereIn('titres.id', ids)
+  }
+
+  if (slugs) {
+    q.whereIn('titres.slug', slugs)
   }
 
   titresFiltersQueryModify(
@@ -302,7 +295,7 @@ const titreCreate = async (titre: ITitre, { fields }: { fields?: IFields }) => {
 }
 
 const titreUpdate = async (id: string, titre: Partial<ITitre>) =>
-  Titres.query().patch(titre).findById(id)
+  Titres.query().patchAndFetchById(id, { ...titre, id })
 
 const titreDelete = async (id: string, tr?: Transaction) =>
   Titres.query(tr).deleteById(id)
@@ -337,19 +330,8 @@ const titreAdministrationGestionnaireDelete = async (
     .where('titreId', titreId)
     .andWhere('administrationId', administrationId)
 
-const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
-  const knex = Titres.knex()
-
-  return transaction(knex, async tr => {
-    await titreDelete(titreOldId, tr)
-
-    await titreUpsert(titre, { fields: {} }, tr)
-  })
-}
-
 export {
   titreGet,
-  titreFromIdGet,
   titresGet,
   titresCount,
   titreUpdate,
@@ -357,6 +339,5 @@ export {
   titreDelete,
   titresAdministrationsGestionnairesCreate,
   titreAdministrationGestionnaireDelete,
-  titreIdUpdate,
   titreUpsert
 }

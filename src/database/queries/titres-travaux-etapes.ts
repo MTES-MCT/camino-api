@@ -33,7 +33,12 @@ const titreTravauxEtapeGet = async (
 ) => {
   const q = titresTravauxEtapesQueryBuild({ fields }, user)
 
-  return q.findById(id)
+  return q
+    .andWhere(b => {
+      b.orWhere('titresTravauxEtapes.id', id)
+      b.orWhere('titresTravauxEtapes.slug', id)
+    })
+    .first()
 }
 
 const titresTravauxEtapesGet = async (
@@ -79,7 +84,7 @@ const titreTravauxEtapeUpdate = async (
 ) =>
   TitresTravauxEtapes.query()
     .withGraphFetched(options.titresTravauxEtapes.graph)
-    .patchAndFetchById(id, props)
+    .patchAndFetchById(id, { ...props, id })
 
 const titreTravauxEtapeDelete = async (id: string, trx?: Transaction) =>
   TitresTravauxEtapes.query(trx)

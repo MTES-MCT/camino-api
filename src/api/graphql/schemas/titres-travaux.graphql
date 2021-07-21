@@ -14,6 +14,7 @@ type Travaux {
 
 type Travail {
   id: ID!
+  slug: String
   type: TravauxType!
   ordre: Int!
   statut: DemarcheStatut!

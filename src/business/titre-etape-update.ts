@@ -15,7 +15,7 @@ import { titresPhasesUpdate } from './processes/titres-phases-update'
 import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
 import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
 import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etapes-ids-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
+import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { titresPublicUpdate } from './processes/titres-public-update'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
@@ -112,8 +112,7 @@ const titreEtapeUpdate = async (
       titreId
     ])
 
-    // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate([titreId])
+    const titresUpdatedIndex = await titresSlugsUpdate([titreId])
     const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
 
     if (titreIdTmp) {

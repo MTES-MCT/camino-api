@@ -11,11 +11,16 @@
 "Étape d'une démarche effectuée sur un titre minier"
 type Etape {
   """
-  Id composée de la concaténation:
+  Id unique
+  """
+  id: ID!
+
+  """
+  Slug composé de la concaténation:
   - de l'id de la démarche
   - du type de l'étape
   """
-  id: ID!
+  slug: String
 
   titreDemarcheId: ID!
 
