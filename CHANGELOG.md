@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.91](https://github.com/MTES-MCT/camino-api/compare/v0.24.90...v0.24.91) (2021-07-21)
+
+
+### Features
+
+* **métas:** ajoute les pays dans les métas ([#781](https://github.com/MTES-MCT/camino-api/issues/781)) ([f71ba1f](https://github.com/MTES-MCT/camino-api/commit/f71ba1f24584d380d2564a67601339595cd298a2))
+
 ### [0.24.90](https://github.com/MTES-MCT/camino-api/compare/v0.24.89...v0.24.90) (2021-07-07)
 
 
