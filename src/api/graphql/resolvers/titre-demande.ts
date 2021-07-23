@@ -91,17 +91,15 @@ const titreDemandeCreer = async (
       { fields: {} }
     )
 
-    let titreId = await titreUpdateTask(titre.id)
+    const titreId = titre.id
+    await titreUpdateTask(titre.id)
 
     const titreDemarche = await titreDemarcheCreate({
       titreId,
       typeId: 'oct'
     } as ITitreDemarche)
 
-    titreId = await titreDemarcheUpdateTask(
-      titreDemarche.id,
-      titreDemarche.titreId
-    )
+    await titreDemarcheUpdateTask(titreDemarche.id, titreDemarche.titreId)
 
     titre = await titreGet(
       titreId,
@@ -123,10 +121,7 @@ const titreDemandeCreer = async (
 
     titreEtape = await titreEtapeUpsert(titreEtape)
 
-    titreId = await titreEtapeUpdateTask(
-      titreEtape.id,
-      titreEtape.titreDemarcheId
-    )
+    await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId)
 
     titre = await titreGet(
       titreId,

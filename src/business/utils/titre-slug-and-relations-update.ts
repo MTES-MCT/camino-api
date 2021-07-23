@@ -187,18 +187,30 @@ const titreSlugAndRelationsUpdate = async (
   titre: ITitre
 ): Promise<{ hasChanged: boolean; slug: string }> => {
   let slug = titreSlugFind(titre)
+  let doublonTitreId: string | null = null
   let hasChanged = false
-  const titreWithTheSameSlug = await titresGet({ slugs: [slug] }, {}, userSuper)
+
+  const titreWithTheSameSlug = await titresGet(
+    { slugs: [slug] },
+    { fields: { id: {} } },
+    userSuper
+  )
+
   if (
     titreWithTheSameSlug?.length > 1 ||
     (titreWithTheSameSlug?.length === 1 &&
       titreWithTheSameSlug[0].id !== titre.id)
   ) {
-    slug += `-${cryptoRandomString({ length: 8 })}`
+    if (!titre.slug?.startsWith(slug)) {
+      slug += `-${cryptoRandomString({ length: 8 })}`
+      doublonTitreId = titreWithTheSameSlug[0].id
+    } else {
+      slug = titre.slug
+    }
   }
 
   if (titre.slug !== slug) {
-    await titreUpdate(titre.id, { slug })
+    await titreUpdate(titre.id, { slug, doublonTitreId })
     hasChanged = true
   }
 

@@ -61,10 +61,6 @@ const titreDemarcheUpdate = async (
     ])
 
     const titresUpdatedIndex = await titresSlugsUpdate([titreId])
-    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
-    if (titreIdTmp) {
-      titreId = titreIdTmp
-    }
 
     logsUpdate({
       titresDemarchesPublicUpdated,
@@ -81,8 +77,6 @@ const titreDemarcheUpdate = async (
       titresActivitesPropsUpdated,
       titresUpdatedIndex
     })
-
-    return titreId
   } catch (e) {
     console.error(`erreur: titreDemarcheUpdate ${titreId}`)
     console.error(e)

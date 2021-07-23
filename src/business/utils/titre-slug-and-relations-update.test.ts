@@ -94,6 +94,27 @@ describe('vérifie la mis à jour des slugs sur les relations d’un titre', () 
     expect(secondSlug.startsWith(firstSlug)).toBeTruthy()
   })
 
+  test('ne modifie pas le hash d’un slug déjà en double', async () => {
+    await Titres.query().delete()
+
+    const titrePojo = {
+      nom: 'titre-nom',
+      domaineId: 'm',
+      typeId: 'arm',
+      propsTitreEtapesIds: {}
+    } as ITitre
+
+    let titre = await titreAdd(objectClone(titrePojo))
+    const { slug: firstSlug } = await titreSlugAndRelationsUpdate(titre)
+    titre = await titreAdd({ ...titrePojo, slug: `${firstSlug}-123123` })
+
+    const { hasChanged, slug: secondSlug } = await titreSlugAndRelationsUpdate(
+      titre
+    )
+    expect(hasChanged).toEqual(false)
+    expect(secondSlug).toEqual(`${firstSlug}-123123`)
+  })
+
   test('génère un slug pour une démarche', async () => {
     await Titres.query().delete()
 

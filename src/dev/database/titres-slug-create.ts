@@ -16,10 +16,11 @@ import {
 } from '../../database/queries/titres'
 import { userSuper } from '../../database/user-super'
 import { Index, ITitre } from '../../types'
-import { titreFilePathsRename } from '../../business/processes/titre-fichiers-rename'
 import idsUpdate from './ids-update'
-import { transaction } from 'objection'
+import Objection, { Model, transaction } from 'objection'
 import { idGenerate } from '../../database/models/_format/id-create'
+import * as fs from 'fs'
+import fileRename from '../../tools/file-rename'
 
 const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
   const knex = Titres.knex()
@@ -85,6 +86,7 @@ const titreRelation = {
     },
     {
       name: 'activites',
+      idFind,
       props: ['id', 'titreId']
     },
     {
@@ -134,26 +136,13 @@ const titreIdsUpdate = async (titre: ITitre) => {
   try {
     // met à jour les ids de titre par effet de bord
     // (titre n'est retourné que pour les tests, mais il est modifié de toute façon)
-    const {
-      titre: titreNew,
-      hasChanged,
-      relationsIdsUpdatedIndex
-    } = titreIdAndRelationsUpdate(titre)
+    const { titre: titreNew, hasChanged } = titreIdAndRelationsUpdate(titre)
 
     if (!hasChanged) return null
 
     titre = titreNew
 
     await titreIdUpdate(titreOldId, titre)
-
-    // attrape l'erreur pour ne pas interrompre le processus
-    try {
-      await titreFilePathsRename(relationsIdsUpdatedIndex, titre)
-    } catch (e) {
-      console.error(
-        `erreur: renommage de fichiers ${titreOldId} -> ${titre.id}`
-      )
-    }
 
     const log = {
       type: 'titre : id (mise à jour) ->',
@@ -219,6 +208,28 @@ const titresIdsUpdate = async () => {
   return titresUpdatedIndex
 }
 
+const filesRenameAndClean = async <M extends Model & { id: string }>(
+  directory: string,
+  queryGet: (slug: string) => Objection.QueryBuilder<M, M>
+) => {
+  for (const file of fs.readdirSync(`./files/${directory}`)) {
+    const element = await queryGet(file)
+    if (element) {
+      await fileRename(
+        `files/${directory}/${file}`,
+        `files/${directory}/${element.id}`
+      )
+    } else {
+      const files = fs.readdirSync(`files/${directory}/${file}`)
+      if (!files || !files.length) {
+        fs.rmdirSync(`files/${directory}/${file}`)
+      } else {
+        console.error(`files/${directory}/${file} a encore des fichiers`)
+      }
+    }
+  }
+}
+
 async function main() {
   const tablesWithSlug = [
     Titres.tableName,
@@ -242,6 +253,16 @@ async function main() {
   }
 
   await titresIdsUpdate()
+
+  await filesRenameAndClean('travaux', slug =>
+    TitresTravauxEtapes.query().where('slug', slug).first()
+  )
+  await filesRenameAndClean('demarches', slug =>
+    TitresEtapes.query().where('slug', slug).first()
+  )
+  await filesRenameAndClean('activites', slug =>
+    TitresActivites.query().where('slug', slug).first()
+  )
 
   process.exit(0)
 }

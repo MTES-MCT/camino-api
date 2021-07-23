@@ -669,6 +669,7 @@ interface ITitre {
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
+  doublonTitreId?: string | null
 }
 
 interface ITitreActivite {

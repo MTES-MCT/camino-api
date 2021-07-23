@@ -31,7 +31,6 @@ const titreEtapeUpdate = async (
     console.info('- - -')
     console.info(`mise à jour d'une étape : ${titreEtapeId}`)
 
-    let titreId
     const titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       {
@@ -53,7 +52,7 @@ const titreEtapeUpdate = async (
     const titresEtapesHeritageContenuUpdated =
       await titresEtapesHeritageContenuUpdate([titreDemarcheId])
 
-    titreId = titreDemarche.titreId
+    const titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
       titreId
     ])
@@ -113,11 +112,6 @@ const titreEtapeUpdate = async (
     ])
 
     const titresUpdatedIndex = await titresSlugsUpdate([titreId])
-    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
-
-    if (titreIdTmp) {
-      titreId = titreIdTmp
-    }
 
     logsUpdate({
       titresEtapesOrdreUpdated,
@@ -146,8 +140,6 @@ const titreEtapeUpdate = async (
       titresActivitesPropsUpdated,
       titresUpdatedIndex
     })
-
-    return titreId
   } catch (e) {
     console.error(`erreur: titreEtapeUpdate ${titreEtapeId}`)
     console.error(e)

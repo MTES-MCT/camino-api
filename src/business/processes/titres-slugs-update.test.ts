@@ -11,10 +11,6 @@ jest.mock('../utils/titre-slug-and-relations-update', () => ({
   titreSlugAndRelationsUpdate: jest.fn()
 }))
 
-jest.mock('./titre-fichiers-rename', () => ({
-  titreFilePathsRename: jest.fn()
-}))
-
 jest.mock('../../database/queries/titres', () => ({
   __esModule: true,
   titreIdUpdate: jest.fn().mockResolvedValue(true),

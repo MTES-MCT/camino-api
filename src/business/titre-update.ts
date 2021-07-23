@@ -16,13 +16,7 @@ const titreUpdate = async (titreId: string) => {
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
-    // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresSlugsUpdate([titreId])
-    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
-
-    if (titreIdTmp) {
-      titreId = titreIdTmp
-    }
 
     logsUpdate({
       titresPublicUpdated,
@@ -31,8 +25,6 @@ const titreUpdate = async (titreId: string) => {
       titresActivitesCreated,
       titresUpdatedIndex
     })
-
-    return titreId
   } catch (e) {
     console.error(`erreur: titreUpdate ${titreId}`)
     console.error(e)

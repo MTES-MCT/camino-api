@@ -270,7 +270,7 @@ describe('titreModifier', () => {
   const id = 'm-ar-mon-titre-0000'
 
   beforeEach(async () => {
-    const toto = await titreCreate(
+    await titreCreate(
       {
         id,
         nom: 'mon titre',
@@ -284,7 +284,6 @@ describe('titreModifier', () => {
       },
       {}
     )
-    console.log(toto)
   })
 
   test('ne peut pas modifier un titre (utilisateur anonyme)', async () => {
@@ -339,7 +338,8 @@ describe('titreModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         titreModifier: {
-          id: 'm-ar-mon-titre-modifie-0000',
+          id: 'm-ar-mon-titre-0000',
+          slug: 'm-ar-mon-titre-modifie-0000',
           nom: 'mon titre modifié'
         }
       }
