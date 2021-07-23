@@ -116,7 +116,8 @@ const titreEtapeHeritageContenuBuild = (
     id: 'new-titre-etape',
     date,
     type: etapeType,
-    typeId: etapeType.id
+    typeId: etapeType.id,
+    sectionsSpecifiques: sections
   } as ITitreEtape
 
   let titreEtapesFiltered = titreEtapes.filter(te => te.date < date).reverse()
