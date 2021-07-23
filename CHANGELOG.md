@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.92](https://github.com/MTES-MCT/camino-api/compare/v0.24.91...v0.24.92) (2021-07-23)
+
+
+### Bug Fixes
+
+* **étape:** corrige le calcul de l’héritage des propriétés spécifiques ([d01bb68](https://github.com/MTES-MCT/camino-api/commit/d01bb68f04a3deb2e17de04a2da9de762ebde390))
+
 ### [0.24.91](https://github.com/MTES-MCT/camino-api/compare/v0.24.90...v0.24.91) (2021-07-21)
 
 
