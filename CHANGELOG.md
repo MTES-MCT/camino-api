@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.93](https://github.com/MTES-MCT/camino-api/compare/v0.24.92...v0.24.93) (2021-07-27)
+
+
+### Bug Fixes
+
+* **étape:** corrige la validation des documents et des justificatifs obligatoires ([#784](https://github.com/MTES-MCT/camino-api/issues/784)) ([1b8ff46](https://github.com/MTES-MCT/camino-api/commit/1b8ff465179ecb9fdbd32470f32e14b648096e0a))
+
 ### [0.24.92](https://github.com/MTES-MCT/camino-api/compare/v0.24.91...v0.24.92) (2021-07-23)
 
 
