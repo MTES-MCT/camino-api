@@ -68,6 +68,7 @@ const titreEtapeFormat = (
       { ...titreEtape, statutId: 'dep' },
       titreEtape.type!.sections!,
       titreEtape.type!.documentsTypes!,
+      titreEtape.documents,
       titreEtape.type!.justificatifsTypes!,
       titreEtape.justificatifs
     )

@@ -29,8 +29,9 @@ const titreEtapeUpdationValidate = (
   titre: ITitre,
   sections: ISection[],
   documentsTypes: IDocumentType[],
+  documents: IDocument[] | null | undefined,
   justificatifsTypes: IDocumentType[],
-  justificatifs?: IDocument[] | null
+  justificatifs: IDocument[] | null | undefined
 ) => {
   const errors = []
 
@@ -91,6 +92,7 @@ const titreEtapeUpdationValidate = (
         titreEtape,
         sections,
         documentsTypes,
+        documents,
         justificatifsTypes,
         justificatifs
       )
@@ -108,8 +110,9 @@ const titreEtapeCompleteValidate = (
   titreEtape: ITitreEtape,
   sections: ISection[],
   documentsTypes: IDocumentType[],
+  documents: IDocument[] | null | undefined,
   justificatifsTypes: IDocumentType[],
-  justificatifs?: IDocument[] | null
+  justificatifs: IDocument[] | null | undefined
 ) => {
   const errors = [] as string[]
   // les éléments non optionnel des sections sont renseignés
@@ -157,10 +160,7 @@ const titreEtapeCompleteValidate = (
 
   // les fichiers obligatoires sont tous renseignés et complets
   if (documentsTypes!.length) {
-    const documentsErrors = documentsTypesValidate(
-      titreEtape.documents,
-      documentsTypes
-    )
+    const documentsErrors = documentsTypesValidate(documents, documentsTypes)
     if (documentsErrors.length) {
       errors.push(...documentsErrors)
     }

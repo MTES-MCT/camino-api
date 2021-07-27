@@ -272,12 +272,23 @@ const etapeCreer = async (
     delete etape.justificatifIds
     etape.justificatifs = justificatifs
 
+    const documentIds = etape.documentIds || []
+    const documents = documentIds.length
+      ? await documentsGet(
+          { ids: documentIds },
+          { fields: { type: { id: {} } } },
+          userSuper
+        )
+      : null
+    delete etape.documentIds
+
     const rulesErrors = titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
       sections,
       documentsTypes,
+      documents,
       justificatifsTypes,
       justificatifs
     )
@@ -288,10 +299,6 @@ const etapeCreer = async (
     if (etape.points) {
       etape.points = titreEtapePointsCalc(etape.points)
     }
-
-    const documentIds = etape.documentIds || []
-    delete etape.documentIds
-
     const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,
       sections
@@ -393,12 +400,23 @@ const etapeModifier = async (
     delete etape.justificatifIds
     etape.justificatifs = justificatifs
 
+    const documentIds = etape.documentIds || []
+    const documents = documentIds.length
+      ? await documentsGet(
+          { ids: documentIds },
+          { fields: { type: { id: {} } } },
+          userSuper
+        )
+      : null
+    delete etape.documentIds
+
     const rulesErrors = titreEtapeUpdationValidate(
       etape,
       titreDemarche,
       titreDemarche.titre,
       sections,
       documentsTypes,
+      documents,
       justificatifsTypes,
       justificatifs
     )
@@ -410,7 +428,6 @@ const etapeModifier = async (
     if (etape.points) {
       etape.points = titreEtapePointsCalc(etape.points)
     }
-    const documentIds = etape.documentIds || []
     await documentsLier(
       context,
       documentIds,
@@ -418,7 +435,6 @@ const etapeModifier = async (
       'titreEtapeId',
       titreEtapeOld
     )
-    delete etape.documentIds
 
     const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,
