@@ -50,7 +50,12 @@ const titresTravauGet = async (
 ) => {
   const q = titresTravauxQueryBuild({ fields }, user)
 
-  return q.findById(titreTravauxId)
+  return q
+    .andWhere(b => {
+      b.orWhere('titresTravaux.id', titreTravauxId)
+      b.orWhere('titresTravaux.slug', titreTravauxId)
+    })
+    .first()
 }
 
 const titreTravauxCreate = async (titreTravaux: ITitreTravaux) =>
@@ -59,7 +64,7 @@ const titreTravauxCreate = async (titreTravaux: ITitreTravaux) =>
 const titreTravauxUpdate = async (
   id: string,
   titreTravaux: Partial<ITitreTravaux>
-) => TitresTravaux.query().patch(titreTravaux).findById(id)
+) => TitresTravaux.query().patchAndFetchById(id, { ...titreTravaux, id })
 
 const titreTravauxDelete = async (id: string, trx?: Transaction) =>
   TitresTravaux.query(trx)

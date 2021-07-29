@@ -625,6 +625,7 @@ interface ITitreSubstance extends ISubstance {
 
 interface ITitre {
   id: string
+  slug?: string
   nom: string
   domaineId: string
   domaine?: IDomaine | null
@@ -660,7 +661,7 @@ interface ITitre {
   pays?: IPays[] | null
   modification?: boolean | null
   suppression?: boolean | null
-  doublonTitreId?: string | null
+  doublonTitreSlug?: string | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   travauxCreation?: boolean | null
@@ -668,10 +669,12 @@ interface ITitre {
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
   propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
+  doublonTitreId?: string | null
 }
 
 interface ITitreActivite {
   id: string
+  slug?: string
   titreId: string
   titre?: ITitre | null
   date: string
@@ -731,6 +734,7 @@ interface ITitreEtapeJustificatif {
 
 interface ITitreDemarcheOrTravaux {
   id: string
+  slug?: string
   titreId: string
   titre?: ITitre | null
   typeId: string
@@ -794,6 +798,7 @@ interface IDocument {
 
 interface ITitreEtapeOrTitreTravauxEtape {
   id: string
+  slug?: string
   typeId: string
   type?: IEtapeType | null
   statutId: string
@@ -871,6 +876,7 @@ interface ITitrePhase {
 
 interface ITitrePoint {
   id: string
+  slug?: string
   titreEtapeId: string
   nom?: string | null
   description?: string | null
@@ -886,6 +892,7 @@ interface ITitrePoint {
 
 interface ITitrePointReference {
   id: string
+  slug?: string
   titrePointId: string
   geoSystemeId: string
   geoSysteme?: IGeoSysteme | null
@@ -1000,7 +1007,7 @@ interface IDefinition {
   id: string
   nom: string
   ordre: number
-  slug: string
+  slug?: string
   table?: string
   description?: string | null
   couleur?: string

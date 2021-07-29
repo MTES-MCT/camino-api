@@ -4,12 +4,11 @@ import { emailsSend } from '../../../tools/api-mailjet/emails'
 
 const emailContentFormat = (
   etapeNom: string,
-  titreNom: string,
   titreId: string,
   user: IUtilisateur
 ) =>
   `
-  <h3>L’étape « ${etapeNom} » de la demande pour l’ARM ${titreNom} vient d’être réalisée.</h3>
+  <h3>L’étape « ${etapeNom} » d’une demande d’ARM vient d’être réalisée.</h3>
   
   <hr>
   
@@ -32,7 +31,6 @@ const emailGet = (
   etape: ITitreEtape,
   etapeType: IEtapeType,
   demarcheTypeId: string,
-  titreNom: string,
   titreId: string,
   titreTypeId: string,
   user: IUtilisateur,
@@ -67,8 +65,8 @@ const emailGet = (
     return null
   }
 
-  const subject = `${titreNom} | ${etapeType.nom} | ${title}`
-  const content = emailContentFormat(etapeType.nom, titreNom, titreId, user)
+  const subject = `${etapeType.nom} | ${title}`
+  const content = emailContentFormat(etapeType.nom, titreId, user)
 
   return { subject, content, emails }
 }
@@ -77,7 +75,6 @@ const titreEtapeEmailsSend = async (
   etape: ITitreEtape,
   etapeType: IEtapeType,
   demarcheTypeId: string,
-  titreNom: string,
   titreId: string,
   titreTypeId: string,
   user: IUtilisateur,
@@ -87,7 +84,6 @@ const titreEtapeEmailsSend = async (
     etape,
     etapeType,
     demarcheTypeId,
-    titreNom,
     titreId,
     titreTypeId,
     user,

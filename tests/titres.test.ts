@@ -223,7 +223,7 @@ describe('titreCreer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: { titreCreer: { id: 'm-ar-titre-0000', nom: 'titre' } }
+      data: { titreCreer: { slug: 'm-ar-titre-0000', nom: 'titre' } }
     })
   })
 
@@ -259,7 +259,7 @@ describe('titreCreer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: { titreCreer: { id: 'm-ar-titre-0000', nom: 'titre' } }
+      data: { titreCreer: { slug: 'm-ar-titre-0000', nom: 'titre' } }
     })
   })
 })
@@ -318,7 +318,7 @@ describe('titreModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         titreModifier: {
-          id: 'm-ar-mon-titre-modifie-0000',
+          slug: 'm-ar-mon-titre-modifie-0000',
           nom: 'mon titre modifié'
         }
       }
@@ -338,7 +338,8 @@ describe('titreModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         titreModifier: {
-          id: 'm-ar-mon-titre-modifie-0000',
+          id: 'm-ar-mon-titre-0000',
+          slug: 'm-ar-mon-titre-modifie-0000',
           nom: 'mon titre modifié'
         }
       }

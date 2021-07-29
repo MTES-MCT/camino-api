@@ -311,22 +311,18 @@ const etapeCreer = async (
 
     await documentsLier(context, documentIds, etapeUpdated.id, 'titreEtapeId')
 
-    const titreUpdatedId = await titreEtapeUpdateTask(
-      etapeUpdated.id,
-      etapeUpdated.titreDemarcheId
-    )
+    await titreEtapeUpdateTask(etapeUpdated.id, etapeUpdated.titreDemarcheId)
 
     await titreEtapeEmailsSend(
       etape,
       etapeType,
       titreDemarche.typeId,
-      titreDemarche.titre.nom,
       titreDemarche.titreId,
       titreDemarche.titre.typeId,
       user!
     )
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -461,16 +457,12 @@ const etapeModifier = async (
       titreEtapeOld.contenu
     )
 
-    const titreUpdatedId = await titreEtapeUpdateTask(
-      etapeUpdated.id,
-      etapeUpdated.titreDemarcheId
-    )
+    await titreEtapeUpdateTask(etapeUpdated.id, etapeUpdated.titreDemarcheId)
 
     await titreEtapeEmailsSend(
       etape,
       etapeType,
       titreDemarche.typeId,
-      titreDemarche.titre.nom,
       titreDemarche.titreId,
       titreDemarche.titre.typeId,
       user!,
@@ -478,7 +470,7 @@ const etapeModifier = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -532,16 +524,12 @@ const etapeDeposer = async (
       user
     )
 
-    const titreUpdatedId = await titreEtapeUpdateTask(
-      etapeUpdated.id,
-      etapeUpdated.titreDemarcheId
-    )
+    await titreEtapeUpdateTask(etapeUpdated.id, etapeUpdated.titreDemarcheId)
 
     await titreEtapeEmailsSend(
       etapeUpdated,
       titreEtape.type!,
       titreDemarche.typeId,
-      titreDemarche.titre!.nom,
       titreDemarche.titreId,
       titreDemarche.titre!.typeId,
       user!,
@@ -549,7 +537,7 @@ const etapeDeposer = async (
     )
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {
@@ -611,12 +599,9 @@ const etapeSupprimer = async (
 
     await fichiersRepertoireDelete(id, 'demarches')
 
-    const titreUpdatedId = await titreEtapeUpdateTask(
-      null,
-      titreEtape.titreDemarcheId
-    )
+    await titreEtapeUpdateTask(null, titreEtape.titreDemarcheId)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
     return titreFormat(titreUpdated)
   } catch (e) {

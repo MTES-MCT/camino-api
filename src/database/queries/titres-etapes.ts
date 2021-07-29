@@ -47,7 +47,12 @@ const titreEtapeGet = async (
 
   q.context({ fetchHeritage })
 
-  return (await q.findById(titreEtapeId)) as ITitreEtape
+  return (await q
+    .andWhere(b => {
+      b.orWhere('titresEtapes.id', titreEtapeId)
+      b.orWhere('titresEtapes.slug', titreEtapeId)
+    })
+    .first()) as ITitreEtape
 }
 
 // utilisé dans le daily uniquement
@@ -89,7 +94,7 @@ const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
     .withGraphFetched(options.titresEtapes.graph)
 
 const titreEtapeUpdate = async (id: string, titreEtape: Partial<ITitreEtape>) =>
-  TitresEtapes.query().patch(titreEtape).findById(id)
+  TitresEtapes.query().patchAndFetchById(id, { ...titreEtape, id })
 
 const titreEtapeDelete = async (id: string, trx?: Transaction) =>
   TitresEtapes.query(trx)

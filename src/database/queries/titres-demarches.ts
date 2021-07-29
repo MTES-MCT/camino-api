@@ -1,10 +1,4 @@
-import {
-  transaction,
-  Transaction,
-  QueryBuilder,
-  raw,
-  RawBuilder
-} from 'objection'
+import { Transaction, QueryBuilder, raw, RawBuilder } from 'objection'
 
 import {
   ITitreDemarche,
@@ -330,7 +324,12 @@ const titreDemarcheGet = async (
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)
 
-  return q.findById(titreDemarcheId)
+  return q
+    .andWhere(b => {
+      b.orWhere('titresDemarches.id', titreDemarcheId)
+      b.orWhere('titresDemarches.slug', titreDemarcheId)
+    })
+    .first()
 }
 
 /**
@@ -350,7 +349,7 @@ const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
 const titreDemarcheUpdate = async (
   id: string,
   titreDemarche: Partial<ITitreDemarche>
-) => TitresDemarches.query().patch(titreDemarche).findById(id)
+) => TitresDemarches.query().patchAndFetchById(id, { ...titreDemarche, id })
 
 const titreDemarcheUpsert = async (
   titreDemarche: ITitreDemarche,
@@ -361,26 +360,6 @@ const titreDemarcheUpsert = async (
     .withGraphFetched(options.titresDemarches.graph)
     .returning('*')
 
-const titreDemarchesIdsUpdate = async (
-  titresDemarchesIdsOld: string[],
-  titresDemarchesNew: ITitreDemarche[]
-) => {
-  const knex = TitresDemarches.knex()
-
-  return transaction(knex, async tr => {
-    await Promise.all(
-      titresDemarchesIdsOld.map(titreDemarcheId =>
-        titreDemarcheDelete(titreDemarcheId, tr)
-      )
-    )
-    await Promise.all(
-      titresDemarchesNew.map(titreDemarche =>
-        titreDemarcheUpsert(titreDemarche, tr)
-      )
-    )
-  })
-}
-
 export {
   titresDemarchesGet,
   titresDemarchesCount,
@@ -388,6 +367,5 @@ export {
   titreDemarcheCreate,
   titreDemarcheUpdate,
   titreDemarcheUpsert,
-  titreDemarcheDelete,
-  titreDemarchesIdsUpdate
+  titreDemarcheDelete
 }

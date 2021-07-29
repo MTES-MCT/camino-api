@@ -264,7 +264,7 @@ const logsUpdate = ({
 
   if (titresUpdatedIndex && Object.keys(titresUpdatedIndex).length) {
     console.info(
-      `mise à jour: ${Object.keys(titresUpdatedIndex).length} titre(s) (ids)`
+      `mise à jour: ${Object.keys(titresUpdatedIndex).length} titre(s) (slugs)`
     )
   }
 

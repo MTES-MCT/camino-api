@@ -2,6 +2,7 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresDemarches', table => {
       table.string('id', 128).primary()
+      table.string('slug').index()
       table.string('titreId', 128).notNullable().index()
       table
         .foreign('titreId')
@@ -51,6 +52,7 @@ exports.up = knex => {
     })
     .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
+      table.string('slug').index()
       table.string('titreDemarcheId', 128).notNullable().index()
       table
         .foreign('titreDemarcheId')

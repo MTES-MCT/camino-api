@@ -15,7 +15,7 @@ import { titresPhasesUpdate } from './processes/titres-phases-update'
 import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
 import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
 import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etapes-ids-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
+import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { titresPublicUpdate } from './processes/titres-public-update'
 import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
@@ -31,7 +31,6 @@ const titreEtapeUpdate = async (
     console.info('- - -')
     console.info(`mise à jour d'une étape : ${titreEtapeId}`)
 
-    let titreId
     const titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       {
@@ -53,7 +52,7 @@ const titreEtapeUpdate = async (
     const titresEtapesHeritageContenuUpdated =
       await titresEtapesHeritageContenuUpdate([titreDemarcheId])
 
-    titreId = titreDemarche.titreId
+    const titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
       titreId
     ])
@@ -112,13 +111,7 @@ const titreEtapeUpdate = async (
       titreId
     ])
 
-    // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate([titreId])
-    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
-
-    if (titreIdTmp) {
-      titreId = titreIdTmp
-    }
+    const titresUpdatedIndex = await titresSlugsUpdate([titreId])
 
     logsUpdate({
       titresEtapesOrdreUpdated,
@@ -147,8 +140,6 @@ const titreEtapeUpdate = async (
       titresActivitesPropsUpdated,
       titresUpdatedIndex
     })
-
-    return titreId
   } catch (e) {
     console.error(`erreur: titreEtapeUpdate ${titreEtapeId}`)
     console.error(e)

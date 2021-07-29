@@ -189,14 +189,15 @@ const demarcheCreer = async (
 
     const demarcheCreated = await titreDemarcheCreate(demarche)
 
-    const titreUpdatedId = await titreDemarcheUpdateTask(
-      demarcheCreated.id,
-      demarcheCreated.titreId
-    )
+    await titreDemarcheUpdateTask(demarcheCreated.id, demarcheCreated.titreId)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(
+      demarcheCreated.titreId,
+      { fields },
+      user
+    )
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -244,14 +245,11 @@ const demarcheModifier = async (
 
     await titreDemarcheUpdate(demarche.id, demarche)
 
-    const titreUpdatedId = await titreDemarcheUpdateTask(
-      demarche.id,
-      demarche.titreId
-    )
+    await titreDemarcheUpdateTask(demarche.id, demarche.titreId)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(demarche.titreId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -285,14 +283,11 @@ const demarcheSupprimer = async (
 
     await titreEtapesOrActivitesFichiersDelete('demarches', demarcheOld.etapes)
 
-    const titreUpdatedId = await titreDemarcheUpdateTask(
-      null,
-      demarcheOld.titreId
-    )
+    await titreDemarcheUpdateTask(null, demarcheOld.titreId)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(demarcheOld.titreId, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {

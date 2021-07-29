@@ -9,6 +9,7 @@ import {
   heritagePropsFormat,
   heritageContenuFormat
 } from './_format/titre-etape-heritage'
+import { idGenerate } from './_format/id-create'
 
 interface TitresEtapes extends ITitreEtape {}
 class TitresEtapes extends Model {
@@ -20,6 +21,7 @@ class TitresEtapes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 128 },
+      slug: { type: 'string' },
       parentId: { type: ['string', 'null'] },
       titreDemarcheId: { type: 'string', maxLength: 128 },
       date: { type: ['string', 'null'] },
@@ -218,8 +220,11 @@ class TitresEtapes extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    if (!json.id && json.titreDemarcheId && json.typeId) {
-      json.id = `${json.titreDemarcheId}-${json.typeId}99`
+    if (!json.id) {
+      json.id = idGenerate()
+    }
+    if (!json.slug && json.titreDemarcheId && json.typeId) {
+      json.slug = `${json.titreDemarcheId}-${json.typeId}99`
     }
 
     if (json.points) {

@@ -138,7 +138,12 @@ const titreActiviteGet = async (
 
   if (!q) return undefined
 
-  return (await q.findById(id)) as ITitreActivite
+  return q
+    .andWhere(b => {
+      b.orWhere('titresActivites.id', id)
+      b.orWhere('titresActivites.slug', id)
+    })
+    .first()
 }
 
 /**
@@ -379,7 +384,7 @@ const titresActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
 const titreActiviteUpdate = async (
   id: string,
   titreActivite: Partial<ITitreActivite>
-) => TitresActivites.query().patch(titreActivite).findById(id)
+) => TitresActivites.query().patchAndFetchById(id, { ...titreActivite, id })
 
 const titreActiviteDelete = async (
   id: string,

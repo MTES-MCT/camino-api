@@ -23,12 +23,17 @@ type Titres {
 "Titre minier"
 type Titre {
   """
-  Id composée de la concaténation:
+  Id unique
+  """
+  id: ID!
+
+  """
+  Slug composé de la concaténation:
   - du type en 3 lettres
   - du slug du nom du titre
   - de l'année d'octroi
   """
-  id: ID!
+  slug: String
 
   "Nom du titre"
   nom: String!

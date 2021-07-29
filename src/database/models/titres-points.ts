@@ -2,6 +2,7 @@ import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
 
 import { ITitrePoint, ITitrePointReference } from '../../types'
+import { idGenerate } from './_format/id-create'
 
 interface TitresPoints extends ITitrePoint {}
 
@@ -14,6 +15,7 @@ class TitresPoints extends Model {
 
     properties: {
       id: { type: 'string' },
+      slug: { type: 'string' },
       titreEtapeId: { type: 'string', maxLength: 128 },
       nom: { type: ['string', 'null'] },
       description: { type: ['string', 'null'] },
@@ -54,14 +56,17 @@ class TitresPoints extends Model {
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
 
+    if (!json.id) {
+      json.id = idGenerate()
+    }
     if (
-      !json.id &&
+      !json.slug &&
       json.titreEtapeId &&
       json.groupe &&
       json.contour &&
       json.point
     ) {
-      json.id = `${json.titreEtapeId}-g${json.groupe
+      json.slug = `${json.titreEtapeId}-g${json.groupe
         .toString()
         .padStart(2, '0')}-c${json.contour
         .toString()

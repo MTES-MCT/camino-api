@@ -2,6 +2,7 @@ exports.up = knex =>
   knex.schema
     .createTable('titresTravaux', table => {
       table.string('id', 128).primary()
+      table.string('slug').index()
       table
         .string('titreId', 128)
         .index()
@@ -18,6 +19,7 @@ exports.up = knex =>
     })
     .createTable('titresTravauxEtapes', table => {
       table.string('id').primary()
+      table.string('slug').index()
       table
         .string('titreTravauxId', 128)
         .index()

@@ -2,6 +2,7 @@ import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
 
 import { ITitreActivite } from '../../types'
+import { idGenerate } from './_format/id-create'
 
 interface TitresActivites extends ITitreActivite {}
 
@@ -23,6 +24,7 @@ class TitresActivites extends Model {
 
     properties: {
       id: { type: 'string' },
+      slug: { type: 'string' },
       titreId: { type: 'string' },
       utilisateurId: { type: ['string', 'null'] },
       date: { type: 'string' },
@@ -103,11 +105,13 @@ class TitresActivites extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    if (!json.id && json.titreId && json.typeId && json.periodeId) {
-      const id = `${json.titreId}-${json.typeId}-${json.annee}-${json.periodeId
+    if (!json.id) {
+      json.id = idGenerate()
+    }
+    if (!json.slug && json.titreId && json.typeId && json.periodeId) {
+      json.slug = `${json.titreId}-${json.typeId}-${json.annee}-${json.periodeId
         .toString()
         .padStart(2, '0')}`
-      json.id = id
     }
 
     delete json.modification

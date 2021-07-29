@@ -1,7 +1,7 @@
 import { titresActivitesUpdate } from './processes/titres-activites-update'
 import { titresAdministrationsGestionnairesUpdate } from './processes/titres-administrations-gestionnaires-update'
 import { titresPublicUpdate } from './processes/titres-public-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
+import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { logsUpdate } from './_logs-update'
 
 const titreUpdate = async (titreId: string) => {
@@ -16,13 +16,7 @@ const titreUpdate = async (titreId: string) => {
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
-    // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate([titreId])
-    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
-
-    if (titreIdTmp) {
-      titreId = titreIdTmp
-    }
+    const titresUpdatedIndex = await titresSlugsUpdate([titreId])
 
     logsUpdate({
       titresPublicUpdated,
@@ -31,8 +25,6 @@ const titreUpdate = async (titreId: string) => {
       titresActivitesCreated,
       titresUpdatedIndex
     })
-
-    return titreId
   } catch (e) {
     console.error(`erreur: titreUpdate ${titreId}`)
     console.error(e)

@@ -5,6 +5,7 @@
 
 type TravauxEtape {
   id: ID!
+  slug: String
   type: EtapeType!
   statut: EtapeStatut!
   ordre: Int!

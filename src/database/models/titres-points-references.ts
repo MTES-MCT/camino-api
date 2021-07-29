@@ -2,6 +2,7 @@ import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
 
 import { ITitrePointReference } from '../../types'
+import { idGenerate } from './_format/id-create'
 
 interface TitresPointsReferences extends ITitrePointReference {}
 
@@ -14,6 +15,7 @@ class TitresPointsReferences extends Model {
 
     properties: {
       id: { type: 'string' },
+      slug: { type: 'string' },
       titrePointId: { type: 'string' },
       geoSystemeId: { type: 'string' },
       coordonnees: {
@@ -49,8 +51,12 @@ class TitresPointsReferences extends Model {
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
 
-    if (!json.id && json.titrePointId && json.geoSystemeId) {
-      json.id = `${json.titrePointId}-${json.geoSystemeId}`
+    if (!json.id) {
+      json.id = idGenerate()
+    }
+
+    if (!json.slug && json.titrePointId && json.geoSystemeId) {
+      json.slug = `${json.titrePointId}-${json.geoSystemeId}`
     }
 
     return json

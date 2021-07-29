@@ -5,8 +5,9 @@ mutation TitreModifier($titre: InputTitreModification!) {
 }
 
 fragment titre on Titre {
-  nom
   id
+  slug
+  nom
   type {
     id
     type {

@@ -160,11 +160,11 @@ const titreCreer = async (
     // insert le titre dans la base
     titre = await titreCreate(titre, { fields: {} })
 
-    const titreUpdatedId = await titreUpdateTask(titre.id)
+    await titreUpdateTask(titre.id)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(titre.id, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {
@@ -202,9 +202,9 @@ const titreModifier = async (
     // car le titre contient des références (tableau d'objet)
     await titreUpsert(titre, { fields })
 
-    const titreUpdatedId = await titreUpdateTask(titre.id)
+    await titreUpdateTask(titre.id)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user)
+    const titreUpdated = await titreGet(titre.id, { fields }, user)
 
     return titreUpdated && titreFormat(titreUpdated)
   } catch (e) {

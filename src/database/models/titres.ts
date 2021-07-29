@@ -19,6 +19,9 @@ import Forets from './forets'
 import { titreInsertFormat } from './_format/titre-insert'
 import { paysFormat } from './_format/pays'
 import { titreContenuFormat } from './_format/titre-contenu'
+import { idGenerate } from './_format/id-create'
+import slugify from '@sindresorhus/slugify'
+import cryptoRandomString from 'crypto-random-string'
 
 interface Titres extends ITitre {}
 
@@ -30,6 +33,7 @@ class Titres extends Model {
     required: ['id', 'nom', 'domaineId', 'typeId'],
     properties: {
       id: { type: 'string' },
+      slug: { type: 'string' },
       nom: { type: 'string' },
       domaineId: { type: 'string', maxLength: 1 },
       typeId: { type: 'string', maxLength: 3 },
@@ -223,6 +227,16 @@ class Titres extends Model {
   }
 
   public $parseJson(json: Pojo) {
+    if (!json.id) {
+      json.id = idGenerate()
+    }
+
+    if (!json.slug && json.domaineId && json.typeId && json.nom) {
+      json.slug = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
+        json.nom
+      )}-${cryptoRandomString({ length: 4 })}`
+    }
+
     json = titreInsertFormat(json)
     json = super.$parseJson(json)
 

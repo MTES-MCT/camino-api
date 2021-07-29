@@ -12,13 +12,18 @@ type Coordonnees {
 "Point du périmètre géographique d'un titre (système géodésique WGS 84)"
 type Point {
   """
-  Id composée de la concaténation:
+  Id unique
+  """
+  id: ID!
+
+  """
+  Slug composé de la concaténation:
   - de l'id de l'étape
   - du groupe (lettre 'g' suivie de 2 chiffres)
   - du contour (lettre 'c' suivie de 2 chiffres)
   - du point (lettre 'p' suivie de 3 chiffres)
   """
-  id: ID!
+  slug: String
 
   "Coordonnées du point dans le système WGS 84"
   coordonnees: Coordonnees
@@ -52,11 +57,16 @@ type Point {
 "Point du périmètre géographique d'un titre dans un système autre que WGS 84"
 type PointReference {
   """
-  Id composée de la concaténation:
+  Id unique
+  """
+  id: ID!
+
+  """
+  Slug composé de la concaténation:
   - de l'id du point
   - du système
   """
-  id: ID!
+  slug: String
 
   "Code du système de référence géodésique"
   geoSysteme: GeoSysteme

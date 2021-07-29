@@ -60,10 +60,12 @@ describe('retourne l’étape en fonction de son héritage', () => {
 
       const titreEtape = objectClone(titreEtapePrecedente) as ITitreEtape
       titreEtape.heritageProps![propId].actif = true
+      // @ts-ignore
       titreEtape[propId] = etapeValeur
       titreEtape.id = 'titreEtapeId'
 
       const titreEtapeNew = objectClone(titreEtape) as ITitreEtape
+      // @ts-ignore
       titreEtapeNew[propId] = heritageValeur
       titreEtapePropsIds.forEach(
         prop =>
