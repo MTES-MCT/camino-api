@@ -24,7 +24,12 @@ const tasks = async () => {
   await demarchesDefinitionsCheck()
   await titreTypeDemarcheTypeEtapeTypeCheck()
   await etapeStatutCheck()
-  await matomoCacheInit()
+
+  try {
+    await matomoCacheInit()
+  } catch (e) {
+    console.error('API Matomo innacessible', e)
+  }
 
   const emailBody = readFileSync('cron.log').toString()
   await emailsSend([process.env.ADMIN_EMAIL!], 'Résultats du daily', emailBody)
