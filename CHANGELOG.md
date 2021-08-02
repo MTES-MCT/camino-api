@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.94](https://github.com/MTES-MCT/camino-api/compare/v0.24.93...v0.24.94) (2021-08-02)
+
+
+### Bug Fixes
+
+* **export:** affiche correctement les colonnes ids dans les exports ([4d9852a](https://github.com/MTES-MCT/camino-api/commit/4d9852a7eaadacbb75cf03cf56e10b9660aa3c26))
+* **matomo:** gère les erreurs lorsque l’API Matomo est inaccessible ([24e81dd](https://github.com/MTES-MCT/camino-api/commit/24e81dd88a6123bab2db62d91147ac2e85581d06))
+
 ### [0.24.93](https://github.com/MTES-MCT/camino-api/compare/v0.24.92...v0.24.93) (2021-07-27)
 
 
