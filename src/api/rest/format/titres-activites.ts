@@ -41,8 +41,8 @@ const titresActivitesFormatTable = (activites: ITitreActivite[]) =>
         : {}
 
     return {
-      id: activite.id,
-      titre_id: activite.titre!.id,
+      id: activite.slug,
+      titre_id: activite.titre!.slug,
       type: activite.type!.nom,
       statut: activite.statut!.nom,
       annee: activite.annee,

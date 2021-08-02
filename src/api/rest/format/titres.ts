@@ -36,7 +36,7 @@ const titresTableFormat = (titres: ITitre[]) =>
     const separator = ';'
 
     const titreNew = {
-      id: titre.id,
+      id: titre.slug,
       nom: titre.nom,
       type: titre.type!.type.nom,
       domaine: titre.domaine!.nom,
@@ -87,7 +87,7 @@ const titreGeojsonPropertiesFormat = (titre: ITitre) => {
   const separator = ', '
 
   return {
-    id: titre.id,
+    id: titre.slug,
     nom: titre.nom,
     type: titre.type!.type.nom,
     domaine: titre.domaine!.nom,

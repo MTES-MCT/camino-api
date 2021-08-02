@@ -79,7 +79,7 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
     const etapesTypesStatuts = etapesDatesStatutsBuild(titreDemarche)
 
     const titreDemarcheNew = {
-      titre_id: titre.id,
+      titre_id: titre.slug,
       titre_nom: titre.nom,
       titre_domaine: titre.domaine!.nom,
       titre_type: titre.type!.type.nom,
