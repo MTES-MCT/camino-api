@@ -90,6 +90,7 @@ const titreEtapeUpdationValidate = (
     errors.push(
       ...titreEtapeCompleteValidate(
         titreEtape,
+        titre.typeId,
         sections,
         documentsTypes,
         documents,
@@ -108,6 +109,7 @@ const titreEtapeUpdationValidate = (
 
 const titreEtapeCompleteValidate = (
   titreEtape: ITitreEtape,
+  titreTypeId: string,
   sections: ISection[],
   documentsTypes: IDocumentType[],
   documents: IDocument[] | null | undefined,
@@ -187,6 +189,25 @@ const titreEtapeCompleteValidate = (
         errors.push(`un justificatif obligatoire est manquant`)
       }
     })
+
+  // Si c’est une demande d’AEX ou d’ARM, certaines informations sont obligatoires
+  if (titreEtape.typeId === 'mfr' && ['arm', 'axm'].includes(titreTypeId)) {
+    // le périmètre doit être défini
+    if (!titreEtape.points) {
+      errors.push('le périmètre doit être renseigné')
+    } else if (titreEtape.points.length < 4) {
+      errors.push('le périmètre doit comporter au moins 4 points')
+    }
+
+    // il doit exister au moins une substance
+    if (
+      !titreEtape.substances ||
+      !titreEtape.substances.length ||
+      !titreEtape.substances.some(({ id }) => !!id)
+    ) {
+      errors.push('au moins une substance doit être renseignée')
+    }
+  }
 
   return errors
 }

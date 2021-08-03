@@ -215,6 +215,22 @@ const fieldsFormat = (fields: IFields, parent: string) => {
     if (!fields.type.justificatifsTypes) {
       fields.type.justificatifsTypes = { id: {} }
     }
+
+    if (!fields.demarche) {
+      fields.demarche = { id: {} }
+    }
+
+    if (!fields.demarche.titre) {
+      fields.demarche.titre = { id: {} }
+    }
+
+    if (!fields.points) {
+      fields.points = { id: {} }
+    }
+
+    if (!fields.substances) {
+      fields.substances = { id: {} }
+    }
   }
 
   return fields

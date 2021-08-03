@@ -6,7 +6,7 @@ type Substance {
   symbole: String
   gerep: Int
   description: String
-  legales: [SubstanceLegale!]!
+  legales: [SubstanceLegale!]
 }
 
 type TitreSubstance {
@@ -15,7 +15,7 @@ type TitreSubstance {
   symbole: String
   gerep: Int
   description: String
-  legales: [SubstanceLegale!]!
+  legales: [SubstanceLegale!]
   ordre: Int
 }
 
