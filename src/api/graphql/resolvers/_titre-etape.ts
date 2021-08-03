@@ -1,5 +1,4 @@
 import {
-  ITitrePoint,
   ITitrePointReference,
   ICoordonnees,
   IEtapeType,
@@ -24,7 +23,14 @@ import {
 } from '../../../business/utils/titre-etape-heritage-contenu-find'
 import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
 
-const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
+const titreEtapePointsCalc = <
+  T extends {
+    references: ITitrePointReference[]
+    coordonnees: ICoordonnees
+  }
+>(
+  titrePoints: T[]
+) => {
   const uniteRatio = uniteRatioFind(pointReferenceFind(titrePoints))
 
   return titrePoints.map(point => {
@@ -40,7 +46,11 @@ const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
   })
 }
 
-const pointReferenceFind = (points: ITitrePoint[]) =>
+const pointReferenceFind = (
+  points: {
+    references: ITitrePointReference[]
+  }[]
+) =>
   points.length &&
   points[0].references &&
   points[0].references.length &&

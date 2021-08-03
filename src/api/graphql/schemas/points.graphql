@@ -14,7 +14,7 @@ type Point {
   """
   Id unique
   """
-  id: ID!
+  id: ID
 
   """
   Slug composé de la concaténation:

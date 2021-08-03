@@ -224,6 +224,7 @@ import {
 } from './resolvers/titres-travaux-etapes'
 
 import { titreDemandeCreer } from './resolvers/titre-demande'
+import { pointsImporter } from './resolvers/points'
 
 export default {
   //  types
@@ -295,6 +296,7 @@ export default {
   activitesTypesDocumentsTypes,
   activitesTypesPays,
   pays,
+  pointsImporter,
 
   // mutations
   titreCreer,
