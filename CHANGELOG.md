@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.96](https://github.com/MTES-MCT/camino-api/compare/v0.24.95...v0.24.96) (2021-08-05)
+
+
+### Features
+
+* **métas:** permet de créer de nouveaux types de travaux ([d818c07](https://github.com/MTES-MCT/camino-api/commit/d818c0789cc980b6ba241434437810b4aea3d191))
+
 ### [0.24.95](https://github.com/MTES-MCT/camino-api/compare/v0.24.94...v0.24.95) (2021-08-05)
 
 
