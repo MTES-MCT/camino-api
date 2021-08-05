@@ -414,7 +414,13 @@ type Mutation {
 
   demarcheTypeModifier(demarcheType: InputDemarcheType!): [DemarcheType]
 
+  travauxTypeCreer(travauxType: InputTravauxType!): [TravauxType]
+
   travauxTypeModifier(travauxType: InputTravauxType!): [TravauxType]
+
+  travauxEtapeTypeCreer(
+    travauxEtapeType: InputTravauxEtapeType!
+  ): [TravauxEtapeType]
 
   travauxEtapeTypeModifier(
     travauxEtapeType: InputTravauxEtapeType!

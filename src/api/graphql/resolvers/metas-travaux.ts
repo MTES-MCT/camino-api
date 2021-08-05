@@ -6,14 +6,16 @@ import {
   travauxEtapesTypesGet,
   travauxTypesGet,
   travauxTypeUpdate,
-  travauxEtapeTypeUpdate
+  travauxEtapeTypeUpdate,
+  travauxTypeCreate,
+  travauxEtapeTypeCreate
 } from '../../../database/queries/metas-travaux'
 
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
 import { fieldsBuild } from './_fields-build'
-import { ordreUpdate } from './_ordre-update'
+import { ordreFix, ordreUpdate } from './_ordre-update'
 
 const travauxTypes = async (
   _: never,
@@ -25,6 +27,38 @@ const travauxTypes = async (
     const fields = fieldsBuild(info)
 
     const travauxTypes = await travauxTypesGet({ fields }, user)
+
+    return travauxTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const travauxTypeCreer = async (
+  { travauxType }: { travauxType: ITravauxType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await travauxTypeCreate(travauxType)
+
+    let travauxTypes = await travauxTypesGet({ fields: { id: {} } }, user)
+
+    await ordreFix(travauxTypes, travauxTypeUpdate)
+
+    const fields = fieldsBuild(info)
+
+    travauxTypes = await travauxTypesGet({ fields }, user)
 
     return travauxTypes
   } catch (e) {
@@ -100,6 +134,40 @@ const travauxEtapesTypes = async (
   }
 }
 
+const travauxEtapeTypeCreer = async (
+  { travauxEtapeType }: { travauxEtapeType: ITravauxEtapeType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+    await travauxEtapeTypeCreate(travauxEtapeType)
+
+    let travauxEtapesTypes = await travauxEtapesTypesGet(
+      {},
+      { fields: { id: {} } },
+      user
+    )
+
+    await ordreFix(travauxEtapesTypes, travauxEtapeTypeUpdate)
+
+    const fields = fieldsBuild(info)
+    travauxEtapesTypes = await travauxEtapesTypesGet({}, { fields }, user)
+
+    return travauxEtapesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const travauxEtapeTypeModifier = async (
   { travauxEtapeType }: { travauxEtapeType: ITravauxEtapeType },
   context: IToken,
@@ -144,7 +212,9 @@ const travauxEtapeTypeModifier = async (
 
 export {
   travauxTypes,
+  travauxTypeCreer,
   travauxTypeModifier,
   travauxEtapesTypes,
+  travauxEtapeTypeCreer,
   travauxEtapeTypeModifier
 }

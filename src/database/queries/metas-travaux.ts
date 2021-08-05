@@ -38,6 +38,9 @@ const travauxTypesGet = async (
   return q
 }
 
+const travauxTypeCreate = async (travauxType: ITravauxType) =>
+  TravauxTypes.query().insertAndFetch(travauxType)
+
 const travauxTypeUpdate = async (id: string, props: Partial<ITravauxType>) =>
   TravauxTypes.query().patchAndFetchById(id, props)
 
@@ -51,6 +54,8 @@ const travauxEtapeTypeGet = async (
 
   return TravauxEtapesTypes.query().withGraphFetched(graph).findById(id)
 }
+const travauxEtapeTypeCreate = async (travauxEtapeType: ITravauxEtapeType) =>
+  TravauxEtapesTypes.query().insertAndFetch(travauxEtapeType)
 
 const travauxEtapeTypeUpdate = async (
   id: string,
@@ -173,9 +178,11 @@ const travauxEtapeTypeEtapeStatutDelete = async (
 
 export {
   travauxTypesGet,
+  travauxTypeCreate,
   travauxTypeUpdate,
   travauxEtapesTypesGet,
   travauxEtapeTypeGet,
+  travauxEtapeTypeCreate,
   travauxEtapeTypeUpdate,
   travauxTypesTravauxEtapesTypesGet,
   travauxTypeTravauxEtapeTypeUpdate,

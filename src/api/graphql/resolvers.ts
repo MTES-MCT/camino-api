@@ -152,9 +152,11 @@ import {
 
 import {
   travauxTypes,
+  travauxTypeCreer,
   travauxTypeModifier,
   travauxEtapesTypes,
-  travauxEtapeTypeModifier
+  travauxEtapeTypeModifier,
+  travauxEtapeTypeCreer
 } from './resolvers/metas-travaux'
 
 import {
@@ -351,7 +353,9 @@ export default {
   phaseStatutModifier,
   etapeTypeModifier,
   etapeStatutModifier,
+  travauxTypeCreer,
   travauxTypeModifier,
+  travauxEtapeTypeCreer,
   travauxEtapeTypeModifier,
   deviseModifier,
   uniteModifier,
