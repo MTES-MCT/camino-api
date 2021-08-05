@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.95](https://github.com/MTES-MCT/camino-api/compare/v0.24.94...v0.24.95) (2021-08-05)
+
+
+### Features
+
+* **arm:** ajoute des validations lors de l'ajout d'une demande d'ARM ([#785](https://github.com/MTES-MCT/camino-api/issues/785)) ([7a3b19c](https://github.com/MTES-MCT/camino-api/commit/7a3b19c5dd227eab1e82bd9d5a8a6a43e8c04a5f))
+
 ### [0.24.94](https://github.com/MTES-MCT/camino-api/compare/v0.24.93...v0.24.94) (2021-08-02)
 
 
