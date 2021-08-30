@@ -216,16 +216,20 @@ const titreModifier = async (
   }
 }
 
-const titreSupprimer = async (
-  { id }: { id: string },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
+const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   const user = await userGet(context.user?.id)
 
-  const fields = fieldsBuild(info)
-
-  const titreOld = await titreGet(id, { fields }, user)
+  const titreOld = await titreGet(
+    id,
+    {
+      fields: {
+        demarches: { etapes: { id: {} } },
+        travaux: { travauxEtapes: { id: {} } },
+        activites: { id: {} }
+      }
+    },
+    user
+  )
 
   if (!titreOld) throw new Error("le titre n'existe pas")
 
@@ -235,7 +239,7 @@ const titreSupprimer = async (
 
   await titreDelete(id)
 
-  return titreOld
+  return titreOld.slug
 }
 
 export { titre, titres, titreCreer, titreModifier, titreSupprimer }
