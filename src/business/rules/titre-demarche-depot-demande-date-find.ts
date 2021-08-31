@@ -6,9 +6,7 @@ import { ITitreEtape } from '../../types'
 // retourne la date de la première étape
 
 const titreDemarcheDepotDemandeDateFind = (titreEtapes: ITitreEtape[]) => {
-  const titreEtapeDemande = titreEtapes.find(
-    te => te.typeId === 'mfr' && te.statutId === 'dep'
-  )
+  const titreEtapeDemande = titreEtapes.find(te => te.typeId === 'mdp')
 
   if (titreEtapeDemande) {
     return titreEtapeDemande.date

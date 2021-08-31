@@ -3,9 +3,14 @@ import { etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/sa6BiSBs5fwtQFXi/249D0
 const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
+  mfr: {
+    // FIXME normalement c’est jusqu’à la MDP, mais la DGTM n’a pas le temps de s’adapter à cette modification
+    separation: ['mcr'],
+    justeApres: [[]]
+  },
   dsl: {
     avant: [[{ etapeTypeId: 'asl' }]],
-    justeApres: []
+    justeApres: [[{ etapeTypeId: 'mfr' }]]
   },
   ...etatInformationsGet('mio', 'rio', {
     etapeTypeId: 'eof',
@@ -16,7 +21,7 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     avant: [[{ etapeTypeId: 'asl' }]]
   },
   qae: {
-    justeApres: [],
+    justeApres: [[{ etapeTypeId: 'mfr' }]],
     avant: [[{ etapeTypeId: 'dae' }]]
   },
   dae: {
@@ -26,11 +31,11 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
   mom: {
     justeApres: [[{ etapeTypeId: 'dae', statutId: 'req' }]]
   },
-  mfr: {
-    avant: [[{ etapeTypeId: 'mfr' }]],
+  mdp: {
+    avant: [[{ etapeTypeId: 'mdp' }]],
     justeApres: [
-      [{ etapeTypeId: 'dae', statutId: 'exe' }],
-      [{ etapeTypeId: 'mom' }]
+      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'dae', statutId: 'exe' }],
+      [{ etapeTypeId: 'mfr' }, { etapeTypeId: 'mom' }]
     ]
   },
   nis: {
@@ -39,26 +44,17 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     final: false
   },
   mod: {
-    justeApres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]]
+    justeApres: [[{ etapeTypeId: 'mdp' }]]
   },
   mca: {
-    justeApres: [
-      [{ etapeTypeId: 'mfr', statutId: 'dep' }],
-      [{ etapeTypeId: 'rca' }]
-    ],
+    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'rca' }]],
     avant: [[{ etapeTypeId: 'mcr' }]]
   },
   rca: { justeApres: [[{ etapeTypeId: 'mca' }]] },
   mcr: {
     justeApres: [
-      [
-        { etapeTypeId: 'mfr', statutId: 'dep' },
-        { etapeTypeId: 'asl', statutId: 'fav' }
-      ],
-      [
-        { etapeTypeId: 'mfr', statutId: 'dep' },
-        { etapeTypeId: 'asl', statutId: 'fav' }
-      ],
+      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
       [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
       [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
       [{ etapeTypeId: 'mod' }, { etapeTypeId: 'asl', statutId: 'fav' }],
@@ -187,12 +183,12 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     ]
   },
   dim: {
-    justeApres: [[{ etapeTypeId: 'mfr', statutId: 'dep' }]]
+    justeApres: [[{ etapeTypeId: 'mdp' }]]
   },
   css: {
     justeApres: [[]],
     apres: [
-      [{ etapeTypeId: 'mfr', statutId: 'dep' }],
+      [{ etapeTypeId: 'mdp' }],
       [{ etapeTypeId: 'asl', statutId: 'def' }],
       [{ etapeTypeId: 'dae', statutId: 'req' }]
     ],

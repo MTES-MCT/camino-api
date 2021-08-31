@@ -6,7 +6,8 @@ describe('vérifie l’arbre d’octroi d’une PRM', () => {
   test('ne peut pas créer une "rpu" après une "dex" rejetée', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01', statutId: 'dep' },
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'spp', date: '2020-01-03' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-04' },
         { typeId: 'anf', date: '2020-01-05' },
@@ -36,7 +37,8 @@ describe('vérifie l’arbre d’octroi d’une PRM', () => {
   test('peut créer une "rpu" après une "dex" acceptée', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'mfr', date: '2020-01-01', statutId: 'dep' },
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'spp', date: '2020-01-03' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-04' },
         { typeId: 'anf', date: '2020-01-05' },

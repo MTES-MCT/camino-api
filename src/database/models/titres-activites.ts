@@ -1,4 +1,4 @@
-import { Model, Modifiers, Pojo } from 'objection'
+import { Model, Modifiers, Pojo, QueryContext } from 'objection'
 import { join } from 'path'
 
 import { ITitreActivite } from '../../types'
@@ -12,15 +12,7 @@ class TitresActivites extends Model {
   public static jsonSchema = {
     type: 'object',
 
-    required: [
-      'id',
-      'titreId',
-      'date',
-      'typeId',
-      'statutId',
-      'periodeId',
-      'annee'
-    ],
+    required: ['titreId', 'date', 'typeId', 'statutId', 'periodeId', 'annee'],
 
     properties: {
       id: { type: 'string' },
@@ -104,16 +96,20 @@ class TitresActivites extends Model {
     }
   }
 
-  public $parseJson(json: Pojo) {
-    if (!json.id) {
-      json.id = idGenerate()
+  async $beforeInsert(context: QueryContext) {
+    if (!this.id) {
+      this.id = idGenerate()
     }
-    if (!json.slug && json.titreId && json.typeId && json.periodeId) {
-      json.slug = `${json.titreId}-${json.typeId}-${json.annee}-${json.periodeId
+    if (!this.slug && this.titreId && this.typeId && this.periodeId) {
+      this.slug = `${this.titreId}-${this.typeId}-${this.annee}-${this.periodeId
         .toString()
         .padStart(2, '0')}`
     }
 
+    return super.$beforeInsert(context)
+  }
+
+  public $parseJson(json: Pojo) {
     delete json.modification
     json = super.$parseJson(json)
 

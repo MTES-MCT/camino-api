@@ -7,6 +7,8 @@ import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 import Titres from '../src/database/models/titres'
 import TitresTypesDemarchesTypesEtapesTypes from '../src/database/models/titres-types--demarches-types-etapes-types'
+import TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes from '../src/database/models/titres-types--demarches-types-etapes-types-justificatifs-types'
+import TitresTypesDemarchesTypesEtapesTypesDocumentsTypes from '../src/database/models/titres-types--demarches-types-etapes-types-documents-types'
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,
@@ -25,6 +27,9 @@ console.error = jest.fn()
 
 beforeAll(async () => {
   await dbManager.populateDb()
+
+  await TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().delete()
+  await TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().delete()
 
   const mfrTDE = await TitresTypesDemarchesTypesEtapesTypes.query()
     .where('titreTypeId', 'arm')
@@ -98,14 +103,14 @@ describe('etapeCreer', () => {
     expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
   })
 
-  test('peut créer une étape mfr avec un statut dep (utilisateur super)', async () => {
+  test('peut créer une étape mfr avec un statut fai (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
       {
         etape: {
           typeId: 'mfr',
-          statutId: 'dep',
+          statutId: 'fai',
           titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
@@ -122,8 +127,7 @@ describe('etapeCreer', () => {
             arm: {
               mecanise: { actif: true },
               franchissements: { actif: true }
-            },
-            demande: { date: { actif: false } }
+            }
           },
           contenu: { arm: { mecanise: true, franchissements: 3 } },
           substances: [{ id: 'auru' }],
@@ -236,14 +240,14 @@ describe('etapeCreer', () => {
     )
   })
 
-  test('ne peut pas créer une étape mfr avec un statut dep avec un champ obligatoire manquant (utilisateur super)', async () => {
+  test('ne peut pas créer une étape mfr avec un statut fai avec un champ obligatoire manquant (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
       {
         etape: {
           typeId: 'mfr',
-          statutId: 'dep',
+          statutId: 'fai',
           titreDemarcheId,
           date: '',
           heritageProps: titreEtapePropsIds.reduce(
@@ -260,8 +264,7 @@ describe('etapeCreer', () => {
             arm: {
               mecanise: { actif: true },
               franchissements: { actif: true }
-            },
-            demande: { date: { actif: false } }
+            }
           },
           substances: [{ id: 'auru' }],
           points: [
@@ -332,8 +335,7 @@ describe('etapeCreer', () => {
             arm: {
               mecanise: { actif: true },
               franchissements: { actif: true }
-            },
-            demande: { date: { actif: false } }
+            }
           }
         }
       },

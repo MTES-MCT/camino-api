@@ -3,11 +3,12 @@ import { demarcheEtatsValidate } from '../_utils.test'
 describe('vérifie l’arbre d’octroi d’AXM', () => {
   const octEtatsValidate = demarcheEtatsValidate('oct', 'axm')
 
-  test('peut créer une "mfr" après une "dae"', () => {
+  test('peut créer une "mdp" après une "mfr"', () => {
     expect(
       octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-02', statutId: 'dep' }
+        { typeId: 'mdp', date: '2020-01-02' }
       ])
     ).toHaveLength(0)
   })
@@ -21,22 +22,24 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
   test('peut créer une "nis" après une "mfr"', () => {
     expect(
       octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', statutId: 'dep', date: '2020-01-03' },
-        { typeId: 'nis', date: '2020-01-04' }
+        { typeId: 'nis', date: '2020-01-02' },
+        { typeId: 'mdp', date: '2020-01-03' }
       ])
     ).toHaveLength(0)
   })
 
-  test('ne peut pas créer 2 étapes "mfr"', () => {
+  test('ne peut pas créer 2 étapes "mdp"', () => {
     expect(
       octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-01', statutId: 'dep' },
+        { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'mca', date: '2020-01-03' },
-        { typeId: 'mfr', date: '2020-01-04' }
+        { typeId: 'mdp', date: '2020-01-04' }
       ])
-    ).toHaveLength(1)
+    ).toEqual(['l’étape "mdp" n’est plus possible après "mfr", "mca"'])
   })
 
   test('ne peut pas avoir juste une étape "Décision de l’administration"', () => {
@@ -45,26 +48,31 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
     ])
   })
 
-  test('ne peut pas créer une "mfr" sans une "dae"', () => {
-    expect(octEtatsValidate([{ typeId: 'mfr', date: '2020-01-01' }])).toContain(
-      'l’étape "mfr" n’est pas possible juste après '
-    )
-  })
-
-  test('ne peut pas créer une "mfr" sans une "dae" requis', () => {
+  test('ne peut pas créer une "mdp" sans une "dae"', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'dae', statutId: 'req', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-02' }
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' }
       ])
-    ).toContain('l’étape "mfr" n’est pas possible juste après "dae"')
+    ).toContain('l’étape "mdp" n’est pas possible juste après "mfr"')
+  })
+
+  test('ne peut pas créer une "mdp" sans une "dae" requis', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'req', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' }
+      ])
+    ).toContain('l’étape "mdp" n’est pas possible juste après "mfr", "dae"')
   })
 
   test('peut créer une faire une "mno", une "rpu" et une "pqr" à la fin de la démarche', () => {
     expect(
       octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-02', statutId: 'dep' },
+        { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
         { typeId: 'scl', date: '2020-01-04' },
@@ -86,8 +94,9 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
   test('ne peut créer une faire une "mno" et une "abd" à la fin de la démarche', () => {
     expect(
       octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-02', statutId: 'dep' },
+        { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
         { typeId: 'scl', date: '2020-01-04' },
@@ -108,8 +117,9 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
   test('ne peut créer une faire une "rtd" et une "abd" à la fin de la démarche', () => {
     expect(
       octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-02', statutId: 'dep' },
+        { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
         { typeId: 'scl', date: '2020-01-04' },
@@ -130,10 +140,8 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
   test('peut créer une "css" après un refus du propriétaire du sol', () => {
     expect(
       octEtatsValidate([
-        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-        { typeId: 'mfr', date: '2020-01-01', statutId: 'dep' },
-        { typeId: 'asl', date: '2020-01-03', statutId: 'def' },
-        { typeId: 'css', date: '2020-01-04' }
+        { typeId: 'css', date: '2020-01-05' },
+        { typeId: 'asl', date: '2020-01-03', statutId: 'def' }
       ])
     ).toHaveLength(0)
   })

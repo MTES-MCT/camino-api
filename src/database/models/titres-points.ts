@@ -1,4 +1,4 @@
-import { Model, Modifiers, Pojo } from 'objection'
+import { Model, Modifiers, Pojo, QueryContext } from 'objection'
 import { join } from 'path'
 
 import { ITitrePoint, ITitrePointReference } from '../../types'
@@ -53,25 +53,29 @@ class TitresPoints extends Model {
     }
   }
 
-  public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
-    if (!json.id) {
-      json.id = idGenerate()
+  async $beforeInsert(context: QueryContext) {
+    if (!this.id) {
+      this.id = idGenerate()
     }
     if (
-      !json.slug &&
-      json.titreEtapeId &&
-      json.groupe &&
-      json.contour &&
-      json.point
+      !this.slug &&
+      this.titreEtapeId &&
+      this.groupe &&
+      this.contour &&
+      this.point
     ) {
-      json.slug = `${json.titreEtapeId}-g${json.groupe
+      this.slug = `${this.titreEtapeId}-g${this.groupe
         .toString()
-        .padStart(2, '0')}-c${json.contour
+        .padStart(2, '0')}-c${this.contour
         .toString()
-        .padStart(2, '0')}-p${json.point.toString().padStart(3, '0')}`
+        .padStart(2, '0')}-p${this.point.toString().padStart(3, '0')}`
     }
+
+    return super.$beforeInsert(context)
+  }
+
+  public $parseJson(json: Pojo) {
+    json = super.$parseJson(json)
 
     if (json.references) {
       json.references.forEach((reference: ITitrePointReference) => {

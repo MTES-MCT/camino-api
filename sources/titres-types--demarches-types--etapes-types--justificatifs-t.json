@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "atf"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "cur"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "idm",
+    "optionnel": true
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "jcf"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "jct"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "jid"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "jpa"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "kbi"
+  }
+]

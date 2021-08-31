@@ -1,121 +1,333 @@
 [
   {
+    "id": "aac",
+    "nom": "avis de direction régionale des affaires culturelles",
+    "description": "Avis sur la situation archéologique du site en question.",
+    "ordre": 28
+  },
+  {
+    "id": "aaf",
+    "nom": "avis de la direction d'alimentation de l'agriculture et de la forêt",
+    "description": "Avis pour un titre minier ou d'une demande relative à la police des mines.",
+    "ordre": 26
+  },
+  {
+    "id": "abs",
+    "nom": "avis DGTM service milieux naturels, biodiversité, sites et paysages (MNBST)",
+    "description": "Avis du MNBST sur la notice d’impact pour les titres miniers et les autorisations d'exploitation.",
+    "ordre": 23
+  },
+  {
+    "id": "acd",
+    "nom": "avis du conseil départemental de l'environnement et des risques sanitaires et technologiques (Coderst)",
+    "description": "avis du conseil départemental de l'environnement et des risques sanitaires et technologiques (Coderst)",
+    "ordre": 40
+  },
+  {
+    "id": "acl",
+    "nom": "avis d'une collectivité locale",
+    "description": "Avis de la collectivité locale dans le cadre de l’instruction d’un titre ou d'une demande relative à la police des mines.",
+    "ordre": 18
+  },
+  {
+    "id": "aec",
+    "nom": "avis de la direction des entreprises, de la concurrence, de la consommation, du travail et de l'emploi",
+    "description": "Avis sur la situation économique de l’entreprise.",
+    "ordre": 31
+  },
+  {
+    "id": "aep",
+    "nom": "avis d'un président d'EPCI",
+    "description": "Avis du président d’EPCI dans le cadre de l’instruction d’un titre ou d'une demande relative à la police des mines.",
+    "ordre": 15
+  },
+  {
+    "id": "afp",
+    "nom": "avis de la direction régionale des finances publiques",
+    "description": "Avis délivré sur la régularité fiscale de l’entreprise.",
+    "ordre": 30
+  },
+  {
+    "id": "agn",
+    "nom": "avis de la gendarmerie nationale",
+    "description": "Avis sur l'instruction d'un titre minier  ou d'une demande relative à la police des mines ",
+    "ordre": 29
+  },
+  {
+    "id": "aim",
+    "nom": "avis de l'Ifremer",
+    "description": "Avis de l’institut français de recherche pour l’exploitation en mer (IFREMER) dans le cadre d’autorisation en mer.",
+    "ordre": 20
+  },
+  {
+    "id": "ama",
+    "nom": "avis d'un maire",
+    "description": "Avis du maire, dans le cadre de l’instruction d’un titre ou d'une demande relative à la police des mines.",
+    "ordre": 14
+  },
+  {
+    "id": "ami",
+    "nom": "avis du parc naturel marin",
+    "description": "Avis du parc naturel marin dans le cadre d’autorisation en mer.",
+    "ordre": 22
+  },
+  {
     "id": "aow",
     "nom": "décision d'ouverture des travaux miniers",
-    "ordre": 128
+    "ordre": 43
+  },
+  {
+    "id": "apl",
+    "nom": "avis d'un service administratif local",
+    "ordre": 16
+  },
+  {
+    "id": "apm",
+    "nom": "avis de l'autorité militaire",
+    "description": "Avis de l’autorité militaire, délivré dans le cadre de l’instruction d’un titre minier ou d'une demande relative à la police des mines.",
+    "ordre": 17
+  },
+  {
+    "id": "apn",
+    "nom": "avis du parc national",
+    "description": "Avis du parc national dans le cadre de l’instruction d’un titre ou d'une demande relative à la police des mines.",
+    "ordre": 19
+  },
+  {
+    "id": "app",
+    "nom": "avis du préfet",
+    "ordre": 34
+  },
+  {
+    "id": "apw",
+    "nom": "avis du préfet maritime",
+    "description": "Avis pour les titres miniers en mer.",
+    "ordre": 33
+  },
+  {
+    "id": "ars",
+    "nom": "avis de l'agence régionale de santé",
+    "description": "Avis concernant leur respect de la réglementation sanitaire dans le cadre de l'instruction d'un titre minier ou d'une demande relative à la police des mines.",
+    "ordre": 32
+  },
+  {
+    "id": "ass",
+    "nom": "avis de la caisse générale de sécurité sociale",
+    "description": "Avis émis par le service de la sécurité sociale sur la situation sociale de l'entreprise.",
+    "ordre": 24
+  },
+  {
+    "id": "auc",
+    "nom": "avis DGTM service aménagement, urbanisme, construction, logement (AUCL)",
+    "description": "Avis de l’AUCL sur la notice d’impact pour les titres miniers et les autorisations d’exploitation. ",
+    "ordre": 25
   },
   {
     "id": "awd",
     "nom": "second donné acte d'arret des travaux miniers",
-    "description": "Décision du préfet actant que l’opérateur a pris toutes les mesures nécessaires pour fermer la mine.",
-    "ordre": 130
+    "description": "Décision du préfet actant que l’opérateur a pris toutes les mesures nécessaires pour fermer la mine et assurer la sécurité du site.",
+    "ordre": 53
   },
   {
     "id": "awu",
     "nom": "premier donné acte d'arret des travaux miniers",
-    "description": "Décision du préfet demandant à l’opérateur de prendre certaines mesures d’après-mine.",
-    "ordre": 129
+    "description": "Arrêté donnant acte de la déclaration, dit \"AP 1. Décision du préfet demandant à l’opérateur de prendre certaines mesures d’après-mine.",
+    "ordre": 52
+  },
+  {
+    "id": "dad",
+    "nom": "déclaration d'arrêt définitif des travaux (DADT)",
+    "description": "La déclaration d'arrêt définitif des travaux est adressée au préfet par l'exploitant par lettre avec AR au moins 6 mois avant la fin des travaux.",
+    "ordre": 47
   },
   {
     "id": "dec",
     "nom": "déclaration",
-    "ordre": 2
+    "ordre": 3
   },
   {
     "id": "dex",
     "nom": "décision de l'administration",
-    "ordre": 103
+    "ordre": 42
   },
   {
     "id": "dow",
     "nom": "donné acte de déclaration d'ouverture de travaux minier",
-    "ordre": 127
+    "ordre": 45
   },
   {
     "id": "dpm",
     "nom": "décision de police des mines",
-    "ordre": 131
+    "ordre": 56
+  },
+  {
+    "id": "dux",
+    "nom": "décision administrative",
+    "description": "Refus ou acceptation à l’issue d’une instruction.",
+    "ordre": 46
+  },
+  {
+    "id": "epc",
+    "nom": "clôture de l'enquête publique",
+    "description": "L’enquête publique dure un mois minimum. Il est possible de la prolonger. ",
+    "ordre": 37
+  },
+  {
+    "id": "epu",
+    "nom": "ouverture de l'enquête publique",
+    "ordre": 36
   },
   {
     "id": "mdd",
     "nom": "dépôt de la déclaration",
-    "ordre": 7
+    "ordre": 5
   },
   {
     "id": "mdp",
     "nom": "dépôt de la demande",
     "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
-    "ordre": 6
+    "ordre": 4
   },
   {
     "id": "mfr",
     "nom": "demande",
     "description": "La demande caractérise le projet minier porté par le demandeur. Elle inclut les caractéristiques fondamentales du titre ou de l’autorisation dans une lettre appuyée par un dossier et les justifications des capacités techniques et financières. Les informations relevant du secret des affaires incluses à la demande peuvent ne pas être rendues publiques à la demande du porteur de projet.",
-    "ordre": 1
+    "ordre": 57
   },
   {
     "id": "mfw",
     "nom": "mémoire de fin de travaux",
     "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
-    "ordre": 134
+    "ordre": 48
   },
   {
     "id": "ncl",
     "nom": "notification des collectivités locales",
     "description": "Notification de la décision aux collectivités locales.",
-    "ordre": 121
+    "ordre": 13
+  },
+  {
+    "id": "pnr",
+    "nom": "avis du parc naturel régional",
+    "description": "Avis du parc naturel régional dans le cadre de l’instruction d’un titre ou d'une demande relative à la police des mines.",
+    "ordre": 21
   },
   {
     "id": "ppc",
     "nom": "clôture de la participation du public",
     "description": "La durée de la participation du public doit être au moins égale 15 jours. L’administration doit tenir compte pour sa décision des avis recueillis lors de la participation du public.",
-    "ordre": 52
+    "ordre": 55
   },
   {
     "id": "ppu",
     "nom": "ouverture de la participation du public",
     "description": "La participation du public est obligatoire pour l’octroi des permis exclusifs de recherches (PER) et les prolongations de concessions minières. La législation ne prévoit pas à quel moment elle intervient. Il a été décidé pour les titres miniers qu’elle aurait lieu dès la déclaration de recevabilité du dossier. ",
-    "ordre": 50
+    "ordre": 54
+  },
+  {
+    "id": "rce",
+    "nom": "rapport du commissaire enquêteur",
+    "description": "à l'issue de l'enquête publique, le commissaire enquêteur transmet son rapport et ses conclusions",
+    "ordre": 38
   },
   {
     "id": "rdt",
     "nom": "récépissé de déclaration d'ouverture de travaux miniers",
     "description": "Courrier par lequel l’administration accuse réception de la déclaration faite au préfet pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.61-1 du code minier.",
-    "ordre": 44
+    "ordre": 7
   },
   {
     "id": "rpu",
     "nom": "publication de décision au recueil des actes administratifs",
     "description": "Publication, par le préfet, au recueil des actes administratifs.",
-    "ordre": 108
+    "ordre": 44
   },
   {
     "id": "rwp",
     "nom": "récolement partiel",
     "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
-    "ordre": 133
+    "ordre": 49
   },
   {
     "id": "rwt",
     "nom": "récolement complet",
     "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
-    "ordre": 135
+    "ordre": 50
   },
   {
     "id": "scl",
     "nom": "saisine des collectivités locales",
     "description": "Consultation pour avis, des collectivités locales dans le cadre de l’instruction d’un titre ou d’une autorisation.",
-    "ordre": 65
+    "ordre": 12
   },
   {
     "id": "ssr",
     "nom": "saisine des services",
     "description": "Demande de consultation dans le cadre d’un titre minier des chefs de service civils et de l’autorité militaire. Les intéressés ont un mois pour répondre. Au-delà de ce délai,  le silence vaut accord.\n",
-    "ordre": 54
+    "ordre": 9
   },
   {
     "id": "sup",
     "nom": "décision instituant une servitude d'utilité publique",
-    "ordre": 132
+    "ordre": 51
+  },
+  {
+    "id": "tra",
+    "nom": "transmission au service instructeur",
+    "ordre": 2
+  },
+  {
+    "id": "wae",
+    "nom": "avis de l'autorité environnementale (travaux de forages et mines)",
+    "description": "avis de l'autorité environnementale des projets soumis à évaluation environnementale au titre (forages et mines)",
+    "ordre": 35
+  },
+  {
+    "id": "wca",
+    "nom": "saisine de l'autorité environnementale",
+    "description": "Consultation de la mission d'autorité environnementale",
+    "ordre": 11
+  },
+  {
+    "id": "wcp",
+    "nom": "demande de compléments (demande relative aux travaux miniers)",
+    "description": "Étape à l'initiative du service instructeur ou du préfet pour demander des compléments au demandeur sur son dossier de demande (travaux miniers) et lui fixe un délai maximum pour les transmettre. ",
+    "ordre": 6
+  },
+  {
+    "id": "wcs",
+    "nom": "saisine des service de l'Etat",
+    "description": "Consultation pour avis, des services administratifs dans le cadre de l’instruction d’un titre ou d’une autorisation.",
+    "ordre": 10
+  },
+  {
+    "id": "wfr",
+    "nom": "demande (travaux miniers)",
+    "description": "Les demandes relatives aux travaux miniers et à la police des mines peuvent concerner l'ouverture de travaux d'exploitation, de recherches de mines, la déclaration d'arrêt définitif des travaux...",
+    "ordre": 1
+  },
+  {
+    "id": "wmr",
+    "nom": "mémoire en réponse de l'exploitant",
+    "description": "mémoire en réponse de l'exploitant à l'avis d'autorité environnementale.",
+    "ordre": 39
+  },
+  {
+    "id": "wpo",
+    "nom": "Avis et rapport du service en charge des la police des mines",
+    "description": "Étape par laquelle le service de police des mines rend un avis sur la demande. Cet avis tient compte des avis émis par les chefs des services civils, de l'autorité militaire et de l'autorité environnementale intéressés sur la demande.",
+    "ordre": 27
+  },
+  {
+    "id": "wrr",
+    "nom": "recevabilité de la demande",
+    "description": "Acte de l’administration établissant que l’examen de complétude a été mené à bien. Le constat de recevabilité donne lieu à un rapport de la part de l’administration qui constate que le dossier de demande est complet. ",
+    "ordre": 8
+  },
+  {
+    "id": "wtd",
+    "nom": "Transmission du projet d'arrêté au demandeur",
+    "description": "Avis du demandeur sur les prescriptions proposées",
+    "ordre": 41
   }
 ]

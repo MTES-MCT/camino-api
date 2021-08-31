@@ -5,7 +5,7 @@ import { metasGet } from '../../../database/cache/metas'
 import titreEtapesSortAscByDate from '../../../business/utils/titre-etapes-sort-asc-by-date'
 
 const etapesTypesIds = [
-  'mfr',
+  'mdp',
   'spp',
   'mcp',
   'mcr',

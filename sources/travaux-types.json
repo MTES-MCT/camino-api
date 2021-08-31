@@ -1,7 +1,7 @@
 [
   {
     "id": "aom",
-    "nom": "autorisation d'ouverture",
+    "nom": "autorisation d'ouverture de travaux miniers (AOT)",
     "ordre": 2
   },
   {
@@ -11,12 +11,12 @@
   },
   {
     "id": "dam",
-    "nom": "déclaration d'arrêt définitif",
+    "nom": "déclaration d'arrêt définitif des travaux (DADT)",
     "ordre": 6
   },
   {
     "id": "dom",
-    "nom": "déclaration d'ouverture",
+    "nom": "déclaration d'ouverture de travaux miniers (DOT)",
     "ordre": 1
   },
   {

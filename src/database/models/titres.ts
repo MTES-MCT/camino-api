@@ -1,4 +1,4 @@
-import { Model, Pojo, ref } from 'objection'
+import { Model, Pojo, QueryContext, ref } from 'objection'
 import { join } from 'path'
 
 import { ITitre } from '../../types'
@@ -30,7 +30,7 @@ class Titres extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'domaineId', 'typeId'],
+    required: ['nom', 'domaineId', 'typeId'],
     properties: {
       id: { type: 'string' },
       slug: { type: 'string' },
@@ -215,6 +215,20 @@ class Titres extends Model {
     }
   }
 
+  async $beforeInsert(context: QueryContext) {
+    if (!this.id) {
+      this.id = idGenerate()
+    }
+
+    if (!this.slug && this.domaineId && this.typeId && this.nom) {
+      this.slug = `${this.domaineId}-${this.typeId.slice(0, -1)}-${slugify(
+        this.nom
+      )}-${cryptoRandomString({ length: 4 })}`
+    }
+
+    return super.$beforeInsert(context)
+  }
+
   $afterFind() {
     this.pays = paysFormat(this.communes || [])
 
@@ -227,16 +241,6 @@ class Titres extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    if (!json.id) {
-      json.id = idGenerate()
-    }
-
-    if (!json.slug && json.domaineId && json.typeId && json.nom) {
-      json.slug = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
-        json.nom
-      )}-${cryptoRandomString({ length: 4 })}`
-    }
-
     json = titreInsertFormat(json)
     json = super.$parseJson(json)
 

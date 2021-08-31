@@ -7,6 +7,7 @@ const titreEtapesDecisivesCommunesTypes = ['css', 'rtd', 'abd', 'and']
 
 const titreEtapesDecisivesDemandesTypes = [
   'mfr',
+  'mdp',
   'men',
   'meo',
   'ide',
@@ -234,22 +235,23 @@ const titreDemarcheDemandeStatutIdFind = (
   if (
     ['mcr', 'dex', 'dux'].includes(titreEtapeRecent.typeId) ||
     (titreTypeId === 'arm' &&
-      ((titreEtapeRecent.typeId === 'mfr' &&
-        titreEtapeRecent.statutId === 'dep') ||
-        ['men', 'meo', 'mcp', 'def', 'aca'].includes(titreEtapeRecent.typeId)))
+      ['mdp', 'men', 'meo', 'mcp', 'def', 'aca'].includes(
+        titreEtapeRecent.typeId
+      ))
   ) {
     //  - le statut de la démarche est “en instruction”
     return 'ins'
   }
 
-  //  - le type de l’étape est demande (mfr)
+  //  - le type de l’étape est dépôt de la demande (mdp)
   //  - il n’y a pas d’étape après
-  if (titreEtapeRecent.typeId === 'mfr') {
-    if (titreEtapeRecent.statutId === 'dep') {
-      //  - le statut de la démarche est “déposé”
-      return 'dep'
-    }
+  if (titreEtapeRecent.typeId === 'mdp') {
+    //  - le statut de la démarche est “déposé”
+    return 'dep'
+  }
 
+  //  - le type de l’étape est formalisation de la demande (mfr)
+  if (titreEtapeRecent.typeId === 'mfr') {
     //  - le statut de la démarche est “en construction”
     return 'eco'
   }

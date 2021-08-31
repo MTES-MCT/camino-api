@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "dep",
+    "optionnel": true
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "doe",
+    "optionnel": true
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "dom"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "for"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "pla"
+  }
+]
