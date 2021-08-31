@@ -152,6 +152,15 @@ const statistiquesGuyaneAnneeBuild = (
     }
   )
 
+  // Pour les années 2017 et 2018, on affiche les chiffres "DRFIP" soit : pour 2017 : 1 485 kg  et pour 2018 : 1320 kg.
+  if (annee === 2017) {
+    // les rapports annuels n'existaient pas en 2017
+    statistiquesActivitesGra.auru = 1485
+  } else if (annee === 2018) {
+    // à l'époque  l'or net annuel était déclaré "à coté" de la production d'or brut du 4ème trimestre, ce qui a provoqué la confusion des opérateurs et des erreurs en cascade.
+    statistiquesActivitesGra.auru = 1320
+  }
+
   const activitesDeposesRatio =
     statistiquesActivitesGrp.rapportProductionOrCount +
     statistiquesActivitesGra.rapportProductionOrCount
