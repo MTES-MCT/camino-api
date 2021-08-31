@@ -40,8 +40,8 @@ const etapeValideCheck = (
     return true
   }
 
-  // si l'étape n'a pas le statut acceptée, fait, déposée ou favorable
-  if (!['acc', 'fai', 'fav', 'dep'].includes(titreEtape.statutId)) {
+  // si l'étape n'a pas le statut acceptée, fait ou favorable
+  if (!['acc', 'fai', 'fav'].includes(titreEtape.statutId)) {
     return false
   }
 

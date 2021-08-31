@@ -150,7 +150,7 @@ const titreDemarcheUpdatedEtatValidate = (
   // si on essaye d’ajouter ou de modifier une demande non déposée
   if (
     titreEtape.typeId === 'mfr' &&
-    titreEtape.statutId !== 'dep' &&
+    titreEtape.statutId !== 'fai' &&
     !suppression
   ) {
     const etapesDemande = titreDemarcheEtapes?.filter(te => te.typeId === 'mfr')
@@ -167,9 +167,9 @@ const titreDemarcheUpdatedEtatValidate = (
 
     return ['il y a déjà une demande en construction']
   } else {
-    // on supprime la demande en construction de la liste des étapes, car elle n’est pas gérée par les arbres
+    // on supprime les étapes en construction de la liste des étapes, car elle ne doivent pas ếtre prises en compte par l’arbre
     titreDemarcheEtapesNew = titreDemarcheEtapesNew.filter(
-      te => te.typeId !== 'mfr' || te.statutId !== 'aco'
+      te => te.statutId !== 'aco'
     )
   }
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions

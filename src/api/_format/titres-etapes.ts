@@ -65,7 +65,7 @@ const titreEtapeFormat = (
     titreEtape.modification
   ) {
     const errors = titreEtapeCompleteValidate(
-      { ...titreEtape, statutId: 'dep' },
+      titreEtape,
       titreEtape.demarche!.titre!.typeId,
       titreEtape.type!.sections!,
       titreEtape.type!.documentsTypes!,

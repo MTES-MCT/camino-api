@@ -41,7 +41,7 @@ const emailGet = (
 
   if (demarcheTypeId === 'oct' && titreTypeId === 'arm') {
     // lorsque la demande est déposée
-    if (etapeStatusUpdated(etape, 'mfr', 'dep', oldEtape)) {
+    if (etapeStatusUpdated(etape, 'mdp', 'fai', oldEtape)) {
       emails.push('ptmg@ctguyane.fr')
       emails.push('pole.minier@onf.fr')
 

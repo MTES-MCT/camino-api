@@ -4,6 +4,8 @@ import {
   modificationCheck,
   visibleCheck
 } from './_utils/administrations-permissions'
+import TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes from '../src/database/models/titres-types--demarches-types-etapes-types-justificatifs-types'
+import TitresTypesDemarchesTypesEtapesTypesDocumentsTypes from '../src/database/models/titres-types--demarches-types-etapes-types-documents-types'
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,
@@ -22,6 +24,9 @@ console.error = jest.fn()
 
 beforeAll(async () => {
   await dbManager.populateDb()
+
+  await TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().delete()
+  await TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().delete()
 })
 
 afterAll(async () => {

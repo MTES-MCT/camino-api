@@ -9,7 +9,7 @@
   },
   {
     "id": "acg",
-    "nom": "Avis du conseil général chargé des mines"
+    "nom": "Avis du conseil général de l'économie (CGE)"
   },
   {
     "id": "acm",
@@ -149,7 +149,7 @@
   },
   {
     "id": "fip",
-    "nom": "Fiche de pésentation"
+    "nom": "Fiche de présentation"
   },
   {
     "id": "for",
@@ -189,7 +189,7 @@
   },
   {
     "id": "lcg",
-    "nom": "Lettre de saisine du conseil général chargé des mines"
+    "nom": "Lettre de saisine du conseil général de l'économie (CGE)"
   },
   {
     "id": "lcm",

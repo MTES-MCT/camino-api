@@ -64,7 +64,7 @@ const statutIdAndDateGet = (
       throw new Error('seules les demandes peuvent être déposées')
     }
 
-    result.statutId = 'dep'
+    result.statutId = 'fai'
     if (permissionCheck(user.permissionId, ['entreprise'])) {
       result.date = dateFormat(new Date(), 'yyyy-mm-dd')
     }
@@ -534,6 +534,27 @@ const etapeDeposer = async (
       titreDemarche.titre!.typeId,
       user!,
       titreEtapeOld
+    )
+
+    let titreEtapeDepot = {
+      titreDemarcheId: titreDemarche.id,
+      typeId: 'mdp',
+      statutId: 'fai',
+      date: dateFormat(new Date(), 'yyyy-mm-dd')
+    } as ITitreEtape
+
+    titreEtapeDepot = await titreEtapeUpsert(titreEtapeDepot, user!)
+    await titreEtapeUpdateTask(
+      titreEtapeDepot.id,
+      titreEtapeDepot.titreDemarcheId
+    )
+    await titreEtapeEmailsSend(
+      titreEtapeDepot,
+      titreEtapeDepot.type!,
+      titreDemarche.typeId,
+      titreDemarche.titreId,
+      titreDemarche.titre!.typeId,
+      user!
     )
 
     const fields = fieldsBuild(info)

@@ -845,6 +845,11 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "mdp",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "mec",
     "etape_statut_id": "fai",
     "ordre": 1
@@ -866,7 +871,7 @@
   },
   {
     "etape_type_id": "mfr",
-    "etape_statut_id": "dep",
+    "etape_statut_id": "fai",
     "ordre": 2
   },
   {

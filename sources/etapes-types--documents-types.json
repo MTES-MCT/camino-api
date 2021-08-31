@@ -240,6 +240,11 @@
     "optionnel": true
   },
   {
+    "etape_type_id": "ars",
+    "document_type_id": "avi",
+    "optionnel": true
+  },
+  {
     "etape_type_id": "asl",
     "document_type_id": "dei",
     "optionnel": true
@@ -597,6 +602,11 @@
   {
     "etape_type_id": "mcr",
     "document_type_id": "rdr",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "mdp",
+    "document_type_id": "acr",
     "optionnel": true
   },
   {
