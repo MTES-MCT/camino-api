@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.97](https://github.com/MTES-MCT/camino-api/compare/v0.24.96...v0.24.97) (2021-09-06)
+
+
+### Features
+
+* **périmètre:** permet l’import d’un fichier shape ou geojson ([#786](https://github.com/MTES-MCT/camino-api/issues/786)) ([f8e8626](https://github.com/MTES-MCT/camino-api/commit/f8e8626439d2d2899f062d2d54397c9605e141d5))
+* **statistiques:** corrige manuellement la production d’or en Guyane pour 2017 et 2018 ([da2b73f](https://github.com/MTES-MCT/camino-api/commit/da2b73f6321d2994249fb26b72c85b2eb1c80b0b))
+
+
+### Bug Fixes
+
+* **titre:** supprime tous les fichiers liés à un titre lors de sa suppression ([#787](https://github.com/MTES-MCT/camino-api/issues/787)) ([9efc2d2](https://github.com/MTES-MCT/camino-api/commit/9efc2d221a6e958bbb29c479a4a6795a389af936))
+
 ### [0.24.96](https://github.com/MTES-MCT/camino-api/compare/v0.24.95...v0.24.96) (2021-08-05)
 
 
