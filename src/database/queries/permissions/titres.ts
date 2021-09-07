@@ -216,6 +216,11 @@ const titresQueryModify = (
     ).select('titresAmodiataires.operateur')
   })
 
+  // visibilité du doublonTitre
+  q.modifyGraph('doublonTitre', b => {
+    titresQueryModify(b as QueryBuilder<Titres, Titres | Titres[]>, user)
+  })
+
   return q
 }
 

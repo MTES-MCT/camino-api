@@ -661,7 +661,6 @@ interface ITitre {
   pays?: IPays[] | null
   modification?: boolean | null
   suppression?: boolean | null
-  doublonTitreSlug?: string | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   travauxCreation?: boolean | null

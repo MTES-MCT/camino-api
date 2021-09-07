@@ -46,7 +46,8 @@ class Titres extends Model {
       coordonnees: {
         type: ['object', 'null'],
         properties: { x: { type: 'number' }, y: { type: 'number' } }
-      }
+      },
+      doublonTitreId: { type: ['string', 'null'] }
     }
   }
 
@@ -212,6 +213,12 @@ class Titres extends Model {
       relation: Model.HasManyRelation,
       modelClass: TitresReferences,
       join: { from: 'titres.id', to: 'titresReferences.titreId' }
+    },
+
+    doublonTitre: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Titres,
+      join: { from: 'titres.doublonTitreId', to: 'titres.id' }
     }
   }
 
