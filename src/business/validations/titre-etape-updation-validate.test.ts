@@ -95,4 +95,28 @@ describe('valide l’étape avant de l’enregistrer', () => {
       }
     }
   )
+
+  test('une ARM mécanisée a des documents obligatoires supplémentaires', () => {
+    const titreEtape = {
+      typeId: 'mfr',
+      contenu: { arm: { mecanise: true } }
+    } as unknown as ITitreEtape
+
+    const errors = titreEtapeCompleteValidate(
+      titreEtape,
+      'arm',
+      [],
+      [
+        { id: 'doe', optionnel: true, nom: 'doe' },
+        { id: 'dep', optionnel: true, nom: 'doe' },
+        { id: 'tot', optionnel: true, nom: 'tot' }
+      ],
+      null,
+      [],
+      null
+    )
+    expect(errors).toContain('le document "doe" est obligatoire')
+    expect(errors).toContain('le document "dep" est obligatoire')
+    expect(errors).not.toContain('le document "tot" est obligatoire')
+  })
 })

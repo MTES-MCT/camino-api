@@ -162,6 +162,12 @@ const titreEtapeCompleteValidate = (
 
   // les fichiers obligatoires sont tous renseignés et complets
   if (documentsTypes!.length) {
+    // ajoute des documents obligatoires pour les arm mécanisées
+    if (titreTypeId === 'arm' && titreEtape.contenu && titreEtape.contenu.arm) {
+      documentsTypes
+        .filter(dt => ['doe', 'dep'].includes(dt.id))
+        .forEach(dt => (dt.optionnel = !titreEtape.contenu?.arm.mecanise))
+    }
     const documentsErrors = documentsTypesValidate(documents, documentsTypes)
     if (documentsErrors.length) {
       errors.push(...documentsErrors)

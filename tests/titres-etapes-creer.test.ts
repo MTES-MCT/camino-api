@@ -7,6 +7,7 @@ import { administrations } from './__mocks__/administrations'
 import { titreEtapePropsIds } from '../src/business/utils/titre-etape-heritage-props-find'
 import Titres from '../src/database/models/titres'
 import TitresTypesDemarchesTypesEtapesTypes from '../src/database/models/titres-types--demarches-types-etapes-types'
+import { documentCreate } from '../src/database/queries/documents'
 
 jest.mock('../src/tools/dir-create', () => ({
   __esModule: true,
@@ -100,6 +101,20 @@ describe('etapeCreer', () => {
 
   test('peut créer une étape mfr avec un statut dep (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
+
+    await documentCreate({
+      id: 'dep',
+      typeId: 'dep',
+      date: '2020-01-01',
+      uri: 'https://camino.beta.gouv.fr'
+    })
+    await documentCreate({
+      id: 'doe',
+      typeId: 'doe',
+      date: '2020-01-01',
+      uri: 'https://camino.beta.gouv.fr'
+    })
+
     const res = await graphQLCall(
       etapeCreerQuery,
       {
@@ -127,6 +142,7 @@ describe('etapeCreer', () => {
           },
           contenu: { arm: { mecanise: true, franchissements: 3 } },
           substances: [{ id: 'auru' }],
+          documentIds: ['dep', 'doe'],
           points: [
             {
               groupe: 1,
