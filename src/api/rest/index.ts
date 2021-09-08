@@ -100,6 +100,7 @@ interface ITitresQueryInput {
   entreprises?: string | null
   references?: string | null
   territoires?: string | null
+  perimetre?: number[] | null
 }
 
 const titres = async (
@@ -115,7 +116,8 @@ const titres = async (
       noms,
       entreprises,
       references,
-      territoires
+      territoires,
+      perimetre
     }
   }: { query: ITitresQueryInput },
   userId?: string
@@ -135,7 +137,8 @@ const titres = async (
       noms,
       entreprises,
       references,
-      territoires
+      territoires,
+      perimetre
     },
     { fields: titreFields },
     user
