@@ -13,7 +13,8 @@ class EtapesTypesDocumentsTypes extends Model {
     properties: {
       etapeTypeId: { type: 'string', maxLength: 3 },
       documentTypeId: { type: 'string', maxLength: 3 },
-      optionnel: { type: 'boolean' }
+      optionnel: { type: 'boolean' },
+      description: { type: ['string', 'null'] }
     }
   }
 

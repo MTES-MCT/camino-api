@@ -39,10 +39,14 @@ const documentsTypesFormat = (
   documentsTypes: IDocumentType[] | undefined | null,
   documentsTypesSpecifiques: IDocumentType[] | undefined | null
 ): IDocumentType[] => {
-  const result: IDocumentType[] = []
+  let result: IDocumentType[] = []
 
   if (documentsTypes?.length) {
-    result.push(...documentsTypes)
+    result = documentsTypes.map(dt => {
+      dt.description = dt.descriptionSpecifique || dt.description
+
+      return dt
+    })
   }
 
   if (documentsTypesSpecifiques?.length) {
@@ -51,9 +55,11 @@ const documentsTypesFormat = (
         ({ id }) => id === documentTypeSpecifique.id
       )
 
-      // Si il est déjà présent, on override juste son attribut « optionnel »
+      // Si il est déjà présent, on override juste son attribut « optionnel » et sa description
       if (documentType) {
         documentType.optionnel = documentTypeSpecifique.optionnel
+        documentType.description =
+          documentTypeSpecifique.description || documentType.description
       } else {
         result.push(documentTypeSpecifique)
       }

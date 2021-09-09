@@ -14,7 +14,8 @@ class DocumentsTypes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 3 },
-      nom: { type: 'string', maxLength: 128 }
+      nom: { type: 'string', maxLength: 128 },
+      description: { type: ['string', 'null'] }
     }
   }
 
