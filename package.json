@@ -46,7 +46,7 @@
     "docs": "rm -rf docs && typedoc src --sourcefile-url-prefix \"https://github.com/MTES-MCT/camino-api/blob/master/\"",
     "documents:check": "node ./dist/scripts/documents-check.js",
     "lint": "prettier --write . && eslint --fix .",
-    "release": "git pull --rebase --tags origin master && standard-version && git push --follow-tags origin master && conventional-github-releaser",
+    "release": "git pull --rebase --tags origin develop && standard-version && git push --follow-tags origin develop && git push --follow-tags origin master && git merge --ff origin develop && && conventional-github-releaser",
     "start": "node ./dist/index.js",
     "test": "prettier --check . && eslint . && npm run build && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --forceExit",
     "test:unit": "cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --watch",
