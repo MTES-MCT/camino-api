@@ -234,6 +234,7 @@ type DocumentType {
   id: ID!
   nom: String!
   optionnel: Boolean
+  description: String
 }
 
 type DocumentVisibilite {
@@ -306,6 +307,7 @@ type TitreTypeDemarcheTypeEtapeTypeDocumentType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
+  description: String
 }
 
 type EtapeTypeEtapeStatut {
@@ -318,12 +320,14 @@ type EtapeTypeDocumentType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
+  description: String
 }
 
 type EtapeTypeJustificatifType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
+  description: String
 }
 
 input InputDomaine {
@@ -435,7 +439,8 @@ input InputAdministrationType {
 
 input InputDocumentType {
   id: ID!
-  nom: String!
+  nom: String
+  description: String
 }
 
 input InputPermission {
@@ -508,6 +513,7 @@ input InputTitreTypeDemarcheTypeEtapeTypeDocumentType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
+  description: String
 }
 
 input InputEtapeTypeEtapeStatut {
@@ -520,12 +526,14 @@ input InputEtapeTypeDocumentType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
+  description: String
 }
 
 input InputEtapeTypeJustificatifType {
   etapeTypeId: ID!
   documentTypeId: ID!
   optionnel: Boolean
+  description: String
 }
 
 """

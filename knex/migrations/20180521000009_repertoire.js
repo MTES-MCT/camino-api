@@ -221,6 +221,7 @@ exports.up = knex =>
         .references('entreprises__documentsTypes.documentTypeId')
         .notNullable()
       table.boolean('optionnel')
+      table.text('description')
       table.primary(['etapeTypeId', 'documentTypeId'])
     })
 

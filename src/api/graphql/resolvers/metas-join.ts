@@ -564,7 +564,7 @@ const titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier = async (
       titreTypeDemarcheTypeEtapeTypeDocumentType.demarcheTypeId,
       titreTypeDemarcheTypeEtapeTypeDocumentType.etapeTypeId,
       titreTypeDemarcheTypeEtapeTypeDocumentType.documentTypeId,
-      { optionnel: titreTypeDemarcheTypeEtapeTypeDocumentType.optionnel }
+      titreTypeDemarcheTypeEtapeTypeDocumentType
     )
 
     const titresTypesDemarchesTypesEtapesTypesDocumentsTypes =
@@ -693,7 +693,7 @@ const titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier = async (
       titreTypeDemarcheTypeEtapeTypeJustificatifType.demarcheTypeId,
       titreTypeDemarcheTypeEtapeTypeJustificatifType.etapeTypeId,
       titreTypeDemarcheTypeEtapeTypeJustificatifType.documentTypeId,
-      { optionnel: titreTypeDemarcheTypeEtapeTypeJustificatifType.optionnel }
+      titreTypeDemarcheTypeEtapeTypeJustificatifType
     )
 
     const titresTypesDemarchesTypesEtapesTypesJustificatifsTypes =

@@ -60,7 +60,10 @@ class EtapesTypes extends Model {
         through: {
           from: 'etapesTypes__documentsTypes.etapeTypeId',
           to: 'etapesTypes__documentsTypes.documentTypeId',
-          extra: ['optionnel']
+          extra: {
+            optionnel: 'optionnel',
+            descriptionSpecifique: 'description'
+          }
         },
         to: 'documentsTypes.id'
       }
@@ -74,7 +77,10 @@ class EtapesTypes extends Model {
         through: {
           from: 'etapesTypes__justificatifsTypes.etapeTypeId',
           to: 'etapesTypes__justificatifsTypes.documentTypeId',
-          extra: ['optionnel']
+          extra: {
+            optionnel: 'optionnel',
+            descriptionSpecifique: 'description'
+          }
         },
         to: 'documentsTypes.id'
       }

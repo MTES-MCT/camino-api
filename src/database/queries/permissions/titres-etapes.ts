@@ -75,7 +75,7 @@ const specifiquesAdd = (
   q.leftJoin('documentsTypes as dt1', 'dt1.id', 'tded.documentTypeId')
   q.select(
     raw(
-      "COALESCE(json_agg(json_build_object('id', dt1.id,'nom', dt1.nom, 'optionnel', tded.optionnel)) FILTER (WHERE dt1.id IS NOT NULL), '[]')"
+      "COALESCE(json_agg(json_build_object('id', dt1.id,'nom', dt1.nom, 'optionnel', tded.optionnel, 'description', tded.description)) FILTER (WHERE dt1.id IS NOT NULL), '[]')"
     ).as('documentsTypesSpecifiques')
   )
   // justificatifs spécifiques
@@ -90,7 +90,7 @@ const specifiquesAdd = (
   q.leftJoin('documentsTypes as dt2', 'dt2.id', 'tdef.documentTypeId')
   q.select(
     raw(
-      "COALESCE(json_agg(json_build_object('id', dt2.id,'nom', dt2.nom, 'optionnel', tdef.optionnel)) FILTER (WHERE dt2.id IS NOT NULL), '[]')"
+      "COALESCE(json_agg(json_build_object('id', dt2.id,'nom', dt2.nom, 'optionnel', tdef.optionnel, 'description', tdef.description)) FILTER (WHERE dt2.id IS NOT NULL), '[]')"
     ).as('justificatifsTypesSpecifiques')
   )
   q.groupBy('titresEtapes.id')

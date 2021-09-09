@@ -264,6 +264,8 @@ interface IDocumentType {
   id: string
   nom: string
   optionnel: boolean
+  description?: string | null
+  descriptionSpecifique?: string | null
 }
 
 interface IDomaine {

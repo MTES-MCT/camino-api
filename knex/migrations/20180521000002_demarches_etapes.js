@@ -106,6 +106,7 @@ exports.up = knex => {
     .createTable('documentsTypes', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
+      table.text('description')
     })
     .createTable('etapesTypes__documentsTypes', table => {
       table
@@ -120,6 +121,7 @@ exports.up = knex => {
         .references('documentsTypes.id')
         .notNullable()
       table.boolean('optionnel')
+      table.text('description')
       table.primary(['etapeTypeId', 'documentTypeId'])
     })
     .createTable(
@@ -134,6 +136,7 @@ exports.up = knex => {
           .references('documentsTypes.id')
           .notNullable()
         table.boolean('optionnel')
+        table.text('description')
         table.primary([
           'titreTypeId',
           'demarcheTypeId',
@@ -158,6 +161,7 @@ exports.up = knex => {
           .references('documentsTypes.id')
           .notNullable()
         table.boolean('optionnel')
+        table.text('description')
         table.primary([
           'titreTypeId',
           'demarcheTypeId',
