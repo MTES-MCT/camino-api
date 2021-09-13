@@ -148,6 +148,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-tsdoc": "^0.2.14",
+    "husky": "^7.0.2",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "npm-check-updates": "^11.8.2",
