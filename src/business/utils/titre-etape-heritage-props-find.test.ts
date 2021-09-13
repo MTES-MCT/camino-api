@@ -264,14 +264,17 @@ describe('retourne l’étape en fonction de son héritage', () => {
     )
 
     const newTitreEtape = objectClone(titreEtape) as ITitreEtape
-    newTitreEtape.points = titreEtapePrecedente.points
+    newTitreEtape.points = objectClone(titreEtapePrecedente.points)
 
-    expect(
-      titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
-    ).toEqual({
-      hasChanged: true,
-      titreEtape: newTitreEtape
-    })
+    const result = titreEtapeHeritagePropsFind(titreEtape, titreEtapePrecedente)
+
+    expect(result.hasChanged).toBeTruthy()
+    expect(result.titreEtape.points![0].id).not.toEqual(
+      newTitreEtape.points![0].id
+    )
+    expect(result.titreEtape.points![0].references[0].id).not.toEqual(
+      newTitreEtape.points![0].references[0].id
+    )
   })
 
   test('l’étape est modifiée si changement d’incertitude', () => {
