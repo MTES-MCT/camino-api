@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.98](https://github.com/MTES-MCT/camino-api/compare/v0.24.97...v0.24.98) (2021-09-13)
+
+
+### Features
+
+* **documents:** ajoute une description sur les types de documents ([#792](https://github.com/MTES-MCT/camino-api/issues/792)) ([1396d1b](https://github.com/MTES-MCT/camino-api/commit/1396d1b918f55bd50708accdaeb4cfc78d21ad2c))
+* **geojson:** ajoute le filtrage par périmètre dans la route REST des titres ([#790](https://github.com/MTES-MCT/camino-api/issues/790)) ([8fc30d7](https://github.com/MTES-MCT/camino-api/commit/8fc30d74b14da4b3ffb1805193c16d8c13b3405e))
+
+
+### Bug Fixes
+
+* **titre:** migre correctement les ids des titres en doublon ([#789](https://github.com/MTES-MCT/camino-api/issues/789)) ([00196d0](https://github.com/MTES-MCT/camino-api/commit/00196d00c4193f400e5395f63d5231a53c25e9ea))
+* **titres:** vérifie que tous les documents obligatoires sont présents sur les ARM mécanisées ([#791](https://github.com/MTES-MCT/camino-api/issues/791)) ([45ee9a0](https://github.com/MTES-MCT/camino-api/commit/45ee9a0867d91fc9e51db500ebe9534885d06709))
+
 ### [0.24.97](https://github.com/MTES-MCT/camino-api/compare/v0.24.96...v0.24.97) (2021-09-06)
 
 
