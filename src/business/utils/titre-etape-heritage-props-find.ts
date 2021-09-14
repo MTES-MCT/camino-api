@@ -7,6 +7,7 @@ import {
   ITitreEntreprise
 } from '../../types'
 import { objectClone } from '../../tools/index'
+import { idGenerate } from '../../database/models/_format/id-create'
 
 const titreEtapePropsIds: (keyof ITitreEtape)[] = [
   'points',
@@ -21,15 +22,14 @@ const titreEtapePropsIds: (keyof ITitreEtape)[] = [
 
 const titrePointsIdsUpdate = (
   titrePoints: ITitrePoint[],
-  oldTitreEtapeId: string,
   newTitreEtapeId: string
 ) =>
   titrePoints.map(p => {
-    p.id = p.id.replace(oldTitreEtapeId, newTitreEtapeId)
+    p.id = idGenerate()
     p.titreEtapeId = newTitreEtapeId
 
     p.references = p.references.map(r => {
-      r.id = r.id.replace(oldTitreEtapeId, newTitreEtapeId)
+      r.id = idGenerate()
       r.titrePointId = p.id
 
       return r
@@ -153,7 +153,6 @@ const titreEtapeHeritagePropsFind = (
           if (propId === 'points') {
             newTitreEtape.points = titrePointsIdsUpdate(
               newValue as ITitrePoint[],
-              prevTitreEtape.id,
               newTitreEtape.id
             )
           } else if (propId === 'amodiataires' || propId === 'titulaires') {
