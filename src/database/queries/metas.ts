@@ -90,6 +90,9 @@ const permissionUpdate = async (id: string, props: Partial<IPermission>) =>
 const geoSystemeUpdate = async (id: string, props: Partial<IGeoSysteme>) =>
   GeoSystemes.query().patchAndFetchById(id, props)
 
+const documentTypeCreate = async (documentType: IDocumentType) =>
+  DocumentsTypes.query().insertGraphAndFetch(documentType)
+
 const documentTypeUpdate = async (id: string, props: Partial<IDocumentType>) =>
   DocumentsTypes.query().patchAndFetchById(id, props)
 
@@ -646,6 +649,7 @@ export {
   administrationTypeUpdate,
   permissionUpdate,
   geoSystemeUpdate,
+  documentTypeCreate,
   documentTypeUpdate,
   referenceTypeUpdate,
   titreTypeGet,

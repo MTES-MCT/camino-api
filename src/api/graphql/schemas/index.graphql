@@ -450,6 +450,8 @@ type Mutation {
 
   permissionModifier(permission: InputPermission!): [Permission]
 
+  documentTypeCreer(documentType: InputDocumentType!): [DocumentType]
+
   documentTypeModifier(documentType: InputDocumentType!): [DocumentType]
 
   referenceTypeModifier(referenceType: InputReferenceType!): [ReferenceType]
