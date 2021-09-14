@@ -2,7 +2,7 @@ import Knex from 'knex'
 import path from 'path'
 import knexDbManager from 'knex-db-manager'
 
-import { knexConfig } from '../knex/config'
+import { knexConfig } from '../src/knex/config'
 import { knexInstanceSet } from '../src/knex'
 
 const dbManager = knexDbManager.databaseManagerFactory({

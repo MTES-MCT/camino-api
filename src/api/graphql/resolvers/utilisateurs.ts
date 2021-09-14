@@ -12,7 +12,7 @@ import {
 
 import { login as cerbereLogin } from '../../../tools/api-cerbere/index'
 
-import { databaseInit } from '../../../database/init'
+import { cacheInit } from '../../../database/init'
 
 import { debug } from '../../../config/index'
 import { emailsSend } from '../../../tools/api-mailjet/emails'
@@ -154,7 +154,7 @@ const moi = async (_: never, context: IToken, info: GraphQLResolveInfo) => {
     // TODO:
     // mettre ça dans un middleware à la racine de l'app express
     if (!globales.chargement) {
-      await databaseInit()
+      await cacheInit()
     }
 
     const user = await userGet(context.user?.id)
