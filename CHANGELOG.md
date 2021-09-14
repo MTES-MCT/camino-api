@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.25.0](https://github.com/MTES-MCT/camino-api/compare/v0.24.98...v0.25.0) (2021-09-14)
+
+
+### Bug Fixes
+
+* **titres:** corrige la duplication des points lors de l’héritage d’un pérmimètre ([#794](https://github.com/MTES-MCT/camino-api/issues/794)) ([4261591](https://github.com/MTES-MCT/camino-api/commit/426159163d44fae114193c836a4d2e96bdb80888))
+
 ### [0.24.98](https://github.com/MTES-MCT/camino-api/compare/v0.24.97...v0.24.98) (2021-09-13)
 
 
