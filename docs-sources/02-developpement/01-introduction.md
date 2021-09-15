@@ -69,10 +69,6 @@ npm run start
 ```bash
 .
 │
-├── knex                 # `scripts de création et d'import de la base de données (npm run migrate)
-│   ├── migrations       # `création de la base de données`
-│   └── seeds            # `import depuis les fichier /sources vers la base de données`
-│
 ├── docs-sources         # `source de la documentation générée avec typeDoc`
 │
 └── src                  # `fichiers sources. Transformés avec npm run build.`
@@ -99,6 +95,10 @@ npm run start
     │   ├── daily        # `scripts de mise à jour quotidiens (npm run daily)`
     │   ├── etape-update # `script effectués lors de la mise à jour d'une étape`
     │   └── monthly      # `scripts de mise à jour mensuels (npm run monthly)`
+    │
+    ├── knex                 # `scripts de migration et d'import de la base de données
+    │   ├── migrations       # `migration de la base de données`
+    │   └── seeds            # `import depuis les fichier /sources vers la base de données`
     │
     └── tools            # `outils`
         ├── export       # `exportation de la base de données vers des spreadsheets (npm run export)`

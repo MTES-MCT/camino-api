@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 import './app'
 import { dbManager } from './db-manager'
-import { connection } from '../knex/config'
+import { connection } from '../src/knex/config'
 import { mailjet } from '../src/tools/api-mailjet'
 
 export default async () => {

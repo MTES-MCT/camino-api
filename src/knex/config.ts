@@ -1,7 +1,6 @@
-const { join } = require('path')
-require('dotenv').config({ path: join(__dirname, '..', '.env') })
-
-const { knexSnakeCaseMappers } = require('objection')
+import 'dotenv/config'
+import { join } from 'path'
+import { knexSnakeCaseMappers } from 'objection'
 
 const connection = {
   host: process.env.PGHOST,
@@ -15,7 +14,8 @@ const knexConfig = {
   client: 'pg',
   connection,
   migrations: {
-    directory: join(__dirname, 'migrations')
+    directory: join(__dirname, './migrations'),
+    stub: join(__dirname, './migration-stub.ts')
   },
   seeds: {
     directory: join(__dirname, './seeds')
@@ -23,4 +23,4 @@ const knexConfig = {
   ...knexSnakeCaseMappers()
 }
 
-module.exports = { knexConfig, connection }
+export { knexConfig, connection }

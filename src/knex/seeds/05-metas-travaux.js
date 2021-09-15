@@ -1,13 +1,13 @@
 const seeding = require('../seeding')
 
-const travauxTypes = require('../../sources/travaux-types.json')
-const travauxEtapesTypes = require('../../sources/travaux-etapes-types.json')
+const travauxTypes = require('../../../sources/travaux-types.json')
+const travauxEtapesTypes = require('../../../sources/travaux-etapes-types.json')
 // eslint-disable-next-line camelcase
-const travauxTypes__travauxEtapesTypes = require('../../sources/travaux-types--travaux-etapes-types.json')
+const travauxTypes__travauxEtapesTypes = require('../../../sources/travaux-types--travaux-etapes-types.json')
 // eslint-disable-next-line camelcase
-const travauxEtapesTypes__etapesStatuts = require('../../sources/travaux-etapes-types--etapes-statuts.json')
+const travauxEtapesTypes__etapesStatuts = require('../../../sources/travaux-etapes-types--etapes-statuts.json')
 // eslint-disable-next-line camelcase
-const travauxEtapesTypes__documentsTypes = require('../../sources/travaux-etapes-types--documents-types.json')
+const travauxEtapesTypes__documentsTypes = require('../../../sources/travaux-etapes-types--documents-types.json')
 
 const seed = seeding(async ({ insert }) => {
   await insert('travauxTypes', travauxTypes)

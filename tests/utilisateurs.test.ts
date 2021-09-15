@@ -1,7 +1,7 @@
 import { app } from './app'
 import { knex } from '../src/knex'
 import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
-import userAdd from '../knex/user-add'
+import userAdd from '../src/knex/user-add'
 import request from 'supertest'
 import jwt from 'jsonwebtoken'
 import { dbManager } from './db-manager'
