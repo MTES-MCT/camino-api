@@ -1,13 +1,13 @@
 const seeding = require('../seeding')
 
-const activitesStatuts = require('../../sources/activites-statuts.json')
-const activitesTypes = require('../../sources/activites-types.json')
+const activitesStatuts = require('../../../sources/activites-statuts.json')
+const activitesTypes = require('../../../sources/activites-types.json')
 // eslint-disable-next-line camelcase
-const activitesTypes__titresTypes = require('../../sources/activites-types--titres-types.json')
+const activitesTypes__titresTypes = require('../../../sources/activites-types--titres-types.json')
 // eslint-disable-next-line camelcase
-const activitesTypes_pays = require('../../sources/activites-types--pays.json')
+const activitesTypes_pays = require('../../../sources/activites-types--pays.json')
 // eslint-disable-next-line camelcase
-const activitesTypes_documentsTypes = require('../../sources/activites-types--documents-types.json')
+const activitesTypes_documentsTypes = require('../../../sources/activites-types--documents-types.json')
 
 const seed = seeding(async ({ insert }) => {
   await insert('activitesStatuts', activitesStatuts)

@@ -19,6 +19,24 @@ npm run db:dump
 npm run db:import
 ```
 
+## Migration des données
+
+Le dossier `migrations` contient toutes les migrations relatives (schéma et données) à la base de données.
+Lors du démarrage de l’application, `knex` vérifie si il ne doit pas exécuter des migrations en vérifiant
+l’état courant de la base de données via la table `knex_migrations`.
+
+Pour créer une nouvelle migration il faut exécuter la commande suivante :
+
+```bash
+ npx knex migrate:make <nom de la migration> -x ts
+```
+
+Pour migrer manuellement la base de données sans démarrer l’application, vous pouvez utiliser la commande suivante :
+
+```bash
+npm run db:migrate
+```
+
 ## Affichage des requêtes
 
 Il est possible de tracer l'ensemble des requêtes SQL traitées par le serveur

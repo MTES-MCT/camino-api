@@ -10,7 +10,7 @@ const dbManager = knexDbManager.databaseManagerFactory({
   dbManager: {
     superUser: knexConfig.connection.user,
     superPassword: knexConfig.connection.password,
-    populatePathPattern: path.join(__dirname, '../knex/seeds', '0[1-9]*')
+    populatePathPattern: path.join(__dirname, '../src/knex/seeds', '0[1-9]*')
   }
 })
 
