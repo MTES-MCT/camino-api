@@ -19,7 +19,7 @@ import { rest } from './server/rest'
 import { graphql } from './server/graphql'
 import { authJwt, authJwtError } from './server/auth-jwt'
 import { authBasic } from './server/auth-basic'
-// import { upload } from './server/upload'
+import upload from './server/upload'
 import { databaseInit } from './database/init'
 
 import { consoleOverride, appLogger } from './config/logger'
@@ -44,7 +44,10 @@ databaseInit().then(() => {
     authBasic
   )
   app.use(rest)
-  app.use('/', upload, graphql)
+
+  app.use('/uploads', upload)
+
+  app.use('/', graphql)
 
   if (process.env.SENTRY_DSN) {
     // test sentry

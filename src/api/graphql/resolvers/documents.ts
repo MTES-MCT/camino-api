@@ -156,13 +156,19 @@ const documentCreer = async (
       throw new Error(errors.concat(rulesErrors).join(', '))
     }
 
-    const hash = cryptoRandomString({ length: 8 })
+    // document.id est préalablement créé si l'on passe par l'UI,
+    // mais doit être créé ici si l'on utilise l'API
+    if (!document.id) {
+      const hash = cryptoRandomString({ length: 8 })
+      document.id = `${document.date}-${document.typeId}-${hash}`
+    }
 
-    document.id = `${document.date}-${document.typeId}-${hash}`
+    if (document.fichierHasNew) {
+      document.fichier = true
+    }
+    delete document.fichierHasNew
 
     if (document.fichierNouveau) {
-      document.fichier = true
-
       await documentFileCreate(document, document.fichierNouveau.file)
     }
 
@@ -172,8 +178,6 @@ const documentCreer = async (
     ) {
       document.entreprisesLecture = true
     }
-
-    delete document.fichierNouveau
 
     const { id } = await documentCreate(document)
 
