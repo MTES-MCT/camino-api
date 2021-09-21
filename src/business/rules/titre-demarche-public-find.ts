@@ -135,6 +135,38 @@ const titreDemarchePublicLectureFind = (
     return true
   }
 
+  // public pour tous des titres non énergétiques M, W, C avec une des étapes suivantes :
+  // avis de concurrence au JOUE (ane)
+  // avis de concurrence au JORF (anf)
+  // décision de l'administration (dex)
+  // publication de décision au JORF (dpu)
+  // publication de décision administrative au JORF (dup)
+  // publication de décision au recueil des actes administratifs (rpu)
+  // ouverture de la participation du public (ppu)
+  // clôture de la participation du public`(ppc)
+  // ouverture de l’enquête publique (epu)
+  // clôture de l’enquête publique (epc)
+
+  const domaineId = titreTypeId ? titreTypeId.substr(2) : null
+  if (
+    domaineId &&
+    ['m', 'w', 'c'].includes(domaineId) &&
+    [
+      'ane',
+      'anf',
+      'dex',
+      'dpu',
+      'dup',
+      'rpu',
+      'ppu',
+      'ppc',
+      'epu',
+      'epc'
+    ].includes(titreEtape.typeId)
+  ) {
+    return true
+  }
+
   return publicLecture
 }
 
