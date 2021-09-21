@@ -5,7 +5,7 @@ import { TUSEventUploadComplete } from '../types'
 import { graphqlUploadExpress } from 'graphql-upload'
 
 // Téléversement REST
-const tmp = '/files/tmp/'
+const tmp = '/files/tmp'
 const server = new Server()
 server.datastore = new FileStore({ path: tmp })
 
@@ -31,7 +31,7 @@ server.on(
       throw new Error('Manque documentId dans les métadonnées du téléversement')
     }
 
-    await fileRename(tmp + event.file.id, tmp + documentId + '.pdf')
+    await fileRename(`${tmp}/${event.file.id}`, `${tmp}/${documentId}.pdf`)
   }
 )
 
