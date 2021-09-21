@@ -43,7 +43,7 @@ import {
   newsletterSubscriberUpdate
 } from '../../../tools/api-mailjet/newsletter'
 
-const TOKEN_TTL = '15s'
+const TOKEN_TTL = '5m'
 
 const userIdGenerate = async (): Promise<string> => {
   const id = cryptoRandomString({ length: 6 })
