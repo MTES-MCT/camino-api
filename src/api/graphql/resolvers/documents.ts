@@ -156,8 +156,6 @@ const documentCreer = async (
       throw new Error(errors.concat(rulesErrors).join(', '))
     }
 
-    // document.id est préalablement créé si l'on passe par l'UI,
-    // mais doit être créé ici si l'on utilise l'API
     const hash = cryptoRandomString({ length: 8 })
     document.id = `${document.date}-${document.typeId}-${hash}`
 

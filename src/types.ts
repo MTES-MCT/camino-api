@@ -1026,6 +1026,7 @@ interface ITitreDemande {
   references?: ITitreReference[]
 }
 
+<<<<<<< HEAD
 interface ILog {
   id: string
   utilisateurId: string
@@ -1033,6 +1034,16 @@ interface ILog {
   elementId: string
   operation: 'create' | 'update' | 'delete'
   differences: any
+=======
+type TUSEventUploadComplete = {
+  file: {
+    id: string
+    // eslint-disable-next-line camelcase
+    upload_length: string
+    // eslint-disable-next-line camelcase
+    upload_metadata: string
+  }
+>>>>>>> cda08cd3 (fix(upload): rebranche l'upload de petits fichiers via graphql)
 }
 
 export {
@@ -1156,5 +1167,9 @@ export {
   ICacheId,
   IActiviteTypePays,
   ITitreDemande,
+<<<<<<< HEAD
   ILog
+=======
+  TUSEventUploadComplete
+>>>>>>> cda08cd3 (fix(upload): rebranche l'upload de petits fichiers via graphql)
 }
