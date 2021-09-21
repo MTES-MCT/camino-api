@@ -158,18 +158,16 @@ const documentCreer = async (
 
     // document.id est préalablement créé si l'on passe par l'UI,
     // mais doit être créé ici si l'on utilise l'API
-    if (!document.id) {
-      const hash = cryptoRandomString({ length: 8 })
-      document.id = `${document.date}-${document.typeId}-${hash}`
-    }
+    const hash = cryptoRandomString({ length: 8 })
+    document.id = `${document.date}-${document.typeId}-${hash}`
 
-    if (document.fichierHasNew) {
+    if (document.fichierTemporaire) {
       document.fichier = true
     }
-    delete document.fichierHasNew
 
     if (document.fichierNouveau) {
       await documentFileCreate(document, document.fichierNouveau.file)
+      delete document.fichierNouveau
     }
 
     if (
@@ -235,9 +233,6 @@ const documentModifier = async (
     const documentFichierNouveau = document.fichierNouveau
 
     document.fichier = !!document.fichierNouveau || document.fichier
-
-    // cette propriété qui vient du front n'existe pas en base
-    delete document.fichierNouveau
 
     const documentUpdated = await documentUpdate(document.id, document)
 

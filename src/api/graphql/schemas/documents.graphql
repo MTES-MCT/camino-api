@@ -50,7 +50,6 @@ type Document {
 }
 
 input InputDocumentCreation {
-  id: ID!
   typeId: ID!
   date: String!
   titreEtapeId: ID
@@ -61,7 +60,7 @@ input InputDocumentCreation {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
-  fichierHasNew: Boolean
+  fichierTemporaire: Boolean
   url: String
   uri: String
   jorf: String
@@ -81,7 +80,7 @@ input InputDocumentModification {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
-  fichierHasNew: Boolean
+  fichierTemporaire: Boolean
   url: String
   uri: String
   jorf: String
@@ -102,7 +101,7 @@ input InputDocument {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
-  fichierHasNew: Boolean
+  fichierTemporaire: Boolean
   url: String
   uri: String
   jorf: String

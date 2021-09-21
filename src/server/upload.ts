@@ -45,4 +45,6 @@ const upload = express()
 
 upload.all('*', server.handle.bind(server))
 
-export default upload
+// TODO authorization
+
+export { upload }

@@ -781,7 +781,7 @@ interface IDocument {
   fichier?: boolean | null
   fichierTypeId?: string | null
   fichierNouveau?: { file: FileUpload } | null
-  fichierHasNew?: boolean
+  fichierTemporaire?: boolean
   url?: string | null
   uri?: string | null
   jorf?: string | null
