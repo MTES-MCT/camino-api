@@ -20,6 +20,8 @@ import {
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 import { titresDemarchesQueryModify } from './titres-demarches'
 import TitresDemarches from '../../models/titres-demarches'
+import Logs from '../../models/logs'
+import { logsQueryModify } from './logs'
 
 const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
@@ -197,6 +199,10 @@ const titresEtapesQueryModify = (
       b as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
       user
     ).select('titresAmodiataires.operateur')
+  })
+
+  q.modifyGraph('logs', b => {
+    logsQueryModify(b as QueryBuilder<Logs, Logs | Logs[]>, user)
   })
 
   return q

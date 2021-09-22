@@ -7,6 +7,7 @@
 # import * from 'territoires.graphql'
 # import * from 'documents.graphql'
 # import * from 'titres-demarches.graphql'
+# import * from 'logs.graphql'
 
 "Étape d'une démarche effectuée sur un titre minier"
 type Etape {
@@ -81,6 +82,9 @@ type Etape {
 
   "Justificatifs d'entreprises relatifs à l'étape"
   justificatifs: [Document]
+
+  "Logs de l’étape"
+  logs: [Log]
 
   incertitudes: Incertitudes
 

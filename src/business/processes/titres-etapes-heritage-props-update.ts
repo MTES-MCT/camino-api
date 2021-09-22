@@ -50,7 +50,7 @@ const titresEtapesHeritagePropsUpdate = async (
 
         if (hasChanged) {
           queue.add(async () => {
-            await titreEtapeUpsert(newTitreEtape)
+            await titreEtapeUpsert(newTitreEtape, userSuper)
 
             const log = {
               type: 'titre / démarche / étape : héritage des propriétés (mise à jour) ->',

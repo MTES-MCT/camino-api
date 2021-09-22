@@ -56,10 +56,14 @@ const titresEtapesHeritageContenuUpdate = async (
 
           if (hasChanged) {
             queue.add(async () => {
-              await titreEtapeUpdate(titreEtape.id, {
-                contenu,
-                heritageContenu
-              })
+              await titreEtapeUpdate(
+                titreEtape.id,
+                {
+                  contenu,
+                  heritageContenu
+                },
+                userSuper
+              )
 
               const log = {
                 type: 'titre / démarche / étape : héritage du contenu (mise à jour) ->',

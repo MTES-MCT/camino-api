@@ -36,7 +36,11 @@ const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
       ).forEach((titreEtape: ITitreEtape, index: number) => {
         if (titreEtape.ordre !== index + 1) {
           queue.add(async () => {
-            await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
+            await titreEtapeUpdate(
+              titreEtape.id,
+              { ordre: index + 1 },
+              userSuper
+            )
 
             const log = {
               type: 'titre / démarche / étape : ordre (mise à jour) ->',

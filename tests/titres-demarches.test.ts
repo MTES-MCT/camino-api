@@ -3,6 +3,7 @@ import { graphQLCall, queryImport } from './_utils/index'
 import { titreCreate } from '../src/database/queries/titres'
 import { administrations } from './__mocks__/administrations'
 import { titreEtapeUpsert } from '../src/database/queries/titres-etapes'
+import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -225,13 +226,16 @@ describe('demarcheModifier', () => {
   test('ne peut pas modifier le type d’une démarche si elle a au moins une étape', async () => {
     const { demarcheId, titreId } = await demarcheCreate()
 
-    await titreEtapeUpsert({
-      id: `${demarcheId}-mno01`,
-      typeId: 'mno',
-      titreDemarcheId: demarcheId,
-      statutId: 'acc',
-      date: '2020-01-01'
-    })
+    await titreEtapeUpsert(
+      {
+        id: `${demarcheId}-mno01`,
+        typeId: 'mno',
+        titreDemarcheId: demarcheId,
+        statutId: 'acc',
+        date: '2020-01-01'
+      },
+      userSuper
+    )
 
     const res = await graphQLCall(
       demarcheModifierQuery,

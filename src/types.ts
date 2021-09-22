@@ -1023,6 +1023,15 @@ interface ITitreDemande {
   references?: ITitreReference[]
 }
 
+interface ILog {
+  id: string
+  utilisateurId: string
+  date: Date
+  elementId: string
+  operation: 'create' | 'update' | 'delete'
+  differences: any
+}
+
 export {
   Index,
   IFields,
@@ -1143,5 +1152,6 @@ export {
   ICache,
   ICacheId,
   IActiviteTypePays,
-  ITitreDemande
+  ITitreDemande,
+  ILog
 }

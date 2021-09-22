@@ -180,6 +180,14 @@ class TitresEtapes extends Model {
         },
         to: 'forets.id'
       }
+    },
+    logs: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'logs'),
+      join: {
+        from: 'titresEtapes.id',
+        to: 'logs.elementId'
+      }
     }
   }
 

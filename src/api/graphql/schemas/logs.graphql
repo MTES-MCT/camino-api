@@ -1,0 +1,23 @@
+# import * from 'scalars.graphql'
+# import * from 'utilisateurs.graphql'
+
+enum Operation {
+  create
+  update
+  delete
+}
+
+type Log {
+  """
+  Id unique
+  """
+  id: ID!
+
+  utilisateur: Utilisateur
+
+  date: String
+
+  operation: Operation
+
+  differences: Json
+}
