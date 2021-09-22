@@ -55,7 +55,8 @@ import {
   permissionUpdate,
   geoSystemeUpdate,
   documentTypeUpdate,
-  referenceTypeUpdate
+  referenceTypeUpdate,
+  documentTypeCreate
 } from '../../../database/queries/metas'
 
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -904,6 +905,31 @@ const geoSystemeModifier = async (
   }
 }
 
+const documentTypeCreer = async (
+  { documentType }: { documentType: IDocumentType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await documentTypeCreate(documentType)
+
+    const documentTypes = await documentsTypesGet({})
+
+    return documentTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const documentTypeModifier = async (
   { documentType }: { documentType: IDocumentType },
   context: IToken
@@ -988,6 +1014,7 @@ export {
   uniteModifier,
   administrationTypeModifier,
   permissionModifier,
+  documentTypeCreer,
   documentTypeModifier,
   referenceTypeModifier,
   geoSystemeModifier,
