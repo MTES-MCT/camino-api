@@ -20,6 +20,8 @@ const knexConfig = {
   seeds: {
     directory: join(__dirname, './seeds')
   },
+  // génère les nouveaux fichiers de migrations en Typescript
+  extension: 'ts',
   ...knexSnakeCaseMappers()
 }
 
