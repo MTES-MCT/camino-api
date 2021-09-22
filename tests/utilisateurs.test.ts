@@ -1,10 +1,11 @@
 import { app } from './app'
 import { knex } from '../src/knex'
 import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
-import userAdd from '../src/knex/user-add'
+import { userAdd } from '../src/knex/user-add'
 import request from 'supertest'
 import jwt from 'jsonwebtoken'
 import { dbManager } from './db-manager'
+import { IUtilisateur } from '../src/types'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -45,7 +46,7 @@ describe('utilisateurModifier', () => {
       email: 'test@camino.local',
       motDePasse: 'mot-de-passe',
       permissionId: 'defaut'
-    })
+    } as IUtilisateur)
 
     const token = tokenCreate({ id: 'test' })
 
@@ -78,7 +79,7 @@ describe('utilisateurModifier', () => {
       email: 'test1@camino.local',
       motDePasse: 'mot-de-passe',
       permissionId: 'defaut'
-    })
+    } as IUtilisateur)
 
     await userAdd(knex, {
       id: 'test2',
@@ -87,7 +88,7 @@ describe('utilisateurModifier', () => {
       email: 'test2@camino.local',
       motDePasse: 'mot-de-passe',
       permissionId: 'defaut'
-    })
+    } as IUtilisateur)
 
     const res = await graphQLCall(
       utilisateurModifierQuery,
@@ -322,7 +323,7 @@ describe('utilisateurSupprimer', () => {
       email: 'test@camino.local',
       motDePasse: 'mot-de-passe',
       permissionId: 'defaut'
-    })
+    } as IUtilisateur)
 
     const token = tokenCreate({ id: 'test' })
 
@@ -349,7 +350,7 @@ describe('utilisateurSupprimer', () => {
       email: 'user-to-delete@camino.local',
       motDePasse: 'mot-de-passe',
       permissionId: 'defaut'
-    })
+    } as IUtilisateur)
 
     const res = await graphQLCall(utilisateurSupprimerQuery, { id }, 'super')
 
@@ -397,7 +398,7 @@ describe('utilisateurEmailModifier', () => {
       email: oldUserEmail,
       motDePasse: 'mot-de-passe',
       permissionId: 'defaut'
-    })
+    } as IUtilisateur)
     const token = tokenCreate({ id: userId })
 
     const res = await request(app)

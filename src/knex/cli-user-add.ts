@@ -1,8 +1,6 @@
-const Knex = require('knex')
-const { knexConfig } = require('./config')
+import '../init'
+import { knex } from '../knex'
 const userAdd = require('./user-add')
-
-const knex = Knex(knexConfig)
 
 const run = async () => {
   const user = {
