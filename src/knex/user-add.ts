@@ -1,7 +1,9 @@
-const emailRegex = require('email-regex')
-const bcrypt = require('bcryptjs')
+import Knex from 'knex'
+import emailRegex from 'email-regex'
+import bcrypt from 'bcryptjs'
+import { IUtilisateur } from '../types'
 
-const userAdd = async (knex, user) => {
+export const userAdd = async (knex: Knex, user: IUtilisateur) => {
   const errors = []
 
   if (!user.email) {
@@ -17,7 +19,7 @@ const userAdd = async (knex, user) => {
   }
 
   if (!errors.length) {
-    user.motDePasse = bcrypt.hashSync(user.motDePasse, 10)
+    user.motDePasse = bcrypt.hashSync(user.motDePasse!, 10)
 
     await knex('utilisateurs').insert(user)
 
@@ -26,5 +28,3 @@ const userAdd = async (knex, user) => {
     console.info('Aucun user créé:', errors.join(', '))
   }
 }
-
-module.exports = userAdd
