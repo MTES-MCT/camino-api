@@ -1,8 +1,17 @@
 import express from 'express'
 import { Server, FileStore, EVENTS } from 'tus-node-server'
 import fileRename from '../tools/file-rename'
-import { TUSEventUploadComplete } from '../types'
 import { graphqlUploadExpress } from 'graphql-upload'
+
+type TUSEventUploadComplete = {
+  file: {
+    id: string
+    // eslint-disable-next-line camelcase
+    upload_length: string
+    // eslint-disable-next-line camelcase
+    upload_metadata: string
+  }
+}
 
 // Téléversement REST
 const tmp = '/files/tmp'

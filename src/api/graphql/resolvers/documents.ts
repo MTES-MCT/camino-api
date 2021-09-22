@@ -159,10 +159,6 @@ const documentCreer = async (
     const hash = cryptoRandomString({ length: 8 })
     document.id = `${document.date}-${document.typeId}-${hash}`
 
-    if (document.fichierTemporaire) {
-      document.fichier = true
-    }
-
     if (document.fichierNouveau) {
       await documentFileCreate(document, document.fichierNouveau.file)
       delete document.fichierNouveau
