@@ -175,6 +175,7 @@ const titreDemarchePublicLectureFind = (
  * @param demarcheTypeId - id du type de démarche
  * @param demarcheTypeEtapesTypes - types d'étapes de ce type de démarche
  * @param titreEtapes - étapes de la démarche dans l’ordre chronologique
+ * @param titreId - id du titre
  * @param titreTypeId - id du type de titre
  */
 
@@ -182,23 +183,27 @@ const titreDemarchePublicFind = (
   demarcheTypeId: string,
   demarcheTypeEtapesTypes: IEtapeType[],
   titreEtapes: ITitreEtape[],
+  titreId: string,
   titreTypeId?: string
 ) => {
   // calcule la visibilité publique ou non de la démarche
   // on parcourt successivement toutes les étapes
   // pour calculer la visibilité de la démarche
   // en fonction de l'historique
-  const publicLecture = titreEtapes.reduce(
-    (publicLecture, titreEtape) =>
-      titreDemarchePublicLectureFind(
-        publicLecture,
-        demarcheTypeId,
-        demarcheTypeEtapesTypes,
-        titreEtape,
-        titreTypeId
-      ),
-    false
-  )
+  const publicLecture =
+    titreId === 'WQaZgPfDcQw9tFliMgBIDH3Z'
+      ? false
+      : titreEtapes.reduce(
+          (publicLecture, titreEtape) =>
+            titreDemarchePublicLectureFind(
+              publicLecture,
+              demarcheTypeId,
+              demarcheTypeEtapesTypes,
+              titreEtape,
+              titreTypeId
+            ),
+          false
+        )
 
   // les entreprises titulaires ou amodiataires peuvent voir la démarche
   // si la démarche est visible au public

@@ -46,6 +46,7 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
         titreDemarche.typeId,
         demarcheTypeEtapesTypes,
         titreDemarcheEtapes,
+        titre.id,
         titre.typeId
       )
 

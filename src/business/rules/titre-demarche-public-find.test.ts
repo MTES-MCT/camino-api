@@ -13,7 +13,7 @@ const etapesBuild = (etapesProps: Partial<ITitreEtape>[]) =>
 
 describe("publicité d'une démarche", () => {
   test("une démarche sans étape n'est pas publique", () => {
-    expect(titreDemarchePublicFind('oct', [], [])).toMatchObject({
+    expect(titreDemarchePublicFind('oct', [], [], 'titreId')).toMatchObject({
       publicLecture: false,
       entreprisesLecture: false
     })
@@ -21,37 +21,67 @@ describe("publicité d'une démarche", () => {
 
   test("une démarche d'octroi sans étape décisive n'est pas publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dae' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'dae' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
   test("une démarche de retrait dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'spp' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'spp' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
   test("une démarche de retrait dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
-      titreDemarchePublicFind('ret', [], etapesBuild([{ typeId: 'spp' }]))
+      titreDemarchePublicFind(
+        'ret',
+        [],
+        etapesBuild([{ typeId: 'spp' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true, entreprisesLecture: true })
   })
 
   test("une démarche de déchéance dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
-      titreDemarchePublicFind('dec', [], etapesBuild([{ typeId: 'spp' }]))
+      titreDemarchePublicFind(
+        'dec',
+        [],
+        etapesBuild([{ typeId: 'spp' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true, entreprisesLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est demande est visible uniquement par l'entreprise", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mfr' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'mfr' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: false, entreprisesLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est décision de l'administration est visible uniquement par l'entreprise", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dex' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'dex' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: false, entreprisesLecture: true })
   })
 
@@ -60,7 +90,8 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'css' }, { typeId: 'mfr' }])
+        etapesBuild([{ typeId: 'css' }, { typeId: 'mfr' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: false })
   })
@@ -115,7 +146,12 @@ describe("publicité d'une démarche", () => {
 
   test("une démarche ne pouvant pas faire l'objet d'une mise en concurrence dont l'étape la plus récente est recevabilité est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mcr' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'mcr' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
@@ -136,32 +172,53 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [{ id: 'anf', nom: 'anf', ordre: 1 }],
-        etapesBuild([{ typeId: 'mcr' }])
+        etapesBuild([{ typeId: 'mcr' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: false })
   })
 
   test("une démarche dont l'étape la plus récente est mise en concurrence au JORF est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'anf' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'anf' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est publication de l'avis de décision implicite (historique) est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'apu' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'apu' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est mise en concurrence au JOUE est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'ane' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'ane' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est participation du public est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'ppu' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'ppu' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
@@ -183,6 +240,7 @@ describe("publicité d'une démarche", () => {
         'oct',
         [],
         etapesBuild([{ typeId: 'aca' }]),
+        'titreId',
         'arm'
       )
     ).toMatchObject({ publicLecture: true })
@@ -205,7 +263,8 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'dim', statutId: 'acc' }])
+        etapesBuild([{ typeId: 'dim', statutId: 'acc' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: true })
   })
@@ -218,7 +277,8 @@ describe("publicité d'une démarche", () => {
         etapesBuild([
           { typeId: 'anf', statutId: 'fai' },
           { typeId: 'dim', statutId: 'rej' }
-        ])
+        ]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: false })
   })
@@ -228,7 +288,8 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'dex', statutId: 'rej' }])
+        etapesBuild([{ typeId: 'dex', statutId: 'rej' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: false })
   })
@@ -262,26 +323,42 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'dpu', statutId: 'acc' }])
+        etapesBuild([{ typeId: 'dpu', statutId: 'acc' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est décision unilatérale est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dux' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'dux' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est publication de décision unilatérale est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dup' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'dup' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est publication de décision au recueil des actes administratifs est publique", () => {
     expect(
-      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'rpu' }]))
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'rpu' }]),
+        'titreId'
+      )
     ).toMatchObject({ publicLecture: true })
   })
 
@@ -314,7 +391,8 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'and', statutId: 'fav' }])
+        etapesBuild([{ typeId: 'and', statutId: 'fav' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: true })
   })
@@ -324,7 +402,8 @@ describe("publicité d'une démarche", () => {
       titreDemarchePublicFind(
         'oct',
         [],
-        etapesBuild([{ typeId: 'and', statutId: 'fai' }])
+        etapesBuild([{ typeId: 'and', statutId: 'fai' }]),
+        'titreId'
       )
     ).toMatchObject({ publicLecture: false })
   })
@@ -429,4 +508,15 @@ describe("publicité d'une démarche", () => {
       ).toMatchObject({ publicLecture: true })
     }
   )
+
+  test('le titre WQaZgPfDcQw9tFliMgBIDH3Z ne doit pas être public', () => {
+    expect(
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'ane' }]),
+        'WQaZgPfDcQw9tFliMgBIDH3Z'
+      )
+    ).toMatchObject({ publicLecture: false })
+  })
 })
