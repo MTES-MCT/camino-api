@@ -1,17 +1,51 @@
-import { userTokenGenerate } from '../../tests/_utils'
-import { restUpload } from './upload'
-import request from 'supertest'
+import { restUploadCall } from '../../tests/_utils'
+import { dbManager } from '../../tests/db-manager'
+import { Request, Response } from 'express'
 
-describe('restUpload', () => {
-  let userDefaut
-  let userPermission
+jest.mock('tus-node-server')
 
+jest.mock('./upload.ts', () => {
+  const original = jest.requireActual('./upload.ts')
+
+  return {
+    uploadAllowedMiddleware: original.uploadAllowedMiddleware,
+    graphqlUpload: original.graphqlUpload,
+    restUpload: jest.fn().mockImplementation((req: Request, res: Response) => {
+      res.sendStatus(200)
+    })
+  }
+})
+
+console.info = jest.fn()
+
+describe('téléversement de fichier par rest (tus)', () => {
   beforeEach(async () => {
-    userDefaut = await userTokenGenerate('defaut')
-    userPermission = await userTokenGenerate('lecteur')
+    await dbManager.populateDb()
   })
 
-  test("retourne un code HTTP 401 si la permission d'utilisateur est 'defaut'", async () => {
-    request(restUpload).post('/uploads')
+  afterEach(async () => {
+    await dbManager.truncateDb()
+  })
+
+  afterAll(async () => {
+    dbManager.closeKnex()
+  })
+
+  describe('permission de téléverser', () => {
+    test.each`
+      permission      | code
+      ${'admin'}      | ${200}
+      ${'super'}      | ${200}
+      ${'editeur'}    | ${200}
+      ${'lecteur'}    | ${200}
+      ${'entreprise'} | ${200}
+      ${'defaut'}     | ${403}
+    `(
+      'retourne le code $code pour un utilisateur "$permission"',
+      async ({ permission, code }) => {
+        const res = await restUploadCall(permission)
+        expect(res.statusCode).toBe(code)
+      }
+    )
   })
 })

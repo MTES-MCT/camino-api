@@ -19,7 +19,11 @@ import { rest } from './server/rest'
 import { graphql } from './server/graphql'
 import { authJwt, authJwtError } from './server/auth-jwt'
 import { authBasic } from './server/auth-basic'
-import { restUpload, graphqlUpload } from './server/upload'
+import {
+  restUpload,
+  graphqlUpload,
+  uploadAllowedMiddleware
+} from './server/upload'
 import { databaseInit } from './database/init'
 
 import { consoleOverride, appLogger } from './config/logger'
@@ -45,7 +49,7 @@ databaseInit().then(() => {
   )
   app.use(rest)
 
-  app.use('/televersement', restUpload)
+  app.use('/televersement', uploadAllowedMiddleware, restUpload)
 
   app.use('/', graphqlUpload, graphql)
 

@@ -3,6 +3,7 @@ import { Server, FileStore, EVENTS } from 'tus-node-server'
 import fileRename from '../tools/file-rename'
 import { graphqlUploadExpress } from 'graphql-upload'
 import { permissionCheck } from '../tools/permission'
+import { userGet } from '../database/queries/utilisateurs'
 
 type TUSEventUploadComplete = {
   file: {
@@ -19,14 +20,19 @@ const tmp = '/files/tmp'
 const server = new Server()
 server.datastore = new FileStore({ path: tmp })
 
-const uploadAllowedMiddleware = (
+const uploadAllowedMiddleware = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  const user = (req as any).user
-  if (!user || permissionCheck(user, ['defaut'])) {
-    res.sendStatus(401)
+  const userId = (req as any).user?.id
+
+  const user = await userGet(userId)
+
+  if (!user || permissionCheck(user.permissionId, ['defaut'])) {
+    res.sendStatus(403)
+
+    return
   }
   next()
 }
@@ -58,7 +64,7 @@ server.on(
 )
 
 const restUpload = express()
-restUpload.all('*', uploadAllowedMiddleware, server.handle.bind(server))
+restUpload.all('*', server.handle.bind(server))
 
 // Téléversement graphQL
 const graphqlUpload = graphqlUploadExpress({
@@ -66,4 +72,4 @@ const graphqlUpload = graphqlUploadExpress({
   maxFiles: 10
 })
 
-export { restUpload, graphqlUpload }
+export { restUpload, uploadAllowedMiddleware, graphqlUpload }
