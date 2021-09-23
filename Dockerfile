@@ -6,7 +6,6 @@ RUN npm ci --only=prod
 
 COPY tsconfig.json ./
 COPY src src/
-COPY knex knex/
 RUN npm run build
 
 FROM node:14-alpine as production-stage
