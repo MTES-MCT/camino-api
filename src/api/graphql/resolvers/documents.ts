@@ -161,7 +161,6 @@ const documentCreer = async (
 
     if (document.fichierNouveau) {
       await documentFileCreate(document, document.fichierNouveau.file)
-      delete document.fichierNouveau
     }
 
     if (
