@@ -36,6 +36,13 @@
     "ordre": 8
   },
   {
+    "id": "sdo",
+    "nom": "SDOM (Schéma Départemental d’Orientation Minière)",
+    "slug": "sdom",
+    "ordre": 11,
+    "description": "Il est spécifique à la Guyane et a pour vocation de définir les conditions générales applicables à la recherche minière, ainsi que les modalités de l’implantation et de l’exploitation des sites miniers. Il définit un zonage (3 zones : zone 0, 1 et 2) des secteurs ouverts et interdits à l’activité minière et fixe au besoin des contraintes particulières sur certaines zones. \n</br>\n</br>\nTrois zones sont définies : \n</br>\n<ul>\n<li>Zone 0 : activité interdite</li>\n<li>Zone 1 : activité interdite sauf exploitation souterraine et recherches aériennes</li>\n<li>Zone 2 : activité autorisée sous contrainte</li>\n</ul>\nCe zonage traduit la compatibilité des différents espaces du territoire de la Guyane avec les activités minières, en prenant en compte la nécessité de protéger les milieux naturels sensibles, les paysages, les sites et les populations et de gérer de manière équilibrée l’espace et les ressources naturelles. Il tient compte de l’intérêt économique de la Guyane et de la valorisation durable de ses ressources minières. Au sein des secteurs qu’il identifie comme compatibles avec une activité d’exploitation, il fixe les contraintes environnementales et les objectifs à atteindre en matière de remise en état des sites miniers.\n</br>\n</br>\n<a href=\"http://www.guyane.developpement-durable.gouv.fr/schema-departemental-d-orientation-miniere-a1535.html\" target=\"blank\"><b>Arrêté Préfectoral du SDOM</b>\n</br>\n</br>\n<a href=\"https://carto.geoguyane.fr/1/sdom.map\" target=\"blank\"><b>Carte du SDOM</b>\n"
+  },
+  {
     "id": "smi",
     "nom": "Substances et usages du sous-sol",
     "slug": "substances-legales",

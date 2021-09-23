@@ -1,4 +1,4 @@
-import { Model, Modifiers, Pojo } from 'objection'
+import { Model, Modifiers, Pojo, QueryContext } from 'objection'
 import { join } from 'path'
 
 import { ITitreEtape, ITitrePoint } from '../../types'
@@ -17,7 +17,8 @@ class TitresEtapes extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreDemarcheId', 'date'],
+    // l’id est généré tout seul
+    required: ['titreDemarcheId', 'date'],
 
     properties: {
       id: { type: 'string', maxLength: 128 },
@@ -197,6 +198,18 @@ class TitresEtapes extends Model {
     }
   }
 
+  async $beforeInsert(context: QueryContext) {
+    if (!this.id) {
+      this.id = idGenerate()
+    }
+
+    if (!this.slug && this.titreDemarcheId && this.typeId) {
+      this.slug = `${this.titreDemarcheId}-${this.typeId}99`
+    }
+
+    return super.$beforeInsert(context)
+  }
+
   async $afterFind(context: any) {
     this.pays = paysFormat(this.communes || [])
 
@@ -228,13 +241,6 @@ class TitresEtapes extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    if (!json.id) {
-      json.id = idGenerate()
-    }
-    if (!json.slug && json.titreDemarcheId && json.typeId) {
-      json.slug = `${json.titreDemarcheId}-${json.typeId}99`
-    }
-
     if (json.points) {
       json.points.forEach((point: ITitrePoint) => {
         point.titreEtapeId = json.id

@@ -1,8 +1,108 @@
 [
   {
     "travaux_type_id": "aom",
-    "ordre": 3,
+    "ordre": 30,
+    "travaux_etape_type_id": "aac"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 29,
+    "travaux_etape_type_id": "aaf"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 23,
+    "travaux_etape_type_id": "abs"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 43,
+    "travaux_etape_type_id": "acd"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 33,
+    "travaux_etape_type_id": "aec"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 32,
+    "travaux_etape_type_id": "afp"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 31,
+    "travaux_etape_type_id": "agn"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 22,
+    "travaux_etape_type_id": "aim"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 26,
+    "travaux_etape_type_id": "ami"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 90,
     "travaux_etape_type_id": "aow"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 20,
+    "travaux_etape_type_id": "apl"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 21,
+    "travaux_etape_type_id": "apm"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 24,
+    "travaux_etape_type_id": "apn"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 34,
+    "travaux_etape_type_id": "app"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 35,
+    "travaux_etape_type_id": "apw"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 33,
+    "travaux_etape_type_id": "ars"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 27,
+    "travaux_etape_type_id": "ass"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 28,
+    "travaux_etape_type_id": "auc"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 95,
+    "travaux_etape_type_id": "dex"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 40,
+    "travaux_etape_type_id": "epc"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 38,
+    "travaux_etape_type_id": "epu"
   },
   {
     "travaux_type_id": "aom",
@@ -16,13 +116,63 @@
   },
   {
     "travaux_type_id": "aom",
-    "ordre": 5,
+    "ordre": 50,
     "travaux_etape_type_id": "ncl"
   },
   {
     "travaux_type_id": "aom",
-    "ordre": 4,
+    "ordre": 25,
+    "travaux_etape_type_id": "pnr"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 41,
+    "travaux_etape_type_id": "rce"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 100,
     "travaux_etape_type_id": "rpu"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 17,
+    "travaux_etape_type_id": "scl"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 3,
+    "travaux_etape_type_id": "tra"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 36,
+    "travaux_etape_type_id": "wae"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 15,
+    "travaux_etape_type_id": "wca"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 6,
+    "travaux_etape_type_id": "wcp"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 16,
+    "travaux_etape_type_id": "wcs"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 42,
+    "travaux_etape_type_id": "wpo"
+  },
+  {
+    "travaux_type_id": "aom",
+    "ordre": 10,
+    "travaux_etape_type_id": "wrr"
   },
   {
     "travaux_type_id": "apr",
@@ -41,6 +191,11 @@
   },
   {
     "travaux_type_id": "dam",
+    "ordre": 151,
+    "travaux_etape_type_id": "aac"
+  },
+  {
+    "travaux_type_id": "dam",
     "ordre": 11,
     "travaux_etape_type_id": "awd"
   },
@@ -51,17 +206,7 @@
   },
   {
     "travaux_type_id": "dam",
-    "ordre": 1,
-    "travaux_etape_type_id": "dec"
-  },
-  {
-    "travaux_type_id": "dam",
-    "ordre": 2,
-    "travaux_etape_type_id": "mdd"
-  },
-  {
-    "travaux_type_id": "dam",
-    "ordre": 8,
+    "ordre": 140,
     "travaux_etape_type_id": "mfw"
   },
   {
@@ -103,6 +248,11 @@
     "travaux_type_id": "dam",
     "ordre": 3,
     "travaux_etape_type_id": "ssr"
+  },
+  {
+    "travaux_type_id": "dam",
+    "ordre": 150,
+    "travaux_etape_type_id": "wrr"
   },
   {
     "travaux_type_id": "dom",

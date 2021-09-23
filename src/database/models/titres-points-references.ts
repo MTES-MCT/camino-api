@@ -1,4 +1,4 @@
-import { Model, Modifiers, Pojo } from 'objection'
+import { Model, Modifiers, Pojo, QueryContext } from 'objection'
 import { join } from 'path'
 
 import { ITitrePointReference } from '../../types'
@@ -11,7 +11,7 @@ class TitresPointsReferences extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['titrePointId', 'id', 'geoSystemeId', 'coordonnees'],
+    required: ['titrePointId', 'geoSystemeId', 'coordonnees'],
 
     properties: {
       id: { type: 'string' },
@@ -48,18 +48,16 @@ class TitresPointsReferences extends Model {
     }
   }
 
-  public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
-    if (!json.id) {
-      json.id = idGenerate()
+  async $beforeInsert(context: QueryContext) {
+    if (!this.id) {
+      this.id = idGenerate()
     }
 
-    if (!json.slug && json.titrePointId && json.geoSystemeId) {
-      json.slug = `${json.titrePointId}-${json.geoSystemeId}`
+    if (!this.slug && this.titrePointId && this.geoSystemeId) {
+      this.slug = `${this.titrePointId}-${this.geoSystemeId}`
     }
 
-    return json
+    return super.$beforeInsert(context)
   }
 
   public $formatDatabaseJson(json: Pojo) {

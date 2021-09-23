@@ -325,7 +325,7 @@ describe("publicité d'une démarche", () => {
         titreDemarchePublicFind(
           demarcheTypeId,
           [],
-          etapesBuild([{ typeId: 'mfr', statutId: 'dep' }]),
+          etapesBuild([{ typeId: 'mdp', statutId: 'fai' }]),
           'arm'
         )
       ).toMatchObject({ publicLecture: false })

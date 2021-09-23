@@ -363,6 +363,8 @@ interface IEtapeType {
   unique?: boolean | null
   documentsTypes?: IDocumentType[]
   justificatifsTypes?: IDocumentType[]
+  publicLecture?: boolean | null
+  entreprisesLecture?: boolean | null
 }
 
 interface IForet extends IArea {}

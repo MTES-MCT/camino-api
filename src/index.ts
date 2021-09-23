@@ -26,45 +26,45 @@ import { databaseInit } from './database/init'
 import { consoleOverride, appLogger } from './config/logger'
 
 consoleOverride(appLogger)
-databaseInit()
+databaseInit().then(() => {
+  const app = express()
 
-const app = express()
-
-if (process.env.SENTRY_DSN) {
-  Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    environment: process.env.ENV === 'prod' ? 'production' : process.env.ENV
-  })
-  app.use(Sentry.Handlers.requestHandler())
-}
-
-app.use(
-  cors({ credentials: true, exposedHeaders: ['Content-disposition'] }),
-  compression(),
-  authJwt,
-  authJwtError,
-  authBasic
-)
-app.use(rest)
-app.use('/', upload, graphql)
-
-if (process.env.SENTRY_DSN) {
-  // test sentry
-  // app.get('/', (req, res) => {
-  //   console.info('broke')
-  //   throw new Error('Broke!')
-  // })
-  app.use(Sentry.Handlers.errorHandler())
-}
-
-app.listen(port, () => {
-  console.info('')
-  console.info('URL:', url)
-  console.info('ENV:', process.env.ENV)
-  console.info('NODE_ENV:', process.env.NODE_ENV)
-
-  if (process.env.NODE_DEBUG === 'true') {
-    console.warn('NODE_DEBUG:', process.env.NODE_DEBUG)
+  if (process.env.SENTRY_DSN) {
+    Sentry.init({
+      dsn: process.env.SENTRY_DSN,
+      environment: process.env.ENV === 'prod' ? 'production' : process.env.ENV
+    })
+    app.use(Sentry.Handlers.requestHandler())
   }
-  console.info('')
+
+  app.use(
+    cors({ credentials: true, exposedHeaders: ['Content-disposition'] }),
+    compression(),
+    authJwt,
+    authJwtError,
+    authBasic
+  )
+  app.use(rest)
+  app.use('/', upload, graphql)
+
+  if (process.env.SENTRY_DSN) {
+    // test sentry
+    // app.get('/', (req, res) => {
+    //   console.info('broke')
+    //   throw new Error('Broke!')
+    // })
+    app.use(Sentry.Handlers.errorHandler())
+  }
+
+  app.listen(port, () => {
+    console.info('')
+    console.info('URL:', url)
+    console.info('ENV:', process.env.ENV)
+    console.info('NODE_ENV:', process.env.NODE_ENV)
+
+    if (process.env.NODE_DEBUG === 'true') {
+      console.warn('NODE_DEBUG:', process.env.NODE_DEBUG)
+    }
+    console.info('')
+  })
 })
