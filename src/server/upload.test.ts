@@ -19,16 +19,13 @@ jest.mock('./upload.ts', () => {
 console.info = jest.fn()
 
 describe('téléversement de fichier par rest (tus)', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await dbManager.populateDb()
   })
 
-  afterEach(async () => {
-    await dbManager.truncateDb()
-  })
-
   afterAll(async () => {
-    dbManager.closeKnex()
+    await dbManager.truncateDb()
+    await dbManager.closeKnex()
   })
 
   describe('permission de téléverser', () => {
