@@ -160,6 +160,7 @@ const documentCreer = async (
     document.id = `${document.date}-${document.typeId}-${hash}`
 
     if (document.fichierNouveau) {
+      document.fichier = true
       await documentFileCreate(document, document.fichierNouveau.file)
     }
 
