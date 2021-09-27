@@ -1,16 +1,33 @@
 import { restUploadCall } from '../../tests/_utils'
 import { dbManager } from '../../tests/db-manager'
+import { Request, Response } from 'express'
+
+jest.mock('tus-node-server')
+
+jest.mock('./upload.ts', () => {
+  const original = jest.requireActual('./upload.ts')
+
+  return {
+    uploadAllowedMiddleware: original.uploadAllowedMiddleware,
+    graphqlUpload: original.graphqlUpload,
+    restUpload: jest.fn().mockImplementation((req: Request, res: Response) => {
+      res.sendStatus(200)
+    })
+  }
+})
 
 console.info = jest.fn()
 
 describe('téléversement de fichier par rest (tus)', () => {
   beforeAll(async () => {
     await dbManager.populateDb()
+    jest.mock('fs')
   })
 
   afterAll(async () => {
     await dbManager.truncateDb()
     await dbManager.closeKnex()
+    jest.unmock('fs')
   })
 
   describe('permission de téléverser', () => {
