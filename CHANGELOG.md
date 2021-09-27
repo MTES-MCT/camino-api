@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.26.0](https://github.com/MTES-MCT/camino-api/compare/v0.25.0...v0.26.0) (2021-09-27)
+
+
+### Features
+
+* **demande:** ajoute de nouveau l’étape « dépôt de la demande » ([#803](https://github.com/MTES-MCT/camino-api/issues/803)) ([ee1501a](https://github.com/MTES-MCT/camino-api/commit/ee1501af7c9148bb665ff01927c0e402734d62e9))
+* **logs:** ajoute les logs sur les différentes effectuées sur les titres ([#798](https://github.com/MTES-MCT/camino-api/issues/798)) ([7496c31](https://github.com/MTES-MCT/camino-api/commit/7496c3108f69ab7535261d4182711736ce7c4d24))
+* **métas:** permet l’ajout d’un nouveau type de document dans les métas ([#796](https://github.com/MTES-MCT/camino-api/issues/796)) ([d6b5ecf](https://github.com/MTES-MCT/camino-api/commit/d6b5ecf89aa16e54ef9361b419bccd9b1284ce56))
+
 ## [0.25.0](https://github.com/MTES-MCT/camino-api/compare/v0.24.98...v0.25.0) (2021-09-14)
 
 
