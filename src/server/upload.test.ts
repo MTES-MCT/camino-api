@@ -3,7 +3,6 @@ import { dbManager } from '../../tests/db-manager'
 import { Request, Response } from 'express'
 
 jest.mock('tus-node-server')
-
 jest.mock('./upload.ts', () => {
   const original = jest.requireActual('./upload.ts')
 
@@ -21,13 +20,17 @@ console.info = jest.fn()
 describe('téléversement de fichier par rest (tus)', () => {
   beforeAll(async () => {
     await dbManager.populateDb()
-    jest.mock('fs')
+    jest.mock('fs', () => {
+      return {
+        ...jest.requireActual('fs').default,
+        mkdir: jest.fn()
+      }
+    })
   })
 
   afterAll(async () => {
     await dbManager.truncateDb()
     await dbManager.closeKnex()
-    jest.unmock('fs')
   })
 
   describe('permission de téléverser', () => {
