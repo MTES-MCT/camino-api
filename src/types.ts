@@ -673,6 +673,7 @@ interface ITitre {
   propsTitreEtapesIds: IPropsTitreEtapesIds
   contenu?: IContenu | null
   doublonTitreId?: string | null
+  confidentiel?: boolean | null
 }
 
 interface ITitreActivite {

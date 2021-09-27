@@ -61,7 +61,8 @@ const titres = async (
     noms,
     entreprises,
     references,
-    territoires
+    territoires,
+    demandeEnCours
   }: {
     intervalle?: number | null
     page?: number | null
@@ -76,6 +77,7 @@ const titres = async (
     entreprises: string
     references: string
     territoires: string
+    demandeEnCours: boolean | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -99,7 +101,8 @@ const titres = async (
           noms,
           entreprises,
           references,
-          territoires
+          territoires,
+          demandeEnCours
         },
         { fields },
         user
@@ -113,7 +116,8 @@ const titres = async (
           noms,
           entreprises,
           references,
-          territoires
+          territoires,
+          demandeEnCours
         },
         { fields: {} },
         user

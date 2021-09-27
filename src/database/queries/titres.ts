@@ -25,12 +25,14 @@ import { titresFiltersQueryModify } from './_titres-filters'
  *
  * @param fields - propriétés demandées sur le titre
  * @param user - utilisateur
+ * @param demandeEnCours - charge aussi les demandes en cours
  * @returns la requête
  *
  */
 const titresQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null,
+  demandeEnCours?: boolean | null
 ) => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
@@ -38,7 +40,7 @@ const titresQueryBuild = (
 
   const q = Titres.query().withGraphFetched(graph)
 
-  titresQueryModify(q, user)
+  titresQueryModify(q, user, demandeEnCours)
 
   return q
 }
@@ -130,7 +132,8 @@ const titresGet = async (
     entreprises,
     references,
     territoires,
-    slugs
+    slugs,
+    demandeEnCours
   }: {
     intervalle?: number | null
     page?: number | null
@@ -147,11 +150,12 @@ const titresGet = async (
     references?: string | null
     territoires?: string | null
     slugs?: string[] | null
+    demandeEnCours?: boolean | null
   } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresQueryBuild({ fields }, user)
+  const q = titresQueryBuild({ fields }, user, demandeEnCours)
 
   if (ids) {
     q.whereIn('titres.id', ids)
@@ -240,7 +244,8 @@ const titresCount = async (
     noms,
     entreprises,
     references,
-    territoires
+    territoires,
+    demandeEnCours
   }: {
     domainesIds?: string[] | null
     typesIds?: string[] | null
@@ -250,11 +255,12 @@ const titresCount = async (
     entreprises?: string | null
     references?: string | null
     territoires?: string | null
+    demandeEnCours?: boolean | null
   } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null
 ) => {
-  const q = titresQueryBuild({ fields }, user)
+  const q = titresQueryBuild({ fields }, user, demandeEnCours)
 
   titresFiltersQueryModify(
     {
