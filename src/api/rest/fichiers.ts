@@ -50,8 +50,6 @@ const fichier = async (
     dossier = document.activite!.id
   } else if (repertoire === 'entreprises') {
     dossier = document.entreprise!.id
-  } else if (repertoire === 'travaux') {
-    dossier = document.travauxEtape!.id
   }
 
   const nom = `${document.date}-${dossier ? dossier + '-' : ''}${

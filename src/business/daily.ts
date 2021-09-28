@@ -13,8 +13,6 @@ import { titresPublicUpdate } from './processes/titres-public-update'
 import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
 import { titresContenusEtapesIdsUpdate } from './processes/titres-contenus-etapes-ids-update'
 import { titresStatutIdsUpdate } from './processes/titres-statut-ids-update'
-import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
-import { titresTravauxEtapesOrdreUpdate } from './processes/titres-travaux-etapes-ordre-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresEtapesHeritagePropsUpdate } from './processes/titres-etapes-heritage-props-update'
 import { titresEtapesHeritageContenuUpdate } from './processes/titres-etapes-heritage-contenu-update'
@@ -55,9 +53,6 @@ const daily = async () => {
     const titresContenusEtapesIdsUpdated = await titresContenusEtapesIdsUpdate()
 
     const titresCoordonneesUpdated = await titresCoordonneesUpdate()
-    const titresTravauxEtapesOrdreUpdated =
-      await titresTravauxEtapesOrdreUpdate()
-    const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate()
     const titresActivitesCreated = await titresActivitesUpdate()
     const titresActivitesStatutIdsUpdated =
       await titresActivitesStatutIdsUpdate()
@@ -85,8 +80,6 @@ const daily = async () => {
       titresPropsEtapesIdsUpdated,
       titresContenusEtapesIdsUpdated,
       titresCoordonneesUpdated,
-      titresTravauxEtapesOrdreUpdated,
-      titresTravauxOrdreUpdated,
       titresActivitesCreated,
       titresActivitesStatutIdsUpdated,
       titresActivitesPropsUpdated,

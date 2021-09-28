@@ -6,10 +6,7 @@ const documentFilePathFind = async (document: IDocument, creation = false) => {
   const repertoire = documentRepertoireFind(document)
 
   const parentId =
-    document.titreEtapeId ||
-    document.titreActiviteId ||
-    document.entrepriseId ||
-    document.titreTravauxEtapeId
+    document.titreEtapeId || document.titreActiviteId || document.entrepriseId
 
   let dirPath = `files/${repertoire}`
 

@@ -14,7 +14,11 @@ const titresStatutIdsUpdate = async (titresIds?: string[]) => {
     { ids: titresIds },
     {
       fields: {
-        demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        demarches: {
+          type: { id: {} },
+          phase: { id: {} },
+          etapes: { points: { id: {} } }
+        }
       }
     },
     userSuper

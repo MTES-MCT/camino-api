@@ -9,7 +9,6 @@
 # import * from 'points.graphql'
 # import * from 'territoires.graphql'
 # import * from 'titres-activites.graphql'
-# import * from 'titres-travaux.graphql'
 
 type Titres {
   elements: [Titre]
@@ -103,9 +102,6 @@ type Titre {
 
   "Activités"
   activites: [Activite]
-
-  "Travaux"
-  travaux: [Travail]
 
   "Nombre d'activités déposées"
   activitesDeposees: Int

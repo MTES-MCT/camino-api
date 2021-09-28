@@ -95,6 +95,9 @@ type DemarcheType {
 
   exception: Boolean
 
+  "Si c'est une démarche de travaux"
+  travaux: Boolean
+
   "Type de titre pour laquelle cette démarche existe"
   titreTypeId: ID
 

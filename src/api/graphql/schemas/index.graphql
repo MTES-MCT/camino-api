@@ -16,8 +16,6 @@
 # import * from 'titres-etapes.graphql'
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
-# import * from 'titres-travaux.graphql'
-# import * from 'titres-travaux-etapes.graphql'
 # import * from 'titre-demande.graphql'
 
 """
@@ -86,12 +84,6 @@ type Query {
 
   "Étape d’une démarche en fonction de son id"
   etape(id: ID!): Etape
-
-  "Travaux en fonction de son id"
-  travaux(id: ID!): Travail
-
-  "Étape d’un travaux en fonction de son id"
-  travauxEtape(id: ID!): TravauxEtape
 
   etapeHeritage(date: String!, titreDemarcheId: ID!, typeId: ID!): EtapeHeritage
 
@@ -388,24 +380,6 @@ type Mutation {
   entrepriseTitreTypeModifier(
     entrepriseTitreType: InputEntrepriseTitreType!
   ): Entreprise
-
-  "Crée une démarche de travaux et met à jour le titre minier"
-  travauxCreer(travaux: InputTravauxCreation!): Titre
-
-  "Modifie une démarche de travaux et met à jour le titre minier"
-  travauxModifier(travaux: InputTravauxModification!): Titre
-
-  "Supprime une démarche de travaux et met à jour le titre minier"
-  travauxSupprimer(id: ID!): Titre
-
-  "Crée une étape de travaux et met à jour le titre minier"
-  travauxEtapeCreer(etape: InputTravauxEtapeCreation!): Titre
-
-  "Modifie une étape de travaux et met à jour le titre minier"
-  travauxEtapeModifier(etape: InputTravauxEtapeModification!): Titre
-
-  "Supprime une étape de travaux et met à jour le titre minier"
-  travauxEtapeSupprimer(id: ID!): Titre
 
   domaineModifier(domaine: InputDomaine!): [Domaine]
 

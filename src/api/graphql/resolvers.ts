@@ -210,20 +210,6 @@ import { statistiquesGlobales } from './resolvers/statistiques'
 import { statistiquesGuyane } from './resolvers/statistiques-guyane'
 import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-marins'
 
-import {
-  travaux,
-  travauxCreer,
-  travauxModifier,
-  travauxSupprimer
-} from './resolvers/titres-travaux'
-
-import {
-  travauxEtape,
-  travauxEtapeCreer,
-  travauxEtapeModifier,
-  travauxEtapeSupprimer
-} from './resolvers/titres-travaux-etapes'
-
 import { titreDemandeCreer } from './resolvers/titre-demande'
 import { pointsImporter } from './resolvers/points'
 
@@ -339,14 +325,6 @@ export default {
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
   administrationActiviteTypeModifier,
-  travaux,
-  travauxCreer,
-  travauxModifier,
-  travauxSupprimer,
-  travauxEtape,
-  travauxEtapeCreer,
-  travauxEtapeModifier,
-  travauxEtapeSupprimer,
   domaineModifier,
   definitionModifier,
   titreTypeTypeModifier,

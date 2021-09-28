@@ -237,6 +237,7 @@ interface IDemarcheType {
   titreTypeId?: string | null
   unique?: boolean | null
   demarchesCreation?: boolean | null
+  travaux?: boolean
 }
 
 interface IDepartement {
@@ -662,7 +663,6 @@ interface ITitre {
   forets?: IForet[] | null
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
-  travaux?: ITitreTravaux[] | null
   pays?: IPays[] | null
   modification?: boolean | null
   suppression?: boolean | null
@@ -739,24 +739,14 @@ interface ITitreEtapeJustificatif {
   titreEtapeId: string
 }
 
-interface ITitreDemarcheOrTravaux {
+interface ITitreDemarche {
   id: string
   slug?: string
   titreId: string
   titre?: ITitre | null
   typeId: string
-  type?: ITravauxType | IDemarcheType | null
   statutId?: string | null
   statut?: IDemarcheStatut | null
-  ordre?: number | null
-  publicLecture?: boolean | null
-  entreprisesLecture?: boolean | null
-  modification?: boolean | null
-  etapesCreation?: boolean | null
-  suppression?: boolean | null
-}
-
-interface ITitreDemarche extends ITitreDemarcheOrTravaux {
   type?: IDemarcheType | null
   ordre?: number | null
   titreType?: ITitreType | null
@@ -769,11 +759,6 @@ interface ITitreDemarche extends ITitreDemarcheOrTravaux {
   etapesCreation?: boolean | null
   suppression?: boolean | null
   etapes?: ITitreEtape[] | null
-}
-
-interface ITitreTravaux extends ITitreDemarcheOrTravaux {
-  type?: ITravauxType | null
-  travauxEtapes?: ITitreEtape[] | null
 }
 
 interface IDocument {
@@ -796,15 +781,12 @@ interface IDocument {
   etape?: ITitreEtape | null
   titreActiviteId?: string | null
   activite?: ITitreActivite | null
-  titreTravauxEtapeId?: string | null
-  travauxEtape?: ITitreTravauxEtape | null
   entrepriseId?: string | null
   entreprise?: IEntreprise | null
   etapesAssociees?: ITitreEtape[] | null
   suppression?: boolean | null
 }
-
-interface ITitreEtapeOrTitreTravauxEtape {
+interface ITitreEtape {
   id: string
   slug?: string
   typeId: string
@@ -823,9 +805,6 @@ interface ITitreEtapeOrTitreTravauxEtape {
   documentsTypesSpecifiques?: IDocumentType[] | null
   justificatifsTypesSpecifiques?: IDocumentType[] | null
   sectionsSpecifiques?: ISection[] | null
-}
-
-interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   titreDemarcheId: string
   demarche?: ITitreDemarche
   dateDebut?: string | null
@@ -847,11 +826,6 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
   deposable?: boolean | null
-}
-
-interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
-  titreTravauxId: string
-  travaux?: ITitreTravaux
 }
 
 interface ITitreEtapeFiltre {
@@ -1115,10 +1089,8 @@ export {
   ITitreForet,
   ITitreArea,
   ITitreDemarche,
-  ITitreDemarcheOrTravaux,
   IDocument,
   ITitreEtape,
-  ITitreEtapeOrTitreTravauxEtape,
   ITitreEtapeJustificatif,
   ITitreEtapeFiltre,
   ITitreIncertitudes,
@@ -1126,8 +1098,6 @@ export {
   ITitrePoint,
   ITitrePointReference,
   ITitreReference,
-  ITitreTravaux,
-  ITitreTravauxEtape,
   ITitreType,
   ITitreTypeType,
   ITitreTypeDemarcheTypeEtapeType,

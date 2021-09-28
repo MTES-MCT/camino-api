@@ -1,7 +1,6 @@
 import { titreGet } from '../database/queries/titres'
 import { userSuper } from '../database/user-super'
 import { titresSlugsUpdate } from './processes/titres-slugs-update'
-import { titresTravauxOrdreUpdate } from './processes/titres-travaux-ordre-update'
 import { logsUpdate } from './_logs-update'
 
 const titreTravauxUpdate = async (titreId: string) => {
@@ -17,7 +16,6 @@ const titreTravauxUpdate = async (titreId: string) => {
       throw new Error(`warning: le titre ${titreId} n'existe plus`)
     }
 
-    const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
     const titresUpdatedIndex = await titresSlugsUpdate([titreId])
 
     console.info()
@@ -25,7 +23,6 @@ const titreTravauxUpdate = async (titreId: string) => {
     console.info('tâches exécutées:')
 
     logsUpdate({
-      titresTravauxOrdreUpdated,
       titresUpdatedIndex
     })
 

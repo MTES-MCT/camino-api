@@ -8,7 +8,7 @@ import { permissionCheck } from '../../../tools/permission'
 
 import TravauxTypes from '../../models/travaux-types'
 import TravauxEtapesTypes from '../../models/travaux-etapes-types'
-import TitresTravaux from '../../models/titres-travaux'
+// import TitresTravaux from '../../models/titres-travaux'
 
 const travauxEtapesTypesQueryModify = (
   q: QueryBuilder<
@@ -23,21 +23,22 @@ const travauxEtapesTypesQueryModify = (
   // si titreDemarcheId
   // -> restreint aux types d'étapes du type de la démarche
 
+  // TODO: ???
   if (titreTravauxId) {
-    q.whereExists(
-      TitresTravaux.query()
-        .findById(titreTravauxId)
-        .joinRelated('titre')
-        .join(
-          'travauxTypes__travauxEtapesTypes as tt_tet',
-          raw('?? = ?? and ?? = ??', [
-            'tt_tet.travauxEtapeTypeId',
-            'travauxEtapesTypes.id',
-            'tt_tet.travauxTypeId',
-            'titresTravaux.typeId'
-          ])
-        )
-    )
+    // q.whereExists(
+    //   TitresTravaux.query()
+    //     .findById(titreTravauxId)
+    //     .joinRelated('titre')
+    //     .join(
+    //       'travauxTypes__travauxEtapesTypes as tt_tet',
+    //       raw('?? = ?? and ?? = ??', [
+    //         'tt_tet.travauxEtapeTypeId',
+    //         'travauxEtapesTypes.id',
+    //         'tt_tet.travauxTypeId',
+    //         'titresTravaux.typeId'
+    //       ])
+    //     )
+    // )
   }
 
   // propriété 'etapesCreation' en fonction du profil de l'utilisateur

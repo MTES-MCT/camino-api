@@ -3,10 +3,9 @@ import { join } from 'path'
 import {
   ITitre,
   ITitreDemarche,
-  ITitreTravaux,
   ITitreActivite,
-  ITitreEtapeOrTitreTravauxEtape,
-  IDocumentRepertoire
+  IDocumentRepertoire,
+  ITitreEtape
 } from '../../../types'
 
 import { dirDelete } from '../../../tools/dir-delete'
@@ -25,7 +24,7 @@ const fichiersRepertoireDelete = async (
 
 const titreEtapesOrActivitesFichiersDelete = async (
   repertoire: IDocumentRepertoire,
-  etapesOrActvites?: ITitreEtapeOrTitreTravauxEtape[] | ITitreActivite[] | null
+  etapesOrActvites?: ITitreEtape[] | ITitreActivite[] | null
 ) => {
   if (etapesOrActvites?.length) {
     for (const ea of etapesOrActvites) {
@@ -45,20 +44,8 @@ const titreDemarchesFichiersDelete = async (
   }
 }
 
-const titreTravauxFichiersDelete = async (
-  repertoire: IDocumentRepertoire,
-  travaux?: ITitreTravaux[] | null
-) => {
-  if (travaux?.length) {
-    for (const dt of travaux) {
-      await titreEtapesOrActivitesFichiersDelete(repertoire, dt.travauxEtapes)
-    }
-  }
-}
-
 const titreFichiersDelete = async (titre: ITitre) => {
   await titreDemarchesFichiersDelete('demarches', titre.demarches)
-  await titreTravauxFichiersDelete('travaux', titre.travaux)
   await titreEtapesOrActivitesFichiersDelete('activites', titre.activites)
 }
 

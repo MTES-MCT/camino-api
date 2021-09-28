@@ -26,7 +26,6 @@ import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
 import { documentInputValidate } from '../../../business/validations/document-input-validate'
 import { documentUpdationValidate } from '../../../business/validations/document-updation-validate'
-import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
 import { entrepriseGet } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { permissionCheck } from '../../../tools/permission'
@@ -113,16 +112,6 @@ const documentPermissionsCheck = async (
     if (!activite) throw new Error("l'activité n'existe pas")
 
     if (!activite.modification) throw new Error('droits insuffisants')
-  } else if (document.titreTravauxEtapeId) {
-    const titreTravauxEtape = await titreTravauxEtapeGet(
-      document.titreTravauxEtapeId,
-      { fields: {} },
-      user
-    )
-
-    if (!titreTravauxEtape) throw new Error("l’étape de travaux n'existe pas")
-
-    if (!titreTravauxEtape.modification) throw new Error('droits insuffisants')
   }
 }
 
@@ -324,7 +313,7 @@ const documentsLier = async (
   context: IToken,
   documentIds: string[],
   parentId: string,
-  propParentId: 'titreActiviteId' | 'titreEtapeId' | 'titreTravauxEtapeId',
+  propParentId: 'titreActiviteId' | 'titreEtapeId',
   oldParent?: { documents?: IDocument[] | null }
 ) => {
   if (oldParent?.documents?.length) {

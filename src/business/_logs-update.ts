@@ -34,7 +34,6 @@ const logsUpdate = ({
   titresContenusEtapesIdsUpdated,
   titresCoordonneesUpdated,
   titresTravauxEtapesOrdreUpdated,
-  titresTravauxOrdreUpdated,
   titresActivitesCreated,
   titresActivitesStatutIdsUpdated,
   titresActivitesPropsUpdated,
@@ -71,7 +70,6 @@ const logsUpdate = ({
   titresContenusEtapesIdsUpdated?: string[]
   titresCoordonneesUpdated?: string[]
   titresTravauxEtapesOrdreUpdated?: string[]
-  titresTravauxOrdreUpdated?: string[]
   titresActivitesCreated?: string[]
   titresActivitesStatutIdsUpdated?: string[]
   titresActivitesPropsUpdated?: string[]
@@ -235,12 +233,6 @@ const logsUpdate = ({
   if (titresTravauxEtapesOrdreUpdated?.length) {
     console.info(
       `mise à jour: ${titresTravauxEtapesOrdreUpdated.length} étape(s) de travaux (ordre)`
-    )
-  }
-
-  if (titresTravauxOrdreUpdated?.length) {
-    console.info(
-      `mise à jour: ${titresTravauxOrdreUpdated.length} travaux (ordre)`
     )
   }
 
