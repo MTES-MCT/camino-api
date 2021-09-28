@@ -60,6 +60,7 @@ input InputDocumentCreation {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
+  fichierTemporaire: Boolean
   url: String
   uri: String
   jorf: String
@@ -79,6 +80,7 @@ input InputDocumentModification {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
+  fichierTemporaire: Boolean
   url: String
   uri: String
   jorf: String
@@ -99,6 +101,7 @@ input InputDocument {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
+  fichierTemporaire: Boolean
   url: String
   uri: String
   jorf: String
