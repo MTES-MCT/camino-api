@@ -43,6 +43,21 @@ const graphQLCall = async (
   return req
 }
 
+const restUploadCall = async (permissionId?: IPermissionId) => {
+  let token
+  if (permissionId) {
+    token = await userTokenGenerate(permissionId)
+  }
+
+  const req = request(app).post('/televersement')
+
+  if (token) {
+    req.set('Authorization', `Bearer ${token}`)
+  }
+
+  return req
+}
+
 const userTokenGenerate = async (
   permissionId: IPermissionId,
   administrationId?: string
@@ -83,4 +98,10 @@ const userTokenGenerate = async (
   return tokenCreate({ id })
 }
 
-export { queryImport, tokenCreate, graphQLCall, userTokenGenerate }
+export {
+  queryImport,
+  tokenCreate,
+  graphQLCall,
+  userTokenGenerate,
+  restUploadCall
+}

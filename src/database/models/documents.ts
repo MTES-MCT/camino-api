@@ -95,6 +95,8 @@ class Document extends Model {
   public $formatDatabaseJson(json: Pojo): Pojo {
     delete json.modification
     delete json.suppression
+    delete json.fichierTemporaire
+    delete json.fichierNouveau
     json = super.$formatDatabaseJson(json)
 
     return json
@@ -103,6 +105,8 @@ class Document extends Model {
   public $parseJson(json: Pojo): Pojo {
     delete json.modification
     delete json.suppression
+    delete json.fichierTemporaire
+    delete json.fichierNouveau
     json = super.$parseJson(json)
 
     return json

@@ -1,6 +1,5 @@
 import 'dotenv/config'
 
-import './app'
 import { join } from 'path'
 import { dbManager } from './db-manager'
 import { connection } from '../src/knex/config'

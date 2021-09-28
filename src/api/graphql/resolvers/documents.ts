@@ -157,12 +157,10 @@ const documentCreer = async (
     }
 
     const hash = cryptoRandomString({ length: 8 })
-
     document.id = `${document.date}-${document.typeId}-${hash}`
 
     if (document.fichierNouveau) {
       document.fichier = true
-
       await documentFileCreate(document, document.fichierNouveau.file)
     }
 
@@ -172,8 +170,6 @@ const documentCreer = async (
     ) {
       document.entreprisesLecture = true
     }
-
-    delete document.fichierNouveau
 
     const { id } = await documentCreate(document)
 
@@ -231,9 +227,6 @@ const documentModifier = async (
     const documentFichierNouveau = document.fichierNouveau
 
     document.fichier = !!document.fichierNouveau || document.fichier
-
-    // cette propriété qui vient du front n'existe pas en base
-    delete document.fichierNouveau
 
     const documentUpdated = await documentUpdate(document.id, document)
 

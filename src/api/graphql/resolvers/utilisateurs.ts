@@ -43,6 +43,8 @@ import {
   newsletterSubscriberUpdate
 } from '../../../tools/api-mailjet/newsletter'
 
+const TOKEN_TTL = '5m'
+
 const userIdGenerate = async (): Promise<string> => {
   const id = cryptoRandomString({ length: 6 })
   const utilisateurWithTheSameId = await userGet(id)
@@ -431,7 +433,7 @@ const utilisateurCreationMessageEnvoyer = async ({
     }
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
-      expiresIn: '15m'
+      expiresIn: TOKEN_TTL
     })
 
     const url = `${
@@ -665,7 +667,7 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
     }
 
     const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET!, {
-      expiresIn: '15m'
+      expiresIn: TOKEN_TTL
     })
 
     const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
@@ -774,7 +776,7 @@ const utilisateurEmailMessageEnvoyer = async (
     }
 
     const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET!, {
-      expiresIn: '15m'
+      expiresIn: TOKEN_TTL
     })
 
     const url = `${process.env.UI_URL}/email?token=${token}`
@@ -853,7 +855,7 @@ const userTokensCreate = ({ id, email }: IUtilisateur) => {
 
   return {
     accessToken: jwt.sign({ id, email }, process.env.JWT_SECRET!, {
-      expiresIn: '15m'
+      expiresIn: TOKEN_TTL
     }),
     refreshToken
   }
