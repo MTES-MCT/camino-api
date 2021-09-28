@@ -8,7 +8,7 @@ const app = express()
 
 app.use(authJwt)
 
-app.use('/televersement', uploadAllowedMiddleware, restUpload)
+app.use('/televersement', uploadAllowedMiddleware, restUpload())
 app.use('/', graphql)
 
 export { app }

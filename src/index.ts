@@ -49,7 +49,7 @@ databaseInit().then(() => {
   )
   app.use(rest)
 
-  app.use('/televersement', uploadAllowedMiddleware, restUpload)
+  app.use('/televersement', uploadAllowedMiddleware, restUpload())
 
   app.use('/', graphqlUpload, graphql)
 
