@@ -3,4 +3,4 @@ exports.up = knex =>
     table.string('id').primary()
   })
 
-exports.down = knex => knex.schema.dropTable('maTable')
+exports.down = () => ({})
