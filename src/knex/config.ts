@@ -15,13 +15,14 @@ const knexConfig = {
   connection,
   migrations: {
     directory: join(__dirname, './migrations'),
-    stub: join(__dirname, './migration-stub.ts')
+    stub: join(__dirname, './migration-stub.js'),
+    // génère les nouveaux fichiers de migrations en Javascript, car la prod éxecute les fichiers transpillés
+    // Si on met du Typescript, les environnements de devs ne vont plus démarrer avec la bdd de prod.
+    extension: 'js'
   },
   seeds: {
     directory: join(__dirname, './seeds')
   },
-  // génère les nouveaux fichiers de migrations en Typescript
-  extension: 'ts',
   ...knexSnakeCaseMappers()
 }
 
