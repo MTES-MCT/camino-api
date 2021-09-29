@@ -1,6 +1,5 @@
 import 'dotenv/config'
 
-import { join } from 'path'
 import { dbManager } from './db-manager'
 import { connection } from '../src/knex/config'
 import { mailjet } from '../src/tools/api-mailjet'
@@ -13,11 +12,7 @@ export default async () => {
   await dbManager.dropDb(connection.database)
   await dbManager.createDb(connection.database)
 
-  // ugly hack : jest n’arrive pas a lancer les migration en typescript pendant son setup.
-  // On lance donc les migrations transpilées du dossier dist
-  await (dbManager.knexInstance() as any).migrate.latest({
-    directory: join(__dirname, '../dist/knex/migrations')
-  })
+  await dbManager.migrateDb()
 
   await dbManager.closeKnex()
 }
