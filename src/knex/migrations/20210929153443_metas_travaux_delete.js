@@ -1,6 +1,4 @@
 exports.up = async knex => {
-
-
   const travaux = await knex.select().table('travaux_types')
 
   await knex('demarches_types').insert(
@@ -20,19 +18,39 @@ exports.up = async knex => {
         ordre: travauxEtape.ordre + 200
       })
 
-      const statuts = await knex.select().table('travaux_etapes_types__etapes_statuts').where('travauxEtapeTypeId', travauxEtape.id)
+      const statuts = await knex
+        .select()
+        .table('travaux_etapes_types__etapes_statuts')
+        .where('travauxEtapeTypeId', travauxEtape.id)
       if (statuts.length) {
-        await knex('etapes_types__etapes_statuts').insert(statuts.map(s => ({etapeTypeId: s.travauxEtapeTypeId, etapeStatutId: s.etapeStatutId, ordre: s.ordre})))
+        await knex('etapes_types__etapes_statuts').insert(
+          statuts.map(s => ({
+            etapeTypeId: s.travauxEtapeTypeId,
+            etapeStatutId: s.etapeStatutId,
+            ordre: s.ordre
+          }))
+        )
       }
 
-      const documents = await knex.select().table('travaux_etapes_types__documents_types').where('travauxEtapeTypeId', travauxEtape.id)
-       if (documents.length) {
-         await knex('etapes_types__documents_types').insert(documents.map(s => ({etapeTypeId: s.travauxEtapeTypeId, documentTypeId: s.documentTypeId, optionnel: s.optionnel})))
-       }
+      const documents = await knex
+        .select()
+        .table('travaux_etapes_types__documents_types')
+        .where('travauxEtapeTypeId', travauxEtape.id)
+      if (documents.length) {
+        await knex('etapes_types__documents_types').insert(
+          documents.map(s => ({
+            etapeTypeId: s.travauxEtapeTypeId,
+            documentTypeId: s.documentTypeId,
+            optionnel: s.optionnel
+          }))
+        )
+      }
     }
   }
 
-  const travauxTypesEtapesTypes = await knex.select().table('travaux_types__travaux_etapes_types')
+  const travauxTypesEtapesTypes = await knex
+    .select()
+    .table('travaux_types__travaux_etapes_types')
   const titresTypes = await knex.select().table('titres_types')
 
   for (const ttEt of travauxTypesEtapesTypes) {
@@ -54,4 +72,7 @@ exports.up = async knex => {
     .dropTable('travaux_types')
 }
 
-exports.down = knex => {}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+exports.down = knex => {
+  // TODO
+}

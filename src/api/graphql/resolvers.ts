@@ -152,30 +152,6 @@ import {
 } from './resolvers/metas-join'
 
 import {
-  travauxTypes,
-  travauxTypeCreer,
-  travauxTypeModifier,
-  travauxEtapesTypes,
-  travauxEtapeTypeModifier,
-  travauxEtapeTypeCreer
-} from './resolvers/metas-travaux'
-
-import {
-  travauxTypesTravauxEtapesTypes,
-  travauxTypeTravauxEtapeTypeModifier,
-  travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer,
-  travauxEtapesTypesDocumentsTypes,
-  travauxEtapeTypeDocumentTypeModifier,
-  travauxEtapeTypeDocumentTypeCreer,
-  travauxEtapeTypeDocumentTypeSupprimer,
-  travauxEtapesTypesEtapesStatuts,
-  travauxEtapeTypeEtapeStatutModifier,
-  travauxEtapeTypeEtapeStatutCreer,
-  travauxEtapeTypeEtapeStatutSupprimer
-} from './resolvers/metas-travaux-join'
-
-import {
   substance,
   substances,
   substancesLegales
@@ -225,8 +201,6 @@ export default {
   demarches,
   demarchesTypes,
   demarchesStatuts,
-  travauxTypes,
-  travauxEtapesTypes,
   devises,
   documents,
   documentsTypes,
@@ -274,9 +248,6 @@ export default {
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
   etapesTypesJustificatifsTypes,
-  travauxTypesTravauxEtapesTypes,
-  travauxEtapesTypesDocumentsTypes,
-  travauxEtapesTypesEtapesStatuts,
   activitesTypes,
   activitesStatuts,
   activitesTypesTitresTypes,
@@ -334,10 +305,6 @@ export default {
   phaseStatutModifier,
   etapeTypeModifier,
   etapeStatutModifier,
-  travauxTypeCreer,
-  travauxTypeModifier,
-  travauxEtapeTypeCreer,
-  travauxEtapeTypeModifier,
   deviseModifier,
   uniteModifier,
   administrationTypeModifier,
@@ -380,18 +347,6 @@ export default {
   etapeTypeJustificatifTypeModifier,
   etapeTypeJustificatifTypeCreer,
   etapeTypeJustificatifTypeSupprimer,
-
-  travauxTypeTravauxEtapeTypeModifier,
-  travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer,
-
-  travauxEtapeTypeDocumentTypeModifier,
-  travauxEtapeTypeDocumentTypeCreer,
-  travauxEtapeTypeDocumentTypeSupprimer,
-
-  travauxEtapeTypeEtapeStatutModifier,
-  travauxEtapeTypeEtapeStatutCreer,
-  travauxEtapeTypeEtapeStatutSupprimer,
 
   activiteTypeModifier,
   activiteStatutModifier,

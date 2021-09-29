@@ -30,14 +30,6 @@ const demarchesTypes = {
   graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
-const travauxEtapesTypes = {
-  graph: `[etapesStatuts]`
-}
-
-const travauxTypes = {
-  graph: `[travauxEtapesTypes.${travauxEtapesTypes.graph}]`
-}
-
 const titresTypes = {
   graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, titresTypesTitresStatuts]`
 }
@@ -366,7 +358,5 @@ export default {
   titresEtapes,
   titresDemarchesPhases,
   titresTypes,
-  travauxTypes,
-  travauxEtapesTypes,
   utilisateurs
 }
