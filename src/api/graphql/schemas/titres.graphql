@@ -25,7 +25,7 @@ type Titre {
   """
   Id unique
   """
-  id: ID!
+  id: ID
 
   """
   Slug composé de la concaténation:
@@ -36,7 +36,7 @@ type Titre {
   slug: String
 
   "Nom du titre"
-  nom: String!
+  nom: String
 
   "Type du titre"
   type: TitreType!

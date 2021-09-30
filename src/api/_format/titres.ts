@@ -102,6 +102,16 @@ const titreTypeSectionsFormat = (
 // par des requêtes SQL (dans /database/queries/titres)
 // qui retournent les données directement formatées
 const titreFormat = (t: ITitre, fields: IFields = titreFormatFields) => {
+  if (t.confidentiel) {
+    // Si le titre est confidentiel, on a le droit de voir que son périmètre sur la carte
+    t = {
+      statut: t.statut,
+      type: t.type,
+      domaine: t.domaine,
+      points: t.points
+    } as ITitre
+  }
+
   if (!fields) return t
 
   if (fields.geojsonMultiPolygon && t.points?.length) {

@@ -58,6 +58,7 @@ type Query {
     entreprises: String
     references: String
     territoires: String
+    demandeEnCours: Boolean
   ): Titres
 
   "Liste de titres miniers, en fonction d'arguments (optionnels)"

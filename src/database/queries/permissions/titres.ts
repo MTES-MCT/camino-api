@@ -25,6 +25,7 @@ import {
   administrationsTitresQuery
 } from './administrations'
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
+import TitresEtapes from '../../models/titres-etapes'
 
 const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
@@ -43,9 +44,63 @@ const titresAdministrationsModificationQuery = (
       )
     )
 
+export const titresVisibleByEntrepriseQuery = (
+  q: QueryBuilder<Titres, Titres | Titres[]>,
+  entreprisesIds: string[]
+) => {
+  q.where('titres.entreprisesLecture', true)
+
+  // titres dont il est titulaire ou amodiataire
+  q.whereExists(
+    entreprisesTitresQuery(entreprisesIds, 'titres', {
+      isTitulaire: true,
+      isAmodiataire: true
+    })
+  )
+}
+
+export const titresArmEnDemandeQuery = (
+  q: QueryBuilder<Titres, Titres | Titres[]>
+) => {
+  // Le titre doit être une ARM en demande initiale avec une « Recevabilité de la demande » favorable
+  q.where('titres.typeId', 'arm')
+  q.where('titres.statutId', 'dmi')
+  q.whereExists(
+    TitresEtapes.query()
+      .alias('teRCP')
+      .select(raw('true'))
+      .leftJoin('titresDemarches as tdRCP', b => {
+        b.on('tdRCP.id', 'teRCP.titreDemarcheId')
+        b.on('tdRCP.titreId', 'titres.id')
+      })
+      .where('tdRcp.typeId', 'oct')
+      .where('tdRcp.statutId', 'ins')
+      .where('teRcp.typeId', 'mcr')
+      .where('teRcp.statutId', 'fav')
+      .first()
+  )
+}
+
+export const titresConfidentielSelect = (
+  q: QueryBuilder<Titres, Titres | Titres[]>,
+  entreprisesIds: string[]
+) =>
+  // ajoute la colonne « confidentiel » si la demande n’est normalement pas visible par l’entreprise mais l’est car
+  // c’est une demande en cours
+  q.select(
+    Titres.query()
+      .alias('t_confidentiel')
+      .select(raw('true'))
+      .whereRaw('t_confidentiel.id = titres.id')
+      .whereNot(a => a.modify(titresVisibleByEntrepriseQuery, entreprisesIds))
+      .where(a => a.modify(titresArmEnDemandeQuery))
+      .as('confidentiel')
+  )
+
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null,
+  demandeEnCours?: boolean | null
 ) => {
   q.select('titres.*')
 
@@ -63,18 +118,15 @@ const titresQueryModify = (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
-        // titres dont il est titulaire ou amodiataire
         const entreprisesIds = user.entreprises.map(e => e.id)
 
         b.orWhere(c => {
-          c.where('titres.entreprisesLecture', true)
+          c.where(d => d.modify(titresVisibleByEntrepriseQuery, entreprisesIds))
 
-          c.whereExists(
-            entreprisesTitresQuery(entreprisesIds, 'titres', {
-              isTitulaire: true,
-              isAmodiataire: true
-            })
-          )
+          // ou si le titre est une ARM en cours de demande
+          if (demandeEnCours) {
+            c.orWhere(d => d.modify(titresArmEnDemandeQuery))
+          }
         })
       }
 
@@ -151,6 +203,18 @@ const titresQueryModify = (
     q.select(raw('false').as('suppression'))
     q.select(raw('false').as('demarchesCreation'))
     q.select(raw('false').as('travauxCreation'))
+  }
+
+  if (
+    permissionCheck(user?.permissionId, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
+    if (demandeEnCours) {
+      q.modify(
+        titresConfidentielSelect,
+        user.entreprises.map(e => e.id)
+      )
+    }
   }
 
   // masque les administrations associées
