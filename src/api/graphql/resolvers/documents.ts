@@ -14,8 +14,7 @@ import {
   documentGet,
   documentCreate,
   documentUpdate,
-  documentDelete,
-  documentIdUpdate
+  documentDelete
 } from '../../../database/queries/documents'
 
 import { documentTypeGet } from '../../../database/queries/metas'
@@ -230,29 +229,6 @@ const documentModifier = async (
 
     const documentUpdated = await documentUpdate(document.id, document)
 
-    console.log(documentUpdated)
-
-    // si la date a changé
-    // alors on change l'id et renomme le fichier s'il y en a un
-    if (document.date !== documentOld.date) {
-      const hash = documentOld.id.split('-').pop()
-      const documentIdNew = `${documentUpdated.date}-${documentUpdated.typeId}-${hash}`
-
-      documentUpdated.id = documentIdNew
-
-      await documentIdUpdate(documentOld.id, documentUpdated)
-
-      if (!documentFichierNouveau && document.fichier && documentOld.fichier) {
-        const documentOldFilePath = await documentFilePathFind(documentOld)
-        const documentFilePath = await documentFilePathFind(
-          documentUpdated,
-          true
-        )
-
-        await fileRename(documentOldFilePath, documentFilePath)
-      }
-    }
-
     // supprime de l'ancien fichier
     if (
       (documentFichierNouveau || !documentUpdated.fichier) &&
@@ -274,12 +250,7 @@ const documentModifier = async (
       await documentFileCreate(documentUpdated, documentFichierNouveau.file)
     }
 
-    console.log(documentUpdated)
-
-    const res = await documentGet(documentUpdated.id, { fields }, user)
-    console.log(res)
-
-    return res
+    return await documentGet(documentUpdated.id, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)
