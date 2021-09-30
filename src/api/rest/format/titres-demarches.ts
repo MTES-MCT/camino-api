@@ -78,6 +78,12 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
 
     const etapesTypesStatuts = etapesDatesStatutsBuild(titreDemarche)
 
+    const etapeWithPoints = titreDemarche.etapes
+      ? titreEtapesSortAscByDate(titreDemarche.etapes, 'demarches')
+          .reverse()
+          .find(etape => etape.points?.length)
+      : undefined
+
     const titreDemarcheNew = {
       titre_id: titre.slug,
       titre_nom: titre.nom,
@@ -103,7 +109,13 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
       amodiataires_legal: titre
         .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
         .join(';'),
-      ...etapesTypesStatuts
+      ...etapesTypesStatuts,
+      forets: etapeWithPoints
+        ? etapeWithPoints.forets?.map(f => f.nom).join(';')
+        : '',
+      communes: etapeWithPoints
+        ? etapeWithPoints.communes?.map(f => f.nom).join(';')
+        : ''
     }
 
     return titreDemarcheNew

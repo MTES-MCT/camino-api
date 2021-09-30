@@ -265,7 +265,14 @@ const demarches = async (
           amodiataires: { id: {} },
           references: { id: {} }
         },
-        etapes: { type: { etapesStatuts: { id: {} } } }
+        etapes: {
+          forets: { id: {} },
+          communes: { id: {} },
+          points: { id: {} },
+          type: {
+            etapesStatuts: { id: {} }
+          }
+        }
       }
     },
     user
