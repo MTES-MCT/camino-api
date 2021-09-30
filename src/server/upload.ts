@@ -35,6 +35,7 @@ const uploadAllowedMiddleware = async (
 
 const restUpload = () => {
   const tmp = '/files/tmp'
+  const pathDemarches = '/files/demarches'
   const server = new Server()
   server.datastore = new FileStore({ path: tmp })
 
@@ -55,14 +56,22 @@ const restUpload = () => {
       })
 
       const documentId = metadata.documentId
-
+      const titreEtapeId = metadata.titreEtapeId // reçu lors d'une modification de document
       if (!documentId) {
         throw new Error(
           'Manque documentId dans les métadonnées du téléversement'
         )
       }
 
-      await fileRename(`${tmp}/${event.file.id}`, `${tmp}/${documentId}.pdf`)
+      // Est-ce un nouveau document ? Dans ce cas l'on souhaite juste renommer le fichier sur place,
+      // la mutation documentCreate se chargera de déplacer le fichier dans son endroit final.
+      // Si c'est une modification de document, l'endroit final existe déjà, on l'utilise pour la MAJ.
+      const pathFrom = `${tmp}/${event.file.id}`
+      const pathTo = titreEtapeId
+        ? `${pathDemarches}/${titreEtapeId}/${documentId}.pdf`
+        : `${tmp}/${documentId}.pdf`
+
+      await fileRename(pathFrom, pathTo)
     }
   )
 
