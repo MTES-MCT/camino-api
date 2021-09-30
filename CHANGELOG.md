@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.1](https://github.com/MTES-MCT/camino-api/compare/v0.26.0...v0.26.1) (2021-09-30)
+
+
+### Features
+
+* **export:** ajoute les communes et les forêts dans l’export des démarches ([2d9a1e7](https://github.com/MTES-MCT/camino-api/commit/2d9a1e75a5da5c2b41214ee25e507fadca459cfc))
+
 ## [0.26.0](https://github.com/MTES-MCT/camino-api/compare/v0.25.0...v0.26.0) (2021-09-27)
 
 
