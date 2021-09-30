@@ -312,7 +312,8 @@ const titresRelateTrue = [
   'references.type',
   ...titresActivitesRelateTrue.map(k => `activites.${k}`),
   ...titresDemarchesRelateTrue.map(k => `demarches.${k}`),
-  ...titresTravauxRelateTrue.map(k => `travaux.${k}`)
+  ...titresTravauxRelateTrue.map(k => `travaux.${k}`),
+  'titresAdministrations'
 ]
 
 const titresRelateFalse = [
@@ -379,7 +380,8 @@ const titres = {
     forets,
     activites(orderDesc).${titresActivites.graph},
     travaux(orderDesc).${titresTravaux.graph},
-    references(orderAsc).type
+    references(orderAsc).type,
+    titresAdministrations.${administrations.graph}
    ]`,
 
   update: {

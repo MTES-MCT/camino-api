@@ -22,10 +22,12 @@ import { titresDemarchesQueryModify } from './titres-demarches'
 import { titresTravauxQueryModify } from './titres-travaux'
 import {
   administrationsTitresTypesTitresStatutsModify,
-  administrationsTitresQuery
+  administrationsTitresQuery,
+  administrationsQueryModify
 } from './administrations'
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 import TitresEtapes from '../../models/titres-etapes'
+import Administrations from '../../models/administrations'
 
 const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
@@ -283,6 +285,13 @@ const titresQueryModify = (
   // visibilité du doublonTitre
   q.modifyGraph('doublonTitre', b => {
     titresQueryModify(b as QueryBuilder<Titres, Titres | Titres[]>, user)
+  })
+
+  q.modifyGraph('titresAdministrations', b => {
+    administrationsQueryModify(
+      b as QueryBuilder<Administrations, Administrations | Administrations[]>,
+      user
+    )
   })
 
   return q

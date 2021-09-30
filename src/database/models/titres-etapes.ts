@@ -127,7 +127,7 @@ class TitresEtapes extends Model {
         through: {
           from: 'titresAdministrationsLocales.titreEtapeId',
           to: 'titresAdministrationsLocales.administrationId',
-          extra: ['associee', 'coordinateur']
+          extra: ['associee']
         },
         to: 'administrations.id'
       }
