@@ -230,6 +230,8 @@ const documentModifier = async (
 
     const documentUpdated = await documentUpdate(document.id, document)
 
+    console.log(documentUpdated)
+
     // si la date a changé
     // alors on change l'id et renomme le fichier s'il y en a un
     if (document.date !== documentOld.date) {
@@ -272,7 +274,12 @@ const documentModifier = async (
       await documentFileCreate(documentUpdated, documentFichierNouveau.file)
     }
 
-    return await documentGet(documentUpdated.id, { fields }, user)
+    console.log(documentUpdated)
+
+    const res = await documentGet(documentUpdated.id, { fields }, user)
+    console.log(res)
+
+    return res
   } catch (e) {
     if (debug) {
       console.error(e)

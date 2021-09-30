@@ -43,6 +43,8 @@ type Document {
 
   etapesAssociees: [Etape]
 
+  titreEtapeId: String
+
   publicLecture: Boolean
   entreprisesLecture: Boolean
   modification: Boolean
