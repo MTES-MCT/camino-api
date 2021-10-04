@@ -116,25 +116,27 @@ const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = (
 
 // calcule tous les départements et les régions d'une étape
 const titreEtapeAdministrationsRegionsAndDepartementsBuild = (
-  communes: ICommune[]
+  communes: ICommune[] | undefined | null
 ) =>
-  communes.reduce(
-    ({ titreDepartementsIds, titreRegionsIds }, commune) => {
-      if (commune.departementId) {
-        titreDepartementsIds.add(commune.departementId)
-      }
+  communes
+    ? communes.reduce(
+        ({ titreDepartementsIds, titreRegionsIds }, commune) => {
+          if (commune.departementId) {
+            titreDepartementsIds.add(commune.departementId)
+          }
 
-      if (commune.departement && commune.departement.regionId) {
-        titreRegionsIds.add(commune.departement.regionId)
-      }
+          if (commune.departement && commune.departement.regionId) {
+            titreRegionsIds.add(commune.departement.regionId)
+          }
 
-      return {
-        titreDepartementsIds,
-        titreRegionsIds
-      }
-    },
-    { titreRegionsIds: new Set(), titreDepartementsIds: new Set() }
-  )
+          return {
+            titreDepartementsIds,
+            titreRegionsIds
+          }
+        },
+        { titreRegionsIds: new Set(), titreDepartementsIds: new Set() }
+      )
+    : { titreRegionsIds: new Set(), titreDepartementsIds: new Set() }
 
 const titreEtapeAdministrationsLocalesBuild = (
   titreTypeId: string,
@@ -142,8 +144,6 @@ const titreEtapeAdministrationsLocalesBuild = (
   titreEtape: ITitreEtape,
   administrations: IAdministration[]
 ) => {
-  if (!titreEtape.communes || !titreEtape.communes.length) return []
-
   const { titreDepartementsIds, titreRegionsIds } =
     titreEtapeAdministrationsRegionsAndDepartementsBuild(titreEtape.communes)
 
