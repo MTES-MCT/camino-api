@@ -4,6 +4,7 @@ import { titresPublicUpdate } from './processes/titres-public-update'
 import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { logsUpdate } from './_logs-update'
 import { titresEtapesAdministrationsLocalesUpdate } from './processes/titres-etapes-administrations-locales-update'
+import { titresPropsEtapesIdsUpdate } from './processes/titres-props-etapes-ids-update'
 
 const titreUpdate = async (titreId: string) => {
   try {
@@ -21,6 +22,9 @@ const titreUpdate = async (titreId: string) => {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate([titreId])
+    const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
+      titreId
+    ])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
     const titresUpdatedIndex = await titresSlugsUpdate([titreId])
 
@@ -30,6 +34,7 @@ const titreUpdate = async (titreId: string) => {
       titresEtapesAdministrationsLocalesDeleted,
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted,
+      titresPropsEtapesIdsUpdated,
       titresActivitesCreated,
       titresUpdatedIndex
     })
