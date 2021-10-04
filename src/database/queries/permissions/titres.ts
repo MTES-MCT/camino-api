@@ -94,6 +94,7 @@ export const titresConfidentielSelect = (
       .alias('t_confidentiel')
       .select(raw('true'))
       .whereRaw('t_confidentiel.id = titres.id')
+      .whereNot('titres.publicLecture', true)
       .whereNot(a => a.modify(titresVisibleByEntrepriseQuery, entreprisesIds))
       .where(a => a.modify(titresArmEnDemandeQuery))
       .as('confidentiel')
