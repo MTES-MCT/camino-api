@@ -175,16 +175,20 @@ describe('titresQueryModify', () => {
 
   describe('titresConfidentielQuery', () => {
     test.each`
-      entreprisesLecture | withTitulaire | typeId   | statutId | confidentiel
-      ${false}           | ${false}      | ${'arm'} | ${'dmi'} | ${true}
-      ${false}           | ${true}       | ${'arm'} | ${'dmi'} | ${true}
-      ${true}            | ${false}      | ${'arm'} | ${'dmi'} | ${true}
-      ${true}            | ${true}       | ${'arm'} | ${'dmi'} | ${false}
-      ${false}           | ${false}      | ${'axm'} | ${'dmi'} | ${false}
-      ${false}           | ${false}      | ${'arm'} | ${'val'} | ${false}
+      publicLecture | entreprisesLecture | withTitulaire | typeId   | statutId | confidentiel
+      ${false}      | ${false}           | ${false}      | ${'arm'} | ${'dmi'} | ${true}
+      ${false}      | ${false}           | ${true}       | ${'arm'} | ${'dmi'} | ${true}
+      ${undefined}  | ${true}            | ${false}      | ${'arm'} | ${'dmi'} | ${true}
+      ${false}      | ${true}            | ${true}       | ${'arm'} | ${'dmi'} | ${false}
+      ${false}      | ${false}           | ${false}      | ${'axm'} | ${'dmi'} | ${false}
+      ${false}      | ${false}           | ${false}      | ${'arm'} | ${'val'} | ${false}
+      ${true}       | ${false}           | ${false}      | ${'arm'} | ${'dmi'} | ${false}
+      ${true}       | ${false}           | ${true}       | ${'arm'} | ${'dmi'} | ${false}
+      ${true}       | ${true}            | ${false}      | ${'arm'} | ${'dmi'} | ${false}
     `(
       'Vérifie si le titre est confidentiel',
       async ({
+        publicLecture,
         entreprisesLecture,
         withTitulaire,
         typeId,
@@ -206,6 +210,7 @@ describe('titresQueryModify', () => {
           domaineId: 'm',
           typeId,
           statutId,
+          publicLecture,
           entreprisesLecture,
           propsTitreEtapesIds: { titulaires: etapeId },
           demarches: [
