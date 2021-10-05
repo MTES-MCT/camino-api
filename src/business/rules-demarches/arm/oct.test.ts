@@ -290,4 +290,29 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       )
     ).toHaveLength(0)
   })
+
+  test('peut réaliser une saisine de la CARM après un récépissé de la déclaration sur l’eau défavorable', () => {
+    expect(
+      octEtatsValidate(
+        [
+          { typeId: 'sca', statutId: 'fai', date: '2021-09-24' },
+          { typeId: 'aof', statutId: 'def', date: '2021-09-23' },
+          { typeId: 'rde', statutId: 'def', date: '2021-09-22' },
+          { typeId: 'edm', statutId: 'fav', date: '2021-04-30' },
+          { typeId: 'eof', statutId: 'fai', date: '2021-03-17' },
+          { typeId: 'mcb', statutId: 'fai', date: '2021-03-16' },
+          { typeId: 'mcr', statutId: 'fav', date: '2021-03-10' },
+          { typeId: 'vfd', statutId: 'fai', date: '2021-03-10' },
+          { typeId: 'mcp', statutId: 'fav', date: '2021-02-26' },
+          { typeId: 'mdp', statutId: 'fai', date: '2021-02-26' },
+          { typeId: 'mfr', statutId: 'fai', date: '2021-02-26' },
+          { typeId: 'pfd', statutId: 'fai', date: '2020-09-03' },
+          { typeId: 'dae', statutId: 'exe', date: '2020-07-28' }
+        ],
+        {
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
+        }
+      )
+    ).toHaveLength(0)
+  })
 })
