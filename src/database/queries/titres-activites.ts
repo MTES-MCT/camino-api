@@ -281,6 +281,8 @@ const titresActivitesGet = async (
   if (colonne) {
     if (titresActivitesColonnes[colonne].relation) {
       q.leftJoinRelated(titresActivitesColonnes[colonne].relation!)
+      q.groupBy('titresActivites.id')
+
       if (titresActivitesColonnes[colonne].groupBy) {
         q.groupBy(titresActivitesColonnes[colonne].id)
       }
