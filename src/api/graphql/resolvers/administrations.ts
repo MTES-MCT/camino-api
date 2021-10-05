@@ -202,6 +202,9 @@ const administrationTitreTypeModifier = async (
       await administrationTitreTypeUpsert(administrationTitreType)
     }
 
+    // met à jour les administrations gestionnaires et associées
+    await administrationUpdateTask(administrationTitreType.administrationId)
+
     return await administrationGet(
       administrationTitreType.administrationId,
       { fields },
