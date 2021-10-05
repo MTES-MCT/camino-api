@@ -124,7 +124,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [
       [
         { etapeTypeId: 'aof' },
-        { etapeTypeId: 'rde', statutId: 'fav' },
+        { etapeTypeId: 'rde' },
         {
           titre: {
             contenu: {
