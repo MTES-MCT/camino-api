@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.27.0](https://github.com/MTES-MCT/camino-api/compare/v0.26.1...v0.27.0) (2021-10-06)
+
+
+### Features
+
+* **administrations:** met à jour les administrations locales et gestionnaires ([#813](https://github.com/MTES-MCT/camino-api/issues/813)) ([850abaf](https://github.com/MTES-MCT/camino-api/commit/850abaf986f6ec16933b6a37c1a8c6ae80ea42c6))
+* **arm:** affiche correctement les demandes publiques pour les entreprises ([#810](https://github.com/MTES-MCT/camino-api/issues/810)) ([57fca27](https://github.com/MTES-MCT/camino-api/commit/57fca27799d72bbbaf598eb1ad35bb75957e334d))
+* **demandes:** retourne les périmètres des demandes d’ARM aux entreprises ([#804](https://github.com/MTES-MCT/camino-api/issues/804)) ([54b81af](https://github.com/MTES-MCT/camino-api/commit/54b81afac20737e3dccfbfe066dae25dd311edf7))
+* **titres:** permet d’ajouter des administrations manuellement sur les titres ([#811](https://github.com/MTES-MCT/camino-api/issues/811)) ([fe7c9bd](https://github.com/MTES-MCT/camino-api/commit/fe7c9bde3a606c436a013db52b5dec4ed3bf48a4))
+* **titres:** permet d’ajouter manuellement des administrations sur un titre ([#807](https://github.com/MTES-MCT/camino-api/issues/807)) ([8b99b08](https://github.com/MTES-MCT/camino-api/commit/8b99b081cc422a0d27164e77f65576967fc55d7d))
+* **upload:** renforce les capacités de téléversement ([#799](https://github.com/MTES-MCT/camino-api/issues/799)) ([7c16736](https://github.com/MTES-MCT/camino-api/commit/7c16736884be6e2d2ed45b7f14e4888b3c47304e))
+
+
+### Bug Fixes
+
+* **activités:** corrige le tri sur les différentes colonnes des activités ([#814](https://github.com/MTES-MCT/camino-api/issues/814)) ([dd8fe9b](https://github.com/MTES-MCT/camino-api/commit/dd8fe9bcf9ae559636306530c636105cdf00560b))
+* **arm:** permet de faire une saisine de la CARM après un récépissé loi sur loi défavorable ([#815](https://github.com/MTES-MCT/camino-api/issues/815)) ([0c05524](https://github.com/MTES-MCT/camino-api/commit/0c055246b08db6738b76cfb4e0fe6678ae7f9da8))
+* **git:** corrige husky avec commitizen ([#809](https://github.com/MTES-MCT/camino-api/issues/809)) ([50fa3b4](https://github.com/MTES-MCT/camino-api/commit/50fa3b4278c8dc2f91460b84c02a3cf10ad769fb))
+* **upload:** corrige le non-remplacement des documents téléversés ([#806](https://github.com/MTES-MCT/camino-api/issues/806)) ([33b0f56](https://github.com/MTES-MCT/camino-api/commit/33b0f566837198c7fe20e2bde5a900dfbe58101b))
+
 ### [0.26.1](https://github.com/MTES-MCT/camino-api/compare/v0.26.0...v0.26.1) (2021-09-30)
 
 
