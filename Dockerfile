@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-stage
+FROM node:16.10-alpine as build-stage
 WORKDIR /app
 
 COPY package*.json ./
@@ -8,7 +8,7 @@ COPY tsconfig.json ./
 COPY src src/
 RUN npm run build
 
-FROM node:14-alpine as production-stage
+FROM node:16.10-alpine as production-stage
 WORKDIR /app
 
 # redirige les logs sur le collecteur de logs docker

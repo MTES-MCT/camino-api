@@ -58,7 +58,7 @@ const login = async (ticket: string) => {
     } as IUtilisateur
 
     return cerbereUtilisateur
-  } catch (err) {
+  } catch (err: any) {
     err.message = `Cerbère: echec de l'authentification ${err.message}`
 
     throw err

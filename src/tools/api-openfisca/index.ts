@@ -39,7 +39,7 @@ const apiOpenfiscaFetch = async (body: IOpenfiscaBody) => {
     }
 
     return result
-  } catch (e) {
+  } catch (e: any) {
     const properties = JSON.stringify(body)
     errorLog(`apiOpenfiscaFetch ${properties}`, e.error || e.message || e)
 

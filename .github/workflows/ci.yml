@@ -26,17 +26,13 @@ jobs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
-    strategy:
-      matrix:
-        node-version: [14]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '16.10'
       - name: Npm install
         run: |
           npm ci
@@ -68,9 +64,6 @@ jobs:
     if: github.ref == 'refs/heads/develop' || github.event_name == 'release'
     needs: test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14]
 
     steps:
       - name: Checkout
@@ -93,9 +86,6 @@ jobs:
     if: github.event_name == 'release'
     needs: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14]
 
     steps:
       - name: Add the release tag
@@ -117,17 +107,14 @@ jobs:
     if: github.event_name == 'release'
     needs: test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '16.10'
       - name: Generate docs
         run: |
           npm ci
