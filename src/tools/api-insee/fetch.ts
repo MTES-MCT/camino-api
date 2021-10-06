@@ -53,7 +53,7 @@ const tokenInitialize = async () => {
     await tokenTest()
 
     return apiToken
-  } catch (e) {
+  } catch (e: any) {
     errorLog(
       "API Insee: impossible de générer le token de l'API INSEE ",
       (e.header && e.header.message) ||
@@ -104,7 +104,7 @@ const tokenFetch = async () => {
     }
 
     return result
-  } catch (e) {
+  } catch (e: any) {
     errorLog(
       `API Insee: tokenFetch `,
       (e.header && e.header.message) ||
@@ -137,7 +137,7 @@ const tokenFetchDev = async () => {
     console.info('API Insee: requête de test pour le token du cache')
 
     return result
-  } catch (e) {
+  } catch (e: any) {
     errorLog(`API Insee: tokenFetchDev `, e.message)
 
     console.info(`API Insee: création du token`)
@@ -194,7 +194,7 @@ const typeFetch = async (type: 'siren' | 'siret', q: string) => {
     )
 
     return result
-  } catch (e) {
+  } catch (e: any) {
     errorLog(
       `API Insee: typeFetch `,
       (e.header && e.header.message) ||
@@ -227,7 +227,7 @@ const typeFetchDev = async (
     console.info(`API Insee: lecture de ${type} depuis le cache, ids: ${ids}`)
 
     return result
-  } catch (e) {
+  } catch (e: any) {
     errorLog(`API Insee: typeFetchDev `, e.message)
 
     console.info(`API Insee: requête de ${type}`)
@@ -253,7 +253,7 @@ const typeMultiFetch = async (
         : await typeFetch(type, q)
 
     return (result && result[field]) || []
-  } catch (e) {
+  } catch (e: any) {
     errorLog(
       `API Insee: ${type} get ${ids.join(', ')}`,
       JSON.stringify(

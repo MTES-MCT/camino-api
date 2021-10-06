@@ -126,7 +126,7 @@ const newsletterSubscribersFind = async () => {
     })
 
     return emails
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e)
   }
 }
@@ -135,7 +135,7 @@ const newsletterSubscriberCheck = async (email: string) => {
   try {
     // est ce que le contact est inscrit à la liste
     return await contactListCheck(email)
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e)
   }
 }
@@ -178,7 +178,7 @@ const newsletterSubscriberUpdate = async (
 
       return 'email désinscrit à la newsletter'
     }
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e)
   }
 }

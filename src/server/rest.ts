@@ -3,8 +3,6 @@ import { IFormat, Index } from '../types'
 import express from 'express'
 import { join } from 'path'
 
-import { IAuthRequest } from './_types'
-
 import { debug } from '../config/index'
 import {
   titre,
@@ -47,7 +45,7 @@ const rest = express.Router()
 const restify =
   (resolver: IRestResolver) =>
   async (
-    req: IAuthRequest,
+    req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
@@ -107,7 +105,7 @@ rest.get('/etape/:etapeId/:fichierNom', restify(etapeFichier))
 rest.use(
   (
     err: Error,
-    req: IAuthRequest,
+    req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {

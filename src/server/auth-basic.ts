@@ -2,8 +2,6 @@ import express from 'express'
 import basicAuth from 'basic-auth'
 import bcrypt from 'bcryptjs'
 
-import { IAuthRequest } from './_types'
-
 import { debug } from '../config/index'
 import { emailCheck } from '../tools/email-check'
 import { userByEmailGet } from '../database/queries/utilisateurs'
@@ -20,7 +18,7 @@ const userCredentialsCheck = async (email: string, motDePasse: string) => {
     user = await userByEmailGet(email, {})
 
     if (!user) return null
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(`Erreur technique : ${e.message}, email ${email} invalide`)
   }
 
@@ -30,7 +28,7 @@ const userCredentialsCheck = async (email: string, motDePasse: string) => {
 }
 
 const authBasic = async (
-  req: IAuthRequest,
+  req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {

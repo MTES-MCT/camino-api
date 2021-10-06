@@ -96,7 +96,7 @@ const organismeDepartementCall = async (departementId: string, nom: string) => {
     }
 
     return result
-  } catch (err) {
+  } catch (err: any) {
     const error = err.error ? `${err.error}: ${err.error_description}` : err
     errorLog(`API administrations ${departementId} ${nom}:`, error)
 

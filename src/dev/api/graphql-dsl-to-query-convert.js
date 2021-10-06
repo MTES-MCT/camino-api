@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+import fetch from 'node-fetch'
 const { getIntrospectionQuery } = require('graphql')
 const fs = require('fs')
 const makeDir = require('make-dir')

@@ -31,7 +31,7 @@ const titreEtapeTypeAndStatusValidate = (
     }
 
     return []
-  } catch (e) {
+  } catch (e: any) {
     return [e.message]
   }
 }

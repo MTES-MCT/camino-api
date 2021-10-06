@@ -66,7 +66,7 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
         ', '
       )}`
     )
-  } catch (e) {
+  } catch (e: any) {
     console.error('erreur: emailsSend', e)
     throw new Error(e)
   }

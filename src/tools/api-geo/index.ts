@@ -47,7 +47,7 @@ const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
     }
 
     return result as { [areaType in IAreaType]: IGeoJsonProperties[] }
-  } catch (e) {
+  } catch (e: any) {
     const properties = JSON.stringify(geojson.properties)
     errorLog(`apiGeoFetch ${properties}`, e.error || e.message || e)
 

@@ -54,7 +54,8 @@ const matomoMainDataGet = async (duree: number) => {
   // avg_time_on_site : temps de session moyen (string)
   // nb_downloads : nombre de téléchargements
   const response = await fetch(pathVisit)
-  const matomoVisitData: IMatomoResult = await response.json()
+  const matomoVisitData: IMatomoResult =
+    (await response.json()) as IMatomoResult
 
   // Les clés de l’objet sont les mois { "2020-09": ...,}
   const monthsArray = Object.keys(matomoVisitData)
@@ -95,7 +96,8 @@ const nbEventsByLabelGet = async (label: string): Promise<number> => {
   })
 
   const response = await fetch(pathVisit)
-  const matomoVisitData: IMatomoSectionData[] = await response.json()
+  const matomoVisitData: IMatomoSectionData[] =
+    (await response.json()) as IMatomoSectionData[]
 
   return matomoVisitData.length > 0 ? matomoVisitData[0].nb_events : 0
 }
@@ -183,7 +185,7 @@ const titresModifiesCountGet = async (duree: number) => {
     date: `previous${duree}`
   })
   const response = await fetch(pathVisit)
-  const matomoVisitData = await response.json()
+  const matomoVisitData: any = await response.json()
 
   // Retourne un tableau par mois
   return Object.keys(matomoVisitData).reduce(
