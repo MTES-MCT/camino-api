@@ -135,6 +135,38 @@ const titreDemarchePublicLectureFind = (
     return true
   }
 
+  // public pour tous des titres non énergétiques M, W, C avec une des étapes suivantes :
+  // avis de concurrence au JOUE (ane)
+  // avis de concurrence au JORF (anf)
+  // décision de l'administration (dex)
+  // publication de décision au JORF (dpu)
+  // publication de décision administrative au JORF (dup)
+  // publication de décision au recueil des actes administratifs (rpu)
+  // ouverture de la participation du public (ppu)
+  // clôture de la participation du public`(ppc)
+  // ouverture de l’enquête publique (epu)
+  // clôture de l’enquête publique (epc)
+
+  const domaineId = titreTypeId ? titreTypeId.substr(2) : null
+  if (
+    domaineId &&
+    ['m', 'w', 'c'].includes(domaineId) &&
+    [
+      'ane',
+      'anf',
+      'dex',
+      'dpu',
+      'dup',
+      'rpu',
+      'ppu',
+      'ppc',
+      'epu',
+      'epc'
+    ].includes(titreEtape.typeId)
+  ) {
+    return true
+  }
+
   return publicLecture
 }
 
@@ -143,6 +175,7 @@ const titreDemarchePublicLectureFind = (
  * @param demarcheTypeId - id du type de démarche
  * @param demarcheTypeEtapesTypes - types d'étapes de ce type de démarche
  * @param titreEtapes - étapes de la démarche dans l’ordre chronologique
+ * @param titreId - id du titre
  * @param titreTypeId - id du type de titre
  */
 
@@ -150,23 +183,27 @@ const titreDemarchePublicFind = (
   demarcheTypeId: string,
   demarcheTypeEtapesTypes: IEtapeType[],
   titreEtapes: ITitreEtape[],
+  titreId: string,
   titreTypeId?: string
 ) => {
   // calcule la visibilité publique ou non de la démarche
   // on parcourt successivement toutes les étapes
   // pour calculer la visibilité de la démarche
   // en fonction de l'historique
-  const publicLecture = titreEtapes.reduce(
-    (publicLecture, titreEtape) =>
-      titreDemarchePublicLectureFind(
-        publicLecture,
-        demarcheTypeId,
-        demarcheTypeEtapesTypes,
-        titreEtape,
-        titreTypeId
-      ),
-    false
-  )
+  const publicLecture =
+    titreId === 'WQaZgPfDcQw9tFliMgBIDH3Z'
+      ? false
+      : titreEtapes.reduce(
+          (publicLecture, titreEtape) =>
+            titreDemarchePublicLectureFind(
+              publicLecture,
+              demarcheTypeId,
+              demarcheTypeEtapesTypes,
+              titreEtape,
+              titreTypeId
+            ),
+          false
+        )
 
   // les entreprises titulaires ou amodiataires peuvent voir la démarche
   // si la démarche est visible au public
