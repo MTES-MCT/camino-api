@@ -27,8 +27,7 @@ const fichier = async (
         type: { id: {} },
         etape: { id: {} },
         activite: { id: {} },
-        entreprise: { id: {} },
-        travauxEtape: { id: {} }
+        entreprise: { id: {} }
       }
     },
     user

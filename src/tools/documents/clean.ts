@@ -14,7 +14,6 @@ const documentsClean = async () => {
   const documents = await Document.query()
     .whereNull('titreEtapeId')
     .whereNull('titreActiviteId')
-    .whereNull('titreTravauxEtapeId')
     .whereNull('entrepriseId')
 
   for (const document of documents) {

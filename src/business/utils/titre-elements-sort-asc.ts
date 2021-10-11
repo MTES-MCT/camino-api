@@ -4,7 +4,7 @@ import { ITitreDemarche } from '../../types'
 
 import titreEtapesSortAscByOrdre from './titre-etapes-sort-asc'
 
-const titreDemarcheOrTravauxSortAsc = (titreElements: ITitreDemarche[]) =>
+const titreDemarcheSortAsc = (titreElements: ITitreDemarche[]) =>
   titreElements.slice().sort((a, b) => {
     const aHasEtapes = a.etapes && a.etapes.length
     const bHasEtapes = b.etapes && b.etapes.length
@@ -27,4 +27,4 @@ const titreDemarcheOrTravauxSortAsc = (titreElements: ITitreDemarche[]) =>
     return dateA < dateB ? -1 : dateA > dateB ? 1 : a.ordre! - b.ordre!
   })
 
-export default titreDemarcheOrTravauxSortAsc
+export default titreDemarcheSortAsc

@@ -254,12 +254,7 @@ interface IDevise {
   ordre: number
 }
 
-type IDocumentRepertoire =
-  | 'demarches'
-  | 'activites'
-  | 'entreprises'
-  | 'travaux'
-  | 'tmp'
+type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'tmp'
 
 interface IDocumentType {
   id: string
@@ -476,30 +471,6 @@ interface IRegion {
   departements?: IDepartement[] | null
 }
 
-interface ITravauxType {
-  id: string
-  nom: string
-  ordre: number
-  etapesTypes: IEtapeType[]
-  description?: string
-  travauxCreation?: boolean | null
-}
-
-interface ITravauxEtapeType {
-  id: string
-  nom: string
-  ordre: number
-  description?: string
-  etapesStatuts?: IEtapeStatut[] | null
-  documentsTypes?: IDocumentType[]
-}
-
-interface ITravauxEtapeTypeDocumentType {
-  travauxEtapeTypeId: string
-  documentTypeId: string
-  optionnel?: boolean
-}
-
 interface ITitreTypeEtapeType {
   titreTypeId: string
   titreType?: ITitreType | null
@@ -537,18 +508,6 @@ interface IActiviteTypeTitreType {
 
 interface IEtapeTypeEtapeStatut {
   etapeTypeId: string
-  etapeStatutId: string
-  ordre: number
-}
-
-interface ITravauxTypeTravauxEtapeType {
-  travauxTypeId: string
-  travauxEtapeTypeId: string
-  ordre: number
-}
-
-interface ITravauxEtapeTypeEtapeStatut {
-  travauxEtapeTypeId: string
   etapeStatutId: string
   ordre: number
 }
@@ -1067,9 +1026,6 @@ export {
   IEtapeTypeEtapeStatut,
   IEtapeTypeDocumentType,
   IEtapeTypeJustificatifType,
-  ITravauxTypeTravauxEtapeType,
-  ITravauxEtapeTypeEtapeStatut,
-  ITravauxEtapeTypeDocumentType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
@@ -1104,8 +1060,6 @@ export {
   ITitreTypeDemarcheTypeEtapeTypeDocumentType,
   ITitreTypeDemarcheTypeEtapeTypeJustificatifType,
   ITitreEntreprise,
-  ITravauxType,
-  ITravauxEtapeType,
   ITrimestre,
   IUnite,
   IUser,

@@ -7,10 +7,6 @@ const seed = seeding(async ({ del }) => {
   // 17
   await del('documents')
 
-  // 16
-  await del('titresTravauxEtapes')
-  await del('titresTravaux')
-
   // 15
   await del('titresActivites')
 
@@ -65,13 +61,6 @@ const seed = seeding(async ({ del }) => {
   await del('activitesTypes__titresTypes')
   await del('activitesTypes')
   await del('activitesStatuts')
-
-  // 05
-  await del('travauxEtapesTypes__documentsTypes')
-  await del('travauxTypes__travauxEtapesTypes')
-  await del('travauxEtapesTypes__etapesStatuts')
-  await del('travauxEtapesTypes')
-  await del('travauxTypes')
 
   // 04
   await del('substancesFiscales')

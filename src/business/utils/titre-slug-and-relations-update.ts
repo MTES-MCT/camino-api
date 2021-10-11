@@ -10,7 +10,7 @@ import {
   IUtilisateur
 } from '../../types'
 
-import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
+import titreDemarcheSortAsc from './titre-elements-sort-asc'
 import titreEtapesSortAsc from './titre-etapes-sort-asc'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 import { titresGet, titreUpdate } from '../../database/queries/titres'
@@ -40,7 +40,7 @@ const titreDemarcheSlugFind = (
   titre: ITitre
 ) => {
   const titreDemarcheTypeOrder =
-    titreDemarcheOrTravauxSortAsc(
+    titreDemarcheSortAsc(
       titre.demarches!.filter(d => d.typeId === titreDemarche.typeId)
     ).findIndex(d => d === titreDemarche) + 1
 

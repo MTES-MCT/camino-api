@@ -1,4 +1,4 @@
-import { ITitreEtape, IDemarcheType, ITravauxType } from '../../types'
+import { ITitreEtape, IDemarcheType } from '../../types'
 import {
   demarcheDefinitionFind,
   IDemarcheDefinition,
@@ -9,8 +9,7 @@ import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot
 // classe les étapes selon leur dates, ordre et etapesTypes.ordre le cas échéant
 const titreEtapesSortAscByDate = (
   titreEtapes: ITitreEtape[],
-  type: 'travaux' | 'demarches',
-  demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
+  demarcheType?: IDemarcheType | null,
   titreTypeId?: string
 ) => {
   let demarcheDefinitionRestrictions = undefined as
@@ -20,13 +19,10 @@ const titreEtapesSortAscByDate = (
   let demarcheDefinition = undefined as IDemarcheDefinition | undefined
   let dateEtapeFirst = '' as string
 
-  if (type === 'demarches' && titreTypeId && demarcheOrTravauxType?.id) {
+  if (titreTypeId && demarcheType?.id) {
     dateEtapeFirst = titreDemarcheDepotDemandeDateFind(titreEtapes)
 
-    demarcheDefinition = demarcheDefinitionFind(
-      titreTypeId,
-      demarcheOrTravauxType.id
-    )
+    demarcheDefinition = demarcheDefinitionFind(titreTypeId, demarcheType.id)
 
     demarcheDefinitionRestrictions = demarcheDefinition?.restrictions
   }
@@ -94,15 +90,15 @@ const titreEtapesSortAscByDate = (
 
     // on utilise l'ordre du type d'étape
 
-    if (!demarcheOrTravauxType?.etapesTypes?.length) {
+    if (!demarcheType?.etapesTypes?.length) {
       return a.ordre! - b.ordre!
     }
 
-    const aType = demarcheOrTravauxType.etapesTypes.find(
+    const aType = demarcheType.etapesTypes.find(
       et => et.id === a.typeId && et.titreTypeId === titreTypeId
     )
 
-    const bType = demarcheOrTravauxType.etapesTypes.find(
+    const bType = demarcheType.etapesTypes.find(
       et => et.id === b.typeId && et.titreTypeId === titreTypeId
     )
 
