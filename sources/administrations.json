@@ -455,7 +455,7 @@
   {
     "id": "pre-05061-01",
     "type_id": "pre",
-    "nom": "Préfecture - Hautes-Alpes",
+    "nom": "Préfecture des Hautes-Alpes",
     "abreviation": "Préfecture - Hautes-Alpes",
     "url": "http://www.hautes-alpes.gouv.fr",
     "email": "prefecture@hautes-alpes.gouv.fr",
@@ -495,7 +495,7 @@
   {
     "id": "pre-08105-01",
     "type_id": "pre",
-    "nom": "Préfecture - Ardennes",
+    "nom": "Préfecture des Ardennes",
     "abreviation": "Préfecture - Ardennes",
     "url": "http://www.ardennes.gouv.fr",
     "email": "prefecture@ardennes.gouv.fr",
@@ -551,7 +551,7 @@
   {
     "id": "pre-12202-01",
     "type_id": "pre",
-    "nom": "Préfecture - Aveyron",
+    "nom": "Préfecture de l'Aveyron",
     "abreviation": "Préfecture - Aveyron",
     "url": "http://www.aveyron.gouv.fr",
     "email": "prefecture@aveyron.fr",
@@ -635,7 +635,7 @@
   {
     "id": "pre-18033-01",
     "type_id": "pre",
-    "nom": "Préfecture - Cher",
+    "nom": "Préfecture du Cher",
     "abreviation": "Préfecture - Cher",
     "url": "http://www.cher.gouv.fr",
     "email": "prefecture@cher.gouv.fr",
@@ -768,7 +768,7 @@
   {
     "id": "pre-29232-01",
     "type_id": "pre",
-    "nom": "Préfecture - Finistère",
+    "nom": "Préfecture du Finistère",
     "abreviation": "Préfecture - Finistère",
     "url": "http://www.finistere.gouv.fr",
     "email": "prefecture@finistere.gouv.fr",
@@ -862,7 +862,7 @@
   {
     "id": "pre-34172-01",
     "type_id": "pre",
-    "nom": "Préfecture - Hérault",
+    "nom": "Préfecture de l'Hérault",
     "abreviation": "Préfecture - Hérault",
     "url": "http://www.herault.gouv.fr",
     "telephone": "04 67 61 61 61",
@@ -978,7 +978,7 @@
   {
     "id": "pre-43157-01",
     "type_id": "pre",
-    "nom": "Préfecture - Haute-Loire",
+    "nom": "Préfecture de Haute-Loire",
     "abreviation": "Préfecture - Haute-Loire",
     "url": "http://www.haute-loire.gouv.fr",
     "email": "prefecture@haute-loire.gouv.fr",
@@ -1041,7 +1041,7 @@
   {
     "id": "pre-48095-01",
     "type_id": "pre",
-    "nom": "Préfecture - Lozère",
+    "nom": "Préfecture de la Lozère",
     "abreviation": "Préfecture - Lozère",
     "url": "http://www.lozere.gouv.fr",
     "email": "prefecture@lozere.gouv.fr",
@@ -1199,7 +1199,7 @@
   {
     "id": "pre-60057-01",
     "type_id": "pre",
-    "nom": "Préfecture - Oise",
+    "nom": "Préfecture de l'Oise",
     "abreviation": "Préfecture - Oise",
     "url": "http://www.oise.gouv.fr",
     "telephone": "03 44 06 12 60",
@@ -1212,7 +1212,7 @@
   {
     "id": "pre-61001-01",
     "type_id": "pre",
-    "nom": "Préfecture - Orne",
+    "nom": "Préfecture de l'Orne",
     "abreviation": "Préfecture - Orne",
     "url": "http://www.orne.gouv.fr",
     "email": "pref-communication@orne.gouv.fr",
@@ -1252,7 +1252,7 @@
   {
     "id": "pre-64445-01",
     "type_id": "pre",
-    "nom": "Préfecture - Pyrénées-Atlantiques",
+    "nom": "Préfecture des Pyrénées-Atlantiques",
     "abreviation": "Préfecture - Pyrénées-Atlantiques",
     "url": "http://www.pyrenees-atlantiques.gouv.fr",
     "email": "prefecture@pyrenees-atlantiques.gouv.fr",
@@ -1347,7 +1347,7 @@
     "type_id": "pre",
     "nom": "Préfecture - Saône-et-Loire",
     "abreviation": "Préfecture - Saône-et-Loire",
-    "url": "http://www.saone-et-loire.gouv.fr/prefecture-et-sous-prefectures-r1071.html",
+    "url": "http://www.saone-et-loire.gouv.fr",
     "telephone": "03 85 21 81 00",
     "adresse1": "196, rue de Strasbourg",
     "code_postal": "71021",
@@ -1386,7 +1386,7 @@
   {
     "id": "pre-74010-01",
     "type_id": "pre",
-    "nom": "Préfecture - Haute-Savoie",
+    "nom": "Préfecture de Haute-Savoie",
     "abreviation": "Préfecture - Haute-Savoie",
     "url": "http://www.haute-savoie.gouv.fr",
     "email": "prefecture@haute-savoie.gouv.fr",
@@ -1412,7 +1412,7 @@
   {
     "id": "pre-76540-01",
     "type_id": "pre",
-    "nom": "Préfecture - Seine-Maritime",
+    "nom": "Préfecture de la Seine-Maritime",
     "abreviation": "Préfecture - Seine-Maritime",
     "url": "http://www.seine-maritime.gouv.fr",
     "telephone": "02 32 76 50 00",
@@ -1425,7 +1425,7 @@
   {
     "id": "pre-77288-01",
     "type_id": "pre",
-    "nom": "Préfecture - Seine-et-Marne",
+    "nom": "Préfecture de Seine-et-Marne",
     "abreviation": "Préfecture - Seine-et-Marne",
     "url": "http://www.seine-et-marne.gouv.fr",
     "telephone": "01 64 71 77 77",
@@ -1479,7 +1479,7 @@
   {
     "id": "pre-81004-01",
     "type_id": "pre",
-    "nom": "Préfecture - Tarn",
+    "nom": "Préfecture du Tarn",
     "abreviation": "Préfecture - Tarn",
     "url": "http://www.tarn.gouv.fr",
     "email": "courrier@tarn.pref.gouv.fr",
@@ -1573,7 +1573,7 @@
   {
     "id": "pre-88160-01",
     "type_id": "pre",
-    "nom": "Préfecture - Vosges",
+    "nom": "Préfecture des Vosges",
     "abreviation": "Préfecture - Vosges",
     "url": "http://www.vosges.gouv.fr",
     "email": "prefecture@vosges.gouv.fr",
@@ -1587,7 +1587,7 @@
   {
     "id": "pre-89024-01",
     "type_id": "pre",
-    "nom": "Préfecture - Yonne",
+    "nom": "Préfecture de l'Yonne",
     "abreviation": "Préfecture - Yonne",
     "url": "http://www.yonne.gouv.fr",
     "email": "prefecture@yonne.gouv.fr",
@@ -1641,7 +1641,7 @@
   {
     "id": "pre-93008-01",
     "type_id": "pre",
-    "nom": "Préfecture - Seine-Saint-Denis",
+    "nom": "Préfecture de la Seine-Saint-Denis",
     "abreviation": "Préfecture - Seine-Saint-Denis",
     "url": "http://www.seine-saint-denis.gouv.fr",
     "email": "prefecture@seine-saint-denis.gouv.fr",

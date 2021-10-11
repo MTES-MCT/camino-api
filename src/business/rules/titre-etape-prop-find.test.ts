@@ -37,6 +37,7 @@ describe("valeur d'une propriété pour une étape", () => {
         [
           {
             id: 'demarche-01',
+            type: { id: 'oct' },
             typeId: 'oct',
             etapes: [
               {
@@ -68,6 +69,7 @@ describe("valeur d'une propriété pour une étape", () => {
           {
             id: 'demarche-01',
             statutId: 'acc',
+            type: { id: 'oct' },
             etapes: [
               {
                 id: 'demarche-01-etape-01',
@@ -76,6 +78,7 @@ describe("valeur d'une propriété pour une étape", () => {
             ]
           },
           {
+            type: { id: 'oct' },
             typeId: 'oct',
             etapes: [
               {
@@ -101,6 +104,7 @@ describe("valeur d'une propriété pour une étape", () => {
           {
             id: 'demarche-01',
             typeId: 'oct',
+            type: { id: 'oct' },
             etapes: [
               {
                 id: 'demarche-02-etape-01',

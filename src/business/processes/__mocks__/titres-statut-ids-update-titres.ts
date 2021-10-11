@@ -8,6 +8,7 @@ const titresValideStatutIdAJour = [
       {
         id: 'm-pr-saint-pierre-2014-oct01',
         titreId: 'm-pr-saint-pierre-2014',
+        type: { id: 'oct' },
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
@@ -36,6 +37,7 @@ const titresEchuStatutIdObselete = [
       {
         id: 'm-pr-saint-pierre-1914-oct01',
         titreId: 'm-pr-saint-pierre-1914',
+        type: { id: 'oct' },
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
