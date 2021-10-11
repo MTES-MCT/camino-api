@@ -5,6 +5,16 @@ exports.up = async knex => {
     travaux.map(t => ({ ...t, travaux: true, ordre: t.ordre + 100 }))
   )
 
+  const titresTypes = await knex.select().table('titres_types')
+  for (const titreType of titresTypes) {
+    await knex('titresTypes__demarchesTypes').insert(
+      travaux.map(t => ({
+        titreTypeId: titreType.id,
+        demarcheTypeId: t.id
+      }))
+    )
+  }
+
   const travauxEtapes = await knex.select().table('travaux_etapes_types')
 
   const demarchesEtapes = await knex.select().table('etapes_types')
@@ -51,7 +61,6 @@ exports.up = async knex => {
   const travauxTypesEtapesTypes = await knex
     .select()
     .table('travaux_types__travaux_etapes_types')
-  const titresTypes = await knex.select().table('titres_types')
 
   for (const ttEt of travauxTypesEtapesTypes) {
     await knex('titres_types__demarches_types__etapes_types').insert(
