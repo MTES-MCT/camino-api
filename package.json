@@ -27,7 +27,7 @@
     "db:dump": "pg_dump --host=localhost --username=postgres --clean --if-exists --format=c --no-owner --no-privileges --dbname=camino --file=./backups/camino.sql",
     "db:export": "rm -rf sources && node ./dist/scripts/database-to-json-export.js",
     "db:import": "pg_restore --host=localhost --username=postgres --clean --if-exists --no-owner --no-privileges --dbname=camino ./backups/camino.sql",
-    "db:prod-fetch": "scp $u@camino.beta.gouv.fr:/srv/backups/camino.sql backups/",
+    "db:prod-fetch": "scp -P 212 $u@camino.beta.gouv.fr:/srv/backups/camino.sql backups/",
     "db:public-dump": "ts-node ./src/knex/public-copy.ts && pg_dump --clean --if-exists --host=localhost --username=postgres --format=c --no-owner --no-privileges --dbname=camino_public --file=./backups/camino-public.sql && dropdb --host=localhost --username=postgres camino_public",
     "db:public-import": "pg_restore --host=localhost --username=postgres --clean --if-exists --no-owner --no-privileges --dbname=camino ./backups/camino-public.sql",
     "db:recreate": "dropdb --host=localhost --username=postgres camino && createdb --host=localhost --username=postgres camino",
