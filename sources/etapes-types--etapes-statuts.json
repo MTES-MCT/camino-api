@@ -360,6 +360,16 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "aow",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aow",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "apd",
     "etape_statut_id": "def",
     "ordre": 2
@@ -635,6 +645,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "awd",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "awd",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "awu",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "awu",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "cac",
     "etape_statut_id": "fai",
     "ordre": 1
@@ -713,6 +743,16 @@
     "etape_type_id": "dim",
     "etape_statut_id": "rej",
     "ordre": 2
+  },
+  {
+    "etape_type_id": "dow",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "dpm",
+    "etape_statut_id": "fai",
+    "ordre": 1
   },
   {
     "etape_type_id": "dpu",
@@ -845,6 +885,11 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "mdd",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "mdp",
     "etape_statut_id": "fai",
     "ordre": 1
@@ -873,6 +918,11 @@
     "etape_type_id": "mfr",
     "etape_statut_id": "fai",
     "ordre": 2
+  },
+  {
+    "etape_type_id": "mfw",
+    "etape_statut_id": "fai",
+    "ordre": 1
   },
   {
     "etape_type_id": "mia",
@@ -1030,6 +1080,26 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "rce",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "rcg",
     "etape_statut_id": "def",
     "ordre": 2
@@ -1063,6 +1133,16 @@
     "etape_type_id": "rde",
     "etape_statut_id": "fav",
     "ordre": 1
+  },
+  {
+    "etape_type_id": "rdt",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rdt",
+    "etape_statut_id": "rej",
+    "ordre": 2
   },
   {
     "etape_type_id": "ria",
@@ -1115,6 +1195,26 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "rwp",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "rwp",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rwt",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "rwt",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "sas",
     "etape_statut_id": "fai",
     "ordre": 1
@@ -1160,12 +1260,82 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "sup",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "sup",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "tra",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "vfc",
     "etape_statut_id": "fai",
     "ordre": 1
   },
   {
     "etape_type_id": "vfd",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wca",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wcp",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wcs",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wfr",
+    "etape_statut_id": "dep",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wmr",
+    "etape_statut_id": "dep",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "wrr",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wtd",
     "etape_statut_id": "fai",
     "ordre": 1
   }

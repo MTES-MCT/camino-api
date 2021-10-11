@@ -8,6 +8,18 @@
     "renouvelable": true
   },
   {
+    "id": "aom",
+    "nom": "autorisation d'ouverture de travaux miniers (AOT)",
+    "ordre": 102,
+    "travaux": true
+  },
+  {
+    "id": "apr",
+    "nom": "autorisation à disposer des produits des recherches",
+    "ordre": 104,
+    "travaux": true
+  },
+  {
     "id": "ces",
     "nom": "cession",
     "description": "Démarche obsolète. Co-initiée par le titulaire du titre minier et l’entreprise souhaitant devenir titulaire ou co-titulaire elle remplit une fonction proche de la mutation dans le code minier actuel.",
@@ -20,6 +32,12 @@
     "description": "Démarche appliquée à un titre d’exploitation d’hydrocarbures liquides ou gazeux. Elle permet de substituer les substances initiales par d’autres substances de mines connexes aux hydrocarbures contenus dans le gisement ou bien par un autre usage du sous-sol. La demande de conversion peut être réalisée au plus tard 4 ans avant l’échéance de son titre. Elle doit de surcroît démontrer la rentabilité économique de la poursuite de l’exploitation du gisement, mais ne fait pas l’objet d’une mise en concurrence.",
     "ordre": 11,
     "substances": true
+  },
+  {
+    "id": "dam",
+    "nom": "déclaration d'arrêt définitif des travaux (DADT)",
+    "ordre": 106,
+    "travaux": true
   },
   {
     "id": "dec",
@@ -35,6 +53,12 @@
     "ordre": 8,
     "points": true,
     "renouvelable": true
+  },
+  {
+    "id": "dom",
+    "nom": "déclaration d'ouverture de travaux miniers (DOT)",
+    "ordre": 101,
+    "travaux": true
   },
   {
     "id": "exp",
@@ -63,6 +87,12 @@
     "points": true,
     "titulaires": true,
     "renouvelable": true
+  },
+  {
+    "id": "mpm",
+    "nom": "mesures de police des mines",
+    "ordre": 103,
+    "travaux": true
   },
   {
     "id": "mut",
@@ -150,6 +180,13 @@
     "description": "Démarche initiée par l’autorité administrative. Le ministre chargé des mines pour les titres et le préfet pour les autorisations d’exploitation peuvent retirer les autorisations et les titres miniers en cours de validité si l’intéressé ne remplit plus certaines prescriptions légales.\r\nLe retrait a pour effet de replacer le gisement dans la situation de ceux ouverts aux recherches.",
     "ordre": 20,
     "duree": true
+  },
+  {
+    "id": "sup",
+    "nom": "institution de servitude d'utilité publique relative à l'exploitation des mines et carrières",
+    "description": "Les servitudes d'utilité publique (SUP) sont des limitations administratives au droit de propriété. Elles sont instituées au bénéfice de personnes publiques, de concessionnaires de services ou de travaux publics, de personnes privées exerçant une activité d'intérêt général. La collecte et la conservation des servitudes d'utilité publique sont une mission régalienne de l'État qui doit les porter à la connaissance des collectivités territoriales afin que celles-ci les annexent à leur document d'urbanisme. Les servitudes d'utilité publique concernées sont celles définies par les articles L. 126-1 et R. 126-1 du code de l'urbanisme et leur annexes.",
+    "ordre": 105,
+    "travaux": true
   },
   {
     "id": "vct",

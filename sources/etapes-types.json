@@ -150,6 +150,11 @@
     "ordre": 61
   },
   {
+    "id": "aow",
+    "nom": "décision d'ouverture des travaux miniers",
+    "ordre": 232
+  },
+  {
     "id": "apd",
     "nom": "Avis et rapport du directeur régional chargé de l'environnement, de l'aménagement et du logement",
     "description": "Étape par laquelle le DREAL ou le DEAL rend un avis sur la demande. Cet avis tient compte du rapport rédigé par le service instructeur de la DREAL ou de la DEAL qui s'appuie sur les avis émis par les chefs des services civils et de l'autorité militaire intéressés sur la demande.",
@@ -198,6 +203,11 @@
     "entreprises_lecture": true
   },
   {
+    "id": "aps",
+    "nom": "AP sursis à statuer ",
+    "ordre": 248
+  },
+  {
     "id": "apu",
     "nom": "publication de l'avis de décision implicite",
     "description": "Le principe adopté par la réglementation actuelle veut que le silence de l’administration pendant un délai fixé vaut accord implicite. Toutefois il existe des décisions implicites de rejets pour certaines catégories de décisions. En particulier pour les titres miniers, l’octroi, la prolongation et la mutation. Les décisions de rejet ne sont pas publiées, les décisions d’acceptation doivent faire l’objet d’un avis au JORF confirmant que cette dernière est acquise. ",
@@ -237,10 +247,27 @@
     "ordre": 78
   },
   {
+    "id": "atd",
+    "nom": "Avis du demandeur sur les prescriptions proposées ",
+    "ordre": 249
+  },
+  {
     "id": "auc",
     "nom": "avis DGTM service aménagement, urbanisme, construction, logement (AUCL)",
     "description": "Avis de l’AUCL sur la notice d’impact pour les titres miniers et les autorisations d’exploitation. ",
     "ordre": 77
+  },
+  {
+    "id": "awd",
+    "nom": "second donné acte d'arret des travaux miniers",
+    "description": "Décision du préfet actant que l’opérateur a pris toutes les mesures nécessaires pour fermer la mine et assurer la sécurité du site.",
+    "ordre": 242
+  },
+  {
+    "id": "awu",
+    "nom": "premier donné acte d'arret des travaux miniers",
+    "description": "Arrêté donnant acte de la déclaration, dit \"AP 1. Décision du préfet demandant à l’opérateur de prendre certaines mesures d’après-mine.",
+    "ordre": 241
   },
   {
     "id": "cac",
@@ -273,6 +300,12 @@
     "unique": true,
     "public_lecture": true,
     "entreprises_lecture": true
+  },
+  {
+    "id": "dad",
+    "nom": "déclaration d'arrêt définitif des travaux (DADT)",
+    "description": "La déclaration d'arrêt définitif des travaux est adressée au préfet par l'exploitant par lettre avec AR au moins 6 mois avant la fin des travaux.",
+    "ordre": 236
   },
   {
     "id": "dae",
@@ -340,6 +373,16 @@
     "fondamentale": true,
     "public_lecture": true,
     "entreprises_lecture": true
+  },
+  {
+    "id": "dow",
+    "nom": "donné acte de déclaration d'ouverture de travaux minier",
+    "ordre": 234
+  },
+  {
+    "id": "dpm",
+    "nom": "décision de police des mines",
+    "ordre": 245
   },
   {
     "id": "dpu",
@@ -673,6 +716,12 @@
     "entreprises_lecture": true
   },
   {
+    "id": "mdd",
+    "nom": "dépôt de la demande",
+    "description": "Acte de l’administration établissant que l’examen de complétude a été mené à bien. Le constat de recevabilité donne lieu à un rapport de la part de l’administration qui constate que le dossier de demande est complet. ",
+    "ordre": 202
+  },
+  {
     "id": "mdp",
     "nom": "dépôt de la demande",
     "description": "Le dépôt de la demande formalise la prise en charge de la demande par l'administration compétente. Cette étape fait l’objet d’un accusé de réception qui informe le demandeur des modalités d’instruction, du délai au-delà duquel une décision implicite d’accord ou de rejet sera formée et des voies de recours.",
@@ -719,6 +768,12 @@
     "acceptation_auto": true,
     "public_lecture": true,
     "entreprises_lecture": true
+  },
+  {
+    "id": "mfw",
+    "nom": "mémoire de fin de travaux",
+    "description": "Mémoire descriptif des mesures effectivement réalisées pour mettre fin aux travaux miniers. Ce document est produit par l'exploitant.",
+    "ordre": 237
   },
   {
     "id": "mia",
@@ -1142,6 +1197,12 @@
     "entreprises_lecture": true
   },
   {
+    "id": "rce",
+    "nom": "rapport du commissaire enquêteur",
+    "description": "à l'issue de l'enquête publique, le commissaire enquêteur transmet son rapport et ses conclusions",
+    "ordre": 227
+  },
+  {
     "id": "rcg",
     "nom": "rapport du conseil général de l'économie (CGE)",
     "ordre": 95
@@ -1214,6 +1275,12 @@
     ],
     "public_lecture": true,
     "entreprises_lecture": true
+  },
+  {
+    "id": "rdt",
+    "nom": "donné acte de déclaration d'ouverture de travaux miniers",
+    "description": "Courrier par lequel le préfet donne acte de la déclaration pour les travaux ne présentant pas d’effets graves sur les intérêts listés à l’article L.161-1 du code minier.",
+    "ordre": 210
   },
   {
     "id": "ria",
@@ -1292,6 +1359,18 @@
     "entreprises_lecture": true
   },
   {
+    "id": "rwp",
+    "nom": "récolement partiel",
+    "description": "Rapport, suite à une visite du site, de l’inspecteur des industries extractives, s’assurant que les mesures demandées ont été prises partiellement.",
+    "ordre": 238
+  },
+  {
+    "id": "rwt",
+    "nom": "récolement complet",
+    "description": "Rapport, réalisé suite à une visite sur site, de l’inspecteur des industries extractives s’assurant que les mesures demandées ont été prises entièrement.",
+    "ordre": 239
+  },
+  {
     "id": "sas",
     "nom": "saisine de l'autorité signataire",
     "ordre": 100
@@ -1356,6 +1435,16 @@
     "ordre": 54
   },
   {
+    "id": "sup",
+    "nom": "décision instituant une servitude d'utilité publique",
+    "ordre": 240
+  },
+  {
+    "id": "tra",
+    "nom": "transmission au service instructeur",
+    "ordre": 253
+  },
+  {
     "id": "vfc",
     "nom": "validation du paiement des frais de dossier complémentaires",
     "description": "Validation par la direction générale des territoires et des mines (DGTM).",
@@ -1400,5 +1489,84 @@
       }
     ],
     "entreprises_lecture": true
+  },
+  {
+    "id": "vre",
+    "nom": "Visite de récolement ",
+    "ordre": 250
+  },
+  {
+    "id": "wae",
+    "nom": "avis de l'autorité environnementale (travaux de forages et mines)",
+    "description": "avis de l'autorité environnementale des projets soumis à évaluation environnementale au titre (forages et mines)",
+    "ordre": 224
+  },
+  {
+    "id": "war",
+    "nom": "Accusé de réception",
+    "ordre": 247
+  },
+  {
+    "id": "wca",
+    "nom": "saisine de l'autorité environnementale",
+    "description": "Consultation de la mission d'autorité environnementale",
+    "ordre": 207
+  },
+  {
+    "id": "wco",
+    "nom": "Réception de compléments",
+    "ordre": 204
+  },
+  {
+    "id": "wcp",
+    "nom": "demande de compléments",
+    "description": "Étape à l'initiative du service instructeur ou du préfet pour demander des compléments au demandeur sur son dossier de demande (travaux miniers) et lui fixe un délai maximum pour les transmettre. ",
+    "ordre": 203
+  },
+  {
+    "id": "wcs",
+    "nom": "saisine des service de l'Etat",
+    "description": "Consultation pour avis, des services administratifs dans le cadre de l’instruction d’un titre ou d’une autorisation.",
+    "ordre": 206
+  },
+  {
+    "id": "wdt",
+    "nom": "avis de la DDT(M)",
+    "description": "avis de la Direction Départementale des Territoires et de la Mer",
+    "ordre": 209
+  },
+  {
+    "id": "wfr",
+    "nom": "Demande d'autorisation d'ouverture de travaux miniers (DAOTM)",
+    "ordre": 201
+  },
+  {
+    "id": "wmp",
+    "nom": "Mémoire des mesures prises ",
+    "ordre": 251
+  },
+  {
+    "id": "wmr",
+    "nom": "mémoire en réponse de l'exploitant",
+    "description": "mémoire en réponse de l'exploitant à l'avis d'autorité environnementale.",
+    "ordre": 228
+  },
+  {
+    "id": "wpo",
+    "nom": "Avis et rapport du service en charge des la police des mines",
+    "description": "Étape par laquelle le service de police des mines rend un avis sur la demande. Cet avis tient compte des avis émis par les chefs des services civils, de l'autorité militaire et de l'autorité environnementale intéressés sur la demande.",
+    "ordre": 218
+  },
+  {
+    "id": "wrr",
+    "nom": "recevabilité de la demande",
+    "description": "Acte de l’administration établissant que l’examen de complétude a été mené à bien. Le constat de recevabilité donne lieu à un rapport de la part de l’administration qui constate que le dossier de demande est complet. ",
+    "ordre": 205
+  },
+  {
+    "id": "wtd",
+    "nom": "Transmission du projet d'arrêté au demandeur",
+    "description": "Avis du demandeur sur les prescriptions proposées",
+    "ordre": 230
   }
 ]
