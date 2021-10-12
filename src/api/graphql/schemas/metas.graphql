@@ -380,6 +380,7 @@ input InputDemarcheType {
   titulaires: Boolean
   renouvelable: Boolean
   exception: Boolean
+  travaux: Boolean
 }
 
 input InputDemarcheStatut {
