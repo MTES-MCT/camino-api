@@ -4,6 +4,7 @@ import fileRename from '../tools/file-rename'
 import { graphqlUploadExpress } from 'graphql-upload'
 import { permissionCheck } from '../tools/permission'
 import { userGet } from '../database/queries/utilisateurs'
+import { documentFilePathFind } from '../tools/documents/document-path-find'
 
 type TUSEventUploadComplete = {
   file: {
@@ -35,7 +36,6 @@ const uploadAllowedMiddleware = async (
 
 const restUpload = () => {
   const tmp = '/files/tmp'
-  const pathDemarches = '/files/demarches'
   const server = new Server()
   server.datastore = new FileStore({ path: tmp })
 
@@ -45,8 +45,8 @@ const restUpload = () => {
       const file = event.file
       const metadata: Record<string, string> = {}
 
-      // Utilise le documentId créé par GQL, préalablement à ce téléversement,
-      // puis passé dans les métadonnées, pour renommer le fichier avec le même nom que celui base.
+      // Utilise le document créé par GQL, préalablement à ce téléversement,
+      // puis passé dans les métadonnées, pour renommer le fichier avec le même nom que celui-ci.
       file.upload_metadata.split(',').forEach((rawStr: string) => {
         const keyAndVal = rawStr.split(' ')
         if (keyAndVal.length < 2) {
@@ -55,21 +55,9 @@ const restUpload = () => {
         metadata[keyAndVal[0]] = Buffer.from(keyAndVal[1], 'base64').toString()
       })
 
-      const documentId = metadata.documentId
-      const titreEtapeId = metadata.titreEtapeId // reçu lors d'une modification de document
-      if (!documentId) {
-        throw new Error(
-          'Manque documentId dans les métadonnées du téléversement'
-        )
-      }
-
-      // Est-ce un nouveau document ? Dans ce cas l'on souhaite juste renommer le fichier sur place,
-      // la mutation documentCreate se chargera de déplacer le fichier dans son endroit final.
-      // Si c'est une modification de document, l'endroit final existe déjà, on l'utilise pour la MAJ.
+      const document = JSON.parse(metadata.document)
       const pathFrom = `${tmp}/${event.file.id}`
-      const pathTo = titreEtapeId
-        ? `${pathDemarches}/${titreEtapeId}/${documentId}.pdf`
-        : `${tmp}/${documentId}.pdf`
+      const pathTo = await documentFilePathFind(document, true)
 
       await fileRename(pathFrom, pathTo)
     }
