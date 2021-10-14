@@ -543,13 +543,6 @@ const documentsTypesGet = async ({
       })
 
       q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
-    } else if (typeId && repertoire === 'travaux') {
-      q.join('travauxEtapesTypes__documentsTypes as et_dt', b => {
-        b.on(knex.raw('?? = ?', ['et_dt.travauxEtapeTypeId', typeId]))
-        b.on(knex.raw('?? = ??', ['et_dt.documentTypeId', 'documentsTypes.id']))
-      })
-
-      q.select(raw('?? is true', ['et_dt.optionnel']).as('optionnel'))
     } else if (repertoire === 'entreprises') {
       if (typeId) {
         q.join('etapesTypes__justificatifsTypes as et_jt', b => {

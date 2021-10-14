@@ -30,14 +30,6 @@ const demarchesTypes = {
   graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
-const travauxEtapesTypes = {
-  graph: `[etapesStatuts]`
-}
-
-const travauxTypes = {
-  graph: `[travauxEtapesTypes.${travauxEtapesTypes.graph}]`
-}
-
 const titresTypes = {
   graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, titresTypesTitresStatuts]`
 }
@@ -159,29 +151,6 @@ const titresEtapes = {
   }
 }
 
-const titresTravauxEtapesRelateTrue = ['type', 'statut']
-
-const titreTravauxEtapesRelateFalse = [
-  ...documentsRelateFalse.map(k => `documents.${k}`)
-]
-
-const titresTravauxEtapes = {
-  graph: `[
-    type,
-    statut,
-    documents.${documents.graph}
-  ]`,
-
-  update: {
-    relate: titresTravauxEtapesRelateTrue,
-    unrelate: titresTravauxEtapesRelateTrue,
-    noInsert: titreTravauxEtapesRelateFalse,
-    noUpdate: titreTravauxEtapesRelateFalse,
-    noDelete: titreTravauxEtapesRelateFalse,
-    insertMissing: true
-  }
-}
-
 const titresTypesRelateFalse = [
   'type',
   'demarchesTypes',
@@ -278,28 +247,6 @@ const titresActivites = {
   }
 }
 
-const titresTravauxRelateTrue = [
-  'statut',
-  'type',
-  ...titresTravauxEtapesRelateTrue.map(k => `travauxEtapes.${k}`)
-]
-
-const titresTravauxRelateFalse = [] as string[]
-
-const titresTravaux = {
-  graph: `[type.${travauxTypes.graph}, statut, 
-     travauxEtapes(orderDesc).${titresTravauxEtapes.graph}]`,
-
-  update: {
-    relate: titresTravauxRelateTrue,
-    unrelate: titresTravauxRelateTrue,
-    noInsert: titresTravauxRelateFalse,
-    noUpdate: titresTravauxRelateFalse,
-    noDelete: titresTravauxRelateFalse,
-    insertMissing: true
-  }
-}
-
 const domaines = {
   graph: `[titresTypes(orderAsc).${titresTypes.graph}]`
 }
@@ -312,7 +259,6 @@ const titresRelateTrue = [
   'references.type',
   ...titresActivitesRelateTrue.map(k => `activites.${k}`),
   ...titresDemarchesRelateTrue.map(k => `demarches.${k}`),
-  ...titresTravauxRelateTrue.map(k => `travaux.${k}`),
   'titresAdministrations'
 ]
 
@@ -360,8 +306,7 @@ const titresRelateFalse = [
   'administrationsLocales.utilisateurs.permission',
   'surfaceEtape',
   ...titresActivitesRelateFalse.map(k => `activites.${k}`),
-  ...titresDemarchesRelateFalse.map(k => `demarches.${k}`),
-  ...titresTravauxRelateFalse.map(k => `travaux.${k}`)
+  ...titresDemarchesRelateFalse.map(k => `demarches.${k}`)
 ]
 
 const titres = {
@@ -379,7 +324,6 @@ const titres = {
     communes.${communes.graph},
     forets,
     activites(orderDesc).${titresActivites.graph},
-    travaux(orderDesc).${titresTravaux.graph},
     references(orderAsc).type,
     titresAdministrations.${administrations.graph}
    ]`,
@@ -413,10 +357,6 @@ export default {
   titresDemarches,
   titresEtapes,
   titresDemarchesPhases,
-  titresTravaux,
-  titresTravauxEtapes,
   titresTypes,
-  travauxTypes,
-  travauxEtapesTypes,
   utilisateurs
 }

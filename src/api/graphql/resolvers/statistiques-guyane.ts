@@ -214,7 +214,7 @@ const statistiquesGuyane = async () => {
       {
         fields: {
           surfaceEtape: { id: {} },
-          demarches: { phase: { id: {} }, etapes: { id: {} } }
+          demarches: { phase: { id: {} }, etapes: { id: {} }, type: { id: {} } }
         }
       },
       userSuper

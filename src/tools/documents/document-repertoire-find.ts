@@ -9,10 +9,6 @@ const documentRepertoireFind = (document: IDocument): IDocumentRepertoire => {
     return 'demarches'
   }
 
-  if (document.titreTravauxEtapeId) {
-    return 'travaux'
-  }
-
   if (document.entrepriseId) {
     return 'entreprises'
   }

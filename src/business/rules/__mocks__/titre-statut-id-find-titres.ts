@@ -1,11 +1,14 @@
 import { ITitreDemarche } from '../../../types'
 
-const titreDemarchesIndefini = [{ statutId: 'ind' }] as ITitreDemarche[]
+const titreDemarchesIndefini = [
+  { statutId: 'ind', type: { id: 'oct' } }
+] as ITitreDemarche[]
 
 const titreDemarchesValide = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'acc',
     ordre: 1,
@@ -28,6 +31,7 @@ const titreDemarchesEchu = [
   {
     id: 'm-pr-saint-pierre-1914-oct01',
     titreId: 'm-pr-saint-pierre-1914',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'acc',
     ordre: 1,
@@ -50,6 +54,7 @@ const titreDemarchesOctroiInstruction = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'ins',
     ordre: 1
@@ -60,6 +65,7 @@ const titreDemarchesOctroiDepose = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'dep',
     ordre: 1
@@ -70,6 +76,7 @@ const titreDemarchesOctroiRejete = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'rej',
     ordre: 1
@@ -80,6 +87,7 @@ const titreDemarchesOctroiClasse = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'cls',
     ordre: 1
@@ -90,6 +98,7 @@ const titreDemarchesOctroiRetire = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'des',
     ordre: 1
@@ -100,6 +109,7 @@ const titreDemarchesInstruction = [
   {
     id: 'm-pr-saint-pierre-2014-mut01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'mut' },
     typeId: 'mut',
     statutId: 'ins',
     ordre: 1
@@ -107,6 +117,7 @@ const titreDemarchesInstruction = [
   {
     id: 'm-pr-saint-pierre-2014-oct01',
     titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
     typeId: 'oct',
     statutId: 'acc',
     ordre: 1

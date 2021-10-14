@@ -40,10 +40,7 @@ const etapesTypesIds = [
 const etapesDatesStatutsBuild = (titreDemarche: ITitreDemarche) => {
   if (!titreDemarche.etapes?.length) return null
 
-  const etapes = titreEtapesSortAscByDate(
-    titreDemarche.etapes,
-    'demarches'
-  ).reverse()
+  const etapes = titreEtapesSortAscByDate(titreDemarche.etapes).reverse()
 
   // initialise l'objet selon tous les types d'étapes intéressants pour l'instruction
   return etapesTypesIds.reduce((etapesDatesStatuts, typeId) => {
@@ -79,7 +76,7 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
     const etapesTypesStatuts = etapesDatesStatutsBuild(titreDemarche)
 
     const etapeWithPoints = titreDemarche.etapes
-      ? titreEtapesSortAscByDate(titreDemarche.etapes, 'demarches')
+      ? titreEtapesSortAscByDate(titreDemarche.etapes)
           .reverse()
           .find(etape => etape.points?.length)
       : undefined

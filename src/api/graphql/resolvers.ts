@@ -152,30 +152,6 @@ import {
 } from './resolvers/metas-join'
 
 import {
-  travauxTypes,
-  travauxTypeCreer,
-  travauxTypeModifier,
-  travauxEtapesTypes,
-  travauxEtapeTypeModifier,
-  travauxEtapeTypeCreer
-} from './resolvers/metas-travaux'
-
-import {
-  travauxTypesTravauxEtapesTypes,
-  travauxTypeTravauxEtapeTypeModifier,
-  travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer,
-  travauxEtapesTypesDocumentsTypes,
-  travauxEtapeTypeDocumentTypeModifier,
-  travauxEtapeTypeDocumentTypeCreer,
-  travauxEtapeTypeDocumentTypeSupprimer,
-  travauxEtapesTypesEtapesStatuts,
-  travauxEtapeTypeEtapeStatutModifier,
-  travauxEtapeTypeEtapeStatutCreer,
-  travauxEtapeTypeEtapeStatutSupprimer
-} from './resolvers/metas-travaux-join'
-
-import {
   substance,
   substances,
   substancesLegales
@@ -210,20 +186,6 @@ import { statistiquesGlobales } from './resolvers/statistiques'
 import { statistiquesGuyane } from './resolvers/statistiques-guyane'
 import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-marins'
 
-import {
-  travaux,
-  travauxCreer,
-  travauxModifier,
-  travauxSupprimer
-} from './resolvers/titres-travaux'
-
-import {
-  travauxEtape,
-  travauxEtapeCreer,
-  travauxEtapeModifier,
-  travauxEtapeSupprimer
-} from './resolvers/titres-travaux-etapes'
-
 import { titreDemandeCreer } from './resolvers/titre-demande'
 import { pointsImporter } from './resolvers/points'
 
@@ -239,8 +201,6 @@ export default {
   demarches,
   demarchesTypes,
   demarchesStatuts,
-  travauxTypes,
-  travauxEtapesTypes,
   devises,
   documents,
   documentsTypes,
@@ -288,9 +248,6 @@ export default {
   etapesTypesEtapesStatuts,
   etapesTypesDocumentsTypes,
   etapesTypesJustificatifsTypes,
-  travauxTypesTravauxEtapesTypes,
-  travauxEtapesTypesDocumentsTypes,
-  travauxEtapesTypesEtapesStatuts,
   activitesTypes,
   activitesStatuts,
   activitesTypesTitresTypes,
@@ -339,14 +296,6 @@ export default {
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
   administrationActiviteTypeModifier,
-  travaux,
-  travauxCreer,
-  travauxModifier,
-  travauxSupprimer,
-  travauxEtape,
-  travauxEtapeCreer,
-  travauxEtapeModifier,
-  travauxEtapeSupprimer,
   domaineModifier,
   definitionModifier,
   titreTypeTypeModifier,
@@ -356,10 +305,6 @@ export default {
   phaseStatutModifier,
   etapeTypeModifier,
   etapeStatutModifier,
-  travauxTypeCreer,
-  travauxTypeModifier,
-  travauxEtapeTypeCreer,
-  travauxEtapeTypeModifier,
   deviseModifier,
   uniteModifier,
   administrationTypeModifier,
@@ -402,18 +347,6 @@ export default {
   etapeTypeJustificatifTypeModifier,
   etapeTypeJustificatifTypeCreer,
   etapeTypeJustificatifTypeSupprimer,
-
-  travauxTypeTravauxEtapeTypeModifier,
-  travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer,
-
-  travauxEtapeTypeDocumentTypeModifier,
-  travauxEtapeTypeDocumentTypeCreer,
-  travauxEtapeTypeDocumentTypeSupprimer,
-
-  travauxEtapeTypeEtapeStatutModifier,
-  travauxEtapeTypeEtapeStatutCreer,
-  travauxEtapeTypeEtapeStatutSupprimer,
 
   activiteTypeModifier,
   activiteStatutModifier,

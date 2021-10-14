@@ -24,11 +24,6 @@ const titreAdd = async (titre: ITitre) =>
           points: { references: { id: {} } }
         }
       },
-      travaux: {
-        travauxEtapes: {
-          id: {}
-        }
-      },
       activites: { id: {} }
     }
   })

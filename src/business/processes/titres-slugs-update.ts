@@ -43,11 +43,6 @@ const titresSlugsUpdate = async (titresIds?: string[]) => {
             points: { references: { id: {} } }
           }
         },
-        travaux: {
-          travauxEtapes: {
-            id: {}
-          }
-        },
         activites: { id: {} }
       }
     },

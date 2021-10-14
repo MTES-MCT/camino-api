@@ -4,15 +4,13 @@ import {
   ITitre,
   ITitreActivite,
   ITitreDemarche,
-  ITitreDemarcheOrTravaux,
   ITitreEtape,
   ITitrePoint,
   ITitrePointReference,
-  ITitreTravaux,
   IUtilisateur
 } from '../../types'
 
-import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
+import titreDemarcheSortAsc from './titre-elements-sort-asc'
 import titreEtapesSortAsc from './titre-etapes-sort-asc'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 import { titresGet, titreUpdate } from '../../database/queries/titres'
@@ -25,8 +23,6 @@ import {
   titrePointUpdate
 } from '../../database/queries/titres-points'
 import { titreActiviteUpdate } from '../../database/queries/titres-activites'
-import { titreTravauxUpdate } from '../../database/queries/titres-travaux'
-import { titreTravauxEtapeUpdate } from '../../database/queries/titres-travaux-etapes'
 
 const titreSlugFind = (titre: ITitre) => {
   const { domaineId, type, nom } = titre
@@ -44,22 +40,11 @@ const titreDemarcheSlugFind = (
   titre: ITitre
 ) => {
   const titreDemarcheTypeOrder =
-    titreDemarcheOrTravauxSortAsc(
+    titreDemarcheSortAsc(
       titre.demarches!.filter(d => d.typeId === titreDemarche.typeId)
     ).findIndex(d => d === titreDemarche) + 1
 
   return `${titre.slug}-${titreDemarche.typeId}${titreDemarcheTypeOrder
-    .toString()
-    .padStart(2, '0')}`
-}
-
-const titreTravauxSlugFind = (titreTravaux: ITitreTravaux, titre: ITitre) => {
-  const titreTravauxTypeOrder =
-    titreDemarcheOrTravauxSortAsc(
-      titre.travaux!.filter(d => d.typeId === titreTravaux.typeId)
-    ).findIndex(d => d.id === titreTravaux.id) + 1
-
-  return `${titre.slug}-${titreTravaux.typeId}${titreTravauxTypeOrder
     .toString()
     .padStart(2, '0')}`
 }
@@ -69,14 +54,9 @@ const titreDemarcheEtapeSlugFind = (
   titreDemarche: ITitreDemarche
 ) => titreEtapeSlugFind(titreEtape, titreDemarche, titreDemarche.etapes!)
 
-const titreTravauxEtapeSlugFind = (
-  titreEtape: ITitreEtape,
-  titreTravaux: ITitreTravaux
-) => titreEtapeSlugFind(titreEtape, titreTravaux, titreTravaux.travauxEtapes!)
-
 const titreEtapeSlugFind = (
   titreEtape: ITitreEtape,
-  titreDemarche: ITitreDemarche | ITitreDemarcheOrTravaux,
+  titreDemarche: ITitreDemarche,
   etapes: ITitreEtape[]
 ) => {
   const titreEtapeTypeOrder =
@@ -148,18 +128,6 @@ const titreRelations: ITitreRelation[] = [
     name: 'activites',
     update: titreActiviteUpdate,
     slugFind: titreActiviteSlugFind
-  },
-  {
-    name: 'travaux',
-    update: titreTravauxUpdate,
-    slugFind: titreTravauxSlugFind,
-    relations: [
-      {
-        name: 'travauxEtapes',
-        update: titreTravauxEtapeUpdate,
-        slugFind: titreTravauxEtapeSlugFind
-      }
-    ]
   }
 ]
 

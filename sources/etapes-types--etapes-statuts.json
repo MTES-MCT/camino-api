@@ -20,6 +20,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "aad",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "aad",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "aad",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aad",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "aaf",
     "etape_statut_id": "def",
     "ordre": 3
@@ -36,6 +56,26 @@
   },
   {
     "etape_type_id": "aaf",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "aag",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "aag",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "aag",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aag",
     "etape_statut_id": "fre",
     "ordre": 2
   },
@@ -61,6 +101,26 @@
   },
   {
     "etape_type_id": "abs",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "abt",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "abt",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "abt",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "abt",
     "etape_statut_id": "fre",
     "ordre": 2
   },
@@ -100,6 +160,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "ace",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "ace",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "ace",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "ace",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "acg",
     "etape_statut_id": "def",
     "ordre": 2
@@ -128,6 +208,26 @@
     "etape_type_id": "acl",
     "etape_statut_id": "fav",
     "ordre": 1
+  },
+  {
+    "etape_type_id": "acm",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "acm",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "acm",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "acm",
+    "etape_statut_id": "fre",
+    "ordre": 2
   },
   {
     "etape_type_id": "aco",
@@ -155,6 +255,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "aed",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "aed",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "aed",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aed",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "aep",
     "etape_statut_id": "def",
     "ordre": 2
@@ -175,6 +295,26 @@
     "ordre": 3
   },
   {
+    "etape_type_id": "aeq",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "aeq",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "aeq",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aeq",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "afp",
     "etape_statut_id": "def",
     "ordre": 3
@@ -191,6 +331,26 @@
   },
   {
     "etape_type_id": "afp",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "afq",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "afq",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "afq",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "afq",
     "etape_statut_id": "fre",
     "ordre": 2
   },
@@ -215,6 +375,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "ago",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "ago",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "ago",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "ago",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "aim",
     "etape_statut_id": "def",
     "ordre": 3
@@ -231,6 +411,26 @@
   },
   {
     "etape_type_id": "aim",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "ain",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "ain",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "ain",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "ain",
     "etape_statut_id": "fre",
     "ordre": 2
   },
@@ -255,6 +455,26 @@
     "ordre": 3
   },
   {
+    "etape_type_id": "amb",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "amb",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "amb",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "amb",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "ami",
     "etape_statut_id": "def",
     "ordre": 3
@@ -271,6 +491,26 @@
   },
   {
     "etape_type_id": "ami",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "amj",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "amj",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "amj",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "amj",
     "etape_statut_id": "fre",
     "ordre": 2
   },
@@ -358,6 +598,16 @@
     "etape_type_id": "aop",
     "etape_statut_id": "fav",
     "ordre": 1
+  },
+  {
+    "etape_type_id": "aow",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aow",
+    "etape_statut_id": "rej",
+    "ordre": 2
   },
   {
     "etape_type_id": "apd",
@@ -515,6 +765,86 @@
     "ordre": 3
   },
   {
+    "etape_type_id": "apq",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "apq",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "apq",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "apq",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "apr",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "apr",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "apr",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "apr",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "aps",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "aps",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "aps",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aps",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "apt",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "apt",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "apt",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "apt",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "apu",
     "etape_statut_id": "acc",
     "ordre": 2
@@ -550,6 +880,26 @@
     "ordre": 3
   },
   {
+    "etape_type_id": "apx",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "apx",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "apx",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "apx",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "ari",
     "etape_statut_id": "def",
     "ordre": 2
@@ -580,6 +930,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "art",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "art",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "art",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "art",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "asl",
     "etape_statut_id": "def",
     "ordre": 3
@@ -615,6 +985,26 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "ast",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "ast",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "ast",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "ast",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "auc",
     "etape_statut_id": "def",
     "ordre": 3
@@ -633,6 +1023,46 @@
     "etape_type_id": "auc",
     "etape_statut_id": "fre",
     "ordre": 2
+  },
+  {
+    "etape_type_id": "aud",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "aud",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "aud",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "aud",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "awd",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "awd",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "awu",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "awu",
+    "etape_statut_id": "fav",
+    "ordre": 1
   },
   {
     "etape_type_id": "cac",
@@ -680,6 +1110,11 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "ded",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "def",
     "etape_statut_id": "acc",
     "ordre": 1
@@ -705,6 +1140,16 @@
     "ordre": 2
   },
   {
+    "etape_type_id": "dey",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "dey",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
     "etape_type_id": "dim",
     "etape_statut_id": "acc",
     "ordre": 1
@@ -713,6 +1158,16 @@
     "etape_type_id": "dim",
     "etape_statut_id": "rej",
     "ordre": 2
+  },
+  {
+    "etape_type_id": "dow",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "dpm",
+    "etape_statut_id": "fai",
+    "ordre": 1
   },
   {
     "etape_type_id": "dpu",
@@ -770,6 +1225,11 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "epd",
+    "etape_statut_id": "ter",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "epu",
     "etape_statut_id": "fai",
     "ordre": 2
@@ -778,6 +1238,16 @@
     "etape_type_id": "epu",
     "etape_statut_id": "pro",
     "ordre": 1
+  },
+  {
+    "etape_type_id": "epv",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "epv",
+    "etape_statut_id": "pro",
+    "ordre": 2
   },
   {
     "etape_type_id": "esb",
@@ -845,7 +1315,17 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "mdd",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "mdp",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "mdq",
     "etape_statut_id": "fai",
     "ordre": 1
   },
@@ -873,6 +1353,21 @@
     "etape_type_id": "mfr",
     "etape_statut_id": "fai",
     "ordre": 2
+  },
+  {
+    "etape_type_id": "mfs",
+    "etape_statut_id": "aco",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "mfs",
+    "etape_statut_id": "fai",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "mfw",
+    "etape_statut_id": "fai",
+    "ordre": 1
   },
   {
     "etape_type_id": "mia",
@@ -960,6 +1455,11 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "ncm",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "nis",
     "etape_statut_id": "fai",
     "ordre": 1
@@ -990,7 +1490,27 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "pns",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "pns",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "pns",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "ppc",
+    "etape_statut_id": "ter",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "ppd",
     "etape_statut_id": "ter",
     "ordre": 1
   },
@@ -1001,6 +1521,16 @@
   },
   {
     "etape_type_id": "ppu",
+    "etape_statut_id": "pro",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "ppv",
+    "etape_statut_id": "fai",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "ppv",
     "etape_statut_id": "pro",
     "ordre": 1
   },
@@ -1028,6 +1558,26 @@
     "etape_type_id": "rcd",
     "etape_statut_id": "fai",
     "ordre": 1
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rce",
+    "etape_statut_id": "fre",
+    "ordre": 2
   },
   {
     "etape_type_id": "rcg",
@@ -1063,6 +1613,16 @@
     "etape_type_id": "rde",
     "etape_statut_id": "fav",
     "ordre": 1
+  },
+  {
+    "etape_type_id": "rdt",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rdt",
+    "etape_statut_id": "rej",
+    "ordre": 2
   },
   {
     "etape_type_id": "ria",
@@ -1110,8 +1670,33 @@
     "ordre": 3
   },
   {
+    "etape_type_id": "rpv",
+    "etape_statut_id": "fai",
+    "ordre": 3
+  },
+  {
     "etape_type_id": "rtd",
     "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rwp",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "rwp",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "rwt",
+    "etape_statut_id": "def",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "rwt",
+    "etape_statut_id": "fav",
     "ordre": 1
   },
   {
@@ -1131,6 +1716,11 @@
   },
   {
     "etape_type_id": "scl",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "scm",
     "etape_statut_id": "fai",
     "ordre": 1
   },
@@ -1160,12 +1750,87 @@
     "ordre": 1
   },
   {
+    "etape_type_id": "sss",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "sup",
+    "etape_statut_id": "acc",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "sup",
+    "etape_statut_id": "rej",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "tra",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
     "etape_type_id": "vfc",
     "etape_statut_id": "fai",
     "ordre": 1
   },
   {
     "etape_type_id": "vfd",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wca",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wcp",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wcs",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wfr",
+    "etape_statut_id": "dep",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wmr",
+    "etape_statut_id": "dep",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "def",
+    "ordre": 3
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "dre",
+    "ordre": 4
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "fav",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wpo",
+    "etape_statut_id": "fre",
+    "ordre": 2
+  },
+  {
+    "etape_type_id": "wrr",
+    "etape_statut_id": "fai",
+    "ordre": 1
+  },
+  {
+    "etape_type_id": "wtd",
     "etape_statut_id": "fai",
     "ordre": 1
   }

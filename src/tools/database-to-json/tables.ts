@@ -106,8 +106,6 @@ const tables = [
   { name: 'titres_statuts', orderBy: ['id'] },
   { name: 'titres_substances', orderBy: ['titre_etape_id', 'substance_id'] },
   { name: 'titres_titulaires', orderBy: ['titre_etape_id', 'entreprise_id'] },
-  { name: 'titres_travaux', orderBy: ['id'] },
-  { name: 'titres_travaux_etapes', orderBy: ['id'] },
   { name: 'titres_types', orderBy: ['id'] },
   {
     name: 'titres_types__demarches_types',
@@ -140,20 +138,6 @@ const tables = [
     orderBy: ['titre_type_id', 'titre_statut_id']
   },
   { name: 'titres_types_types', orderBy: ['id'] },
-  { name: 'travaux_etapes_types', orderBy: ['id'] },
-  {
-    name: 'travaux_etapes_types__documents_types',
-    orderBy: ['travaux_etape_type_id', 'document_type_id']
-  },
-  {
-    name: 'travaux_etapes_types__etapes_statuts',
-    orderBy: ['travaux_etape_type_id', 'etape_statut_id']
-  },
-  { name: 'travaux_types', orderBy: ['id'] },
-  {
-    name: 'travaux_types__travaux_etapes_types',
-    orderBy: ['travaux_type_id', 'travaux_etape_type_id']
-  },
   { name: 'trimestres', orderBy: ['id'] },
   { name: 'unites', orderBy: ['id'] },
   { name: 'utilisateurs', orderBy: ['id'] },

@@ -193,6 +193,7 @@ const titreDemarches = [
     id: 'demarche-id',
     statutId: 'acc',
     typeId: 'oct',
+    type: { id: 'oct' },
     phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' },
     etapes: [
       {

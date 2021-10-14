@@ -30,7 +30,6 @@ const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
     if (titreDemarche.etapes) {
       titreEtapesSortAscByDate(
         titreDemarche.etapes,
-        'demarches',
         titreDemarche.type,
         titreDemarche.titre?.typeId
       ).forEach((titreEtape: ITitreEtape, index: number) => {

@@ -17,22 +17,21 @@ import {
 console.error = jest.fn()
 describe('trie les étapes', () => {
   test('des étapes organisées par date décroissante sont triées par date croissante', () => {
-    expect(
-      titreEtapesSortAscByDate(titreEtapesSortedDesc, 'travaux')
-    ).toMatchObject(titreEtapesSortedAscResult)
+    expect(titreEtapesSortAscByDate(titreEtapesSortedDesc)).toMatchObject(
+      titreEtapesSortedAscResult
+    )
   })
 
   test('des étapes organisées par date croissante restent triées par date croissante', () => {
-    expect(
-      titreEtapesSortAscByDate(titreEtapesSortedAsc, 'demarches')
-    ).toMatchObject(titreEtapesSortedAscResult)
+    expect(titreEtapesSortAscByDate(titreEtapesSortedAsc)).toMatchObject(
+      titreEtapesSortedAscResult
+    )
   })
 
   test('des étapes avec les mêmes dates organisées par ordre décroissant sont triées par ordre croissant', () => {
     expect(
       titreEtapesSortAscByDate(
         titreEtapesMemesDatesOrdreDesc,
-        'demarches',
         null,
         'titre-type-id'
       )
@@ -43,7 +42,6 @@ describe('trie les étapes', () => {
     expect(
       titreEtapesSortAscByDate(
         titreEtapesMemesDatesOrdreEtapesTypesDesc,
-        'demarches',
         {
           id: 'demarche-type-id',
           etapesTypes
@@ -68,7 +66,7 @@ describe('trie les étapes', () => {
     ] as ITitreEtape[]
 
     expect(
-      titreEtapesSortAscByDate(etapes, 'demarches', {
+      titreEtapesSortAscByDate(etapes, {
         id: 'demarche-type-id',
         etapesTypes: [
           { id: 'dex', nom: 'dex', ordre: 100 },
@@ -80,13 +78,9 @@ describe('trie les étapes', () => {
 
   test('des étapes avec les mêmes dates sont triées par ordre croissant', () => {
     expect(
-      titreEtapesSortAscByDate(
-        titreEtapesMemesDatesMemeOrdreDesc,
-        'demarches',
-        {
-          etapesTypes
-        } as IDemarcheType
-      )
+      titreEtapesSortAscByDate(titreEtapesMemesDatesMemeOrdreDesc, {
+        etapesTypes
+      } as IDemarcheType)
     ).toMatchObject(titreEtapesMemesDatesMemeOrdreAscResult)
   })
 
@@ -99,7 +93,6 @@ describe('trie les étapes', () => {
 
     const result = titreEtapesSortAscByDate(
       etapes,
-      'demarches',
       { id: 'oct' } as IDemarcheType,
       'arm'
     )
@@ -117,7 +110,6 @@ describe('trie les étapes', () => {
 
     const result = titreEtapesSortAscByDate(
       etapes,
-      'demarches',
       { id: 'oct' } as IDemarcheType,
       'arm'
     )
@@ -135,7 +127,6 @@ describe('trie les étapes', () => {
 
     const result = titreEtapesSortAscByDate(
       etapes,
-      'demarches',
       {
         id: 'oct',
         etapesTypes: [
@@ -157,7 +148,6 @@ describe('trie les étapes', () => {
 
     const result = titreEtapesSortAscByDate(
       etapes,
-      'demarches',
       {
         id: 'oct',
         etapesTypes: [

@@ -232,7 +232,6 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
     {
       fields: {
         demarches: { etapes: { id: {} } },
-        travaux: { travauxEtapes: { id: {} } },
         activites: { id: {} }
       }
     },

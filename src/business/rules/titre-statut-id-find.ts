@@ -4,8 +4,12 @@ import { titreDateFinFind } from './titre-date-fin-find'
 
 const titreStatutIdFind = (
   aujourdhui: string,
-  titreDemarches?: ITitreDemarche[] | null
+  demarches?: ITitreDemarche[] | null
 ) => {
+  const titreDemarches = demarches
+    ? demarches.filter(d => !d.type!.travaux)
+    : null
+
   if (!titreDemarches || !titreDemarches.length) return 'ind'
 
   // si toutes les démarches du titre ont le statut `indéfini`

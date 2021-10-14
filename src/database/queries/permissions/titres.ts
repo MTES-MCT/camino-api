@@ -9,7 +9,6 @@ import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
-import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
 import Entreprises from '../../models/entreprises'
 
@@ -19,7 +18,6 @@ import {
   titreActivitesCount
 } from './titres-activites'
 import { titresDemarchesQueryModify } from './titres-demarches'
-import { titresTravauxQueryModify } from './titres-travaux'
 import {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresQuery,
@@ -243,14 +241,6 @@ const titresQueryModify = (
   q.modifyGraph('demarches', b => {
     titresDemarchesQueryModify(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-      user
-    )
-  })
-
-  // visibilité des travaux
-  q.modifyGraph('travaux', b => {
-    titresTravauxQueryModify(
-      b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
       user
     )
   })
