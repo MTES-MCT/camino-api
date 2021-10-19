@@ -129,6 +129,20 @@ class Administrations extends Model {
       }
     },
 
+    activitesTypesEmails: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'activites-types'),
+      join: {
+        from: 'administrations.id',
+        through: {
+          from: 'administrations__activitesTypes__emails.administrationId',
+          to: 'administrations__activitesTypes__emails.activiteTypeId',
+          extra: ['email']
+        },
+        to: 'activitesTypes.id'
+      }
+    },
+
     departement: {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'departements'),

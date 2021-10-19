@@ -194,6 +194,7 @@ interface IAdministration {
   associee?: boolean | null
   membre?: boolean
   modification?: boolean | null
+  activitesTypesEmails?: any[]
 }
 
 interface IAnnee extends IPeriode {}
@@ -538,6 +539,12 @@ interface IAdministrationActiviteType {
   activiteTypeId: string
   lectureInterdit: boolean
   modificationInterdit: boolean
+}
+
+interface IAdministrationActiviteTypeEmail {
+  administrationId: string
+  activiteTypeId: string
+  email: string
 }
 
 interface ITitreStatut {
@@ -1031,6 +1038,7 @@ export {
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
   IAdministrationActiviteType,
+  IAdministrationActiviteTypeEmail,
   ITitreStatut,
   ISubstance,
   ISubstanceLegale,
