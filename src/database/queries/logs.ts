@@ -6,11 +6,39 @@ import {
   RelationExpression,
   UpsertGraphOptions
 } from 'objection'
+import { logsQueryModify } from './permissions/logs'
+import { IFields, IUtilisateur } from '../../types'
+import graphBuild from './graph/build'
+import { fieldsFormat } from './graph/fields-format'
+import options from './_options'
 
 const diffPatcher = create({
   // on filtre certaines proprietés qu’on ne souhaite pas voir apparaitre dans les logs
   propertyFilter: (name: string) => !['slug', 'ordre'].includes(name)
 })
+
+export const logsGet = async (
+  {
+    page,
+    intervalle
+  }: {
+    page: number
+    intervalle: number
+  },
+  { fields }: { fields?: IFields },
+  user: IUtilisateur | null
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'logs', fieldsFormat)
+    : options.logs.graph
+
+  const q = Logs.query().withGraphFetched(graph)
+  q.modify(logsQueryModify, user)
+
+  q.orderBy('date')
+
+  return q.page(page, intervalle)
+}
 
 export const deleteLogCreate = async (id: string, userId: string) => {
   await Logs.query().insert({

@@ -16,6 +16,7 @@
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
 # import * from 'titre-demande.graphql'
+# import * from 'logs.graphql'
 
 """
 # API de Camino
@@ -230,6 +231,8 @@ type Query {
   pays: [Pays]
 
   pointsImporter(fileUpload: FileUpload!, geoSystemeId: String!): [Point]
+
+  logs(intervalle: Int!, page: Int!): Logs
 }
 
 """

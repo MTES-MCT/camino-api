@@ -20,4 +20,13 @@ type Log {
   operation: Operation
 
   differences: Json
+
+  elementId: ID
+}
+
+type Logs {
+  elements: [Log]
+  page: Int
+  intervalle: Int
+  total: Int
 }

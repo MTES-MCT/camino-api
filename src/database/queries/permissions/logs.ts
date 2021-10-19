@@ -25,4 +25,6 @@ export const logsQueryModify = (
       user
     )
   })
+
+  return q
 }
