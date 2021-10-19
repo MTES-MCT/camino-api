@@ -37,9 +37,15 @@ type Administration {
   titresTypesTitresStatuts: [TitreTypeTitreStatut]
   titresTypesEtapesTypes: [TitreTypeEtapeType]
   activitesTypes: [ActiviteType]
+  activitesTypesEmails: [ActiviteTypeEmail]
   departement: Departement
   region: Region
   modification: Boolean
+}
+
+type ActiviteTypeEmail {
+  id: ID
+  email: String
 }
 
 input InputAdministration {

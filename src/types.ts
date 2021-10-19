@@ -194,7 +194,7 @@ interface IAdministration {
   associee?: boolean | null
   membre?: boolean
   modification?: boolean | null
-  activitesTypesEmails?: any[]
+  activitesTypesEmails?: (IActiviteType & { email: string })[]
 }
 
 interface IAnnee extends IPeriode {}
