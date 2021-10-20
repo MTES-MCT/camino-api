@@ -375,6 +375,10 @@ type Mutation {
     administrationActiviteType: InputAdministrationActiviteType!
   ): Administration
 
+  administrationActiviteTypeEmailCreer(
+    administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
+  ): Administration
+
   entrepriseTitreTypeModifier(
     entrepriseTitreType: InputEntrepriseTitreType!
   ): Entreprise

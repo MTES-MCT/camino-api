@@ -97,3 +97,9 @@ input InputAdministrationActiviteType {
   lectureInterdit: Boolean
   modificationInterdit: Boolean
 }
+
+input InputAdministrationActiviteTypeEmail {
+  administrationId: ID!
+  activiteTypeId: ID!
+  email: String
+}
