@@ -1,6 +1,6 @@
 import PQueue from 'p-queue'
 
-import { ITitreEtape } from '../../types'
+import { ITitreEtape, IUtilisateur } from '../../types'
 
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
@@ -11,6 +11,7 @@ import {
 import { userSuper } from '../../database/user-super'
 
 const titresEtapesHeritageContenuUpdate = async (
+  user: IUtilisateur,
   titresDemarchesIds?: string[]
 ) => {
   console.info()
@@ -62,7 +63,8 @@ const titresEtapesHeritageContenuUpdate = async (
                   contenu,
                   heritageContenu
                 },
-                userSuper
+                user,
+                titreDemarche.titreId
               )
 
               const log = {

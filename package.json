@@ -195,6 +195,13 @@
       "no-return-await": "error",
       "default-param-last": 0,
       "no-unused-vars": 0,
+      "no-restricted-syntax": [
+        "error",
+        {
+          "message": "leftJoinRelation is deprecated. Use leftJoinRelated instead.",
+          "selector": "Identifier[name='leftJoinRelation']"
+        }
+      ],
       "@typescript-eslint/explicit-function-return-type": 0,
       "@typescript-eslint/explicit-module-boundary-types": 0,
       "@typescript-eslint/no-empty-interface": 0,

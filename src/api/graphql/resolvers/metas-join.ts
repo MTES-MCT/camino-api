@@ -409,7 +409,7 @@ const titreTypeDemarcheTypeEtapeTypeModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    if (!permissionCheck(user?.permissionId, ['super'])) {
+    if (!user || !permissionCheck(user.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -420,7 +420,7 @@ const titreTypeDemarcheTypeEtapeTypeModifier = async (
       titreTypeDemarcheTypeEtapeType
     )
 
-    await titresEtapesHeritageContenuUpdate()
+    await titresEtapesHeritageContenuUpdate(user)
 
     const titresTypesDemarchesTypesEtapesTypes =
       await titresTypesDemarchesTypesEtapesTypesGet()
@@ -444,13 +444,13 @@ const titreTypeDemarcheTypeEtapeTypeCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
-    if (!permissionCheck(user?.permissionId, ['super'])) {
+    if (!user || !permissionCheck(user.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
     await titreTypeDemarcheTypeEtapeTypeCreate(titreTypeDemarcheTypeEtapeType)
 
-    await titresEtapesHeritageContenuUpdate()
+    await titresEtapesHeritageContenuUpdate(user)
 
     const titresTypesDemarchesTypesEtapesTypes =
       await titresTypesDemarchesTypesEtapesTypesGet()

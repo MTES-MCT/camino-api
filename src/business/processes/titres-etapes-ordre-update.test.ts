@@ -9,6 +9,7 @@ import {
   titresDemarchesEtapesVides
 } from './__mocks__/titres-etapes-ordre-update-demarches'
 import TitresDemarches from '../../database/models/titres-demarches'
+import { userSuper } from '../../database/user-super'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeUpdate: jest.fn().mockResolvedValue(true)
@@ -25,21 +26,21 @@ console.info = jest.fn()
 describe('ordre des étapes', () => {
   test("met à jour l'ordre de deux étapes", async () => {
     titresDemarchesGetMock.mockResolvedValue(titresDemarchesEtapes)
-    const titresEtapesUpdated = await titresEtapesOrdreUpdate()
+    const titresEtapesUpdated = await titresEtapesOrdreUpdate(userSuper)
     expect(titresEtapesUpdated.length).toEqual(1)
     expect(titreEtapeUpdate).toHaveBeenCalled()
   })
 
   test("ne met aucun ordre d'étape à jour", async () => {
     titresDemarchesGetMock.mockResolvedValue(titresDemarchesEtapesVides)
-    const titresEtapesUpdated = await titresEtapesOrdreUpdate()
+    const titresEtapesUpdated = await titresEtapesOrdreUpdate(userSuper)
     expect(titresEtapesUpdated.length).toEqual(0)
     expect(titreEtapeUpdate).not.toHaveBeenCalled()
   })
 
   test("ne met aucun ordre d'étape à jour (démarche sans étape)", async () => {
     titresDemarchesGetMock.mockResolvedValue([{} as TitresDemarches])
-    const titresEtapesUpdated = await titresEtapesOrdreUpdate()
+    const titresEtapesUpdated = await titresEtapesOrdreUpdate(userSuper)
 
     expect(titresEtapesUpdated.length).toEqual(0)
     expect(titreEtapeUpdate).not.toHaveBeenCalled()

@@ -234,7 +234,8 @@ describe('demarcheModifier', () => {
         statutId: 'acc',
         date: '2020-01-01'
       },
-      userSuper
+      userSuper,
+      titreId
     )
 
     const res = await graphQLCall(

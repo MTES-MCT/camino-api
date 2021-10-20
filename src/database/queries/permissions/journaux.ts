@@ -4,17 +4,19 @@ import { IUtilisateur } from '../../../types'
 
 import { permissionCheck } from '../../../tools/permission'
 
-import Logs from '../../models/logs'
+import Journaux from '../../models/journaux'
 import { utilisateursQueryModify } from './utilisateurs'
 import Utilisateurs from '../../models/utilisateurs'
+import { titresQueryModify } from './titres'
+import Titres from '../../models/titres'
 
-export const logsQueryModify = (
-  q: QueryBuilder<Logs, Logs | Logs[]>,
+export const journauxQueryModify = (
+  q: QueryBuilder<Journaux, Journaux | Journaux[]>,
   user: IUtilisateur | null
 ) => {
-  q.select('logs.*')
+  q.select('journaux.*')
 
-  // Les logs sont uniquement visibles par les super
+  // Les journaux sont uniquement visibles par les super
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
     q.where(false)
   }
@@ -24,6 +26,10 @@ export const logsQueryModify = (
       b as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
       user
     )
+  })
+
+  q.modifyGraph('titre', b => {
+    titresQueryModify(b as QueryBuilder<Titres, Titres | Titres[]>, user)
   })
 
   return q

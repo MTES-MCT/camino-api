@@ -16,7 +16,7 @@
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
 # import * from 'titre-demande.graphql'
-# import * from 'logs.graphql'
+# import * from 'journaux.graphql'
 
 """
 # API de Camino
@@ -232,7 +232,12 @@ type Query {
 
   pointsImporter(fileUpload: FileUpload!, geoSystemeId: String!): [Point]
 
-  logs(intervalle: Int!, page: Int!): Logs
+  journaux(
+    intervalle: Int!
+    page: Int!
+    recherche: String
+    titreId: String
+  ): Journaux
 }
 
 """

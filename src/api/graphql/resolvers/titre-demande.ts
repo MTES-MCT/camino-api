@@ -119,9 +119,9 @@ const titreDemandeCreer = async (
       titulaires: [{ id: titreDemande.entrepriseId }]
     } as ITitreEtape
 
-    titreEtape = await titreEtapeUpsert(titreEtape, user)
+    titreEtape = await titreEtapeUpsert(titreEtape, user, titreId)
 
-    await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId)
+    await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId, user)
 
     titre = await titreGet(
       titreId,

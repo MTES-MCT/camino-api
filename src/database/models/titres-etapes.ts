@@ -182,12 +182,12 @@ class TitresEtapes extends Model {
         to: 'forets.id'
       }
     },
-    logs: {
+    journaux: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'logs'),
+      modelClass: join(__dirname, 'journaux'),
       join: {
         from: 'titresEtapes.id',
-        to: 'logs.elementId'
+        to: 'journaux.elementId'
       }
     }
   }

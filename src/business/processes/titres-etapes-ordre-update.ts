@@ -1,13 +1,16 @@
 import PQueue from 'p-queue'
 
-import { ITitreEtape } from '../../types'
+import { ITitreEtape, IUtilisateur } from '../../types'
 
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { userSuper } from '../../database/user-super'
 
-const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
+const titresEtapesOrdreUpdate = async (
+  user: IUtilisateur,
+  titresDemarchesIds?: string[]
+) => {
   console.info()
   console.info('ordre des étapes…')
   const queue = new PQueue({ concurrency: 100 })
@@ -38,7 +41,8 @@ const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
             await titreEtapeUpdate(
               titreEtape.id,
               { ordre: index + 1 },
-              userSuper
+              user,
+              titreDemarche.titreId
             )
 
             const log = {

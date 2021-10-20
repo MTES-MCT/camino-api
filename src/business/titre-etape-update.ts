@@ -1,4 +1,4 @@
-import { IArea } from '../types'
+import { IArea, IUtilisateur } from '../types'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 
 import { titresActivitesUpdate } from './processes/titres-activites-update'
@@ -24,7 +24,8 @@ import { userSuper } from '../database/user-super'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
-  titreDemarcheId: string
+  titreDemarcheId: string,
+  user: IUtilisateur
 ) => {
   try {
     console.info()
@@ -43,14 +44,14 @@ const titreEtapeUpdate = async (
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
     }
 
-    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate([
+    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(user, [
       titreDemarcheId
     ])
 
     const titresEtapesHeritagePropsUpdated =
-      await titresEtapesHeritagePropsUpdate([titreDemarcheId])
+      await titresEtapesHeritagePropsUpdate(user, [titreDemarcheId])
     const titresEtapesHeritageContenuUpdated =
-      await titresEtapesHeritageContenuUpdate([titreDemarcheId])
+      await titresEtapesHeritageContenuUpdate(user, [titreDemarcheId])
 
     const titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([

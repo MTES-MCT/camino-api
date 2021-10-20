@@ -338,7 +338,7 @@ const titres = {
   }
 }
 
-const logs = {
+const journaux = {
   graph: `[utilisateur.${utilisateurs.graph}]`
 }
 
@@ -363,5 +363,5 @@ export default {
   titresDemarchesPhases,
   titresTypes,
   utilisateurs,
-  logs
+  journaux
 }

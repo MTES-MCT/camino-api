@@ -20,6 +20,7 @@ import { titresActivitesPropsUpdate } from './processes/titres-activites-props-u
 import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { logsUpdate } from './_logs-update'
 import { utilisateursNewsletterUpdate } from './processes/utilisateurs-newsletter-update'
+import { userSuper } from '../database/user-super'
 
 const daily = async () => {
   try {
@@ -27,11 +28,11 @@ const daily = async () => {
     console.info('- - -')
     console.info('mise à jour quotidienne')
 
-    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate()
+    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(userSuper)
     const titresEtapesHeritagePropsUpdated =
-      await titresEtapesHeritagePropsUpdate()
+      await titresEtapesHeritagePropsUpdate(userSuper)
     const titresEtapesHeritageContenuUpdated =
-      await titresEtapesHeritageContenuUpdate()
+      await titresEtapesHeritageContenuUpdate(userSuper)
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate()
     const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate()

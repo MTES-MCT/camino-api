@@ -1,18 +1,19 @@
-import { logsGet } from '../../../database/queries/logs'
+import { journauxGet } from '../../../database/queries/journaux'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { debug } from '../../../config'
 import { IToken } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { fieldsBuild } from './_fields-build'
 
-export const logs = async (
-  {
-    page,
-    intervalle
-  }: {
-    page: number
-    intervalle: number
-  },
+export interface IJournauxQueryParams {
+  page: number
+  intervalle: number
+  recherche: string
+  titreId: string
+}
+
+export const journaux = async (
+  params: IJournauxQueryParams,
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -20,8 +21,8 @@ export const logs = async (
     const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const { results, total } = await logsGet(
-      { page, intervalle },
+    const { results, total } = await journauxGet(
+      params,
       { fields: fields.elements },
       user
     )
@@ -30,8 +31,8 @@ export const logs = async (
 
     return {
       elements: results,
-      page,
-      intervalle,
+      page: params.page,
+      intervalle: params.intervalle,
       total
     }
   } catch (e) {

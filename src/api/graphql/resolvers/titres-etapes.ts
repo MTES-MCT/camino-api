@@ -220,6 +220,10 @@ const etapeCreer = async (
   try {
     const user = await userGet(context.user?.id)
 
+    if (!user) {
+      throw new Error("la démarche n'existe pas")
+    }
+
     let titreDemarche = await titreDemarcheGet(
       etape.titreDemarcheId,
       { fields: {} },
@@ -305,13 +309,21 @@ const etapeCreer = async (
     )
     etape.contenu = contenu
 
-    const etapeUpdated = await titreEtapeUpsert(etape, user!)
+    const etapeUpdated = await titreEtapeUpsert(
+      etape,
+      user!,
+      titreDemarche.titreId
+    )
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
     await documentsLier(context, documentIds, etapeUpdated.id, 'titreEtapeId')
 
-    await titreEtapeUpdateTask(etapeUpdated.id, etapeUpdated.titreDemarcheId)
+    await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId,
+      user
+    )
 
     await titreEtapeEmailsSend(
       etape,
@@ -319,7 +331,7 @@ const etapeCreer = async (
       titreDemarche.typeId,
       titreDemarche.titreId,
       titreDemarche.titre.typeId,
-      user!
+      user
     )
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
@@ -341,6 +353,10 @@ const etapeModifier = async (
 ) => {
   try {
     const user = await userGet(context.user?.id)
+
+    if (!user) {
+      throw new Error("l'étape n'existe pas")
+    }
 
     const titreEtapeOld = await titreEtapeGet(
       etape.id,
@@ -438,7 +454,11 @@ const etapeModifier = async (
     )
     etape.contenu = contenu
 
-    const etapeUpdated = await titreEtapeUpsert(etape, user!)
+    const etapeUpdated = await titreEtapeUpsert(
+      etape,
+      user!,
+      titreDemarche.titreId
+    )
 
     await contenuElementFilesCreate(newFiles, 'demarches', etapeUpdated.id)
 
@@ -457,7 +477,11 @@ const etapeModifier = async (
       titreEtapeOld.contenu
     )
 
-    await titreEtapeUpdateTask(etapeUpdated.id, etapeUpdated.titreDemarcheId)
+    await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId,
+      user
+    )
 
     await titreEtapeEmailsSend(
       etape,
@@ -465,7 +489,7 @@ const etapeModifier = async (
       titreDemarche.typeId,
       titreDemarche.titreId,
       titreDemarche.titre.typeId,
-      user!,
+      user,
       titreEtapeOld
     )
 
@@ -490,6 +514,10 @@ const etapeDeposer = async (
   try {
     const user = await userGet(context.user?.id)
 
+    if (!user) {
+      throw new Error("l'étape n'existe pas")
+    }
+
     let titreEtape = await titreEtapeGet(
       id,
       { fields: { type: { id: {} } } },
@@ -513,9 +541,14 @@ const etapeDeposer = async (
 
     if (!titreEtape.deposable) throw new Error('droits insuffisants')
 
-    const statutIdAndDate = statutIdAndDateGet(titreEtape, user!, true)
+    const statutIdAndDate = statutIdAndDateGet(titreEtape, user, true)
 
-    await titreEtapeUpdate(titreEtape.id, statutIdAndDate, user!)
+    await titreEtapeUpdate(
+      titreEtape.id,
+      statutIdAndDate,
+      user,
+      titreDemarche.titreId
+    )
     const etapeUpdated = await titreEtapeGet(
       titreEtape.id,
       {
@@ -524,7 +557,11 @@ const etapeDeposer = async (
       user
     )
 
-    await titreEtapeUpdateTask(etapeUpdated.id, etapeUpdated.titreDemarcheId)
+    await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId,
+      user
+    )
 
     await titreEtapeEmailsSend(
       etapeUpdated,
@@ -543,10 +580,15 @@ const etapeDeposer = async (
       date: dateFormat(new Date(), 'yyyy-mm-dd')
     } as ITitreEtape
 
-    titreEtapeDepot = await titreEtapeUpsert(titreEtapeDepot, user!)
+    titreEtapeDepot = await titreEtapeUpsert(
+      titreEtapeDepot,
+      user!,
+      titreDemarche.titreId
+    )
     await titreEtapeUpdateTask(
       titreEtapeDepot.id,
-      titreEtapeDepot.titreDemarcheId
+      titreEtapeDepot.titreDemarcheId,
+      user
     )
     await titreEtapeEmailsSend(
       titreEtapeDepot,
@@ -578,6 +620,10 @@ const etapeSupprimer = async (
   try {
     const fields = fieldsBuild(info)
     const user = await userGet(context.user?.id)
+
+    if (!user) {
+      throw new Error("l'étape n'existe pas")
+    }
 
     const titreEtape = await titreEtapeGet(id, { fields: { id: {} } }, user)
 
@@ -616,11 +662,11 @@ const etapeSupprimer = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    await titreEtapeDelete(id, user!)
+    await titreEtapeDelete(id, user!, titreDemarche.titreId)
 
     await fichiersRepertoireDelete(id, 'demarches')
 
-    await titreEtapeUpdateTask(null, titreEtape.titreDemarcheId)
+    await titreEtapeUpdateTask(null, titreEtape.titreDemarcheId, user)
 
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
