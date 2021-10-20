@@ -234,6 +234,15 @@ const administrationActiviteTypeUpsert = async (
     }
   )
 
+const administrationActiviteTypeDelete = async (
+  administrationId: string,
+  ActiviteTypeId: string
+) =>
+  AdministrationsActivitesTypes.query().deleteById([
+    administrationId,
+    ActiviteTypeId
+  ])
+
 const administrationActiviteTypeEmailUpsert = async (
   administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail
 ) =>
@@ -244,14 +253,18 @@ const administrationActiviteTypeEmailUpsert = async (
     }
   )
 
-const administrationActiviteTypeDelete = async (
-  administrationId: string,
-  ActiviteTypeId: string
-) =>
-  AdministrationsActivitesTypes.query().deleteById([
-    administrationId,
-    ActiviteTypeId
-  ])
+const administrationActiviteTypeEmailDelete = async (
+  administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail
+) => {
+  const { activiteTypeId, administrationId, email } =
+    administrationActiviteTypeEmail
+
+  return AdministrationsActivitesTypesEmails.query().delete().where({
+    activite_type_id: activiteTypeId,
+    administration_id: administrationId,
+    email
+  })
+}
 
 export {
   administrationGet,
@@ -267,5 +280,6 @@ export {
   administrationTitreTypeEtapeTypeDelete,
   administrationActiviteTypeUpsert,
   administrationActiviteTypeDelete,
-  administrationActiviteTypeEmailUpsert
+  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailDelete
 }

@@ -379,6 +379,10 @@ type Mutation {
     administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
   ): Administration
 
+  administrationActiviteTypeEmailEffacer(
+    administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
+  ): Administration
+
   entrepriseTitreTypeModifier(
     entrepriseTitreType: InputEntrepriseTitreType!
   ): Entreprise

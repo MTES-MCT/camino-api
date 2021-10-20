@@ -31,6 +31,7 @@ type Administration {
   cedex: String
   utilisateurs: [Utilisateur]
   membre: Boolean
+  emailsModification: Boolean
   gestionnaireTitres: [Titre]
   localeTitres: [Titre]
   titresTypes: [TitreType]

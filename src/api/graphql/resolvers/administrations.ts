@@ -24,7 +24,8 @@ import {
   administrationTitreTypeEtapeTypeUpsert,
   administrationActiviteTypeDelete,
   administrationActiviteTypeUpsert,
-  administrationActiviteTypeEmailUpsert
+  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailDelete
 } from '../../../database/queries/administrations'
 
 import administrationUpdateTask from '../../../business/administration-update'
@@ -370,6 +371,10 @@ const administrationActiviteTypeEmailCreer = async (
     const user = await userGet(context.user?.id)
 
     // TODO: permissions adaptées aux spécifications (ex : DREAL concernée)
+    // - qui peut ajouter les emails (dans une administration : admin / editeur / lecteur) ?
+    // - qui peut consulter cette liste d'emails (dans l'UI) ?
+    // - les DREALs peuvent éditer les emails de quelle(s) administration(s) ?
+    // - règle d'envoi selon production > 0 : DREAL toujours même si < 0
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
@@ -397,6 +402,44 @@ const administrationActiviteTypeEmailCreer = async (
   }
 }
 
+const administrationActiviteTypeEmailEffacer = async (
+  {
+    administrationActiviteTypeEmail
+  }: { administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    // TODO: permissions adaptées aux spécifications (ex : DREAL concernée)
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+    const email = administrationActiviteTypeEmail.email?.toLowerCase()
+    if (!email || !emailCheck(email)) throw new Error('email invalide')
+
+    await administrationActiviteTypeEmailDelete({
+      ...administrationActiviteTypeEmail,
+      email
+    })
+
+    return await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields },
+      user
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   administration,
   administrations,
@@ -405,5 +448,6 @@ export {
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
   administrationActiviteTypeModifier,
-  administrationActiviteTypeEmailCreer
+  administrationActiviteTypeEmailCreer,
+  administrationActiviteTypeEmailEffacer
 }

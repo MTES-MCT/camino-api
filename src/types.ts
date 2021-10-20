@@ -193,6 +193,7 @@ interface IAdministration {
   localeTitres?: ITitre[] | null
   associee?: boolean | null
   membre?: boolean
+  emailsModification?: boolean
   modification?: boolean | null
   activitesTypesEmails?: (IActiviteType & { email: string })[]
 }
