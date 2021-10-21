@@ -379,7 +379,7 @@ type Mutation {
     administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
   ): Administration
 
-  administrationActiviteTypeEmailEffacer(
+  administrationActiviteTypeEmailSupprimer(
     administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
   ): Administration
 

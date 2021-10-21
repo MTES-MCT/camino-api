@@ -19,23 +19,28 @@ const administrationsQueryModify = (
 ) => {
   q.select('administrations.*')
 
+  // if (permissionCheck(user?.permissionId, ['super'])) {
+  //   q.select(raw('true').as('modification'))
+  // } else if (
+  //   permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+  //   user?.administrations?.length
+  // ) {
+  //   // propriété 'membre'
+
+  //   const administrationsIds = user.administrations.map(a => a.id) || []
+  //   const administrationsIdsReplace = administrationsIds.map(() => '?')
+
+  //   q.select(
+  //     raw(
+  //       `(case when ?? in (${administrationsIdsReplace}) then true else false end)`,
+  //       ['administrations.id', ...administrationsIds]
+  //     ).as('membre')
+  //   )
+  // }
+
+  // Propriété "emailsModification"
   if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('modification'))
-  } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-    user?.administrations?.length
-  ) {
-    // propriété 'membre'
-
-    const administrationsIds = user.administrations.map(a => a.id) || []
-    const administrationsIdsReplace = administrationsIds.map(() => '?')
-
-    q.select(
-      raw(
-        `(case when ?? in (${administrationsIdsReplace}) then true else false end)`,
-        ['administrations.id', ...administrationsIds]
-      ).as('membre')
-    )
+    q.select(raw('true').as('emailsModification'))
   }
 
   q.modifyGraph('gestionnaireTitres', a =>

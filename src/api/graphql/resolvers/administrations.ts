@@ -371,10 +371,14 @@ const administrationActiviteTypeEmailCreer = async (
     const user = await userGet(context.user?.id)
 
     // TODO: permissions adaptées aux spécifications (ex : DREAL concernée)
-    // - qui peut ajouter les emails (dans une administration : admin / editeur / lecteur) ?
-    // - qui peut consulter cette liste d'emails (dans l'UI) ?
-    // - les DREALs peuvent éditer les emails de quelle(s) administration(s) ?
-    // - règle d'envoi selon production > 0 : DREAL toujours même si < 0
+    // - qui peut ajouter les emails (dans une administration : admin / editeur / lecteur) ? => Editeur et Admin de la DREAL mère
+    // - qui peut consulter cette liste d'emails (dans l'UI) ? => les mêmes personnes qui peuvent modifier + les lecteurs etc de l'administration + le niveau au-dessus (voir avec Vincent) (central -> DREAL -> prefecture)
+    // - les DREALs peuvent éditer les emails de quelle(s) administration(s) ? => scopé par région
+    // - règle d'envoi selon production > 0 : DREAL + centrale toujours même si < 0 => Oui
+
+    // Ministère peut tout modifier
+    // DREAL (admin, editeur) -> modifie eux memes et ce qui est en dessous
+    // Lecture mêmes règles, sauf DREAL (lecteur), pref lecteur
     if (!permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
@@ -402,7 +406,7 @@ const administrationActiviteTypeEmailCreer = async (
   }
 }
 
-const administrationActiviteTypeEmailEffacer = async (
+const administrationActiviteTypeEmailSupprimer = async (
   {
     administrationActiviteTypeEmail
   }: { administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail },
@@ -449,5 +453,5 @@ export {
   administrationTitreTypeEtapeTypeModifier,
   administrationActiviteTypeModifier,
   administrationActiviteTypeEmailCreer,
-  administrationActiviteTypeEmailEffacer
+  administrationActiviteTypeEmailSupprimer
 }
