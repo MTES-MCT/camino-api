@@ -194,6 +194,7 @@ interface IAdministration {
   associee?: boolean | null
   membre?: boolean
   emailsModification?: boolean
+  emailsLecture?: boolean
   modification?: boolean | null
   activitesTypesEmails?: (IActiviteType & { email: string })[]
 }

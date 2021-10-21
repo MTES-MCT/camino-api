@@ -6,6 +6,8 @@ import Titres from '../../models/titres'
 import Utilisateurs from '../../models/utilisateurs'
 import Administrations from '../../models/administrations'
 import { administrationsTitresQuery, administrationsQueryModify } from './administrations'
+import { idGenerate } from '../../models/_format/id-create'
+import options from "../_options"
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -80,31 +82,100 @@ describe('administrationsQueryModify', () => {
     ${'editeur'} | ${false}
     ${'lecteur'} | ${false}
   `(
-    "vérifie que les membres d'une administration n'ont pas le membre emailsModification 'true' sur celle-ci",
+    "pour une préfecture, emailsModification est 'true' pour un utilisateur super, 'false' pour tous ses membres",
     async ({ permission, emailsModification }) => {
-      await Utilisateurs.query().delete()
-      await Administrations.query().delete()
-
       const mockAdministration = {
-        id: 'dre-nouvelle-aquitaine-01',
-        typeId: 'dre',
-        nom: 'administration',
+        id: 'pre-01053-01',
+        nom: 'Préfecture - Vaucluse',
+        typeId: 'pre',
       }
 
       const mockUser = {
-        id: '109f95',
+        id: idGenerate(),
         permissionId: permission,
         administrations: [mockAdministration],
-        email: 'email',
+        email: 'email' + idGenerate(),
         motDePasse: 'motdepasse'
       } as IUtilisateur
 
-      await Utilisateurs.query().insertGraph(mockUser)
+      await Utilisateurs.query().insertGraph(mockUser, options.utilisateurs.update)
+
+      const q = administrationsQueryModify(Administrations.query().where('id', mockAdministration.id), mockUser)
+      const res = await q.first() as IAdministration
+      if (!emailsModification) {
+        expect(res.emailsModification).toBeFalsy()
+      } else {
+        expect(res.emailsModification).toBeTruthy()
+      }
+    }
+  )
+
+  // test.each`
+  //   permission | emailsLecture
+  //   ${'super'} | ${true}
+  //   ${'admin'} | ${true}
+  //   ${'editeur'} | ${true}
+  //   ${'lecteur'} | ${true}
+  // `(
+  //   "pour une préfecture, emailsLecture est 'true' pour tous ses membres et les utilisateurs super",
+  //   async ({ permission, emailsLecture }) => {
+  //     await Utilisateurs.query().delete()
+  //     await Administrations.query().delete()
+
+  //     const mockAdministration = {
+  //       id: 'pre-01053-01',
+  //       nom: 'Préfecture - Vaucluse',
+  //       typeId: 'pre',
+  //     }
+
+  //     const mockUser = {
+  //       id: '109f95',
+  //       permissionId: permission,
+  //       administrations: [mockAdministration],
+  //       email: 'email',
+  //       motDePasse: 'motdepasse'
+  //     } as IUtilisateur
+
+  //     await Utilisateurs.query().insertGraph(mockUser)
+
+  //     const q = administrationsQueryModify(Administrations.query(), mockUser)
+
+  //     expect(await q.first()).toMatchObject(
+  //       Object.assign(mockAdministration, { emailsLecture })
+  //     )
+  //   }
+  // )
+
+  test.each`
+    permission | emailsModification
+    ${'super'} | ${true}
+    ${'admin'} | ${true}
+  `(
+    "pour une DREAL/DEAL, emailsModification est 'true' pour ses membres admins et éditeurs, pour les utilisateurs supers, 'false' pour ses autres membres",
+    async ({ permission, emailsModification }) => {
+      await Utilisateurs.query().delete()
+
+      const mockDreal = {
+        id: 'dre-ile-de-france-01',
+        typeId: 'dre',
+        nom: "Direction régionale et interdépartementale de l'environnement et de l'énergie (DRIEE) - Île-de-France",
+        regionId: '11'
+      }
+
+      const mockUser = {
+        id: idGenerate(),
+        permissionId: permission,
+        administrations: [mockDreal],
+        email: 'email' + idGenerate(),
+        motDePasse: 'motdepasse'
+      } as IUtilisateur
+
+      await Utilisateurs.query().insertGraph(mockUser, options.utilisateurs.update)
 
       const q = administrationsQueryModify(Administrations.query(), mockUser)
 
-      expect(await q.first()).toMatchObject(
-        emailsModification ? Object.assign(mockAdministration, { emailsModification }) : mockAdministration
+      expect(await q.findById('dre-ile-de-france-01')).toMatchObject(
+        emailsModification ? Object.assign(mockDreal, { emailsModification }) : mockDreal
       )
     }
   )

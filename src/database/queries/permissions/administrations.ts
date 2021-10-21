@@ -12,6 +12,7 @@ import Titres from '../../models/titres'
 
 import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
+import Departements from '../../models/departements'
 
 const administrationsQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
@@ -38,10 +39,31 @@ const administrationsQueryModify = (
   //   )
   // }
 
-  // Propriété "emailsModification"
+  // Propriété "emailsModification" :
+  // - Ministère peut tout modifier
+  // - DREAL (admin, editeur) -> modifie eux memes et administrations subalternes sous leur contrôle
+  // - Lecture : ministère peut tout lire, DREAL et administrations préfectoriales peuvent lire si lecteur.
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('emailsModification'))
+  } else if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
+    if (user?.administrations?.some(a => a.typeId === 'min')) {
+      q.select(raw('true').as('emailsModification'))
+    } else {
+      q.select(
+          Departements.query()
+            .select(raw('true'))
+            .leftJoin('administrations as adminEmails', 'departements.regionId', 'adminEmails.regionId')
+            .where('departements.id', 'administrations.departementId')
+            .whereIn('adminEmails.id', user?.administrations?.map(a => a.id) || [])
+            .as('emailsModification')
+        )
+    }
   }
+
+  // Propriété "emailsLecture"
+  // if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur', 'lecteur'])) {
+  //   q.select(raw('true').as('emailsLecture'))
+  // }
 
   q.modifyGraph('gestionnaireTitres', a =>
     titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)

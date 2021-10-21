@@ -32,6 +32,7 @@ type Administration {
   utilisateurs: [Utilisateur]
   membre: Boolean
   emailsModification: Boolean
+  emailsLecture: Boolean
   gestionnaireTitres: [Titre]
   localeTitres: [Titre]
   titresTypes: [TitreType]
