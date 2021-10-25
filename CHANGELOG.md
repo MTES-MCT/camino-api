@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.28.0](https://github.com/MTES-MCT/camino-api/compare/v0.27.0...v0.28.0) (2021-10-25)
+
+
+### Features
+
+* **démarche:** modifie la visibilité des titres non énergétiques ([#802](https://github.com/MTES-MCT/camino-api/issues/802)) ([b4d37a0](https://github.com/MTES-MCT/camino-api/commit/b4d37a05d40bc6dc7030ed79b4dc7e23f26fc452))
+* **titre:** clarifie les entêtes à propos de la surface dans l’export des titres ([#818](https://github.com/MTES-MCT/camino-api/issues/818)) ([8f548dd](https://github.com/MTES-MCT/camino-api/commit/8f548dd79ddfaa5222dd8adcd84dec2078ec63c0))
+
+
+### Bug Fixes
+
+* **document:** corrige une régression sur l'upload de doc d'entreprise ([#817](https://github.com/MTES-MCT/camino-api/issues/817)) ([34981c2](https://github.com/MTES-MCT/camino-api/commit/34981c21d3663e39e1fc4e23c46548b68909b49a))
+
 ## [0.27.0](https://github.com/MTES-MCT/camino-api/compare/v0.26.1...v0.27.0) (2021-10-06)
 
 
