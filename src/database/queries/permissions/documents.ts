@@ -124,9 +124,9 @@ const etapeTypeDocumentTypeUsedCheck = async (
     .joinRelated('etape')
     .where('etape.typeId', etapeTypeId)
     .andWhere('documents.typeId', documentTypeId)
-    .count()
+    .resultSize()
 
-  return (res[0] as any).count !== '0'
+  return res !== 0
 }
 
 const etapeTypeJustificatifTypeUsedCheck = async (
@@ -138,9 +138,9 @@ const etapeTypeJustificatifTypeUsedCheck = async (
     .joinRelated('document')
     .where('etape.typeId', etapeTypeId)
     .andWhere('document.typeId', documentTypeId)
-    .count()
+    .resultSize()
 
-  return (res[0] as any).count !== '0'
+  return res !== 0
 }
 
 export {

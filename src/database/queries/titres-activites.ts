@@ -373,9 +373,7 @@ const titresActivitesCount = async (
 
   if (!q) return 0
 
-  const titresActivites = (await q) as unknown as { total: number }[]
-
-  return titresActivites.length
+  return q.resultSize()
 }
 
 const titresActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
