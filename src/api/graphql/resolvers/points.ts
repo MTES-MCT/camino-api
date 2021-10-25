@@ -66,21 +66,30 @@ const pointsImporter = async ({
     geojson.forEach((groupe, groupeIndex) => {
       groupe.forEach((contour, contourIndex) => {
         contour.forEach((point, pointIndex) => {
-          points.push({
-            groupe: groupeIndex + 1,
-            contour: contourIndex + 1,
-            point: pointIndex + 1,
-            coordonnees: { x: 0, y: 0 },
-            references: [
-              {
-                id: '',
-                titrePointId: '',
-                coordonnees: { x: point[0], y: point[1] },
-                geoSystemeId: geoSysteme.id,
-                geoSysteme
-              }
-            ]
-          })
+          // Si le point n’a pas déjà été ajouté. Souvent le dernier point est le même que le premier.
+          if (
+            !points.some(
+              p =>
+                p.references[0].coordonnees.x === point[0] &&
+                p.references[0].coordonnees.y === point[1]
+            )
+          ) {
+            points.push({
+              groupe: groupeIndex + 1,
+              contour: contourIndex + 1,
+              point: pointIndex + 1,
+              coordonnees: { x: 0, y: 0 },
+              references: [
+                {
+                  id: '',
+                  titrePointId: '',
+                  coordonnees: { x: point[0], y: point[1] },
+                  geoSystemeId: geoSysteme.id,
+                  geoSysteme
+                }
+              ]
+            })
+          }
         })
       })
     })
