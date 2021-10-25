@@ -276,9 +276,7 @@ const titresCount = async (
     q
   )
 
-  const titres = (await q) as unknown as { total: number }[]
-
-  return titres.length
+  return q.resultSize()
 }
 
 /**
