@@ -49,14 +49,24 @@ const administrationsQueryModify = (
     if (user?.administrations?.some(a => a.typeId === 'min')) {
       q.select(raw('true').as('emailsModification'))
     } else {
-      q.select(
-          Departements.query()
+      if (user?.administrations?.some(a => a.typeId === 'dre')) {
+        q.select(
+          Administrations.query()
             .select(raw('true'))
-            .leftJoin('administrations as adminEmails', 'departements.regionId', 'adminEmails.regionId')
-            .where('departements.id', 'administrations.departementId')
-            .whereIn('adminEmails.id', user?.administrations?.map(a => a.id) || [])
+            .where('administrations.typeId', 'dre')
+            .whereIn('administrations.id', user?.administrations?.map(a => a.id) || [])
             .as('emailsModification')
         )
+      } else {
+        q.select(
+          Departements.query()
+            .select(raw('true'))
+            .leftJoin('administrations as adm', 'departements.regionId', 'adm.regionId')
+            .where('departements.id', 'administrations.departementId')
+            .whereIn('adm.id', user?.administrations?.map(a => a.id) || [])
+            .as('emailsModification')
+        )
+      }
     }
   }
 

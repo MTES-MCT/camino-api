@@ -1,11 +1,11 @@
 import { dbManager } from '../../../../tests/db-manager'
 import { IUtilisateur, IAdministration } from '../../../types'
 
-import AdministrationsTitresTypes from '../../models/administrations-titres-types'
-import Titres from '../../models/titres'
+// import AdministrationsTitresTypes from '../../models/administrations-titres-types'
+// import Titres from '../../models/titres'
 import Utilisateurs from '../../models/utilisateurs'
 import Administrations from '../../models/administrations'
-import { administrationsTitresQuery, administrationsQueryModify } from './administrations'
+import { /*administrationsTitresQuery,*/ administrationsQueryModify } from './administrations'
 import { idGenerate } from '../../models/_format/id-create'
 import options from "../_options"
 
@@ -150,6 +150,8 @@ describe('administrationsQueryModify', () => {
     permission | emailsModification
     ${'super'} | ${true}
     ${'admin'} | ${true}
+    ${'editeur'} | ${true}
+    ${'lecteur'} | ${false}
   `(
     "pour une DREAL/DEAL, emailsModification est 'true' pour ses membres admins et éditeurs, pour les utilisateurs supers, 'false' pour ses autres membres",
     async ({ permission, emailsModification }) => {
@@ -174,7 +176,7 @@ describe('administrationsQueryModify', () => {
 
       const q = administrationsQueryModify(Administrations.query(), mockUser)
 
-      expect(await q.findById('dre-ile-de-france-01')).toMatchObject(
+      expect(await q.findById(mockDreal.id)).toMatchObject(
         emailsModification ? Object.assign(mockDreal, { emailsModification }) : mockDreal
       )
     }
