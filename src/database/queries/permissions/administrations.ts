@@ -20,60 +20,95 @@ const administrationsQueryModify = (
 ) => {
   q.select('administrations.*')
 
-  // if (permissionCheck(user?.permissionId, ['super'])) {
-  //   q.select(raw('true').as('modification'))
-  // } else if (
-  //   permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-  //   user?.administrations?.length
-  // ) {
-  //   // propriété 'membre'
+  // Propriété "membre"
+  // TODO: vérifier si utile et utilisé, notamment en frontend.
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    q.select(raw('true').as('modification'))
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    const administrationsIds = user.administrations.map(a => a.id) || []
+    const administrationsIdsReplace = administrationsIds.map(() => '?')
 
-  //   const administrationsIds = user.administrations.map(a => a.id) || []
-  //   const administrationsIdsReplace = administrationsIds.map(() => '?')
+    q.select(
+      raw(
+        `(case when ?? in (${administrationsIdsReplace}) then true else false end)`,
+        ['administrations.id', ...administrationsIds]
+      ).as('membre')
+    )
+  }
 
-  //   q.select(
-  //     raw(
-  //       `(case when ?? in (${administrationsIdsReplace}) then true else false end)`,
-  //       ['administrations.id', ...administrationsIds]
-  //     ).as('membre')
-  //   )
-  // }
-
-  // Propriété "emailsModification" :
+  // Propriété "emailsModification"
   // - Ministère peut tout modifier
   // - DREAL (admin, editeur) -> modifie eux memes et administrations subalternes sous leur contrôle
   // - Lecture : ministère peut tout lire, DREAL et administrations préfectoriales peuvent lire si lecteur.
-  if (permissionCheck(user?.permissionId, ['super'])) {
+  if (
+    permissionCheck(user?.permissionId, ['super']) ||
+    (
+      user?.administrations?.some(a => a.typeId === 'min') &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur'])
+    )
+  ) {
+    // Utilisateur super ou membre de ministère (admin ou éditeur) : tous les droits
     q.select(raw('true').as('emailsModification'))
-  } else if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
-    if (user?.administrations?.some(a => a.typeId === 'min')) {
-      q.select(raw('true').as('emailsModification'))
+    q.select(raw('true').as('emailsLecture'))
+  } else {
+    // Membre d'une DREAL vis-à-vis de la DREAL elle-même
+    if (user?.administrations?.some(a => a.typeId === 'dre')) {
+      const subquery = (condition: boolean, alias: string) =>
+        Administrations.query()
+          .select(raw(condition.toString()))
+          .where('administrations.typeId', 'dre')
+          .whereIn(
+            'administrations.id',
+            user?.administrations?.map(a => a.id) || []
+          )
+          .as(alias)
+
+      // Admin ou éditeur : modifications
+      // Admin, éditeur ou lecteur : lecture
+      q.select(
+        subquery(
+          permissionCheck(user?.permissionId, ['admin', 'editeur']),
+          'emailsModification'
+        )
+      ).select(
+        subquery(
+          permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']),
+          'emailsMoemailsLecturedification'
+        )
+      )
     } else {
-      if (user?.administrations?.some(a => a.typeId === 'dre')) {
-        q.select(
-          Administrations.query()
-            .select(raw('true'))
-            .where('administrations.typeId', 'dre')
-            .whereIn('administrations.id', user?.administrations?.map(a => a.id) || [])
-            .as('emailsModification')
+      // Membre d'une administration (DREAL, préfecture) en fonction des liens possibles
+      // entre elles (DREAL -> une de ses préféctures, préfecture vis à vis de la préfécture elle-même...) :
+      const subquery = (condition: boolean, alias: string) =>
+        Departements.query()
+          .select(raw(condition.toString()))
+          .leftJoin(
+            'administrations as adm',
+            'departements.regionId',
+            'adm.regionId'
+          )
+          .where('departements.id', 'administrations.departementId')
+          .whereIn('adm.id', user?.administrations?.map(a => a.id) || [])
+          .as(alias)
+
+      // Admin ou éditeur : modifications
+      // Admin, éditeur ou lecteur : lecture
+      q.select(
+        subquery(
+          permissionCheck(user?.permissionId, ['admin', 'editeur']),
+          'emailsModification'
         )
-      } else {
-        q.select(
-          Departements.query()
-            .select(raw('true'))
-            .leftJoin('administrations as adm', 'departements.regionId', 'adm.regionId')
-            .where('departements.id', 'administrations.departementId')
-            .whereIn('adm.id', user?.administrations?.map(a => a.id) || [])
-            .as('emailsModification')
+      ).select(
+        subquery(
+          permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']),
+          'emailsLecture'
         )
-      }
+      )
     }
   }
-
-  // Propriété "emailsLecture"
-  // if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur', 'lecteur'])) {
-  //   q.select(raw('true').as('emailsLecture'))
-  // }
 
   q.modifyGraph('gestionnaireTitres', a =>
     titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)

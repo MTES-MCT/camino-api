@@ -5,9 +5,11 @@ import { IUtilisateur, IAdministration } from '../../../types'
 // import Titres from '../../models/titres'
 import Utilisateurs from '../../models/utilisateurs'
 import Administrations from '../../models/administrations'
-import { /*administrationsTitresQuery,*/ administrationsQueryModify } from './administrations'
+import {
+  /* administrationsTitresQuery, */ administrationsQueryModify
+} from './administrations'
 import { idGenerate } from '../../models/_format/id-create'
-import options from "../_options"
+import options from '../_options'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -76,9 +78,9 @@ afterAll(async () => {
 
 describe('administrationsQueryModify', () => {
   test.each`
-    permission | emailsModification
-    ${'super'} | ${true}
-    ${'admin'} | ${false}
+    permission   | emailsModification
+    ${'super'}   | ${true}
+    ${'admin'}   | ${false}
     ${'editeur'} | ${false}
     ${'lecteur'} | ${false}
   `(
@@ -87,7 +89,7 @@ describe('administrationsQueryModify', () => {
       const mockAdministration = {
         id: 'pre-01053-01',
         nom: 'Préfecture - Vaucluse',
-        typeId: 'pre',
+        typeId: 'pre'
       }
 
       const mockUser = {
@@ -98,10 +100,16 @@ describe('administrationsQueryModify', () => {
         motDePasse: 'motdepasse'
       } as IUtilisateur
 
-      await Utilisateurs.query().insertGraph(mockUser, options.utilisateurs.update)
+      await Utilisateurs.query().insertGraph(
+        mockUser,
+        options.utilisateurs.update
+      )
 
-      const q = administrationsQueryModify(Administrations.query().where('id', mockAdministration.id), mockUser)
-      const res = await q.first() as IAdministration
+      const q = administrationsQueryModify(
+        Administrations.query().where('id', mockAdministration.id),
+        mockUser
+      )
+      const res = (await q.first()) as IAdministration
       if (!emailsModification) {
         expect(res.emailsModification).toBeFalsy()
       } else {
@@ -110,53 +118,16 @@ describe('administrationsQueryModify', () => {
     }
   )
 
-  // test.each`
-  //   permission | emailsLecture
-  //   ${'super'} | ${true}
-  //   ${'admin'} | ${true}
-  //   ${'editeur'} | ${true}
-  //   ${'lecteur'} | ${true}
-  // `(
-  //   "pour une préfecture, emailsLecture est 'true' pour tous ses membres et les utilisateurs super",
-  //   async ({ permission, emailsLecture }) => {
-  //     await Utilisateurs.query().delete()
-  //     await Administrations.query().delete()
-
-  //     const mockAdministration = {
-  //       id: 'pre-01053-01',
-  //       nom: 'Préfecture - Vaucluse',
-  //       typeId: 'pre',
-  //     }
-
-  //     const mockUser = {
-  //       id: '109f95',
-  //       permissionId: permission,
-  //       administrations: [mockAdministration],
-  //       email: 'email',
-  //       motDePasse: 'motdepasse'
-  //     } as IUtilisateur
-
-  //     await Utilisateurs.query().insertGraph(mockUser)
-
-  //     const q = administrationsQueryModify(Administrations.query(), mockUser)
-
-  //     expect(await q.first()).toMatchObject(
-  //       Object.assign(mockAdministration, { emailsLecture })
-  //     )
-  //   }
-  // )
-
   test.each`
-    permission | emailsModification
-    ${'super'} | ${true}
-    ${'admin'} | ${true}
+    permission   | emailsModification
+    ${'super'}   | ${true}
+    ${'admin'}   | ${true}
     ${'editeur'} | ${true}
     ${'lecteur'} | ${false}
+    ${'defaut'}  | ${false}
   `(
     "pour une DREAL/DEAL, emailsModification est 'true' pour ses membres admins et éditeurs, pour les utilisateurs supers, 'false' pour ses autres membres",
     async ({ permission, emailsModification }) => {
-      await Utilisateurs.query().delete()
-
       const mockDreal = {
         id: 'dre-ile-de-france-01',
         typeId: 'dre',
@@ -172,13 +143,104 @@ describe('administrationsQueryModify', () => {
         motDePasse: 'motdepasse'
       } as IUtilisateur
 
-      await Utilisateurs.query().insertGraph(mockUser, options.utilisateurs.update)
-
-      const q = administrationsQueryModify(Administrations.query(), mockUser)
-
-      expect(await q.findById(mockDreal.id)).toMatchObject(
-        emailsModification ? Object.assign(mockDreal, { emailsModification }) : mockDreal
+      await Utilisateurs.query().insertGraph(
+        mockUser,
+        options.utilisateurs.update
       )
+
+      const q = administrationsQueryModify(
+        Administrations.query().where('id', mockDreal.id),
+        mockUser
+      )
+      const res = (await q.findById(mockDreal.id)) as IAdministration
+      if (!emailsModification) {
+        expect(res.emailsModification).toBeFalsy()
+      } else {
+        expect(res.emailsModification).toBeTruthy()
+      }
+    }
+  )
+
+  test.each`
+    permission   | emailsModification
+    ${'admin'}   | ${true}
+    ${'editeur'} | ${true}
+    ${'lecteur'} | ${false}
+    ${'defaut'}  | ${false}
+  `(
+    "pour un membre de ministère, emailsModification est 'true' pour ses membres admins et éditeurs, 'false' pour ses lecteurs",
+    async ({ permission, emailsModification }) => {
+      const mockMin = {
+        id: 'min-dajb-01',
+        typeId: 'min',
+        nom: "Ministère de l'Economie, des Finances et de la Relance"
+      }
+
+      const mockUser = {
+        id: idGenerate(),
+        permissionId: permission,
+        administrations: [mockMin],
+        email: 'email' + idGenerate(),
+        motDePasse: 'motdepasse'
+      } as IUtilisateur
+
+      await Utilisateurs.query().insertGraph(
+        mockUser,
+        options.utilisateurs.update
+      )
+
+      const q = administrationsQueryModify(
+        Administrations.query().where('id', mockMin.id),
+        mockUser
+      )
+      const res = (await q.findById(mockMin.id)) as IAdministration
+      if (!emailsModification) {
+        expect(res.emailsModification).toBeFalsy()
+      } else {
+        expect(res.emailsModification).toBeTruthy()
+      }
+    }
+  )
+
+  test.each`
+    permission   | emailsLecture
+    ${'super'}   | ${true}
+    ${'admin'}   | ${true}
+    ${'editeur'} | ${true}
+    ${'lecteur'} | ${true}
+    ${'defaut'}  | ${false}
+  `(
+    "pour une préfecture, emailsLecture est 'true' pour un utilisateur super et pour tous ses membres",
+    async ({ permission, emailsLecture }) => {
+      const mockAdministration = {
+        id: 'pre-01053-01',
+        nom: 'Préfecture - Vaucluse',
+        typeId: 'pre'
+      }
+
+      const mockUser = {
+        id: idGenerate(),
+        permissionId: permission,
+        administrations: [mockAdministration],
+        email: 'email' + idGenerate(),
+        motDePasse: 'motdepasse'
+      } as IUtilisateur
+
+      await Utilisateurs.query().insertGraph(
+        mockUser,
+        options.utilisateurs.update
+      )
+
+      const q = administrationsQueryModify(
+        Administrations.query().where('id', mockAdministration.id),
+        mockUser
+      )
+      const res = (await q.first()) as IAdministration
+      if (!emailsLecture) {
+        expect(res.emailsLecture).toBeFalsy()
+      } else {
+        expect(res.emailsLecture).toBeTruthy()
+      }
     }
   )
 })
