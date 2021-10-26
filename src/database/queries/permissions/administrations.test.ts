@@ -4,6 +4,7 @@ import { IUtilisateur, IAdministration } from '../../../types'
 // import AdministrationsTitresTypes from '../../models/administrations-titres-types'
 // import Titres from '../../models/titres'
 import Utilisateurs from '../../models/utilisateurs'
+import AdministrationsActivitesTypesEmails from '../../models/administrations-activites-types-emails'
 import Administrations from '../../models/administrations'
 import {
   /* administrationsTitresQuery, */ administrationsQueryModify
@@ -149,7 +150,7 @@ describe('administrationsQueryModify', () => {
       )
 
       const q = administrationsQueryModify(
-        Administrations.query().where('id', mockDreal.id),
+        Administrations.query(),
         mockUser
       )
       const res = (await q.findById(mockDreal.id)) as IAdministration
@@ -212,11 +213,19 @@ describe('administrationsQueryModify', () => {
   `(
     "pour une préfecture, emailsLecture est 'true' pour un utilisateur super et pour tous ses membres",
     async ({ permission, emailsLecture }) => {
+
       const mockAdministration = {
         id: 'pre-01053-01',
         nom: 'Préfecture - Vaucluse',
         typeId: 'pre'
       }
+
+      await AdministrationsActivitesTypesEmails.query()
+        .insert({
+          administrationId: mockAdministration.id,
+          email: `${idGenerate()}@bar.com`,
+          activiteTypeId: 'grx'
+        })
 
       const mockUser = {
         id: idGenerate(),
@@ -235,11 +244,13 @@ describe('administrationsQueryModify', () => {
         Administrations.query().where('id', mockAdministration.id),
         mockUser
       )
-      const res = (await q.first()) as IAdministration
+      const res = (await q.withGraphFetched({ activitesTypesEmails: {} }).first()) as IAdministration
       if (!emailsLecture) {
         expect(res.emailsLecture).toBeFalsy()
+        expect(res.activitesTypesEmails).toHaveLength(0)
       } else {
         expect(res.emailsLecture).toBeTruthy()
+        expect(res.activitesTypesEmails?.length).toBeTruthy()
       }
     }
   )

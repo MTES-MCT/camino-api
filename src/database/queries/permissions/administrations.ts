@@ -12,7 +12,53 @@ import Titres from '../../models/titres'
 
 import { titresQueryModify } from './titres'
 import { utilisateursQueryModify } from './utilisateurs'
+import { administrationsActivitesTypesEmailsQueryModify } from './administrations-activites-types-emails'
 import Departements from '../../models/departements'
+import ActivitesTypes from '../../models/activites-types'
+
+const departementsQuery = (
+  administrationsIds: string[],
+  administrationAlias: string
+) =>
+  Departements.query()
+    .select(raw('true'))
+    .leftJoin(
+      'administrations as adm',
+      'departements.regionId',
+      'adm.regionId'
+    )
+    .where('departements.id', `${administrationAlias}.departementId`)
+    .whereIn('adm.id', administrationsIds)
+
+const emailsLectureQuery = (
+  user: IUtilisateur | null,
+  administrationAlias: string,
+  administrationsIds: string[],
+  administrationsIdsReplace: string[]
+) => {
+  if (
+    permissionCheck(user?.permissionId, ['super']) ||
+    (
+      user?.administrations?.some(a => a.typeId === 'min') &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+    )
+  ) {
+    // Utilisateur super ou membre de ministère (admin ou éditeur) : tous les droits
+    return raw('true')
+  } else if (
+    user?.administrations?.length &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+  ) {
+    return raw(
+      `((??) OR (${administrationAlias}.id IN (${administrationsIdsReplace})))`,
+      [
+        departementsQuery(administrationsIds, administrationAlias),
+        ...administrationsIds,
+      ]
+    )
+  }
+  return raw('false')
+}
 
 const administrationsQueryModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
@@ -20,17 +66,17 @@ const administrationsQueryModify = (
 ) => {
   q.select('administrations.*')
 
+  const administrationsIds = user?.administrations?.map(a => a.id) || []
+  const administrationsIdsReplace = administrationsIds.map(() => '?')
+
   // Propriété "membre"
-  // TODO: vérifier si utile et utilisé, notamment en frontend.
+  // TODO: vérifier si utile et utilisé, particulièrement en frontend.
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
-    const administrationsIds = user.administrations.map(a => a.id) || []
-    const administrationsIdsReplace = administrationsIds.map(() => '?')
-
     q.select(
       raw(
         `(case when ?? in (${administrationsIdsReplace}) then true else false end)`,
@@ -39,10 +85,6 @@ const administrationsQueryModify = (
     )
   }
 
-  // Propriété "emailsModification"
-  // - Ministère peut tout modifier
-  // - DREAL (admin, editeur) -> modifie eux memes et administrations subalternes sous leur contrôle
-  // - Lecture : ministère peut tout lire, DREAL et administrations préfectoriales peuvent lire si lecteur.
   if (
     permissionCheck(user?.permissionId, ['super']) ||
     (
@@ -52,63 +94,40 @@ const administrationsQueryModify = (
   ) {
     // Utilisateur super ou membre de ministère (admin ou éditeur) : tous les droits
     q.select(raw('true').as('emailsModification'))
-    q.select(raw('true').as('emailsLecture'))
-  } else {
+  } else if (
+    user?.administrations?.length &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur'])
+  ) {
     // Membre d'une DREAL vis-à-vis de la DREAL elle-même
-    if (user?.administrations?.some(a => a.typeId === 'dre')) {
-      const subquery = (condition: boolean, alias: string) =>
-        Administrations.query()
-          .select(raw(condition.toString()))
-          .where('administrations.typeId', 'dre')
-          .whereIn(
-            'administrations.id',
-            user?.administrations?.map(a => a.id) || []
-          )
-          .as(alias)
-
-      // Admin ou éditeur : modifications
-      // Admin, éditeur ou lecteur : lecture
-      q.select(
-        subquery(
-          permissionCheck(user?.permissionId, ['admin', 'editeur']),
-          'emailsModification'
-        )
-      ).select(
-        subquery(
-          permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']),
-          'emailsMoemailsLecturedification'
-        )
-      )
-    } else {
-      // Membre d'une administration (DREAL, préfecture) en fonction des liens possibles
-      // entre elles (DREAL -> une de ses préféctures, préfecture vis à vis de la préfécture elle-même...) :
-      const subquery = (condition: boolean, alias: string) =>
-        Departements.query()
-          .select(raw(condition.toString()))
-          .leftJoin(
-            'administrations as adm',
-            'departements.regionId',
-            'adm.regionId'
-          )
-          .where('departements.id', 'administrations.departementId')
-          .whereIn('adm.id', user?.administrations?.map(a => a.id) || [])
-          .as(alias)
-
-      // Admin ou éditeur : modifications
-      // Admin, éditeur ou lecteur : lecture
-      q.select(
-        subquery(
-          permissionCheck(user?.permissionId, ['admin', 'editeur']),
-          'emailsModification'
-        )
-      ).select(
-        subquery(
-          permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']),
-          'emailsLecture'
-        )
-      )
-    }
+    // Admin ou éditeur : modifications
+    // Admin, éditeur ou lecteur : lecture
+    q.select(raw(
+      `((??) OR (administrations.id IN (${administrationsIdsReplace}) AND administrations.type_id IN (?,?)))`,
+      [
+        departementsQuery(administrationsIds, 'administrations'),
+        ...administrationsIds,
+        'dre',
+        'dea'
+      ]
+    ).as('emailsModification'))
   }
+
+  // FIXME: ajouter modifyGraph pour filtrer résultats retournés!
+  q.select(
+    emailsLectureQuery(
+      user,
+      'administrations',
+      administrationsIds,
+      administrationsIdsReplace
+    ).as('emailsLecture')
+  )
+
+  q.modifyGraph('activitesTypesEmails', a =>
+    administrationsActivitesTypesEmailsQueryModify(
+      a as QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
+      user
+    )
+  )
 
   q.modifyGraph('gestionnaireTitres', a =>
     titresQueryModify(a as QueryBuilder<Titres, Titres | Titres[]>, user)
@@ -283,5 +302,6 @@ export {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresTypesEtapesTypesModify,
   administrationsTitresQuery,
-  administrationsActivitesModify
+  administrationsActivitesModify,
+  emailsLectureQuery
 }
