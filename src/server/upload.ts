@@ -1,20 +1,8 @@
 import express from 'express'
-import { Server, FileStore, EVENTS } from 'tus-node-server'
-import fileRename from '../tools/file-rename'
+import { Server, FileStore } from 'tus-node-server'
 import { graphqlUploadExpress } from 'graphql-upload'
 import { permissionCheck } from '../tools/permission'
 import { userGet } from '../database/queries/utilisateurs'
-import { documentFilePathFind } from '../tools/documents/document-path-find'
-
-type TUSEventUploadComplete = {
-  file: {
-    id: string
-    // eslint-disable-next-line camelcase
-    upload_length: string
-    // eslint-disable-next-line camelcase
-    upload_metadata: string
-  }
-}
 
 // Téléversement REST
 const uploadAllowedMiddleware = async (

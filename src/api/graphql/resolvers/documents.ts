@@ -150,6 +150,11 @@ const documentCreer = async (
     if (document.fichierNouveau) {
       document.fichier = true
       await documentFileCreate(document, document.fichierNouveau.file)
+    } else {
+      const pathFrom = `/files/tmp/${document.nomTemporaire}`
+      const pathTo = await documentFilePathFind(document, true)
+
+      await fileRename(pathFrom, pathTo)
     }
 
     if (
