@@ -39,30 +39,6 @@ const restUpload = () => {
   const server = new Server()
   server.datastore = new FileStore({ path: tmp })
 
-  server.on(
-    EVENTS.EVENT_UPLOAD_COMPLETE,
-    async (event: TUSEventUploadComplete) => {
-      const file = event.file
-      const metadata: Record<string, string> = {}
-
-      // Utilise le document créé par GQL, préalablement à ce téléversement,
-      // puis passé dans les métadonnées, pour renommer le fichier avec le même nom que celui-ci.
-      file.upload_metadata.split(',').forEach((rawStr: string) => {
-        const keyAndVal = rawStr.split(' ')
-        if (keyAndVal.length < 2) {
-          throw new Error('Métadonnées incorrectes lors du téléversement')
-        }
-        metadata[keyAndVal[0]] = Buffer.from(keyAndVal[1], 'base64').toString()
-      })
-
-      const document = JSON.parse(metadata.document)
-      const pathFrom = `${tmp}/${event.file.id}`
-      const pathTo = await documentFilePathFind(document, true)
-
-      await fileRename(pathFrom, pathTo)
-    }
-  )
-
   const uploadServer = express()
   uploadServer.all('*', server.handle.bind(server))
 
