@@ -48,6 +48,8 @@ const administration = async (
 
     const administration = await administrationGet(id, { fields }, user)
 
+    console.log(administration)
+
     return administrationFormat(administration)
   } catch (e) {
     if (debug) {

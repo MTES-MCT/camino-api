@@ -1,31 +1,42 @@
 import dateFormat from 'dateformat'
-import {GraphQLResolveInfo} from 'graphql'
-
-import {ITitreActivite, ITitreActiviteColonneId, IToken, IUtilisateur} from '../../../types'
-
-import {debug} from '../../../config/index'
-
-import {titreActiviteEmailsSend} from './_titre-activite'
-import {titreActiviteContenuFormat, titreActiviteFormat} from '../../_format/titres-activites'
-
-import {fieldsBuild} from './_fields-build'
+import { GraphQLResolveInfo } from 'graphql'
 
 import {
-    titreActiviteDelete,
-    titreActiviteGet,
-    titreActiviteUpdate as titreActiviteUpdateQuery,
-    titresActivitesAnneesGet,
-    titresActivitesCount,
-    titresActivitesGet
-} from '../../../database/queries/titres-activites'
-import {userGet, utilisateursGet} from '../../../database/queries/utilisateurs'
+  ITitreActivite,
+  ITitreActiviteColonneId,
+  IToken,
+  IUtilisateur
+} from '../../../types'
 
-import {titreActiviteInputValidate} from '../../../business/validations/titre-activite-input-validate'
-import {titreActiviteDeletionValidate} from '../../../business/validations/titre-activite-deletion-validate'
-import {userSuper} from '../../../database/user-super'
-import {fichiersRepertoireDelete} from './_titre-document'
-import {documentsLier} from './documents'
-import {titreGet} from '../../../database/queries/titres'
+import { debug } from '../../../config/index'
+
+import { titreActiviteEmailsSend } from './_titre-activite'
+import {
+  titreActiviteContenuFormat,
+  titreActiviteFormat
+} from '../../_format/titres-activites'
+
+import { fieldsBuild } from './_fields-build'
+
+import {
+  titreActiviteDelete,
+  titreActiviteGet,
+  titreActiviteUpdate as titreActiviteUpdateQuery,
+  titresActivitesAnneesGet,
+  titresActivitesCount,
+  titresActivitesGet
+} from '../../../database/queries/titres-activites'
+import {
+  userGet,
+  utilisateursGet
+} from '../../../database/queries/utilisateurs'
+
+import { titreActiviteInputValidate } from '../../../business/validations/titre-activite-input-validate'
+import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
+import { userSuper } from '../../../database/user-super'
+import { fichiersRepertoireDelete } from './_titre-document'
+import { documentsLier } from './documents'
+import { titreGet } from '../../../database/queries/titres'
 
 /**
  * Retourne une activité

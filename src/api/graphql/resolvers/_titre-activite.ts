@@ -1,16 +1,16 @@
 import dateFormat from 'dateformat'
 
 import {
-    IAdministration,
-    IContenu,
-    IContenuValeur,
-    ISection,
-    ISectionElement,
-    ITitreActivite,
-    IUtilisateur
+  IAdministration,
+  IContenu,
+  IContenuValeur,
+  ISection,
+  ISectionElement,
+  ITitreActivite,
+  IUtilisateur
 } from '../../../types'
 
-import {emailsSend} from '../../../tools/api-mailjet/emails'
+import { emailsSend } from '../../../tools/api-mailjet/emails'
 
 const elementHtmlBuild = (
   sectionId: string,
@@ -130,10 +130,27 @@ const titreActiviteUtilisateursEmailsGet = (
   return utilisateurs?.filter(u => !!u.email).map(u => u.email!) || []
 }
 
-export const productionCheck = (activiteTypeId: string, contenu: IContenu) => {
+export const productionCheck = (
+  activiteTypeId: string,
+  contenu: IContenu | null | undefined
+) => {
   if (activiteTypeId === 'grx' || activiteTypeId === 'gra') {
+    if (contenu?.substancesFiscales) {
+      return Object.keys(contenu.substancesFiscales).some(
+        key => !!contenu.substancesFiscales[key]
+      )
+    }
+
+    return false
   } else if (activiteTypeId === 'grp') {
+    return !!contenu?.renseignements?.orExtrait
   } else if (activiteTypeId === 'wrp') {
+    const production = contenu?.renseignementsProduction
+
+    return (
+      !!production?.volumeGranulatsExtrait ||
+      !!production?.masseGranulatsExtrait
+    )
   }
 
   return true
@@ -142,16 +159,14 @@ export const productionCheck = (activiteTypeId: string, contenu: IContenu) => {
 export const titreActiviteAdministrationsEmailsGet = (
   administrations: IAdministration[] | null | undefined,
   activiteTypeId: string,
-  contenu: IContenu | null &
+  contenu: IContenu | null | undefined
 ): string[] => {
-  // Si production > 0, envoyer à toutes les administrations liées au titre
-  // sinon envoyer seulement aux minitères et aux DREAL
-  // fixme production > 0
-
   if (!administrations || !administrations.length) {
     return []
   }
 
+  // Si production > 0, envoyer à toutes les administrations liées au titre
+  // sinon envoyer seulement aux minitères et aux DREAL
   const production = productionCheck(activiteTypeId, contenu)
 
   return (

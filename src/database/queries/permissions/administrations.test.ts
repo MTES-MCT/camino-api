@@ -1,13 +1,14 @@
 import { dbManager } from '../../../../tests/db-manager'
 import { IUtilisateur, IAdministration } from '../../../types'
 
-// import AdministrationsTitresTypes from '../../models/administrations-titres-types'
-// import Titres from '../../models/titres'
+import AdministrationsTitresTypes from '../../models/administrations-titres-types'
+import Titres from '../../models/titres'
 import Utilisateurs from '../../models/utilisateurs'
 import AdministrationsActivitesTypesEmails from '../../models/administrations-activites-types-emails'
 import Administrations from '../../models/administrations'
 import {
-  /* administrationsTitresQuery, */ administrationsQueryModify
+  administrationsTitresQuery,
+  administrationsQueryModify
 } from './administrations'
 import { idGenerate } from '../../models/_format/id-create'
 import options from '../_options'
@@ -24,58 +25,58 @@ afterAll(async () => {
   await dbManager.closeKnex()
 })
 
-// describe('administrationsTitresQuery', () => {
-//   test.each`
-//     gestionnaire | associee | visible
-//     ${false}     | ${false} | ${false}
-//     ${true}      | ${false} | ${true}
-//     ${false}     | ${true}  | ${true}
-//     ${true}      | ${true}  | ${true}
-//   `(
-//     "Vérifie l'écriture de la requête sur les titres dont une administration a des droits sur le type",
-//     async ({ gestionnaire, associee, visible }) => {
-//       await Titres.query().delete()
-//       await AdministrationsTitresTypes.query().delete()
+describe('administrationsTitresQuery', () => {
+  test.each`
+    gestionnaire | associee | visible
+    ${false}     | ${false} | ${false}
+    ${true}      | ${false} | ${true}
+    ${false}     | ${true}  | ${true}
+    ${true}      | ${true}  | ${true}
+  `(
+    "Vérifie l'écriture de la requête sur les titres dont une administration a des droits sur le type",
+    async ({ gestionnaire, associee, visible }) => {
+      await Titres.query().delete()
+      await AdministrationsTitresTypes.query().delete()
 
-//       const mockTitre = {
-//         id: 'monTitreId',
-//         nom: 'monTitreNom',
-//         domaineId: 'm',
-//         statutId: 'ech',
-//         typeId: 'arm'
-//       }
+      const mockTitre = {
+        id: 'monTitreId',
+        nom: 'monTitreNom',
+        domaineId: 'm',
+        statutId: 'ech',
+        typeId: 'arm'
+      }
 
-//       await Titres.query().insertGraph(mockTitre)
+      await Titres.query().insertGraph(mockTitre)
 
-//       await AdministrationsTitresTypes.query().insertGraph({
-//         administrationId: 'ope-brgm-01',
-//         titreTypeId: mockTitre.typeId,
-//         gestionnaire,
-//         associee
-//       })
+      await AdministrationsTitresTypes.query().insertGraph({
+        administrationId: 'ope-brgm-01',
+        titreTypeId: mockTitre.typeId,
+        gestionnaire,
+        associee
+      })
 
-//       const administrationQuery = administrationsTitresQuery(
-//         ['ope-brgm-01'],
-//         'titres',
-//         {
-//           isGestionnaire: true,
-//           isAssociee: true
-//         }
-//       ).whereNotNull('a_tt.administrationId')
+      const administrationQuery = administrationsTitresQuery(
+        ['ope-brgm-01'],
+        'titres',
+        {
+          isGestionnaire: true,
+          isAssociee: true
+        }
+      ).whereNotNull('a_tt.administrationId')
 
-//       const q = Titres.query()
-//         .where('id', 'monTitreId')
-//         .andWhereRaw('exists(?)', [administrationQuery])
+      const q = Titres.query()
+        .where('id', 'monTitreId')
+        .andWhereRaw('exists(?)', [administrationQuery])
 
-//       const titreRes = await q.first()
-//       if (visible) {
-//         expect(titreRes).toMatchObject(mockTitre)
-//       } else {
-//         expect(titreRes).toBeUndefined()
-//       }
-//     }
-//   )
-// })
+      const titreRes = await q.first()
+      if (visible) {
+        expect(titreRes).toMatchObject(mockTitre)
+      } else {
+        expect(titreRes).toBeUndefined()
+      }
+    }
+  )
+})
 
 describe('administrationsQueryModify', () => {
   test.each`
@@ -149,10 +150,7 @@ describe('administrationsQueryModify', () => {
         options.utilisateurs.update
       )
 
-      const q = administrationsQueryModify(
-        Administrations.query(),
-        mockUser
-      )
+      const q = administrationsQueryModify(Administrations.query(), mockUser)
       const res = (await q.findById(mockDreal.id)) as IAdministration
       if (!emailsModification) {
         expect(res.emailsModification).toBeFalsy()
@@ -213,19 +211,17 @@ describe('administrationsQueryModify', () => {
   `(
     "pour une préfecture, emailsLecture est 'true' pour un utilisateur super et pour tous ses membres",
     async ({ permission, emailsLecture }) => {
-
       const mockAdministration = {
         id: 'pre-01053-01',
         nom: 'Préfecture - Vaucluse',
         typeId: 'pre'
       }
 
-      await AdministrationsActivitesTypesEmails.query()
-        .insert({
-          administrationId: mockAdministration.id,
-          email: `${idGenerate()}@bar.com`,
-          activiteTypeId: 'grx'
-        })
+      await AdministrationsActivitesTypesEmails.query().insert({
+        administrationId: mockAdministration.id,
+        email: `${idGenerate()}@bar.com`,
+        activiteTypeId: 'grx'
+      })
 
       const mockUser = {
         id: idGenerate(),
@@ -244,7 +240,9 @@ describe('administrationsQueryModify', () => {
         Administrations.query().where('id', mockAdministration.id),
         mockUser
       )
-      const res = (await q.withGraphFetched({ activitesTypesEmails: {} }).first()) as IAdministration
+      const res = (await q
+        .withGraphFetched({ activitesTypesEmails: {} })
+        .first()) as IAdministration
       if (!emailsLecture) {
         expect(res.emailsLecture).toBeFalsy()
         expect(res.activitesTypesEmails).toHaveLength(0)

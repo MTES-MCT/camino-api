@@ -47,6 +47,7 @@ type Administration {
 
 type ActiviteTypeEmail {
   id: ID
+  nom: String
   email: String
 }
 

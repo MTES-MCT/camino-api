@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import {FileUpload} from 'graphql-upload'
+import { FileUpload } from 'graphql-upload'
 
 interface IFields {
   [key: string]: IFields
@@ -157,6 +157,7 @@ interface IActiviteType {
   pays?: IPays[] | null
   administrations?: IAdministration[] | null
   satisfactionUrl: string
+  email?: string | null
   modification?: boolean | null
 }
 
