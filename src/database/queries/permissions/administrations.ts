@@ -22,11 +22,7 @@ const departementsQuery = (
 ) =>
   Departements.query()
     .select(raw('true'))
-    .leftJoin(
-      'administrations as adm',
-      'departements.regionId',
-      'adm.regionId'
-    )
+    .leftJoin('administrations as adm', 'departements.regionId', 'adm.regionId')
     .where('departements.id', `${administrationAlias}.departementId`)
     .whereIn('adm.id', administrationsIds)
 
@@ -38,10 +34,8 @@ const emailsLectureQuery = (
 ) => {
   if (
     permissionCheck(user?.permissionId, ['super']) ||
-    (
-      user?.administrations?.some(a => a.typeId === 'min') &&
-      permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
-    )
+    (user?.administrations?.some(a => a.typeId === 'min') &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']))
   ) {
     // Utilisateur super ou membre de ministère (admin ou éditeur) : tous les droits
     return raw('true')
@@ -53,10 +47,11 @@ const emailsLectureQuery = (
       `((??) OR (${administrationAlias}.id IN (${administrationsIdsReplace})))`,
       [
         departementsQuery(administrationsIds, administrationAlias),
-        ...administrationsIds,
+        ...administrationsIds
       ]
     )
   }
+
   return raw('false')
 }
 
@@ -87,10 +82,8 @@ const administrationsQueryModify = (
 
   if (
     permissionCheck(user?.permissionId, ['super']) ||
-    (
-      user?.administrations?.some(a => a.typeId === 'min') &&
-      permissionCheck(user?.permissionId, ['admin', 'editeur'])
-    )
+    (user?.administrations?.some(a => a.typeId === 'min') &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur']))
   ) {
     // Utilisateur super ou membre de ministère (admin ou éditeur) : tous les droits
     q.select(raw('true').as('emailsModification'))
@@ -101,18 +94,19 @@ const administrationsQueryModify = (
     // Membre d'une DREAL vis-à-vis de la DREAL elle-même
     // Admin ou éditeur : modifications
     // Admin, éditeur ou lecteur : lecture
-    q.select(raw(
-      `((??) OR (administrations.id IN (${administrationsIdsReplace}) AND administrations.type_id IN (?,?)))`,
-      [
-        departementsQuery(administrationsIds, 'administrations'),
-        ...administrationsIds,
-        'dre',
-        'dea'
-      ]
-    ).as('emailsModification'))
+    q.select(
+      raw(
+        `((??) OR (administrations.id IN (${administrationsIdsReplace}) AND administrations.type_id IN (?,?)))`,
+        [
+          departementsQuery(administrationsIds, 'administrations'),
+          ...administrationsIds,
+          'dre',
+          'dea'
+        ]
+      ).as('emailsModification')
+    )
   }
 
-  // FIXME: ajouter modifyGraph pour filtrer résultats retournés!
   q.select(
     emailsLectureQuery(
       user,

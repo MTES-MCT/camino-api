@@ -74,6 +74,20 @@ class ActivitesTypes extends Model {
       }
     },
 
+    administrationsEmails: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'administrations'),
+      join: {
+        from: 'activitesTypes.id',
+        through: {
+          from: 'administrations__activitesTypes__emails.activiteTypeId',
+          to: 'administrations__activitesTypes__emails.administrationId',
+          extra: ['email']
+        },
+        to: 'administrations.id'
+      }
+    },
+
     documentsTypes: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'documents-types'),
