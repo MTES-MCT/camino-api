@@ -147,10 +147,13 @@ const documentCreer = async (
     const hash = cryptoRandomString({ length: 8 })
     document.id = `${document.date}-${document.typeId}-${hash}`
 
+    // Enregistre le nouveau fichier
+    // - arrivé via API (requêtes libres)
     if (document.fichierNouveau) {
       document.fichier = true
       await documentFileCreate(document, document.fichierNouveau.file)
     } else {
+      // - arrivé via UI
       const pathFrom = `/files/tmp/${document.nomTemporaire}`
       const pathTo = await documentFilePathFind(document, true)
 
@@ -239,9 +242,16 @@ const documentModifier = async (
       }
     }
 
-    // enregistre le nouveau fichier
+    // Enregistre le nouveau fichier
+    // - arrivé via API (requêtes libres)
     if (documentFichierNouveau) {
       await documentFileCreate(documentUpdated, documentFichierNouveau.file)
+    } else {
+      // - arrivé via UI
+      const pathFrom = `/files/tmp/${document.nomTemporaire}`
+      const pathTo = await documentFilePathFind(document, true)
+
+      await fileRename(pathFrom, pathTo)
     }
 
     return await documentGet(documentUpdated.id, { fields }, user)
