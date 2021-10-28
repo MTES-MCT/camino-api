@@ -1,15 +1,16 @@
 import dateFormat from 'dateformat'
 
 import {
-  ISectionElement,
-  IContenu,
-  IContenuValeur,
-  ISection,
-  IUtilisateur,
-  ITitreActivite
+    IAdministration,
+    IContenu,
+    IContenuValeur,
+    ISection,
+    ISectionElement,
+    ITitreActivite,
+    IUtilisateur
 } from '../../../types'
 
-import { emailsSend } from '../../../tools/api-mailjet/emails'
+import {emailsSend} from '../../../tools/api-mailjet/emails'
 
 const elementHtmlBuild = (
   sectionId: string,
@@ -123,16 +124,48 @@ const titreActiviteEmailTitleFormat = (
       : ''
   } ${activite.annee}`
 
-const titreActiviteEmailsGet = (utilisateurs: IUtilisateur[]) => {
-  const emails = utilisateurs.reduce((res: string[], u) => {
-    if (u.email) {
-      res.push(u.email)
-    }
+const titreActiviteUtilisateursEmailsGet = (
+  utilisateurs: IUtilisateur[] | undefined | null
+): string[] => {
+  return utilisateurs?.filter(u => !!u.email).map(u => u.email!) || []
+}
 
-    return res
-  }, [])
+export const productionCheck = (activiteTypeId: string, contenu: IContenu) => {
+  if (activiteTypeId === 'grx' || activiteTypeId === 'gra') {
+  } else if (activiteTypeId === 'grp') {
+  } else if (activiteTypeId === 'wrp') {
+  }
 
-  return emails
+  return true
+}
+
+export const titreActiviteAdministrationsEmailsGet = (
+  administrations: IAdministration[] | null | undefined,
+  activiteTypeId: string,
+  contenu: IContenu | null &
+): string[] => {
+  // Si production > 0, envoyer à toutes les administrations liées au titre
+  // sinon envoyer seulement aux minitères et aux DREAL
+  // fixme production > 0
+
+  if (!administrations || !administrations.length) {
+    return []
+  }
+
+  const production = productionCheck(activiteTypeId, contenu)
+
+  return (
+    administrations
+      .filter(
+        administration =>
+          production || ['min', 'dre', 'dea'].includes(administration.typeId)
+      )
+      .flatMap(administration => administration.activitesTypesEmails)
+      .filter(activiteTypeEmail => !!activiteTypeEmail)
+      .filter(activiteTypeEmail => activiteTypeEmail!.id === activiteTypeId)
+      .filter(activiteTypeEmail => activiteTypeEmail!.email)
+      .map(activiteTypeEmail => activiteTypeEmail!.email) || []
+  )
 }
 
 const titreActiviteEmailsSend = async (
@@ -140,18 +173,21 @@ const titreActiviteEmailsSend = async (
   titreNom: string,
   user: IUtilisateur,
   utilisateurs: IUtilisateur[] | undefined | null,
-  adminEmail?: string | null
+  administrations: IAdministration[] | null | undefined
 ) => {
-  if (!utilisateurs || !utilisateurs.length) {
+  const emails = titreActiviteUtilisateursEmailsGet(utilisateurs)
+  emails.push(
+    ...titreActiviteAdministrationsEmailsGet(
+      administrations,
+      activite.typeId,
+      activite.contenu
+    )
+  )
+  if (!emails.length) {
     return
   }
   const subject = titreActiviteEmailTitleFormat(activite, titreNom)
   const content = titreActiviteEmailFormat(activite, subject, user)
-  const emails = titreActiviteEmailsGet(utilisateurs)
-
-  if (adminEmail) {
-    emails.push(adminEmail)
-  }
 
   await emailsSend(emails, subject, content)
 }

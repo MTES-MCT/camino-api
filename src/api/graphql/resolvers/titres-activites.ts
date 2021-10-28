@@ -1,37 +1,31 @@
 import dateFormat from 'dateformat'
-import { GraphQLResolveInfo } from 'graphql'
+import {GraphQLResolveInfo} from 'graphql'
 
-import { ITitreActivite, ITitreActiviteColonneId, IToken } from '../../../types'
+import {ITitreActivite, ITitreActiviteColonneId, IToken, IUtilisateur} from '../../../types'
 
-import { debug } from '../../../config/index'
+import {debug} from '../../../config/index'
 
-import { titreActiviteEmailsSend } from './_titre-activite'
-import {
-  titreActiviteContenuFormat,
-  titreActiviteFormat
-} from '../../_format/titres-activites'
+import {titreActiviteEmailsSend} from './_titre-activite'
+import {titreActiviteContenuFormat, titreActiviteFormat} from '../../_format/titres-activites'
 
-import { fieldsBuild } from './_fields-build'
+import {fieldsBuild} from './_fields-build'
 
 import {
-  titreActiviteDelete,
-  titreActiviteGet,
-  titreActiviteUpdate as titreActiviteUpdateQuery,
-  titresActivitesAnneesGet,
-  titresActivitesCount,
-  titresActivitesGet
+    titreActiviteDelete,
+    titreActiviteGet,
+    titreActiviteUpdate as titreActiviteUpdateQuery,
+    titresActivitesAnneesGet,
+    titresActivitesCount,
+    titresActivitesGet
 } from '../../../database/queries/titres-activites'
-import {
-  userGet,
-  utilisateursGet
-} from '../../../database/queries/utilisateurs'
+import {userGet, utilisateursGet} from '../../../database/queries/utilisateurs'
 
-import { titreActiviteInputValidate } from '../../../business/validations/titre-activite-input-validate'
-import { titreActiviteDeletionValidate } from '../../../business/validations/titre-activite-deletion-validate'
-import { userSuper } from '../../../database/user-super'
-import { fichiersRepertoireDelete } from './_titre-document'
-import { documentsLier } from './documents'
-import { titreGet } from '../../../database/queries/titres'
+import {titreActiviteInputValidate} from '../../../business/validations/titre-activite-input-validate'
+import {titreActiviteDeletionValidate} from '../../../business/validations/titre-activite-deletion-validate'
+import {userSuper} from '../../../database/user-super'
+import {fichiersRepertoireDelete} from './_titre-document'
+import {documentsLier} from './documents'
+import {titreGet} from '../../../database/queries/titres'
 
 /**
  * Retourne une activité
@@ -266,7 +260,14 @@ const activiteDeposer = async (
 
     const titre = await titreGet(
       activiteRes.titreId,
-      { fields: { titulaires: { id: {} }, amodiataires: { id: {} } } },
+      {
+        fields: {
+          titulaires: { id: {} },
+          amodiataires: { id: {} },
+          administrationsGestionnaires: { activitesTypesEmails: { id: {} } },
+          administrationsLocales: { activitesTypesEmails: { id: {} } }
+        }
+      },
       userSuper
     )
 
@@ -278,8 +279,9 @@ const activiteDeposer = async (
       ? titre.amodiataires?.map(t => t.id)
       : titre.titulaires?.map(t => t.id)
 
+    let utilisateurs: IUtilisateur[] = []
     if (entrepriseIds?.length) {
-      const utilisateurs = await utilisateursGet(
+      utilisateurs = await utilisateursGet(
         {
           entrepriseIds,
           noms: undefined,
@@ -289,19 +291,23 @@ const activiteDeposer = async (
         { fields: {} },
         userSuper
       )
-
-      await titreActiviteEmailsSend(
-        activiteFormated,
-        activiteFormated.titre!.nom,
-        user,
-        utilisateurs,
-        activite.type!.email
-      )
-    } else {
-      console.error(
-        `impossible d’envoyer d’email pour le dépôt de l’activité ${id}`
-      )
     }
+
+    const administrations = []
+    if (titre.administrationsGestionnaires?.length) {
+      administrations.push(...titre.administrationsGestionnaires)
+    }
+    if (titre.administrationsLocales?.length) {
+      administrations.push(...titre.administrationsLocales)
+    }
+
+    await titreActiviteEmailsSend(
+      activiteFormated,
+      activiteFormated.titre!.nom,
+      user,
+      utilisateurs,
+      administrations
+    )
 
     return activiteFormated
   } catch (e) {
