@@ -80,6 +80,7 @@ input InputDocumentModification {
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
+  nomTemporaire: String!
   url: String
   uri: String
   jorf: String
