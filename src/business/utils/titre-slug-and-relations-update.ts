@@ -89,11 +89,18 @@ const titreActiviteSlugFind = (titreActivite: ITitreActivite, titre: ITitre) =>
 interface ITitreRelation {
   name: string
   slugFind: (...args: any[]) => string
-  update: (
-    id: string,
-    element: { slug: string },
-    user: IUtilisateur
-  ) => Promise<any>
+  update:
+    | ((
+        id: string,
+        element: { slug: string },
+        user: IUtilisateur
+      ) => Promise<any>)
+    | ((
+        id: string,
+        element: { slug: string },
+        user: IUtilisateur,
+        titreId: string
+      ) => Promise<any>)
   relations?: ITitreRelation[]
 }
 
@@ -133,21 +140,23 @@ const titreRelations: ITitreRelation[] = [
 
 const relationsSlugsUpdate = async (
   parent: any,
-  relations: ITitreRelation[]
+  relations: ITitreRelation[],
+  titreId: string
 ): Promise<boolean> => {
   let hasChanged = false
   for (const relation of relations) {
     for (const element of parent[relation.name]) {
       const slug = relation.slugFind(element, parent)
       if (slug !== element.slug) {
-        await relation.update(element.id, { slug }, userSuper)
+        await relation.update(element.id, { slug }, userSuper, titreId)
         hasChanged = true
       }
       if (relation.relations) {
         hasChanged =
           (await relationsSlugsUpdate(
             { ...element, slug },
-            relation.relations
+            relation.relations,
+            titreId
           )) || hasChanged
       }
     }
@@ -188,8 +197,11 @@ const titreSlugAndRelationsUpdate = async (
   }
 
   hasChanged =
-    (await relationsSlugsUpdate({ ...titre, slug }, titreRelations)) ||
-    hasChanged
+    (await relationsSlugsUpdate(
+      { ...titre, slug },
+      titreRelations,
+      titre.id
+    )) || hasChanged
 
   return { hasChanged, slug }
 }

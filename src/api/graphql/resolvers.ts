@@ -188,6 +188,7 @@ import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-
 
 import { titreDemandeCreer } from './resolvers/titre-demande'
 import { pointsImporter } from './resolvers/points'
+import { journaux } from './resolvers/journaux'
 
 export default {
   //  types
@@ -255,6 +256,7 @@ export default {
   activitesTypesPays,
   pays,
   pointsImporter,
+  journaux,
 
   // mutations
   titreCreer,

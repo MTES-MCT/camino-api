@@ -704,7 +704,7 @@ const etapeTypeModifier = async (
   try {
     const user = await userGet(context.user?.id)
 
-    if (!permissionCheck(user?.permissionId, ['super'])) {
+    if (!user || !permissionCheck(user.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -718,7 +718,7 @@ const etapeTypeModifier = async (
 
     await etapeTypeUpdate(etapeType.id!, etapeType)
 
-    await titresEtapesHeritageContenuUpdate()
+    await titresEtapesHeritageContenuUpdate(user)
 
     const etapesTypes = await etapesTypesGet({}, { fields }, user)
 

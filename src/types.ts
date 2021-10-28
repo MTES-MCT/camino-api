@@ -962,11 +962,12 @@ interface ITitreDemande {
   entrepriseId: string
   references?: ITitreReference[]
 }
-interface ILog {
+interface IJournaux {
   id: string
   utilisateurId: string
   date: Date
   elementId: string
+  titreId: string
   operation: 'create' | 'update' | 'delete'
   differences: any
 }
@@ -1084,5 +1085,5 @@ export {
   ICacheId,
   IActiviteTypePays,
   ITitreDemande,
-  ILog
+  IJournaux
 }

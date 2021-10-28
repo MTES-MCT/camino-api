@@ -1,13 +1,13 @@
 import { Model } from 'objection'
 
-import { ILog } from '../../types'
+import { IJournaux } from '../../types'
 import { idGenerate } from './_format/id-create'
 import { join } from 'path'
 
-interface Logs extends ILog {}
+interface Journaux extends IJournaux {}
 
-class Logs extends Model {
-  public static tableName = 'logs'
+class Journaux extends Model {
+  public static tableName = 'journaux'
 
   public static jsonSchema = {
     type: 'object',
@@ -17,6 +17,7 @@ class Logs extends Model {
       utilisateurId: { type: 'string' },
       date: { type: 'date' },
       elementId: { type: 'string' },
+      titreId: { type: 'string' },
       operation: { enum: ['create', 'update', 'delete'] },
       differences: { type: 'json' }
     }
@@ -27,8 +28,16 @@ class Logs extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'utilisateurs'),
       join: {
-        from: 'logs.utilisateurId',
+        from: 'journaux.utilisateurId',
         to: 'utilisateurs.id'
+      }
+    },
+    titre: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'titres'),
+      join: {
+        from: 'journaux.titreId',
+        to: 'titres.id'
       }
     }
   }
@@ -41,4 +50,4 @@ class Logs extends Model {
   }
 }
 
-export default Logs
+export default Journaux

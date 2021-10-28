@@ -1,5 +1,6 @@
 # import * from 'scalars.graphql'
 # import * from 'utilisateurs.graphql'
+# import * from 'titres.graphql'
 
 enum Operation {
   create
@@ -7,7 +8,7 @@ enum Operation {
   delete
 }
 
-type Log {
+type Journal {
   """
   Id unique
   """
@@ -20,4 +21,15 @@ type Log {
   operation: Operation
 
   differences: Json
+
+  elementId: ID
+
+  titre: Titre
+}
+
+type Journaux {
+  elements: [Journal]
+  page: Int
+  intervalle: Int
+  total: Int
 }

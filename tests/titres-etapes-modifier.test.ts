@@ -72,7 +72,8 @@ async function etapeCreate() {
       titreDemarcheId,
       date: ''
     },
-    userSuper
+    userSuper,
+    titreId
   )
 
   return { titreDemarcheId, titreEtapeId }

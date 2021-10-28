@@ -46,6 +46,7 @@ type Sections {
   administrations: Boolean
   utilisateurs: Boolean
   metas: Boolean
+  journaux: Boolean
 }
 
 type UtilisateurToken {
