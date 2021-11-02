@@ -91,7 +91,8 @@ const administrationsQueryModify = (
     user?.administrations?.length &&
     permissionCheck(user?.permissionId, ['admin', 'editeur'])
   ) {
-    // Membre d'une DREAL vis-à-vis de la DREAL elle-même
+    // Membre d'une DREAL/DEAL vis-à-vis de la DREAL elle-même,
+    // ou d'un DREAL/DEAL vis-à-vis d'une administration qui dépend d'elles
     // Admin ou éditeur : modifications
     // Admin, éditeur ou lecteur : lecture
     q.select(
