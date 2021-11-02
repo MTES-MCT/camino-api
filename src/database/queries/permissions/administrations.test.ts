@@ -217,9 +217,11 @@ describe('administrationsQueryModify', () => {
         typeId: 'pre'
       }
 
+      const email = `${idGenerate()}@bar.com`
+      await AdministrationsActivitesTypesEmails.query().delete()
       await AdministrationsActivitesTypesEmails.query().insert({
         administrationId: mockAdministration.id,
-        email: `${idGenerate()}@bar.com`,
+        email,
         activiteTypeId: 'grx'
       })
 
@@ -249,6 +251,7 @@ describe('administrationsQueryModify', () => {
       } else {
         expect(res.emailsLecture).toBeTruthy()
         expect(res.activitesTypesEmails?.length).toBeTruthy()
+        expect(res.activitesTypesEmails![0].email).toBe(email)
       }
     }
   )
