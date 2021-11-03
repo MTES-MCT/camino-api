@@ -137,7 +137,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
           { typeId: 'mdp', date: '2020-01-01' },
           { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
-          { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
+          { typeId: 'mcp', date: '2020-01-01', statutId: 'com' },
           { typeId: 'mod', date: '2020-01-01' },
           { typeId: 'vfd', date: '2020-01-01' },
           { typeId: 'mcr', date: '2020-01-01', statutId: 'fav' },
@@ -160,7 +160,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       octEtatsValidate([
         { typeId: 'mfr', statutId: 'fai', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-01' },
-        { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
+        { typeId: 'mcp', date: '2020-01-01', statutId: 'com' },
         { typeId: 'vfd', date: '2020-01-01' },
         { typeId: 'mcr', date: '2020-01-01', statutId: 'fav' },
         { typeId: 'eof', date: '2020-01-01' },
@@ -182,7 +182,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'eof', date: '2020-06-19', statutId: 'fai' },
         { typeId: 'mcr', date: '2020-06-15', statutId: 'fav' },
         { typeId: 'vfd', date: '2020-06-15', statutId: 'fai' },
-        { typeId: 'mcp', date: '2020-05-29', statutId: 'fav' },
+        { typeId: 'mcp', date: '2020-05-29', statutId: 'com' },
         { typeId: 'mdp', date: '2020-05-04', statutId: 'fai' },
         { typeId: 'pfd', date: '2020-05-01', statutId: 'fai' },
         { typeId: 'mfr', date: '2020-04-29', statutId: 'fai' }
@@ -196,7 +196,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mdp', date: '2019-12-12', statutId: 'fai' },
         { typeId: 'pfd', date: '2019-12-12', statutId: 'fai' },
         { typeId: 'dae', date: '2020-01-14', statutId: 'fav' },
-        { typeId: 'mcp', date: '2020-01-21', statutId: 'fav' },
+        { typeId: 'mcp', date: '2020-01-21', statutId: 'com' },
         { typeId: 'vfd', date: '2020-02-05', statutId: 'fai' },
         { typeId: 'mcr', date: '2020-02-05', statutId: 'fav' },
         { typeId: 'eof', date: '2020-02-05', statutId: 'fai' },
@@ -213,7 +213,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mfr', date: '2020-01-30', statutId: 'fai' },
         { typeId: 'mdp', date: '2020-02-23', statutId: 'fai' },
         { typeId: 'pfd', date: '2020-02-23', statutId: 'fai' },
-        { typeId: 'mcp', date: '2020-02-28', statutId: 'fav' }
+        { typeId: 'mcp', date: '2020-02-28', statutId: 'com' }
       ])
     ).toHaveLength(0)
   })
@@ -226,7 +226,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           { typeId: 'mfr', date: '2020-07-09', statutId: 'fai' },
           { typeId: 'pfd', date: '2020-07-10', statutId: 'fai' },
           { typeId: 'mdp', date: '2020-07-17', statutId: 'fai' },
-          { typeId: 'mcp', date: '2020-07-17', statutId: 'fav' },
+          { typeId: 'mcp', date: '2020-07-17', statutId: 'com' },
           { typeId: 'rde', date: '2020-07-30', statutId: 'fav' },
           { typeId: 'vfd', date: '2020-07-31', statutId: 'fai' },
           { typeId: 'mcr', date: '2020-07-31', statutId: 'fav' },
@@ -256,7 +256,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           { typeId: 'eof', statutId: 'fai', date: '2020-02-05' },
           { typeId: 'mcr', statutId: 'fav', date: '2020-02-05' },
           { typeId: 'vfd', statutId: 'fai', date: '2020-02-05' },
-          { typeId: 'mcp', statutId: 'fav', date: '2020-01-23' },
+          { typeId: 'mcp', statutId: 'com', date: '2020-01-23' },
           { typeId: 'dae', statutId: 'exe', date: '2020-01-14' },
           { typeId: 'pfd', statutId: 'fai', date: '2019-12-12' },
           { typeId: 'mdp', statutId: 'fai', date: '2019-12-12' },
@@ -275,7 +275,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         [
           { typeId: 'aof', statutId: 'fav', date: '2021-06-08' },
           { typeId: 'eof', statutId: 'fai', date: '2021-06-02' },
-          { typeId: 'mcp', statutId: 'fav', date: '2021-05-20' },
+          { typeId: 'mcp', statutId: 'com', date: '2021-05-20' },
           { typeId: 'mcr', statutId: 'fav', date: '2021-05-20' },
           { typeId: 'vfd', statutId: 'fai', date: '2021-05-20' },
           { typeId: 'pfd', statutId: 'fai', date: '2021-05-20' },
@@ -303,7 +303,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           { typeId: 'mcb', statutId: 'fai', date: '2021-03-16' },
           { typeId: 'mcr', statutId: 'fav', date: '2021-03-10' },
           { typeId: 'vfd', statutId: 'fai', date: '2021-03-10' },
-          { typeId: 'mcp', statutId: 'fav', date: '2021-02-26' },
+          { typeId: 'mcp', statutId: 'com', date: '2021-02-26' },
           { typeId: 'mdp', statutId: 'fai', date: '2021-02-26' },
           { typeId: 'mfr', statutId: 'fai', date: '2021-02-26' },
           { typeId: 'pfd', statutId: 'fai', date: '2020-09-03' },

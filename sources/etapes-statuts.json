@@ -81,5 +81,15 @@
     "nom": "terminé",
     "description": "La démarche engagée unilatéralement par l’administration qui a fait l’objet d’une décision de l’administration. Celle-ci n’a pas fait l’objet d’une demande de la part du titulaire du titre ou de l’autorisation.\n",
     "couleur": "neutral"
+  },
+  {
+    "id": "com",
+    "nom": "complet",
+    "couleur": "success"
+  },
+  {
+    "id": "inc",
+    "nom": "incomplet",
+    "couleur": "error"
   }
 ]

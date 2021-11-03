@@ -1291,12 +1291,12 @@
   },
   {
     "etape_type_id": "mcp",
-    "etape_statut_id": "def",
+    "etape_statut_id": "inc",
     "ordre": 2
   },
   {
     "etape_type_id": "mcp",
-    "etape_statut_id": "fav",
+    "etape_statut_id": "com",
     "ordre": 1
   },
   {
