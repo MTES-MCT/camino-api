@@ -250,14 +250,6 @@ const activitesTypesQueryModify = (
   user: IUtilisateur | null
 ) => {
   if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-    user?.administrations?.length
-  ) {
-    const administrationsIds = user.administrations.map(e => e.id)
-
-    q.joinRelated('administrations')
-    q.whereIn('administrations.id', administrationsIds)
-  } else if (
     permissionCheck(user?.permissionId, ['entreprise']) &&
     user?.entreprises?.length
   ) {
@@ -285,7 +277,7 @@ const activitesTypesQueryModify = (
           .whereIn('titre:amodiataires.id', entreprisesIds)
       )
     })
-  } else if (!permissionCheck(user?.permissionId, ['super'])) {
+  } else if (permissionCheck(user?.permissionId, ['defaut'])) {
     q.where(false)
   }
 }
