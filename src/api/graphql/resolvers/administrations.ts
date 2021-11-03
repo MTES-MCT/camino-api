@@ -36,7 +36,6 @@ import { administrationFormat } from '../../_format/administrations'
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
 import { userGet } from '../../../database/queries/utilisateurs'
-import Administrations from '../../../database/models/administrations'
 
 const administration = async (
   { id }: { id: string },
@@ -370,9 +369,11 @@ const administrationActiviteTypeEmailCreer = async (
 ) => {
   try {
     const user = await userGet(context.user?.id)
-    const administration = await Administrations.query()
-      .where({ id: administrationActiviteTypeEmail.administrationId })
-      .first()
+    const administration = await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields: { id: {} } },
+      user
+    )
 
     if (!administration.emailsModification) {
       throw new Error('droits insuffisants')
@@ -410,9 +411,11 @@ const administrationActiviteTypeEmailSupprimer = async (
 ) => {
   try {
     const user = await userGet(context.user?.id)
-    const administration = await Administrations.query()
-      .where({ id: administrationActiviteTypeEmail.administrationId })
-      .first()
+    const administration = await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields: { id: {} } },
+      user
+    )
 
     if (!administration.emailsModification) {
       throw new Error('droits insuffisants')
