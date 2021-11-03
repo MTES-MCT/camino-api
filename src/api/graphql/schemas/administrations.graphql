@@ -31,15 +31,24 @@ type Administration {
   cedex: String
   utilisateurs: [Utilisateur]
   membre: Boolean
+  emailsModification: Boolean
+  emailsLecture: Boolean
   gestionnaireTitres: [Titre]
   localeTitres: [Titre]
   titresTypes: [TitreType]
   titresTypesTitresStatuts: [TitreTypeTitreStatut]
   titresTypesEtapesTypes: [TitreTypeEtapeType]
   activitesTypes: [ActiviteType]
+  activitesTypesEmails: [ActiviteTypeEmail]
   departement: Departement
   region: Region
   modification: Boolean
+}
+
+type ActiviteTypeEmail {
+  id: ID
+  nom: String
+  email: String
 }
 
 input InputAdministration {
@@ -90,4 +99,10 @@ input InputAdministrationActiviteType {
   activiteTypeId: ID!
   lectureInterdit: Boolean
   modificationInterdit: Boolean
+}
+
+input InputAdministrationActiviteTypeEmail {
+  administrationId: ID!
+  activiteTypeId: ID!
+  email: String
 }

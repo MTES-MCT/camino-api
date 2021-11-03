@@ -172,7 +172,9 @@ import {
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
-  administrationActiviteTypeModifier
+  administrationActiviteTypeModifier,
+  administrationActiviteTypeEmailCreer,
+  administrationActiviteTypeEmailSupprimer
 } from './resolvers/administrations'
 import {
   activite,
@@ -298,6 +300,8 @@ export default {
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
   administrationActiviteTypeModifier,
+  administrationActiviteTypeEmailCreer,
+  administrationActiviteTypeEmailSupprimer,
   domaineModifier,
   definitionModifier,
   titreTypeTypeModifier,

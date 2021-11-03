@@ -193,7 +193,10 @@ interface IAdministration {
   localeTitres?: ITitre[] | null
   associee?: boolean | null
   membre?: boolean
+  emailsModification?: boolean
+  emailsLecture?: boolean
   modification?: boolean | null
+  activitesTypesEmails?: (IActiviteType & { email: string })[]
 }
 
 interface IAnnee extends IPeriode {}
@@ -538,6 +541,12 @@ interface IAdministrationActiviteType {
   activiteTypeId: string
   lectureInterdit: boolean
   modificationInterdit: boolean
+}
+
+interface IAdministrationActiviteTypeEmail {
+  administrationId: string
+  activiteTypeId: string
+  email: string
 }
 
 interface ITitreStatut {
@@ -1031,6 +1040,7 @@ export {
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
   IAdministrationActiviteType,
+  IAdministrationActiviteTypeEmail,
   ITitreStatut,
   ISubstance,
   ISubstanceLegale,

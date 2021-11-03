@@ -6,6 +6,7 @@ import {
   IAdministrationTitreType,
   IAdministrationTitreTypeEtapeType,
   IAdministrationTitreTypeTitreStatut,
+  IAdministrationActiviteTypeEmail,
   IToken
 } from '../../../types'
 
@@ -22,7 +23,9 @@ import {
   administrationTitreTypeEtapeTypeDelete,
   administrationTitreTypeEtapeTypeUpsert,
   administrationActiviteTypeDelete,
-  administrationActiviteTypeUpsert
+  administrationActiviteTypeUpsert,
+  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailDelete
 } from '../../../database/queries/administrations'
 
 import administrationUpdateTask from '../../../business/administration-update'
@@ -357,6 +360,90 @@ const administrationActiviteTypeModifier = async (
   }
 }
 
+const administrationActiviteTypeEmailCreer = async (
+  {
+    administrationActiviteTypeEmail
+  }: { administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+    const administration = await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields: { id: {} } },
+      user
+    )
+
+    if (!administration.emailsModification) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+    const email = administrationActiviteTypeEmail.email?.toLowerCase()
+    if (!email || !emailCheck(email)) throw new Error('email invalide')
+
+    await administrationActiviteTypeEmailUpsert({
+      ...administrationActiviteTypeEmail,
+      email
+    })
+
+    return await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields },
+      user
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const administrationActiviteTypeEmailSupprimer = async (
+  {
+    administrationActiviteTypeEmail
+  }: { administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+    const administration = await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields: { id: {} } },
+      user
+    )
+
+    if (!administration.emailsModification) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+    const email = administrationActiviteTypeEmail.email?.toLowerCase()
+    if (!email || !emailCheck(email)) throw new Error('email invalide')
+
+    await administrationActiviteTypeEmailDelete({
+      ...administrationActiviteTypeEmail,
+      email
+    })
+
+    return await administrationGet(
+      administrationActiviteTypeEmail.administrationId,
+      { fields },
+      user
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   administration,
   administrations,
@@ -364,5 +451,7 @@ export {
   administrationTitreTypeModifier,
   administrationTitreTypeTitreStatutModifier,
   administrationTitreTypeEtapeTypeModifier,
-  administrationActiviteTypeModifier
+  administrationActiviteTypeModifier,
+  administrationActiviteTypeEmailCreer,
+  administrationActiviteTypeEmailSupprimer
 }

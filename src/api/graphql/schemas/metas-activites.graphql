@@ -21,7 +21,6 @@ type ActiviteType {
   sections: Json!
   pays: [Pays!]
   documentsTypes: [DocumentType]
-  email: String
   satisfactionUrl: String
   lectureInterdit: Boolean
   modificationInterdit: Boolean
@@ -58,7 +57,6 @@ input InputActiviteType {
   delaiMois: Int
   frequenceId: ID
   sections: Json
-  email: String
   satisfactionUrl: String
 }
 

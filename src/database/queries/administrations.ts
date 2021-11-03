@@ -7,6 +7,7 @@ import {
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
   IAdministrationActiviteType,
+  IAdministrationActiviteTypeEmail,
   IFields,
   IUtilisateur
 } from '../../types'
@@ -22,6 +23,7 @@ import { administrationsQueryModify } from './permissions/administrations'
 import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
 import AdministrationsActivitesTypes from '../models/administrations-activites-types'
+import AdministrationsActivitesTypesEmails from '../models/administrations-activites-types-emails'
 
 const administrationsFiltersQueryModify = (
   {
@@ -241,6 +243,29 @@ const administrationActiviteTypeDelete = async (
     ActiviteTypeId
   ])
 
+const administrationActiviteTypeEmailUpsert = async (
+  administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail
+) =>
+  AdministrationsActivitesTypesEmails.query().upsertGraph(
+    administrationActiviteTypeEmail,
+    {
+      insertMissing: true
+    }
+  )
+
+const administrationActiviteTypeEmailDelete = async (
+  administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail
+) => {
+  const { activiteTypeId, administrationId, email } =
+    administrationActiviteTypeEmail
+
+  return AdministrationsActivitesTypesEmails.query().delete().where({
+    activite_type_id: activiteTypeId,
+    administration_id: administrationId,
+    email
+  })
+}
+
 export {
   administrationGet,
   administrationsGet,
@@ -254,5 +279,7 @@ export {
   administrationTitreTypeEtapeTypeUpsert,
   administrationTitreTypeEtapeTypeDelete,
   administrationActiviteTypeUpsert,
-  administrationActiviteTypeDelete
+  administrationActiviteTypeDelete,
+  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailDelete
 }
