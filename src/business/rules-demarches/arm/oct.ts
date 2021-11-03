@@ -59,7 +59,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
     ]
   },
   mcm: {
-    justeApres: [[{ etapeTypeId: 'mcp', statutId: 'def' }]]
+    justeApres: [[{ etapeTypeId: 'mcp', statutId: 'inc' }]]
   },
   rcm: {
     justeApres: [[{ etapeTypeId: 'mcm' }]]
@@ -68,7 +68,7 @@ const restrictionsArmOct: IDemarcheDefinitionRestrictions = {
     avant: [[{ etapeTypeId: 'vfd' }]],
     separation: ['mcr'],
     justeApres: [
-      [{ etapeTypeId: 'mcp', statutId: 'fav' }],
+      [{ etapeTypeId: 'mcp', statutId: 'com' }],
       [{ etapeTypeId: 'des' }],
       [{ etapeTypeId: 'mnc' }]
     ]

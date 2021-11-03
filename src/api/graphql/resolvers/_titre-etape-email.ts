@@ -48,7 +48,7 @@ const emailGet = (
       title = 'Nouvelle demande déposée'
 
       // lorsque le PTMG déclare le dossier complet
-    } else if (etapeStatusUpdated(etape, 'mcp', 'fav', oldEtape)) {
+    } else if (etapeStatusUpdated(etape, 'mcp', 'com', oldEtape)) {
       emails.push('pole.minier@onf.fr')
 
       title = 'Nouveau dossier complet'
