@@ -14,7 +14,10 @@ const knexConfig = {
   client: 'pg',
   connection,
   migrations: {
-    directory: join(__dirname, './migrations'),
+    directory: [
+      join(__dirname, './migrations-schema'),
+      join(__dirname, './migrations-data')
+    ],
     stub: join(__dirname, './migration-stub.js'),
     // génère les nouveaux fichiers de migrations en Javascript, car la prod éxecute les fichiers transpillés
     // Si on met du Typescript, les environnements de devs ne vont plus démarrer avec la bdd de prod.

@@ -1,16 +1,22 @@
 import Knex from 'knex'
-import path from 'path'
-import knexDbManager from 'knex-db-manager'
+import { databaseManagerFactory } from 'knex-db-manager'
+import { join } from 'path'
 
 import { knexConfig } from '../src/knex/config'
 import { knexInstanceSet } from '../src/knex'
 
-const dbManager = knexDbManager.databaseManagerFactory({
+// pour les tests on lance que les migrations du schéma
+// src/knex/migrations-schema
+knexConfig.migrations.directory = [
+  join(__dirname, '../src/knex/migrations-schema')
+]
+
+const dbManager = databaseManagerFactory({
   knex: knexConfig,
   dbManager: {
     superUser: knexConfig.connection.user,
     superPassword: knexConfig.connection.password,
-    populatePathPattern: path.join(__dirname, '../src/knex/seeds', '0[1-9]*')
+    populatePathPattern: join(__dirname, '../src/knex/seeds', '0[1-9]*')
   }
 })
 

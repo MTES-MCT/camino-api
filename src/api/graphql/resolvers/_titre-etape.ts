@@ -1,13 +1,13 @@
 import {
-  ITitrePointReference,
   ICoordonnees,
+  IDocumentType,
   IEtapeType,
+  IHeritageContenu,
   IHeritageProps,
+  ISection,
   ITitreDemarche,
   ITitreEtape,
-  IHeritageContenu,
-  ISection,
-  IDocumentType
+  ITitrePointReference
 } from '../../../types'
 
 import { geoConvert } from '../../../tools/geo-convert'
@@ -40,7 +40,7 @@ const titreEtapePointsCalc = <
     point.coordonnees = geoConvert(reference.geoSystemeId, {
       x: reference.coordonnees.x * uniteRatio,
       y: reference.coordonnees.y * uniteRatio
-    }) as ICoordonnees
+    })
 
     return point
   })
