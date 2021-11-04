@@ -243,14 +243,11 @@ const administrationActiviteTypeDelete = async (
     ActiviteTypeId
   ])
 
-const administrationActiviteTypeEmailUpsert = async (
+const administrationActiviteTypeEmailInsert = async (
   administrationActiviteTypeEmail: IAdministrationActiviteTypeEmail
 ) =>
-  AdministrationsActivitesTypesEmails.query().upsertGraph(
-    administrationActiviteTypeEmail,
-    {
-      insertMissing: true
-    }
+  AdministrationsActivitesTypesEmails.query().insertGraph(
+    administrationActiviteTypeEmail
   )
 
 const administrationActiviteTypeEmailDelete = async (
@@ -280,6 +277,6 @@ export {
   administrationTitreTypeEtapeTypeDelete,
   administrationActiviteTypeUpsert,
   administrationActiviteTypeDelete,
-  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailInsert,
   administrationActiviteTypeEmailDelete
 }

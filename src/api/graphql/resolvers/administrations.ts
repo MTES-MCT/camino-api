@@ -24,7 +24,7 @@ import {
   administrationTitreTypeEtapeTypeUpsert,
   administrationActiviteTypeDelete,
   administrationActiviteTypeUpsert,
-  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailInsert,
   administrationActiviteTypeEmailDelete
 } from '../../../database/queries/administrations'
 
@@ -383,7 +383,7 @@ const administrationActiviteTypeEmailCreer = async (
     const email = administrationActiviteTypeEmail.email?.toLowerCase()
     if (!email || !emailCheck(email)) throw new Error('email invalide')
 
-    await administrationActiviteTypeEmailUpsert({
+    await administrationActiviteTypeEmailInsert({
       ...administrationActiviteTypeEmail,
       email
     })
