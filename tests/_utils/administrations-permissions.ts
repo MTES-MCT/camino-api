@@ -206,6 +206,7 @@ const creationCheck = async (
           statutId: 'fai',
           titreDemarcheId,
           date: '',
+          duree: 10,
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {
               acc[prop] = { actif: false }
