@@ -272,7 +272,11 @@ class TitresEtapes extends Model {
 
     if (json.incertitudes) {
       Object.keys(json.incertitudes).forEach(id => {
-        if (!json.incertitudes[id] || !(json[id] || json[id] === 0)) {
+        if (
+          !json.incertitudes[id] ||
+          !(json[id] || json[id] === 0) ||
+          (Array.isArray(json[id]) && !json[id].length)
+        ) {
           delete json.incertitudes[id]
         }
       })
