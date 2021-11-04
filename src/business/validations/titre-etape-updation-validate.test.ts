@@ -119,4 +119,52 @@ describe('valide l’étape avant de l’enregistrer', () => {
     expect(errors).toContain('le document "dep" est obligatoire')
     expect(errors).not.toContain('le document "tot" est obligatoire')
   })
+
+  test.each`
+    duree        | etapeType | titreType | error
+    ${undefined} | ${'mfr'}  | ${'arm'}  | ${true}
+    ${null}      | ${'mfr'}  | ${'axm'}  | ${true}
+    ${0}         | ${'mfr'}  | ${'axm'}  | ${true}
+    ${0}         | ${'mfr'}  | ${'arm'}  | ${true}
+    ${0}         | ${'mfr'}  | ${'prm'}  | ${false}
+    ${0}         | ${'rde'}  | ${'arm'}  | ${false}
+    ${3}         | ${'mfr'}  | ${'arm'}  | ${false}
+    ${3}         | ${'mfr'}  | ${'axm'}  | ${false}
+  `(
+    'teste la complétude de la durée',
+    ({
+      duree,
+      etapeType,
+      titreType,
+      error
+    }: {
+      duree: number
+      etapeType: string
+      titreType: string
+      error: boolean
+    }) => {
+      const titreEtape = {
+        duree,
+        typeId: etapeType
+      } as ITitreEtape
+
+      const errors = titreEtapeCompleteValidate(
+        titreEtape,
+        titreType,
+        [],
+        [],
+        null,
+        [],
+        null
+      )
+
+      const errorLabel = 'la durée doit être renseignée'
+
+      if (error) {
+        expect(errors).toContain(errorLabel)
+      } else {
+        expect(errors).not.toContain(errorLabel)
+      }
+    }
+  )
 })

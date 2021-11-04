@@ -213,6 +213,10 @@ const titreEtapeCompleteValidate = (
     ) {
       errors.push('au moins une substance doit être renseignée')
     }
+
+    if (!titreEtape.duree) {
+      errors.push('la durée doit être renseignée')
+    }
   }
 
   return errors

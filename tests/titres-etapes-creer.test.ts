@@ -146,6 +146,7 @@ describe('etapeCreer', () => {
           },
           contenu: { arm: { mecanise: true, franchissements: 3 } },
           substances: [{ id: 'auru' }],
+          duree: 10,
           documentIds: ['dep', 'doe'],
           points: [
             {
@@ -266,6 +267,7 @@ describe('etapeCreer', () => {
           statutId: 'fai',
           titreDemarcheId,
           date: '',
+          duree: 10,
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {
               acc[prop] = { actif: false }
