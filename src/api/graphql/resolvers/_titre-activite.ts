@@ -170,16 +170,21 @@ export const titreActiviteAdministrationsEmailsGet = (
   const production = productionCheck(activiteTypeId, contenu)
 
   return (
-    administrations
-      .filter(
-        administration =>
-          production || ['min', 'dre', 'dea'].includes(administration.typeId)
+    [
+      ...new Set(
+        administrations
+          .filter(
+            administration =>
+              production ||
+              ['min', 'dre', 'dea'].includes(administration.typeId)
+          )
+          .flatMap(administration => administration.activitesTypesEmails)
+          .filter(activiteTypeEmail => !!activiteTypeEmail)
+          .filter(activiteTypeEmail => activiteTypeEmail!.id === activiteTypeId)
+          .filter(activiteTypeEmail => activiteTypeEmail!.email)
+          .map(activiteTypeEmail => activiteTypeEmail!.email)
       )
-      .flatMap(administration => administration.activitesTypesEmails)
-      .filter(activiteTypeEmail => !!activiteTypeEmail)
-      .filter(activiteTypeEmail => activiteTypeEmail!.id === activiteTypeId)
-      .filter(activiteTypeEmail => activiteTypeEmail!.email)
-      .map(activiteTypeEmail => activiteTypeEmail!.email) || []
+    ] || []
   )
 }
 
