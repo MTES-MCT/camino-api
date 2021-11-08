@@ -24,7 +24,7 @@ import {
   administrationTitreTypeEtapeTypeUpsert,
   administrationActiviteTypeDelete,
   administrationActiviteTypeUpsert,
-  administrationActiviteTypeEmailUpsert,
+  administrationActiviteTypeEmailCreate,
   administrationActiviteTypeEmailDelete
 } from '../../../database/queries/administrations'
 
@@ -383,7 +383,7 @@ const administrationActiviteTypeEmailCreer = async (
     const email = administrationActiviteTypeEmail.email?.toLowerCase()
     if (!email || !emailCheck(email)) throw new Error('email invalide')
 
-    await administrationActiviteTypeEmailUpsert({
+    await administrationActiviteTypeEmailCreate({
       ...administrationActiviteTypeEmail,
       email
     })
@@ -396,6 +396,11 @@ const administrationActiviteTypeEmailCreer = async (
   } catch (e) {
     if (debug) {
       console.error(e)
+    }
+
+    // Un doublon d'email + admin ID + type d'activité génère une erreur spécifique.
+    if ((e as Error).name === 'UniqueViolationError') {
+      throw new Error('cette notification est déjà prise en compte')
     }
 
     throw e

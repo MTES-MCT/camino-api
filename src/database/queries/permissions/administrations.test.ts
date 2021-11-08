@@ -255,4 +255,48 @@ describe('administrationsQueryModify', () => {
       }
     }
   )
+
+  test('vérifie que le bon nombre de couple types activites + email est retourné par une requête', async () => {
+    const mockAdministration = {
+      id: 'pre-01053-01',
+      nom: 'Préfecture - Vaucluse',
+      typeId: 'pre'
+    }
+
+    const email = `${idGenerate()}@bar.com`
+    await AdministrationsActivitesTypesEmails.query().delete()
+    await AdministrationsActivitesTypesEmails.query().insert({
+      administrationId: mockAdministration.id,
+      email,
+      activiteTypeId: 'grx'
+    })
+
+    await AdministrationsActivitesTypesEmails.query().insert({
+      administrationId: mockAdministration.id,
+      email: 'foo@bar.cc',
+      activiteTypeId: 'grx'
+    })
+
+    const mockUser = {
+      id: idGenerate(),
+      permissionId: 'super',
+      administrations: [mockAdministration],
+      email: 'email' + idGenerate(),
+      motDePasse: 'motdepasse'
+    } as IUtilisateur
+
+    await Utilisateurs.query().insertGraph(
+      mockUser,
+      options.utilisateurs.update
+    )
+
+    const q = administrationsQueryModify(
+      Administrations.query().where('id', mockAdministration.id),
+      mockUser
+    )
+    const res = (await q
+      .withGraphFetched({ activitesTypesEmails: {} })
+      .first()) as IAdministration
+    expect(res.activitesTypesEmails).toHaveLength(2)
+  })
 })

@@ -26,6 +26,12 @@ const administrationsActivitesTypesEmailsQueryModify = (
     true
   ])
 
+  q.groupBy(
+    'activitesTypes.id',
+    'administrations__activites_types__emails.administration_id',
+    'administrations__activites_types__emails.email'
+  )
+
   return q
 }
 
