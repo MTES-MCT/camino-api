@@ -36,7 +36,8 @@ const titresAdministrationsModificationQuery = (
     .select(raw('true'))
     .whereExists(
       administrationsTitresQuery(administrationsIds, 'titresModification', {
-        isGestionnaire: true
+        isGestionnaire: true,
+        isLocale: true
       }).modify(
         administrationsTitresTypesTitresStatutsModify,
         type,
