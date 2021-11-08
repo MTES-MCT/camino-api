@@ -383,10 +383,16 @@ const administrationActiviteTypeEmailCreer = async (
     const email = administrationActiviteTypeEmail.email?.toLowerCase()
     if (!email || !emailCheck(email)) throw new Error('email invalide')
 
-    await administrationActiviteTypeEmailInsert({
-      ...administrationActiviteTypeEmail,
-      email
-    })
+    // Un doublon (email + type d'activité + id administration) pour les notifications
+    // génère sa propre erreur pour avoir un message clair et distinct.
+    try {
+      await administrationActiviteTypeEmailInsert({
+        ...administrationActiviteTypeEmail,
+        email
+      })
+    } catch (e) {
+      throw new Error('Cette notification est déjà prise en compte')
+    }
 
     return await administrationGet(
       administrationActiviteTypeEmail.administrationId,
