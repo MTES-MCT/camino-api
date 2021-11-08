@@ -24,7 +24,7 @@ import {
   administrationTitreTypeEtapeTypeUpsert,
   administrationActiviteTypeDelete,
   administrationActiviteTypeUpsert,
-  administrationActiviteTypeEmailInsert,
+  administrationActiviteTypeEmailCreate,
   administrationActiviteTypeEmailDelete
 } from '../../../database/queries/administrations'
 
@@ -386,7 +386,7 @@ const administrationActiviteTypeEmailCreer = async (
     // Un doublon (email + type d'activité + id administration) pour les notifications
     // génère sa propre erreur pour avoir un message clair et distinct.
     try {
-      await administrationActiviteTypeEmailInsert({
+      await administrationActiviteTypeEmailCreate({
         ...administrationActiviteTypeEmail,
         email
       })
