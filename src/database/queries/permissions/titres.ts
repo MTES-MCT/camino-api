@@ -36,7 +36,8 @@ const titresAdministrationsModificationQuery = (
     .select(raw('true'))
     .whereExists(
       administrationsTitresQuery(administrationsIds, 'titresModification', {
-        isGestionnaire: true
+        isGestionnaire: true,
+        isLocale: true
       }).modify(
         administrationsTitresTypesTitresStatutsModify,
         type,
@@ -181,7 +182,8 @@ const titresQueryModify = (
     q.select(raw('false').as('suppression'))
     q.select(
       administrationsTitresQuery(administrationsIds, 'titres', {
-        isGestionnaire: true
+        isGestionnaire: true,
+        isLocale: true
       })
         .modify(
           administrationsTitresTypesTitresStatutsModify,
