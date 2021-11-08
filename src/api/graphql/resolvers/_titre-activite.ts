@@ -169,23 +169,16 @@ export const titreActiviteAdministrationsEmailsGet = (
   // sinon envoyer seulement aux minitères et aux DREAL
   const production = productionCheck(activiteTypeId, contenu)
 
-  return (
-    [
-      ...new Set(
-        administrations
-          .filter(
-            administration =>
-              production ||
-              ['min', 'dre', 'dea'].includes(administration.typeId)
-          )
-          .flatMap(administration => administration.activitesTypesEmails)
-          .filter(activiteTypeEmail => !!activiteTypeEmail)
-          .filter(activiteTypeEmail => activiteTypeEmail!.id === activiteTypeId)
-          .filter(activiteTypeEmail => activiteTypeEmail!.email)
-          .map(activiteTypeEmail => activiteTypeEmail!.email)
-      )
-    ] || []
-  )
+  return administrations
+    .filter(
+      administration =>
+        production || ['min', 'dre', 'dea'].includes(administration.typeId)
+    )
+    .flatMap(administration => administration.activitesTypesEmails)
+    .filter(activiteTypeEmail => !!activiteTypeEmail)
+    .filter(activiteTypeEmail => activiteTypeEmail!.id === activiteTypeId)
+    .filter(activiteTypeEmail => activiteTypeEmail!.email)
+    .map(activiteTypeEmail => activiteTypeEmail!.email)
 }
 
 const titreActiviteEmailsSend = async (
