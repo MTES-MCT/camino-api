@@ -26,6 +26,9 @@ const logsUpdate = ({
   foretsUpdated,
   titresEtapesForetsUpdated,
   titresEtapesForetsDeleted,
+  sdomZonesUpdated,
+  titresEtapesSDOMZonesUpdated,
+  titresEtapesSDOMZonesDeleted,
   titresAdministrationsGestionnairesCreated,
   titresAdministrationsGestionnairesDeleted,
   titresEtapesAdministrationsLocalesCreated,
@@ -61,6 +64,9 @@ const logsUpdate = ({
   foretsUpdated?: IArea[]
   titresEtapesForetsUpdated?: string[]
   titresEtapesForetsDeleted?: string[]
+  sdomZonesUpdated?: IArea[]
+  titresEtapesSDOMZonesUpdated?: string[]
+  titresEtapesSDOMZonesDeleted?: string[]
   titresAdministrationsGestionnairesCreated?: string[]
   titresAdministrationsGestionnairesDeleted?: string[]
   titresEtapesAdministrationsLocalesCreated?: ITitreAdministrationLocale[]
@@ -183,6 +189,22 @@ const logsUpdate = ({
   if (titresEtapesForetsDeleted?.length) {
     console.info(
       `mise à jour: ${titresEtapesForetsDeleted.length} foret(s) supprimée(s) dans des étapes`
+    )
+  }
+
+  if (sdomZonesUpdated?.length) {
+    console.info(`mise à jour: ${sdomZonesUpdated.length} zone(s) du SDOM`)
+  }
+
+  if (titresEtapesSDOMZonesUpdated?.length) {
+    console.info(
+      `mise à jour: ${titresEtapesSDOMZonesUpdated.length} zone(s) du SDOM mise(s) à jour dans des étapes`
+    )
+  }
+
+  if (titresEtapesSDOMZonesDeleted?.length) {
+    console.info(
+      `mise à jour: ${titresEtapesSDOMZonesDeleted.length} zone(s) du SDOM supprimée(s) dans des étapes`
     )
   }
 

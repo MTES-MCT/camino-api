@@ -6,7 +6,8 @@ import {
   IFields,
   IUtilisateur,
   ITitreEtapeJustificatif,
-  ITitreForet
+  ITitreForet,
+  ITitreSDOMZone
 } from '../../types'
 
 import options from './_options'
@@ -25,6 +26,7 @@ import {
   patchJournalCreate,
   upsertJournalCreate
 } from './journaux'
+import TitresSDOMZones from '../models/titres--sdom-zones'
 
 const titresEtapesQueryBuild = (
   { fields }: { fields?: IFields },
@@ -178,6 +180,22 @@ const titreEtapeForetDelete = async (titreEtapeId: string, foretId: string) =>
     .where('titreEtapeId', titreEtapeId)
     .andWhere('foretId', foretId)
 
+const titresEtapesSDOMZonesUpdate = async (
+  titresEtapesSdomZones: ITitreSDOMZone
+) =>
+  TitresSDOMZones.query().upsertGraph(titresEtapesSdomZones, {
+    insertMissing: true
+  })
+
+const titreEtapeSdomZoneDelete = async (
+  titreEtapeId: string,
+  sdomZoneId: string
+) =>
+  TitresSDOMZones.query()
+    .delete()
+    .where('titreEtapeId', titreEtapeId)
+    .andWhere('sdomZoneId', sdomZoneId)
+
 const titresEtapesJustificatifsUpsert = async (
   titresEtapesJustificatifs: ITitreEtapeJustificatif[]
 ) =>
@@ -222,6 +240,8 @@ export {
   titresEtapesCommunesGet,
   titresEtapesForetsUpdate,
   titreEtapeForetDelete,
+  titresEtapesSDOMZonesUpdate,
+  titreEtapeSdomZoneDelete,
   titresEtapesJustificatifsUpsert,
   titreEtapeJustificatifsDelete,
   titresEtapesAdministrationsCreate,

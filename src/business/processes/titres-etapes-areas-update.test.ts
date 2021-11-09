@@ -27,6 +27,8 @@ jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeCommuneDelete: jest.fn().mockImplementation(a => a),
   titresEtapesForetsUpdate: jest.fn().mockImplementation(a => a),
   titreEtapeForetDelete: jest.fn().mockImplementation(a => a),
+  titresEtapesSDOMZonesUpdate: jest.fn().mockImplementation(a => a),
+  titreEtapeSDOMZoneDelete: jest.fn().mockImplementation(a => a),
   titresEtapesGet: jest.fn()
 }))
 
@@ -34,8 +36,10 @@ jest.mock('../../database/queries/territoires', () => ({
   __esModule: true,
   communesUpsert: jest.fn().mockImplementation(a => a),
   foretsUpsert: jest.fn().mockImplementation(a => a),
+  sdomZonesUpsert: jest.fn().mockImplementation(a => a),
   communesGet: jest.fn(),
-  foretsGet: jest.fn()
+  foretsGet: jest.fn(),
+  sdomZonesGet: jest.fn().mockImplementation(() => [])
 }))
 
 jest.mock('../../tools/geojson', () => ({
@@ -64,7 +68,8 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     communesGetMock.mockResolvedValue([])
     geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1, commune2],
-      forets: [foret1]
+      forets: [foret1],
+      sdomZones: []
     })
 
     const result = await titresEtapesAreasUpdate()
@@ -96,7 +101,8 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     communesGetMock.mockResolvedValue([])
     geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1, commune1],
-      forets: []
+      forets: [],
+      sdomZones: []
     })
 
     const result = await titresEtapesAreasUpdate()
@@ -116,7 +122,11 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     titresEtapesGetMock.mockResolvedValue([titresEtapesPoints])
     foretsGetMock.mockResolvedValue([])
     communesGetMock.mockResolvedValue([])
-    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
+    geoAreaGeojsonGetMock.mockResolvedValue({
+      communes: [],
+      forets: [],
+      sdomZones: []
+    })
 
     const result = await titresEtapesAreasUpdate()
 
@@ -135,7 +145,11 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     titresEtapesGetMock.mockResolvedValue([titresEtapesPointsVides])
     foretsGetMock.mockResolvedValue([])
     communesGetMock.mockResolvedValue([])
-    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
+    geoAreaGeojsonGetMock.mockResolvedValue({
+      communes: [],
+      forets: [],
+      sdomZones: []
+    })
 
     const result = await titresEtapesAreasUpdate()
 
@@ -154,7 +168,11 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     titresEtapesGetMock.mockResolvedValue([titresEtapesSansPoints])
     foretsGetMock.mockResolvedValue([])
     communesGetMock.mockResolvedValue([])
-    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
+    geoAreaGeojsonGetMock.mockResolvedValue({
+      communes: [],
+      forets: [],
+      sdomZones: []
+    })
 
     const result = await titresEtapesAreasUpdate()
 
@@ -175,7 +193,8 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     communesGetMock.mockResolvedValue([commune1])
     geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1],
-      forets: [foret1]
+      forets: [foret1],
+      sdomZones: []
     })
 
     const result = await titresEtapesAreasUpdate()
@@ -197,7 +216,8 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     communesGetMock.mockResolvedValue([commune1])
     geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1SurfaceChangee],
-      forets: [foret1SurfaceChangee]
+      forets: [foret1SurfaceChangee],
+      sdomZones: []
     })
 
     const result = await titresEtapesAreasUpdate()
@@ -229,7 +249,11 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     ])
     foretsGetMock.mockResolvedValue([])
     communesGetMock.mockResolvedValue([])
-    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
+    geoAreaGeojsonGetMock.mockResolvedValue({
+      communes: [],
+      forets: [],
+      sdomZones: []
+    })
 
     const result = await titresEtapesAreasUpdate()
 
@@ -250,7 +274,8 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     communesGetMock.mockResolvedValue([commune1])
     geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1SurfaceChangee],
-      forets: []
+      forets: [],
+      sdomZones: []
     })
 
     const result = await titresEtapesAreasUpdate()

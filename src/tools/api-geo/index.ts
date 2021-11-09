@@ -4,11 +4,10 @@ import geojsonhint from '@mapbox/geojsonhint'
 
 import {
   IGeoJson,
-  ICommune,
   IAreaType,
   IApiGeoResult,
-  IForet,
-  IGeoJsonProperties
+  IGeoJsonProperties,
+  IArea
 } from '../../types'
 import errorLog from '../error-log'
 
@@ -55,20 +54,11 @@ const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
   }
 }
 
-const communeFormat = (commune: IGeoJsonProperties) =>
-  ({
-    id: commune.code as string,
-    nom: commune.nom as string,
-    departementId: commune.departement as string,
-    surface: commune.surface as number
-  } as ICommune)
-
-const foretFormat = (foret: IGeoJsonProperties) =>
-  ({
-    id: foret.code as string,
-    nom: foret.nom as string,
-    surface: foret.surface as number
-  } as IForet)
+const areaFormat = (area: IGeoJsonProperties): IArea => ({
+  id: area.code as string,
+  nom: area.nom as string,
+  surface: area.surface as number
+})
 
 const apiGeoGet = async (
   geojson: IGeoJson,
@@ -81,11 +71,17 @@ const apiGeoGet = async (
   const areas = {} as IApiGeoResult
 
   if (apiGeoResult.communes) {
-    areas.communes = apiGeoResult.communes.map(communeFormat)
+    areas.communes = apiGeoResult.communes.map(area => {
+      return { ...areaFormat(area), departementId: area.departement as string }
+    })
   }
 
   if (apiGeoResult.forets) {
-    areas.forets = apiGeoResult.forets.map(foretFormat)
+    areas.forets = apiGeoResult.forets.map(areaFormat)
+  }
+
+  if (apiGeoResult.sdomZones) {
+    areas.sdomZones = apiGeoResult.sdomZones.map(areaFormat)
   }
 
   return areas

@@ -74,12 +74,14 @@ const titreEtapeUpdate = async (
     let foretsUpdated = [] as IArea[]
     let titresEtapesForetsUpdated = [] as string[]
     let titresEtapesForetsDeleted = [] as string[]
+    let sdomZonesUpdated = [] as IArea[]
+    let titresEtapesSDOMZonesUpdated = [] as string[]
+    let titresEtapesSDOMZonesDeleted = [] as string[]
 
     // si l'étape est supprimée, pas de mise à jour
     if (titreEtapeId) {
-      const { titresCommunes, titresForets } = await titresEtapesAreasUpdate([
-        titreEtapeId
-      ])
+      const { titresCommunes, titresForets, titresSDOMZones } =
+        await titresEtapesAreasUpdate([titreEtapeId])
 
       ;({
         areasUpdated: communesUpdated = [],
@@ -91,6 +93,11 @@ const titreEtapeUpdate = async (
         titresEtapesAreasUpdated: titresEtapesForetsUpdated = [],
         titresEtapesAreasDeleted: titresEtapesForetsDeleted = []
       } = titresForets)
+      ;({
+        areasUpdated: sdomZonesUpdated = [],
+        titresEtapesAreasUpdated: titresEtapesSDOMZonesUpdated = [],
+        titresEtapesAreasDeleted: titresEtapesSDOMZonesDeleted = []
+      } = titresSDOMZones)
     }
 
     const {
@@ -132,6 +139,9 @@ const titreEtapeUpdate = async (
       foretsUpdated,
       titresEtapesForetsUpdated,
       titresEtapesForetsDeleted,
+      sdomZonesUpdated,
+      titresEtapesSDOMZonesUpdated,
+      titresEtapesSDOMZonesDeleted,
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted,
       titresPropsEtapesIdsUpdated,

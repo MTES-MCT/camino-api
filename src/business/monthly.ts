@@ -22,7 +22,8 @@ const monthly = async () => {
 
     // 3.
     // mise à jour des forêts et des communes
-    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate()
+    const { titresCommunes, titresForets, titresSDOMZones } =
+      await titresEtapesAreasUpdate()
     const {
       areasUpdated: communesUpdated = [],
       titresEtapesAreasUpdated: titresEtapesCommunesUpdated = [],
@@ -33,6 +34,11 @@ const monthly = async () => {
       titresEtapesAreasUpdated: titresEtapesForetsUpdated = [],
       titresEtapesAreasDeleted: titresEtapesForetsDeleted = []
     } = titresForets
+    const {
+      areasUpdated: sdomZonesUpdated = [],
+      titresEtapesAreasUpdated: titresEtapesSDOMZonesUpdated = [],
+      titresEtapesAreasDeleted: titresEtapesSDOMZonesDeleted = []
+    } = titresSDOMZones
 
     logsUpdate({
       entreprisesUpdated,
@@ -44,7 +50,10 @@ const monthly = async () => {
       titresEtapesCommunesDeleted,
       foretsUpdated,
       titresEtapesForetsUpdated,
-      titresEtapesForetsDeleted
+      titresEtapesForetsDeleted,
+      sdomZonesUpdated,
+      titresEtapesSDOMZonesUpdated,
+      titresEtapesSDOMZonesDeleted
     })
   } catch (e) {
     console.info('erreur:', e)

@@ -201,7 +201,7 @@ interface IAdministration {
 
 interface IAnnee extends IPeriode {}
 
-type IAreaType = 'communes' | 'forets'
+type IAreaType = 'communes' | 'forets' | 'sdomZones'
 
 interface IArea {
   id: string
@@ -367,6 +367,7 @@ interface IEtapeType {
 }
 
 interface IForet extends IArea {}
+interface ISDOMZone extends IArea {}
 
 type IPeriodeNom = 'annees' | 'trimestres' | 'mois'
 
@@ -398,6 +399,7 @@ interface IGeoJsonCentre {
 interface IApiGeoResult {
   communes: ICommune[]
   forets: IForet[]
+  sdomZones: ISDOMZone[]
 }
 
 interface IGeometry {
@@ -629,6 +631,7 @@ interface ITitre {
   surface?: number | null
   communes?: ICommune[] | null
   forets?: IForet[] | null
+  sdomZones?: ISDOMZone[] | null
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
   pays?: IPays[] | null
@@ -685,21 +688,21 @@ interface ITitreAdministrationLocale {
 }
 
 interface ITitreArea {
-  areaId: string
+  areaId?: string
   titreEtapeId: string
   surface?: number | null
 }
 
-interface ITitreCommune {
+interface ITitreCommune extends ITitreArea {
   communeId: string
-  titreEtapeId: string
-  surface?: number | null
 }
 
-interface ITitreForet {
+interface ITitreForet extends ITitreArea {
   foretId: string
-  titreEtapeId: string
-  surface?: number | null
+}
+
+interface ITitreSDOMZone extends ITitreArea {
+  sdomZoneId: string
 }
 
 interface ITitreEtapeJustificatif {
@@ -788,6 +791,7 @@ interface ITitreEtape {
   justificatifIds?: string[] | null
   communes?: ICommune[] | null
   forets?: IForet[] | null
+  sdomZones?: ISDOMZone[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
   contenusTitreEtapesIds?: IContenusTitreEtapesIds | null
@@ -1015,6 +1019,7 @@ export {
   IEtapeStatut,
   IEtapeType,
   IForet,
+  ISDOMZone,
   IFrequence,
   IGeoJson,
   IGeoJsonProperties,
@@ -1054,6 +1059,7 @@ export {
   ITitreAdministrationLocale,
   ITitreCommune,
   ITitreForet,
+  ITitreSDOMZone,
   ITitreArea,
   ITitreDemarche,
   IDocument,

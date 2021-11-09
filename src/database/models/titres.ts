@@ -22,6 +22,7 @@ import { titreContenuFormat } from './_format/titre-contenu'
 import { idGenerate } from './_format/id-create'
 import slugify from '@sindresorhus/slugify'
 import cryptoRandomString from 'crypto-random-string'
+import SDOMZones from './sdom-zones'
 
 interface Titres extends ITitre {}
 
@@ -209,6 +210,19 @@ class Titres extends Model {
           extra: ['surface']
         },
         to: 'forets.id'
+      }
+    },
+    sdomZones: {
+      relation: Model.ManyToManyRelation,
+      modelClass: SDOMZones,
+      join: {
+        from: ref('titres.propsTitreEtapesIds:points').castText(),
+        through: {
+          from: 'titres__sdomZones.titreEtapeId',
+          to: 'titres__sdomZones.sdomZoneId',
+          extra: ['surface']
+        },
+        to: 'sdomZones.id'
       }
     },
 

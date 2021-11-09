@@ -8,7 +8,8 @@ import {
   Index,
   ICommune,
   IForet,
-  IApiGeoResult
+  IApiGeoResult,
+  ISDOMZone
 } from '../../types'
 
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
@@ -17,18 +18,23 @@ import {
   communesGet,
   communesUpsert,
   foretsGet,
-  foretsUpsert
+  foretsUpsert,
+  sdomZonesGet,
+  sdomZonesUpsert
 } from '../../database/queries/territoires'
 import {
   titreEtapeCommuneDelete,
   titreEtapeForetDelete,
+  titreEtapeSdomZoneDelete,
   titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery,
   titresEtapesForetsUpdate as titresEtapesForetsUpdateQuery,
+  titresEtapesSDOMZonesUpdate as titresEtapesSDOMZonesUpdateQuery,
   titresEtapesGet
 } from '../../database/queries/titres-etapes'
 import TitresCommunes from '../../database/models/titres-communes'
 import TitresForets from '../../database/models/titres-forets'
 import { userSuper } from '../../database/user-super'
+import TitresSDOMZones from '../../database/models/titres--sdom-zones'
 
 interface ITitreEtapeAreas {
   titreEtape: ITitreEtape
@@ -221,7 +227,7 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
     //    intervalCap: 10
   })
 
-  const areasTypes = ['communes', 'forets'] as IAreaType[]
+  const areasTypes = ['communes', 'forets', 'sdomZones'] as IAreaType[]
   const titresEtapesAreasIndex = {} as Index<ITitreEtapeAreas>
 
   titresEtapes.forEach((titreEtape: ITitreEtape) => {
@@ -251,31 +257,35 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
 
 /**
  * Met à jour tous les territoires d’une liste d’étapes
- * @param titresEtapes - liste d’étapes
- * @param communes - liste des communes existantes
- * @param forets - liste des forêts existantes
+ * @param titresEtapesIds - liste d’étapes
  * @returns toutes les modifications effectuées
  */
 const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
   console.info()
-  console.info('communes et forêts associées aux étapes…')
+  console.info('communes, forêts et zones du SDOM associées aux étapes…')
 
   const titresEtapes = await titresEtapesGet(
     { titresEtapesIds, etapesTypesIds: null, titresDemarchesIds: null },
     {
-      fields: { points: { id: {} }, communes: { id: {} }, forets: { id: {} } }
+      fields: {
+        points: { id: {} },
+        communes: { id: {} },
+        forets: { id: {} },
+        sdomZones: { id: {} }
+      }
     },
     userSuper
   )
 
   const communes = await communesGet()
   const forets = await foretsGet()
+  const sdomZones = await sdomZonesGet()
 
   // teste l'API geo-areas-api
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
   if (!geoAreasApiTestResult) {
-    console.error('communesGeojsonApi injoignable')
+    console.error('Géo API injoignable')
 
     return {
       titresCommunes: {
@@ -284,6 +294,11 @@ const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
         titresEtapesAreasDeleted: []
       },
       titresForets: {
+        areasUpdated: [],
+        titresEtapesAreasUpdated: [],
+        titresEtapesAreasDeleted: []
+      },
+      titresSDOMZones: {
         areasUpdated: [],
         titresEtapesAreasUpdated: [],
         titresEtapesAreasDeleted: []
@@ -298,7 +313,14 @@ const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
       titresEtapesAreasIndex,
       communes
     ),
-    titresForets: await titresEtapesForetsUpdate(titresEtapesAreasIndex, forets)
+    titresForets: await titresEtapesForetsUpdate(
+      titresEtapesAreasIndex,
+      forets
+    ),
+    titresSDOMZones: await titresEtapesSDOMZonesUpdate(
+      titresEtapesAreasIndex,
+      sdomZones
+    )
   }
 }
 
@@ -321,7 +343,7 @@ const titresEtapesCommunesUpdate = async (
       titresEtapesCommunesUpdateQuery({
         titreEtapeId: titresEtapesAreas.titreEtapeId,
         surface: titresEtapesAreas.surface,
-        communeId: titresEtapesAreas.areaId
+        communeId: titresEtapesAreas.areaId!
       }),
     titreEtapeCommuneDelete
   )
@@ -345,9 +367,27 @@ const titresEtapesForetsUpdate = async (
       titresEtapesForetsUpdateQuery({
         titreEtapeId: titresEtapesAreas.titreEtapeId,
         surface: titresEtapesAreas.surface,
-        foretId: titresEtapesAreas.areaId
+        foretId: titresEtapesAreas.areaId!
       }),
     titreEtapeForetDelete
+  )
+
+const titresEtapesSDOMZonesUpdate = async (
+  titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
+  sdomZones: ISDOMZone[]
+) =>
+  titresEtapesAreaUpdate(
+    titresEtapesAreasIndex,
+    sdomZones,
+    'sdomZones',
+    sdomZonesUpsert,
+    titresEtapesAreas =>
+      titresEtapesSDOMZonesUpdateQuery({
+        titreEtapeId: titresEtapesAreas.titreEtapeId,
+        surface: titresEtapesAreas.surface,
+        sdomZoneId: titresEtapesAreas.areaId!
+      }),
+    titreEtapeSdomZoneDelete
   )
 
 /**
@@ -366,7 +406,7 @@ const titresEtapesAreaUpdate = async (
   areasUpsert: (areas: IArea[]) => Promise<IArea[]>,
   titresEtapesAreasUpdateQuery: (
     titresEtapesAreas: ITitreArea
-  ) => Promise<TitresCommunes | TitresForets>,
+  ) => Promise<TitresCommunes | TitresForets | TitresSDOMZones>,
   titreEtapeAreaDeleteQuery: (
     etapeId: string,
     areaId: string
@@ -419,7 +459,7 @@ const titresEtapesAreaUpdate = async (
 
     titresEtapesAreasToDelete.forEach(({ titreEtapeId, areaId }) => {
       queue.add(async () => {
-        await titreEtapeAreaDeleteQuery(titreEtapeId, areaId)
+        await titreEtapeAreaDeleteQuery(titreEtapeId, areaId!)
 
         const log = {
           type: `titre / démarche / étape : ${areaType} (suppression)`,
