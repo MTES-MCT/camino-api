@@ -23,7 +23,9 @@ import TitresDemarches from '../../models/titres-demarches'
 import Journaux from '../../models/journaux'
 import { journauxQueryModify } from './journaux'
 
-const titreEtapeModificationQueryBuild = (user: IUtilisateur | null) => {
+const titreEtapeModificationQueryBuild = (
+  user: IUtilisateur | null | undefined
+) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     return raw('true')
   } else if (
@@ -109,7 +111,7 @@ const specifiquesAdd = (
  */
 const titresEtapesQueryModify = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
 

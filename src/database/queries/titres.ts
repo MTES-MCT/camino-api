@@ -31,7 +31,7 @@ import { titresFiltersQueryModify } from './_titres-filters'
  */
 const titresQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null,
+  user: IUtilisateur | null | undefined,
   demandeEnCours?: boolean | null
 ) => {
   const graph = fields
@@ -50,15 +50,15 @@ const titresQueryBuild = (
  *
  * @param id - id du titre
  * @param fields - propriétés demandées sur le titre
- * @param userId - id de l’utilisateur
+ * @param user - l’utilisateur
  * @returns un titre
  *
  */
 const titreGet = async (
   id: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
-  user: IUtilisateur | null
-) => {
+  user: IUtilisateur | null | undefined
+): Promise<ITitre | undefined> => {
   const q = titresQueryBuild({ fields }, user)
 
   q.context({ fetchHeritage })
@@ -153,7 +153,7 @@ const titresGet = async (
     demandeEnCours?: boolean | null
   } = {},
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresQueryBuild({ fields }, user, demandeEnCours)
 
@@ -258,7 +258,7 @@ const titresCount = async (
     demandeEnCours?: boolean | null
   } = {},
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresQueryBuild({ fields }, user, demandeEnCours)
 
@@ -288,7 +288,10 @@ const titresCount = async (
  * @returns le nouveau titre
  *
  */
-const titreCreate = async (titre: ITitre, { fields }: { fields?: IFields }) => {
+const titreCreate = async (
+  titre: ITitre,
+  { fields }: { fields?: IFields }
+): Promise<ITitre> => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph

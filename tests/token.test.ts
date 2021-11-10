@@ -82,7 +82,7 @@ describe('utilisateurTokenCreer', () => {
       .execute()
 
     expect(res.body.data.utilisateurTokenCreer.refreshToken).toBe(
-      userInDB.refreshToken
+      userInDB!.refreshToken
     )
   })
 })

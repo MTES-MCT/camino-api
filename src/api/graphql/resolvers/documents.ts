@@ -76,7 +76,7 @@ const documents = async (
 
 const documentPermissionsCheck = async (
   document: IDocument,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   if (!user) throw new Error('droits insuffisants')
 

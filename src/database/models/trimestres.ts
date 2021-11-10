@@ -13,7 +13,7 @@ class Trimestres extends Model {
     required: ['id', 'nom'],
 
     properties: {
-      id: { type: 'integer', maxLength: 1 },
+      id: { type: 'integer' },
       nom: { type: 'string' },
       frequenceId: { type: 'string', maxLength: 3 }
     }

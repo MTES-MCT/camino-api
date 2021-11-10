@@ -101,7 +101,7 @@ export const titresConfidentielSelect = (
 
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  user: IUtilisateur | null,
+  user: IUtilisateur | null | undefined,
   demandeEnCours?: boolean | null
 ) => {
   q.select('titres.*')

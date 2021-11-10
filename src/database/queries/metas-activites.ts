@@ -21,7 +21,7 @@ import { activitesTypesQueryModify } from './permissions/metas'
 
 const activitesTypesGet = async (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'activitesTypes', fieldsFormat)

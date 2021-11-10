@@ -32,11 +32,11 @@ beforeAll(async () => {
   await TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes.query().delete()
   await TitresTypesDemarchesTypesEtapesTypesDocumentsTypes.query().delete()
 
-  const mfrTDE = await TitresTypesDemarchesTypesEtapesTypes.query()
+  const mfrTDE = (await TitresTypesDemarchesTypesEtapesTypes.query()
     .where('titreTypeId', 'arm')
     .andWhere('demarcheTypeId', 'oct')
     .andWhere('etapeTypeId', 'mfr')
-    .first()
+    .first()) as TitresTypesDemarchesTypesEtapesTypes
   mfrTDE!
     .sections!.find(s => s.id === 'arm')!
     .elements!.find(e => e.id === 'franchissements')!.optionnel = false

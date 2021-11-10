@@ -73,11 +73,11 @@ const titreDemandeCreer = async (
         { fields: { titresTypes: { id: {} } } },
         user
       )
-      const titreType = domaine.titresTypes.find(
+      const titreType = domaine?.titresTypes.find(
         tt => tt.id === titreDemande.typeId
       )
 
-      if (!user || !titreType?.titresCreation)
+      if (!user || !titreType || !titreType.titresCreation)
         throw new Error('droits insuffisants')
     }
     // insert le titre dans la base
@@ -101,11 +101,11 @@ const titreDemandeCreer = async (
 
     await titreDemarcheUpdateTask(titreDemarche.id, titreDemarche.titreId)
 
-    titre = await titreGet(
+    titre = (await titreGet(
       titreId,
       { fields: { demarches: { id: {} } } },
       userSuper
-    )
+    )) as ITitre
 
     const date = dateFormat(new Date(), 'yyyy-mm-dd')
     const titreDemarcheId = titre.demarches![0].id
@@ -123,11 +123,11 @@ const titreDemandeCreer = async (
 
     await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId, user)
 
-    titre = await titreGet(
+    titre = (await titreGet(
       titreId,
       { fields: { demarches: { etapes: { id: {} } } } },
       userSuper
-    )
+    )) as ITitre
 
     const titreEtapeId = titre.demarches![0].etapes![0].id
 

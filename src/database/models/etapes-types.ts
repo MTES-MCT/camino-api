@@ -20,7 +20,7 @@ class EtapesTypes extends Model {
       fondamentale: { type: ['boolean', 'null'] },
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
-      sections: { type: 'json' },
+      sections: {},
       unique: { type: ['boolean', 'null'] },
       ordre: { type: 'integer' },
       publicLecture: { type: 'boolean' },

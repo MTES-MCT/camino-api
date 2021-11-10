@@ -62,13 +62,13 @@ const entreprisesFiltersQueryModify = (
 
 const entreprisesQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'entreprises', fieldsFormat)
     : options.entreprises.graph
 
-  const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
+  const q = Entreprises.query().withGraphFetched(graph)
 
   entreprisesQueryModify(q, user)
 
@@ -84,7 +84,7 @@ const entreprisesCount = async (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = entreprisesQueryBuild({ fields }, user)
 
@@ -97,7 +97,7 @@ const entreprisesCount = async (
 const entrepriseGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = entreprisesQueryBuild({ fields }, user)
 
@@ -121,7 +121,7 @@ const entreprisesGet = async (
     archive?: boolean | null
   },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = entreprisesQueryBuild({ fields }, user)
 
@@ -181,7 +181,7 @@ const entrepriseTitreTypeDelete = async (
 
 const titreDemandeEntreprisesGet = async (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   if (!user) return []
 
@@ -208,7 +208,7 @@ const titreDemandeEntreprisesGet = async (
       user
     )
 
-    if (!utilisateur.entreprises) return []
+    if (!utilisateur || !utilisateur.entreprises) return []
 
     return utilisateur.entreprises.filter(e =>
       e.titresTypes!.some(tt => tt.titresCreation)

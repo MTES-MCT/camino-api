@@ -13,7 +13,7 @@ class Caches extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 128 },
-      valeur: { type: 'json' }
+      valeur: { type: 'object' }
     }
   }
 

@@ -36,7 +36,7 @@ const activiteStatuts = [
 
 const titreActivitesCount = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.groupBy('titres.id')
 
@@ -135,7 +135,7 @@ const titreActivitesCount = (
 
 const titresActivitesQueryModify = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  user: IUtilisateur | null,
+  user: IUtilisateur | null | undefined,
   select = true
 ) => {
   if (select) {
@@ -187,7 +187,7 @@ const titresActivitesQueryModify = (
 
 const titresActivitesPropsQueryModify = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('titresActivites.*')
 

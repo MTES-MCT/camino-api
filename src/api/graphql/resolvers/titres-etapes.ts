@@ -163,12 +163,12 @@ const etapeHeritage = async (
     })
 
     const { sections, documentsTypes, justificatifsTypes } =
-      await specifiquesGet(titreDemarche, etapeType)
+      await specifiquesGet(titreDemarche!, etapeType!)
 
     const titreEtape = titreEtapeHeritageBuild(
       date,
-      etapeType,
-      titreDemarche,
+      etapeType!,
+      titreDemarche!,
       sections,
       documentsTypes,
       justificatifsTypes
@@ -197,16 +197,16 @@ const specifiquesGet = async (
     { fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } } }
   )
 
-  const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
+  const sections = etapeTypeSectionsFormat(etapeType.sections, tde?.sections)
 
   const documentsTypes = documentsTypesFormat(
     etapeType.documentsTypes,
-    tde.documentsTypes
+    tde?.documentsTypes
   )
 
   const justificatifsTypes = documentsTypesFormat(
     etapeType.justificatifsTypes,
-    tde.justificatifsTypes
+    tde?.justificatifsTypes
   )
 
   return { sections, documentsTypes, justificatifsTypes }
@@ -249,7 +249,8 @@ const etapeCreer = async (
       userSuper
     )
 
-    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
+    if (!titreDemarche || !titreDemarche.titre)
+      throw new Error("le titre n'existe pas")
 
     const etapeType = await etapeTypeGet(etape.typeId, {
       fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } }
@@ -336,7 +337,7 @@ const etapeCreer = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
-    return titreFormat(titreUpdated)
+    return titreFormat(titreUpdated!)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -386,7 +387,8 @@ const etapeModifier = async (
       userSuper
     )
 
-    if (!titreDemarche.titre) throw new Error("le titre n'existe pas")
+    if (!titreDemarche || !titreDemarche.titre)
+      throw new Error("le titre n'existe pas")
 
     const etapeType = await etapeTypeGet(etape.typeId, {
       fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } }
@@ -473,7 +475,7 @@ const etapeModifier = async (
       'demarches',
       etapeUpdated.id,
       sections,
-      demarche.etapes,
+      demarche!.etapes,
       titreEtapeOld.contenu
     )
 
@@ -496,7 +498,7 @@ const etapeModifier = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
-    return titreFormat(titreUpdated)
+    return titreFormat(titreUpdated!)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -539,7 +541,8 @@ const etapeDeposer = async (
 
     titreEtape = titreEtapeFormat(titreEtape)
 
-    if (!titreEtape.deposable) throw new Error('droits insuffisants')
+    if (!titreEtape.deposable || !titreDemarche)
+      throw new Error('droits insuffisants')
 
     const statutIdAndDate = statutIdAndDateGet(titreEtape, user, true)
 
@@ -602,7 +605,7 @@ const etapeDeposer = async (
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
-    return titreFormat(titreUpdated)
+    return titreFormat(titreUpdated!)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -670,7 +673,7 @@ const etapeSupprimer = async (
 
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
-    return titreFormat(titreUpdated)
+    return titreFormat(titreUpdated!)
   } catch (e) {
     if (debug) {
       console.error(e)

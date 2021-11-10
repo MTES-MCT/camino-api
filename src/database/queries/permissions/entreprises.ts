@@ -20,7 +20,7 @@ import { documentsQueryModify } from './documents'
 
 const entreprisesQueryModify = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('entreprises.*')
 

@@ -33,10 +33,10 @@ class TitresEtapes extends Model {
       dateFin: { type: ['string', 'null'] },
       duree: { type: ['integer', 'null'] },
       surface: { type: ['number', 'null'] },
-      contenu: { type: 'json' },
-      incertitudes: { type: 'json' },
-      heritageContenu: { type: 'json' },
-      heritageProps: { type: 'json' }
+      contenu: { type: ['object', 'null'] },
+      incertitudes: { type: ['object', 'null'] },
+      heritageContenu: { type: ['object', 'null'] },
+      heritageProps: { type: ['object', 'null'] }
     }
   }
 

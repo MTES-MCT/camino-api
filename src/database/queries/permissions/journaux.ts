@@ -12,7 +12,7 @@ import Titres from '../../models/titres'
 
 export const journauxQueryModify = (
   q: QueryBuilder<Journaux, Journaux | Journaux[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('journaux.*')
 
