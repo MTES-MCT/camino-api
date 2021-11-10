@@ -482,6 +482,12 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
       titreTypeDemarcheTypeEtapeType.titreTypeId
     )
 
+    if (!titreType) {
+      throw new Error(
+        `le type de titre ${titreTypeDemarcheTypeEtapeType.titreTypeId} n’existe pas`
+      )
+    }
+
     const demarches = await titresDemarchesGet(
       {
         titresTypesIds: [titreType.typeId],
@@ -1035,6 +1041,13 @@ const etapeTypeJustificatifTypeModifier = async (
       etapeTypeJustificatifType.etapeTypeId,
       { fields: {} }
     )
+
+    if (!etapeType) {
+      throw new Error(
+        `le type d’étape ${etapeTypeJustificatifType.etapeTypeId} n’existe pas`
+      )
+    }
+
     if (!etapeType.fondamentale) {
       throw new Error(
         `le type d’étape ${etapeType.id} (${etapeType.nom}) n’est pas fondamentale`
@@ -1077,6 +1090,12 @@ const etapeTypeJustificatifTypeCreer = async (
       etapeTypeJustificatifType.etapeTypeId,
       { fields: {} }
     )
+
+    if (!etapeType) {
+      throw new Error(
+        `le type d’étape ${etapeTypeJustificatifType.etapeTypeId} n’existe pas`
+      )
+    }
     if (!etapeType.fondamentale) {
       throw new Error(
         `le type d’étape ${etapeType.id} (${etapeType.nom}) n’est pas fondamentale`

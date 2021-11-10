@@ -99,7 +99,7 @@ const titresCreationQuery = (administrationsIds: string[]) =>
 
 const titresTypesQueryModify = (
   q: QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('titresTypes.*')
 
@@ -122,8 +122,8 @@ const titresTypesQueryModify = (
 }
 
 const domainesQueryModify = (
-  q: QueryBuilder<Domaines, Domaines | Domaines[]>,
-  user: IUtilisateur | null
+  q: QueryBuilder<Domaines, Domaines | Domaines[] | undefined>,
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('domaines.*')
 
@@ -137,7 +137,7 @@ const domainesQueryModify = (
 
 const etapesTypesQueryModify = (
   q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
-  user: IUtilisateur | null,
+  user: IUtilisateur | null | undefined,
   {
     titreDemarcheId,
     titreEtapeId,
@@ -247,7 +247,7 @@ const etapesTypesQueryModify = (
 
 const activitesTypesQueryModify = (
   q: QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   if (
     permissionCheck(user?.permissionId, ['entreprise']) &&
@@ -284,7 +284,7 @@ const activitesTypesQueryModify = (
 
 const demarchesTypesQueryModify = (
   q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
-  user: IUtilisateur | null,
+  user: IUtilisateur | null | undefined,
   {
     titreId,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -336,7 +336,7 @@ const demarchesTypesQueryModify = (
 
 const permissionsQueryModify = (
   q: QueryBuilder<Permissions, Permissions | Permissions[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   // le super peut voir toutes les permissions sans restriction
   if (permissionCheck(user?.permissionId, ['super'])) {

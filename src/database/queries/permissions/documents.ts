@@ -11,7 +11,7 @@ import ActivitesTypesDocumentsTypes from '../../models/activites-types--document
 
 const documentsQueryModify = (
   q: QueryBuilder<Documents, Documents | Documents[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('documents.*')
 

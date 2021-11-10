@@ -48,6 +48,10 @@ const administration = async (
 
     const administration = await administrationGet(id, { fields }, user)
 
+    if (!administration) {
+      return null
+    }
+
     return administrationFormat(administration)
   } catch (e) {
     if (debug) {
@@ -375,7 +379,7 @@ const administrationActiviteTypeEmailCreer = async (
       user
     )
 
-    if (!administration.emailsModification) {
+    if (!administration || !administration.emailsModification) {
       throw new Error('droits insuffisants')
     }
 
@@ -422,7 +426,7 @@ const administrationActiviteTypeEmailSupprimer = async (
       user
     )
 
-    if (!administration.emailsModification) {
+    if (!administration || !administration.emailsModification) {
       throw new Error('droits insuffisants')
     }
 

@@ -41,8 +41,8 @@ class Titres extends Model {
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
       dateDemande: { type: ['string', 'null'] },
-      contenusTitreEtapesIds: { type: 'json' },
-      propsTitreEtapesIds: { type: 'json' },
+      contenusTitreEtapesIds: { type: 'object' },
+      propsTitreEtapesIds: { type: 'object' },
       coordonnees: {
         type: ['object', 'null'],
         properties: { x: { type: 'number' }, y: { type: 'number' } }

@@ -66,7 +66,7 @@ const administrationsFiltersQueryModify = (
 
 const administrationsQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'administrations', fieldsFormat)
@@ -82,7 +82,7 @@ const administrationsQueryBuild = (
 const administrationGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = administrationsQueryBuild({ fields }, user)
 
@@ -100,7 +100,7 @@ const administrationsCount = async (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = administrationsQueryBuild({ fields }, user)
 
@@ -131,7 +131,7 @@ const administrationsGet = async (
     administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = administrationsQueryBuild({ fields }, user)
 
@@ -160,7 +160,7 @@ const administrationsGet = async (
     q.limit(intervalle)
   }
 
-  return q.skipUndefined()
+  return q
 }
 
 const administrationsUpsert = async (administrations: IAdministration[]) =>

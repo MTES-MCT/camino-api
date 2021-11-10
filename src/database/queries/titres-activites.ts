@@ -105,7 +105,7 @@ const titresActivitesFiltersQueryModify = (
 
 const titreActivitesQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fieldsTitreAdd(fields), 'activite', fieldsFormat)
@@ -132,7 +132,7 @@ const titreActivitesQueryBuild = (
 const titreActiviteGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titreActivitesQueryBuild({ fields }, user)
 
@@ -154,7 +154,9 @@ const titreActiviteGet = async (
  *
  */
 
-const titresActivitesAnneesGet = async (user: IUtilisateur | null) => {
+const titresActivitesAnneesGet = async (
+  user: IUtilisateur | null | undefined
+) => {
   if (!user?.permissionId) return []
 
   const q = TitresActivites.query()
@@ -255,7 +257,7 @@ const titresActivitesGet = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titreActivitesQueryBuild({ fields }, user)
 
@@ -350,7 +352,7 @@ const titresActivitesCount = async (
     titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titreActivitesQueryBuild({ fields }, user)
 

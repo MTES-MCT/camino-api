@@ -1,4 +1,4 @@
-import Knex from 'knex'
+import { Knex } from 'knex'
 import emailRegex from 'email-regex'
 import bcrypt from 'bcryptjs'
 import { IUtilisateur } from '../types'

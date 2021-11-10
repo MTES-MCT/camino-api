@@ -13,10 +13,10 @@ class Mois extends Model {
     required: ['id', 'nom', 'trimestreId'],
 
     properties: {
-      id: { type: 'integer', maxLength: 2 },
+      id: { type: 'integer' },
       nom: { type: 'string' },
       frequenceId: { type: 'string', maxLength: 3 },
-      trimestreId: { type: 'integer', maxLength: 1 }
+      trimestreId: { type: 'integer' }
     }
   }
 

@@ -18,7 +18,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
       demarcheTypeId: { type: 'string', maxLength: 3 },
       etapeTypeId: { type: 'string', maxLength: 3 },
       ordre: { type: 'integer' },
-      sections: { type: 'json' }
+      sections: {}
     }
   }
 

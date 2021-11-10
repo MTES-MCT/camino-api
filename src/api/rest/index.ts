@@ -70,6 +70,10 @@ const titre = async (
 
   const titre = await titreGet(id!, { fields: titreFields }, user)
 
+  if (!titre) {
+    return null
+  }
+
   const titreFormatted = titreFormat(titre)
   let contenu
 

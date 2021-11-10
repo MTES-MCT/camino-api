@@ -131,13 +131,13 @@ const titresDemarchesFiltersQueryModify = (
 
 const titresDemarchesQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fieldsTitreAdd(fields), 'demarches', fieldsFormat)
     : options.titresDemarches.graph
 
-  const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
+  const q = TitresDemarches.query().withGraphFetched(graph)
 
   titresDemarchesQueryModify(q, user)
 
@@ -175,7 +175,7 @@ const titresDemarchesCount = async (
     titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)
 
@@ -257,7 +257,7 @@ const titresDemarchesGet = async (
     titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)
 
@@ -318,7 +318,7 @@ const titresDemarchesGet = async (
 const titreDemarcheGet = async (
   titreDemarcheId: string,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresDemarchesQueryBuild({ fields }, user)
 

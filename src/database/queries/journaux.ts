@@ -23,7 +23,7 @@ const diffPatcher = create({
 export const journauxGet = async (
   params: IJournauxQueryParams,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'journaux', fieldsFormat)
@@ -92,7 +92,7 @@ export const patchJournalCreate = async <T extends Model>(
   const oldPartialValue = (
     Object.keys(partialEntity) as Array<keyof Model>
   ).reduce((result, key) => {
-    result[key] = oldValue[key]
+    result[key] = oldValue![key]
 
     return result
   }, {} as any)
@@ -163,7 +163,6 @@ export const upsertJournalCreate = async <T extends Model>(
   await Journaux.query().insert({
     elementId: (newValue as any).id,
     utilisateurId: userId,
-    date: new Date(),
     operation,
     differences,
     titreId

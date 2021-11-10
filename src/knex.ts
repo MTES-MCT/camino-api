@@ -1,10 +1,10 @@
-import Knex from 'knex'
+import knex, { Knex } from 'knex'
 import { Model } from 'objection'
 
 let knexInstance = null as unknown as Knex
 
 const knexInit = (knexConfig: Knex.Config) => {
-  knexInstance = Knex(knexConfig)
+  knexInstance = knex(knexConfig)
   Model.knex(knexInstance)
 }
 

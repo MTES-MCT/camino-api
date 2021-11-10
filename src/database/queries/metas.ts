@@ -75,9 +75,9 @@ import TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes from '../models/ti
 const permissionsGet = async (
   _a: never,
   _b: never,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
-  const q = Permissions.query().skipUndefined().orderBy('ordre')
+  const q = Permissions.query().orderBy('ordre')
 
   permissionsQueryModify(q, user)
 
@@ -114,7 +114,7 @@ const titreTypeTypeUpdate = async (
 const domainesGet = async (
   _: never,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'titre', fieldsFormat)
@@ -130,7 +130,7 @@ const domainesGet = async (
 const domaineGet = async (
   id: string,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'titre', fieldsFormat)
@@ -420,7 +420,7 @@ const etapeTypeJustificatifTypeDelete = async (
  * @param user - utilisateur
  * @returns liste de statuts
  */
-const titresStatutsGet = async (user: IUtilisateur | null) => {
+const titresStatutsGet = async (user: IUtilisateur | null | undefined) => {
   let query = TitresStatuts.query().orderBy('ordre')
 
   // si l’utilisateur n’est pas connecté on filtre les statuts non visibles pour le public
@@ -442,7 +442,7 @@ const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'demarchesTypes', fieldsFormat)
@@ -480,7 +480,7 @@ const etapesTypesGet = async (
     titreEtapeId?: string
   },
   { fields, uniqueCheck = true }: { fields?: IFields; uniqueCheck?: boolean },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapesTypes', fieldsFormat)

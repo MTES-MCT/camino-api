@@ -12,7 +12,7 @@ import { documentsQueryModify } from './permissions/documents'
 const documentGet = async (
   documentId: string,
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'documents', fieldsFormat)
@@ -30,7 +30,7 @@ const documentGet = async (
 const documentsGet = async (
   { ids, entreprisesIds }: { ids?: string[]; entreprisesIds?: string[] },
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'documents', fieldsFormat)

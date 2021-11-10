@@ -1,4 +1,11 @@
-import { IAdministration, IPermissionId, ITitre } from '../../src/types'
+import {
+  IAdministration,
+  IDemarcheType,
+  IEtapeType,
+  IPermissionId,
+  ITitre,
+  ITitreTypeDemarcheTypeEtapeType
+} from '../../src/types'
 
 import { graphQLCall, queryImport } from './index'
 import { administrationsWithRelations } from './administrations'
@@ -144,20 +151,24 @@ const creationCheck = async (
     expect(demarcheCreated.body.errors).toBeUndefined()
 
     const etapeTypeId = 'mfr'
-    const etapeType = await etapeTypeGet(etapeTypeId, { fields: {} })
+    const etapeType = (await etapeTypeGet(etapeTypeId, {
+      fields: {}
+    })) as IEtapeType
 
-    const demarcheType = await DemarchesTypes.query()
+    const demarcheType = (await DemarchesTypes.query()
       .withGraphFetched(options.demarchesTypes.graph)
-      .findById(demarcheCreated.body.data.demarcheCreer.demarches[0].type!.id)
+      .findById(
+        demarcheCreated.body.data.demarcheCreer.demarches[0].type!.id
+      )) as IDemarcheType
 
-    const tde = await titreTypeDemarcheTypeEtapeTypeGet(
+    const tde = (await titreTypeDemarcheTypeEtapeTypeGet(
       {
         titreTypeId: titreTypeId,
         demarcheTypeId: demarcheType.id,
         etapeTypeId: etapeType.id
       },
       { fields: { documentsTypes: { id: {} } } }
-    )
+    )) as ITitreTypeDemarcheTypeEtapeType
 
     const sections = etapeTypeSectionsFormat(etapeType.sections, tde.sections)
 

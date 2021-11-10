@@ -167,7 +167,7 @@ const moi = async (_: never, context: IToken, info: GraphQLResolveInfo) => {
 
     const utilisateur = await utilisateurGet(user.id, { fields }, user)
 
-    return userFormat(utilisateur)
+    return userFormat(utilisateur!)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -220,7 +220,7 @@ const utilisateurTokenCreer = async (
     )
 
     return {
-      utilisateur: userFormat(utilisateur),
+      utilisateur: userFormat(utilisateur!),
       accessToken,
       refreshToken
     }
@@ -258,7 +258,7 @@ const utilisateurTokenRafraichir = async (
     )
 
     return {
-      utilisateur: userFormat(utilisateur),
+      utilisateur: userFormat(utilisateur!),
       ...tokens
     }
   } catch (e) {
@@ -316,8 +316,8 @@ const utilisateurCerbereTokenCreer = async (
     )
 
     return {
-      ...userTokensCreate(utilisateur),
-      utilisateur: userFormat(utilisateur)
+      ...userTokensCreate(utilisateur!),
+      utilisateur: userFormat(utilisateur!)
     }
   } catch (e) {
     if (debug) {

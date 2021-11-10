@@ -8,7 +8,7 @@ const entrepriseEtablissementGet = async (id: string) =>
   EntrepriseEtablissements.query().findById(id)
 
 const entreprisesEtablissementsGet = async () =>
-  EntrepriseEtablissements.query().skipUndefined()
+  EntrepriseEtablissements.query()
 
 const entreprisesEtablissementsUpsert = async (
   entreprisesEtablissements: IEntrepriseEtablissement[]

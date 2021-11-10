@@ -2,6 +2,7 @@ import dateFormat from 'dateformat'
 import { GraphQLResolveInfo } from 'graphql'
 
 import {
+  ITitre,
   ITitreActivite,
   ITitreActiviteColonneId,
   IToken,
@@ -269,7 +270,7 @@ const activiteDeposer = async (
     if (!activiteRes) throw new Error("l'activité n'existe pas")
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
-    const titre = await titreGet(
+    const titre = (await titreGet(
       activiteRes.titreId,
       {
         fields: {
@@ -280,7 +281,7 @@ const activiteDeposer = async (
         }
       },
       userSuper
-    )
+    )) as ITitre
 
     const isAmodiataire = titre.amodiataires?.some(t =>
       user.entreprises?.some(e => e.id === t.id)

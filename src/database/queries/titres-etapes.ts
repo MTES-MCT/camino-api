@@ -28,13 +28,13 @@ import {
 
 const titresEtapesQueryBuild = (
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapes', fieldsFormat)
     : options.titresEtapes.graph
 
-  const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)
+  const q = TitresEtapes.query().withGraphFetched(graph)
 
   titresEtapesQueryModify(q, user)
 
@@ -47,7 +47,7 @@ const titresEtapesQueryBuild = (
 const titreEtapeGet = async (
   titreEtapeId: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresEtapesQueryBuild({ fields }, user)
 
@@ -73,7 +73,7 @@ const titresEtapesGet = async (
     titresDemarchesIds?: string[] | null
   } = {},
   { fields }: { fields?: IFields },
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   const q = titresEtapesQueryBuild({ fields }, user)
 

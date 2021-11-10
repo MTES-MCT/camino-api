@@ -45,7 +45,7 @@ describe('vérifie la mis à jour des slugs sur les relations d’un titre', () 
     expect(slug).toEqual('m-ar-titre-nom-0000')
 
     const titreDb = await titreGet(titre.id, { fields: {} }, userSuper)
-    expect(titreDb.slug).toEqual(slug)
+    expect(titreDb!.slug).toEqual(slug)
   })
 
   test('ne met pas à jour le slug d’un titre existant', async () => {
@@ -64,7 +64,7 @@ describe('vérifie la mis à jour des slugs sur les relations d’un titre', () 
     expect(slug).toEqual(titre.slug)
 
     const titreDb = await titreGet(titre.id, { fields: {} }, userSuper)
-    expect(titreDb.slug).toEqual(slug)
+    expect(titreDb!.slug).toEqual(slug)
   })
 
   test('génère un slug différent si le slug existe déjà', async () => {
@@ -138,7 +138,7 @@ describe('vérifie la mis à jour des slugs sur les relations d’un titre', () 
       { fields: { demarches: { id: {} } } },
       userSuper
     )
-    expect(titreDb.slug).toEqual(slug)
-    expect(titreDb.demarches![0].slug).toEqual('m-ar-titre-nom-0000-oct01')
+    expect(titreDb!.slug).toEqual(slug)
+    expect(titreDb!.demarches![0].slug).toEqual('m-ar-titre-nom-0000-oct01')
   })
 })

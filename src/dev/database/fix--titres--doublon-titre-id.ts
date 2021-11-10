@@ -10,7 +10,7 @@ const main = async () => {
       .first()
 
     await Titres.query()
-      .patch({ doublonTitreId: doublonTitre.id })
+      .patch({ doublonTitreId: doublonTitre!.id })
       .where('id', titre.id)
   }
 

@@ -12,7 +12,7 @@ import { entreprisesQueryModify } from './entreprises'
 
 const utilisateursQueryModify = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('utilisateurs.*')
 

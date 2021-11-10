@@ -15,11 +15,11 @@ class Journaux extends Model {
     properties: {
       id: { type: 'string' },
       utilisateurId: { type: 'string' },
-      date: { type: 'date' },
+      date: { type: 'string' },
       elementId: { type: 'string' },
       titreId: { type: 'string' },
       operation: { enum: ['create', 'update', 'delete'] },
-      differences: { type: 'json' }
+      differences: { type: 'object' }
     }
   }
 
@@ -46,7 +46,7 @@ class Journaux extends Model {
     await super.$beforeInsert(queryContext)
 
     this.id = idGenerate()
-    this.date = new Date()
+    this.date = new Date().toISOString()
   }
 }
 

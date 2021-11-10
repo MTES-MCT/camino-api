@@ -21,7 +21,7 @@ import { entreprisesTitresQuery } from './entreprises'
 
 const titresDemarchesQueryModify = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   q.select('titresDemarches.*').leftJoinRelated('titre')
 
@@ -109,7 +109,7 @@ const titresDemarchesQueryModify = (
 
 const titreDemarcheModificationQuery = (
   demarcheAlias: string,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     return raw('not exists(?)', [titreDemarcheEtapesQuery(demarcheAlias)])
@@ -140,7 +140,7 @@ const titreDemarcheEtapesQuery = (demarcheAlias: string) =>
 
 const titreEtapesCreationQuery = (
   demarcheAlias: string,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   if (permissionCheck(user?.permissionId, ['super'])) {
     return raw('true')

@@ -974,7 +974,7 @@ interface ITitreDemande {
 interface IJournaux {
   id: string
   utilisateurId: string
-  date: Date
+  date: string
   elementId: string
   titreId: string
   operation: 'create' | 'update' | 'delete'

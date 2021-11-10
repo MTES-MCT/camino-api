@@ -156,9 +156,9 @@ const titreCreer = async (
       { fields: { titresTypes: { id: {} } } },
       user
     )
-    const titreType = domaine.titresTypes.find(tt => tt.id === titre.typeId)
+    const titreType = domaine?.titresTypes.find(tt => tt.id === titre.typeId)
 
-    if (!user || !titreType?.titresCreation)
+    if (!user || !titreType || !titreType.titresCreation)
       throw new Error('droits insuffisants')
 
     // insert le titre dans la base

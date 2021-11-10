@@ -1,4 +1,4 @@
-import Knex from 'knex'
+import { Knex } from 'knex'
 import { databaseManagerFactory } from 'knex-db-manager'
 import { join } from 'path'
 

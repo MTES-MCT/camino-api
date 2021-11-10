@@ -4,7 +4,7 @@ import { permissionCheck } from '../../tools/permission'
 const titreUpdationValidate = async (
   titreNew: ITitre,
   titreOld: ITitre,
-  user: IUtilisateur | null
+  user: IUtilisateur | null | undefined
 ) => {
   // vérifie
   // - si un titre contient des démarches qui ne sont pas recevables
