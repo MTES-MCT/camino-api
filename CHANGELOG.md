@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.29.0](https://github.com/MTES-MCT/camino-api/compare/v0.28.0...v0.29.0) (2021-11-10)
+
+
+### Features
+
+* **administrations:** notification par email sur activités ([#820](https://github.com/MTES-MCT/camino-api/issues/820)) ([270232f](https://github.com/MTES-MCT/camino-api/commit/270232f1bc519e6c569d4e44387c4f68f5d64730))
+* **étape:** modifie le statut de l’étape complétude de la demande ([#826](https://github.com/MTES-MCT/camino-api/issues/826)) ([ae1173e](https://github.com/MTES-MCT/camino-api/commit/ae1173e46a19382d7272d244110aba95045f9773))
+* **étape:** rend la durée pour les demandes d’ARM et d’AXM obligatoires ([#828](https://github.com/MTES-MCT/camino-api/issues/828)) ([d96fb2f](https://github.com/MTES-MCT/camino-api/commit/d96fb2f46d1e5b5cf82812d8b0f9b11d35fda7de))
+* **journaux:** ajoute une route qui permet de récupérer les journaux ([#825](https://github.com/MTES-MCT/camino-api/issues/825)) ([88655e4](https://github.com/MTES-MCT/camino-api/commit/88655e4246a67ad1b52afb27d6fd1ad262b63c6b))
+* **permissions:** autorise les administrations locales à modifier leurs titres ([#830](https://github.com/MTES-MCT/camino-api/issues/830)) ([1ae3ff5](https://github.com/MTES-MCT/camino-api/commit/1ae3ff589331be7c28f1cc99c2c3d569dcc3a999))
+
+
+### Bug Fixes
+
+* **activitesTypesEmail:** corrige deux erreurs dans l'ajout et la requête d'email ([#829](https://github.com/MTES-MCT/camino-api/issues/829)) ([e3494b4](https://github.com/MTES-MCT/camino-api/commit/e3494b422bc137bdc1a8519daa23d0a5829aa5b7))
+* **docs:** corrige la génération automatique de la documentation ([e764474](https://github.com/MTES-MCT/camino-api/commit/e76447446ebfcd26a134320fd72cd878df489330))
+* **étapes:** nettoie les incertitudes inutiles en base de données ([#827](https://github.com/MTES-MCT/camino-api/issues/827)) ([aae5600](https://github.com/MTES-MCT/camino-api/commit/aae5600a8195361eec448f6f92c86342b7f5785d))
+* **import:** supprime le point en double lors de l’import d’un fichier géojson ([#823](https://github.com/MTES-MCT/camino-api/issues/823)) ([95a658d](https://github.com/MTES-MCT/camino-api/commit/95a658d33f0d9888c8e43c051c05e52d4c6abb87))
+
 ## [0.28.0](https://github.com/MTES-MCT/camino-api/compare/v0.27.0...v0.28.0) (2021-10-25)
 
 
