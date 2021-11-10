@@ -354,4 +354,37 @@ describe("statut d'une démarche", () => {
       titreDemarcheStatutIdFind('xxx', etapesBuild([{ typeId: 'mfr' }]), 'pxm')
     ).toEqual('ind')
   })
+
+  test.each([
+    [
+      "autorisation d'ouverture de travaux",
+      'aom',
+      "autorisation de prospections préalables",
+      'arm',
+      "abandon de la demande",
+      'wab',
+      "déposé",
+      'dep'
+    ]
+  ])(
+    "une démarche de travaux de type “%s” (%s) dans un titre de type “%s” (%s), dont l'étape la plus récente est “%s” (%s), a le statut “%s” (%s)",
+    (
+      demarcheTypeLabel: string,
+      demarcheType: string,
+      titreTypeLabel: string,
+      titreType: string,
+      typeIdLabel: string,
+      typeId: string,
+      resultLabel: string,
+      result: string
+    ) => {
+      expect(
+        titreDemarcheStatutIdFind(
+          demarcheType,
+          etapesBuild([{ typeId }]),
+          titreType
+        )
+      ).toEqual(result)
+    }
+  )
 })
