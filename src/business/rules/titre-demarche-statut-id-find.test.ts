@@ -359,32 +359,32 @@ describe("statut d'une démarche", () => {
     [
       "autorisation d'ouverture de travaux",
       'aom',
-      "autorisation de prospections préalables",
-      'arm',
-      "abandon de la demande",
-      'wab',
-      "déposé",
+      "permis d'exploitation (minéraux et métaux)",
+      'pxm',
+      "demande d'autorisation d'ouverture de travaux miniers (AOTM)",
+      'wfa',
+      'déposé',
       'dep'
     ]
   ])(
-    "une démarche de travaux de type “%s” (%s) dans un titre de type “%s” (%s), dont l'étape la plus récente est “%s” (%s), a le statut “%s” (%s)",
+    "une démarche de travaux de type “%s” (%s) dans un titre de type “%s” (%s), dont l'étape la plus récente est “%s” (%s) a le statut “%s” (%s)",
     (
       demarcheTypeLabel: string,
-      demarcheType: string,
+      demarcheTypeId: string,
       titreTypeLabel: string,
-      titreType: string,
-      typeIdLabel: string,
-      typeId: string,
-      resultLabel: string,
-      result: string
+      titreTypeId: string,
+      etapeTypeLabel: string,
+      etapeTypeId: string,
+      statutLabel: string,
+      statutId: string
     ) => {
       expect(
         titreDemarcheStatutIdFind(
-          demarcheType,
-          etapesBuild([{ typeId }]),
-          titreType
+          demarcheTypeId,
+          etapesBuild([{ typeId: etapeTypeId }]),
+          titreTypeId
         )
-      ).toEqual(result)
+      ).toEqual(statutId)
     }
   )
 })

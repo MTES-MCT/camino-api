@@ -27,6 +27,11 @@ const titreEtapesDecisivesDemandesTypes = [
   ...titreEtapesDecisivesCommunesTypes
 ]
 
+const titreEtapesTravauxDemandesTypes = [
+  'wfa',
+  ...titreEtapesDecisivesDemandesTypes
+]
+
 const titreDemarchesDemandesTypes = [
   'oct',
   'pro',
@@ -46,6 +51,8 @@ const titreDemarchesDemandesTypes = [
   'vus',
   'vct'
 ]
+
+const titreDemarchesTravauxTypes = ['aom', 'dam', 'dot']
 
 const titreEtapesDecisivesUnilateralesTypes = [
   'ide',
@@ -260,6 +267,36 @@ const titreDemarcheDemandeStatutIdFind = (
   return 'ind'
 }
 
+const titreDemarcheTravauxStatutIdFind = (
+  titreDemarcheEtapes: ITitreEtape[],
+  titreTypeId: string
+) => {
+  console.log(titreTypeId) // pour passer le linter
+  // filtre les types d'étapes qui ont un impact
+  // sur le statut de la démarche de demande
+  const titreEtapesDecisivesDemande = titreDemarcheEtapes.filter(titreEtape =>
+    titreEtapesTravauxDemandesTypes.includes(titreEtape.typeId)
+  )
+
+  // si aucune étape décisive n'est présente dans la démarche
+  // le statut est indéterminé
+  if (!titreEtapesDecisivesDemande.length) return 'ind'
+
+  // l'étape la plus récente
+  const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisivesDemande)[0]
+
+  // calcule le statut de démarche pour les étapes communes
+  const statutId = titresDemarcheCommunesStatutIdFind(titreEtapeRecent)
+
+  if (statutId) return statutId
+
+  if (titreEtapeRecent.typeId === 'wfa') {
+    return 'dep'
+  }
+
+  return 'ind'
+}
+
 /**
  * Retourne l'id du statut d'une démarche
  * @param demarcheTypeId - id du type de la démarche
@@ -275,6 +312,11 @@ const titreDemarcheStatutIdFind = (
   // si la démarche ne contient pas d'étapes
   // -> le statut est indétrminé
   if (!titreDemarcheEtapes.length) return 'ind'
+
+  // si la démarche est pour des travaux
+  if (titreDemarchesTravauxTypes.includes(demarcheTypeId)) {
+    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes, titreTypeId)
+  }
 
   //  si la démarche fait l’objet d’une demande
   // (son type est :
