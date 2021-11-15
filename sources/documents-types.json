@@ -48,6 +48,10 @@
     "nom": "Arrêté de premier donné acte (AP1)"
   },
   {
+    "id": "are",
+    "nom": "Arrêté de refus "
+  },
+  {
     "id": "arm",
     "nom": "Arrêté ministériel"
   },
@@ -108,8 +112,20 @@
     "nom": "Convention"
   },
   {
+    "id": "cou",
+    "nom": "Courrier"
+  },
+  {
+    "id": "csp",
+    "nom": "Courrier de saisine du préfet "
+  },
+  {
     "id": "cur",
     "nom": "Curriculum vitae"
+  },
+  {
+    "id": "dcl",
+    "nom": "Déclaration"
   },
   {
     "id": "dec",
@@ -252,12 +268,36 @@
     "nom": "Plan"
   },
   {
+    "id": "plg",
+    "nom": "Planigramme des travaux"
+  },
+  {
+    "id": "prg",
+    "nom": "Programme des travaux "
+  },
+  {
+    "id": "pro",
+    "nom": "Projet de prescriptions"
+  },
+  {
     "id": "pub",
     "nom": "Publication au JORF"
   },
   {
+    "id": "pvr",
+    "nom": "PV de récolement"
+  },
+  {
     "id": "rac",
     "nom": "Rapport de l’administration centrale chargé des mines"
+  },
+  {
+    "id": "rad",
+    "nom": "Rapport DREAL"
+  },
+  {
+    "id": "rap",
+    "nom": "Rapport"
   },
   {
     "id": "rce",
