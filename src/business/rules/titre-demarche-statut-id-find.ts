@@ -29,6 +29,10 @@ const titreEtapesDecisivesDemandesTypes = [
 
 const titreEtapesTravauxDemandesTypes = [
   'wfa',
+  'wdd',
+  'wdc',
+  'wrc',
+  'wre',
   ...titreEtapesDecisivesDemandesTypes
 ]
 
@@ -290,7 +294,12 @@ const titreDemarcheTravauxStatutIdFind = (
 
   if (statutId) return statutId
 
-  if (titreEtapeRecent.typeId === 'wfa') {
+  // le type de l'étape est l'un des suivants :
+  //  - demande d'autorisation d'ouverture de travaux miniers (AOTM)
+  //  - dépot de la demande
+  //  - demande de compléments (AOT)
+  //  - reception de compléments
+  if (['wfa', 'wdd', 'wdc', 'wrc', 'wre'].includes(titreEtapeRecent.typeId)) {
     return 'dep'
   }
 
