@@ -24,35 +24,10 @@ const titreEtapesDecisivesDemandesTypes = [
   'rpu',
   'dpu',
   'ihi',
-  ...titreEtapesDecisivesCommunesTypes
-]
-
-const travauxDeposesEtapesTypes = ['wfa', 'wdd', 'wdc', 'wrc', 'wre']
-const travauxInstructionEtapesTypes = [
-  'war',
-  'wse',
-  'wae',
-  'wss',
-  'wal',
-  'wad',
-  'wam',
-  'was',
-  'wac',
-  'wap',
-  'wai',
-  'wmm',
-  'woe',
-  'wce',
-  'wrl',
-  'wtp',
-  'wat',
-  'wau'
-]
-const travauxAccepteEtapesTypes = ['wpa']
-const titreEtapesTravauxDemandesTypes = [
-  ...travauxDeposesEtapesTypes,
-  ...travauxInstructionEtapesTypes,
-  ...travauxAccepteEtapesTypes,
+  'wfa',
+  'wre',
+  'wau',
+  'wpa',
   ...titreEtapesDecisivesCommunesTypes
 ]
 
@@ -297,8 +272,10 @@ const titreDemarcheTravauxStatutIdFind = (
   // filtre les types d'étapes qui ont un impact
   // sur le statut de la démarche de demande
   const titreEtapesDecisivesDemande = titreDemarcheEtapes.filter(titreEtape =>
-    titreEtapesTravauxDemandesTypes.includes(titreEtape.typeId)
+    titreEtapesDecisivesDemandesTypes.includes(titreEtape.typeId)
   )
+
+  console.log('titreEtapesDecisivesDemande', titreEtapesDecisivesDemande)
 
   // si aucune étape décisive n'est présente dans la démarche
   // le statut est indéterminé
@@ -312,43 +289,33 @@ const titreDemarcheTravauxStatutIdFind = (
 
   if (statutId) return statutId
 
-  // le type de l'étape est l'un des suivants :
-  //  - demande d'autorisation d'ouverture de travaux miniers (AOTM)
-  //  - dépot de la demande
-  //  - demande de compléments (AOT)
-  //  - reception de compléments
+  // le type de l'étape est :
+  //   - "demande d'autorisation d'ouverture de travaux miniers (AOTM)"
+  // OU
+  //     "recevabilité" défavorable
   // le statut est "déposé"
-  if (travauxDeposesEtapesTypes.includes(titreEtapeRecent.typeId)) {
+  if (
+    titreEtapeRecent.typeId === 'wfa' ||
+    (titreEtapeRecent.typeId === 'wre' && titreEtapeRecent.statutId === 'def')
+  ) {
     return 'dep'
   }
 
-  // le type de l'étape est l'un des suivants :
-  // - avis de réception
-  // - saisine de l'autorité environnementale
-  // - avis de l'autorité environnementale
-  // - saisine des services de l'Etat
-  // - avis d'un service administratif local
-  // - avis de la direction départementale des territoires et de la mer - DDT(M)
-  // - avis de l'autorité militaire
-  // - avis de l'agence régionale de santé - ARS
-  // - avis de direction régionale des affaires culturelles - DRAC
-  // - avis du préfet maritime
-  // - avis des autres instances
-  // - memoire en réponse de l'exploitant (par rapport à l'avis de l'AE)
-  // - ouverture de l'enquête publique
-  // - clôture de l'enquête publique
-  // - avis et rapport du directeur régional chargé de l'environnement, de l'aménagement et du logement
-  // - transmission du projet de prescriptions au demandeur
-  // - avis du conseil départemental de l'environnement et des risques sanitaires et technologiques (Coderst)
-  // - avis du demandeur sur les prescriptions proposées
+  // le type de l'étape est "recevabilité" favorable
   // le statut est "en instruction"
-  if (travauxInstructionEtapesTypes.includes(titreEtapeRecent.typeId)) {
+  if (
+    titreEtapeRecent.typeId === 'wre' &&
+    titreEtapeRecent.statutId === 'fav'
+  ) {
     return 'ins'
   }
 
-  // le type de l'étape est "publication de décision au recueil des actes administratifs",
+  // le type de l'étape est "Avis du demandeur sur les prescriptions proposées",
   // le statut est "accepté"
-  if (travauxAccepteEtapesTypes.includes(titreEtapeRecent.typeId)) {
+  if (
+    titreEtapeRecent.typeId === 'wau' &&
+    titreEtapeRecent.statutId === 'fav'
+  ) {
     return 'acc'
   }
 
