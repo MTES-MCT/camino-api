@@ -48,10 +48,12 @@ const travauxInstructionEtapesTypes = [
   'wat',
   'wau'
 ]
+const travauxAccepteEtapesTypes = ['wpa']
 const titreEtapesTravauxDemandesTypes = [
   ...travauxDeposesEtapesTypes,
   ...travauxInstructionEtapesTypes,
-  ...titreEtapesDecisivesDemandesTypes
+  ...travauxAccepteEtapesTypes,
+  ...titreEtapesDecisivesCommunesTypes
 ]
 
 const titreDemarchesDemandesTypes = [
@@ -342,6 +344,12 @@ const titreDemarcheTravauxStatutIdFind = (
   // le statut est "en instruction"
   if (travauxInstructionEtapesTypes.includes(titreEtapeRecent.typeId)) {
     return 'ins'
+  }
+
+  // le type de l'étape est "publication de décision au recueil des actes administratifs",
+  // le statut est "accepté"
+  if (travauxAccepteEtapesTypes.includes(titreEtapeRecent.typeId)) {
+    return 'acc'
   }
 
   return 'ind'
