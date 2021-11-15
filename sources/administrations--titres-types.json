@@ -1,5 +1,10 @@
 [
   {
+    "administration_id": "aut-97300-01",
+    "titre_type_id": "arm",
+    "associee": true
+  },
+  {
     "administration_id": "aut-mrae-guyane-01",
     "titre_type_id": "arm",
     "associee": true
@@ -31,56 +36,8 @@
     "titre_type_id": "prm"
   },
   {
-    "administration_id": "dre-bretagne-01",
-    "titre_type_id": "cxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-bretagne-01",
-    "titre_type_id": "pxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "prm"
-  },
-  {
     "administration_id": "dre-ile-de-france-01",
     "titre_type_id": "pcc",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-normandie-01",
-    "titre_type_id": "cxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-normandie-01",
-    "titre_type_id": "pxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-nouvelle-aquitaine-01",
-    "titre_type_id": "cxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-nouvelle-aquitaine-01",
-    "titre_type_id": "pxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-pays-de-la-loire-01",
-    "titre_type_id": "cxw",
-    "gestionnaire": true
-  },
-  {
-    "administration_id": "dre-pays-de-la-loire-01",
-    "titre_type_id": "pxw",
     "gestionnaire": true
   },
   {

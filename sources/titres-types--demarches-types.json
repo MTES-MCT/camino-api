@@ -5,19 +5,11 @@
   },
   {
     "titre_type_id": "apc",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "apc",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "apc",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "apc",
@@ -39,16 +31,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "apc",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "aph",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "aph",
@@ -56,11 +40,7 @@
   },
   {
     "titre_type_id": "aph",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "aph",
@@ -82,16 +62,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "aph",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "apm",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "apm",
@@ -99,11 +71,7 @@
   },
   {
     "titre_type_id": "apm",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "apm",
@@ -125,16 +93,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "apm",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "apw",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "apw",
@@ -142,11 +102,7 @@
   },
   {
     "titre_type_id": "apw",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "apw",
@@ -168,16 +124,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "apw",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "arc",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "arc",
@@ -185,11 +133,7 @@
   },
   {
     "titre_type_id": "arc",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "arc",
@@ -218,16 +162,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "arc",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "arg",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "arg",
@@ -235,17 +171,13 @@
   },
   {
     "titre_type_id": "arg",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "arg",
     "demarche_type_id": "exp",
     "delai_implicite": "18",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "arg",
@@ -273,16 +205,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "arg",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "arm",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "arm",
@@ -290,11 +214,7 @@
   },
   {
     "titre_type_id": "arm",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "arm",
@@ -315,16 +235,8 @@
     "demarche_type_id": "ret"
   },
   {
-    "titre_type_id": "arm",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "axm",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "axm",
@@ -337,11 +249,7 @@
   },
   {
     "titre_type_id": "axm",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "mpm"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "axm",
@@ -365,10 +273,6 @@
     "titre_type_id": "axm",
     "demarche_type_id": "ret",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "sup"
   },
   {
     "titre_type_id": "axm",
@@ -390,25 +294,17 @@
   },
   {
     "titre_type_id": "cxf",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "cxf",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "cxf",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxf",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxf",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxf",
@@ -450,10 +346,6 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "cxf",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "cxg",
     "demarche_type_id": "amo",
     "acceptation_implicite": true,
@@ -466,25 +358,17 @@
   },
   {
     "titre_type_id": "cxg",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "cxg",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "cxg",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxg",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxg",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxg",
@@ -526,10 +410,6 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "cxg",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "cxh",
     "demarche_type_id": "amo",
     "acceptation_implicite": true,
@@ -539,10 +419,6 @@
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "cxh",
@@ -556,17 +432,13 @@
   },
   {
     "titre_type_id": "cxh",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxh",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxh",
@@ -608,16 +480,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "cxi",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "cxi",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "cxi",
@@ -625,15 +489,7 @@
   },
   {
     "titre_type_id": "cxi",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "cxi",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "cxi",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxm",
@@ -645,10 +501,6 @@
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "cxm",
@@ -664,17 +516,13 @@
   },
   {
     "titre_type_id": "cxm",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxm",
@@ -714,10 +562,6 @@
     "titre_type_id": "cxm",
     "demarche_type_id": "ret",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "sup"
   },
   {
     "titre_type_id": "cxm",
@@ -738,25 +582,17 @@
   },
   {
     "titre_type_id": "cxr",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "cxr",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "cxr",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxr",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxr",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxr",
@@ -798,10 +634,6 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "cxr",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "cxs",
     "demarche_type_id": "amo",
     "acceptation_implicite": true,
@@ -814,25 +646,17 @@
   },
   {
     "titre_type_id": "cxs",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "cxs",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "cxs",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxs",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxs",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxs",
@@ -874,10 +698,6 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "cxs",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "cxw",
     "demarche_type_id": "amo",
     "acceptation_implicite": true,
@@ -890,25 +710,17 @@
   },
   {
     "titre_type_id": "cxw",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "cxw",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "cxw",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "cxw",
     "demarche_type_id": "exp",
     "delai_implicite": "24",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "cxw",
@@ -950,16 +762,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "inh",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "inh",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "inh",
@@ -967,15 +771,7 @@
   },
   {
     "titre_type_id": "inh",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "inh",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "inh",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "ini",
@@ -983,23 +779,11 @@
   },
   {
     "titre_type_id": "ini",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "ini",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "ini",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "ini",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "ini",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "inm",
@@ -1007,23 +791,11 @@
   },
   {
     "titre_type_id": "inm",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "inm",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "inm",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "inm",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "inm",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "inr",
@@ -1031,23 +803,11 @@
   },
   {
     "titre_type_id": "inr",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "inr",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "inr",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "inr",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "inr",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pcc",
@@ -1061,25 +821,17 @@
   },
   {
     "titre_type_id": "pcc",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pcc",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pcc",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pcc",
     "demarche_type_id": "exp",
     "delai_implicite": "15",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "pcc",
@@ -1120,16 +872,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "prf",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "prf",
@@ -1137,7 +881,7 @@
   },
   {
     "titre_type_id": "prf",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prf",
@@ -1151,10 +895,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prf",
@@ -1197,10 +937,6 @@
   },
   {
     "titre_type_id": "prf",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "prf",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1212,15 +948,11 @@
   },
   {
     "titre_type_id": "prg",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "prg",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "prg",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prg",
@@ -1234,10 +966,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prg",
@@ -1280,10 +1008,6 @@
   },
   {
     "titre_type_id": "prg",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "prg",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1295,15 +1019,11 @@
   },
   {
     "titre_type_id": "prh",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "prh",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "prh",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prh",
@@ -1317,10 +1037,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prh",
@@ -1369,16 +1085,8 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "prh",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "pri",
     "demarche_type_id": "aom"
-  },
-  {
-    "titre_type_id": "pri",
-    "demarche_type_id": "apr"
   },
   {
     "titre_type_id": "pri",
@@ -1386,15 +1094,7 @@
   },
   {
     "titre_type_id": "pri",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "pri",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "pri",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prm",
@@ -1402,15 +1102,11 @@
   },
   {
     "titre_type_id": "prm",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "prm",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "prm",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prm",
@@ -1430,10 +1126,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prm",
@@ -1476,10 +1168,6 @@
   },
   {
     "titre_type_id": "prm",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "prm",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1491,15 +1179,11 @@
   },
   {
     "titre_type_id": "prr",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "prr",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "prr",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prr",
@@ -1518,10 +1202,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prr",
@@ -1569,10 +1249,6 @@
   },
   {
     "titre_type_id": "prr",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "prr",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1584,15 +1260,11 @@
   },
   {
     "titre_type_id": "prs",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "prs",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "prs",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prs",
@@ -1606,10 +1278,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prs",
@@ -1652,10 +1320,6 @@
   },
   {
     "titre_type_id": "prs",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "prs",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1667,15 +1331,11 @@
   },
   {
     "titre_type_id": "prw",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "prw",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "prw",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "prw",
@@ -1689,10 +1349,6 @@
     "acceptation_implicite": true,
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "prw",
@@ -1735,10 +1391,6 @@
   },
   {
     "titre_type_id": "prw",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "prw",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1750,23 +1402,11 @@
   },
   {
     "titre_type_id": "pxf",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxf",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxf",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "pxf",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "pxf",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxg",
@@ -1781,15 +1421,11 @@
   },
   {
     "titre_type_id": "pxg",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxg",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxg",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxg",
@@ -1802,10 +1438,6 @@
     "demarche_type_id": "fus",
     "delai_implicite": "12",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "pxg",
@@ -1847,10 +1479,6 @@
     "delai_recours": "2"
   },
   {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "sup"
-  },
-  {
     "titre_type_id": "pxh",
     "demarche_type_id": "amo",
     "delai_recours": "2",
@@ -1864,15 +1492,11 @@
   },
   {
     "titre_type_id": "pxh",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxh",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxh",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxh",
@@ -1881,10 +1505,6 @@
     "legal_ref": "Loi n°94-588 du 15 juillet 1994 - art. 13 JORF 16 juillet 1994",
     "legal_lien": "https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000006627186&cidTexte=LEGITEXT000006071785",
     "date_fin": "1994-07-16"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "pxh",
@@ -1952,10 +1572,6 @@
   },
   {
     "titre_type_id": "pxh",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "pxh",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -1967,23 +1583,11 @@
   },
   {
     "titre_type_id": "pxi",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxi",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxi",
-    "demarche_type_id": "dom"
-  },
-  {
-    "titre_type_id": "pxi",
-    "demarche_type_id": "mpm"
-  },
-  {
-    "titre_type_id": "pxi",
-    "demarche_type_id": "sup"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxm",
@@ -1998,15 +1602,11 @@
   },
   {
     "titre_type_id": "pxm",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxm",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxm",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxm",
@@ -2019,10 +1619,6 @@
     "demarche_type_id": "exs",
     "delai_implicite": "15",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "pxm",
@@ -2072,10 +1668,6 @@
   },
   {
     "titre_type_id": "pxm",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -2094,15 +1686,11 @@
   },
   {
     "titre_type_id": "pxr",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxr",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxr",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxr",
@@ -2115,10 +1703,6 @@
     "demarche_type_id": "exs",
     "delai_implicite": "15",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "pxr",
@@ -2173,10 +1757,6 @@
   },
   {
     "titre_type_id": "pxr",
-    "demarche_type_id": "sup"
-  },
-  {
-    "titre_type_id": "pxr",
     "demarche_type_id": "vct",
     "duree_max": 600,
     "delai_implicite": "24",
@@ -2193,24 +1773,16 @@
   },
   {
     "titre_type_id": "pxw",
-    "demarche_type_id": "apr"
-  },
-  {
-    "titre_type_id": "pxw",
     "demarche_type_id": "dam"
   },
   {
     "titre_type_id": "pxw",
-    "demarche_type_id": "dom"
+    "demarche_type_id": "dot"
   },
   {
     "titre_type_id": "pxw",
     "demarche_type_id": "exp",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "mpm"
   },
   {
     "titre_type_id": "pxw",
@@ -2254,9 +1826,5 @@
     "titre_type_id": "pxw",
     "demarche_type_id": "ret",
     "delai_recours": "2"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "sup"
   }
 ]

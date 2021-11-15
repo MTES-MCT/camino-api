@@ -9,14 +9,8 @@
   },
   {
     "id": "aom",
-    "nom": "autorisation d'ouverture de travaux miniers (AOT)",
-    "ordre": 102,
-    "travaux": true
-  },
-  {
-    "id": "apr",
-    "nom": "autorisation à disposer des produits des recherches",
-    "ordre": 104,
+    "nom": "Autorisation d'ouverture de travaux",
+    "ordre": 100,
     "travaux": true
   },
   {
@@ -35,8 +29,8 @@
   },
   {
     "id": "dam",
-    "nom": "déclaration d'arrêt définitif des travaux (DADT)",
-    "ordre": 106,
+    "nom": "Déclaration d'arrêt définitif des travaux",
+    "ordre": 120,
     "travaux": true
   },
   {
@@ -55,9 +49,9 @@
     "renouvelable": true
   },
   {
-    "id": "dom",
-    "nom": "déclaration d'ouverture de travaux miniers (DOT)",
-    "ordre": 101,
+    "id": "dot",
+    "nom": "Déclaration d'ouverture de travaux",
+    "ordre": 110,
     "travaux": true
   },
   {
@@ -87,12 +81,6 @@
     "points": true,
     "titulaires": true,
     "renouvelable": true
-  },
-  {
-    "id": "mpm",
-    "nom": "mesures de police des mines",
-    "ordre": 103,
-    "travaux": true
   },
   {
     "id": "mut",
@@ -180,13 +168,6 @@
     "description": "Démarche initiée par l’autorité administrative. Le ministre chargé des mines pour les titres et le préfet pour les autorisations d’exploitation peuvent retirer les autorisations et les titres miniers en cours de validité si l’intéressé ne remplit plus certaines prescriptions légales.\r\nLe retrait a pour effet de replacer le gisement dans la situation de ceux ouverts aux recherches.",
     "ordre": 20,
     "duree": true
-  },
-  {
-    "id": "sup",
-    "nom": "institution de servitude d'utilité publique relative à l'exploitation des mines et carrières",
-    "description": "Les servitudes d'utilité publique (SUP) sont des limitations administratives au droit de propriété. Elles sont instituées au bénéfice de personnes publiques, de concessionnaires de services ou de travaux publics, de personnes privées exerçant une activité d'intérêt général. La collecte et la conservation des servitudes d'utilité publique sont une mission régalienne de l'État qui doit les porter à la connaissance des collectivités territoriales afin que celles-ci les annexent à leur document d'urbanisme. Les servitudes d'utilité publique concernées sont celles définies par les articles L. 126-1 et R. 126-1 du code de l'urbanisme et leur annexes.",
-    "ordre": 105,
-    "travaux": true
   },
   {
     "id": "vct",
