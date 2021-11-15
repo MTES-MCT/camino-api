@@ -57,3 +57,15 @@ type Foret {
   "Surface couverte par la forêt"
   surface: Int
 }
+
+"Zone de SDOM de Guyane"
+type SDOMZone {
+  "Id de la la zone correspondant à son code"
+  id: ID!
+
+  "Nom de la zone"
+  nom: String!
+
+  "Surface couverte par la zone"
+  surface: Int
+}

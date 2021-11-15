@@ -182,6 +182,19 @@ class TitresEtapes extends Model {
         to: 'forets.id'
       }
     },
+    sdomZones: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'sdom-zones'),
+      join: {
+        from: 'titresEtapes.id',
+        through: {
+          from: 'titres__sdomZones.titreEtapeId',
+          to: 'titres__sdomZones.sdomZoneId',
+          extra: ['surface']
+        },
+        to: 'sdomZones.id'
+      }
+    },
     journaux: {
       relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'journaux'),
