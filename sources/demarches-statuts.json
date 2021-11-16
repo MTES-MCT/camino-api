@@ -35,6 +35,13 @@
     "ordre": 1
   },
   {
+    "id": "fpm",
+    "nom": "fin de la police des mines",
+    "description": "TODO",
+    "couleur": "success",
+    "ordre": 11
+  },
+  {
     "id": "ind",
     "nom": "indéterminé",
     "description": "Les informations contenues dans les étapes de la démarche sont insuffisantes pour en déterminer le statut.\n",
