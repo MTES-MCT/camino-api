@@ -5,7 +5,8 @@ import {
   ITitreDemande,
   ITitre,
   ITitreDemarche,
-  ITitreEtape
+  ITitreEtape,
+  IDocument
 } from '../../../types'
 import { debug } from '../../../config/index'
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -14,12 +15,98 @@ import { permissionCheck } from '../../../tools/permission'
 import { domaineGet } from '../../../database/queries/metas'
 import { titreCreate, titreGet } from '../../../database/queries/titres'
 import { titreDemarcheCreate } from '../../../database/queries/titres-demarches'
-import { titreEtapeUpsert } from '../../../database/queries/titres-etapes'
+import {
+  titreEtapeGet,
+  titreEtapeUpsert,
+  titresEtapesJustificatifsUpsert
+} from '../../../database/queries/titres-etapes'
 
 import titreUpdateTask from '../../../business/titre-update'
 import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { userSuper } from '../../../database/user-super'
+import { etapeTypeFormat } from '../../_format/etapes-types'
+import { documentCreer } from './documents'
+import { GraphQLResolveInfo } from 'graphql'
+import { attestationFiscaleGet } from '../../../tools/api-entreprise'
+
+const justificatifsByApiEntrepriseGet = async (
+  titreEtapeId: string,
+  titreSlug: string
+) => {
+  const titreEtape = await titreEtapeGet(
+    titreEtapeId,
+    { fields: { titulaires: { documents: { id: {} } } } },
+    userSuper
+  )
+
+  const etapeType = etapeTypeFormat(
+    titreEtape.type!,
+    undefined,
+    undefined,
+    titreEtape.justificatifsTypesSpecifiques
+  )
+  if (
+    etapeType.justificatifsTypes?.length &&
+    etapeType.justificatifsTypes.find(
+      justificatifType =>
+        !justificatifType.optionnel && justificatifType.id === ''
+    )
+  ) {
+    // vérifie qu’on n’a pas déjà l’attestion fiscale,
+    // car elle est valide un an sur une année civile (jusqu’au 31/12/AAAA).
+    const titulaire = titreEtape.titulaires![0]
+    const attestationFiscaleCheck = titulaire!.documents?.find(d => {
+      if (d.typeId !== 'atf') {
+        return false
+      }
+
+      if (!d.fichier) {
+        return false
+      }
+
+      const annee = d.date.substr(0, 4)
+
+      return annee === new Date().getFullYear().toString()
+    })
+
+    if (!attestationFiscaleCheck) {
+      try {
+        const file = await attestationFiscaleGet(
+          titulaire.legalSiren!,
+          titreSlug,
+          'NouvelleDemande'
+        )
+
+        const attestationFiscale: IDocument = {
+          id: '',
+          fichierNouveau: { file },
+          description:
+            "Attestation fiscale : document récupéré automatiquement grâce à l'API Entreprise.",
+          typeId: 'atf',
+          date: dateFormat(new Date(), 'yyyy-mm-dd'),
+          entreprisesLecture: true,
+          publicLecture: false,
+          entrepriseId: titreEtape.titulaires![0].id
+        }
+        const document = await documentCreer(
+          { document: attestationFiscale },
+          { user: userSuper },
+          {} as GraphQLResolveInfo
+        )
+
+        await titresEtapesJustificatifsUpsert([
+          { documentId: document.id, titreEtapeId: titreEtape.id }
+        ])
+      } catch (e) {
+        console.warn(
+          'impossible de récupérer l’attestation fiscale via l’API entreprise',
+          e
+        )
+      }
+    }
+  }
+}
 
 const titreDemandeCreer = async (
   { titreDemande }: { titreDemande: ITitreDemande },
@@ -120,6 +207,8 @@ const titreDemandeCreer = async (
     } as ITitreEtape
 
     titreEtape = await titreEtapeUpsert(titreEtape, user, titreId)
+
+    await justificatifsByApiEntrepriseGet(titreEtape.id, titre.slug!)
 
     await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId, user)
 

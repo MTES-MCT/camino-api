@@ -308,6 +308,7 @@ interface IEntreprise {
   amodiataireTitres?: ITitre[] | null
   modification?: boolean | null
   archive?: boolean | null
+  documents?: IDocument[] | null
 }
 
 interface ITitreEntreprise extends IEntreprise {
@@ -951,7 +952,7 @@ interface IToken {
 
 interface ITokenUser {
   id: string
-  email?: string
+  email?: string | null
   iat?: number
 }
 
