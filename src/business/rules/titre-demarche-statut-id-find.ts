@@ -34,7 +34,9 @@ const titreEtapesDecisivesDemandesTypes = [
 const titreEtapesDecisivesDemandesTravauxTypes = [
   Travaux.DemandeAutorisationOuverture,
   Travaux.DeclarationOuverture,
+  Travaux.DeclarationArret,
   Travaux.Recevabilite,
+  Travaux.Recolement,
   Travaux.AvisPrescriptionsDemandeur,
   Travaux.PubliDecisionRecueilActesAdmin,
   Travaux.DonneActeDeclaration,
@@ -301,6 +303,7 @@ const titreDemarcheTravauxStatutIdFind = (
   if (
     titreEtapeRecent.typeId === Travaux.DemandeAutorisationOuverture ||
     titreEtapeRecent.typeId === Travaux.DeclarationOuverture ||
+    titreEtapeRecent.typeId === Travaux.DeclarationArret ||
     (titreEtapeRecent.typeId === Travaux.Recevabilite &&
       titreEtapeRecent.statutId === 'def')
   ) {
@@ -311,16 +314,13 @@ const titreDemarcheTravauxStatutIdFind = (
     (titreEtapeRecent.typeId === Travaux.Recevabilite &&
       titreEtapeRecent.statutId === 'fav') ||
     (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
+      titreEtapeRecent.statutId === 'def') ||
+    (titreEtapeRecent.typeId === Travaux.Recolement &&
       titreEtapeRecent.statutId === 'def')
   ) {
     return DemarchesStatuts.EnInstruction
   }
 
-  // le type de l'étape est :
-  //    - "Avis du demandeur sur les prescriptions proposées"
-  // OU
-  //    - "Publication de décision au recueil des actes administratifs"
-  // le statut est "accepté"
   if (
     (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
       titreEtapeRecent.statutId === 'fav') ||
@@ -330,8 +330,15 @@ const titreDemarcheTravauxStatutIdFind = (
     return DemarchesStatuts.Accepte
   }
 
-  // le type de l'étape est "abandon de la demande",
-  // le statut est "désisté"
+  if (
+    (titreEtapeRecent.typeId === Travaux.Recolement &&
+      titreEtapeRecent.statutId === 'fav') ||
+    (titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2 &&
+      titreEtapeRecent.statutId === 'fav')
+  ) {
+    return DemarchesStatuts.FinPoliceMines
+  }
+
   if (titreEtapeRecent.typeId === Travaux.Abandon) {
     return DemarchesStatuts.Desiste
   }

@@ -11,7 +11,8 @@ enum DemarchesStatutsTypes {
   Initie = 'ini',
   EnInstruction = 'ins',
   Rejete = 'rej',
-  Termine = 'ter'
+  Termine = 'ter',
+  FinPoliceMines = 'fpm'
 }
 
 enum TitreEtapesTravauxTypes {

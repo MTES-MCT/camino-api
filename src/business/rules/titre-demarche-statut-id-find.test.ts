@@ -359,12 +359,16 @@ describe("statut d'une démarche", () => {
     demarcheTypeId | titreTypeId | etapeTypeId                               | statutId | resultId
     ${'aom'}       | ${'pxm'}    | ${Travaux.DemandeAutorisationOuverture}   | ${'fai'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.DeclarationOuverture}           | ${'fai'} | ${'dep'}
+    ${'aom'}       | ${'pxm'}    | ${Travaux.DeclarationArret}               | ${'fai'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
+    ${'aom'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'fav'} | ${'fpm'}
+    ${'aom'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.DonneActeDeclaration}           | ${'fai'} | ${'acc'}
+    ${'aom'}       | ${'pxm'}    | ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${'fpm'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Abandon}                        | ${'fai'} | ${'des'}
   `(
     'vérifie les statuts pour une démarche de travaux',
