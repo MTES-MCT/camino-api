@@ -28,6 +28,7 @@ const titreEtapesDecisivesDemandesTypes = [
   'wre',
   'wau',
   'wpa',
+  'wap',
   ...titreEtapesDecisivesCommunesTypes
 ]
 
@@ -312,11 +313,15 @@ const titreDemarcheTravauxStatutIdFind = (
     return 'ins'
   }
 
-  // le type de l'étape est "Avis du demandeur sur les prescriptions proposées",
+  // le type de l'étape est :
+  //    - "Avis du demandeur sur les prescriptions proposées"
+  // OU
+  //    - "Publication de décision au recueil des actes administratifs"
   // le statut est "accepté"
   if (
-    titreEtapeRecent.typeId === 'wau' &&
-    titreEtapeRecent.statutId === 'fav'
+    (titreEtapeRecent.typeId === 'wau' &&
+      titreEtapeRecent.statutId === 'fav') ||
+    titreEtapeRecent.typeId === 'wap'
   ) {
     return 'acc'
   }

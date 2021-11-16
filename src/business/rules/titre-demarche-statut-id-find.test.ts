@@ -362,6 +362,7 @@ describe("statut d'une démarche", () => {
     ${'aom'}       | ${'pxm'}    | ${'wre'}    | ${'fav'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${'wau'}    | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${'wau'}    | ${'fav'} | ${'acc'}
+    ${'aom'}       | ${'pxm'}    | ${'wap'}    | ${'fai'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${'css'}    | ${'fai'} | ${'cls'}
     ${'aom'}       | ${'pxm'}    | ${'wab'}    | ${'fai'} | ${'des'}
   `(
