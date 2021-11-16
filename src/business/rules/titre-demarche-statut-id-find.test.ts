@@ -364,6 +364,7 @@ describe("statut d'une démarche", () => {
     ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${'acc'}
+    ${'aom'}       | ${'pxm'}    | ${Travaux.DonneActeDeclaration}           | ${'fai'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Abandon}                        | ${'fai'} | ${'des'}
   `(
     'vérifie les statuts pour une démarche de travaux',
