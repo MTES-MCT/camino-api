@@ -3,7 +3,7 @@ import { ITitreEtape } from '../../types'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 import { titreEtapePublicationCheck } from './titre-etape-publication-check'
 
-const titreEtapesDecisivesCommunesTypes = ['css', 'rtd', 'abd', 'and']
+const titreEtapesDecisivesCommunesTypes = ['css', 'rtd', 'abd', 'and', 'wab']
 
 const titreEtapesDecisivesDemandesTypes = [
   'mfr',
@@ -275,8 +275,6 @@ const titreDemarcheTravauxStatutIdFind = (
     titreEtapesDecisivesDemandesTypes.includes(titreEtape.typeId)
   )
 
-  console.log('titreEtapesDecisivesDemande', titreEtapesDecisivesDemande)
-
   // si aucune étape décisive n'est présente dans la démarche
   // le statut est indéterminé
   if (!titreEtapesDecisivesDemande.length) return 'ind'
@@ -301,11 +299,15 @@ const titreDemarcheTravauxStatutIdFind = (
     return 'dep'
   }
 
-  // le type de l'étape est "recevabilité" favorable
+  // le type de l'étape est :
+  //   - "recevabilité" favorable
+  // OU
+  //   - "Avis du demandeur sur les prescriptions proposées" défavorable
   // le statut est "en instruction"
   if (
-    titreEtapeRecent.typeId === 'wre' &&
-    titreEtapeRecent.statutId === 'fav'
+    (titreEtapeRecent.typeId === 'wre' &&
+      titreEtapeRecent.statutId === 'fav') ||
+    (titreEtapeRecent.typeId === 'wau' && titreEtapeRecent.statutId === 'def')
   ) {
     return 'ins'
   }
@@ -317,6 +319,12 @@ const titreDemarcheTravauxStatutIdFind = (
     titreEtapeRecent.statutId === 'fav'
   ) {
     return 'acc'
+  }
+
+  // le type de l'étape est "abandon de la demande",
+  // le statut est "désisté"
+  if (titreEtapeRecent.typeId === 'wab') {
+    return 'des'
   }
 
   return 'ind'

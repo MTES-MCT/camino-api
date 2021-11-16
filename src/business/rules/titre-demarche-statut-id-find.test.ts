@@ -360,7 +360,10 @@ describe("statut d'une démarche", () => {
     ${'aom'}       | ${'pxm'}    | ${'wfa'}    | ${'fai'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${'wre'}    | ${'def'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${'wre'}    | ${'fav'} | ${'ins'}
+    ${'aom'}       | ${'pxm'}    | ${'wau'}    | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${'wau'}    | ${'fav'} | ${'acc'}
+    ${'aom'}       | ${'pxm'}    | ${'css'}    | ${'fai'} | ${'cls'}
+    ${'aom'}       | ${'pxm'}    | ${'wab'}    | ${'fai'} | ${'des'}
   `(
     'vérifie les statuts pour une démarche de travaux',
     ({ demarcheTypeId, titreTypeId, etapeTypeId, statutId, resultId }) => {
