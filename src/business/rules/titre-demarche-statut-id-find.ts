@@ -1,6 +1,6 @@
 import {
   ITitreEtape,
-  DemarchesStatutsTypes as Demarches,
+  DemarchesStatutsTypes as DemarchesStatuts,
   TitreEtapesTravauxTypes as Travaux
 } from '../../types'
 
@@ -82,14 +82,14 @@ const titresDemarcheCommunesStatutIdFind = (titreEtapeRecent: ITitreEtape) => {
   //    - et le statut de l’étape est défavorable (def)
   if (titreEtapeRecent.typeId === 'css') {
     //  - le statut de la démarche est classé sans suite (cls)
-    return Demarches.ClasseSansSuite
+    return DemarchesStatuts.ClasseSansSuite
   }
 
   //  - le type de l’étape est retrait de la décision (rtd)
   //  - le type de l’étape est abrogation de la décision (abd)
   if (['rtd', 'abd'].includes(titreEtapeRecent.typeId)) {
     //  - le statut de la démarche repasse en “instruction”
-    return Demarches.EnInstruction
+    return DemarchesStatuts.EnInstruction
   }
 
   //  - le type de l’étape est annulation de la décision (and)
@@ -98,7 +98,7 @@ const titresDemarcheCommunesStatutIdFind = (titreEtapeRecent: ITitreEtape) => {
     //  - alors, le statut de la démarche repasse en “instruction”
     //  - sinon, le statut de la démarche a celui l'étape (accepté ou rejeté)
     return titreEtapeRecent.statutId === 'fai'
-      ? Demarches.EnInstruction
+      ? DemarchesStatuts.EnInstruction
       : titreEtapeRecent.statutId
   }
 
@@ -117,7 +117,8 @@ const titreDemarcheUnilateralStatutIdFind = (
 
   // si aucune étape décisive n'est présente dans la démarche
   // le statut est indétrminé
-  if (!titreEtapesDecisivesUnilaterale.length) return Demarches.Indetermine
+  if (!titreEtapesDecisivesUnilaterale.length)
+    return DemarchesStatuts.Indetermine
 
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesSortDesc(
@@ -132,19 +133,19 @@ const titreDemarcheUnilateralStatutIdFind = (
   // - le type de l’étape est décision unilatérale
   if (['dup', 'dux'].includes(titreEtapeRecent.typeId)) {
     // - le statut de la démarche est terminé
-    return Demarches.Termine
+    return DemarchesStatuts.Termine
   }
 
   // - le type de l’étape est saisine du préfet
   if (titreEtapeRecent.typeId === 'spp') {
     //  - le statut de la démarche est “en instruction”
-    return Demarches.EnInstruction
+    return DemarchesStatuts.EnInstruction
   }
 
   // - le type de l’étape est avenant à l’autorisation de recherche minière
   if (titreEtapeRecent.typeId === 'aco') {
     // - le statut de la démarche est "terminé"
-    return Demarches.Termine
+    return DemarchesStatuts.Termine
   }
 
   // - le type de l’étape est l’avis de l’ONF défavorable
@@ -153,18 +154,18 @@ const titreDemarcheUnilateralStatutIdFind = (
     titreEtapeRecent.statutId === 'def'
   ) {
     // - le statut de la démarche est "classement sans suite"
-    return Demarches.ClasseSansSuite
+    return DemarchesStatuts.ClasseSansSuite
   }
 
   // - si il y a plusieurs étapes
   if (titreDemarcheEtapes.length > 1) {
     // - le statut de la démarche est "en instruction"
-    return Demarches.EnInstruction
+    return DemarchesStatuts.EnInstruction
   }
 
   // - sinon, le type de l’étape est initiation de la démarche
   // alors, le statut de la démarche est “initié”
-  return Demarches.Initie
+  return DemarchesStatuts.Initie
 }
 
 const titreDemarcheDemandeStatutIdFind = (
@@ -179,7 +180,7 @@ const titreDemarcheDemandeStatutIdFind = (
 
   // si aucune étape décisive n'est présente dans la démarche
   // le statut est indéterminé
-  if (!titreEtapesDecisivesDemande.length) return Demarches.Indetermine
+  if (!titreEtapesDecisivesDemande.length) return DemarchesStatuts.Indetermine
 
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisivesDemande)[0]
@@ -208,7 +209,7 @@ const titreDemarcheDemandeStatutIdFind = (
     // alors la démarche a le statut accepté
     // sinon la démarche a le statut de l'étape (accepté ou rejeté)
     return titreEtapePublicationRecent.statutId === 'fai'
-      ? Demarches.Accepte
+      ? DemarchesStatuts.Accepte
       : titreEtapePublicationRecent.statutId
   }
 
@@ -219,13 +220,13 @@ const titreDemarcheDemandeStatutIdFind = (
     titreEtapeRecent.statutId === 'rej'
   ) {
     //  - le statut de la démarche est rejeté (rej)
-    return Demarches.Rejete
+    return DemarchesStatuts.Rejete
   }
 
   //  - le type de l’étape est désistement du demandeur (des)
-  if (titreEtapeRecent.typeId === Demarches.Desiste) {
+  if (titreEtapeRecent.typeId === DemarchesStatuts.Desiste) {
     //  - le statut de la démarche est “désisté”
-    return Demarches.Desiste
+    return DemarchesStatuts.Desiste
   }
 
   //  - le type de l’étape est rejeté (rej)
@@ -237,7 +238,7 @@ const titreDemarcheDemandeStatutIdFind = (
     titreEtapeRecent.typeId === 'aca' &&
     titreEtapeRecent.statutId === 'def'
   ) {
-    return Demarches.Rejete
+    return DemarchesStatuts.Rejete
   }
 
   //  - le type de l’étape est recevabilité de la demande (mcr)
@@ -255,24 +256,24 @@ const titreDemarcheDemandeStatutIdFind = (
       ))
   ) {
     //  - le statut de la démarche est “en instruction”
-    return Demarches.EnInstruction
+    return DemarchesStatuts.EnInstruction
   }
 
   //  - le type de l’étape est dépôt de la demande (mdp)
   //  - il n’y a pas d’étape après
   if (titreEtapeRecent.typeId === 'mdp') {
     //  - le statut de la démarche est “déposé”
-    return Demarches.Depose
+    return DemarchesStatuts.Depose
   }
 
   //  - le type de l’étape est formalisation de la demande (mfr)
   if (titreEtapeRecent.typeId === 'mfr') {
     //  - le statut de la démarche est “en construction”
-    return Demarches.EnConstruction
+    return DemarchesStatuts.EnConstruction
   }
 
   // sinon le statut de la démarche est indéterminé
-  return Demarches.Indetermine
+  return DemarchesStatuts.Indetermine
 }
 
 const titreDemarcheTravauxStatutIdFind = (
@@ -286,7 +287,7 @@ const titreDemarcheTravauxStatutIdFind = (
 
   // si aucune étape décisive n'est présente dans la démarche
   // le statut est indéterminé
-  if (!titreEtapesDecisivesDemande.length) return Demarches.Indetermine
+  if (!titreEtapesDecisivesDemande.length) return DemarchesStatuts.Indetermine
 
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisivesDemande)[0]
@@ -302,7 +303,7 @@ const titreDemarcheTravauxStatutIdFind = (
     (titreEtapeRecent.typeId === Travaux.Recevabilite &&
       titreEtapeRecent.statutId === 'def')
   ) {
-    return Demarches.Depose
+    return DemarchesStatuts.Depose
   }
 
   if (
@@ -311,7 +312,7 @@ const titreDemarcheTravauxStatutIdFind = (
     (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
       titreEtapeRecent.statutId === 'def')
   ) {
-    return Demarches.EnInstruction
+    return DemarchesStatuts.EnInstruction
   }
 
   // le type de l'étape est :
@@ -324,16 +325,16 @@ const titreDemarcheTravauxStatutIdFind = (
       titreEtapeRecent.statutId === 'fav') ||
     titreEtapeRecent.typeId === Travaux.PubliDecisionRecueilActesAdmin
   ) {
-    return Demarches.Accepte
+    return DemarchesStatuts.Accepte
   }
 
   // le type de l'étape est "abandon de la demande",
   // le statut est "désisté"
   if (titreEtapeRecent.typeId === Travaux.Abandon) {
-    return Demarches.Desiste
+    return DemarchesStatuts.Desiste
   }
 
-  return Demarches.Indetermine
+  return DemarchesStatuts.Indetermine
 }
 
 /**
@@ -350,7 +351,7 @@ const titreDemarcheStatutIdFind = (
 ) => {
   // si la démarche ne contient pas d'étapes
   // -> le statut est indétrminé
-  if (!titreDemarcheEtapes.length) return Demarches.Indetermine
+  if (!titreDemarcheEtapes.length) return DemarchesStatuts.Indetermine
 
   // si la démarche est pour des travaux
   if (titreDemarchesTravauxTypes.includes(demarcheTypeId)) {
@@ -374,7 +375,7 @@ const titreDemarcheStatutIdFind = (
   }
 
   //  sinon, le statut est indéterminé
-  return Demarches.Indetermine
+  return DemarchesStatuts.Indetermine
 }
 
 export { titreDemarcheStatutIdFind }
