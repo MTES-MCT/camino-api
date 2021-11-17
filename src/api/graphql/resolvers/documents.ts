@@ -248,10 +248,12 @@ const documentModifier = async (
       await documentFileCreate(documentUpdated, documentFichierNouveau.file)
     } else {
       // - arrivé via UI
-      const pathFrom = `/files/tmp/${document.nomTemporaire}`
-      const pathTo = await documentFilePathFind(document, true)
+      if (document.nomTemporaire) {
+        const pathFrom = `/files/tmp/${document.nomTemporaire}`
+        const pathTo = await documentFilePathFind(document, true)
 
-      await fileRename(pathFrom, pathTo)
+        await fileRename(pathFrom, pathTo)
+      }
     }
 
     return await documentGet(documentUpdated.id, { fields }, user)
