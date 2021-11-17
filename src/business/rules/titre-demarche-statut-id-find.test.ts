@@ -360,21 +360,21 @@ describe("statut d'une démarche", () => {
   })
 
   test.each`
-    demarcheTypeId | etapeTypeId                               | statutId | resultId
-    ${'aom'}       | ${Travaux.DemandeAutorisationOuverture}   | ${'fai'} | ${Demarches.Depose}
-    ${'aom'}       | ${Travaux.Recevabilite}                   | ${'def'} | ${Demarches.Depose}
-    ${'aom'}       | ${Travaux.Recevabilite}                   | ${'fav'} | ${Demarches.EnInstruction}
-    ${'aom'}       | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${Demarches.EnInstruction}
-    ${'aom'}       | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${Demarches.Accepte}
-    ${'aom'}       | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${Demarches.Accepte}
-    ${'aom'}       | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${Demarches.Accepte}
-    ${'aom'}       | ${Travaux.Abandon}                        | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                               | statutId | resultId
+    ${Travaux.DemandeAutorisationOuverture}   | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                   | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                   | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${Demarches.Accepte}
+    ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.Abandon}                        | ${'fai'} | ${Demarches.Desiste}
   `(
-    "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
-    ({ demarcheTypeId, etapeTypeId, statutId, resultId }) => {
+    "pour une démarche de travaux de type 'aom' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
-          demarcheTypeId,
+          'aom',
           etapesBuild([{ typeId: etapeTypeId, statutId }]),
           'pxm'
         )
@@ -383,20 +383,20 @@ describe("statut d'une démarche", () => {
   )
 
   test.each`
-    demarcheTypeId | etapeTypeId                           | statutId | resultId
-    ${'dot'}       | ${Travaux.DeclarationOuverture}       | ${'def'} | ${Demarches.Depose}
-    ${'dot'}       | ${Travaux.Recevabilite}               | ${'def'} | ${Demarches.Depose}
-    ${'dot'}       | ${Travaux.Recevabilite}               | ${'fav'} | ${Demarches.EnInstruction}
-    ${'dot'}       | ${Travaux.AvisPrescriptionsDemandeur} | ${'def'} | ${Demarches.EnInstruction}
-    ${'dot'}       | ${Travaux.AvisPrescriptionsDemandeur} | ${'fav'} | ${Demarches.Accepte}
-    ${'dot'}       | ${Travaux.DonneActeDeclaration}       | ${'fai'} | ${Demarches.Accepte}
-    ${'dot'}       | ${Travaux.Abandon}                    | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                           | statutId | resultId
+    ${Travaux.DeclarationOuverture}       | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}               | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}               | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur} | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur} | ${'fav'} | ${Demarches.Accepte}
+    ${Travaux.DonneActeDeclaration}       | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.Abandon}                    | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
-    ({ demarcheTypeId, etapeTypeId, statutId, resultId }) => {
+    ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
-          demarcheTypeId,
+          'dot',
           etapesBuild([{ typeId: etapeTypeId, statutId }]),
           'pxm'
         )
@@ -405,20 +405,20 @@ describe("statut d'une démarche", () => {
   )
 
   test.each`
-    demarcheTypeId | etapeTypeId                               | statutId | resultId
-    ${'dam'}       | ${Travaux.DeclarationArret}               | ${'def'} | ${Demarches.Depose}
-    ${'dam'}       | ${Travaux.Recevabilite}                   | ${'def'} | ${Demarches.Depose}
-    ${'dam'}       | ${Travaux.Recevabilite}                   | ${'fav'} | ${Demarches.EnInstruction}
-    ${'dam'}       | ${Travaux.Recolement}                     | ${'fav'} | ${Demarches.FinPoliceMines}
-    ${'dam'}       | ${Travaux.Recolement}                     | ${'def'} | ${Demarches.EnInstruction}
-    ${'dam'}       | ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${Demarches.FinPoliceMines}
-    ${'dam'}       | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fav'} | ${Demarches.FinPoliceMines}
+    etapeTypeId                               | statutId | resultId
+    ${Travaux.DeclarationArret}               | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                   | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                   | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.Recolement}                     | ${'fav'} | ${Demarches.FinPoliceMines}
+    ${Travaux.Recolement}                     | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${Demarches.FinPoliceMines}
+    ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fav'} | ${Demarches.FinPoliceMines}
   `(
     "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
-    ({ demarcheTypeId, etapeTypeId, statutId, resultId }) => {
+    ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
-          demarcheTypeId,
+          'dam',
           etapesBuild([{ typeId: etapeTypeId, statutId }]),
           'pxm'
         )
