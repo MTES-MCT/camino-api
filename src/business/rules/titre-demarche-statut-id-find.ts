@@ -40,7 +40,9 @@ const titreEtapesDecisivesDemandesTravauxTypes = [
   Travaux.AvisPrescriptionsDemandeur,
   Travaux.PubliDecisionRecueilActesAdmin,
   Travaux.DonneActeDeclaration,
-  Travaux.Abandon
+  Travaux.ArretePrefectDonneActe2,
+  Travaux.Abandon,
+  'rpu' // publication de décision au recueil des actes administratifs
 ].map(member => member.toString())
 
 const titreDemarchesDemandesTypes = [
@@ -301,6 +303,15 @@ const titreDemarcheTravauxStatutIdFind = (
   if (statutId) return statutId
 
   if (
+    (titreEtapeRecent.typeId === Travaux.Recolement ||
+      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2 ||
+      titreEtapeRecent.typeId === 'rpu') && // publication au recueil des actes administratifs
+    titreEtapeRecent.statutId === 'fav'
+  ) {
+    return DemarchesStatuts.FinPoliceMines
+  }
+
+  if (
     titreEtapeRecent.typeId === Travaux.DemandeAutorisationOuverture ||
     titreEtapeRecent.typeId === Travaux.DeclarationOuverture ||
     titreEtapeRecent.typeId === Travaux.DeclarationArret ||
@@ -313,9 +324,8 @@ const titreDemarcheTravauxStatutIdFind = (
   if (
     (titreEtapeRecent.typeId === Travaux.Recevabilite &&
       titreEtapeRecent.statutId === 'fav') ||
-    (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
-      titreEtapeRecent.statutId === 'def') ||
-    (titreEtapeRecent.typeId === Travaux.Recolement &&
+    ((titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur ||
+      titreEtapeRecent.typeId === Travaux.Recolement) &&
       titreEtapeRecent.statutId === 'def')
   ) {
     return DemarchesStatuts.EnInstruction
@@ -328,15 +338,6 @@ const titreDemarcheTravauxStatutIdFind = (
     titreEtapeRecent.typeId === Travaux.DonneActeDeclaration
   ) {
     return DemarchesStatuts.Accepte
-  }
-
-  if (
-    (titreEtapeRecent.typeId === Travaux.Recolement &&
-      titreEtapeRecent.statutId === 'fav') ||
-    (titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2 &&
-      titreEtapeRecent.statutId === 'fav')
-  ) {
-    return DemarchesStatuts.FinPoliceMines
   }
 
   if (titreEtapeRecent.typeId === Travaux.Abandon) {

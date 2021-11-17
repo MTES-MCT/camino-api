@@ -362,16 +362,24 @@ describe("statut d'une démarche", () => {
     ${'aom'}       | ${'pxm'}    | ${Travaux.DeclarationArret}               | ${'fai'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'fav'} | ${'fpm'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'def'} | ${'ins'}
+    ${'dam'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
+    ${'dam'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
+    ${'dot'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
+    ${'dot'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
+    ${'dam'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'fav'} | ${'fpm'}
+    ${'dam'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${'ins'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${'acc'}
+    ${'dot'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${'ins'}
+    ${'dot'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${'acc'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.DonneActeDeclaration}           | ${'fai'} | ${'acc'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${'fpm'}
+    ${'dam'}       | ${'pxm'}    | ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${'fpm'}
+    ${'dam'}       | ${'pxm'}    | ${'rpu'}                                  | ${'fav'} | ${'fpm'}
     ${'aom'}       | ${'pxm'}    | ${Travaux.Abandon}                        | ${'fai'} | ${'des'}
+    ${'dot'}       | ${'pxm'}    | ${Travaux.Abandon}                        | ${'fai'} | ${'des'}
   `(
-    'vérifie les statuts pour une démarche de travaux',
+    "pour une démarche de travaux de type $demarcheTypeId sur un titre de type $titreTypeId, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ demarcheTypeId, titreTypeId, etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
