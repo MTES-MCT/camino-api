@@ -1,4 +1,8 @@
-import { ITitreEtape, TitreEtapesTravauxTypes as Travaux } from '../../types'
+import {
+  ITitreEtape,
+  TitreEtapesTravauxTypes as Travaux,
+  DemarchesStatutsTypes as Demarches
+} from '../../types'
 
 import { titreDemarcheStatutIdFind } from './titre-demarche-statut-id-find'
 
@@ -356,36 +360,67 @@ describe("statut d'une démarche", () => {
   })
 
   test.each`
-    demarcheTypeId | titreTypeId | etapeTypeId                               | statutId | resultId
-    ${'aom'}       | ${'pxm'}    | ${Travaux.DemandeAutorisationOuverture}   | ${'fai'} | ${'dep'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.DeclarationOuverture}           | ${'fai'} | ${'dep'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.DeclarationArret}               | ${'fai'} | ${'dep'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
-    ${'dam'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
-    ${'dam'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
-    ${'dot'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'def'} | ${'dep'}
-    ${'dot'}       | ${'pxm'}    | ${Travaux.Recevabilite}                   | ${'fav'} | ${'ins'}
-    ${'dam'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'fav'} | ${'fpm'}
-    ${'dam'}       | ${'pxm'}    | ${Travaux.Recolement}                     | ${'def'} | ${'ins'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${'ins'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${'acc'}
-    ${'dot'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${'ins'}
-    ${'dot'}       | ${'pxm'}    | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${'acc'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${'acc'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.DonneActeDeclaration}           | ${'fai'} | ${'acc'}
-    ${'dam'}       | ${'pxm'}    | ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${'fpm'}
-    ${'dam'}       | ${'pxm'}    | ${'rpu'}                                  | ${'fav'} | ${'fpm'}
-    ${'aom'}       | ${'pxm'}    | ${Travaux.Abandon}                        | ${'fai'} | ${'des'}
-    ${'dot'}       | ${'pxm'}    | ${Travaux.Abandon}                        | ${'fai'} | ${'des'}
+    demarcheTypeId | etapeTypeId                               | statutId | resultId
+    ${'aom'}       | ${Travaux.DemandeAutorisationOuverture}   | ${'fai'} | ${Demarches.Depose}
+    ${'aom'}       | ${Travaux.Recevabilite}                   | ${'def'} | ${Demarches.Depose}
+    ${'aom'}       | ${Travaux.Recevabilite}                   | ${'fav'} | ${Demarches.EnInstruction}
+    ${'aom'}       | ${Travaux.AvisPrescriptionsDemandeur}     | ${'def'} | ${Demarches.EnInstruction}
+    ${'aom'}       | ${Travaux.AvisPrescriptionsDemandeur}     | ${'fav'} | ${Demarches.Accepte}
+    ${'aom'}       | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${Demarches.Accepte}
+    ${'aom'}       | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fai'} | ${Demarches.Accepte}
+    ${'aom'}       | ${Travaux.Abandon}                        | ${'fai'} | ${Demarches.Desiste}
   `(
-    "pour une démarche de travaux de type $demarcheTypeId sur un titre de type $titreTypeId, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
-    ({ demarcheTypeId, titreTypeId, etapeTypeId, statutId, resultId }) => {
+    "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    ({ demarcheTypeId, etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
           demarcheTypeId,
           etapesBuild([{ typeId: etapeTypeId, statutId }]),
-          titreTypeId
+          'pxm'
+        )
+      ).toEqual(resultId)
+    }
+  )
+
+  test.each`
+    demarcheTypeId | etapeTypeId                           | statutId | resultId
+    ${'dot'}       | ${Travaux.DeclarationOuverture}       | ${'def'} | ${Demarches.Depose}
+    ${'dot'}       | ${Travaux.Recevabilite}               | ${'def'} | ${Demarches.Depose}
+    ${'dot'}       | ${Travaux.Recevabilite}               | ${'fav'} | ${Demarches.EnInstruction}
+    ${'dot'}       | ${Travaux.AvisPrescriptionsDemandeur} | ${'def'} | ${Demarches.EnInstruction}
+    ${'dot'}       | ${Travaux.AvisPrescriptionsDemandeur} | ${'fav'} | ${Demarches.Accepte}
+    ${'dot'}       | ${Travaux.DonneActeDeclaration}       | ${'fai'} | ${Demarches.Accepte}
+    ${'dot'}       | ${Travaux.Abandon}                    | ${'fai'} | ${Demarches.Desiste}
+  `(
+    "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    ({ demarcheTypeId, etapeTypeId, statutId, resultId }) => {
+      expect(
+        titreDemarcheStatutIdFind(
+          demarcheTypeId,
+          etapesBuild([{ typeId: etapeTypeId, statutId }]),
+          'pxm'
+        )
+      ).toEqual(resultId)
+    }
+  )
+
+  test.each`
+    demarcheTypeId | etapeTypeId                               | statutId | resultId
+    ${'dam'}       | ${Travaux.DeclarationArret}               | ${'def'} | ${Demarches.Depose}
+    ${'dam'}       | ${Travaux.Recevabilite}                   | ${'def'} | ${Demarches.Depose}
+    ${'dam'}       | ${Travaux.Recevabilite}                   | ${'fav'} | ${Demarches.EnInstruction}
+    ${'dam'}       | ${Travaux.Recolement}                     | ${'fav'} | ${Demarches.FinPoliceMines}
+    ${'dam'}       | ${Travaux.Recolement}                     | ${'def'} | ${Demarches.EnInstruction}
+    ${'dam'}       | ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${Demarches.FinPoliceMines}
+    ${'dam'}       | ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fav'} | ${Demarches.FinPoliceMines}
+  `(
+    "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    ({ demarcheTypeId, etapeTypeId, statutId, resultId }) => {
+      expect(
+        titreDemarcheStatutIdFind(
+          demarcheTypeId,
+          etapesBuild([{ typeId: etapeTypeId, statutId }]),
+          'pxm'
         )
       ).toEqual(resultId)
     }

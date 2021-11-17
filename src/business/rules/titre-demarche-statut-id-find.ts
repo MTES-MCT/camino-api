@@ -305,7 +305,7 @@ const titreDemarcheTravauxStatutIdFind = (
   if (
     (titreEtapeRecent.typeId === Travaux.Recolement ||
       titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2 ||
-      titreEtapeRecent.typeId === 'rpu') && // publication au recueil des actes administratifs
+      titreEtapeRecent.typeId === Travaux.PubliDecisionRecueilActesAdmin) &&
     titreEtapeRecent.statutId === 'fav'
   ) {
     return DemarchesStatuts.FinPoliceMines
