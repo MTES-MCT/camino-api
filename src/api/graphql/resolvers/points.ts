@@ -7,6 +7,11 @@ import shpjs from 'shpjs'
 import { FeatureCollection, MultiPolygon, Polygon, Position } from 'geojson'
 import { titreEtapePointsCalc } from './_titre-etape'
 import { geoSystemes } from '../../../database/cache/geo-systemes'
+import {
+  geojsonFeatureMultiPolygon,
+  geojsonSurface
+} from '../../../tools/geojson'
+import { Feature } from '@turf/helpers'
 
 const stream2buffer = async (stream: Stream): Promise<Buffer> => {
   return new Promise<Buffer>((resolve, reject) => {
@@ -26,7 +31,10 @@ const pointsImporter = async ({
 }: {
   fileUpload: { file: FileUpload }
   geoSystemeId: string
-}): Promise<Omit<ITitrePoint, 'id' | 'titreEtapeId'>[]> => {
+}): Promise<{
+  points: Omit<ITitrePoint, 'id' | 'titreEtapeId'>[]
+  surface: number
+}> => {
   try {
     const file = fileUpload.file
 
@@ -94,7 +102,14 @@ const pointsImporter = async ({
       })
     })
 
-    return titreEtapePointsCalc(points)
+    const titreEtapePoints = titreEtapePointsCalc(points)
+
+    return {
+      points: titreEtapePoints,
+      surface: geojsonSurface(
+        geojsonFeatureMultiPolygon(titreEtapePoints as ITitrePoint[]) as Feature
+      )
+    }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -104,4 +119,28 @@ const pointsImporter = async ({
   }
 }
 
-export { pointsImporter }
+const surfaceCalculer = async ({
+  points
+}: {
+  points: ITitrePoint[]
+}): Promise<{ surface: number }> => {
+  try {
+    let surface = 0
+
+    if (points?.length > 2) {
+      surface = geojsonSurface(
+        geojsonFeatureMultiPolygon(titreEtapePointsCalc(points)) as Feature
+      )
+    }
+
+    return { surface }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export { pointsImporter, surfaceCalculer }

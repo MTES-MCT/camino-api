@@ -230,7 +230,11 @@ type Query {
 
   pays: [Pays]
 
-  pointsImporter(fileUpload: FileUpload!, geoSystemeId: String!): [Point]
+  "Retourne des points à partir d’un fichier GeoJson ou Shape"
+  pointsImporter(fileUpload: FileUpload!, geoSystemeId: String!): PointsImport
+
+  "Calcule la surface en km² à partir de polygones"
+  surfaceCalculer(points: [InputPoint]!): SurfaceResultat
 
   journaux(
     intervalle: Int!

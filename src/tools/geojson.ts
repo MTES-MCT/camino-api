@@ -4,6 +4,8 @@ import rewind from 'geojson-rewind'
 import center from '@turf/center'
 
 import { ITitrePoint, IGeometry } from '../types'
+import area from '@turf/area'
+import { Feature, FeatureCollection, Geometry } from '@turf/helpers'
 
 // convertit des points
 // en un geojson de type 'MultiPolygon'
@@ -83,8 +85,15 @@ const geojsonCenter = (points: ITitrePoint[]) => {
   return center(geojson).geometry.coordinates
 }
 
+const geojsonSurface = (
+  geojson: Feature<any> | FeatureCollection<any> | Geometry
+) => {
+  return Number.parseFloat((area(geojson) / 1000000).toFixed(2))
+}
+
 export {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints,
-  geojsonCenter
+  geojsonCenter,
+  geojsonSurface
 }
