@@ -297,11 +297,6 @@ const titreDemarcheTravauxStatutIdFind = (
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisivesDemande)[0]
 
-  // calcule le statut de démarche pour les étapes communes
-  const statutId = titresDemarcheCommunesStatutIdFind(titreEtapeRecent)
-
-  if (statutId) return statutId
-
   if (
     (titreEtapeRecent.typeId === Travaux.Recolement ||
       titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2 ||
