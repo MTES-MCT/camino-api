@@ -145,4 +145,24 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
       ])
     ).toHaveLength(0)
   })
+
+  test('la saisine de l’autorité signataire (sas) est optionnelle', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' },
+        { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
+        { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
+        { typeId: 'scl', date: '2020-01-04' },
+        { typeId: 'ama', date: '2020-01-05' },
+        { typeId: 'ssr', date: '2020-01-04' },
+        { typeId: 'cps', date: '2020-01-05' },
+        { typeId: 'apd', date: '2020-01-06' },
+        { typeId: 'spo', date: '2020-01-07' },
+        { typeId: 'apo', statutId: 'fav', date: '2020-01-08' },
+        { typeId: 'dex', statutId: 'acc', date: '2020-01-09' }
+      ])
+    ).toHaveLength(0)
+  })
 })
