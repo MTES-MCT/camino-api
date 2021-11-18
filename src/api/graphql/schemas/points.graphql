@@ -77,6 +77,18 @@ type PointReference {
   opposable: Boolean
 }
 
+type PointsImport {
+  points: [Point]
+
+  "Surface en km²"
+  surface: Float
+}
+
+type SurfaceResultat {
+  "Surface en km²"
+  surface: Float
+}
+
 input InputPoint {
   id: ID
   groupe: Int!
