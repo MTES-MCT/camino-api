@@ -31,7 +31,7 @@ const titreEtapesDecisivesDemandesTypes = [
   ...titreEtapesDecisivesCommunesTypes
 ]
 
-const titreEtapesDecisivesDemandesTravauxTypes = [
+const titreEtapesDecisivesTravauxTypes = [
   Travaux.DemandeAutorisationOuverture,
   Travaux.DeclarationOuverture,
   Travaux.DeclarationArret,
@@ -286,7 +286,7 @@ const titreDemarcheTravauxStatutIdFind = (
   // filtre les types d'étapes qui ont un impact
   // sur le statut de la démarche de demande
   const titreEtapesDecisives = titreDemarcheEtapes.filter(titreEtape =>
-    titreEtapesDecisivesDemandesTravauxTypes.includes(titreEtape.typeId)
+    titreEtapesDecisivesTravauxTypes.includes(titreEtape.typeId)
   )
 
   // si aucune étape décisive n'est présente dans la démarche
