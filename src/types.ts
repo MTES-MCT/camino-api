@@ -1,6 +1,60 @@
 /* eslint-disable no-undef */
 import { FileUpload } from 'graphql-upload'
 
+enum DemarchesStatutsTypes {
+  Accepte = 'acc',
+  ClasseSansSuite = 'cls',
+  Depose = 'dep',
+  Desiste = 'des',
+  EnConstruction = 'eco',
+  Indetermine = 'ind',
+  Initie = 'ini',
+  EnInstruction = 'ins',
+  Rejete = 'rej',
+  Termine = 'ter',
+  FinPoliceMines = 'fpm'
+}
+
+enum TitreEtapesTravauxTypes {
+  DemandeAutorisationOuverture = 'wfa',
+  DeclarationOuverture = 'wfo',
+  DeclarationArret = 'wfd',
+  DepotDemande = 'wdd',
+  DemandeComplementsAOT = 'wdc',
+  DemandeComplementsDADT = 'wde',
+  ReceptionComplements = 'wrc',
+  Recevabilite = 'wre',
+  AvisReception = 'war',
+  SaisineAutoriteEnvironmentale = 'wse',
+  AvisAutoriteEnvironmentale = 'wae',
+  SaisineServiceEtat = 'wss',
+  AvisServiceAdminLocal = 'wal',
+  AvisDDTM = 'wad',
+  AvisAutoriteMilitaire = 'wam',
+  AvisARS = 'was',
+  AvisDRAC = 'wac',
+  AvisPrefetMaritime = 'wap',
+  AvisAutresInstances = 'wai',
+  ArretePrefectoralSursis = 'wps',
+  MemoireReponseExploitant = 'wmm',
+  OuvertureEnquetePublique = 'woe',
+  ClotureEnquetePublique = 'wce',
+  RapportDREAL = 'wrd',
+  AvisRapportDirecteurREAL = 'wrl',
+  TransPrescriptionsDemandeur = 'wtp',
+  AvisCODERST = 'wat',
+  AvisPrescriptionsDemandeur = 'wau',
+  PubliDecisionRecueilActesAdmin = 'wpa',
+  DonneActeDeclaration = 'wda',
+  ArretePrefectDonneActe1 = 'wpp',
+  ArretePrefectDonneActe2 = 'wpo',
+  ArretePrescriptionComplementaire = 'wpc',
+  MemoireFinTravaux = 'wmt',
+  Recolement = 'wrt',
+  Abandon = 'wab',
+  DecisionAdmin = 'wdm'
+}
+
 interface IFields {
   [key: string]: IFields
 }
@@ -986,6 +1040,8 @@ interface IJournaux {
 }
 
 export {
+  TitreEtapesTravauxTypes,
+  DemarchesStatutsTypes,
   Index,
   IFields,
   IFormat,
