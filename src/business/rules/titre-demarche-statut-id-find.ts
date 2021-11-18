@@ -41,8 +41,7 @@ const titreEtapesDecisivesDemandesTravauxTypes = [
   Travaux.PubliDecisionRecueilActesAdmin,
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
-  Travaux.Abandon,
-  'rpu' // publication de décision au recueil des actes administratifs
+  Travaux.Abandon
 ].map(member => member.toString())
 
 const titreDemarchesDemandesTypes = [
@@ -286,16 +285,16 @@ const titreDemarcheTravauxStatutIdFind = (
 ) => {
   // filtre les types d'étapes qui ont un impact
   // sur le statut de la démarche de demande
-  const titreEtapesDecisivesDemande = titreDemarcheEtapes.filter(titreEtape =>
+  const titreEtapesDecisives = titreDemarcheEtapes.filter(titreEtape =>
     titreEtapesDecisivesDemandesTravauxTypes.includes(titreEtape.typeId)
   )
 
   // si aucune étape décisive n'est présente dans la démarche
   // le statut est indéterminé
-  if (!titreEtapesDecisivesDemande.length) return DemarchesStatuts.Indetermine
+  if (!titreEtapesDecisives.length) return DemarchesStatuts.Indetermine
 
   // l'étape la plus récente
-  const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisivesDemande)[0]
+  const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisives)[0]
 
   if (
     (titreEtapeRecent.typeId === Travaux.Recolement ||

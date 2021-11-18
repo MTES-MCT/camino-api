@@ -391,7 +391,7 @@ describe("statut d'une démarche", () => {
     ${Travaux.DonneActeDeclaration}       | ${'fai'} | ${Demarches.Accepte}
     ${Travaux.Abandon}                    | ${'fai'} | ${Demarches.Desiste}
   `(
-    "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    "pour une démarche de travaux de type 'dot' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
@@ -413,7 +413,7 @@ describe("statut d'une démarche", () => {
     ${Travaux.ArretePrefectDonneActe2}        | ${'fav'} | ${Demarches.FinPoliceMines}
     ${Travaux.PubliDecisionRecueilActesAdmin} | ${'fav'} | ${Demarches.FinPoliceMines}
   `(
-    "pour une démarche de travaux de type $demarcheTypeId sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    "pour une démarche de travaux de type 'dam' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
