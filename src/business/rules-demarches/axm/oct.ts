@@ -111,7 +111,11 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     ]
   },
   dex: {
-    justeApres: [[{ etapeTypeId: 'sas' }]],
+    justeApres: [
+      [{ etapeTypeId: 'apo', statutId: 'fav' }],
+      [{ etapeTypeId: 'apo', statutId: 'def' }],
+      [{ etapeTypeId: 'sas' }]
+    ],
     separation: []
   },
   mno: {
