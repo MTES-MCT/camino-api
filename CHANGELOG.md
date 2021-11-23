@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.30.0](https://github.com/MTES-MCT/camino-api/compare/v0.29.0...v0.30.0) (2021-11-23)
+
+
+### Features
+
+* **périmètre:** calcule la surface grâce au périmètre ([#836](https://github.com/MTES-MCT/camino-api/issues/836)) ([3299090](https://github.com/MTES-MCT/camino-api/commit/32990900c448643afc8dde2307e93c880d1b13ac))
+* **sdom:** ajoute les différentes zones du SDOM aux titres ([#832](https://github.com/MTES-MCT/camino-api/issues/832)) ([e199aae](https://github.com/MTES-MCT/camino-api/commit/e199aae9c518f61f64ee96df24ad0ccc220cacf3))
+* **travaux:** implémente les arbres de statuts ([#834](https://github.com/MTES-MCT/camino-api/issues/834)) ([dee7c63](https://github.com/MTES-MCT/camino-api/commit/dee7c63818fca5442b74669f17e562b2013a177d))
+
+
+### Bug Fixes
+
+* **aex:** rend la saisine de l’autorité signataire optionnelle pour l’octroi d’AEX ([#838](https://github.com/MTES-MCT/camino-api/issues/838)) ([4fb52f3](https://github.com/MTES-MCT/camino-api/commit/4fb52f3e73ab76a286092a3f30eac85c80668431))
+* **document:** corrige l'erreur dans modifications de document ([#837](https://github.com/MTES-MCT/camino-api/issues/837)) ([d1c002e](https://github.com/MTES-MCT/camino-api/commit/d1c002eda1a835df42f2a8251fd32b87c8df6c01))
+* **upload:** corrige la séquence de téléversement pour éviter les fichiers perdus ([#824](https://github.com/MTES-MCT/camino-api/issues/824)) ([6f21b81](https://github.com/MTES-MCT/camino-api/commit/6f21b8115d67b31a9cf62b8807ac50216f792653))
+
 ## [0.29.0](https://github.com/MTES-MCT/camino-api/compare/v0.28.0...v0.29.0) (2021-11-10)
 
 
