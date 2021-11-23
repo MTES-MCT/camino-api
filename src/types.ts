@@ -995,6 +995,12 @@ interface IUtilisateur {
   refreshToken?: string | null
 }
 
+interface IUtilisateurTitre {
+  utilisateurId: string
+  titreId: string
+  utilisateur?: IUtilisateur | null
+}
+
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
 type IUtilisateurCreation = PartialBy<Omit<IUtilisateur, 'id'>, 'permissionId'>
@@ -1137,6 +1143,7 @@ export {
   IUnite,
   IUser,
   IUtilisateur,
+  IUtilisateurTitre,
   IUtilisateurCreation,
   IPropId,
   IToken,

@@ -191,6 +191,7 @@ import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-
 import { titreDemandeCreer } from './resolvers/titre-demande'
 import { pointsImporter, surfaceCalculer } from './resolvers/points'
 import { journaux } from './resolvers/journaux'
+import { utilisateurTitreAbonner } from './resolvers/utilisateurs-titres'
 
 export default {
   //  types
@@ -291,6 +292,7 @@ export default {
   utilisateurCreationMessageEnvoyer,
   utilisateurEmailMessageEnvoyer,
   utilisateurEmailModifier,
+  utilisateurTitreAbonner,
   newsletterInscrire,
   entrepriseCreer,
   entrepriseModifier,

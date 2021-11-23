@@ -301,6 +301,9 @@ type Mutation {
   "Modifie l’email de l’utilisateur à l’aide du token reçu dans l’email de vérification"
   utilisateurEmailModifier(emailToken: String!): UtilisateurToken
 
+  "Abonne ou désabonne l’utilisateur à un titre"
+  utilisateurTitreAbonner(titreId: String!, abonner: Boolean!): Boolean
+
   newsletterInscrire(email: String!): String
 
   "Crée un titre minier"
