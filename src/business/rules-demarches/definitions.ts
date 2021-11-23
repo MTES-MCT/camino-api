@@ -1,4 +1,4 @@
-import { IContenuValeur } from '../../types'
+import { IContenuValeur, ITitreEtape } from '../../types'
 
 import { restrictionsArmRet } from './arm/ret'
 import { restrictionsArmOct } from './arm/oct'
@@ -10,6 +10,7 @@ interface IEtapeTypeIdCondition {
   etapeTypeId?: string
   statutId?: string
   titre?: ITitreCondition
+  contextCheck?: (etapes: ITitreEtape[]) => boolean
 }
 
 interface IDemarcheDefinitionRestrictions {
@@ -18,10 +19,10 @@ interface IDemarcheDefinitionRestrictions {
 
 interface IDemarcheDefinitionRestrictionsProps {
   separation?: string[]
-  justeApres: IEtapeTypeIdCondition[][]
+  final?: boolean
   avant?: IEtapeTypeIdCondition[][]
   apres?: IEtapeTypeIdCondition[][]
-  final?: boolean
+  justeApres: IEtapeTypeIdCondition[][]
 }
 
 interface IDemarcheDefinitionRestrictionsElements

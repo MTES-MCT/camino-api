@@ -165,4 +165,46 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
       ])
     ).toHaveLength(0)
   })
+
+  test(
+    'la confirmation de l’accord du propriétaire du sol (cps) est optionnel ' +
+      'si la décision du propriétaire du sol (asl) est favorable sans réserve',
+    () => {
+      expect(
+        octEtatsValidate([
+          { typeId: 'mfr', date: '2020-01-01' },
+          { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
+          { typeId: 'mdp', date: '2020-01-02' },
+          { typeId: 'asl', statutId: 'fav', date: '2020-01-02' },
+          { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
+          { typeId: 'scl', date: '2020-01-04' },
+          { typeId: 'ama', date: '2020-01-05' },
+          { typeId: 'ssr', date: '2020-01-04' },
+          { typeId: 'apd', date: '2020-01-06' }
+        ])
+      ).toHaveLength(0)
+    }
+  )
+
+  test(
+    'la confirmation de l’accord du propriétaire du sol (cps) est obligatoire ' +
+      'si la décision du propriétaire du sol (asl) est favorable avec réserves',
+    () => {
+      expect(
+        octEtatsValidate([
+          { typeId: 'mfr', date: '2020-01-01' },
+          { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
+          { typeId: 'mdp', date: '2020-01-02' },
+          { typeId: 'asl', statutId: 'fre', date: '2020-01-02' },
+          { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' },
+          { typeId: 'scl', date: '2020-01-04' },
+          { typeId: 'ama', date: '2020-01-05' },
+          { typeId: 'ssr', date: '2020-01-04' },
+          { typeId: 'apd', date: '2020-01-06' }
+        ])
+      ).toContain(
+        'l’étape "mcr" n’est pas possible juste après "mfr", "mdp", "asl"'
+      )
+    }
+  )
 })
