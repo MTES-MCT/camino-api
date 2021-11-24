@@ -8,7 +8,10 @@ import {
   ITitreEtape
 } from '../../../types'
 import { debug } from '../../../config/index'
-import { userGet } from '../../../database/queries/utilisateurs'
+import {
+  userGet,
+  utilisateurTitreCreate
+} from '../../../database/queries/utilisateurs'
 import { titreDemandeEntreprisesGet } from '../../../database/queries/entreprises'
 import { permissionCheck } from '../../../tools/permission'
 import { domaineGet } from '../../../database/queries/metas'
@@ -131,7 +134,8 @@ const titreDemandeCreer = async (
 
     const titreEtapeId = titre.demarches![0].etapes![0].id
 
-    // (envoi un email avec l'url)
+    // on abonne l’utilisateur au titre
+    await utilisateurTitreCreate({ utilisateurId: user.id, titreId })
 
     return {
       titreId,

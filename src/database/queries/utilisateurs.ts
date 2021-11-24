@@ -5,7 +5,8 @@ import {
   IFields,
   IUtilisateursColonneId,
   Index,
-  IColonne
+  IColonne,
+  IUtilisateurTitre
 } from '../../types'
 
 import options from './_options'
@@ -15,6 +16,7 @@ import { stringSplit } from './_utils'
 
 import Utilisateurs from '../models/utilisateurs'
 import { utilisateursQueryModify } from './permissions/utilisateurs'
+import UtilisateursTitres from '../models/utilisateurs--titres'
 
 const userGet = async (userId?: string) => {
   if (!userId) return null
@@ -297,6 +299,24 @@ const utilisateurUpdate = async (
   utilisateur: Partial<IUtilisateur>
 ) => Utilisateurs.query().patch(utilisateur).findById(id)
 
+const utilisateurTitreCreate = async (utilisateurTitre: IUtilisateurTitre) =>
+  UtilisateursTitres.query().insert(utilisateurTitre)
+
+const utilisateurTitreDelete = async (utilisateurId: string, titreId: string) =>
+  UtilisateursTitres.query().deleteById([utilisateurId, titreId])
+
+const utilisateursTitresGet = async (
+  titreId: string,
+  { fields }: { fields?: IFields }
+) =>
+  UtilisateursTitres.query()
+    .where('titreId', titreId)
+    .withGraphFetched(
+      fields
+        ? graphBuild(fields, 'utilisateursTitres', fieldsFormat)
+        : options.utilisateursTitres.graph
+    )
+
 export {
   userGet,
   utilisateurGet,
@@ -306,5 +326,8 @@ export {
   utilisateursCount,
   utilisateurCreate,
   utilisateurUpsert,
-  utilisateurUpdate
+  utilisateurUpdate,
+  utilisateurTitreCreate,
+  utilisateurTitreDelete,
+  utilisateursTitresGet
 }

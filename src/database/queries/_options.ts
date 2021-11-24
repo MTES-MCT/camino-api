@@ -79,6 +79,10 @@ const utilisateurs = {
   }
 }
 
+const utilisateursTitres = {
+  graph: `[utilisateur]`
+}
+
 const administrationsRelateTrue = [
   'administrationsTypes',
   'departement',
@@ -363,5 +367,6 @@ export default {
   titresDemarchesPhases,
   titresTypes,
   utilisateurs,
+  utilisateursTitres,
   journaux
 }
