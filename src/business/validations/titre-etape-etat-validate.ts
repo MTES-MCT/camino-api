@@ -167,8 +167,9 @@ const etapesSuivantesEnAttenteGet = (
 
 const etapeTypeIdConditionsCheck = (
   contenu: IContenu | null,
-  titreDemarcheEtapes: ITitreEtape[],
-  conditions: IEtapeTypeIdCondition[][]
+  titreEtapesEnAttente: ITitreEtape[],
+  conditions: IEtapeTypeIdCondition[][],
+  titreDemarcheEtapes: ITitreEtape[]
 ) =>
   conditions.some(condition =>
     condition.every(c => {
@@ -176,7 +177,11 @@ const etapeTypeIdConditionsCheck = (
         return false
       }
 
-      return titreDemarcheEtapes.find(etape => {
+      if (c.contextCheck && !c.contextCheck(titreDemarcheEtapes)) {
+        return false
+      }
+
+      return titreEtapesEnAttente.find(etape => {
         let result = true
 
         if (c.etapeTypeId) {
@@ -225,7 +230,12 @@ const titreEtapeEtatValidate = (
   if (
     !errors.length &&
     avant &&
-    etapeTypeIdConditionsCheck(contenu, titreDemarcheEtapes, avant)
+    etapeTypeIdConditionsCheck(
+      contenu,
+      titreDemarcheEtapes,
+      avant,
+      titreDemarcheEtapes
+    )
   ) {
     errors.push(
       `l’étape "${etapeTypeId}" n’est plus possible après ${etapesEnAttenteToString(
@@ -237,7 +247,12 @@ const titreEtapeEtatValidate = (
   if (
     !errors.length &&
     apres &&
-    !etapeTypeIdConditionsCheck(contenu, titreDemarcheEtapes, apres)
+    !etapeTypeIdConditionsCheck(
+      contenu,
+      titreDemarcheEtapes,
+      apres,
+      titreDemarcheEtapes
+    )
   ) {
     errors.push(
       `l’étape "${etapeTypeId}" n’est pas possible après ${etapesEnAttenteToString(
@@ -249,7 +264,12 @@ const titreEtapeEtatValidate = (
   if (
     !errors.length &&
     justeApres.length &&
-    !etapeTypeIdConditionsCheck(contenu, titreEtapesEnAttente, justeApres)
+    !etapeTypeIdConditionsCheck(
+      contenu,
+      titreEtapesEnAttente,
+      justeApres,
+      titreDemarcheEtapes
+    )
   ) {
     errors.push(
       `l’étape "${etapeTypeId}" n’est pas possible juste après ${etapesEnAttenteToString(
