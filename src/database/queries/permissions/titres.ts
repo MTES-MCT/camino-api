@@ -26,6 +26,7 @@ import {
 import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
+import UtilisateursTitres from '../../models/utilisateurs--titres'
 
 const titresAdministrationsModificationQuery = (
   administrationsIds: string[],
@@ -206,6 +207,17 @@ const titresQueryModify = (
     q.select(raw('false').as('suppression'))
     q.select(raw('false').as('demarchesCreation'))
     q.select(raw('false').as('travauxCreation'))
+  }
+
+  if (user) {
+    q.select(
+      UtilisateursTitres.query()
+        .select(raw('true'))
+        .where(raw('?? = ??', ['titreId', 'titres.id']))
+        .where('utilisateurId', user.id)
+        .first()
+        .as('abonnement')
+    )
   }
 
   if (

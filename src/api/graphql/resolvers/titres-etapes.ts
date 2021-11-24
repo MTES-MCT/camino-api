@@ -49,7 +49,10 @@ import {
 import { permissionCheck } from '../../../tools/permission'
 import dateFormat from 'dateformat'
 import { documentsGet } from '../../../database/queries/documents'
-import { titreEtapeEmailsSend } from './_titre-etape-email'
+import {
+  titreEtapeAdministrationsEmailsSend,
+  titreEtapeUtilisateursEmailsSend
+} from './_titre-etape-email'
 import { objectClone } from '../../../tools'
 
 const statutIdAndDateGet = (
@@ -326,13 +329,19 @@ const etapeCreer = async (
       user
     )
 
-    await titreEtapeEmailsSend(
-      etape,
+    await titreEtapeAdministrationsEmailsSend(
+      etapeUpdated,
       etapeType,
       titreDemarche.typeId,
       titreDemarche.titreId,
       titreDemarche.titre.typeId,
       user
+    )
+    await titreEtapeUtilisateursEmailsSend(
+      etapeUpdated,
+      etapeType,
+      titreDemarche.typeId,
+      titreDemarche.titreId
     )
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
@@ -485,7 +494,7 @@ const etapeModifier = async (
       user
     )
 
-    await titreEtapeEmailsSend(
+    await titreEtapeAdministrationsEmailsSend(
       etape,
       etapeType,
       titreDemarche.typeId,
@@ -566,7 +575,7 @@ const etapeDeposer = async (
       user
     )
 
-    await titreEtapeEmailsSend(
+    await titreEtapeAdministrationsEmailsSend(
       etapeUpdated,
       titreEtape.type!,
       titreDemarche.typeId,
@@ -593,13 +602,19 @@ const etapeDeposer = async (
       titreEtapeDepot.titreDemarcheId,
       user
     )
-    await titreEtapeEmailsSend(
+    await titreEtapeAdministrationsEmailsSend(
       titreEtapeDepot,
       titreEtapeDepot.type!,
       titreDemarche.typeId,
       titreDemarche.titreId,
       titreDemarche.titre!.typeId,
       user!
+    )
+    await titreEtapeUtilisateursEmailsSend(
+      titreEtapeDepot,
+      titreEtapeDepot.type!,
+      titreDemarche.typeId,
+      titreDemarche.titreId
     )
 
     const fields = fieldsBuild(info)

@@ -1,8 +1,10 @@
 import { IEtapeType, ITitreEtape, IUtilisateur } from '../../../types'
 
 import { emailsSend } from '../../../tools/api-mailjet/emails'
+import { titreEtapeGet } from '../../../database/queries/titres-etapes'
+import { utilisateursTitresGet } from '../../../database/queries/utilisateurs'
 
-const emailContentFormat = (
+const emailForAdministrationContentFormat = (
   etapeNom: string,
   titreId: string,
   user: IUtilisateur
@@ -27,7 +29,7 @@ const etapeStatusUpdated = (
   (!oldEtape || oldEtape.statutId !== statusId) &&
   etape.statutId === statusId
 
-const emailGet = (
+const emailsForAdministrationsGet = (
   etape: ITitreEtape,
   etapeType: IEtapeType,
   demarcheTypeId: string,
@@ -66,12 +68,16 @@ const emailGet = (
   }
 
   const subject = `${etapeType.nom} | ${title}`
-  const content = emailContentFormat(etapeType.nom, titreId, user)
+  const content = emailForAdministrationContentFormat(
+    etapeType.nom,
+    titreId,
+    user
+  )
 
   return { subject, content, emails }
 }
 
-const titreEtapeEmailsSend = async (
+const titreEtapeAdministrationsEmailsSend = async (
   etape: ITitreEtape,
   etapeType: IEtapeType,
   demarcheTypeId: string,
@@ -80,7 +86,7 @@ const titreEtapeEmailsSend = async (
   user: IUtilisateur,
   oldEtape?: ITitreEtape
 ) => {
-  const email = emailGet(
+  const emailsForAdministrations = emailsForAdministrationsGet(
     etape,
     etapeType,
     demarcheTypeId,
@@ -90,9 +96,54 @@ const titreEtapeEmailsSend = async (
     oldEtape
   )
 
-  if (email) {
-    await emailsSend(email.emails, email.subject, email.content)
+  if (emailsForAdministrations) {
+    await emailsSend(
+      emailsForAdministrations.emails,
+      emailsForAdministrations.subject,
+      emailsForAdministrations.content
+    )
   }
 }
 
-export { titreEtapeEmailsSend }
+const titreEtapeUtilisateursEmailsSend = async (
+  etape: ITitreEtape,
+  etapeType: IEtapeType,
+  demarcheTypeId: string,
+  titreId: string
+) => {
+  const utilisateursEmails = [] as string[]
+
+  const utilisateursTitres = await utilisateursTitresGet(titreId, {
+    fields: { utilisateur: { id: {} } }
+  })
+
+  const utilisateurs = utilisateursTitres
+    ?.map(utilisateurTitre => utilisateurTitre.utilisateur)
+    .filter(utilisateur => !!utilisateur && !!utilisateur.email)
+
+  for (const utilisateur of utilisateurs) {
+    // On vérifie que le titulaire puisse voir l’étape
+    const titreEtape = await titreEtapeGet(
+      etape.id,
+      { fields: { id: {} } },
+      utilisateur
+    )
+    if (titreEtape) {
+      utilisateursEmails.push(utilisateur!.email!)
+    }
+  }
+
+  if (utilisateursEmails.length) {
+    await emailsSend(
+      utilisateursEmails,
+      'Nouvel évenement sur un titre minier.',
+      `
+  <h3>L’étape « ${etapeType.nom} » vient d’ếtre réalisée sur un titre minier.</h3>
+  <hr>
+  <b>Lien</b> : <a href="${process.env.UI_URL}/titres/${titreId}">${process.env.UI_URL}/titres/${titreId}</a> <br>
+  `
+    )
+  }
+}
+
+export { titreEtapeAdministrationsEmailsSend, titreEtapeUtilisateursEmailsSend }

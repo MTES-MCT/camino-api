@@ -124,6 +124,9 @@ type Titre {
 
   travauxCreation: Boolean
   doublonTitre: Titre
+
+  "L’utilisateur est abonné au titre"
+  abonnement: Boolean
 }
 
 "Références métier d'un titre minier"
