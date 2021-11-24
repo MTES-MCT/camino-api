@@ -94,6 +94,18 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
   apd: {
     apres: [[{ etapeTypeId: 'scl' }]],
     justeApres: [
+      [
+        { etapeTypeId: 'ssr' },
+        {
+          contextCheck: etapes => {
+            // on peut faire un « avis de la DREAL »  juste après une « Saisine des services »
+            // si la « Décision du propriétaire du sol » est favorable sans réserve
+            const aslEtape = etapes.find(e => e.typeId === 'asl')
+
+            return aslEtape?.statutId === 'fav'
+          }
+        }
+      ],
       [{ etapeTypeId: 'cps' }],
       [{ etapeTypeId: 'apo', statutId: 'ajo' }]
     ]
