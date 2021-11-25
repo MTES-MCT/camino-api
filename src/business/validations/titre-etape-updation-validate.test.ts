@@ -1,6 +1,15 @@
-import { ISubstance, ITitreEtape, ITitrePoint } from '../../types'
+import {
+  ISubstance,
+  ITitreEtape,
+  ITitreDemarche,
+  ITitrePoint,
+  ITitre
+} from '../../types'
 
-import { titreEtapeCompleteValidate } from './titre-etape-updation-validate'
+import {
+  titreEtapeCompleteValidate,
+  titreEtapeUpdationValidate
+} from './titre-etape-updation-validate'
 
 describe('valide l’étape avant de l’enregistrer', () => {
   test.each`
@@ -167,4 +176,102 @@ describe('valide l’étape avant de l’enregistrer', () => {
       }
     }
   )
+
+  test("une ARM ou une AXM ne peuvent pas recevoir d'amodiataires", () => {
+    const titreDemarche = {} as unknown as ITitreDemarche
+
+    // ARM
+    let titreEtape = {
+      typeId: 'mfr',
+      amodiataires: []
+    } as unknown as ITitreEtape
+
+    let titre = {
+      id: 'foo',
+      typeId: 'arm'
+    } as unknown as ITitre
+
+    let errors = titreEtapeUpdationValidate(
+      titreEtape,
+      titreDemarche,
+      titre,
+      [],
+      [],
+      [],
+      [],
+      []
+    )
+    expect(errors).not.toContain(
+      "une autorisation de recherche ne peut pas inclure d'amodiataires"
+    )
+    expect(errors).not.toContain(
+      "une autorisation d'exploitation ne peut pas inclure d'amodiataires"
+    )
+
+    titreEtape = {
+      typeId: 'mfr',
+      amodiataires: [{ id: 'foo', nom: 'bar', operateur: true }]
+    } as unknown as ITitreEtape
+
+    errors = titreEtapeUpdationValidate(
+      titreEtape,
+      titreDemarche,
+      titre,
+      [],
+      [],
+      [],
+      [],
+      []
+    )
+    expect(errors).toContain(
+      "une autorisation de recherche ne peut pas inclure d'amodiataires"
+    )
+
+    // AXM
+    titreEtape = {
+      typeId: 'mfr',
+      amodiataires: []
+    } as unknown as ITitreEtape
+
+    titre = {
+      id: 'foo',
+      typeId: 'axm'
+    } as unknown as ITitre
+
+    errors = titreEtapeUpdationValidate(
+      titreEtape,
+      titreDemarche,
+      titre,
+      [],
+      [],
+      [],
+      [],
+      []
+    )
+    expect(errors).not.toContain(
+      "une autorisation d'exploitation ne peut pas inclure d'amodiataires"
+    )
+    expect(errors).not.toContain(
+      "une autorisation de recherche ne peut pas inclure d'amodiataires"
+    )
+
+    titreEtape = {
+      typeId: 'mfr',
+      amodiataires: [{ id: 'foo', nom: 'bar', operateur: true }]
+    } as unknown as ITitreEtape
+
+    errors = titreEtapeUpdationValidate(
+      titreEtape,
+      titreDemarche,
+      titre,
+      [],
+      [],
+      [],
+      [],
+      []
+    )
+    expect(errors).toContain(
+      "une autorisation d'exploitation ne peut pas inclure d'amodiataires"
+    )
+  })
 })
