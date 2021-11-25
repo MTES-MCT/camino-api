@@ -31,3 +31,4 @@ node_modules
 /dev/tmp
 app.log
 cron.log
+.eslintcache

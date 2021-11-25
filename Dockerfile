@@ -2,6 +2,9 @@ FROM node:16.12-alpine as build-stage
 WORKDIR /app
 
 COPY package*.json ./
+
+# On désactive husky
+RUN npm set-script prepare ""
 RUN npm ci --only=prod
 
 COPY tsconfig.json ./
