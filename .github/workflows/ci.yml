@@ -35,6 +35,7 @@ jobs:
           node-version: '16.12'
       - name: Npm install
         run: |
+          npm set-script prepare ""
           npm ci
           npm run ci:lint
           npm run build
