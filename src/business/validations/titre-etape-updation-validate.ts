@@ -43,6 +43,18 @@ const titreEtapeUpdationValidate = (
 
   errors.push(...errorsHeritageContenu)
 
+  // Pas d'amodiataires pour les titres 'arm' ou 'axm'
+  if (
+    ['arm', 'axm'].includes(titre.typeId) &&
+    titreEtape.amodiataires?.length
+  ) {
+    errors.push(
+      `une autorisation ${
+        titre.typeId === 'arm' ? 'de recherche' : "d'exploitation"
+      } ne peut pas inclure d'amodiataires`
+    )
+  }
+
   if (sections.length) {
     // 1. les champs number ne peuvent avoir une durée négative
     const errorsNumbers = propsNumbersCheck(numberProps, titreEtape)
