@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.1](https://github.com/MTES-MCT/camino-api/compare/v0.30.0...v0.30.1) (2021-11-30)
+
+
+### Bug Fixes
+
+* **prm:** rend l’avis de demande concurrente optionnel ([0d2b3e0](https://github.com/MTES-MCT/camino-api/commit/0d2b3e0d1716b2fa52181853faeb1688bb610373))
+
 ## [0.30.0](https://github.com/MTES-MCT/camino-api/compare/v0.29.0...v0.30.0) (2021-11-23)
 
 
