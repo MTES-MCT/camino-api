@@ -35,6 +35,7 @@ const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [[{ etapeTypeId: 'mdp' }]]
   },
   mcr: {
+    separation: ['scg'],
     justeApres: [[{ etapeTypeId: 'spp' }], [{ etapeTypeId: 'rco' }]]
   },
   mco: {
@@ -48,12 +49,16 @@ const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]]
   },
   mec: {
-    separation: ['scg'],
     justeApres: [[{ etapeTypeId: 'anf' }]]
   },
   scl: {
     separation: ['spo'],
-    justeApres: [[{ etapeTypeId: 'mec' }]]
+    avant: [[{ etapeTypeId: 'scl' }]],
+    justeApres: [
+      [{ etapeTypeId: 'mcr', statutId: 'fav' }],
+      [{ etapeTypeId: 'anf' }],
+      [{ etapeTypeId: 'mec' }]
+    ]
   },
   ama: {
     justeApres: [[{ etapeTypeId: 'scl' }]],
@@ -69,7 +74,12 @@ const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions = {
   },
   ssr: {
     separation: ['spo'],
-    justeApres: [[{ etapeTypeId: 'mec' }]]
+    avant: [[{ etapeTypeId: 'ssr' }]],
+    justeApres: [
+      [{ etapeTypeId: 'mcr', statutId: 'fav' }],
+      [{ etapeTypeId: 'anf' }],
+      [{ etapeTypeId: 'mec' }]
+    ]
   },
   apl: {
     justeApres: [[{ etapeTypeId: 'ssr' }]],
@@ -104,7 +114,11 @@ const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions = {
   apd: { justeApres: [[{ etapeTypeId: 'apo' }]] },
   app: { justeApres: [[{ etapeTypeId: 'apd' }]] },
   ppu: {
-    justeApres: [[{ etapeTypeId: 'mec' }]],
+    justeApres: [
+      [{ etapeTypeId: 'mcr', statutId: 'fav' }],
+      [{ etapeTypeId: 'anf' }],
+      [{ etapeTypeId: 'mec' }]
+    ],
     avant: [[{ etapeTypeId: 'ppu' }]]
   },
   ppc: { justeApres: [[{ etapeTypeId: 'ppu' }]] },

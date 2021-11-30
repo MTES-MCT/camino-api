@@ -63,4 +63,16 @@ describe('vérifie l’arbre d’octroi d’une PRM', () => {
       ])
     ).toHaveLength(0)
   })
+
+  test('peut créer une participation du public (ppu) directement après une recevabilité de la demande fav (mcr)', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' },
+        { typeId: 'spp', date: '2020-01-03' },
+        { typeId: 'mcr', statutId: 'fav', date: '2020-01-04' },
+        { typeId: 'ppu', date: '2020-01-07' }
+      ])
+    ).toHaveLength(0)
+  })
 })
