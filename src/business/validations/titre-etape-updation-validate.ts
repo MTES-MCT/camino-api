@@ -4,7 +4,8 @@ import {
   ITitre,
   IDocumentType,
   ISection,
-  IDocument
+  IDocument,
+  ISDOMZone
 } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
@@ -16,6 +17,8 @@ import { contenuNumbersCheck } from './utils/contenu-numbers-check'
 import { propsDatesCheck } from './utils/props-dates-check'
 import { contenuDatesCheck } from './utils/contenu-dates-check'
 import { documentsTypesValidate } from './documents-types-validate'
+import { documentTypeIdsBySdomZonesGet } from '../../api/graphql/resolvers/_titre-etape'
+import { objectClone } from '../../tools'
 
 const numberProps = ['duree', 'surface'] as unknown as [keyof ITitreEtape]
 
@@ -31,7 +34,8 @@ const titreEtapeUpdationValidate = (
   documentsTypes: IDocumentType[],
   documents: IDocument[] | null | undefined,
   justificatifsTypes: IDocumentType[],
-  justificatifs: IDocument[] | null | undefined
+  justificatifs: IDocument[] | null | undefined,
+  sdomZones: ISDOMZone[] | null | undefined
 ) => {
   const errors = []
 
@@ -107,7 +111,8 @@ const titreEtapeUpdationValidate = (
         documentsTypes,
         documents,
         justificatifsTypes,
-        justificatifs
+        justificatifs,
+        sdomZones
       )
     )
   }
@@ -126,7 +131,8 @@ const titreEtapeCompleteValidate = (
   documentsTypes: IDocumentType[],
   documents: IDocument[] | null | undefined,
   justificatifsTypes: IDocumentType[],
-  justificatifs: IDocument[] | null | undefined
+  justificatifs: IDocument[] | null | undefined,
+  sdomZones: ISDOMZone[] | null | undefined
 ) => {
   const errors = [] as string[]
   // les éléments non optionnel des sections sont renseignés
@@ -172,15 +178,27 @@ const titreEtapeCompleteValidate = (
     )
   }
 
+  const dts = (objectClone(documentsTypes) || []) as IDocumentType[]
+  if (sdomZones?.length) {
+    // Ajoute les documents obligatoires en fonction des zones du SDOM
+    const documentTypeIds = documentTypeIdsBySdomZonesGet(
+      sdomZones,
+      titreTypeId,
+      titreEtape.typeId
+    )
+
+    documentTypeIds?.forEach(dtId => dts.push({ id: dtId, optionnel: false }))
+  }
+
   // les fichiers obligatoires sont tous renseignés et complets
-  if (documentsTypes!.length) {
+  if (dts!.length) {
     // ajoute des documents obligatoires pour les arm mécanisées
     if (titreTypeId === 'arm' && titreEtape.contenu && titreEtape.contenu.arm) {
-      documentsTypes
+      dts
         .filter(dt => ['doe', 'dep'].includes(dt.id))
         .forEach(dt => (dt.optionnel = !titreEtape.contenu?.arm.mecanise))
     }
-    const documentsErrors = documentsTypesValidate(documents, documentsTypes)
+    const documentsErrors = documentsTypesValidate(documents, dts)
     if (documentsErrors.length) {
       errors.push(...documentsErrors)
     }

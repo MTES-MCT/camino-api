@@ -2,8 +2,10 @@ import { GraphQLResolveInfo } from 'graphql'
 
 import {
   IEtapeType,
+  ISDOMZone,
   ITitreDemarche,
   ITitreEtape,
+  ITitrePoint,
   IToken,
   IUtilisateur
 } from '../../../types'
@@ -24,7 +26,11 @@ import { titreGet } from '../../../database/queries/titres'
 import { fichiersRepertoireDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
-import { titreEtapeHeritageBuild, titreEtapePointsCalc } from './_titre-etape'
+import {
+  titreEtapeHeritageBuild,
+  titreEtapePointsCalc,
+  titreEtapeSdomZonesGet
+} from './_titre-etape'
 import { titreEtapeUpdationValidate } from '../../../business/validations/titre-etape-updation-validate'
 
 import { fieldsBuild } from './_fields-build'
@@ -54,6 +60,7 @@ import {
   titreEtapeUtilisateursEmailsSend
 } from './_titre-etape-email'
 import { objectClone } from '../../../tools'
+import { geojsonFeatureMultiPolygon } from '../../../tools/geojson'
 
 const statutIdAndDateGet = (
   etape: ITitreEtape,
@@ -290,6 +297,17 @@ const etapeCreer = async (
       : null
     delete etape.documentIds
 
+    const sdomZones = [] as ISDOMZone[]
+    let titreEtapePoints = null
+    if (etape.points?.length) {
+      titreEtapePoints = titreEtapePointsCalc(etape.points)
+      const geojsonFeatures = geojsonFeatureMultiPolygon(
+        titreEtapePoints as ITitrePoint[]
+      )
+
+      sdomZones.push(...(await titreEtapeSdomZonesGet(geojsonFeatures)))
+    }
+
     const rulesErrors = titreEtapeUpdationValidate(
       etape,
       titreDemarche,
@@ -298,14 +316,15 @@ const etapeCreer = async (
       documentsTypes,
       documents,
       justificatifsTypes,
-      justificatifs
+      justificatifs,
+      sdomZones
     )
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
 
-    if (etape.points) {
-      etape.points = titreEtapePointsCalc(etape.points)
+    if (titreEtapePoints) {
+      etape.points = titreEtapePoints
     }
     const { contenu, newFiles } = sectionsContenuAndFilesGet(
       etape.contenu,
@@ -433,6 +452,17 @@ const etapeModifier = async (
       : null
     delete etape.documentIds
 
+    const sdomZones = [] as ISDOMZone[]
+    let titreEtapePoints = null
+    if (etape.points?.length) {
+      titreEtapePoints = titreEtapePointsCalc(etape.points)
+      const geojsonFeatures = geojsonFeatureMultiPolygon(
+        titreEtapePoints as ITitrePoint[]
+      )
+
+      sdomZones.push(...(await titreEtapeSdomZonesGet(geojsonFeatures)))
+    }
+
     const rulesErrors = titreEtapeUpdationValidate(
       etape,
       titreDemarche,
@@ -441,15 +471,16 @@ const etapeModifier = async (
       documentsTypes,
       documents,
       justificatifsTypes,
-      justificatifs
+      justificatifs,
+      sdomZones
     )
 
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
 
-    if (etape.points) {
-      etape.points = titreEtapePointsCalc(etape.points)
+    if (titreEtapePoints) {
+      etape.points = titreEtapePoints
     }
     await documentsLier(
       context,

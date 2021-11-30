@@ -231,10 +231,22 @@ type Query {
   pays: [Pays]
 
   "Retourne des points à partir d’un fichier GeoJson ou Shape"
-  pointsImporter(fileUpload: FileUpload!, geoSystemeId: String!): PointsImport
+  pointsImporter(
+    fileUpload: FileUpload!
+    geoSystemeId: String!
+    titreTypeId: String!
+    etapeTypeId: String!
+  ): PointsImport
 
   "Calcule la surface en km² à partir de polygones"
-  surfaceCalculer(points: [InputPoint]!): SurfaceResultat
+  surfaceCalculer(
+    points: [InputPoint]!
+    titreTypeId: String!
+    etapeTypeId: String!
+  ): SurfaceResultat
+
+  "Retourne les zones du SDOM d’une étape"
+  titreEtapeSDOMZones(titreEtapeId: String!): TitreEtapeSDOMZones
 
   journaux(
     intervalle: Int!
