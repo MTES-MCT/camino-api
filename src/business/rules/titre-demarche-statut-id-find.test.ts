@@ -409,6 +409,7 @@ describe("statut d'une démarche", () => {
     ${Travaux.Recevabilite}            | ${'fav'} | ${Demarches.EnInstruction}
     ${Travaux.Recolement}              | ${'fav'} | ${Demarches.FinPoliceMines}
     ${Travaux.Recolement}              | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.ArretePrefectDonneActe2} | ${'def'} | ${Demarches.EnInstruction}
     ${Travaux.ArretePrefectDonneActe2} | ${'fav'} | ${Demarches.FinPoliceMines}
   `(
     "pour une démarche de travaux de type 'dam' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
