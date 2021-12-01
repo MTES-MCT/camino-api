@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.31.0](https://github.com/MTES-MCT/camino-api/compare/v0.30.1...v0.31.0) (2021-12-01)
+
+
+### Features
+
+* **axm:** conditionne l’étape de la confirmation de l’accord du propriétaire du sol ([#843](https://github.com/MTES-MCT/camino-api/issues/843)) ([dcdb339](https://github.com/MTES-MCT/camino-api/commit/dcdb339198913239879a335ee21449a9a92f6d42))
+* **etape:** vérifie qu'une création ou modif d'étape ARM ou AXM ne recoive pas d'amodiataire ([#845](https://github.com/MTES-MCT/camino-api/issues/845)) ([bee939a](https://github.com/MTES-MCT/camino-api/commit/bee939afcfa7879f33d33b42243807d376184965))
+* **notifications:** notifie les opérateurs des évenements de leurs titres ([#839](https://github.com/MTES-MCT/camino-api/issues/839)) ([5abad15](https://github.com/MTES-MCT/camino-api/commit/5abad15d80f25622fafb6cd059adc58ecd3ce1c5))
+* **travaux:** ajoute l'étape 'wpa' à la démarche 'dam' ([#841](https://github.com/MTES-MCT/camino-api/issues/841)) ([fec6c47](https://github.com/MTES-MCT/camino-api/commit/fec6c4794128247aef4a84f00133eea33e20feaa))
+
 ### [0.30.1](https://github.com/MTES-MCT/camino-api/compare/v0.30.0...v0.30.1) (2021-11-30)
 
 
