@@ -38,7 +38,6 @@ const titreEtapesDecisivesTravauxTypes = [
   Travaux.Recevabilite,
   Travaux.Recolement,
   Travaux.AvisPrescriptionsDemandeur,
-  Travaux.PubliDecisionRecueilActesAdmin,
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
   Travaux.Abandon
@@ -298,8 +297,7 @@ const titreDemarcheTravauxStatutIdFind = (
 
   if (
     (titreEtapeRecent.typeId === Travaux.Recolement ||
-      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2 ||
-      titreEtapeRecent.typeId === Travaux.PubliDecisionRecueilActesAdmin) &&
+      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) &&
     titreEtapeRecent.statutId === 'fav'
   ) {
     return DemarchesStatuts.FinPoliceMines
@@ -328,7 +326,6 @@ const titreDemarcheTravauxStatutIdFind = (
   if (
     (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
       titreEtapeRecent.statutId === 'fav') ||
-    titreEtapeRecent.typeId === Travaux.PubliDecisionRecueilActesAdmin ||
     titreEtapeRecent.typeId === Travaux.DonneActeDeclaration
   ) {
     return DemarchesStatuts.Accepte
