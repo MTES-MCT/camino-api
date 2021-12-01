@@ -40,6 +40,7 @@ const titreEtapesDecisivesTravauxTypes = [
   Travaux.AvisPrescriptionsDemandeur,
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
+  Travaux.ArreteOuvertureTravauxMiniers,
   Travaux.Abandon
 ].map(member => member.toString())
 
@@ -317,7 +318,8 @@ const titreDemarcheTravauxStatutIdFind = (
     (titreEtapeRecent.typeId === Travaux.Recevabilite &&
       titreEtapeRecent.statutId === 'fav') ||
     ((titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur ||
-      titreEtapeRecent.typeId === Travaux.Recolement) &&
+      titreEtapeRecent.typeId === Travaux.Recolement ||
+      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) &&
       titreEtapeRecent.statutId === 'def')
   ) {
     return DemarchesStatuts.EnInstruction
@@ -326,7 +328,8 @@ const titreDemarcheTravauxStatutIdFind = (
   if (
     (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
       titreEtapeRecent.statutId === 'fav') ||
-    titreEtapeRecent.typeId === Travaux.DonneActeDeclaration
+    titreEtapeRecent.typeId === Travaux.DonneActeDeclaration ||
+    titreEtapeRecent.typeId === Travaux.ArreteOuvertureTravauxMiniers
   ) {
     return DemarchesStatuts.Accepte
   }

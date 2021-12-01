@@ -360,13 +360,14 @@ describe("statut d'une démarche", () => {
   })
 
   test.each`
-    etapeTypeId                             | statutId | resultId
-    ${Travaux.DemandeAutorisationOuverture} | ${'fai'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}                 | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}                 | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur}   | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur}   | ${'fav'} | ${Demarches.Accepte}
-    ${Travaux.Abandon}                      | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                              | statutId | resultId
+    ${Travaux.DemandeAutorisationOuverture}  | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                  | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                  | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur}    | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur}    | ${'fav'} | ${Demarches.Accepte}
+    ${Travaux.ArreteOuvertureTravauxMiniers} | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.Abandon}                       | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type 'aom' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
