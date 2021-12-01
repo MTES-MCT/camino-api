@@ -222,6 +222,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": "prettier --write"
+    "*.{js,ts}": "eslint --cache --fix",
+    "*.{ts,js}": "prettier --write"
   }
 }
