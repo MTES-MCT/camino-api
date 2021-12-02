@@ -3,7 +3,7 @@ exports.up = async knex => {
     {
       id: 'fpm',
       nom: 'fin de la police des mines',
-      description: 'TODO',
+      description: 'Fin de la police des mines',
       couleur: 'success',
       ordre: 11
     }
