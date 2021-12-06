@@ -1,4 +1,5 @@
 # import * from 'metas.graphql'
+# import * from 'territoires.graphql'
 
 "Paire de coordonnées géographiques"
 type Coordonnees {
@@ -82,11 +83,31 @@ type PointsImport {
 
   "Surface en km²"
   surface: Float
+
+  "Les zones de SDOM impactées"
+  sdomZones: [SDOMZone]
+
+  "Les types de documents obligatoires dans cette zone"
+  documentTypeIds: [String]
 }
 
 type SurfaceResultat {
   "Surface en km²"
   surface: Float
+
+  "Les zones de SDOM impactées"
+  sdomZones: [SDOMZone]
+
+  "Les types de documents obligatoires dans cette zone"
+  documentTypeIds: [String]
+}
+
+type TitreEtapeSDOMZones {
+  "Les zones du SDOM"
+  sdomZones: [SDOMZone]
+
+  "Les types de documents obligatoires dans cette zone"
+  documentTypeIds: [String]
 }
 
 input InputPoint {

@@ -71,7 +71,8 @@ const titreEtapeFormat = (
       titreEtape.type!.documentsTypes!,
       titreEtape.documents,
       titreEtape.type!.justificatifsTypes!,
-      titreEtape.justificatifs
+      titreEtape.justificatifs,
+      titreEtape.sdomZones
     )
 
     titreEtape.deposable = errors.length === 0

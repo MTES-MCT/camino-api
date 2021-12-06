@@ -46,7 +46,8 @@ describe('valide l’étape avant de l’enregistrer', () => {
         [],
         null,
         [],
-        null
+        null,
+        []
       )
 
       const errorLabel = 'au moins une substance doit être renseignée'
@@ -93,7 +94,8 @@ describe('valide l’étape avant de l’enregistrer', () => {
         [],
         null,
         [],
-        null
+        null,
+        []
       )
 
       const errorLabel = 'le périmètre doit comporter au moins 4 points'
@@ -122,7 +124,8 @@ describe('valide l’étape avant de l’enregistrer', () => {
       ],
       null,
       [],
-      null
+      null,
+      []
     )
     expect(errors).toContain('le document "doe" est obligatoire')
     expect(errors).toContain('le document "dep" est obligatoire')
@@ -164,7 +167,8 @@ describe('valide l’étape avant de l’enregistrer', () => {
         [],
         null,
         [],
-        null
+        null,
+        []
       )
 
       const errorLabel = 'la durée doit être renseignée'
@@ -199,6 +203,7 @@ describe('valide l’étape avant de l’enregistrer', () => {
       [],
       [],
       [],
+      [],
       []
     )
     expect(errors).not.toContain(
@@ -217,6 +222,7 @@ describe('valide l’étape avant de l’enregistrer', () => {
       titreEtape,
       titreDemarche,
       titre,
+      [],
       [],
       [],
       [],
@@ -246,6 +252,7 @@ describe('valide l’étape avant de l’enregistrer', () => {
       [],
       [],
       [],
+      [],
       []
     )
     expect(errors).not.toContain(
@@ -264,6 +271,7 @@ describe('valide l’étape avant de l’enregistrer', () => {
       titreEtape,
       titreDemarche,
       titre,
+      [],
       [],
       [],
       [],

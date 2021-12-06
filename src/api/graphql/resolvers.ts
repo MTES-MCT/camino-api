@@ -189,7 +189,11 @@ import { statistiquesGuyane } from './resolvers/statistiques-guyane'
 import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-marins'
 
 import { titreDemandeCreer } from './resolvers/titre-demande'
-import { pointsImporter, surfaceCalculer } from './resolvers/points'
+import {
+  pointsImporter,
+  surfaceCalculer,
+  titreEtapeSDOMZones
+} from './resolvers/points'
 import { journaux } from './resolvers/journaux'
 import { utilisateurTitreAbonner } from './resolvers/utilisateurs-titres'
 
@@ -260,6 +264,7 @@ export default {
   pays,
   pointsImporter,
   surfaceCalculer,
+  titreEtapeSDOMZones,
   journaux,
 
   // mutations
