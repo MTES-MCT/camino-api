@@ -2,8 +2,10 @@ import {
   ICoordonnees,
   IDocumentType,
   IEtapeType,
+  IGeoJson,
   IHeritageContenu,
   IHeritageProps,
+  ISDOMZone,
   ISection,
   ITitreDemarche,
   ITitreEtape,
@@ -22,6 +24,7 @@ import {
   titreEtapeHeritageContenuFind
 } from '../../../business/utils/titre-etape-heritage-contenu-find'
 import { etapeTypeSectionsFormat } from '../../_format/etapes-types'
+import { apiGeoGet } from '../../../tools/api-geo'
 
 const titreEtapePointsCalc = <
   T extends {
@@ -237,4 +240,35 @@ const titreEtapeHeritageBuild = (
   return titreEtape
 }
 
-export { titreEtapeHeritageBuild, titreEtapePointsCalc }
+const titreEtapeSdomZonesGet = async (geoJson: IGeoJson) => {
+  const apiGeoResult = await apiGeoGet(geoJson, ['sdomZones'])
+
+  return apiGeoResult?.sdomZones || []
+}
+
+const documentTypeIdsBySdomZonesGet = (
+  sdomZones: ISDOMZone[] | null | undefined,
+  titreTypeId: string,
+  etapeTypeId: string
+) => {
+  const documentTypeIds: string[] = []
+  if (
+    etapeTypeId === 'mfr' &&
+    titreTypeId === 'axm' &&
+    sdomZones?.find(z => z.id === '2')
+  ) {
+    // Pour les AXM dans la zone 2 du SDOM les 2 documents suivants sont obligatoires:
+    // Notice d’impact renforcée
+    // Justificatif d’adhésion à la charte des bonnes pratiques
+    documentTypeIds.push(...['jac', 'nir'])
+  }
+
+  return documentTypeIds
+}
+
+export {
+  titreEtapeHeritageBuild,
+  titreEtapePointsCalc,
+  titreEtapeSdomZonesGet,
+  documentTypeIdsBySdomZonesGet
+}

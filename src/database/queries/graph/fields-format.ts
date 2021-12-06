@@ -224,6 +224,10 @@ const fieldsFormat = (fields: IFields, parent: string) => {
     if (!fields.substances) {
       fields.substances = { id: {} }
     }
+
+    if (!fields.sdomZones) {
+      fields.sdomZones = { id: {} }
+    }
   }
 
   return fields

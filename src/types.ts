@@ -316,7 +316,7 @@ type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'tmp'
 
 interface IDocumentType {
   id: string
-  nom: string
+  nom?: string
   optionnel: boolean
   description?: string | null
   descriptionSpecifique?: string | null
