@@ -20,7 +20,7 @@ import TitresActivites from '../../models/titres-activites'
 import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
 
-import { titresAdministrationsModificationQuery } from './titres'
+import { titresDemarchesAdministrationsModificationQuery } from './titres'
 import {
   administrationsTitresTypesTitresStatutsModify,
   administrationsTitresTypesEtapesTypesModify,
@@ -287,6 +287,7 @@ const demarchesTypesQueryModify = (
   user: IUtilisateur | null | undefined,
   {
     titreId,
+    // cf TODO
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     titreDemarcheId
   }: { titreId?: string; titreDemarcheId?: string } = {}
@@ -319,13 +320,12 @@ const demarchesTypesQueryModify = (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
-    const administrationsIds = user.administrations.map(a => a.id) || []
-
     if (titreId) {
-      const titresModificationQuery = titresAdministrationsModificationQuery(
-        administrationsIds,
-        'demarches'
-      ).where('titresModification.id', titreId)
+      const titresModificationQuery =
+        titresDemarchesAdministrationsModificationQuery(
+          user.administrations,
+          'demarchesTypes'
+        ).where('titresModification.id', titreId)
 
       q.select(titresModificationQuery.as('demarchesCreation'))
     }

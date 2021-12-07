@@ -13,7 +13,7 @@ import TitresDemarches from '../../models/titres-demarches'
 import { titresEtapesQueryModify } from './titres-etapes'
 import {
   titresQueryModify,
-  titresAdministrationsModificationQuery
+  titresDemarchesAdministrationsModificationQuery
 } from './titres'
 import { administrationsEtapesTypesPropsQuery } from './metas'
 import { administrationsTitresQuery } from './administrations'
@@ -23,7 +23,7 @@ const titresDemarchesQueryModify = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   user: IUtilisateur | null | undefined
 ) => {
-  q.select('titresDemarches.*').leftJoinRelated('titre')
+  q.select('titresDemarches.*').leftJoinRelated('[titre, type]')
 
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
     q.whereExists(
@@ -117,11 +117,9 @@ const titreDemarcheModificationQuery = (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
-    const administrationsIds = user.administrations.map(a => a.id) || []
-
-    return titresAdministrationsModificationQuery(
-      administrationsIds,
-      'demarches'
+    return titresDemarchesAdministrationsModificationQuery(
+      user.administrations,
+      'type'
     )
       .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
       .whereNotExists(titreDemarcheEtapesQuery(demarcheAlias))
