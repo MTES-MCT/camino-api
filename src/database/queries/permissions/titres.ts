@@ -27,6 +27,8 @@ import { entreprisesQueryModify, entreprisesTitresQuery } from './entreprises'
 import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
 import UtilisateursTitres from '../../models/utilisateurs--titres'
+import DemarchesTypes from '../../models/demarches-types'
+import { demarchesCreationQuery } from './metas'
 
 const titresDemarchesAdministrationsModificationQuery = (
   administrations: IAdministration[] | undefined | null,
@@ -61,6 +63,18 @@ const titresDemarchesAdministrationsModificationQuery = (
     .alias('titresModification')
     .select(raw('true'))
     .whereExists(administrationQuery)
+}
+
+export const titresTravauxCreationQuery = (
+  q: QueryBuilder<Titres, Titres | Titres[]>,
+  user: IUtilisateur | null | undefined
+) => {
+  const demarchesTypesQuery = DemarchesTypes.query().where('travaux', true)
+  demarchesCreationQuery(demarchesTypesQuery, user, {
+    titreIdAlias: 'titres.id'
+  })
+
+  q.select(raw('true = ANY(?)', [demarchesTypesQuery]).as('travauxCreation'))
 }
 
 export const titresVisibleByEntrepriseQuery = (
@@ -178,7 +192,6 @@ const titresQueryModify = (
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('demarchesCreation'))
-    q.select(raw('true').as('travauxCreation'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
@@ -211,20 +224,12 @@ const titresQueryModify = (
         .select(raw('true'))
         .as('demarchesCreation')
     )
-    q.select(
-      administrationsTitresQuery(administrationsIds, 'titres', {
-        isGestionnaire: true,
-        isLocale: true
-      })
-        .select(raw('true'))
-        .as('travauxCreation')
-    )
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
     q.select(raw('false').as('demarchesCreation'))
-    q.select(raw('false').as('travauxCreation'))
   }
+  titresTravauxCreationQuery(q, user)
 
   if (user) {
     q.select(

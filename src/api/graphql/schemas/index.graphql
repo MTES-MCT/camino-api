@@ -119,7 +119,7 @@ type Query {
   activitesStatuts: [ActiviteStatut]
 
   "Types de démarches"
-  demarchesTypes(titreId: ID, titreDemarcheId: ID): [DemarcheType]
+  demarchesTypes(titreId: ID): [DemarcheType]
 
   "Statuts de démarches"
   demarchesStatuts: [DemarcheStatut]
