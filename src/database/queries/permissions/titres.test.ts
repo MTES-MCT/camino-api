@@ -259,15 +259,20 @@ describe('titresQueryModify', () => {
 
   describe('titresTravauxCreationQuery', () => {
     test.each`
-      administrationId          | travauxCreation
-      ${'dre-ile-de-france-01'} | ${true}
-      ${'dea-guadeloupe-01'}    | ${true}
-      ${'min-mtes-dgec-01'}     | ${false}
-      ${'pre-42218-01'}         | ${false}
-      ${'ope-ptmg-973-01'}      | ${false}
+      administrationId          | gestionnaire | travauxCreation
+      ${'dre-ile-de-france-01'} | ${false}     | ${false}
+      ${'dea-guadeloupe-01'}    | ${false}     | ${false}
+      ${'min-mtes-dgec-01'}     | ${false}     | ${false}
+      ${'pre-42218-01'}         | ${false}     | ${false}
+      ${'ope-ptmg-973-01'}      | ${false}     | ${false}
+      ${'dre-ile-de-france-01'} | ${true}      | ${true}
+      ${'dea-guadeloupe-01'}    | ${true}      | ${true}
+      ${'min-mtes-dgec-01'}     | ${true}      | ${false}
+      ${'pre-42218-01'}         | ${true}      | ${false}
+      ${'ope-ptmg-973-01'}      | ${true}      | ${false}
     `(
       'Vérifie si le $administrationId peut créer des travaux',
-      async ({ administrationId, travauxCreation }) => {
+      async ({ administrationId, gestionnaire, travauxCreation }) => {
         const titreId = idGenerate()
 
         await Titres.query().insert({
@@ -279,6 +284,14 @@ describe('titresQueryModify', () => {
         })
 
         await AdministrationsTitresTypes.query().delete()
+        if (gestionnaire) {
+          await AdministrationsTitresTypes.query().insert({
+            administrationId,
+            titreTypeId: 'arm',
+            gestionnaire: true
+          })
+        }
+
         await AdministrationsTitresTypesTitresStatuts.query().delete()
 
         const administration = await Administrations.query().findById(

@@ -48,16 +48,21 @@ const titresDemarchesAdministrationsModificationQuery = (
   administrationsTitresTypesTitresStatutsModify(
     administrationQuery,
     'demarches',
-    'titresModification'
+    'titresModification',
+    b => {
+      if (
+        administrations?.find(administration =>
+          ['dre', 'dea'].includes(administration.typeId)
+        )
+      ) {
+        // Les DREALs peuvent créer des travaux
+        b.orWhere(`${demarcheTypeAlias}.travaux`, true)
+      } else {
+        // Pour les démarches du droit minier, on conserve le comportement standard
+        b.andWhereRaw('?? is not true', [`${demarcheTypeAlias}.travaux`])
+      }
+    }
   )
-
-  if (
-    administrations?.find(administration =>
-      ['dre', 'dea'].includes(administration.typeId)
-    )
-  ) {
-    administrationQuery.orWhere(`${demarcheTypeAlias}.travaux`, true)
-  }
 
   return Titres.query()
     .alias('titresModification')
