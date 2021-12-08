@@ -20,6 +20,7 @@ import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
+import { permissionCheck } from '../../tools/permission'
 
 /**
  * Modifie la requête en fonction des paramètres de filtre
@@ -115,6 +116,18 @@ const titreActivitesQueryBuild = (
 
   titresActivitesQueryModify(q, user)
   titresActivitesPropsQueryModify(q, user)
+
+  // dans titresActivitesPropsQueryModify quand on est une administration on utilise les 3 colonnes suivantes pour une sous requête.
+  if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
+    user?.administrations?.length
+  ) {
+    q.groupBy(
+      'titresActivites.id',
+      'titre.type_id',
+      'titre.propsTitreEtapesIds'
+    )
+  }
 
   return q
 }
