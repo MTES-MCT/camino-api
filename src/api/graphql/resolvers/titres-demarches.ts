@@ -31,6 +31,7 @@ import { titreGet } from '../../../database/queries/titres'
 import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
 import { titreDemarcheUpdationValidate } from '../../../business/validations/titre-demarche-updation-validate'
 import { userGet } from '../../../database/queries/utilisateurs'
+import { demarcheTypeGet } from '../../../database/queries/metas'
 
 const demarche = async (
   { id }: { id: string },
@@ -185,7 +186,14 @@ const demarcheCreer = async (
 
     if (!titre) throw new Error("le titre n'existe pas")
 
-    if (!titre.demarchesCreation) throw new Error('droits insuffisants')
+    const titreDemarcheType = await demarcheTypeGet(
+      demarche.typeId,
+      { titreId: titre.id },
+      user
+    )
+
+    if (!titreDemarcheType || !titreDemarcheType.demarchesCreation)
+      throw new Error('droits insuffisants')
 
     const demarcheCreated = await titreDemarcheCreate(demarche)
 

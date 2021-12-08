@@ -71,6 +71,7 @@ import EtapesTypesDocumentsTypes from '../models/etapes-types--documents-types'
 import EtapesTypesJustificatifsTypes from '../models/etapes-types--justificatifs-types'
 import TitresTypesDemarchesTypesEtapesTypesDocumentsTypes from '../models/titres-types--demarches-types-etapes-types-documents-types'
 import TitresTypesDemarchesTypesEtapesTypesJustificatifsTypes from '../models/titres-types--demarches-types-etapes-types-justificatifs-types'
+import Titres from '../models/titres'
 
 const permissionsGet = async (
   _a: never,
@@ -440,7 +441,7 @@ const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
   TitresStatuts.query().patchAndFetchById(id, props)
 
 const demarchesTypesGet = async (
-  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { titreId }: { titreId?: string },
   { fields }: { fields?: IFields },
   user: IUtilisateur | null | undefined
 ) => {
@@ -450,9 +451,31 @@ const demarchesTypesGet = async (
 
   const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  demarchesTypesQueryModify(q, user, { titreId, titreDemarcheId })
+  // si titreId
+  // -> restreint aux types de démarches du type du titre
+  if (titreId) {
+    q.whereExists(
+      Titres.query()
+        .findById(titreId)
+        .joinRelated('type.demarchesTypes')
+        .whereRaw('?? = ??', ['type:demarchesTypes.id', 'demarchesTypes.id'])
+    )
+  }
+
+  demarchesTypesQueryModify(q, user, { titreId })
 
   return q
+}
+
+const demarcheTypeGet = async (
+  id: string,
+  { titreId }: { titreId: string },
+  user: IUtilisateur | null | undefined
+) => {
+  const q = DemarchesTypes.query()
+  demarchesTypesQueryModify(q, user, { titreId })
+
+  return q.findById(id)
 }
 
 const demarcheTypeUpdate = async (id: string, props: Partial<IDemarcheType>) =>
@@ -614,6 +637,7 @@ export {
   titresStatutsGet,
   titreStatutUpdate,
   demarchesTypesGet,
+  demarcheTypeGet,
   demarcheTypeUpdate,
   demarchesStatutsGet,
   demarcheStatutUpdate,

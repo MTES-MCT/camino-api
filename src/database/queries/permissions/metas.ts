@@ -13,7 +13,6 @@ import Domaines from '../../models/domaines'
 import TitresTypes from '../../models/titres-types'
 import DemarchesTypes from '../../models/demarches-types'
 import EtapesTypes from '../../models/etapes-types'
-import Titres from '../../models/titres'
 import TitresEtapes from '../../models/titres-etapes'
 import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
 import TitresActivites from '../../models/titres-activites'
@@ -282,56 +281,48 @@ const activitesTypesQueryModify = (
   }
 }
 
+export const demarchesCreationQuery = (
+  q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
+  user: IUtilisateur | null | undefined,
+  { titreId, titreIdAlias }: { titreId?: string; titreIdAlias?: string }
+) => {
+  let demarchesCreation = raw('false')
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    demarchesCreation = raw('true')
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length &&
+    (titreId || titreIdAlias)
+  ) {
+    const titresModificationQuery =
+      titresDemarchesAdministrationsModificationQuery(
+        user.administrations,
+        'demarchesTypes'
+      )
+    if (titreId) {
+      titresModificationQuery.where('titresModification.id', titreId)
+    } else {
+      titresModificationQuery.whereRaw('?? = ??', [
+        'titresModification.id',
+        titreIdAlias
+      ])
+    }
+
+    demarchesCreation = titresModificationQuery
+  }
+
+  q.select(demarchesCreation.as('demarchesCreation'))
+}
+
 const demarchesTypesQueryModify = (
   q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
   user: IUtilisateur | null | undefined,
-  {
-    titreId,
-    // cf TODO
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreDemarcheId
-  }: { titreId?: string; titreDemarcheId?: string } = {}
+  { titreId, titreIdAlias }: { titreId?: string; titreIdAlias?: string } = {}
 ) => {
   q.select('demarchesTypes.*')
 
-  // si titreId
-  // -> restreint aux types de démarches du type du titre
-  if (titreId) {
-    q.whereExists(
-      Titres.query()
-        .findById(titreId)
-        .joinRelated('type.demarchesTypes')
-        .whereRaw('?? = ??', ['type:demarchesTypes.id', 'demarchesTypes.id'])
-    )
-
-    // TODO: ajouter et gérer la propriété unique
-    // si
-    // - la démarche a la propriété 'unique'
-    // - ou si
-    //   - il n'y a aucune démarche du même type au sein du titre
-    //   - l'id de la démarche est différente de la démarche éditée
-    // -> affiche le type de démarche
-  }
-
   // propriété 'demarchesCreation' selon le profil de l'utilisateur
-  if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('demarchesCreation'))
-  } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
-    user?.administrations?.length
-  ) {
-    if (titreId) {
-      const titresModificationQuery =
-        titresDemarchesAdministrationsModificationQuery(
-          user.administrations,
-          'demarchesTypes'
-        ).where('titresModification.id', titreId)
-
-      q.select(titresModificationQuery.as('demarchesCreation'))
-    }
-  } else {
-    q.select(raw('false').as('demarchesCreation'))
-  }
+  demarchesCreationQuery(q, user, { titreId, titreIdAlias })
 }
 
 const permissionsQueryModify = (

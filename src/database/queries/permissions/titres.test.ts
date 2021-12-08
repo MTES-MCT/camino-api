@@ -1,4 +1,9 @@
-import { IEntreprise, ITitre, ITitreDemarche } from '../../../types'
+import {
+  IEntreprise,
+  ITitre,
+  ITitreDemarche,
+  IUtilisateur
+} from '../../../types'
 
 import { dbManager } from '../../../../tests/db-manager'
 
@@ -7,8 +12,12 @@ import { idGenerate } from '../../models/_format/id-create'
 import {
   titresArmEnDemandeQuery,
   titresConfidentielSelect,
+  titresTravauxCreationQuery,
   titresVisibleByEntrepriseQuery
 } from './titres'
+import AdministrationsTitresTypes from '../../models/administrations-titres-types'
+import AdministrationsTitresTypesTitresStatuts from '../../models/administrations-titres-types-titres-statuts'
+import Administrations from '../../models/administrations'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -244,6 +253,75 @@ describe('titresQueryModify', () => {
         } else {
           expect(res[0].confidentiel).toBeFalsy()
         }
+      }
+    )
+  })
+
+  describe('titresTravauxCreationQuery', () => {
+    test.each`
+      administrationId          | travauxCreation
+      ${'dre-ile-de-france-01'} | ${true}
+      ${'dea-guadeloupe-01'}    | ${true}
+      ${'min-mtes-dgec-01'}     | ${false}
+      ${'pre-42218-01'}         | ${false}
+      ${'ope-ptmg-973-01'}      | ${false}
+    `(
+      'Vérifie si le $administrationId peut créer des travaux',
+      async ({ administrationId, travauxCreation }) => {
+        const titreId = idGenerate()
+
+        await Titres.query().insert({
+          id: titreId,
+          nom: idGenerate(),
+          statutId: 'val',
+          domaineId: 'm',
+          typeId: 'arm'
+        })
+
+        await AdministrationsTitresTypes.query().delete()
+        await AdministrationsTitresTypesTitresStatuts.query().delete()
+
+        const administration = await Administrations.query().findById(
+          administrationId
+        )
+
+        const q = Titres.query()
+        titresTravauxCreationQuery(q, {
+          permissionId: 'admin',
+          administrations: [administration!]
+        } as unknown as IUtilisateur)
+
+        const titre = (await q.first()) as ITitre
+
+        expect(titre.travauxCreation ?? false).toEqual(travauxCreation)
+      }
+    )
+    test.each`
+      permissionId    | travauxCreation
+      ${'super'}      | ${true}
+      ${'entreprise'} | ${false}
+      ${'default'}    | ${false}
+    `(
+      'Vérifie si un profil $permissionId peut créer des travaux',
+      async ({ permissionId, travauxCreation }) => {
+        const titreId = idGenerate()
+
+        await Titres.query().insert({
+          id: titreId,
+          nom: idGenerate(),
+          statutId: 'val',
+          domaineId: 'm',
+          typeId: 'arm'
+        })
+
+        const q = Titres.query()
+        titresTravauxCreationQuery(q, {
+          permissionId
+        } as unknown as IUtilisateur)
+
+        const titre = (await q.first()) as ITitre
+
+        expect(titre.travauxCreation ?? false).toEqual(travauxCreation)
       }
     )
   })
