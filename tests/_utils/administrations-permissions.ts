@@ -59,6 +59,7 @@ const visibleCheck = async (
     administration.id
   )
 
+  expect(res.body.errors).toBeUndefined()
   if (cible === 'titres') {
     if (visible) {
       expect(res.body.data.titre).not.toBeNull()
@@ -88,8 +89,6 @@ const visibleCheck = async (
       expect(res.body.data.titre.demarches![0]!.etapes).toEqual([])
     }
   }
-
-  expect(res.body.errors).toBeUndefined()
 }
 
 const creationCheck = async (
