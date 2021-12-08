@@ -27,12 +27,15 @@ import {
   administrationTypeUpdate,
   definitionsGet,
   definitionUpdate,
-  demarchesTypesGet,
-  demarcheTypeUpdate,
   demarchesStatutsGet,
   demarcheStatutUpdate,
+  demarchesTypesGet,
+  demarcheTypeUpdate,
   devisesGet,
+  deviseUpdate,
   documentsTypesGet,
+  documentTypeCreate,
+  documentTypeUpdate,
   domainesGet,
   domaineUpdate,
   etapesStatutsGet,
@@ -40,23 +43,20 @@ import {
   etapesTypesGet,
   etapeTypeUpdate,
   geoSystemesGet,
+  geoSystemeUpdate,
   permissionGet,
   permissionsGet,
+  permissionUpdate,
   phasesStatutsGet,
   phaseStatutUpdate,
   referencesTypesGet,
+  referenceTypeUpdate,
   titresStatutsGet,
   titreStatutUpdate,
   titresTypesTypesGet,
   titreTypeTypeUpdate,
   unitesGet,
-  deviseUpdate,
-  uniteUpdate,
-  permissionUpdate,
-  geoSystemeUpdate,
-  documentTypeUpdate,
-  referenceTypeUpdate,
-  documentTypeCreate
+  uniteUpdate
 } from '../../../database/queries/metas'
 
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -195,7 +195,7 @@ const statuts = async (_: never, context: IToken) => {
 }
 
 const demarchesTypes = async (
-  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { titreId }: { titreId?: string },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -203,13 +203,7 @@ const demarchesTypes = async (
     const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    const demarchesTypes = await demarchesTypesGet(
-      { titreId, titreDemarcheId },
-      { fields },
-      user
-    )
-
-    return demarchesTypes
+    return await demarchesTypesGet({ titreId }, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)

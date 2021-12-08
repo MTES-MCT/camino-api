@@ -73,8 +73,7 @@ describe('metas permissions queries', () => {
             administrations: [administration!]
           } as unknown as IUtilisateur,
           {
-            titreId,
-            titreDemarcheId: ''
+            titreId
           }
         )
 

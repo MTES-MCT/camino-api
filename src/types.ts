@@ -293,7 +293,6 @@ interface IDemarcheType {
   exception?: boolean | null
   etapesTypes: IEtapeType[]
   titreTypeId?: string | null
-  unique?: boolean | null
   demarchesCreation?: boolean | null
   travaux?: boolean
 }
