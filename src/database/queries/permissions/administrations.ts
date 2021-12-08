@@ -257,7 +257,10 @@ const administrationsTitresQuery = (
 const administrationsTitresTypesTitresStatutsModify = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   type: 'titres' | 'demarches' | 'etapes',
-  titreAlias: string
+  titreAlias: string,
+  conditionsAdd?: (
+    b: QueryBuilder<Administrations, Administrations | Administrations[]>
+  ) => void
 ) => {
   q.leftJoin('administrations__titresTypes__titresStatuts as a_tt_ts', b => {
     b.on(
@@ -270,7 +273,14 @@ const administrationsTitresTypesTitresStatutsModify = (
       knex.raw('?? = ??', ['a_tt_ts.titreStatutId', `${titreAlias}.statutId`])
     )
     b.andOn(knex.raw('?? is true', [`a_tt_ts.${type}ModificationInterdit`]))
-  }).whereNull('a_tt_ts.administrationId')
+  })
+
+  q.where(b => {
+    b.orWhereNull('a_tt_ts.administrationId')
+    if (conditionsAdd) {
+      conditionsAdd(b)
+    }
+  })
 }
 
 // l'utilisateur est dans au moins une administration
