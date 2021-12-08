@@ -1,6 +1,6 @@
 import { QueryBuilder, raw } from 'objection'
 
-import { IUtilisateur } from '../../../types'
+import { IAdministration, IUtilisateur } from '../../../types'
 
 // import sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
@@ -28,23 +28,40 @@ import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
 import UtilisateursTitres from '../../models/utilisateurs--titres'
 
-const titresAdministrationsModificationQuery = (
-  administrationsIds: string[],
-  type: 'titres' | 'demarches'
-) =>
-  Titres.query()
+const titresDemarchesAdministrationsModificationQuery = (
+  administrations: IAdministration[] | undefined | null,
+  demarcheTypeAlias: string
+) => {
+  const administrationsIds = administrations?.map(a => a.id) || []
+
+  const administrationQuery = administrationsTitresQuery(
+    administrationsIds,
+    'titresModification',
+    {
+      isGestionnaire: true,
+      isLocale: true
+    }
+  )
+
+  administrationsTitresTypesTitresStatutsModify(
+    administrationQuery,
+    'demarches',
+    'titresModification'
+  )
+
+  if (
+    administrations?.find(administration =>
+      ['dre', 'dea'].includes(administration.typeId)
+    )
+  ) {
+    administrationQuery.orWhere(`${demarcheTypeAlias}.travaux`, true)
+  }
+
+  return Titres.query()
     .alias('titresModification')
     .select(raw('true'))
-    .whereExists(
-      administrationsTitresQuery(administrationsIds, 'titresModification', {
-        isGestionnaire: true,
-        isLocale: true
-      }).modify(
-        administrationsTitresTypesTitresStatutsModify,
-        type,
-        'titresModification'
-      )
-    )
+    .whereExists(administrationQuery)
+}
 
 export const titresVisibleByEntrepriseQuery = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
@@ -302,4 +319,4 @@ const titresQueryModify = (
   return q
 }
 
-export { titresQueryModify, titresAdministrationsModificationQuery }
+export { titresQueryModify, titresDemarchesAdministrationsModificationQuery }
