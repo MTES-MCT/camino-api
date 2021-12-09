@@ -30,7 +30,7 @@ describe('vérifie l’arbre d’octroi d’une PRM', () => {
         { typeId: 'rpu', date: '2020-01-19' }
       ])
     ).toContain(
-      'l’étape "rpu" n’est pas possible après "ssr", "scl", "npp", "mno"'
+      'l’étape "rpu" n’est pas possible après "ssr", "scl", "spo", "npp", "mno"'
     )
   })
 
@@ -72,6 +72,24 @@ describe('vérifie l’arbre d’octroi d’une PRM', () => {
         { typeId: 'spp', date: '2020-01-03' },
         { typeId: 'mcr', statutId: 'fav', date: '2020-01-04' },
         { typeId: 'ppu', date: '2020-01-07' }
+      ])
+    ).toHaveLength(0)
+  })
+
+  test('la saisine de la commission départementale des mines (spo) est optionnelle', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' },
+        { typeId: 'spp', date: '2020-01-03' },
+        { typeId: 'mcr', statutId: 'fav', date: '2020-01-04' },
+        { typeId: 'anf', date: '2020-01-05' },
+        { typeId: 'mec', date: '2020-01-06' },
+        { typeId: 'ppu', date: '2020-01-07' },
+        { typeId: 'ppc', date: '2020-01-08' },
+        { typeId: 'scl', date: '2020-01-07' },
+        { typeId: 'ssr', date: '2020-01-07' },
+        { typeId: 'apo', date: '2020-01-09' }
       ])
     ).toHaveLength(0)
   })
