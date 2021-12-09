@@ -1015,7 +1015,7 @@ interface ITokenUser {
   iat?: number
 }
 
-type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
+type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf' | 'zip'
 
 interface IDefinition {
   id: string

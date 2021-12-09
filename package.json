@@ -155,6 +155,7 @@
     "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^7.0.4",
     "jest": "^27.4.5",
+    "jszip": "^3.7.1",
     "lint-staged": "^12.1.2",
     "nodemon": "^2.0.15",
     "npm-check-updates": "^12.0.3",

@@ -12,7 +12,7 @@ import {
   utilisateurs,
   entreprises
 } from '../api/rest/index'
-import { etapeFichier, fichier } from '../api/rest/fichiers'
+import { etapeFichier, etapeTelecharger, fichier } from '../api/rest/fichiers'
 
 const contentTypes = {
   csv: 'text/csv',
@@ -100,6 +100,7 @@ rest.get('/activites', restify(activites))
 rest.get('/utilisateurs', restify(utilisateurs))
 rest.get('/entreprises', restify(entreprises))
 rest.get('/fichiers/:documentId', restify(fichier))
+rest.get('/etape/zip/:etapeId', restify(etapeTelecharger))
 rest.get('/etape/:etapeId/:fichierNom', restify(etapeFichier))
 
 rest.use(
