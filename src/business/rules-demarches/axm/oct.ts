@@ -114,7 +114,7 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [[{ etapeTypeId: 'apd' }]]
   },
   apo: {
-    justeApres: [[{ etapeTypeId: 'spo' }]]
+    justeApres: [[{ etapeTypeId: 'spo' }], [{ etapeTypeId: 'apd' }]]
   },
   sas: {
     justeApres: [
