@@ -135,8 +135,9 @@ const newsletterSubscriberCheck = async (email: string) => {
   try {
     // est ce que le contact est inscrit à la liste
     return await contactListCheck(email)
-  } catch (e: any) {
-    throw new Error(e)
+  } catch (_: any) {
+    // si MailJet ne connait pas l’email il retourne une erreur
+    return false
   }
 }
 
