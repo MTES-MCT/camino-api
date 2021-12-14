@@ -1,6 +1,7 @@
 import {
   IContenuElement,
   IContenuValeur,
+  IDocument,
   IDocumentRepertoire,
   IFormat
 } from '../../types'
@@ -36,6 +37,9 @@ const etapeTelecharger = async (
       fields: {
         documents: {
           id: {}
+        },
+        justificatifs: {
+          id: {}
         }
       }
     },
@@ -45,14 +49,22 @@ const etapeTelecharger = async (
   if (!titreEtape) throw new Error("l'étape n'existe pas")
 
   const documents = titreEtape!.documents
-  if (!documents || !documents.length) {
+  const justificatifs = titreEtape!.justificatifs
+  if (
+    (!documents || !documents.length) &&
+    (!justificatifs || !justificatifs.length)
+  ) {
     throw new Error("aucun document n'a été trouvé pour cette demande")
   }
 
+  let allDocs: IDocument[] = []
+  if (documents?.length) allDocs = allDocs.concat(documents)
+  if (justificatifs?.length) allDocs = allDocs.concat(justificatifs)
+
   const zip = new JSZip()
 
-  for (let i = 0; i < documents!.length; i++) {
-    const path = await documentFilePathFind(documents[i])
+  for (let i = 0; i < allDocs!.length; i++) {
+    const path = await documentFilePathFind(allDocs[i])
     const filename = path.split('/').pop()
 
     if (statSync(path).isFile()) {
