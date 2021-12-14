@@ -79,7 +79,7 @@ const etapeTelecharger = async (
     return {
       nom,
       format: 'zip' as IFormat,
-      stream: Buffer.from(base64Data, 'base64')
+      buffer: Buffer.from(base64Data, 'base64')
     }
   } catch (e) {
     if (debug) {
