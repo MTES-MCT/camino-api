@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.32.0](https://github.com/MTES-MCT/camino-api/compare/v0.31.0...v0.32.0) (2021-12-14)
+
+
+### Features
+
+* **activités:** ajoute un script pour envoyer les notifications des activités déposées en 2020 ([#848](https://github.com/MTES-MCT/camino-api/issues/848)) ([9b18c2a](https://github.com/MTES-MCT/camino-api/commit/9b18c2aef5abd9a2d952bc170e611496735d1bc3))
+* **arbre:** rend la saisine de la commission départementale des mines optionnelle ([#853](https://github.com/MTES-MCT/camino-api/issues/853)) ([ca3d2a5](https://github.com/MTES-MCT/camino-api/commit/ca3d2a59d8d8c03b314430e846e7c48e6c2fcdef))
+* **sdom:** vérifie les documents obligatoires en fonction des zones du SDOM du titre ([#847](https://github.com/MTES-MCT/camino-api/issues/847)) ([dff855d](https://github.com/MTES-MCT/camino-api/commit/dff855d2e17c4d3176ee2cfa0899700f732bf33b))
+* **titre:** calcule la permission qui permet de créer des travaux sur un titre ([#851](https://github.com/MTES-MCT/camino-api/issues/851)) ([84c26db](https://github.com/MTES-MCT/camino-api/commit/84c26dbb472f8190c939e271a47bf9ff6af0345d))
+* **titre:** calcule la permission qui permet de créer des travaux sur un titre ([#852](https://github.com/MTES-MCT/camino-api/issues/852)) ([4b806c4](https://github.com/MTES-MCT/camino-api/commit/4b806c4cf5a45ac71876c85bac8e61e60c0d0602))
+* **travaux:** autorise les DREAL à créer ou modifier les démarches de travaux ([#850](https://github.com/MTES-MCT/camino-api/issues/850)) ([fbdcc63](https://github.com/MTES-MCT/camino-api/commit/fbdcc630b6e89f561a101d631ef781aa8dd311fe))
+
+
+### Bug Fixes
+
+* **activités:** corrige le filtrage des activités pour les administrations ([#849](https://github.com/MTES-MCT/camino-api/issues/849)) ([a800e6f](https://github.com/MTES-MCT/camino-api/commit/a800e6fbac4847e0dd54a8f3607031c0bf33a85c))
+* **statuts:** corrige les statuts pour être conforme aux diagrammes ([#846](https://github.com/MTES-MCT/camino-api/issues/846)) ([6099ecb](https://github.com/MTES-MCT/camino-api/commit/6099ecb3ee60be756f2e0a25d5a7597133d9b0b9))
+* **utilisateur:** corrige la création d’un utilisateur ([#855](https://github.com/MTES-MCT/camino-api/issues/855)) ([daffc05](https://github.com/MTES-MCT/camino-api/commit/daffc05e753205d56f77b6297a2afece0ead13d5))
+
 ## [0.31.0](https://github.com/MTES-MCT/camino-api/compare/v0.30.1...v0.31.0) (2021-12-01)
 
 
