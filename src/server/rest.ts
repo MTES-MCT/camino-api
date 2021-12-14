@@ -27,6 +27,7 @@ interface IRestResolverResult {
   format: IFormat
   contenu?: string
   filePath?: string
+  stream?: Buffer
 }
 
 type IRestResolver = (
@@ -59,7 +60,7 @@ const restify =
         throw new Error('erreur: aucun résultat')
       }
 
-      const { nom, format, contenu, filePath } = result
+      const { nom, format, contenu, filePath, stream } = result
 
       res.header(
         'Content-disposition',
@@ -67,7 +68,7 @@ const restify =
       )
       res.header('Content-Type', contentTypes[format])
 
-      if (filePath) {
+      if (filePath || stream) {
         const options = {
           dotfiles: 'deny',
           headers: {
@@ -77,10 +78,16 @@ const restify =
           root: join(process.cwd(), 'files')
         }
 
-        res.sendFile(filePath, options, err => {
-          if (err) console.error(`erreur de téléchargement ${err}`)
-          res.status(404).end()
-        })
+        if (filePath) {
+          res.sendFile(filePath, options, err => {
+            if (err) console.error(`erreur de téléchargement ${err}`)
+            res.status(404).end()
+          })
+        }
+        if (stream) {
+          res.header('Content-Length', `${stream.length}`)
+          res.send(stream)
+        }
       } else {
         res.send(contenu)
       }

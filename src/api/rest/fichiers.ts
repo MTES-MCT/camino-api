@@ -14,7 +14,6 @@ import { documentFilePathFind } from '../../tools/documents/document-path-find'
 import { debug } from '../../config/index'
 
 import JSZip from 'jszip'
-import { writeFile } from 'fs/promises'
 import { statSync, readFileSync } from 'fs'
 
 const etapeTelecharger = async (
@@ -76,15 +75,11 @@ const etapeTelecharger = async (
 
   const nom = `documents-${etapeId}.zip`
 
-  const filePath = `tmp/${nom}`
-
   try {
-    await writeFile('files/' + filePath, base64Data, 'base64')
-
     return {
       nom,
       format: 'zip' as IFormat,
-      filePath
+      stream: Buffer.from(base64Data, 'base64')
     }
   } catch (e) {
     if (debug) {
