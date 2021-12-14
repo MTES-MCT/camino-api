@@ -1,6 +1,7 @@
 import {
   IContenuElement,
   IContenuValeur,
+  IDocument,
   IDocumentRepertoire,
   IFormat
 } from '../../types'
@@ -9,6 +10,85 @@ import { documentGet } from '../../database/queries/documents'
 import { userGet } from '../../database/queries/utilisateurs'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { documentRepertoireFind } from '../../tools/documents/document-repertoire-find'
+import { documentFilePathFind } from '../../tools/documents/document-path-find'
+import { debug } from '../../config/index'
+
+import JSZip from 'jszip'
+import { statSync, readFileSync } from 'fs'
+
+const etapeTelecharger = async (
+  { params: { etapeId } }: { params: { etapeId?: string } },
+  userId?: string
+) => {
+  if (!etapeId) {
+    throw new Error("id d'étape absent")
+  }
+
+  const user = await userGet(userId)
+
+  if (!user) {
+    throw new Error("l'utilisateur n'existe pas")
+  }
+
+  const titreEtape = await titreEtapeGet(
+    etapeId,
+    {
+      fields: {
+        documents: {
+          id: {}
+        },
+        justificatifs: {
+          id: {}
+        }
+      }
+    },
+    user
+  )
+
+  if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+  const documents = titreEtape!.documents
+  const justificatifs = titreEtape!.justificatifs
+  if (
+    (!documents || !documents.length) &&
+    (!justificatifs || !justificatifs.length)
+  ) {
+    throw new Error("aucun document n'a été trouvé pour cette demande")
+  }
+
+  let allDocs: IDocument[] = []
+  if (documents?.length) allDocs = allDocs.concat(documents)
+  if (justificatifs?.length) allDocs = allDocs.concat(justificatifs)
+
+  const zip = new JSZip()
+
+  for (let i = 0; i < allDocs!.length; i++) {
+    const path = await documentFilePathFind(allDocs[i])
+    const filename = path.split('/').pop()
+
+    if (statSync(path).isFile()) {
+      zip.file(filename!, readFileSync(path))
+    }
+  }
+
+  const base64Data = await zip.generateAsync({ type: 'base64' })
+
+  const nom = `documents-${etapeId}.zip`
+
+  try {
+    return {
+      nom,
+      format: 'zip' as IFormat,
+      buffer: Buffer.from(base64Data, 'base64')
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
 
 const fichier = async (
   { params: { documentId } }: { params: { documentId?: string } },
@@ -148,4 +228,4 @@ const etapeFichier = async (
   }
 }
 
-export { fichier, etapeFichier }
+export { fichier, etapeFichier, etapeTelecharger }
