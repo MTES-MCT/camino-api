@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.33.0](https://github.com/MTES-MCT/camino-api/compare/v0.32.0...v0.33.0) (2021-12-15)
+
+
+### Features
+
+* **document:** permet le téléchargement d'une .zip avec les docs d'une demande ([#854](https://github.com/MTES-MCT/camino-api/issues/854)) ([03ece3b](https://github.com/MTES-MCT/camino-api/commit/03ece3b961c670e6899d1501ea8b637f88ee5a16))
+
+
+### Bug Fixes
+
+* **démarche:** corrige le filtrage des démarches ([#856](https://github.com/MTES-MCT/camino-api/issues/856)) ([c959da6](https://github.com/MTES-MCT/camino-api/commit/c959da64759fdabe728e69924266bf8344171bab))
+
 ## [0.32.0](https://github.com/MTES-MCT/camino-api/compare/v0.31.0...v0.32.0) (2021-12-14)
 
 
