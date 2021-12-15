@@ -405,29 +405,21 @@ describe("statut d'une démarche", () => {
     ${Travaux.Recevabilite}            | ${'def'} | ${Demarches.EnInstruction}
     ${Travaux.Recevabilite}            | ${'fav'} | ${Demarches.EnInstruction}
     ${Travaux.ArretePrefectDonneActe2} | ${'acc'} | ${Demarches.FinPoliceMines}
-    ${Travaux.Abandon}                 | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Abandon}                 | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type 'dam' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
           'dam',
-          // On empile deux étapes (la toute première pour commencer, suivi de celle qu'on teste)
-          // pour s'assurer du bon fonctionnement autour du type d'étape 'Abandon'.
-          // Pour un 'dam', l'abandon est ignoré au profit du statut précédent,
-          // le résultat d'une tentative d'abandon dans ce test sera donc ignoré
-          // au profit de celui d'une déclaration d'arrêt
-          etapesBuild([
-            { typeId: Travaux.DeclarationArret, statutId: 'fai' },
-            { typeId: etapeTypeId, statutId }
-          ]),
+          etapesBuild([{ typeId: etapeTypeId, statutId }]),
           'pxm'
         )
       ).toEqual(resultId)
     }
   )
 
-  test("l'Abandon est prioritaire, peu importe sa date, lors de la prise en compte du dernier statut d'étape SAUF pour une démarche de type 'dam'", async () => {
+  test("l'Abandon est prioritaire, peu importe sa date, lors de la prise en compte du dernier statut d'étape", async () => {
     expect(
       titreDemarcheStatutIdFind(
         'aom',
@@ -457,11 +449,11 @@ describe("statut d'une démarche", () => {
         'dam',
         etapesBuild([
           { typeId: Travaux.DeclarationArret, statutId: 'fai' },
-          { typeId: Travaux.ArretePrefectDonneActe2, statutId: 'acc' },
-          { typeId: Travaux.Abandon, statutId: 'fai' }
+          { typeId: Travaux.Abandon, statutId: 'fai' },
+          { typeId: Travaux.ArretePrefectDonneActe2, statutId: 'acc' }
         ]),
         'pxm'
       )
-    ).toEqual(Demarches.FinPoliceMines)
+    ).toEqual(Demarches.Desiste)
   })
 })

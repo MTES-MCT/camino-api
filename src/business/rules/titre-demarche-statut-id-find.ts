@@ -279,8 +279,7 @@ const titreDemarcheDemandeStatutIdFind = (
 }
 
 const titreDemarcheTravauxStatutIdFind = (
-  titreDemarcheEtapes: ITitreEtape[],
-  demarcheTypeId: string
+  titreDemarcheEtapes: ITitreEtape[]
 ) => {
   // filtre les types d'étapes qui ont un impact
   // sur le statut de la démarche de demande
@@ -292,19 +291,10 @@ const titreDemarcheTravauxStatutIdFind = (
   // le statut est indéterminé
   if (!titreEtapesDecisives.length) return DemarchesStatuts.Indetermine
 
-  // L'étape la plus récente :
-  // - pour les 'aom' et les 'dot', l'Abandon a la primauté peu importe sa date
-  // - dans le cas d'une 'dam', l'Abandon est ignoré au profit du précédent statut
-  let titreEtapeRecent
-  const etapesSorted = titreEtapesSortDesc(titreEtapesDecisives)
+  // L'étape la plus récente : l'Abandon a la primauté peu importe sa date
   const abandon = titreEtapesDecisives.find(e => e.typeId === Travaux.Abandon)
-
-  if (['aom', 'dot'].includes(demarcheTypeId)) {
-    titreEtapeRecent = abandon || etapesSorted[0]
-  } else {
-    titreEtapeRecent = etapesSorted.find(e => e.typeId !== Travaux.Abandon)
-    if (!titreEtapeRecent) return DemarchesStatuts.Indetermine
-  }
+  const titreEtapeRecent =
+    abandon || titreEtapesSortDesc(titreEtapesDecisives)[0]
 
   if (titreEtapeRecent.typeId === Travaux.Abandon) {
     return DemarchesStatuts.Desiste
@@ -354,7 +344,7 @@ const titreDemarcheStatutIdFind = (
 
   // si la démarche est pour des travaux
   if (titreDemarchesTravauxTypes.includes(demarcheTypeId)) {
-    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes, demarcheTypeId)
+    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes)
   }
 
   //  si la démarche fait l’objet d’une demande
