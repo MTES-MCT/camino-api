@@ -382,14 +382,12 @@ describe("statut d'une démarche", () => {
   )
 
   test.each`
-    etapeTypeId                           | statutId | resultId
-    ${Travaux.DeclarationOuverture}       | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}               | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}               | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur} | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur} | ${'fav'} | ${Demarches.Accepte}
-    ${Travaux.DonneActeDeclaration}       | ${'fai'} | ${Demarches.Accepte}
-    ${Travaux.Abandon}                    | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                     | statutId | resultId
+    ${Travaux.DeclarationOuverture} | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}         | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.Recevabilite}         | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.DonneActeDeclaration} | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.Abandon}              | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type 'dot' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {

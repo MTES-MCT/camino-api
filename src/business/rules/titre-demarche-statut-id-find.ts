@@ -33,10 +33,9 @@ const titreEtapesDecisivesDemandesTypes = [
 
 const titreEtapesDecisivesTravauxTypes = [
   Travaux.DemandeAutorisationOuverture,
-  Travaux.DeclarationOuverture,
+  Travaux.DeclarationOuverture, //
   Travaux.DeclarationArret, //
   Travaux.Recevabilite, //
-  Travaux.AvisPrescriptionsDemandeur,
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
   Travaux.ArreteOuvertureTravauxMiniers,
@@ -307,17 +306,11 @@ const titreDemarcheTravauxStatutIdFind = (
     return DemarchesStatuts.Depose
   }
 
-  if (
-    titreEtapeRecent.typeId === Travaux.Recevabilite ||
-    (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
-      titreEtapeRecent.statutId === 'def')
-  ) {
+  if (titreEtapeRecent.typeId === Travaux.Recevabilite) {
     return DemarchesStatuts.EnInstruction
   }
 
   if (
-    (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
-      titreEtapeRecent.statutId === 'fav') ||
     titreEtapeRecent.typeId === Travaux.DonneActeDeclaration ||
     titreEtapeRecent.typeId === Travaux.ArreteOuvertureTravauxMiniers
   ) {
