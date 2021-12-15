@@ -1,5 +1,10 @@
 import { IUtilisateur } from '../types'
 
-const userSuper = { permissionId: 'super', id: 'super' } as IUtilisateur
+const userSuper = {
+  id: 'super',
+  email: 'camino@beta.gouv.fr',
+  nom: 'Camino',
+  permissionId: 'super'
+} as IUtilisateur
 
 export { userSuper }

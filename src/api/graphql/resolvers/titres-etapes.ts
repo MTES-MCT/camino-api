@@ -616,38 +616,6 @@ const etapeDeposer = async (
       titreEtapeOld
     )
 
-    let titreEtapeDepot = {
-      titreDemarcheId: titreDemarche.id,
-      typeId: 'mdp',
-      statutId: 'fai',
-      date: dateFormat(new Date(), 'yyyy-mm-dd')
-    } as ITitreEtape
-
-    titreEtapeDepot = await titreEtapeUpsert(
-      titreEtapeDepot,
-      user!,
-      titreDemarche.titreId
-    )
-    await titreEtapeUpdateTask(
-      titreEtapeDepot.id,
-      titreEtapeDepot.titreDemarcheId,
-      user
-    )
-    await titreEtapeAdministrationsEmailsSend(
-      titreEtapeDepot,
-      titreEtapeDepot.type!,
-      titreDemarche.typeId,
-      titreDemarche.titreId,
-      titreDemarche.titre!.typeId,
-      user!
-    )
-    await titreEtapeUtilisateursEmailsSend(
-      titreEtapeDepot,
-      titreEtapeDepot.type!,
-      titreDemarche.typeId,
-      titreDemarche.titreId
-    )
-
     const fields = fieldsBuild(info)
     const titreUpdated = await titreGet(titreDemarche.titreId, { fields }, user)
 
