@@ -83,9 +83,7 @@ const titresDemarchesQueryModify = (
     )
   )
 
-  q.select(
-    titreDemarcheModificationQuery('titresDemarches', user).as('modification')
-  )
+  q.modify(titreDemarcheModificationQuery, 'titresDemarches', user)
 
   q.select(
     titreEtapesCreationQuery('titresDemarches', user).as('etapesCreation')
@@ -108,24 +106,30 @@ const titresDemarchesQueryModify = (
 }
 
 const titreDemarcheModificationQuery = (
+  q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   demarcheAlias: string,
   user: IUtilisateur | null | undefined
-) => {
+): void => {
+  let modificationQuery = raw('false')
   if (permissionCheck(user?.permissionId, ['super'])) {
-    return raw('not exists(?)', [titreDemarcheEtapesQuery(demarcheAlias)])
+    modificationQuery = raw('not exists(?)', [
+      titreDemarcheEtapesQuery(demarcheAlias)
+    ])
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
-    return titresDemarchesAdministrationsModificationQuery(
+    modificationQuery = titresDemarchesAdministrationsModificationQuery(
       user.administrations,
       'type'
     )
       .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
       .whereNotExists(titreDemarcheEtapesQuery(demarcheAlias))
+
+    q.groupBy(`${demarcheAlias}.id`, 'type.travaux')
   }
 
-  return raw('false')
+  q.select(modificationQuery.as('modification'))
 }
 
 const titreDemarcheEtapesQuery = (demarcheAlias: string) =>
