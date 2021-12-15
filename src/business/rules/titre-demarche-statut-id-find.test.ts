@@ -405,13 +405,10 @@ describe("statut d'une démarche", () => {
 
   test.each`
     etapeTypeId                        | statutId | resultId
-    ${Travaux.DeclarationArret}        | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}            | ${'def'} | ${Demarches.Depose}
+    ${Travaux.DeclarationArret}        | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}            | ${'def'} | ${Demarches.EnInstruction}
     ${Travaux.Recevabilite}            | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.Recolement}              | ${'fav'} | ${Demarches.FinPoliceMines}
-    ${Travaux.Recolement}              | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.ArretePrefectDonneActe2} | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.ArretePrefectDonneActe2} | ${'fav'} | ${Demarches.FinPoliceMines}
+    ${Travaux.ArretePrefectDonneActe2} | ${'acc'} | ${Demarches.FinPoliceMines}
   `(
     "pour une démarche de travaux de type 'dam' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {

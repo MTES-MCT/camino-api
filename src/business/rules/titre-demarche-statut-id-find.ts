@@ -34,9 +34,8 @@ const titreEtapesDecisivesDemandesTypes = [
 const titreEtapesDecisivesTravauxTypes = [
   Travaux.DemandeAutorisationOuverture,
   Travaux.DeclarationOuverture,
-  Travaux.DeclarationArret,
-  Travaux.Recevabilite,
-  Travaux.Recolement,
+  Travaux.DeclarationArret, //
+  Travaux.Recevabilite, //
   Travaux.AvisPrescriptionsDemandeur,
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
@@ -296,30 +295,21 @@ const titreDemarcheTravauxStatutIdFind = (
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisives)[0]
 
-  if (
-    (titreEtapeRecent.typeId === Travaux.Recolement ||
-      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) &&
-    titreEtapeRecent.statutId === 'fav'
-  ) {
+  if (titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) {
     return DemarchesStatuts.FinPoliceMines
   }
 
   if (
     titreEtapeRecent.typeId === Travaux.DemandeAutorisationOuverture ||
     titreEtapeRecent.typeId === Travaux.DeclarationOuverture ||
-    titreEtapeRecent.typeId === Travaux.DeclarationArret ||
-    (titreEtapeRecent.typeId === Travaux.Recevabilite &&
-      titreEtapeRecent.statutId === 'def')
+    titreEtapeRecent.typeId === Travaux.DeclarationArret
   ) {
     return DemarchesStatuts.Depose
   }
 
   if (
-    (titreEtapeRecent.typeId === Travaux.Recevabilite &&
-      titreEtapeRecent.statutId === 'fav') ||
-    ((titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur ||
-      titreEtapeRecent.typeId === Travaux.Recolement ||
-      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) &&
+    titreEtapeRecent.typeId === Travaux.Recevabilite ||
+    (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
       titreEtapeRecent.statutId === 'def')
   ) {
     return DemarchesStatuts.EnInstruction
