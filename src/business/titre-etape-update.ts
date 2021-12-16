@@ -21,6 +21,7 @@ import { logsUpdate } from './_logs-update'
 import { titresCoordonneesUpdate } from './processes/titres-coordonnees-update'
 import { titresActivitesPropsUpdate } from './processes/titres-activites-props-update'
 import { userSuper } from '../database/user-super'
+import { titresEtapesDepotCreate } from './processes/titres-demarches-depot-create'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -151,6 +152,8 @@ const titreEtapeUpdate = async (
       titresActivitesPropsUpdated,
       titresUpdatedIndex
     })
+
+    await titresEtapesDepotCreate(titreDemarcheId)
   } catch (e) {
     console.error(`erreur: titreEtapeUpdate ${titreEtapeId}`)
     console.error(e)

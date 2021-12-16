@@ -21,7 +21,7 @@
   "scripts": {
     "bim": "npm i && npm run build && npm run db:recreate && npm run db:import",
     "build": "rm -rf dist && tsc && mkdir -p ./dist/api/graphql && cp -r ./src/api/graphql/schemas ./dist/api/graphql",
-    "commit": "git-cz",
+    "commit": "lint-staged && git-cz",
     "daily": "node ./dist/scripts/daily.js",
     "monthly": "node ./dist/scripts/monthly.js",
     "db:dump": "pg_dump --host=localhost --username=postgres --clean --if-exists --format=c --no-owner --no-privileges --dbname=camino --file=./backups/camino.sql",
