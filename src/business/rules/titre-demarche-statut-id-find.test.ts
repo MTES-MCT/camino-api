@@ -362,10 +362,8 @@ describe("statut d'une démarche", () => {
   test.each`
     etapeTypeId                              | statutId | resultId
     ${Travaux.DemandeAutorisationOuverture}  | ${'fai'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}                  | ${'def'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                  | ${'def'} | ${Demarches.EnInstruction}
     ${Travaux.Recevabilite}                  | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur}    | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur}    | ${'fav'} | ${Demarches.Accepte}
     ${Travaux.ArreteOuvertureTravauxMiniers} | ${'fai'} | ${Demarches.Accepte}
     ${Travaux.Abandon}                       | ${'fai'} | ${Demarches.Desiste}
   `(
@@ -382,14 +380,12 @@ describe("statut d'une démarche", () => {
   )
 
   test.each`
-    etapeTypeId                           | statutId | resultId
-    ${Travaux.DeclarationOuverture}       | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}               | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}               | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur} | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.AvisPrescriptionsDemandeur} | ${'fav'} | ${Demarches.Accepte}
-    ${Travaux.DonneActeDeclaration}       | ${'fai'} | ${Demarches.Accepte}
-    ${Travaux.Abandon}                    | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                     | statutId | resultId
+    ${Travaux.DeclarationOuverture} | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}         | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.Recevabilite}         | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.DonneActeDeclaration} | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.Abandon}              | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type 'dot' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
@@ -405,13 +401,11 @@ describe("statut d'une démarche", () => {
 
   test.each`
     etapeTypeId                        | statutId | resultId
-    ${Travaux.DeclarationArret}        | ${'def'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}            | ${'def'} | ${Demarches.Depose}
+    ${Travaux.DeclarationArret}        | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}            | ${'def'} | ${Demarches.EnInstruction}
     ${Travaux.Recevabilite}            | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.Recolement}              | ${'fav'} | ${Demarches.FinPoliceMines}
-    ${Travaux.Recolement}              | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.ArretePrefectDonneActe2} | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.ArretePrefectDonneActe2} | ${'fav'} | ${Demarches.FinPoliceMines}
+    ${Travaux.ArretePrefectDonneActe2} | ${'acc'} | ${Demarches.FinPoliceMines}
+    ${Travaux.Abandon}                 | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type 'dam' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
@@ -424,4 +418,42 @@ describe("statut d'une démarche", () => {
       ).toEqual(resultId)
     }
   )
+
+  test("l'Abandon est prioritaire, peu importe sa date, lors de la prise en compte du dernier statut d'étape", async () => {
+    expect(
+      titreDemarcheStatutIdFind(
+        'aom',
+        etapesBuild([
+          { typeId: Travaux.DemandeAutorisationOuverture, statutId: 'fai' },
+          { typeId: Travaux.Abandon, statutId: 'fai' },
+          { typeId: Travaux.ArreteOuvertureTravauxMiniers, statutId: 'fai' }
+        ]),
+        'pxm'
+      )
+    ).toEqual(Demarches.Desiste)
+
+    expect(
+      titreDemarcheStatutIdFind(
+        'dot',
+        etapesBuild([
+          { typeId: Travaux.DeclarationOuverture, statutId: 'fai' },
+          { typeId: Travaux.Abandon, statutId: 'fai' },
+          { typeId: Travaux.DonneActeDeclaration, statutId: 'fai' }
+        ]),
+        'pxm'
+      )
+    ).toEqual(Demarches.Desiste)
+
+    expect(
+      titreDemarcheStatutIdFind(
+        'dam',
+        etapesBuild([
+          { typeId: Travaux.DeclarationArret, statutId: 'fai' },
+          { typeId: Travaux.Abandon, statutId: 'fai' },
+          { typeId: Travaux.ArretePrefectDonneActe2, statutId: 'acc' }
+        ]),
+        'pxm'
+      )
+    ).toEqual(Demarches.Desiste)
+  })
 })

@@ -36,8 +36,6 @@ const titreEtapesDecisivesTravauxTypes = [
   Travaux.DeclarationOuverture,
   Travaux.DeclarationArret,
   Travaux.Recevabilite,
-  Travaux.Recolement,
-  Travaux.AvisPrescriptionsDemandeur,
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
   Travaux.ArreteOuvertureTravauxMiniers,
@@ -293,49 +291,36 @@ const titreDemarcheTravauxStatutIdFind = (
   // le statut est indéterminé
   if (!titreEtapesDecisives.length) return DemarchesStatuts.Indetermine
 
-  // l'étape la plus récente
-  const titreEtapeRecent = titreEtapesSortDesc(titreEtapesDecisives)[0]
+  // L'étape la plus récente : l'Abandon a la primauté peu importe sa date
+  const abandon = titreEtapesDecisives.find(e => e.typeId === Travaux.Abandon)
+  const titreEtapeRecent =
+    abandon || titreEtapesSortDesc(titreEtapesDecisives)[0]
 
-  if (
-    (titreEtapeRecent.typeId === Travaux.Recolement ||
-      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) &&
-    titreEtapeRecent.statutId === 'fav'
-  ) {
+  if (titreEtapeRecent.typeId === Travaux.Abandon) {
+    return DemarchesStatuts.Desiste
+  }
+
+  if (titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) {
     return DemarchesStatuts.FinPoliceMines
   }
 
   if (
     titreEtapeRecent.typeId === Travaux.DemandeAutorisationOuverture ||
     titreEtapeRecent.typeId === Travaux.DeclarationOuverture ||
-    titreEtapeRecent.typeId === Travaux.DeclarationArret ||
-    (titreEtapeRecent.typeId === Travaux.Recevabilite &&
-      titreEtapeRecent.statutId === 'def')
+    titreEtapeRecent.typeId === Travaux.DeclarationArret
   ) {
     return DemarchesStatuts.Depose
   }
 
-  if (
-    (titreEtapeRecent.typeId === Travaux.Recevabilite &&
-      titreEtapeRecent.statutId === 'fav') ||
-    ((titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur ||
-      titreEtapeRecent.typeId === Travaux.Recolement ||
-      titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) &&
-      titreEtapeRecent.statutId === 'def')
-  ) {
+  if (titreEtapeRecent.typeId === Travaux.Recevabilite) {
     return DemarchesStatuts.EnInstruction
   }
 
   if (
-    (titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur &&
-      titreEtapeRecent.statutId === 'fav') ||
     titreEtapeRecent.typeId === Travaux.DonneActeDeclaration ||
     titreEtapeRecent.typeId === Travaux.ArreteOuvertureTravauxMiniers
   ) {
     return DemarchesStatuts.Accepte
-  }
-
-  if (titreEtapeRecent.typeId === Travaux.Abandon) {
-    return DemarchesStatuts.Desiste
   }
 
   return DemarchesStatuts.Indetermine
