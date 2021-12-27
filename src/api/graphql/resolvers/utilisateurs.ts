@@ -26,8 +26,7 @@ import {
   utilisateurUpdate,
   utilisateurUpsert,
   userByEmailGet,
-  utilisateursCount,
-  userByRefreshTokenGet
+  utilisateursCount
 } from '../../../database/queries/utilisateurs'
 
 import { globales } from '../../../database/cache/globales'
@@ -54,6 +53,12 @@ const userIdGenerate = async (): Promise<string> => {
 
   return id
 }
+
+export const cookieSet = (cookieName: string, cookieValue: string, res: any) =>
+  res.cookie(cookieName, cookieValue, {
+    httpOnly: true,
+    secure: true
+  })
 
 const utilisateur = async (
   { id }: { id: string },
@@ -177,7 +182,7 @@ const moi = async (_: never, context: IToken, info: GraphQLResolveInfo) => {
   }
 }
 
-const utilisateurTokenCreer = async (
+const utilisateurConnecter = async (
   {
     email,
     motDePasse
@@ -185,7 +190,7 @@ const utilisateurTokenCreer = async (
     email: string
     motDePasse: string
   },
-  _: never,
+  { res }: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
@@ -207,9 +212,7 @@ const utilisateurTokenCreer = async (
     // charge l’utilisateur totalement
     user = (await userGet(user.id))!
 
-    const { accessToken, refreshToken } = userTokensCreate(user)
-
-    await utilisateurUpdate(user.id, { refreshToken })
+    await userTokensCreate(user, res)
 
     const fields = fieldsBuild(info)
 
@@ -219,11 +222,7 @@ const utilisateurTokenCreer = async (
       user
     )
 
-    return {
-      utilisateur: userFormat(utilisateur!),
-      accessToken,
-      refreshToken
-    }
+    return userFormat(utilisateur!)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -233,34 +232,11 @@ const utilisateurTokenCreer = async (
   }
 }
 
-const utilisateurTokenRafraichir = async (
-  { refreshToken }: { refreshToken: string },
-  _: never,
-  info: GraphQLResolveInfo
-) => {
+export const utilisateurDeconnecter = async (_: never, { res }: IToken) => {
   try {
-    jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH!)
+    userTokensDelete(res)
 
-    const user = await userByRefreshTokenGet(refreshToken)
-
-    if (!user) {
-      throw new Error('refresh token inconnu')
-    }
-
-    const tokens = userTokensCreate(user)
-
-    const fields = fieldsBuild(info)
-
-    const utilisateur = await utilisateurGet(
-      user.id,
-      { fields: fields.utilisateur },
-      user
-    )
-
-    return {
-      utilisateur: userFormat(utilisateur!),
-      ...tokens
-    }
+    return true
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -282,9 +258,9 @@ const utilisateurCerbereUrlObtenir = async ({ url }: { url: string }) => {
   }
 }
 
-const utilisateurCerbereTokenCreer = async (
+const utilisateurCerbereConnecter = async (
   { ticket }: { ticket: string },
-  _: never,
+  { res }: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
@@ -315,10 +291,9 @@ const utilisateurCerbereTokenCreer = async (
       user
     )
 
-    return {
-      ...userTokensCreate(utilisateur!),
-      utilisateur: userFormat(utilisateur!)
-    }
+    await userTokensCreate(utilisateur!, res)
+
+    return userFormat(utilisateur!)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -732,10 +707,7 @@ const utilisateurMotDePasseInitialiser = async (
       { fields: {} }
     )
 
-    return {
-      ...userTokensCreate(utilisateurUpdated),
-      utilisateur: userFormat(utilisateurUpdated)
-    }
+    return userFormat(utilisateurUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -837,10 +809,9 @@ const utilisateurEmailModifier = async (
       { fields: {} }
     )
 
-    return {
-      ...userTokensCreate(utilisateurUpdated),
-      utilisateur: userFormat(utilisateurUpdated)
-    }
+    await userTokensCreate(utilisateur!, context.res)
+
+    return userFormat(utilisateurUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -850,15 +821,27 @@ const utilisateurEmailModifier = async (
   }
 }
 
-const userTokensCreate = ({ id, email }: IUtilisateur) => {
-  const refreshToken = jwt.sign({ id, email }, process.env.JWT_SECRET_REFRESH!)
+export const accessTokenGet = ({ id, email }: IUtilisateur) =>
+  jwt.sign({ id, email }, process.env.JWT_SECRET!, {
+    expiresIn: TOKEN_TTL
+  })
 
-  return {
-    accessToken: jwt.sign({ id, email }, process.env.JWT_SECRET!, {
-      expiresIn: TOKEN_TTL
-    }),
-    refreshToken
-  }
+const userTokensCreate = async (user: IUtilisateur, res: any) => {
+  const refreshToken = jwt.sign(
+    { id: user.id, email: user.email },
+    process.env.JWT_SECRET_REFRESH!
+  )
+  const accessToken = accessTokenGet(user)
+
+  cookieSet('accessToken', accessToken, res)
+  cookieSet('refreshToken', refreshToken, res)
+
+  await utilisateurUpdate(user.id, { refreshToken })
+}
+
+export const userTokensDelete = (res: any) => {
+  cookieSet('accessToken', '', res)
+  cookieSet('refreshToken', '', res)
 }
 
 const newsletterInscrire = async ({ email }: { email: string }) => {
@@ -887,10 +870,9 @@ export {
   utilisateur,
   utilisateurs,
   moi,
-  utilisateurTokenCreer,
-  utilisateurTokenRafraichir,
+  utilisateurConnecter,
   utilisateurCerbereUrlObtenir,
-  utilisateurCerbereTokenCreer,
+  utilisateurCerbereConnecter,
   utilisateurCreer,
   utilisateurCreationMessageEnvoyer,
   utilisateurModifier,

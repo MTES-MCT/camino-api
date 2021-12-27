@@ -29,30 +29,29 @@ const graphQLCall = async (
   permissionId?: IPermissionId,
   administrationId?: string
 ) => {
+  const req = request(app).post('/').send({ query, variables })
+
+  return cookiesSet(req, permissionId, administrationId)
+}
+
+const restUploadCall = async (permissionId?: IPermissionId) => {
+  const req = request(app).post('/televersement')
+
+  return cookiesSet(req, permissionId)
+}
+
+const cookiesSet = async (
+  req: request.Test,
+  permissionId?: IPermissionId,
+  administrationId?: string
+) => {
   let token
   if (permissionId) {
     token = await userTokenGenerate(permissionId, administrationId)
   }
 
-  const req = request(app).post('/').send({ query, variables })
-
   if (token) {
-    req.set('Authorization', `Bearer ${token}`)
-  }
-
-  return req
-}
-
-const restUploadCall = async (permissionId?: IPermissionId) => {
-  let token
-  if (permissionId) {
-    token = await userTokenGenerate(permissionId)
-  }
-
-  const req = request(app).post('/televersement')
-
-  if (token) {
-    req.set('Authorization', `Bearer ${token}`)
+    req.cookies = `accessToken=${token}`
   }
 
   return req

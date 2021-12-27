@@ -25,7 +25,10 @@ const uploadAllowedMiddleware = async (
 const restUpload = () => {
   const tmp = '/files/tmp'
   const server = new Server()
-  server.datastore = new FileStore({ path: tmp })
+
+  // en mode dev nous passons à travers un proxy
+  const relativeLocation = process.env.NODE_ENV === 'development'
+  server.datastore = new FileStore({ path: tmp, relativeLocation })
 
   const uploadServer = express()
   uploadServer.all('*', server.handle.bind(server))

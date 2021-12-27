@@ -267,13 +267,13 @@ Ces requêtes sont __protégées__. Elles nécessitent une authentification par 
 """
 type Mutation {
   "Connecte l'utilisateur en fonction de ses identifiants"
-  utilisateurTokenCreer(email: String!, motDePasse: String!): UtilisateurToken
+  utilisateurConnecter(email: String!, motDePasse: String!): Utilisateur
 
-  "Rafraichit le token de l'utilisateur connecté"
-  utilisateurTokenRafraichir(refreshToken: String!): UtilisateurToken
+  "Déconnecte l'utilisateur"
+  utilisateurDeconnecter: Boolean
 
   "Connecte l'utilisateur en fonction du ticket Cerbère"
-  utilisateurCerbereTokenCreer(ticket: String!): UtilisateurToken
+  utilisateurCerbereConnecter(ticket: String!): Utilisateur
 
   "Connecte l'utilisateur en fonction du ticket Cerbère"
   utilisateurCerbereUrlObtenir(url: String!): String
@@ -305,13 +305,13 @@ type Mutation {
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
-  ): UtilisateurToken
+  ): Utilisateur
 
   "Envoie un email à l’utisateur pour vérifier non nouvel email"
   utilisateurEmailMessageEnvoyer(email: String!): String
 
   "Modifie l’email de l’utilisateur à l’aide du token reçu dans l’email de vérification"
-  utilisateurEmailModifier(emailToken: String!): UtilisateurToken
+  utilisateurEmailModifier(emailToken: String!): Utilisateur
 
   "Abonne ou désabonne l’utilisateur à un titre"
   utilisateurTitreAbonner(titreId: String!, abonner: Boolean!): Boolean

@@ -43,7 +43,7 @@ afterEach(async () => {
 })
 
 afterAll(async () => {
-  dbManager.closeKnex()
+  await dbManager.closeKnex()
 })
 
 describe('entrepriseCreer', () => {

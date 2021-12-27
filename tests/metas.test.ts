@@ -4,16 +4,13 @@ import { graphQLCall, queryImport } from './_utils/index'
 console.info = jest.fn()
 console.error = jest.fn()
 
-beforeEach(async () => {
+beforeAll(async () => {
   await dbManager.populateDb()
 })
 
-afterEach(async () => {
-  await dbManager.truncateDb()
-})
-
 afterAll(async () => {
-  dbManager.closeKnex()
+  await dbManager.truncateDb()
+  await dbManager.closeKnex()
 })
 
 describe('statuts', () => {

@@ -49,12 +49,6 @@ type Sections {
   journaux: Boolean
 }
 
-type UtilisateurToken {
-  utilisateur: Utilisateur
-  accessToken: String
-  refreshToken: String
-}
-
 input InputUtilisateurModification {
   id: ID!
   email: String!
