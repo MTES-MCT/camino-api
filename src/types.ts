@@ -48,7 +48,7 @@ enum TitreEtapesTravauxTypes {
   DonneActeDeclaration = 'wda',
   ArretePrefectDonneActe1 = 'wpp',
   ArretePrefectDonneActe2 = 'wpo',
-  ArretePrescriptionComplementaire = 'wpc',
+  ArretePrescriptionsComplementaires = 'wpc',
   ArreteOuvertureTravauxMiniers = 'wao',
   MemoireFinTravaux = 'wmt',
   Recolement = 'wrt',

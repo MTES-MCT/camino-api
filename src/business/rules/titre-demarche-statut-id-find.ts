@@ -39,6 +39,8 @@ const titreEtapesDecisivesTravauxTypes = [
   Travaux.DonneActeDeclaration,
   Travaux.ArretePrefectDonneActe2,
   Travaux.ArreteOuvertureTravauxMiniers,
+  Travaux.AvisPrescriptionsDemandeur,
+  Travaux.Recolement,
   Travaux.Abandon
 ].map(member => member.toString())
 
@@ -312,7 +314,11 @@ const titreDemarcheTravauxStatutIdFind = (
     return DemarchesStatuts.Depose
   }
 
-  if (titreEtapeRecent.typeId === Travaux.Recevabilite) {
+  if (
+    titreEtapeRecent.typeId === Travaux.Recevabilite ||
+    titreEtapeRecent.typeId === Travaux.AvisPrescriptionsDemandeur ||
+    titreEtapeRecent.typeId === Travaux.Recolement
+  ) {
     return DemarchesStatuts.EnInstruction
   }
 
