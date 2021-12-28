@@ -27,6 +27,7 @@ import {
 import { databaseInit } from './database/init'
 
 import { consoleOverride, appLogger } from './config/logger'
+import cookieParser from 'cookie-parser'
 
 consoleOverride(appLogger)
 databaseInit().then(() => {
@@ -43,6 +44,7 @@ databaseInit().then(() => {
   app.use(
     cors({ credentials: true, exposedHeaders: ['Content-disposition'] }),
     compression(),
+    cookieParser(),
     authJwt,
     authJwtError,
     authBasic

@@ -1,0 +1,8 @@
+mutation utilisateurConnecter($email: String!, $motDePasse: String!) {
+  utilisateurConnecter(email: $email, motDePasse: $motDePasse) {
+    id
+    email
+    nom
+    prenom
+  }
+}

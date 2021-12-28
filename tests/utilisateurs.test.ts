@@ -50,7 +50,7 @@ describe('utilisateurModifier', () => {
 
     const token = tokenCreate({ id: 'test' })
 
-    const res = await request(app)
+    const req = request(app)
       .post('/')
       .send({
         query: utilisateurModifierQuery,
@@ -63,7 +63,10 @@ describe('utilisateurModifier', () => {
           }
         }
       })
-      .set('Authorization', `Bearer ${token}`)
+
+    req.cookies = `accessToken=${token}`
+
+    const res = await req
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
@@ -128,7 +131,7 @@ describe('utilisateursCreer', () => {
   test('crée un compte utilisateur si le token contient son email', async () => {
     const token = tokenCreate({ email: 'test@camino.local' })
 
-    const res = await request(app)
+    const req = request(app)
       .post('/')
       .send({
         query: utilisateurCreerQuery,
@@ -141,7 +144,9 @@ describe('utilisateursCreer', () => {
           }
         }
       })
-      .set('Authorization', `Bearer ${token}`)
+
+    req.cookies = `accessToken=${token}`
+    const res = await req
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
@@ -327,14 +332,15 @@ describe('utilisateurSupprimer', () => {
 
     const token = tokenCreate({ id: 'test' })
 
-    const res = await request(app)
+    const req = request(app)
       .post('/')
       .send({
         query: utilisateurSupprimerQuery,
         variables: { id: 'test' }
       })
-      .set('Authorization', `Bearer ${token}`)
+    req.cookies = `accessToken=${token}`
 
+    const res = await req
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: { utilisateurSupprimer: { id: 'test' } }
@@ -401,16 +407,13 @@ describe('utilisateurEmailModifier', () => {
     } as IUtilisateur)
     const token = tokenCreate({ id: userId })
 
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: utilisateurEmailModifierQuery,
-        variables: { emailToken }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const req = request(app).post('/').send({
+      query: utilisateurEmailModifierQuery,
+      variables: { emailToken }
+    })
+    req.cookies = `accessToken=${token}`
+    const res = await req
 
-    expect(res.body.data.utilisateurEmailModifier.utilisateur.email).toBe(
-      newUserEmail
-    )
+    expect(res.body.data.utilisateurEmailModifier.email).toBe(newUserEmail)
   })
 })

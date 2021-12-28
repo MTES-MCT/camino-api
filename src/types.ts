@@ -1007,6 +1007,7 @@ type IUtilisateurCreation = PartialBy<Omit<IUtilisateur, 'id'>, 'permissionId'>
 
 interface IToken {
   user?: ITokenUser
+  res?: any
 }
 
 interface ITokenUser {

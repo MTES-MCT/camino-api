@@ -6060,7 +6060,7 @@
         "description": "# Mutation\n## _Requêtes en écriture_\n\n- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)\n\n_Mutation_ un type _racine_ de GraphQL.\n\nCes requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.",
         "fields": [
           {
-            "name": "utilisateurTokenCreer",
+            "name": "utilisateurConnecter",
             "description": "__*__ Connecte l'utilisateur en fonction de ses identifiants",
             "args": [
               {
