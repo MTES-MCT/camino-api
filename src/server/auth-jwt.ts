@@ -45,6 +45,8 @@ const authJwtError = async (
     }
 
     cookieSet('accessToken', accessTokenGet(user), res)
+    // il faut mettre l’utilisateur dans la requête car suite à l’erreur, authJwt ne l’a pas fait
+    req.user = user
     next()
   }
 }
