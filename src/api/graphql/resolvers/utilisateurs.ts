@@ -57,7 +57,7 @@ const userIdGenerate = async (): Promise<string> => {
 export const cookieSet = (cookieName: string, cookieValue: string, res: any) =>
   res.cookie(cookieName, cookieValue, {
     httpOnly: true,
-    secure: true
+    secure: process.env.NODE_ENV !== 'development'
   })
 
 const utilisateur = async (
