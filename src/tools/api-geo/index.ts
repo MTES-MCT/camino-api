@@ -1,6 +1,4 @@
-/// <reference types="../../@types/mapbox__geojsonhint" />
 import fetch from 'node-fetch'
-import geojsonhint from '@mapbox/geojsonhint'
 
 import {
   IGeoJson,
@@ -10,6 +8,7 @@ import {
   IArea
 } from '../../types'
 import errorLog from '../error-log'
+import { check } from '@placemarkio/check-geojson'
 
 const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
   try {
@@ -25,17 +24,15 @@ const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
       )
     }
 
-    const geojsonErrors = geojsonhint.hint(geojson)
-    if (geojsonErrors.length) {
-      throw new Error(geojsonErrors.map(e => e.message).join('\n'))
-    }
+    const body = JSON.stringify(geojson.geometry)
+    check(body)
 
     const response = await fetch(
       `${process.env.API_GEO_URL}?elements=${areasTypes.join(',')}`,
       {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(geojson)
+        body
       }
     )
 
