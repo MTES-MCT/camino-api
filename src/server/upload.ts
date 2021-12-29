@@ -26,8 +26,8 @@ const restUpload = () => {
   const tmp = '/files/tmp'
   const server = new Server()
 
-  // en mode dev nous passons à travers un proxy
-  const relativeLocation = process.env.NODE_ENV === 'development'
+  // nous passons à travers un proxy
+  const relativeLocation = true
   server.datastore = new FileStore({ path: tmp, relativeLocation })
 
   const uploadServer = express()
