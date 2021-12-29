@@ -44,8 +44,8 @@
     "docs": "rm -rf docs && typedoc src --sourcefile-url-prefix \"https://github.com/MTES-MCT/camino-api/blob/master/\"",
     "documents:check": "node ./dist/scripts/documents-check.js",
     "lint": "prettier --write . && eslint --fix .",
-    "release": "git checkout develop && git pull --rebase --tags origin develop && standard-version --release-as minor && git push --follow-tags origin develop && git checkout master && git pull --rebase origin master && git merge --ff origin develop && git push origin master && conventional-github-releaser",
-    "release:hotfix": "git pull --rebase --tags origin master && standard-version --release-as patch && git push --follow-tags origin master && conventional-github-releaser && git checkout develop && git pull --rebase origin develop && git rebase origin master && git push origin develop",
+    "release": "git checkout develop && git pull --rebase --tags origin develop && standard-version --release-as minor && git push --follow-tags origin develop && git checkout master && git pull --rebase origin master && git merge --ff origin develop && git push origin master && release-it --ci",
+    "release:hotfix": "git pull --rebase --tags origin master && standard-version --release-as patch && git push --follow-tags origin master && release-it --ci && git checkout develop && git pull --rebase origin develop && git rebase origin master && git push origin develop",
     "start": "node ./dist/index.js",
     "test": "prettier --check . && eslint . && npm run build && cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --forceExit",
     "test:unit": "cross-env PGDATABASE=camino_tests jest --testPathIgnorePatterns=tests --runInBand --detectOpenHandles --watch",
@@ -144,7 +144,6 @@
     "@typescript-eslint/parser": "^5.3.1",
     "codecov": "^3.8.3",
     "commitizen": "^4.2.4",
-    "conventional-github-releaser": "^3.1.5",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -162,6 +161,7 @@
     "npm-check-updates": "^12.0.3",
     "pg-escape": "^0.2.0",
     "prettier-eslint": "^13.0.0",
+    "release-it": "^14.11.8",
     "sql-formatter": "^4.0.2",
     "standard-version": "^9.3.2",
     "supertest": "^6.1.6",
@@ -226,5 +226,21 @@
   "lint-staged": {
     "*.{js,ts}": "eslint --cache --fix",
     "*.{ts,js,graphql}": "prettier --write"
+  },
+  "release-it": {
+    "git": {
+      "tag": false,
+      "commit": false,
+      "push": false
+    },
+    "npm": {
+      "publish": false,
+      "tag": false
+    },
+    "github": {
+      "release": true,
+      "releaseName": "v${version}",
+      "tokenRef": "CONVENTIONAL_GITHUB_RELEASER_TOKEN"
+    }
   }
 }
