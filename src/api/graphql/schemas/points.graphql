@@ -89,9 +89,12 @@ type PointsImport {
 
   "Les types de documents obligatoires dans cette zone"
   documentTypeIds: [String]
+
+  "Messages d’informations relatifs au périmètre"
+  messages: [String]
 }
 
-type SurfaceResultat {
+type PerimetreInformations {
   "Surface en km²"
   surface: Float
 
@@ -100,14 +103,9 @@ type SurfaceResultat {
 
   "Les types de documents obligatoires dans cette zone"
   documentTypeIds: [String]
-}
 
-type TitreEtapeSDOMZones {
-  "Les zones du SDOM"
-  sdomZones: [SDOMZone]
-
-  "Les types de documents obligatoires dans cette zone"
-  documentTypeIds: [String]
+  "Messages d’informations relatifs au périmètre"
+  messages: [String]
 }
 
 input InputPoint {
