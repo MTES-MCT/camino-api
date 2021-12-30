@@ -423,6 +423,13 @@ interface IEtapeType {
 interface IForet extends IArea {}
 interface ISDOMZone extends IArea {}
 
+export enum SDOMZoneId {
+  Zone0 = '0',
+  Zone0Potentielle = '0_potentielle',
+  Zone1 = '1',
+  Zone2 = '2'
+}
+
 type IPeriodeNom = 'annees' | 'trimestres' | 'mois'
 
 interface IFrequence {

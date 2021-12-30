@@ -5,7 +5,8 @@ import {
   IAreaType,
   IApiGeoResult,
   IGeoJsonProperties,
-  IArea
+  IArea,
+  ISDOMZone
 } from '../../types'
 import errorLog from '../error-log'
 import { check } from '@placemarkio/check-geojson'
@@ -24,7 +25,7 @@ const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
       )
     }
 
-    const body = JSON.stringify(geojson.geometry)
+    const body = JSON.stringify(geojson)
     check(body)
 
     const response = await fetch(
@@ -78,7 +79,7 @@ const apiGeoGet = async (
   }
 
   if (apiGeoResult.sdomZones) {
-    areas.sdomZones = apiGeoResult.sdomZones.map(areaFormat)
+    areas.sdomZones = apiGeoResult.sdomZones.map(areaFormat) as ISDOMZone[]
   }
 
   return areas

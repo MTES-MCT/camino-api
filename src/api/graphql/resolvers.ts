@@ -191,8 +191,8 @@ import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-
 import { titreDemandeCreer } from './resolvers/titre-demande'
 import {
   pointsImporter,
-  surfaceCalculer,
-  titreEtapeSDOMZones
+  perimetreInformations,
+  titreEtapePerimetreInformations
 } from './resolvers/points'
 import { journaux } from './resolvers/journaux'
 import { utilisateurTitreAbonner } from './resolvers/utilisateurs-titres'
@@ -263,8 +263,8 @@ export default {
   activitesTypesPays,
   pays,
   pointsImporter,
-  surfaceCalculer,
-  titreEtapeSDOMZones,
+  perimetreInformations,
+  titreEtapePerimetreInformations,
   journaux,
 
   // mutations
