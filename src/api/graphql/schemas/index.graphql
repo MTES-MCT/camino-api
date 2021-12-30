@@ -230,23 +230,23 @@ type Query {
 
   pays: [Pays]
 
-  "Retourne des points à partir d’un fichier GeoJson ou Shape"
+  "Retourne des points et les informations du périmètre à partir d’un fichier GeoJson ou Shape"
   pointsImporter(
     fileUpload: FileUpload!
     geoSystemeId: String!
-    titreTypeId: String!
+    titreId: String!
     etapeTypeId: String!
   ): PointsImport
 
-  "Calcule la surface en km² à partir de polygones"
-  surfaceCalculer(
+  "Calcule les informations relatives au périmètre d’une nouvelle étape"
+  perimetreInformations(
     points: [InputPoint]!
-    titreTypeId: String!
+    titreId: String!
     etapeTypeId: String!
-  ): SurfaceResultat
+  ): PerimetreInformations
 
-  "Retourne les zones du SDOM d’une étape"
-  titreEtapeSDOMZones(titreEtapeId: String!): TitreEtapeSDOMZones
+  "Calcule les informations relatives au périmètre d’une étape existante"
+  titreEtapePerimetreInformations(titreEtapeId: String!): PerimetreInformations
 
   journaux(
     intervalle: Int!
