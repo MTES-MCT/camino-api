@@ -1,4 +1,10 @@
-import { ISDOMZone, ITitrePoint, IToken, SDOMZoneId } from '../../../types'
+import {
+  ISDOMZone,
+  ITitrePoint,
+  IToken,
+  IUtilisateur,
+  SDOMZoneId
+} from '../../../types'
 
 import { debug } from '../../../config/index'
 import { FileUpload } from 'graphql-upload'
@@ -19,8 +25,10 @@ import { Feature } from '@turf/helpers'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { etapeTypeGet } from '../../../database/queries/metas'
-import { titreGet } from '../../../database/queries/titres'
+import { titreGet, titresGet } from '../../../database/queries/titres'
 import { userSuper } from '../../../database/user-super'
+import { permissionCheck } from '../../../tools/permission'
+import intersect from '@turf/intersect'
 
 const stream2buffer = async (stream: Stream): Promise<Buffer> => {
   return new Promise<Buffer>((resolve, reject) => {
@@ -34,25 +42,33 @@ const stream2buffer = async (stream: Stream): Promise<Buffer> => {
   })
 }
 
-interface IGeojsonInformations {
+interface IPerimetreAlerte {
+  message: string
+  url?: string
+}
+
+interface IPerimetreInformations {
   surface: number
   documentTypeIds: string[]
-  messages: string[]
+  alertes: IPerimetreAlerte[]
   sdomZones: ISDOMZone[]
 }
 
-const pointsImporter = async ({
-  fileUpload,
-  geoSystemeId,
-  titreId,
-  etapeTypeId
-}: {
-  fileUpload: { file: FileUpload }
-  geoSystemeId: string
-  titreId: string
-  etapeTypeId: string
-}): Promise<
-  IGeojsonInformations & {
+const pointsImporter = async (
+  {
+    fileUpload,
+    geoSystemeId,
+    titreId,
+    etapeTypeId
+  }: {
+    fileUpload: { file: FileUpload }
+    geoSystemeId: string
+    titreId: string
+    etapeTypeId: string
+  },
+  context: IToken
+): Promise<
+  IPerimetreInformations & {
     points: Omit<ITitrePoint, 'id' | 'titreEtapeId'>[]
   }
 > => {
@@ -123,11 +139,14 @@ const pointsImporter = async ({
       })
     })
 
-    return await perimetreInformations({
-      points: points as ITitrePoint[],
-      titreId,
-      etapeTypeId
-    })
+    return await perimetreInformations(
+      {
+        points: points as ITitrePoint[],
+        titreId,
+        etapeTypeId
+      },
+      context
+    )
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -142,15 +161,17 @@ const sdomZonesInformationsGet = async (
   etapeSdomZones: ISDOMZone[],
   titreTypeId: string,
   etapeTypeId: string,
-  titreSdomZones: ISDOMZone[]
+  titreSdomZones: ISDOMZone[],
+  titreId: string,
+  user: IUtilisateur
 ) => {
   const etapeType = await etapeTypeGet(etapeTypeId, { fields: { id: {} } })
   // si c’est une étape fondamentale on récupère les zones directement sur l’étape
   const zones = etapeType!.fondamentale ? etapeSdomZones : titreSdomZones
 
-  const messages = [] as string[]
+  const alertes = [] as IPerimetreAlerte[]
 
-  // si c’est une demande d’AXM, on doit afficher un message si on est en zone 0 ou 1 du Sdom
+  // si c’est une demande d’AXM, on doit afficher un alerte si on est en zone 0 ou 1 du Sdom
   if (titreTypeId === 'axm' && ['mfr', 'mcr'].includes(etapeTypeId)) {
     const zone = zones.find(s =>
       [
@@ -160,14 +181,50 @@ const sdomZonesInformationsGet = async (
       ].includes(s.id as SDOMZoneId)
     )
     if (zone) {
-      messages.push(
-        `Le périmètre renseigné est dans une zone du Sdom interdite à l’exploitation minière : ${zone.nom}`
+      alertes.push({
+        message: `Le périmètre renseigné est dans une zone du Sdom interdite à l’exploitation minière : ${zone.nom}`
+      })
+    }
+
+    if (
+      permissionCheck(user.permissionId, ['super', 'admin', 'editeur']) &&
+      points?.length > 2
+    ) {
+      // vérifie qu’il n’existe pas de demandes de titres en cours sur ce périmètre
+      const titres = await titresGet(
+        { statutsIds: ['val', 'mod', 'dmi'], domainesIds: ['m'] },
+        { fields: { statut: { id: {} }, points: { id: {} } } },
+        userSuper
       )
+      const geojsonFeatures = geojsonFeatureMultiPolygon(
+        points as ITitrePoint[]
+      )
+
+      titres
+        ?.filter(t => t.id !== titreId)
+        ?.filter(t => t.points && t.points.length > 2)
+        .filter(
+          t =>
+            !!intersect(
+              geojsonFeatures as Feature<Polygon>,
+              geojsonFeatureMultiPolygon(
+                t.points as ITitrePoint[]
+              ) as Feature<Polygon>
+            )
+        )
+        .forEach(t =>
+          alertes.push({
+            message: `Le titre ${t.nom} au statut « ${
+              t.statut!.nom
+            } » est superposé à ce titre`,
+            url: `/titres/${t.slug}`
+          })
+        )
     }
   }
 
   if (!points || points.length < 3) {
-    return { surface: 0, documentTypeIds: [], messages }
+    return { surface: 0, documentTypeIds: [], alertes }
   }
   const geojsonFeatures = geojsonFeatureMultiPolygon(points as ITitrePoint[])
 
@@ -179,19 +236,28 @@ const sdomZonesInformationsGet = async (
     etapeTypeId
   )
 
-  return { surface, documentTypeIds, messages }
+  return { surface, documentTypeIds, alertes }
 }
 
-const perimetreInformations = async ({
-  points,
-  titreId,
-  etapeTypeId
-}: {
-  points: ITitrePoint[] | undefined | null
-  titreId: string
-  etapeTypeId: string
-}): Promise<IGeojsonInformations & { points: ITitrePoint[] }> => {
+const perimetreInformations = async (
+  {
+    points,
+    titreId,
+    etapeTypeId
+  }: {
+    points: ITitrePoint[] | undefined | null
+    titreId: string
+    etapeTypeId: string
+  },
+  context: IToken
+): Promise<IPerimetreInformations & { points: ITitrePoint[] }> => {
   try {
+    const user = await userGet(context.user?.id)
+
+    if (!user) {
+      throw new Error('droits insuffisants')
+    }
+
     let sdomZones = [] as ISDOMZone[]
     let titreEtapePoints = [] as ITitrePoint[]
     if (points && points.length > 2) {
@@ -217,7 +283,9 @@ const perimetreInformations = async ({
       sdomZones,
       titre!.typeId,
       etapeTypeId,
-      titre!.sdomZones || []
+      titre!.sdomZones || [],
+      titre!.id,
+      user
     )
 
     return { ...informations, sdomZones, points: titreEtapePoints }
@@ -237,9 +305,13 @@ const titreEtapePerimetreInformations = async (
     titreEtapeId: string
   },
   context: IToken
-): Promise<IGeojsonInformations> => {
+): Promise<IPerimetreInformations> => {
   try {
     const user = await userGet(context.user?.id)
+
+    if (!user) {
+      throw new Error('droits insuffisants')
+    }
 
     const etape = await titreEtapeGet(
       titreEtapeId,
@@ -263,7 +335,9 @@ const titreEtapePerimetreInformations = async (
       sdomZones,
       etape.demarche!.titre!.typeId,
       etape.typeId,
-      etape.demarche!.titre!.sdomZones || []
+      etape.demarche!.titre!.sdomZones || [],
+      etape.demarche!.titreId,
+      user
     )
 
     return { sdomZones, ...informations }
