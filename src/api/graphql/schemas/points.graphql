@@ -90,8 +90,8 @@ type PointsImport {
   "Les types de documents obligatoires dans cette zone"
   documentTypeIds: [String]
 
-  "Messages d’informations relatifs au périmètre"
-  messages: [String]
+  "Alertes relatives au périmètre"
+  alertes: [PerimetreAlerte]
 }
 
 type PerimetreInformations {
@@ -104,8 +104,13 @@ type PerimetreInformations {
   "Les types de documents obligatoires dans cette zone"
   documentTypeIds: [String]
 
-  "Messages d’informations relatifs au périmètre"
-  messages: [String]
+  "Alertes relatives au périmètre"
+  alertes: [PerimetreAlerte]
+}
+
+type PerimetreAlerte {
+  message: String
+  url: String
 }
 
 input InputPoint {
