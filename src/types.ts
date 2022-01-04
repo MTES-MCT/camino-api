@@ -53,7 +53,8 @@ enum TitreEtapesTravauxTypes {
   MemoireFinTravaux = 'wmt',
   Recolement = 'wrt',
   Abandon = 'wab',
-  DecisionAdmin = 'wdm'
+  DecisionAdmin = 'wdm',
+  PorterAConnaissance = 'wpb'
 }
 
 interface IFields {
