@@ -64,17 +64,15 @@ const restify =
 
       res.header(
         'Content-disposition',
-        `attachment; filename=${encodeURIComponent(nom)}`
+        `inline; filename=${encodeURIComponent(nom)}`
       )
       res.header('Content-Type', contentTypes[format])
 
       if (filePath || buffer) {
+        res.header('x-sent', 'true')
+        res.header('x-timestamp', Date.now().toString())
         const options = {
           dotfiles: 'deny',
-          headers: {
-            'x-sent': true,
-            'x-timestamp': Date.now()
-          },
           root: join(process.cwd(), 'files')
         }
 
