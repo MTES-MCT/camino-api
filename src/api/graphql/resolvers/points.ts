@@ -157,16 +157,18 @@ const pointsImporter = async (
 }
 
 const sdomZonesInformationsGet = async (
-  points: ITitrePoint[],
+  etapePoints: ITitrePoint[],
   etapeSdomZones: ISDOMZone[],
   titreTypeId: string,
   etapeTypeId: string,
+  titrePoints: ITitrePoint[],
   titreSdomZones: ISDOMZone[],
   titreId: string,
   user: IUtilisateur
 ) => {
   const etapeType = await etapeTypeGet(etapeTypeId, { fields: { id: {} } })
-  // si c’est une étape fondamentale on récupère les zones directement sur l’étape
+  // si c’est une étape fondamentale on récupère les informations directement sur l’étape
+  const points = etapeType!.fondamentale ? etapePoints : titrePoints
   const zones = etapeType!.fondamentale ? etapeSdomZones : titreSdomZones
 
   const alertes = [] as IPerimetreAlerte[]
@@ -273,7 +275,7 @@ const perimetreInformations = async (
     const titre = await titreGet(
       titreId,
       {
-        fields: { sdomZones: { id: {} } }
+        fields: { sdomZones: { id: {} }, points: { id: {} } }
       },
       userSuper
     )
@@ -283,6 +285,7 @@ const perimetreInformations = async (
       sdomZones,
       titre!.typeId,
       etapeTypeId,
+      titre!.points || [],
       titre!.sdomZones || [],
       titre!.id,
       user
@@ -318,7 +321,7 @@ const titreEtapePerimetreInformations = async (
       {
         fields: {
           sdomZones: { id: {} },
-          demarche: { titre: { sdomZones: { id: {} } } }
+          demarche: { titre: { sdomZones: { id: {} }, points: { id: {} } } }
         }
       },
       user
@@ -335,6 +338,7 @@ const titreEtapePerimetreInformations = async (
       sdomZones,
       etape.demarche!.titre!.typeId,
       etape.typeId,
+      etape.demarche!.titre!.points || [],
       etape.demarche!.titre!.sdomZones || [],
       etape.demarche!.titreId,
       user
