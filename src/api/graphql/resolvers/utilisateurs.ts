@@ -5,6 +5,7 @@ import cryptoRandomString from 'crypto-random-string'
 
 import {
   IToken,
+  ITokenUser,
   IUtilisateur,
   IUtilisateurCreation,
   IUtilisateursColonneId
@@ -304,10 +305,20 @@ const utilisateurCerbereConnecter = async (
 }
 
 const utilisateurCreer = async (
-  { utilisateur }: { utilisateur: IUtilisateurCreation },
+  { utilisateur, token }: { utilisateur: IUtilisateurCreation; token?: string },
   context: IToken
 ) => {
   try {
+    if (token) {
+      try {
+        context = {
+          user: jwt.verify(token, process.env.JWT_SECRET!) as ITokenUser
+        }
+      } catch (e) {
+        throw new Error('lien expiré')
+      }
+    }
+
     const user = await userGet(context.user?.id)
 
     utilisateur.email = utilisateur.email!.toLowerCase()

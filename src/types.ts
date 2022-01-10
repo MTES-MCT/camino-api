@@ -1019,7 +1019,7 @@ interface IToken {
 }
 
 interface ITokenUser {
-  id: string
+  id?: string
   email?: string
   iat?: number
 }
