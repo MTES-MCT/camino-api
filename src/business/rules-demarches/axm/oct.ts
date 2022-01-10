@@ -54,10 +54,13 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
   mcr: {
     justeApres: [
       [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fav' }],
       [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
       [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fav' }],
-      [{ etapeTypeId: 'mod' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'mom' }, { etapeTypeId: 'asl', statutId: 'fav' }],
+      [{ etapeTypeId: 'mdp' }, { etapeTypeId: 'asl', statutId: 'fre' }],
+      [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fre' }],
+      [{ etapeTypeId: 'rca' }, { etapeTypeId: 'asl', statutId: 'fre' }],
+      [{ etapeTypeId: 'mom' }, { etapeTypeId: 'asl', statutId: 'fre' }],
       [{ etapeTypeId: 'mod' }]
     ],
     separation: ['apd']

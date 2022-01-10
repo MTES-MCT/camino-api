@@ -203,7 +203,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
           { typeId: 'apd', date: '2020-01-06' }
         ])
       ).toContain(
-        'l’étape "mcr" n’est pas possible juste après "mfr", "mdp", "asl"'
+        'l’étape "apd" n’est pas possible juste après "mcr", "ssr", "ama"'
       )
     }
   )
@@ -222,6 +222,18 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
         { typeId: 'cps', date: '2020-01-05' },
         { typeId: 'apd', date: '2020-01-06' },
         { typeId: 'apo', statutId: 'fav', date: '2020-01-08' }
+      ])
+    ).toHaveLength(0)
+  })
+
+  test('la décision du propriétaire du sol (asl) peut-être favorable avec réserve (fre)', () => {
+    expect(
+      octEtatsValidate([
+        { typeId: 'mfr', date: '2020-01-01' },
+        { typeId: 'dae', statutId: 'exe', date: '2020-01-01' },
+        { typeId: 'mdp', date: '2020-01-02' },
+        { typeId: 'asl', statutId: 'fre', date: '2020-01-02' },
+        { typeId: 'mcr', statutId: 'fav', date: '2020-01-03' }
       ])
     ).toHaveLength(0)
   })
