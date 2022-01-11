@@ -279,7 +279,10 @@ type Mutation {
   utilisateurCerbereUrlObtenir(url: String!): String
 
   "Crée un utilisateur"
-  utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur
+  utilisateurCreer(
+    utilisateur: InputUtilisateurCreation!
+    token: String
+  ): Utilisateur
 
   "Modifie un utilisateur"
   utilisateurModifier(utilisateur: InputUtilisateurModification!): Utilisateur
