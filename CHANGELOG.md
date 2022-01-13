@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.34.0](https://github.com/MTES-MCT/camino-api/compare/v0.33.0...v0.34.0) (2022-01-13)
+
+
+### Features
+
+* **axm:** dépose automatiquement la demande d’ARM ([#859](https://github.com/MTES-MCT/camino-api/issues/859)) ([b58e055](https://github.com/MTES-MCT/camino-api/commit/b58e05540c4fb5d2b4a8a2b8799c6a624648e0d6))
+* **cookies:** utilise les cookies pour gérer l’authentification ([#860](https://github.com/MTES-MCT/camino-api/issues/860)) ([ec1487b](https://github.com/MTES-MCT/camino-api/commit/ec1487bb6c0e65d1b98bd5b246d42657408e2593))
+* **étape:** retourne des messages métiers en fonction du périmètre de l’étape ([#868](https://github.com/MTES-MCT/camino-api/issues/868)) ([35f8060](https://github.com/MTES-MCT/camino-api/commit/35f806011eb4ee396853dc0703f907a06fb194c2))
+* **téléchargement:** modifie l’entête « Content-Disposition » à « inline » pour prévisualiser ([#874](https://github.com/MTES-MCT/camino-api/issues/874)) ([13ea0d9](https://github.com/MTES-MCT/camino-api/commit/13ea0d9719d66c6f372fc44b74168420667721a2))
+* **titres:** calcule les éventuelles superpositions lors d’une nouvelle demande AXM ([#869](https://github.com/MTES-MCT/camino-api/issues/869)) ([b8e5096](https://github.com/MTES-MCT/camino-api/commit/b8e50969ebef4ce101b9840132e22506142b2848))
+* **travaux:** ajout de l’étape « Porter-à-connaissance » pour les travaux ([#870](https://github.com/MTES-MCT/camino-api/issues/870)) ([ed6f0c5](https://github.com/MTES-MCT/camino-api/commit/ed6f0c570412825a078edef2caa40d8fe24d0965))
+
+
+### Bug Fixes
+
+* **axm:** ajout du statut favorable avec réserves pour la décision du propriétaire ([#871](https://github.com/MTES-MCT/camino-api/issues/871)) ([10ea42b](https://github.com/MTES-MCT/camino-api/commit/10ea42b7f0aed7220fb329a9796410ebbf3b5368))
+* **cookie:** permet d'utiliser les cookies en local ([#863](https://github.com/MTES-MCT/camino-api/issues/863)) ([1c99264](https://github.com/MTES-MCT/camino-api/commit/1c992648801f5bab235c879a226673872b275300))
+* **téléversement:** corrige le téléversement qui est hébergé derrière un proxy ([#864](https://github.com/MTES-MCT/camino-api/issues/864)) ([595f1ab](https://github.com/MTES-MCT/camino-api/commit/595f1ab6b550be02eaeac34dc880534862d10a49))
+* **titre:** corrige les alertes de superposition sur les étapes non fondamentales ([#872](https://github.com/MTES-MCT/camino-api/issues/872)) ([ec55f79](https://github.com/MTES-MCT/camino-api/commit/ec55f79a8359178c4cf23cf2571653b8f146085e))
+* **travaux:** corrige les passages de statuts des démarches de travaux ([#858](https://github.com/MTES-MCT/camino-api/issues/858)) ([6a59ea9](https://github.com/MTES-MCT/camino-api/commit/6a59ea9b1c54553515939f118301a2a5fffc670f))
+* **utilisateur:** corrige la création de compte en passant le jeton de l’email de confirmation ([#873](https://github.com/MTES-MCT/camino-api/issues/873)) ([65aa1bd](https://github.com/MTES-MCT/camino-api/commit/65aa1bdcc30272a7e79a09eeccaec2ca8bfb7bd4))
+* **utilisateur:** corrige le rafraichissement du cookie qui contient l’accessToken ([#867](https://github.com/MTES-MCT/camino-api/issues/867)) ([da8e45f](https://github.com/MTES-MCT/camino-api/commit/da8e45f137ac59f42e809a9b3fa2d858125bbd98))
+
 ## [0.33.0](https://github.com/MTES-MCT/camino-api/compare/v0.32.0...v0.33.0) (2021-12-15)
 
 
