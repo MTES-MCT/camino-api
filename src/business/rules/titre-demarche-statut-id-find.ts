@@ -281,46 +281,60 @@ const titreDemarcheDemandeStatutIdFind = (
 const titreDemarcheTravauxStatutIdFind = (
   titreDemarcheEtapes: ITitreEtape[]
 ) => {
-  // filtre les types d'étapes qui ont un impact
-  // sur le statut de la démarche de demande
-  const titreEtapesDecisives = titreDemarcheEtapes.filter(titreEtape =>
-    titreEtapesDecisivesTravauxTypes.includes(titreEtape.typeId)
-  )
-
-  // si aucune étape décisive n'est présente dans la démarche
-  // le statut est indéterminé
-  if (!titreEtapesDecisives.length) return DemarchesStatuts.Indetermine
-
-  // L'étape la plus récente : l'Abandon a la primauté peu importe sa date
-  const abandon = titreEtapesDecisives.find(e => e.typeId === Travaux.Abandon)
-  const titreEtapeRecent =
-    abandon || titreEtapesSortDesc(titreEtapesDecisives)[0]
-
-  if (titreEtapeRecent.typeId === Travaux.Abandon) {
-    return DemarchesStatuts.Desiste
+  if (titreDemarcheEtapes.length === 0) {
+    return DemarchesStatuts.Indetermine
   }
+  const titreEtapesRecent = titreEtapesSortDesc(titreDemarcheEtapes)[0]
 
-  if (titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) {
-    return DemarchesStatuts.FinPoliceMines
-  }
+  const deposeSegment = [
+    Travaux.DemandeAutorisationOuverture.toString(),
+    Travaux.DepotDemande.toString(),
+  ]
+  const enInstructionSegment = [
+    Travaux.DemandeComplementsAOT.toString(),
+    Travaux.ReceptionComplements.toString(),
+    Travaux.Recevabilite.toString(),
+    Travaux.AvisReception.toString(),
+    Travaux.SaisineAutoriteEnvironmentale.toString(),
+    Travaux.AvisAutoriteEnvironmentale.toString(),
+    Travaux.SaisineServiceEtat.toString(),
+    Travaux.OuvertureEnquetePublique.toString(),
+    Travaux.AvisServiceAdminLocal.toString(),
+    Travaux.AvisDDTM.toString(),
+    Travaux.AvisAutoriteMilitaire.toString(),
+    Travaux.AvisARS.toString(),
+    Travaux.AvisDRAC.toString(),
+    Travaux.AvisPrefetMaritime.toString(),
+    Travaux.AvisAutresInstances.toString(),
+    Travaux.MemoireReponseExploitant.toString(),
+    Travaux.ClotureEnquetePublique.toString(),
+    Travaux.AvisRapportDirecteurREAL.toString(),
+    Travaux.TransPrescriptionsDemandeur.toString(),
+    Travaux.AvisCODERST.toString(),
+    Travaux.AvisPrescriptionsDemandeur.toString(),
+  ]
+  const accepteSegment = [
+    Travaux.ArreteOuvertureTravauxMiniers.toString(),
+    Travaux.PubliDecisionRecueilActesAdmin.toString(),
+  ]
+  const desisteSegment = [
+    Travaux.Abandon.toString(),
+  ]
 
-  if (
-    titreEtapeRecent.typeId === Travaux.DemandeAutorisationOuverture ||
-    titreEtapeRecent.typeId === Travaux.DeclarationOuverture ||
-    titreEtapeRecent.typeId === Travaux.DeclarationArret
-  ) {
+  if (deposeSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.Depose
   }
 
-  if (titreEtapeRecent.typeId === Travaux.Recevabilite) {
+  if (enInstructionSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.EnInstruction
   }
 
-  if (
-    titreEtapeRecent.typeId === Travaux.DonneActeDeclaration ||
-    titreEtapeRecent.typeId === Travaux.ArreteOuvertureTravauxMiniers
-  ) {
+  if (accepteSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.Accepte
+  }
+
+  if (desisteSegment.includes(titreEtapesRecent.typeId)) {
+    return DemarchesStatuts.Desiste
   }
 
   return DemarchesStatuts.Indetermine
