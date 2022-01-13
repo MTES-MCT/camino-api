@@ -75,7 +75,8 @@ const demarches = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    travaux
   }: {
     page?: number | null
     intervalle?: number | null
@@ -93,6 +94,7 @@ const demarches = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    travaux?: boolean | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -128,7 +130,8 @@ const demarches = async (
           titresEntreprises,
           titresSubstances,
           titresReferences,
-          titresTerritoires
+          titresTerritoires,
+          travaux
         },
         { fields: fields.elements },
         user
@@ -146,7 +149,8 @@ const demarches = async (
           titresEntreprises,
           titresSubstances,
           titresReferences,
-          titresTerritoires
+          titresTerritoires,
+          travaux
         },
         { fields: {} },
         user
