@@ -268,7 +268,8 @@ const titreDemarcheDemandeStatutIdFind = (
 }
 
 const titreDemarcheTravauxStatutIdFind = (
-  titreDemarcheEtapes: ITitreEtape[]
+  titreDemarcheEtapes: ITitreEtape[],
+  demarcheTypeId: string
 ) => {
   if (titreDemarcheEtapes.length === 0) {
     return DemarchesStatuts.Indetermine
@@ -316,20 +317,29 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.ArretePrescriptionComplementaire.toString(),
     Travaux.ArretePrefectDonneActe1.toString(),
     Travaux.MemoireFinTravaux.toString(),
-    Travaux.PubliDecisionRecueilActesAdmin.toString(),
     Travaux.Recolement.toString()
   ]
   const accepteSegment = [
     Travaux.ArreteOuvertureTravauxMiniers.toString(),
-    Travaux.PubliDecisionRecueilActesAdmin.toString(),
     Travaux.DonneActeDeclaration.toString()
   ]
   const desisteSegment = [Travaux.Abandon.toString()]
   const finDePoliceDesMinesSegment = [
     Travaux.ArretePrefectDonneActe2.toString(),
-    Travaux.PubliDecisionRecueilActesAdmin.toString(),
     Travaux.PorterAConnaissance.toString()
   ]
+
+  if (
+    titreEtapesRecent.typeId ===
+    Travaux.PubliDecisionRecueilActesAdmin.toString()
+  ) {
+    switch (demarcheTypeId) {
+      case 'aom':
+        return DemarchesStatuts.EnInstruction
+      case 'dam':
+        return DemarchesStatuts.FinPoliceMines
+    }
+  }
 
   if (deposeSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.Depose
@@ -372,7 +382,7 @@ const titreDemarcheStatutIdFind = (
 
   // si la démarche est pour des travaux
   if (titreDemarchesTravauxTypes.includes(demarcheTypeId)) {
-    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes)
+    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes, demarcheTypeId)
   }
 
   //  si la démarche fait l’objet d’une demande

@@ -367,7 +367,7 @@ describe("statut d'une démarche", () => {
     ${Travaux.ArreteOuvertureTravauxMiniers} | ${'fai'} | ${Demarches.Accepte}
     ${Travaux.Abandon}                       | ${'fai'} | ${Demarches.Desiste}
   `(
-    "pour une démarche de travaux de type 'aom' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    "pour une démarche de travaux de type 'aom' sur un titre, dont la dernière étape est '$etapeTypeId' au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
@@ -387,7 +387,7 @@ describe("statut d'une démarche", () => {
     ${Travaux.DonneActeDeclaration} | ${'fai'} | ${Demarches.Accepte}
     ${Travaux.Abandon}              | ${'fai'} | ${Demarches.Desiste}
   `(
-    "pour une démarche de travaux de type 'dot' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    "pour une démarche de travaux de type 'dot' sur un titre, dont la dernière étape est '$etapeTypeId' au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
@@ -400,14 +400,33 @@ describe("statut d'une démarche", () => {
   )
 
   test.each`
-    etapeTypeId                        | statutId | resultId
-    ${Travaux.DeclarationArret}        | ${'fai'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}            | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.Recevabilite}            | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.ArretePrefectDonneActe2} | ${'acc'} | ${Demarches.FinPoliceMines}
-    ${Travaux.Abandon}                 | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                                 | statutId | resultId
+    ${Travaux.DeclarationArret}                 | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.DepotDemande}                     | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                     | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.Recevabilite}                     | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisReception}                    | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.SaisineServiceEtat}               | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.ArretePrefectoralSursis}          | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisServiceAdminLocal}            | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisDDTM}                         | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisAutoriteMilitaire}            | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisARS}                          | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisDRAC}                         | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrefetMaritime}               | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisAutresInstances}              | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur}       | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.RapportDREAL}                     | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.ArretePrefectDonneActe1}          | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.ArretePrescriptionComplementaire} | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.MemoireFinTravaux}                | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.Recolement}                       | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.ArretePrefectDonneActe2}          | ${'acc'} | ${Demarches.FinPoliceMines}
+    ${Travaux.PubliDecisionRecueilActesAdmin}   | ${'fai'} | ${Demarches.FinPoliceMines}
+    ${Travaux.PorterAConnaissance}              | ${'fai'} | ${Demarches.FinPoliceMines}
+    ${Travaux.Abandon}                          | ${'fai'} | ${Demarches.Desiste}
   `(
-    "pour une démarche de travaux de type 'dam' sur un titre, dont l'étape récente est $etapeTypeId au statut $statutId, le résultat est $resultId",
+    "pour une démarche de travaux de type 'dam' sur un titre, dont la dernière étape est '$etapeTypeId' au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
       expect(
         titreDemarcheStatutIdFind(
