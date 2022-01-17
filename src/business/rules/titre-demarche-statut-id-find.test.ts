@@ -418,42 +418,4 @@ describe("statut d'une démarche", () => {
       ).toEqual(resultId)
     }
   )
-
-  test("l'Abandon est prioritaire, peu importe sa date, lors de la prise en compte du dernier statut d'étape", async () => {
-    expect(
-      titreDemarcheStatutIdFind(
-        'aom',
-        etapesBuild([
-          { typeId: Travaux.DemandeAutorisationOuverture, statutId: 'fai' },
-          { typeId: Travaux.Abandon, statutId: 'fai' },
-          { typeId: Travaux.ArreteOuvertureTravauxMiniers, statutId: 'fai' }
-        ]),
-        'pxm'
-      )
-    ).toEqual(Demarches.Desiste)
-
-    expect(
-      titreDemarcheStatutIdFind(
-        'dot',
-        etapesBuild([
-          { typeId: Travaux.DeclarationOuverture, statutId: 'fai' },
-          { typeId: Travaux.Abandon, statutId: 'fai' },
-          { typeId: Travaux.DonneActeDeclaration, statutId: 'fai' }
-        ]),
-        'pxm'
-      )
-    ).toEqual(Demarches.Desiste)
-
-    expect(
-      titreDemarcheStatutIdFind(
-        'dam',
-        etapesBuild([
-          { typeId: Travaux.DeclarationArret, statutId: 'fai' },
-          { typeId: Travaux.Abandon, statutId: 'fai' },
-          { typeId: Travaux.ArretePrefectDonneActe2, statutId: 'acc' }
-        ]),
-        'pxm'
-      )
-    ).toEqual(Demarches.Desiste)
-  })
 })
