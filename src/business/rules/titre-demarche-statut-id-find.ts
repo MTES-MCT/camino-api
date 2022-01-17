@@ -278,6 +278,7 @@ const titreDemarcheTravauxStatutIdFind = (
   const deposeSegment = [
     Travaux.DemandeAutorisationOuverture.toString(),
     Travaux.DeclarationOuverture.toString(),
+    Travaux.DeclarationArret.toString(),
     Travaux.DepotDemande.toString()
   ]
   const enInstructionSegment = [
@@ -287,6 +288,7 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.AvisReception.toString(),
     Travaux.SaisineAutoriteEnvironmentale.toString(),
     Travaux.AvisAutoriteEnvironmentale.toString(),
+    Travaux.ArretePrefectoralSursis.toString(),
     Travaux.SaisineServiceEtat.toString(),
     Travaux.AvisServiceAdminLocal.toString(),
     Travaux.AvisDDTM.toString(),
@@ -308,9 +310,14 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.MemoireReponseExploitant.toString(),
     Travaux.ClotureEnquetePublique.toString(),
     Travaux.AvisRapportDirecteurREAL.toString(),
-    Travaux.TransPrescriptionsDemandeur.toString(),
     Travaux.AvisCODERST.toString(),
-    Travaux.AvisPrescriptionsDemandeur.toString()
+    Travaux.AvisPrescriptionsDemandeur.toString(),
+    Travaux.RapportDREAL.toString(),
+    Travaux.ArretePrescriptionComplementaire.toString(),
+    Travaux.ArretePrefectDonneActe1.toString(),
+    Travaux.MemoireFinTravaux.toString(),
+    Travaux.PubliDecisionRecueilActesAdmin.toString(),
+    Travaux.Recolement.toString()
   ]
   const accepteSegment = [
     Travaux.ArreteOuvertureTravauxMiniers.toString(),
@@ -318,6 +325,11 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.DonneActeDeclaration.toString()
   ]
   const desisteSegment = [Travaux.Abandon.toString()]
+  const finDePoliceDesMinesSegment = [
+    Travaux.ArretePrefectDonneActe2.toString(),
+    Travaux.PubliDecisionRecueilActesAdmin.toString(),
+    Travaux.PorterAConnaissance.toString()
+  ]
 
   if (deposeSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.Depose
@@ -333,6 +345,10 @@ const titreDemarcheTravauxStatutIdFind = (
 
   if (desisteSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.Desiste
+  }
+
+  if (finDePoliceDesMinesSegment.includes(titreEtapesRecent.typeId)) {
+    return DemarchesStatuts.FinPoliceMines
   }
 
   return DemarchesStatuts.Indetermine
