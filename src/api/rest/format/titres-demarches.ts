@@ -1,72 +1,34 @@
-import { ITitreDemarche, Index, IEtapeType } from '../../../types'
-
-import { metasGet } from '../../../database/cache/metas'
+import { ITitreDemarche, Index } from '../../../types'
 
 import titreEtapesSortAscByDate from '../../../business/utils/titre-etapes-sort-asc-by-date'
-
-const etapesTypesIds = [
-  'mdp',
-  'spp',
-  'mcp',
-  'mcr',
-  'anf',
-  'ane',
-  'ppu',
-  'epu',
-  'eof',
-  'aof',
-  'apd',
-  'spo',
-  'apo',
-  'sca',
-  'aca',
-  'app',
-  'scg',
-  'acg',
-  'spe',
-  'ape',
-  'sas',
-  'dim',
-  'css',
-  'dex',
-  'dpu',
-  'dux',
-  'dup',
-  'npp',
-  'mno',
-  'sco'
-]
 
 const etapesDatesStatutsBuild = (titreDemarche: ITitreDemarche) => {
   if (!titreDemarche.etapes?.length) return null
 
   const etapes = titreEtapesSortAscByDate(titreDemarche.etapes).reverse()
 
-  // initialise l'objet selon tous les types d'étapes intéressants pour l'instruction
-  return etapesTypesIds.reduce((etapesDatesStatuts, typeId) => {
-    const etapesTypes = metasGet('etapesTypes') as IEtapeType[]
-    const type = etapesTypes.find(et => et.id === typeId)
+  return etapes
+    .filter(e => e.statutId !== 'aco')
+    .reduce((etapesDatesStatuts, etape) => {
+      const type = etape.type
 
-    if (!type) return etapesDatesStatuts
+      if (!type) return etapesDatesStatuts
 
-    // cherche l'étape la plus récente de ce type
-    const etape = etapes.find(e => e.typeId === typeId && e.statutId !== 'aco')
+      etapesDatesStatuts[type.nom] = etape?.date || ''
 
-    etapesDatesStatuts[type.nom] = etape?.date || ''
+      // si le type d'étape a plus d'un statut possible
+      // (ex : fav/def ou acc/rej)
+      // alors on exporte aussi le statut
+      if (type.etapesStatuts!.length > 1) {
+        const statut = etape?.type!.etapesStatuts!.find(
+          s => s.id === etape.statutId
+        )
 
-    // si le type d'étape a plus d'un statut possible
-    // (ex : fav/def ou acc/rej)
-    // alors on exporte aussi le statut
-    if (type.etapesStatuts!.length > 1) {
-      const statut = etape?.type!.etapesStatuts!.find(
-        s => s.id === etape.statutId
-      )
+        etapesDatesStatuts[`${type.nom}_statut`] = statut?.nom || ''
+      }
 
-      etapesDatesStatuts[`${type.nom}_statut`] = statut?.nom || ''
-    }
-
-    return etapesDatesStatuts
-  }, {} as Index<string>)
+      return etapesDatesStatuts
+    }, {} as Index<string>)
 }
 
 const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
