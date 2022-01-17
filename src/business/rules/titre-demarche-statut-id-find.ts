@@ -31,17 +31,6 @@ const titreEtapesDecisivesDemandesTypes = [
   ...titreEtapesDecisivesCommunesTypes
 ]
 
-const titreEtapesDecisivesTravauxTypes = [
-  Travaux.DemandeAutorisationOuverture,
-  Travaux.DeclarationOuverture,
-  Travaux.DeclarationArret,
-  Travaux.Recevabilite,
-  Travaux.DonneActeDeclaration,
-  Travaux.ArretePrefectDonneActe2,
-  Travaux.ArreteOuvertureTravauxMiniers,
-  Travaux.Abandon
-].map(member => member.toString())
-
 const titreDemarchesDemandesTypes = [
   'oct',
   'pro',
@@ -288,7 +277,8 @@ const titreDemarcheTravauxStatutIdFind = (
 
   const deposeSegment = [
     Travaux.DemandeAutorisationOuverture.toString(),
-    Travaux.DepotDemande.toString(),
+    Travaux.DeclarationOuverture.toString(),
+    Travaux.DepotDemande.toString()
   ]
   const enInstructionSegment = [
     Travaux.DemandeComplementsAOT.toString(),
@@ -298,6 +288,15 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.SaisineAutoriteEnvironmentale.toString(),
     Travaux.AvisAutoriteEnvironmentale.toString(),
     Travaux.SaisineServiceEtat.toString(),
+    Travaux.AvisServiceAdminLocal.toString(),
+    Travaux.AvisDDTM.toString(),
+    Travaux.AvisAutoriteMilitaire.toString(),
+    Travaux.AvisARS.toString(),
+    Travaux.AvisDRAC.toString(),
+    Travaux.AvisPrefetMaritime.toString(),
+    Travaux.AvisAutresInstances.toString(),
+    Travaux.AvisRapportDirecteurREAL.toString(),
+    Travaux.TransPrescriptionsDemandeur.toString(),
     Travaux.OuvertureEnquetePublique.toString(),
     Travaux.AvisServiceAdminLocal.toString(),
     Travaux.AvisDDTM.toString(),
@@ -311,15 +310,14 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.AvisRapportDirecteurREAL.toString(),
     Travaux.TransPrescriptionsDemandeur.toString(),
     Travaux.AvisCODERST.toString(),
-    Travaux.AvisPrescriptionsDemandeur.toString(),
+    Travaux.AvisPrescriptionsDemandeur.toString()
   ]
   const accepteSegment = [
     Travaux.ArreteOuvertureTravauxMiniers.toString(),
     Travaux.PubliDecisionRecueilActesAdmin.toString(),
+    Travaux.DonneActeDeclaration.toString()
   ]
-  const desisteSegment = [
-    Travaux.Abandon.toString(),
-  ]
+  const desisteSegment = [Travaux.Abandon.toString()]
 
   if (deposeSegment.includes(titreEtapesRecent.typeId)) {
     return DemarchesStatuts.Depose
