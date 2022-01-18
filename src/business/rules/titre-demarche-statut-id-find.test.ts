@@ -394,12 +394,26 @@ describe("statut d'une démarche", () => {
   )
 
   test.each`
-    etapeTypeId                     | statutId | resultId
-    ${Travaux.DeclarationOuverture} | ${'fai'} | ${Demarches.Depose}
-    ${Travaux.Recevabilite}         | ${'def'} | ${Demarches.EnInstruction}
-    ${Travaux.Recevabilite}         | ${'fav'} | ${Demarches.EnInstruction}
-    ${Travaux.DonneActeDeclaration} | ${'fai'} | ${Demarches.Accepte}
-    ${Travaux.Abandon}              | ${'fai'} | ${Demarches.Desiste}
+    etapeTypeId                            | statutId | resultId
+    ${Travaux.DeclarationOuverture}        | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.DepotDemande}                | ${'fai'} | ${Demarches.Depose}
+    ${Travaux.Recevabilite}                | ${'def'} | ${Demarches.EnInstruction}
+    ${Travaux.Recevabilite}                | ${'fav'} | ${Demarches.EnInstruction}
+    ${Travaux.DemandeComplements}          | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.ReceptionComplements}        | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.SaisineServiceEtat}          | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisServiceAdminLocal}       | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisDDTM}                    | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisAutoriteMilitaire}       | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisARS}                     | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisDRAC}                    | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrefetMaritime}          | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisAutresInstances}         | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.RapportDREAL}                | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.TransPrescriptionsDemandeur} | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.AvisPrescriptionsDemandeur}  | ${'fai'} | ${Demarches.EnInstruction}
+    ${Travaux.DonneActeDeclaration}        | ${'fai'} | ${Demarches.Accepte}
+    ${Travaux.Abandon}                     | ${'fai'} | ${Demarches.Desiste}
   `(
     "pour une démarche de travaux de type 'dot' sur un titre, dont la dernière étape est '$etapeTypeId' au statut $statutId, le résultat est $resultId",
     ({ etapeTypeId, statutId, resultId }) => {
