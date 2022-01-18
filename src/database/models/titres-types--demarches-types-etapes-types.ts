@@ -2,6 +2,7 @@ import { Model } from 'objection'
 import { ITitreTypeDemarcheTypeEtapeType } from '../../types'
 import EtapesTypes from './etapes-types'
 import { join } from 'path'
+import DemarchesTypes from './demarches-types'
 
 interface TitresTypesDemarchesTypesEtapesTypes
   extends ITitreTypeDemarcheTypeEtapeType {}
@@ -31,6 +32,15 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
       join: {
         from: 'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
         to: 'etapesTypes.id'
+      }
+    },
+
+    demarcheType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: DemarchesTypes,
+      join: {
+        from: 'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
+        to: 'demarchesTypes.id'
       }
     },
 

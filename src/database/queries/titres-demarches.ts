@@ -70,7 +70,8 @@ const titresDemarchesFiltersQueryModify = (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    travaux
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -85,6 +86,7 @@ const titresDemarchesFiltersQueryModify = (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    travaux?: boolean | null
   } = {},
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>
 ) => {
@@ -109,6 +111,15 @@ const titresDemarchesFiltersQueryModify = (
 
     if (etapesExclues?.length) {
       etapesIncluesExcluesBuild(q, etapesExclues, 'etapesExclues')
+    }
+  }
+
+  if (travaux === false || travaux === true) {
+    q.leftJoinRelated('type as titresDemarchesType')
+    if (travaux) {
+      q.where('titresDemarchesType.travaux', travaux)
+    } else {
+      q.whereRaw('?? is not true', ['titresDemarchesType.travaux'])
     }
   }
 
@@ -158,7 +169,8 @@ const titresDemarchesCount = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    travaux
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -173,6 +185,7 @@ const titresDemarchesCount = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    travaux?: boolean | null
   } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null | undefined
@@ -193,7 +206,8 @@ const titresDemarchesCount = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      travaux
     },
     q
   )
@@ -236,7 +250,8 @@ const titresDemarchesGet = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    travaux
   }: {
     intervalle?: number | null
     page?: number | null
@@ -255,6 +270,7 @@ const titresDemarchesGet = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    travaux?: boolean | null
   } = {},
   { fields }: { fields?: IFields },
   user: IUtilisateur | null | undefined
@@ -275,7 +291,8 @@ const titresDemarchesGet = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      travaux
     },
     q
   )
