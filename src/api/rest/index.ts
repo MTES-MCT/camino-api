@@ -214,6 +214,7 @@ interface ITitresDemarchesQueryInput {
   titresSubstances?: string | null
   titresReferences?: string | null
   titresTerritoires?: string | null
+  travaux?: string | null
 }
 
 const demarches = async (
@@ -233,7 +234,8 @@ const demarches = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      travaux
     }
   }: { query: ITitresDemarchesQueryInput },
   userId?: string
@@ -257,7 +259,8 @@ const demarches = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      travaux: travaux ? travaux === 'true' : undefined
     },
     {
       fields: {
@@ -298,7 +301,12 @@ const demarches = async (
 
   return contenu
     ? {
-        nom: fileNameCreate(`demarches-${titresDemarches.length}`, format),
+        nom: fileNameCreate(
+          `${travaux === 'true' ? 'travaux' : 'demarches'}-${
+            titresDemarches.length
+          }`,
+          format
+        ),
         format,
         contenu
       }
