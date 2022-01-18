@@ -283,7 +283,7 @@ const titreDemarcheTravauxStatutIdFind = (
     Travaux.DepotDemande.toString()
   ]
   const enInstructionSegment = [
-    Travaux.DemandeComplementsAOT.toString(),
+    Travaux.DemandeComplements.toString(),
     Travaux.ReceptionComplements.toString(),
     Travaux.Recevabilite.toString(),
     Travaux.AvisReception.toString(),
@@ -335,7 +335,7 @@ const titreDemarcheTravauxStatutIdFind = (
   ) {
     switch (demarcheTypeId) {
       case 'aom':
-        return DemarchesStatuts.EnInstruction
+        return DemarchesStatuts.Accepte
       case 'dam':
         return DemarchesStatuts.FinPoliceMines
     }
