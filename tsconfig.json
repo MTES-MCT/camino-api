@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "inlineSources": true,
     "lib": ["es2020", "dom"],
-    "module": "commonjs",
+    "module": "es2020",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,

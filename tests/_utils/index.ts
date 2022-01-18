@@ -1,5 +1,4 @@
 import fs from 'fs'
-import path from 'path'
 import jwt from 'jsonwebtoken'
 import request from 'supertest'
 
@@ -11,7 +10,9 @@ import {
   utilisateurGet
 } from '../../src/database/queries/utilisateurs'
 import { userSuper } from '../../src/database/user-super'
-
+import path from 'node:path'
+import { fileURLToPath } from 'url'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const queryImport = (nom: string) =>
   fs
     .readFileSync(path.join(__dirname, `../queries/${nom}.graphql`))

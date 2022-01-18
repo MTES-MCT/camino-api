@@ -13,7 +13,9 @@ import {
 } from '../../src/types'
 
 import { objectClone } from '../../src/tools/index'
-
+import path from 'node:path'
+import { fileURLToPath } from 'url'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 interface ISources {
   administrations: {
     path: string

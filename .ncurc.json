@@ -1,15 +1,6 @@
 {
   "upgrade": true,
   "reject": [
-    "@sindresorhus/slugify",
-    "@types/node-fetch",
-    "chalk",
-    "crypto-random-string",
-    "email-regex",
-    "decamelize",
-    "dateformat",
-    "node-fetch",
-    "p-queue",
     "typedoc",
     "eslint",
     "typescript",
