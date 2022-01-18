@@ -1,7 +1,7 @@
 import { Model } from 'objection'
 import { ITitreTypeDemarcheTypeEtapeType } from '../../types'
 import EtapesTypes from './etapes-types'
-import { join } from 'path'
+import DocumentsTypes from './documents-types'
 import DemarchesTypes from './demarches-types'
 
 interface TitresTypesDemarchesTypesEtapesTypes
@@ -25,7 +25,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
 
   public static idColumn = ['titreTypeId', 'demarcheTypeId', 'etapeTypeId']
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     etapeType: {
       relation: Model.BelongsToOneRelation,
       modelClass: EtapesTypes,
@@ -46,7 +46,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
 
     documentsTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: [
           'titresTypes__demarchesTypes__etapesTypes.titreTypeId',
@@ -68,7 +68,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
 
     justificatifsTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: [
           'titresTypes__demarchesTypes__etapesTypes.titreTypeId',
@@ -87,7 +87,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
         to: 'documentsTypes.id'
       }
     }
-  }
+  })
 }
 
 export default TitresTypesDemarchesTypesEtapesTypes

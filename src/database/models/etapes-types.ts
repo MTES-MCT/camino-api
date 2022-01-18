@@ -1,7 +1,9 @@
 import { Model, Modifiers } from 'objection'
-import { join } from 'path'
 
 import { IEtapeType } from '../../types'
+import EtapesStatuts from './etapes-statuts'
+import AdministrationsTitresTypesEtapesTypes from './administrations-titres-types-etapes-types'
+import DocumentsTypes from './documents-types'
 
 interface EtapesTypes extends IEtapeType {}
 
@@ -28,10 +30,10 @@ class EtapesTypes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     etapesStatuts: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'etapes-statuts'),
+      modelClass: EtapesStatuts,
       join: {
         from: 'etapesTypes.id',
         through: {
@@ -45,7 +47,7 @@ class EtapesTypes extends Model {
 
     administrations: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'administrations-titres-types-etapes-types'),
+      modelClass: AdministrationsTitresTypesEtapesTypes,
       join: {
         from: 'etapesTypes.id',
         to: 'administrations__titresTypes__etapesTypes.etapeTypeId'
@@ -54,7 +56,7 @@ class EtapesTypes extends Model {
 
     documentsTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: 'etapesTypes.id',
         through: {
@@ -71,7 +73,7 @@ class EtapesTypes extends Model {
 
     justificatifsTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: 'etapesTypes.id',
         through: {
@@ -85,7 +87,7 @@ class EtapesTypes extends Model {
         to: 'documentsTypes.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

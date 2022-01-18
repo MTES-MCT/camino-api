@@ -1,8 +1,13 @@
 import { Model, Modifiers, Pojo, QueryContext } from 'objection'
-import { join } from 'path'
 
 import { ITitreActivite } from '../../types'
 import { idGenerate } from './_format/id-create'
+import ActivitesTypes from './activites-types'
+import Titres from './titres'
+import ActivitesStatuts from './activites-statuts'
+import Utilisateurs from './utilisateurs'
+import DocumentsTypes from './documents-types'
+import Document from './documents'
 
 interface TitresActivites extends ITitreActivite {}
 
@@ -30,10 +35,10 @@ class TitresActivites extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'activites-types'),
+      modelClass: ActivitesTypes,
       join: {
         from: 'titresActivites.typeId',
         to: 'activitesTypes.id'
@@ -42,7 +47,7 @@ class TitresActivites extends Model {
 
     titre: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'titresActivites.titreId',
         to: 'titres.id'
@@ -51,7 +56,7 @@ class TitresActivites extends Model {
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'activites-statuts'),
+      modelClass: ActivitesStatuts,
       join: {
         from: 'titresActivites.statutId',
         to: 'activitesStatuts.id'
@@ -60,7 +65,7 @@ class TitresActivites extends Model {
 
     utilisateur: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'utilisateurs'),
+      modelClass: Utilisateurs,
       join: {
         from: 'titresActivites.utilisateurId',
         to: 'utilisateurs.id'
@@ -69,7 +74,7 @@ class TitresActivites extends Model {
 
     documentsTypes: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: 'titresActivites.typeId',
         to: 'activitesTypes__documentsTypes.activiteTypeId'
@@ -78,13 +83,13 @@ class TitresActivites extends Model {
 
     documents: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'documents'),
+      modelClass: Document,
       join: {
         from: 'titresActivites.id',
         to: 'documents.titreActiviteId'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderDesc: builder => {

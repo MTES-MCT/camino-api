@@ -1,7 +1,7 @@
 import { Model, Modifiers } from 'objection'
-import { join } from 'path'
 
 import { ISubstance } from '../../types'
+import SubstancesLegales from './substances-legales'
 
 interface Substances extends ISubstance {}
 
@@ -22,10 +22,10 @@ class Substances extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     legales: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, './substances-legales'),
+      modelClass: SubstancesLegales,
       join: {
         from: 'substances.id',
         through: {
@@ -35,7 +35,7 @@ class Substances extends Model {
         to: 'substancesLegales.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

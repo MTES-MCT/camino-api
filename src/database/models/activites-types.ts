@@ -1,6 +1,10 @@
 import { Model, Modifiers } from 'objection'
-import { join } from 'path'
 import { IActiviteType } from '../../types'
+import TitresTypes from './titres-types'
+import Pays from './pays'
+import Frequences from './frequences'
+import Administrations from './administrations'
+import DocumentsTypes from './documents-types'
 
 interface ActivitesTypes extends IActiviteType {}
 
@@ -24,10 +28,10 @@ class ActivitesTypes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     titresTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-types'),
+      modelClass: TitresTypes,
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -40,7 +44,7 @@ class ActivitesTypes extends Model {
 
     pays: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'pays'),
+      modelClass: Pays,
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -53,7 +57,7 @@ class ActivitesTypes extends Model {
 
     frequence: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'frequences'),
+      modelClass: Frequences,
       join: {
         from: 'activitesTypes.frequenceId',
         to: 'frequences.id'
@@ -62,7 +66,7 @@ class ActivitesTypes extends Model {
 
     administrations: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'administrations'),
+      modelClass: Administrations,
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -76,7 +80,7 @@ class ActivitesTypes extends Model {
 
     administrationsEmails: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'administrations'),
+      modelClass: Administrations,
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -90,7 +94,7 @@ class ActivitesTypes extends Model {
 
     documentsTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -101,7 +105,7 @@ class ActivitesTypes extends Model {
         to: 'documentsTypes.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {
