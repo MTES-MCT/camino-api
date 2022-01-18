@@ -441,7 +441,7 @@ const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
   TitresStatuts.query().patchAndFetchById(id, props)
 
 const demarchesTypesGet = async (
-  { titreId }: { titreId?: string },
+  { titreId, travaux }: { titreId?: string; travaux?: boolean },
   { fields }: { fields?: IFields },
   user: IUtilisateur | null | undefined
 ) => {
@@ -460,6 +460,14 @@ const demarchesTypesGet = async (
         .joinRelated('type.demarchesTypes')
         .whereRaw('?? = ??', ['type:demarchesTypes.id', 'demarchesTypes.id'])
     )
+  }
+
+  if (travaux === false || travaux === true) {
+    if (travaux) {
+      q.where('demarchesTypes.travaux', travaux)
+    } else {
+      q.whereRaw('?? is not true', ['demarchesTypes.travaux'])
+    }
   }
 
   demarchesTypesQueryModify(q, user, { titreId })
@@ -497,10 +505,12 @@ const phaseStatutUpdate = async (id: string, props: Partial<IPhaseStatut>) =>
 const etapesTypesGet = async (
   {
     titreDemarcheId,
-    titreEtapeId
+    titreEtapeId,
+    travaux
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
+    travaux?: boolean
   },
   { fields, uniqueCheck = true }: { fields?: IFields; uniqueCheck?: boolean },
   user: IUtilisateur | null | undefined
@@ -519,6 +529,18 @@ const etapesTypesGet = async (
     })
   } else {
     q.orderBy('ordre')
+  }
+
+  if (travaux === false || travaux === true) {
+    const travauxQuery = TitresTypesDemarchesTypesEtapesTypes.query()
+      .leftJoinRelated('demarcheType')
+      .whereRaw('?? = ??', ['etapeTypeId', 'etapesTypes.id'])
+    if (travaux) {
+      travauxQuery.where('demarcheType.travaux', travaux)
+    } else {
+      travauxQuery.whereRaw('?? is not true', ['demarcheType.travaux'])
+    }
+    q.whereExists(travauxQuery)
   }
 
   return q

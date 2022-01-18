@@ -77,6 +77,7 @@ type Query {
     titresSubstances: String
     titresReferences: String
     titresTerritoires: String
+    travaux: Boolean
   ): Demarches
 
   "Démarche en fonction de son id"
@@ -119,13 +120,18 @@ type Query {
   activitesStatuts: [ActiviteStatut]
 
   "Types de démarches"
-  demarchesTypes(titreId: ID): [DemarcheType]
+  demarchesTypes(titreId: ID, travaux: Boolean): [DemarcheType]
 
   "Statuts de démarches"
   demarchesStatuts: [DemarcheStatut]
 
   "Types d'étapes"
-  etapesTypes(titreDemarcheId: ID, titreEtapeId: ID, date: String): [EtapeType]
+  etapesTypes(
+    titreDemarcheId: ID
+    titreEtapeId: ID
+    date: String
+    travaux: Boolean
+  ): [EtapeType]
 
   "Status d'étapes"
   etapesStatuts: [EtapeStatut]

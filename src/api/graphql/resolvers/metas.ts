@@ -195,7 +195,7 @@ const statuts = async (_: never, context: IToken) => {
 }
 
 const demarchesTypes = async (
-  { titreId }: { titreId?: string },
+  { titreId, travaux }: { titreId?: string; travaux?: boolean },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -203,7 +203,7 @@ const demarchesTypes = async (
     const user = await userGet(context.user?.id)
     const fields = fieldsBuild(info)
 
-    return await demarchesTypesGet({ titreId }, { fields }, user)
+    return await demarchesTypesGet({ titreId, travaux }, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -314,11 +314,13 @@ const etapesTypes = async (
   {
     titreDemarcheId,
     titreEtapeId,
-    date
+    date,
+    travaux
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
     date?: string
+    travaux?: boolean
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -343,7 +345,7 @@ const etapesTypes = async (
 
     // sinon (p.e.: édition des métas ou des permissions d'administration)
     // retourne la liste des types d'étapes
-    return etapesTypesGet({}, { fields }, user)
+    return etapesTypesGet({ travaux }, { fields }, user)
   } catch (e) {
     if (debug) {
       console.error(e)
