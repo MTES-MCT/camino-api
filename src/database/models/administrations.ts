@@ -1,10 +1,16 @@
 import { Model, ref } from 'objection'
-import { join } from 'path'
 
 import { IAdministration } from '../../types'
 
 import AdministrationsTitresTypesEtapesTypes from './administrations-titres-types-etapes-types'
 import AdministrationsTitresTypesTitresStatuts from './administrations-titres-types-titres-statuts'
+import AdministrationsTypes from './administrations-types'
+import TitresTypes from './titres-types'
+import Utilisateurs from './utilisateurs'
+import Titres from './titres'
+import ActivitesTypes from './activites-types'
+import Departements from './departements'
+import Regions from './regions'
 
 interface Administrations extends IAdministration {}
 
@@ -34,10 +40,10 @@ class Administrations extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'administrations-types'),
+      modelClass: AdministrationsTypes,
       join: {
         from: 'administrations.typeId',
         to: 'administrationsTypes.id'
@@ -46,7 +52,7 @@ class Administrations extends Model {
 
     titresTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-types'),
+      modelClass: TitresTypes,
       join: {
         from: 'administrations.id',
         through: {
@@ -78,7 +84,7 @@ class Administrations extends Model {
 
     utilisateurs: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'utilisateurs'),
+      modelClass: Utilisateurs,
       join: {
         from: 'administrations.id',
         through: {
@@ -91,7 +97,7 @@ class Administrations extends Model {
 
     gestionnaireTitres: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'administrations.id',
         through: {
@@ -104,7 +110,7 @@ class Administrations extends Model {
 
     localeTitres: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'administrations.id',
         through: {
@@ -117,7 +123,7 @@ class Administrations extends Model {
 
     activitesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'activites-types'),
+      modelClass: ActivitesTypes,
       join: {
         from: 'administrations.id',
         through: {
@@ -131,7 +137,7 @@ class Administrations extends Model {
 
     activitesTypesEmails: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'activites-types'),
+      modelClass: ActivitesTypes,
       join: {
         from: 'administrations.id',
         through: {
@@ -145,7 +151,7 @@ class Administrations extends Model {
 
     departement: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'departements'),
+      modelClass: Departements,
       join: {
         from: 'administrations.departementId',
         to: 'departements.id'
@@ -154,13 +160,13 @@ class Administrations extends Model {
 
     region: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'regions'),
+      modelClass: Regions,
       join: {
         from: 'administrations.regionId',
         to: 'regions.id'
       }
     }
-  }
+  })
 }
 
 export default Administrations

@@ -1,7 +1,7 @@
-import { join } from 'path'
 import { Model, Modifiers } from 'objection'
-
 import { IAdministrationTitreTypeEtapeType } from '../../types'
+import TitresTypes from './titres-types'
+import EtapesTypes from './etapes-types'
 
 interface AdministrationsTitresTypesEtapesTypes
   extends IAdministrationTitreTypeEtapeType {}
@@ -32,10 +32,10 @@ class AdministrationsTitresTypesEtapesTypes extends Model {
 
   public static idColumn = ['administrationId', 'titreTypeId', 'etapeTypeId']
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     titreType: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres-types'),
+      modelClass: TitresTypes,
       join: {
         from: 'administrations__titresTypes__etapesTypes.titreTypeId',
         to: 'titresTypes.id'
@@ -44,13 +44,13 @@ class AdministrationsTitresTypesEtapesTypes extends Model {
 
     etapeType: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+      modelClass: EtapesTypes,
       join: {
         from: 'administrations__titresTypes__etapesTypes.etapeTypeId',
         to: 'etapesTypes.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

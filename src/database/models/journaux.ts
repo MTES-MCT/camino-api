@@ -2,7 +2,8 @@ import { Model } from 'objection'
 
 import { IJournaux } from '../../types'
 import { idGenerate } from './_format/id-create'
-import { join } from 'path'
+import Utilisateurs from './utilisateurs'
+import Titres from './titres'
 
 interface Journaux extends IJournaux {}
 
@@ -23,10 +24,10 @@ class Journaux extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     utilisateur: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'utilisateurs'),
+      modelClass: Utilisateurs,
       join: {
         from: 'journaux.utilisateurId',
         to: 'utilisateurs.id'
@@ -34,13 +35,13 @@ class Journaux extends Model {
     },
     titre: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'journaux.titreId',
         to: 'titres.id'
       }
     }
-  }
+  })
 
   async $beforeInsert(queryContext: any) {
     await super.$beforeInsert(queryContext)

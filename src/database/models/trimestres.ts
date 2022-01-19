@@ -1,7 +1,8 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { ITrimestre } from '../../types'
+import Mois from './mois'
+import Frequences from './frequences'
 
 interface Trimestres extends ITrimestre {}
 
@@ -19,10 +20,10 @@ class Trimestres extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     mois: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'mois'),
+      modelClass: Mois,
       join: {
         from: 'trimestres.id',
         to: 'mois.trimestreId'
@@ -31,13 +32,13 @@ class Trimestres extends Model {
 
     frequence: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'frequence'),
+      modelClass: Frequences,
       join: {
         from: 'trimestre.frequenceId',
         to: 'frequences.id'
       }
     }
-  }
+  })
 }
 
 export default Trimestres

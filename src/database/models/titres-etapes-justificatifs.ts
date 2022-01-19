@@ -1,6 +1,7 @@
 import { Model } from 'objection'
 import { ITitreEtapeJustificatif } from '../../types'
-import { join } from 'path'
+import TitresEtapes from './titres-etapes'
+import Document from './documents'
 
 interface TitresEtapesJustificatifs extends ITitreEtapeJustificatif {}
 
@@ -19,10 +20,10 @@ class TitresEtapesJustificatifs extends Model {
 
   public static idColumn = ['documentId', 'titreEtapeId']
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     etape: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres-etapes'),
+      modelClass: TitresEtapes,
       join: {
         from: 'titresEtapesJustificatifs.titreEtapeId',
         to: 'titresEtapes.id'
@@ -30,13 +31,13 @@ class TitresEtapesJustificatifs extends Model {
     },
     document: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'documents'),
+      modelClass: Document,
       join: {
         from: 'titresEtapesJustificatifs.documentId',
         to: 'documents.id'
       }
     }
-  }
+  })
 }
 
 export default TitresEtapesJustificatifs

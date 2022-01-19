@@ -21,7 +21,7 @@ class SubstancesFiscales extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     unite: {
       relation: Model.BelongsToOneRelation,
       modelClass: Unites,
@@ -30,7 +30,7 @@ class SubstancesFiscales extends Model {
         to: 'unites.id'
       }
     }
-  }
+  })
 }
 
 export default SubstancesFiscales

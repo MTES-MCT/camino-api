@@ -1,5 +1,4 @@
 import { Model, Modifiers, Pojo, QueryContext } from 'objection'
-import { join } from 'path'
 
 import { ITitreEtape, ITitrePoint } from '../../types'
 
@@ -10,6 +9,18 @@ import {
   heritageContenuFormat
 } from './_format/titre-etape-heritage'
 import { idGenerate } from './_format/id-create'
+import EtapesTypes from './etapes-types'
+import EtapesStatuts from './etapes-statuts'
+import TitresDemarches from './titres-demarches'
+import Substances from './substances'
+import TitresPoints from './titres-points'
+import Entreprises from './entreprises'
+import Administrations from './administrations'
+import Document from './documents'
+import Communes from './communes'
+import Forets from './forets'
+import SDOMZones from './sdom-zones'
+import Journaux from './journaux'
 
 interface TitresEtapes extends ITitreEtape {}
 class TitresEtapes extends Model {
@@ -40,10 +51,10 @@ class TitresEtapes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+      modelClass: EtapesTypes,
       join: {
         from: 'titresEtapes.typeId',
         to: 'etapesTypes.id'
@@ -52,7 +63,7 @@ class TitresEtapes extends Model {
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'etapes-statuts'),
+      modelClass: EtapesStatuts,
       join: {
         from: 'titresEtapes.statutId',
         to: 'etapesStatuts.id'
@@ -61,7 +72,7 @@ class TitresEtapes extends Model {
 
     demarche: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres-demarches'),
+      modelClass: TitresDemarches,
       join: {
         from: 'titresEtapes.titreDemarcheId',
         to: 'titresDemarches.id'
@@ -70,7 +81,7 @@ class TitresEtapes extends Model {
 
     substances: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'substances'),
+      modelClass: Substances,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -84,7 +95,7 @@ class TitresEtapes extends Model {
 
     points: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'titres-points'),
+      modelClass: TitresPoints,
       join: {
         from: 'titresEtapes.id',
         to: 'titresPoints.titreEtapeId'
@@ -93,7 +104,7 @@ class TitresEtapes extends Model {
 
     titulaires: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'entreprises'),
+      modelClass: Entreprises,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -107,7 +118,7 @@ class TitresEtapes extends Model {
 
     amodiataires: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'entreprises'),
+      modelClass: Entreprises,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -121,7 +132,7 @@ class TitresEtapes extends Model {
 
     administrations: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'administrations'),
+      modelClass: Administrations,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -135,7 +146,7 @@ class TitresEtapes extends Model {
 
     documents: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'documents'),
+      modelClass: Document,
       join: {
         from: 'titresEtapes.id',
         to: 'documents.titreEtapeId'
@@ -144,7 +155,7 @@ class TitresEtapes extends Model {
 
     justificatifs: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'documents'),
+      modelClass: Document,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -157,7 +168,7 @@ class TitresEtapes extends Model {
 
     communes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'communes'),
+      modelClass: Communes,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -171,7 +182,7 @@ class TitresEtapes extends Model {
 
     forets: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'forets'),
+      modelClass: Forets,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -184,7 +195,7 @@ class TitresEtapes extends Model {
     },
     sdomZones: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'sdom-zones'),
+      modelClass: SDOMZones,
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -197,13 +208,13 @@ class TitresEtapes extends Model {
     },
     journaux: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'journaux'),
+      modelClass: Journaux,
       join: {
         from: 'titresEtapes.id',
         to: 'journaux.elementId'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderDesc: builder => {
