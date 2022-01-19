@@ -13,15 +13,26 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "strict": true,
     "strictNullChecks": true,
     "sourceMap": true,
     "target": "ES2020",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "resolveJsonModule": true,
+    "paths": {
+      "geojson-rewind": ["./src/@types/geojson-rewind"],
+      "graphql-fields": ["./src/@types/graphql-fields"],
+      "html-to-text": ["./src/@types/html-to-text"],
+      "knex-db-manager": ["./src/@types/knex-db-manager"],
+      "matomo-tracker": ["./src/@types/matomo-tracker"],
+      "momoa": ["./src/@types/momoa"],
+      "turf-center": ["./src/@types/turf-center"],
+      "tus-node-server": ["./src/@types/tus-node-server"]
+    }
   },
   "exclude": ["node_modules", "**/*.test.ts", "**/__mocks__/*"],
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "sources/**/*"],
   "typedocOptions": {
     "out": "docs",
     "exclude": ["**/*+(.test|.spec|.e2e).ts", "**/__mocks__/**/*"],
