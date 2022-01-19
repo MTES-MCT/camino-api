@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { IPays } from '../../types'
+import Regions from './regions'
 
 interface Pays extends IPays {}
 
@@ -18,13 +18,13 @@ class Pays extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     regions: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'regions'),
+      modelClass: Regions,
       join: { from: 'pays.id', to: 'regions.paysId' }
     }
-  }
+  })
 }
 
 export default Pays

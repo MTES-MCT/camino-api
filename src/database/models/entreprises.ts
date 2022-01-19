@@ -1,7 +1,11 @@
 import { Model, Pojo, ref } from 'objection'
-import { join } from 'path'
 
 import { IEntreprise } from '../../types'
+import EntreprisesEtablissements from './entreprises-etablissements'
+import Utilisateurs from './utilisateurs'
+import Titres from './titres'
+import Document from './documents'
+import TitresTypes from './titres-types'
 
 interface Entreprises extends IEntreprise {}
 
@@ -32,10 +36,10 @@ class Entreprises extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     etablissements: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'entreprises-etablissements'),
+      modelClass: EntreprisesEtablissements,
       join: {
         from: 'entreprises.id',
         to: 'entreprisesEtablissements.entrepriseId'
@@ -44,7 +48,7 @@ class Entreprises extends Model {
 
     utilisateurs: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'utilisateurs'),
+      modelClass: Utilisateurs,
       join: {
         from: 'entreprises.id',
         through: {
@@ -57,7 +61,7 @@ class Entreprises extends Model {
 
     titulaireTitres: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'entreprises.id',
         through: {
@@ -70,7 +74,7 @@ class Entreprises extends Model {
 
     amodiataireTitres: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'entreprises.id',
         through: {
@@ -83,7 +87,7 @@ class Entreprises extends Model {
 
     documents: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'documents'),
+      modelClass: Document,
       join: {
         from: 'entreprises.id',
         to: 'documents.entrepriseId'
@@ -92,7 +96,7 @@ class Entreprises extends Model {
 
     titresTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-types'),
+      modelClass: TitresTypes,
       join: {
         from: 'entreprises.id',
         through: {
@@ -103,7 +107,7 @@ class Entreprises extends Model {
         to: 'titresTypes.id'
       }
     }
-  }
+  })
 
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)

@@ -1,6 +1,6 @@
 import { Model } from 'objection'
-import { join } from 'path'
 import { ITitrePhase } from '../../types'
+import PhasesStatuts from './phases-statuts'
 
 interface TitresPhases extends ITitrePhase {}
 
@@ -19,16 +19,16 @@ class TitresPhases extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'phases-statuts'),
+      modelClass: PhasesStatuts,
       join: {
         from: 'titresPhases.statutId',
         to: 'phasesStatuts.id'
       }
     }
-  }
+  })
 
   public static idColumn = 'titreDemarcheId'
 }

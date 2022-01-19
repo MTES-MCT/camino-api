@@ -1,7 +1,7 @@
 import { Model, Modifiers } from 'objection'
-import { join } from 'path'
 
 import { ITitreReference } from '../../types'
+import ReferencesTypes from './references-types'
 
 interface TitresReferences extends ITitreReference {}
 
@@ -21,16 +21,16 @@ class TitresReferences extends Model {
 
   public static idColumn = ['titreId', 'typeId', 'nom']
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'references-types'),
+      modelClass: ReferencesTypes,
       join: {
         from: 'titresReferences.typeId',
         to: 'referencesTypes.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

@@ -1,9 +1,10 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { ISubstanceLegale } from '../../types'
 
 import SubstancesFiscales from './substances-fiscales'
+import SubstancesLegalesCodes from './substances-legales-codes'
+import Domaines from './domaines'
 
 interface SubstancesLegales extends ISubstanceLegale {}
 
@@ -23,10 +24,10 @@ class SubstancesLegales extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     code: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'substances-legales-codes'),
+      modelClass: SubstancesLegalesCodes,
       join: {
         from: 'substancesLegales.substanceLegaleCodeId',
         to: 'substancesLegalesCodes.id'
@@ -35,7 +36,7 @@ class SubstancesLegales extends Model {
 
     domaine: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'domaines'),
+      modelClass: Domaines,
       join: {
         from: 'substancesLegales.domaineId',
         to: 'domaines.id'
@@ -50,7 +51,7 @@ class SubstancesLegales extends Model {
         to: 'substancesFiscales.substanceLegaleId'
       }
     }
-  }
+  })
 }
 
 export default SubstancesLegales

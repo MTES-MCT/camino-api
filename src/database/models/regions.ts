@@ -1,7 +1,8 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { IRegion } from '../../types'
+import Pays from './pays'
+import Departements from './departements'
 
 interface Regions extends IRegion {}
 
@@ -19,10 +20,10 @@ class Regions extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     pays: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'pays'),
+      modelClass: Pays,
       join: {
         from: 'regions.paysId',
         to: 'pays.id'
@@ -31,13 +32,13 @@ class Regions extends Model {
 
     departements: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'departements'),
+      modelClass: Departements,
       join: {
         from: 'regions.id',
         to: 'departements.regionId'
       }
     }
-  }
+  })
 }
 
 export default Regions

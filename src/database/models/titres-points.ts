@@ -1,8 +1,8 @@
 import { Model, Modifiers, Pojo, QueryContext } from 'objection'
-import { join } from 'path'
 
 import { ITitrePoint, ITitrePointReference } from '../../types'
 import { idGenerate } from './_format/id-create'
+import TitresPointsReferences from './titres-points-references'
 
 interface TitresPoints extends ITitrePoint {}
 
@@ -32,16 +32,16 @@ class TitresPoints extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     references: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'titres-points-references'),
+      modelClass: TitresPointsReferences,
       join: {
         from: 'titresPoints.id',
         to: 'titresPointsReferences.titrePointId'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

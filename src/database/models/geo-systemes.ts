@@ -22,7 +22,7 @@ class GeoSystemes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     unite: {
       relation: Model.BelongsToOneRelation,
       modelClass: Unites,
@@ -31,7 +31,7 @@ class GeoSystemes extends Model {
         to: 'unites.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {
