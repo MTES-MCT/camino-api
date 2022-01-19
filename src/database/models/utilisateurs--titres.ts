@@ -1,6 +1,6 @@
 import { Model } from 'objection'
 import { IUtilisateurTitre } from '../../types'
-import { join } from 'path'
+import Utilisateurs from './utilisateurs'
 
 interface UtilisateursTitres extends IUtilisateurTitre {}
 
@@ -19,16 +19,16 @@ class UtilisateursTitres extends Model {
 
   public static idColumn = ['utilisateurId', 'titreId']
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     utilisateur: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'utilisateurs'),
+      modelClass: Utilisateurs,
       join: {
         from: 'utilisateurs__titres.utilisateurId',
         to: 'utilisateurs.id'
       }
     }
-  }
+  })
 }
 
 export default UtilisateursTitres

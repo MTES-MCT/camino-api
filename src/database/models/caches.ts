@@ -16,8 +16,6 @@ class Caches extends Model {
       valeur: { type: 'object' }
     }
   }
-
-  public static relationMappings = {}
 }
 
 export { Caches }

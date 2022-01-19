@@ -1,7 +1,7 @@
 import { Model, Modifiers } from 'objection'
-import { join } from 'path'
 
 import { IDemarcheType } from '../../types'
+import EtapesTypes from './etapes-types'
 
 interface DemarchesTypes extends IDemarcheType {}
 
@@ -25,10 +25,10 @@ class DemarchesTypes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     etapesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+      modelClass: EtapesTypes,
       join: {
         from: 'demarchesTypes.id',
         through: {
@@ -44,7 +44,7 @@ class DemarchesTypes extends Model {
         to: 'etapesTypes.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

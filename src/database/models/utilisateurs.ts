@@ -1,7 +1,9 @@
 import { Model, Pojo } from 'objection'
-import { join } from 'path'
 
 import { IUtilisateur } from '../../types'
+import Permissions from './permissions'
+import Entreprises from './entreprises'
+import Administrations from './administrations'
 
 interface Utilisateurs extends IUtilisateur {}
 
@@ -31,10 +33,10 @@ class Utilisateurs extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     permission: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'permissions'),
+      modelClass: Permissions,
       join: {
         from: 'utilisateurs.permissionId',
         to: 'permissions.id'
@@ -43,7 +45,7 @@ class Utilisateurs extends Model {
 
     entreprises: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'entreprises'),
+      modelClass: Entreprises,
       join: {
         from: 'utilisateurs.id',
         through: {
@@ -56,7 +58,7 @@ class Utilisateurs extends Model {
 
     administrations: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'administrations'),
+      modelClass: Administrations,
       join: {
         from: 'utilisateurs.id',
         through: {
@@ -66,7 +68,7 @@ class Utilisateurs extends Model {
         to: 'administrations.id'
       }
     }
-  }
+  })
 
   public $parseJson(json: Pojo) {
     delete json.modification

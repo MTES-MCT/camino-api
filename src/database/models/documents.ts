@@ -1,7 +1,10 @@
 import { Model, Pojo } from 'objection'
-import { join } from 'path'
 
 import { IDocument } from '../../types'
+import DocumentsTypes from './documents-types'
+import TitresEtapes from './titres-etapes'
+import TitresActivites from './titres-activites'
+import Entreprises from './entreprises'
 
 interface Document extends IDocument {}
 class Document extends Model {
@@ -30,10 +33,10 @@ class Document extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'documents-types'),
+      modelClass: DocumentsTypes,
       join: {
         from: 'documents.typeId',
         to: 'documentsTypes.id'
@@ -42,7 +45,7 @@ class Document extends Model {
 
     etape: {
       relation: Model.HasOneRelation,
-      modelClass: join(__dirname, 'titres-etapes'),
+      modelClass: TitresEtapes,
       join: {
         from: 'documents.titreEtapeId',
         to: 'titresEtapes.id'
@@ -51,7 +54,7 @@ class Document extends Model {
 
     activite: {
       relation: Model.HasOneRelation,
-      modelClass: join(__dirname, 'titres-activites'),
+      modelClass: TitresActivites,
       join: {
         from: 'documents.titreActiviteId',
         to: 'titresActivites.id'
@@ -60,7 +63,7 @@ class Document extends Model {
 
     entreprise: {
       relation: Model.HasOneRelation,
-      modelClass: join(__dirname, 'entreprises'),
+      modelClass: Entreprises,
       join: {
         from: 'documents.entrepriseId',
         to: 'entreprises.id'
@@ -70,7 +73,7 @@ class Document extends Model {
     // justificatifs
     etapesAssociees: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-etapes'),
+      modelClass: TitresEtapes,
       join: {
         from: 'documents.id',
         through: {
@@ -80,7 +83,7 @@ class Document extends Model {
         to: 'titresEtapes.id'
       }
     }
-  }
+  })
 
   public $formatDatabaseJson(json: Pojo): Pojo {
     delete json.modification
