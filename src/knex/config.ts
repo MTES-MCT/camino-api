@@ -21,6 +21,7 @@ const knexConfig = {
     stub: join(__dirname, './migration-stub.js'),
     // génère les nouveaux fichiers de migrations en Javascript, car la prod éxecute les fichiers transpillés
     // Si on met du Typescript, les environnements de devs ne vont plus démarrer avec la bdd de prod.
+    // https://github.com/knex/knex/issues/4688
     extension: 'js'
   },
   seeds: {
