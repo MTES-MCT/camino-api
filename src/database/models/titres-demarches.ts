@@ -1,8 +1,13 @@
 import { Model, Modifiers, Pojo, QueryContext } from 'objection'
-import { join } from 'path'
 
 import { ITitreDemarche } from '../../types'
 import { idGenerate } from './_format/id-create'
+import DemarchesTypes from './demarches-types'
+import DemarchesStatuts from './demarches-statuts'
+import TitresTypes from './titres-types'
+import Titres from './titres'
+import TitresEtapes from './titres-etapes'
+import TitresPhases from './titres-phases'
 
 interface TitresDemarches extends ITitreDemarche {}
 
@@ -23,10 +28,10 @@ class TitresDemarches extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'demarches-types'),
+      modelClass: DemarchesTypes,
       join: {
         from: 'titresDemarches.typeId',
         to: 'demarchesTypes.id',
@@ -36,7 +41,7 @@ class TitresDemarches extends Model {
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'demarches-statuts'),
+      modelClass: DemarchesStatuts,
       join: {
         from: 'titresDemarches.statutId',
         to: 'demarchesStatuts.id'
@@ -46,7 +51,7 @@ class TitresDemarches extends Model {
     // todo: pourquoi ne pas utiliser la relation `titre` ?
     titreType: {
       relation: Model.HasOneThroughRelation,
-      modelClass: join(__dirname, 'titres-types'),
+      modelClass: TitresTypes,
       join: {
         from: 'titresDemarches.titreId',
         through: {
@@ -59,7 +64,7 @@ class TitresDemarches extends Model {
 
     titre: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres'),
+      modelClass: Titres,
       join: {
         from: 'titresDemarches.titreId',
         to: 'titres.id'
@@ -68,7 +73,7 @@ class TitresDemarches extends Model {
 
     etapes: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'titres-etapes'),
+      modelClass: TitresEtapes,
       join: {
         from: 'titresDemarches.id',
         to: 'titresEtapes.titreDemarcheId'
@@ -77,7 +82,7 @@ class TitresDemarches extends Model {
 
     phase: {
       relation: Model.HasOneRelation,
-      modelClass: join(__dirname, 'titres-phases'),
+      modelClass: TitresPhases,
       join: {
         from: 'titresDemarches.id',
         to: 'titresPhases.titreDemarcheId'
@@ -86,7 +91,7 @@ class TitresDemarches extends Model {
 
     parents: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-demarches'),
+      modelClass: TitresDemarches,
       join: {
         from: 'titresDemarches.id',
         through: {
@@ -99,7 +104,7 @@ class TitresDemarches extends Model {
 
     enfants: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-demarches'),
+      modelClass: TitresDemarches,
       join: {
         from: 'titresDemarches.id',
         through: {
@@ -109,7 +114,7 @@ class TitresDemarches extends Model {
         to: 'titresDemarches.id'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderDesc: builder => {

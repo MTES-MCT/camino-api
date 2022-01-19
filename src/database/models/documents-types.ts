@@ -1,7 +1,8 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { IDocumentType } from '../../types'
+import EtapesTypes from './etapes-types'
+import ActivitesTypes from './activites-types'
 
 interface DocumentsTypes extends IDocumentType {}
 
@@ -19,10 +20,10 @@ class DocumentsTypes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     activitesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'activites-types'),
+      modelClass: ActivitesTypes,
       join: {
         from: 'documentsTypes.id',
         through: {
@@ -36,7 +37,7 @@ class DocumentsTypes extends Model {
 
     etapesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+      modelClass: EtapesTypes,
       join: {
         from: 'documentsTypes.id',
         through: {
@@ -47,7 +48,7 @@ class DocumentsTypes extends Model {
         to: 'etapesTypes.id'
       }
     }
-  }
+  })
 }
 
 export default DocumentsTypes

@@ -20,7 +20,7 @@ class Unites extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     referenceUnite: {
       relation: Model.BelongsToOneRelation,
       modelClass: Unites,
@@ -29,7 +29,7 @@ class Unites extends Model {
         to: 'unites.id'
       }
     }
-  }
+  })
 }
 
 export default Unites

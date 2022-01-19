@@ -1,9 +1,11 @@
 import { Model, Modifiers } from 'objection'
-import { join } from 'path'
 
 import { ITitreType } from '../../types'
 
 import TitresTypesTitresStatuts from './titres-types--titres-statuts'
+import Domaines from './domaines'
+import DemarchesTypes from './demarches-types'
+import TitresTypesTypes from './titres-types-types'
 
 interface TitresTypes extends ITitreType {}
 
@@ -23,10 +25,10 @@ class TitresTypes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres-types-types'),
+      modelClass: TitresTypesTypes,
       join: {
         from: 'titresTypes.typeId',
         to: 'titresTypesTypes.id'
@@ -35,7 +37,7 @@ class TitresTypes extends Model {
 
     domaine: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'domaines'),
+      modelClass: Domaines,
       join: {
         from: 'titresTypes.domaineId',
         to: 'domaines.id'
@@ -44,7 +46,7 @@ class TitresTypes extends Model {
 
     demarchesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'demarches-types'),
+      modelClass: DemarchesTypes,
       join: {
         from: 'titresTypes.id',
         through: {
@@ -73,7 +75,7 @@ class TitresTypes extends Model {
         to: 'titresTypes__titresStatuts.titreTypeId'
       }
     }
-  }
+  })
 
   public static modifiers: Modifiers = {
     orderAsc: builder => {

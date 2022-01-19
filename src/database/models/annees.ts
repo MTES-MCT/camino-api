@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { IAnnee } from '../../types'
+import Frequences from './frequences'
 
 interface Annees extends IAnnee {}
 
@@ -19,16 +19,16 @@ class Annees extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     frequence: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'frequences'),
+      modelClass: Frequences,
       join: {
         from: 'annee.frequenceId',
         to: 'frequences.id'
       }
     }
-  }
+  })
 }
 
 export default Annees

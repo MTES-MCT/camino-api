@@ -1,7 +1,9 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { IFrequence } from '../../types'
+import Annees from './annees'
+import Trimestres from './trimestres'
+import Mois from './mois'
 
 interface Frequences extends IFrequence {}
 
@@ -19,10 +21,10 @@ class Frequences extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     annees: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'annees'),
+      modelClass: Annees,
       join: {
         from: 'frequences.id',
         to: 'annees.frequenceId'
@@ -31,7 +33,7 @@ class Frequences extends Model {
 
     trimestres: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'trimestres'),
+      modelClass: Trimestres,
       join: {
         from: 'frequences.id',
         to: 'trimestres.frequenceId'
@@ -40,13 +42,13 @@ class Frequences extends Model {
 
     mois: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'mois'),
+      modelClass: Mois,
       join: {
         from: 'frequences.id',
         to: 'mois.frequenceId'
       }
     }
-  }
+  })
 }
 
 export default Frequences

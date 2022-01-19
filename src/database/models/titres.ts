@@ -1,5 +1,4 @@
 import { Model, Pojo, QueryContext, ref } from 'objection'
-import { join } from 'path'
 
 import { ITitre } from '../../types'
 
@@ -23,6 +22,7 @@ import { idGenerate } from './_format/id-create'
 import slugify from '@sindresorhus/slugify'
 import cryptoRandomString from 'crypto-random-string'
 import SDOMZones from './sdom-zones'
+import TitresActivites from './titres-activites'
 
 interface Titres extends ITitre {}
 
@@ -52,7 +52,7 @@ class Titres extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     domaine: {
       relation: Model.BelongsToOneRelation,
       modelClass: Domaines,
@@ -228,7 +228,7 @@ class Titres extends Model {
 
     activites: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'titres-activites'),
+      modelClass: TitresActivites,
       join: { from: 'titres.id', to: 'titresActivites.titreId' }
     },
 
@@ -243,7 +243,7 @@ class Titres extends Model {
       modelClass: Titres,
       join: { from: 'titres.doublonTitreId', to: 'titres.id' }
     }
-  }
+  })
 
   async $beforeInsert(context: QueryContext) {
     if (!this.id) {

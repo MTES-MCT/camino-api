@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { join } from 'path'
 
 import { ICommune } from '../../types'
+import Departements from './departements'
 
 interface Communes extends ICommune {}
 
@@ -18,16 +18,16 @@ class Communes extends Model {
     }
   }
 
-  public static relationMappings = {
+  static relationMappings = () => ({
     departement: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'departements'),
+      modelClass: Departements,
       join: {
         from: 'communes.departementId',
         to: 'departements.id'
       }
     }
-  }
+  })
 }
 
 export default Communes
