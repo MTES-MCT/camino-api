@@ -276,58 +276,95 @@ const titreDemarcheTravauxStatutIdFind = (
   }
   const titreEtapesRecent = titreEtapesSortDesc(titreDemarcheEtapes)[0]
 
-  const deposeSegment = [
-    Travaux.DemandeAutorisationOuverture.toString(),
-    Travaux.DeclarationOuverture.toString(),
-    Travaux.DeclarationArret.toString(),
-    Travaux.DepotDemande.toString()
-  ]
-  const enInstructionSegment = [
-    Travaux.DemandeComplements.toString(),
-    Travaux.ReceptionComplements.toString(),
-    Travaux.Recevabilite.toString(),
-    Travaux.AvisReception.toString(),
-    Travaux.SaisineAutoriteEnvironmentale.toString(),
-    Travaux.AvisAutoriteEnvironmentale.toString(),
-    Travaux.ArretePrefectoralSursis.toString(),
-    Travaux.SaisineServiceEtat.toString(),
-    Travaux.AvisServiceAdminLocal.toString(),
-    Travaux.AvisDDTM.toString(),
-    Travaux.AvisAutoriteMilitaire.toString(),
-    Travaux.AvisARS.toString(),
-    Travaux.AvisDRAC.toString(),
-    Travaux.AvisPrefetMaritime.toString(),
-    Travaux.AvisAutresInstances.toString(),
-    Travaux.AvisRapportDirecteurREAL.toString(),
-    Travaux.TransPrescriptionsDemandeur.toString(),
-    Travaux.OuvertureEnquetePublique.toString(),
-    Travaux.AvisServiceAdminLocal.toString(),
-    Travaux.AvisDDTM.toString(),
-    Travaux.AvisAutoriteMilitaire.toString(),
-    Travaux.AvisARS.toString(),
-    Travaux.AvisDRAC.toString(),
-    Travaux.AvisPrefetMaritime.toString(),
-    Travaux.AvisAutresInstances.toString(),
-    Travaux.MemoireReponseExploitant.toString(),
-    Travaux.ClotureEnquetePublique.toString(),
-    Travaux.AvisRapportDirecteurREAL.toString(),
-    Travaux.AvisCODERST.toString(),
-    Travaux.AvisPrescriptionsDemandeur.toString(),
-    Travaux.RapportDREAL.toString(),
-    Travaux.ArretePrescriptionComplementaire.toString(),
-    Travaux.ArretePrefectDonneActe1.toString(),
-    Travaux.MemoireFinTravaux.toString(),
-    Travaux.Recolement.toString()
-  ]
-  const accepteSegment = [
-    Travaux.ArreteOuvertureTravauxMiniers.toString(),
-    Travaux.DonneActeDeclaration.toString()
-  ]
-  const desisteSegment = [Travaux.Abandon.toString()]
-  const finDePoliceDesMinesSegment = [
-    Travaux.ArretePrefectDonneActe2.toString(),
-    Travaux.PorterAConnaissance.toString()
-  ]
+  const statuts = new Map<string, string>([
+    [Travaux.DemandeAutorisationOuverture.toString(), DemarchesStatuts.Depose],
+    [Travaux.DeclarationOuverture.toString(), DemarchesStatuts.Depose],
+    [Travaux.DeclarationArret.toString(), DemarchesStatuts.Depose],
+    [Travaux.DepotDemande.toString(), DemarchesStatuts.Depose],
+
+    [Travaux.DemandeComplements.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.ReceptionComplements.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.Recevabilite.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisReception.toString(), DemarchesStatuts.EnInstruction],
+    [
+      Travaux.SaisineAutoriteEnvironmentale.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [
+      Travaux.AvisAutoriteEnvironmentale.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [
+      Travaux.ArretePrefectoralSursis.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [Travaux.SaisineServiceEtat.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisServiceAdminLocal.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisDDTM.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisAutoriteMilitaire.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisARS.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisDRAC.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisPrefetMaritime.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisAutresInstances.toString(), DemarchesStatuts.EnInstruction],
+    [
+      Travaux.AvisRapportDirecteurREAL.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [
+      Travaux.TransPrescriptionsDemandeur.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [
+      Travaux.OuvertureEnquetePublique.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [Travaux.AvisServiceAdminLocal.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisDDTM.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisAutoriteMilitaire.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisARS.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisDRAC.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisPrefetMaritime.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.AvisAutresInstances.toString(), DemarchesStatuts.EnInstruction],
+    [
+      Travaux.MemoireReponseExploitant.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [Travaux.ClotureEnquetePublique.toString(), DemarchesStatuts.EnInstruction],
+    [
+      Travaux.AvisRapportDirecteurREAL.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [Travaux.AvisCODERST.toString(), DemarchesStatuts.EnInstruction],
+    [
+      Travaux.AvisPrescriptionsDemandeur.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [Travaux.RapportDREAL.toString(), DemarchesStatuts.EnInstruction],
+    [
+      Travaux.ArretePrescriptionComplementaire.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [
+      Travaux.ArretePrefectDonneActe1.toString(),
+      DemarchesStatuts.EnInstruction
+    ],
+    [Travaux.MemoireFinTravaux.toString(), DemarchesStatuts.EnInstruction],
+    [Travaux.Recolement.toString(), DemarchesStatuts.EnInstruction],
+
+    [
+      Travaux.ArreteOuvertureTravauxMiniers.toString(),
+      DemarchesStatuts.Accepte
+    ],
+    [Travaux.DonneActeDeclaration.toString(), DemarchesStatuts.Accepte],
+
+    [Travaux.Abandon.toString(), DemarchesStatuts.Desiste],
+
+    [
+      Travaux.ArretePrefectDonneActe2.toString(),
+      DemarchesStatuts.FinPoliceMines
+    ],
+    [Travaux.PorterAConnaissance.toString(), DemarchesStatuts.FinPoliceMines]
+  ])
 
   if (
     titreEtapesRecent.typeId ===
@@ -341,27 +378,9 @@ const titreDemarcheTravauxStatutIdFind = (
     }
   }
 
-  if (deposeSegment.includes(titreEtapesRecent.typeId)) {
-    return DemarchesStatuts.Depose
-  }
-
-  if (enInstructionSegment.includes(titreEtapesRecent.typeId)) {
-    return DemarchesStatuts.EnInstruction
-  }
-
-  if (accepteSegment.includes(titreEtapesRecent.typeId)) {
-    return DemarchesStatuts.Accepte
-  }
-
-  if (desisteSegment.includes(titreEtapesRecent.typeId)) {
-    return DemarchesStatuts.Desiste
-  }
-
-  if (finDePoliceDesMinesSegment.includes(titreEtapesRecent.typeId)) {
-    return DemarchesStatuts.FinPoliceMines
-  }
-
-  return DemarchesStatuts.Indetermine
+  return statuts.has(titreEtapesRecent.typeId)
+    ? statuts.get(titreEtapesRecent.typeId)
+    : DemarchesStatuts.Indetermine
 }
 
 /**
