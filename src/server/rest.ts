@@ -1,4 +1,4 @@
-import { IFormat, Index } from '../types'
+import { IFormat, Index, IUser } from '../types'
 
 import express from 'express'
 import { join } from 'path'
@@ -53,7 +53,7 @@ const restify =
     try {
       const result = await resolver(
         { query: req.query, params: req.params },
-        req.user?.id
+        (req.user as unknown as IUser).id
       )
 
       if (!result) {

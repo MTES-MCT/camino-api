@@ -79,7 +79,7 @@ import { demarcheDefinitionFind } from '../../../business/rules-demarches/defini
 import { userSuper } from '../../../database/user-super'
 import { titresEtapesHeritageContenuUpdate } from '../../../business/processes/titres-etapes-heritage-contenu-update'
 
-const npmPackage = require('../../../../package.json')
+import npmPackage from '../../../../package.json'
 
 const devises = async () => devisesGet()
 

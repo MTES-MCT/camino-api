@@ -1,4 +1,3 @@
-/// <reference types="../@types/matomo-tracker" />
 import MatomoTracker from 'matomo-tracker'
 
 const matomo =

@@ -25,7 +25,7 @@ services:
   cron:
     container_name: camino_api_cron
     build: .
-    command: node ./dist/cron.js
+    command: node ./dist/src/cron.js
     depends_on:
       - db
     environment:
