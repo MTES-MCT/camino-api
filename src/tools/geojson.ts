@@ -1,5 +1,3 @@
-/// <reference types="../@types/geojson-rewind" />
-/// <reference types="../@types/turf-center" />
 import rewind from 'geojson-rewind'
 import center from '@turf/center'
 
@@ -13,6 +11,7 @@ import { Feature, FeatureCollection, Geometry } from '@turf/helpers'
 const geojsonFeatureMultiPolygon = (points: ITitrePoint[]) => ({
   type: 'Feature',
   properties: { etapeId: points[0].titreEtapeId },
+  coordinates: [],
   geometry: rewind(
     {
       type: 'MultiPolygon',
