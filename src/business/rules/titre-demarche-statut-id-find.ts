@@ -31,17 +31,6 @@ const titreEtapesDecisivesDemandesTypes = [
   ...titreEtapesDecisivesCommunesTypes
 ]
 
-const titreEtapesDecisivesTravauxTypes = [
-  Travaux.DemandeAutorisationOuverture,
-  Travaux.DeclarationOuverture,
-  Travaux.DeclarationArret,
-  Travaux.Recevabilite,
-  Travaux.DonneActeDeclaration,
-  Travaux.ArretePrefectDonneActe2,
-  Travaux.ArreteOuvertureTravauxMiniers,
-  Travaux.Abandon
-].map(member => member.toString())
-
 const titreDemarchesDemandesTypes = [
   'oct',
   'pro',
@@ -279,51 +268,73 @@ const titreDemarcheDemandeStatutIdFind = (
 }
 
 const titreDemarcheTravauxStatutIdFind = (
-  titreDemarcheEtapes: ITitreEtape[]
+  titreDemarcheEtapes: ITitreEtape[],
+  demarcheTypeId: string
 ) => {
-  // filtre les types d'étapes qui ont un impact
-  // sur le statut de la démarche de demande
-  const titreEtapesDecisives = titreDemarcheEtapes.filter(titreEtape =>
-    titreEtapesDecisivesTravauxTypes.includes(titreEtape.typeId)
-  )
+  if (titreDemarcheEtapes.length === 0) {
+    return DemarchesStatuts.Indetermine
+  }
+  const titreEtapesRecent = titreEtapesSortDesc(titreDemarcheEtapes)[0]
 
-  // si aucune étape décisive n'est présente dans la démarche
-  // le statut est indéterminé
-  if (!titreEtapesDecisives.length) return DemarchesStatuts.Indetermine
-
-  // L'étape la plus récente : l'Abandon a la primauté peu importe sa date
-  const abandon = titreEtapesDecisives.find(e => e.typeId === Travaux.Abandon)
-  const titreEtapeRecent =
-    abandon || titreEtapesSortDesc(titreEtapesDecisives)[0]
-
-  if (titreEtapeRecent.typeId === Travaux.Abandon) {
-    return DemarchesStatuts.Desiste
+  const statuts: {
+    [travauxEtapeType: string]: DemarchesStatuts
+  } = {
+    [Travaux.DemandeAutorisationOuverture]: DemarchesStatuts.Depose,
+    [Travaux.DeclarationOuverture]: DemarchesStatuts.Depose,
+    [Travaux.DeclarationArret]: DemarchesStatuts.Depose,
+    [Travaux.DepotDemande]: DemarchesStatuts.Depose,
+    [Travaux.DemandeComplements]: DemarchesStatuts.EnInstruction,
+    [Travaux.ReceptionComplements]: DemarchesStatuts.EnInstruction,
+    [Travaux.Recevabilite]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisReception]: DemarchesStatuts.EnInstruction,
+    [Travaux.SaisineAutoriteEnvironmentale]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisAutoriteEnvironmentale]: DemarchesStatuts.EnInstruction,
+    [Travaux.ArretePrefectoralSursis]: DemarchesStatuts.EnInstruction,
+    [Travaux.SaisineServiceEtat]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisServiceAdminLocal]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisDDTM]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisAutoriteMilitaire]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisARS]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisDRAC]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisPrefetMaritime]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisAutresInstances]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisRapportDirecteurREAL]: DemarchesStatuts.EnInstruction,
+    [Travaux.TransPrescriptionsDemandeur]: DemarchesStatuts.EnInstruction,
+    [Travaux.OuvertureEnquetePublique]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisServiceAdminLocal]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisDDTM]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisAutoriteMilitaire]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisARS]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisDRAC]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisPrefetMaritime]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisAutresInstances]: DemarchesStatuts.EnInstruction,
+    [Travaux.MemoireReponseExploitant]: DemarchesStatuts.EnInstruction,
+    [Travaux.ClotureEnquetePublique]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisRapportDirecteurREAL]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisCODERST]: DemarchesStatuts.EnInstruction,
+    [Travaux.AvisPrescriptionsDemandeur]: DemarchesStatuts.EnInstruction,
+    [Travaux.RapportDREAL]: DemarchesStatuts.EnInstruction,
+    [Travaux.ArretePrescriptionComplementaire]: DemarchesStatuts.EnInstruction,
+    [Travaux.ArretePrefectDonneActe1]: DemarchesStatuts.EnInstruction,
+    [Travaux.MemoireFinTravaux]: DemarchesStatuts.EnInstruction,
+    [Travaux.Recolement]: DemarchesStatuts.EnInstruction,
+    [Travaux.ArreteOuvertureTravauxMiniers]: DemarchesStatuts.Accepte,
+    [Travaux.DonneActeDeclaration]: DemarchesStatuts.Accepte,
+    [Travaux.Abandon]: DemarchesStatuts.Desiste,
+    [Travaux.ArretePrefectDonneActe2]: DemarchesStatuts.FinPoliceMines,
+    [Travaux.PorterAConnaissance]: DemarchesStatuts.FinPoliceMines
   }
 
-  if (titreEtapeRecent.typeId === Travaux.ArretePrefectDonneActe2) {
-    return DemarchesStatuts.FinPoliceMines
+  if (titreEtapesRecent.typeId === Travaux.PubliDecisionRecueilActesAdmin) {
+    switch (demarcheTypeId) {
+      case 'aom':
+        return DemarchesStatuts.Accepte
+      case 'dam':
+        return DemarchesStatuts.FinPoliceMines
+    }
   }
 
-  if (
-    titreEtapeRecent.typeId === Travaux.DemandeAutorisationOuverture ||
-    titreEtapeRecent.typeId === Travaux.DeclarationOuverture ||
-    titreEtapeRecent.typeId === Travaux.DeclarationArret
-  ) {
-    return DemarchesStatuts.Depose
-  }
-
-  if (titreEtapeRecent.typeId === Travaux.Recevabilite) {
-    return DemarchesStatuts.EnInstruction
-  }
-
-  if (
-    titreEtapeRecent.typeId === Travaux.DonneActeDeclaration ||
-    titreEtapeRecent.typeId === Travaux.ArreteOuvertureTravauxMiniers
-  ) {
-    return DemarchesStatuts.Accepte
-  }
-
-  return DemarchesStatuts.Indetermine
+  return statuts[titreEtapesRecent.typeId] || DemarchesStatuts.Indetermine
 }
 
 /**
@@ -344,7 +355,7 @@ const titreDemarcheStatutIdFind = (
 
   // si la démarche est pour des travaux
   if (titreDemarchesTravauxTypes.includes(demarcheTypeId)) {
-    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes)
+    return titreDemarcheTravauxStatutIdFind(titreDemarcheEtapes, demarcheTypeId)
   }
 
   //  si la démarche fait l’objet d’une demande
