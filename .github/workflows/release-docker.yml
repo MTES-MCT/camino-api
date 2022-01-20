@@ -1,0 +1,46 @@
+name: Release Docker images
+on:
+  release:
+    types: [published]
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Build Docker image
+        run: docker build -t caminofr/camino-api:$VERSION -t caminofr/camino-api:latest -t caminofr/camino-api:master .
+      - name: Build and Push Docker image to the Docker Hub
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker push caminofr/camino-api --all-tags
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          VERSION: ${{ github.event.release.tag_name }}
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.12'
+      - name: Generate docs
+        run: |
+          npm set-script prepare ""
+          npm ci
+          npm run docs
+        env:
+          CI: true
+      - name: Build Docker image
+        run: docker build -f Dockerfile.docs -t caminofr/camino-api-docs .
+      - name: Push Docker image to the Docker Hub
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker push caminofr/camino-api-docs
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
