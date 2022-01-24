@@ -42,6 +42,7 @@ import {
   newsletterSubscriberCheck,
   newsletterSubscriberUpdate
 } from '../../../tools/api-mailjet/newsletter'
+import { userSuper } from '../../../database/user-super'
 
 const TOKEN_TTL = '5m'
 
@@ -652,14 +653,16 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
 
+    const TOKEN_EMAIL_TTL = 15
+
     const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET!, {
-      expiresIn: TOKEN_TTL
+      expiresIn: `${TOKEN_EMAIL_TTL}m`
     })
 
     const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
 
     const subject = `Initialisation de votre mot de passe`
-    const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
+    const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable ${TOKEN_EMAIL_TTL} minutes).</p>`
 
     emailsSend([email], subject, html)
 
@@ -674,22 +677,25 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
 }
 
 // formulaire de ré-init du mot de passe
-const utilisateurMotDePasseInitialiser = async (
-  { motDePasse1, motDePasse2 }: { motDePasse1: string; motDePasse2: string },
-  context: IToken
-) => {
+const utilisateurMotDePasseInitialiser = async ({
+  motDePasse1,
+  motDePasse2,
+  token
+}: {
+  motDePasse1: string
+  motDePasse2: string
+  token: string
+}) => {
   try {
-    const user = await userGet(context.user?.id)
-
-    if (!context.user || !context.user.id) {
-      throw new Error('aucun utilisateur identifié')
+    let user
+    try {
+      user = jwt.verify(token, process.env.JWT_SECRET!) as ITokenUser
+    } catch (e) {
+      throw new Error('lien expiré')
     }
 
-    const now = Math.round(new Date().getTime() / 1000)
-    const delay = 60 * 15 // 15 minutes
-
-    if (now - context.user.iat! > delay) {
-      throw new Error('délai expiré')
+    if (!user || !user.id) {
+      throw new Error('aucun utilisateur identifié')
     }
 
     if (motDePasse1.length < 8) {
@@ -702,7 +708,7 @@ const utilisateurMotDePasseInitialiser = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(context.user.id, {}, user)
+    const utilisateur = await utilisateurGet(user.id, { fields: {} }, userSuper)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -712,7 +718,7 @@ const utilisateurMotDePasseInitialiser = async (
 
     const utilisateurUpdated = await utilisateurUpsert(
       {
-        id: context.user.id,
+        id: user.id,
         motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
       { fields: {} }
