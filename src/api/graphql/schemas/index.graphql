@@ -314,6 +314,7 @@ type Mutation {
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
+    token: String!
   ): Utilisateur
 
   "Envoie un email à l’utisateur pour vérifier non nouvel email"
