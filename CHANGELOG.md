@@ -1,3 +1,18 @@
+# [0.35.0](https://github.com/MTES-MCT/camino-api/compare/v0.34.0...v0.35.0) (2022-01-25)
+
+
+### Bug Fixes
+
+* **connexion:** corrige la réinitialisation du mot de passe ([#883](https://github.com/MTES-MCT/camino-api/issues/883)) ([cf6b728](https://github.com/MTES-MCT/camino-api/commit/cf6b7283e0fbab69874d282e081a0c2000298234))
+* **demande:** transforme le justificatif de paiement en document lié à l’étape ([#882](https://github.com/MTES-MCT/camino-api/issues/882)) ([e71be54](https://github.com/MTES-MCT/camino-api/commit/e71be54288a9d6b29ee32a0da71192a938f9c8c7))
+* **travaux:** corrige les statuts selon les specs ([#877](https://github.com/MTES-MCT/camino-api/issues/877)) ([9be6c94](https://github.com/MTES-MCT/camino-api/commit/9be6c940fa10429a147e56bb29613f18585cea63))
+
+
+### Features
+
+* **travaux:** exporte les étapes des démarches et des travaux ([#876](https://github.com/MTES-MCT/camino-api/issues/876)) ([614d427](https://github.com/MTES-MCT/camino-api/commit/614d4271c50fd321dc24b6352c2511bb7ba404cd))
+* **travaux:** permet de séparer les démarches du droit minier et des travaux ([#875](https://github.com/MTES-MCT/camino-api/issues/875)) ([9e693b7](https://github.com/MTES-MCT/camino-api/commit/9e693b76dc212ac4f68cc044f067a01db7786eb7))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
