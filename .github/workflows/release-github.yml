@@ -4,6 +4,16 @@ on:
     branches:
       - master
 jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump env
+        run: env | sort
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
   release-github:
     runs-on: ubuntu-latest
     steps:
@@ -21,5 +31,5 @@ jobs:
           npm ci
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.VMAUBERT_PERSONAL_TOKEN }}
         run: npx semantic-release
