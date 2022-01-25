@@ -10,6 +10,8 @@ jobs:
         uses: actions/checkout@v1
       - name: Build Docker image
         run: docker build -t caminofr/camino-api:$VERSION -t caminofr/camino-api:latest -t caminofr/camino-api:master .
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
       - name: Build and Push Docker image to the Docker Hub
         run: |
           docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
@@ -17,8 +19,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          VERSION: ${{ github.event.release.tag_name }}
-
   docs:
     runs-on: ubuntu-latest
     steps:
