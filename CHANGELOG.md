@@ -1,3 +1,10 @@
+## [0.35.1](https://github.com/MTES-MCT/camino-api/compare/v0.35.0...v0.35.1) (2022-01-26)
+
+
+### Bug Fixes
+
+* **téléchargements:** corrige les téléchargements pour les utilisateurs non connectés ([#894](https://github.com/MTES-MCT/camino-api/issues/894)) ([8938f36](https://github.com/MTES-MCT/camino-api/commit/8938f36835c7c6abf4203615c48e7de5af731348))
+
 # [0.35.0](https://github.com/MTES-MCT/camino-api/compare/v0.34.0...v0.35.0) (2022-01-25)
 
 
