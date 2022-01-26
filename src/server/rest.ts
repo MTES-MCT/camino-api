@@ -51,9 +51,10 @@ const restify =
     next: express.NextFunction
   ) => {
     try {
+      const user = req.user as unknown as IUser | undefined
       const result = await resolver(
         { query: req.query, params: req.params },
-        (req.user as unknown as IUser).id
+        user?.id
       )
 
       if (!result) {
