@@ -3,6 +3,7 @@
   "version": "0.35.0",
   "description": "Camino api",
   "license": "AGPL-3.0-or-later",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/MTES-MCT/camino-api"
@@ -237,7 +238,8 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/github",
-      "@semantic-release/git"
+      "@semantic-release/git",
+      "@semantic-release/npm"
     ]
   }
 }
