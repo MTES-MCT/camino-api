@@ -30,7 +30,6 @@ jobs:
           node-version: '16.12'
       - name: Generate docs
         run: |
-          npm set-script prepare ""
           npm ci
           npm run docs
         env:
