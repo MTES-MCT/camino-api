@@ -1,7 +1,7 @@
 import { demarcheEtatsValidate } from '../_utils.test'
 
 describe('vérifie l’arbre d’octroi d’ARM', () => {
-  const octEtatsValidate = demarcheEtatsValidate('oct', 'arm')
+  const octEtatsValidate = demarcheEtatsValidate('oct', 'arm', '2020-01-01')
 
   test.each(['mfr', 'pfd', 'dae', 'rde'])(
     'peut créer une étape "%s" si il n’existe pas d’autres étapes',

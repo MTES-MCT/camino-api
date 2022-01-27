@@ -70,7 +70,7 @@ async function etapeCreate() {
       typeId: 'mfr',
       statutId: 'fai',
       titreDemarcheId,
-      date: ''
+      date: '2018-01-01'
     },
     userSuper,
     titreId
@@ -131,7 +131,7 @@ describe('etapeModifier', () => {
           typeId: 'mfr',
           statutId: 'aco',
           titreDemarcheId,
-          date: '',
+          date: '2018-01-01',
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {
               acc[prop] = { actif: false }
@@ -170,7 +170,7 @@ describe('etapeModifier', () => {
           typeId: 'mia',
           statutId: 'fai',
           titreDemarcheId,
-          date: ''
+          date: '2018-01-01'
         }
       },
       'super'
@@ -190,7 +190,7 @@ describe('etapeModifier', () => {
           typeId: 'mia',
           statutId: 'fav',
           titreDemarcheId,
-          date: ''
+          date: '2018-01-01'
         }
       },
       'admin',
@@ -212,7 +212,7 @@ describe('etapeModifier', () => {
           typeId: 'men',
           statutId: 'fai',
           titreDemarcheId,
-          date: ''
+          date: '2018-01-01'
         }
       },
       'admin',
@@ -233,7 +233,7 @@ describe('etapeModifier', () => {
           typeId: 'ede',
           statutId: 'fai',
           titreDemarcheId,
-          date: '',
+          date: '2018-01-01',
           heritageContenu: {
             deal: { motifs: { actif: false }, agent: { actif: false } }
           },

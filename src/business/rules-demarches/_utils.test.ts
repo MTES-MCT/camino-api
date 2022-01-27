@@ -20,7 +20,7 @@ import { titreContenuFormat } from '../../database/models/_format/titre-contenu'
 import { contenusTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 
 test('teste EtatsValidate', () => {
-  const octEtatsValidate = demarcheEtatsValidate('oct', 'arm')
+  const octEtatsValidate = demarcheEtatsValidate('oct', 'arm', '2021-01-01')
 
   expect(octEtatsValidate).toBeTruthy()
   expect(octEtatsValidate([], {})).toHaveLength(0)
@@ -80,7 +80,11 @@ const etapesTypesGet = (demarcheTypeId: string, titreTypeId: string) => {
   )
 }
 
-const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
+const demarcheEtatsValidate = (
+  demarcheTypeId: string,
+  titreTypeId: string,
+  date: string
+) => {
   const etapesTypes = etapesTypesGet(demarcheTypeId, titreTypeId)
 
   return (
@@ -92,7 +96,8 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
 
     const demarcheDefinitionRestrictions = demarcheDefinitionFind(
       titreTypeId,
-      demarcheTypeId
+      demarcheTypeId,
+      date
     )!.restrictions
 
     const titreDemarche = { typeId: demarcheTypeId } as ITitreDemarche
