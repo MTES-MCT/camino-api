@@ -66,15 +66,11 @@ export const titresEtapesDepotCreate = async (demarcheId: string) => {
 
   const demarcheDefinition = demarcheDefinitionFind(
     titreDemarche.titre!.typeId,
-    titreDemarche.typeId
+    titreDemarche.typeId,
+    titreDemarcheDepotDemandeDateFind(titreDemarche.etapes!)
   )
   // On peut déposer automatiquement seulement les démarches qui possèdent un arbre d’instructions
-  if (
-    !demarcheDefinition ||
-    titreDemarcheDepotDemandeDateFind(titreDemarche.etapes!) <=
-      demarcheDefinition.dateDebut
-  )
-    return false
+  if (!demarcheDefinition) return false
 
   if (titreDemarche.titre!.typeId === 'arm' && titreDemarche.typeId === 'oct') {
     // Si on a pas de demande faite

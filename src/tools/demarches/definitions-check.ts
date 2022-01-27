@@ -4,7 +4,6 @@ import {
 } from '../../business/rules-demarches/definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titreDemarcheUpdatedEtatValidate } from '../../business/validations/titre-demarche-etat-validate'
-import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
 import { userSuper } from '../../database/user-super'
 import TitresTypesDemarchesTypesEtapesTypes from '../../database/models/titres-types--demarches-types-etapes-types'
 
@@ -125,42 +124,35 @@ const demarchesValidate = async () => {
         userSuper
       )
 
-      demarches
-        .filter(
-          d =>
-            d.etapes?.length &&
-            titreDemarcheDepotDemandeDateFind(d.etapes) >
-              demarcheDefinition.dateDebut
-        )
-        .forEach(demarche => {
-          try {
-            const errs = titreDemarcheUpdatedEtatValidate(
-              demarche.type!,
-              demarche.titre!,
-              demarche.etapes![0],
-              demarche.etapes!
+      demarches.forEach(demarche => {
+        try {
+          const errs = titreDemarcheUpdatedEtatValidate(
+            demarche.type!,
+            demarche.titre!,
+            demarche.etapes![0],
+            demarche.etapes!
+          )
+
+          if (errs.length) {
+            errors.push(
+              `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errs}`
             )
 
-            if (errs.length) {
-              errors.push(
-                `https://camino.beta.gouv.fr/titres/${demarche.titreId} => démarche "${demarche.typeId}" : ${errs}`
-              )
-
-              // console.info(
-              //   '[',
-              //   demarche
-              //     .etapes!.map(
-              //       e =>
-              //         `{ typeId: '${e.typeId}', statutId: '${e.statutId}', date: '${e.date}' }`
-              //     )
-              //     .join(','),
-              //   ']'
-              // )
-            }
-          } catch (e) {
-            errors.push(`${demarche.id} démarche invalide =>\n\t${e}`)
+            // console.info(
+            //   '[',
+            //   demarche
+            //     .etapes!.map(
+            //       e =>
+            //         `{ typeId: '${e.typeId}', statutId: '${e.statutId}', date: '${e.date}' }`
+            //     )
+            //     .join(','),
+            //   ']'
+            // )
           }
-        })
+        } catch (e) {
+          errors.push(`${demarche.id} démarche invalide =>\n\t${e}`)
+        }
+      })
     }
   }
 

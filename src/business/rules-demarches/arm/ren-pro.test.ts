@@ -1,7 +1,7 @@
 import { demarcheEtatsValidate } from '../_utils.test'
 
 describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => {
-  const renProEtatsValidate = demarcheEtatsValidate('ren', 'arm')
+  const renProEtatsValidate = demarcheEtatsValidate('ren', 'arm', '2020-01-01')
 
   test('peut créer une étape "mdp" après une "mfr"', () => {
     expect(

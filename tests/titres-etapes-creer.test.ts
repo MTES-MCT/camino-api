@@ -127,7 +127,7 @@ describe('etapeCreer', () => {
           typeId: 'mfr',
           statutId: 'fai',
           titreDemarcheId,
-          date: '',
+          date: '2018-01-01',
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {
               acc[prop] = { actif: false }
@@ -195,7 +195,14 @@ describe('etapeCreer', () => {
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'mia', statutId: 'fav', titreDemarcheId, date: '' } },
+      {
+        etape: {
+          typeId: 'mia',
+          statutId: 'fav',
+          titreDemarcheId,
+          date: '2018-01-01'
+        }
+      },
       'admin',
       administrations.ptmg.id
     )
@@ -210,7 +217,14 @@ describe('etapeCreer', () => {
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'mia', statutId: 'fai', titreDemarcheId, date: '' } },
+      {
+        etape: {
+          typeId: 'mia',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: '2018-01-01'
+        }
+      },
       'super'
     )
 
@@ -221,7 +235,14 @@ describe('etapeCreer', () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'men', statutId: 'fai', titreDemarcheId, date: '' } },
+      {
+        etape: {
+          typeId: 'men',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: '2018-01-01'
+        }
+      },
       'admin',
       administrations.ptmg.id
     )
@@ -239,7 +260,7 @@ describe('etapeCreer', () => {
           typeId: 'ede',
           statutId: 'fai',
           titreDemarcheId,
-          date: '',
+          date: '2018-01-01',
           heritageContenu: {
             deal: { motifs: { actif: false }, agent: { actif: false } }
           },
@@ -266,7 +287,7 @@ describe('etapeCreer', () => {
           typeId: 'mfr',
           statutId: 'fai',
           titreDemarcheId,
-          date: '',
+          date: '2018-01-01',
           duree: 10,
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {
@@ -338,7 +359,7 @@ describe('etapeCreer', () => {
           typeId: 'mfr',
           statutId: 'aco',
           titreDemarcheId,
-          date: '',
+          date: '2018-01-01',
           heritageProps: titreEtapePropsIds.reduce(
             (acc, prop) => {
               acc[prop] = { actif: false }

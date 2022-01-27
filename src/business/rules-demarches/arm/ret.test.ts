@@ -1,7 +1,7 @@
 import { demarcheEtatsValidate } from '../_utils.test'
 
 describe('vérifie l’arbre de retrait d’ARM', () => {
-  const retEtatsValidate = demarcheEtatsValidate('ret', 'arm')
+  const retEtatsValidate = demarcheEtatsValidate('ret', 'arm', '2020-01-01')
 
   test('peut créer une étape "ide" si il n’existe pas d’autres étapes', () => {
     expect(retEtatsValidate([{ typeId: 'ide' }])).toHaveLength(0)
