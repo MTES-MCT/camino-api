@@ -8,13 +8,9 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     separation: ['mcr'],
     justeApres: [[]]
   },
-  dsl: {
-    avant: [[{ etapeTypeId: 'asl' }]],
-    justeApres: [[{ etapeTypeId: 'mfr' }]]
-  },
   ...etatInformationsGet('mio', 'rio', {
     etapeTypeId: 'eof',
-    justeApres: [[{ etapeTypeId: 'dsl' }]]
+    justeApres: [[{ etapeTypeId: 'mfr' }]]
   }),
   asl: {
     justeApres: [],
