@@ -6204,12 +6204,6 @@
   },
   {
     "titre_type_id": "axm",
-    "ordre": 130,
-    "demarche_type_id": "oct",
-    "etape_type_id": "eof"
-  },
-  {
-    "titre_type_id": "axm",
     "ordre": 540,
     "demarche_type_id": "oct",
     "etape_type_id": "ihi"
@@ -6243,12 +6237,6 @@
     "ordre": 231,
     "demarche_type_id": "oct",
     "etape_type_id": "mie"
-  },
-  {
-    "titre_type_id": "axm",
-    "ordre": 128,
-    "demarche_type_id": "oct",
-    "etape_type_id": "mio"
   },
   {
     "titre_type_id": "axm",
@@ -6303,12 +6291,6 @@
     "ordre": 232,
     "demarche_type_id": "oct",
     "etape_type_id": "rie"
-  },
-  {
-    "titre_type_id": "axm",
-    "ordre": 129,
-    "demarche_type_id": "oct",
-    "etape_type_id": "rio"
   },
   {
     "titre_type_id": "axm",
