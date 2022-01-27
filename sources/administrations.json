@@ -1444,7 +1444,7 @@
     "nom": "Préfecture - Seine-et-Marne",
     "abreviation": "Préfecture - Seine-et-Marne",
     "url": "http://www.seine-et-marne.gouv.fr",
-    "telephone": "01 64 71 77 77",
+    "telephone": "01 64 71 76 77",
     "adresse1": "12 rue des Saints-Pères",
     "code_postal": "77010",
     "commune": "Melun Cedex",
@@ -1581,9 +1581,9 @@
     "abreviation": "Préfecture - Haute-Vienne",
     "url": "http://www.haute-vienne.gouv.fr",
     "telephone": "05 55 44 18 00",
-    "adresse1": "1, rue de la Préfecture, BP 87031",
-    "code_postal": "87031",
-    "commune": "Limoges Cedex 1",
+    "adresse1": "12 rue des Combes",
+    "code_postal": "87000",
+    "commune": "Limoges",
     "departement_id": "87"
   },
   {

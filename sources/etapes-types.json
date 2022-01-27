@@ -227,7 +227,6 @@
     "id": "asl",
     "nom": "décision du propriétaire du sol",
     "ordre": 5,
-    "fondamentale": true,
     "entreprises_lecture": true
   },
   {
@@ -1443,6 +1442,12 @@
     "ordre": 1015
   },
   {
+    "id": "wao",
+    "nom": "arrêté d'ouverture des travaux miniers",
+    "description": "Arrêté d'ouverture des travaux miniers",
+    "ordre": 1028
+  },
+  {
     "id": "wap",
     "nom": "avis du préfet maritime",
     "ordre": 1018
@@ -1553,6 +1558,12 @@
     "id": "wpa",
     "nom": "publication de décision au recueil des actes administratifs",
     "ordre": 1028
+  },
+  {
+    "id": "wpb",
+    "nom": "porter-à-connaissance",
+    "description": "Porter-à-connaissance",
+    "ordre": 1029
   },
   {
     "id": "wpc",
