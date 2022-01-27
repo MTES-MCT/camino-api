@@ -24,7 +24,8 @@ class TitresDemarches extends Model {
       titreId: { type: 'string', maxLength: 128 },
       typeId: { type: 'string', maxLength: 8 },
       statutId: { type: 'string', maxLength: 3 },
-      ordre: { type: 'integer' }
+      ordre: { type: 'integer' },
+      description: { type: ['string', 'null'] }
     }
   }
 

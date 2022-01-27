@@ -112,9 +112,7 @@ const titreDemarcheModificationQuery = (
 ): void => {
   let modificationQuery = raw('false')
   if (permissionCheck(user?.permissionId, ['super'])) {
-    modificationQuery = raw('not exists(?)', [
-      titreDemarcheEtapesQuery(demarcheAlias)
-    ])
+    modificationQuery = raw('true')
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
@@ -122,23 +120,13 @@ const titreDemarcheModificationQuery = (
     modificationQuery = titresDemarchesAdministrationsModificationQuery(
       user.administrations,
       'type'
-    )
-      .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
-      .whereNotExists(titreDemarcheEtapesQuery(demarcheAlias))
+    ).whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
 
     q.groupBy(`${demarcheAlias}.id`, 'type.travaux')
   }
 
   q.select(modificationQuery.as('modification'))
 }
-
-const titreDemarcheEtapesQuery = (demarcheAlias: string) =>
-  TitresEtapes.query()
-    .alias('titresDemarchesEtapes')
-    .whereRaw('?? = ??', [
-      'titresDemarchesEtapes.titreDemarcheId',
-      `${demarcheAlias}.id`
-    ])
 
 const titreEtapesCreationQuery = (
   demarcheAlias: string,

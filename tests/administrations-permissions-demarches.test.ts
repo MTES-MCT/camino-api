@@ -138,8 +138,8 @@ describe('Création des démarches', () => {
 describe('Modification des démarches', () => {
   test.each`
     administrationId       | modifier
-    ${'ope-onf-973-01'}    | ${false}
-    ${'min-mtes-dgaln-01'} | ${false}
+    ${'ope-onf-973-01'}    | ${true}
+    ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${false}
   `(
     "un utilisateur admin de l’administration $administrationId peut modifier des démarches d'un titre ARM : $modifier",
@@ -150,8 +150,8 @@ describe('Modification des démarches', () => {
   test.each`
     administrationId       | modifier
     ${'ope-onf-973-01'}    | ${false}
-    ${'dea-guyane-01'}     | ${false}
-    ${'min-mtes-dgaln-01'} | ${false}
+    ${'dea-guyane-01'}     | ${true}
+    ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${false}
   `(
     "un utilisateur admin de l’administration $administrationId peut modifier des démarches d'un titre AXM : $modifier",
@@ -162,7 +162,7 @@ describe('Modification des démarches', () => {
   test.each`
     administrationId       | modifier
     ${'min-mtes-dgec-01'}  | ${false}
-    ${'min-mtes-dgaln-01'} | ${false}
+    ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${false}
   `(
     "un utilisateur admin de l’administration $administrationId peut modifier des démarches d'un titre CXM : $modifier",
@@ -173,7 +173,7 @@ describe('Modification des démarches', () => {
   test.each`
     administrationId       | modifier
     ${'min-mtes-dgec-01'}  | ${false}
-    ${'min-mtes-dgaln-01'} | ${false}
+    ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${false}
   `(
     "un utilisateur admin de l’administration $administrationId peut modifier des démarches d'un titre PRM : $modifier",
@@ -184,7 +184,7 @@ describe('Modification des démarches', () => {
   test.each`
     administrationId       | modifier
     ${'min-mtes-dgec-01'}  | ${false}
-    ${'min-mtes-dgaln-01'} | ${false}
+    ${'min-mtes-dgaln-01'} | ${true}
     ${'min-dajb-01'}       | ${false}
   `(
     "un utilisateur admin de l’administration $administrationId peut modifier des démarches d'un titre PXM : $modifier",
