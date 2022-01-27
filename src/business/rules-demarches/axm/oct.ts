@@ -1,5 +1,4 @@
 import { IDemarcheDefinitionRestrictions } from '../definitions'
-import { etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/sa6BiSBs5fwtQFXi/249D0
 const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
@@ -8,10 +7,6 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     separation: ['mcr'],
     justeApres: [[]]
   },
-  ...etatInformationsGet('mio', 'rio', {
-    etapeTypeId: 'eof',
-    justeApres: [[{ etapeTypeId: 'mfr' }]]
-  }),
   asl: {
     justeApres: [],
     avant: [[{ etapeTypeId: 'asl' }]]
