@@ -6204,12 +6204,6 @@
   },
   {
     "titre_type_id": "axm",
-    "ordre": 110,
-    "demarche_type_id": "oct",
-    "etape_type_id": "dsl"
-  },
-  {
-    "titre_type_id": "axm",
     "ordre": 130,
     "demarche_type_id": "oct",
     "etape_type_id": "eof"
