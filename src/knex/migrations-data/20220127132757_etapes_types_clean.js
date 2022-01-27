@@ -35,5 +35,29 @@ exports.up = async knex => {
     .where('demarche_type_id', 'oct')
     .where('titre_type_id', 'axm')
     .delete()
+
+  // Supprime l’étape QAE « Demande d’examen au cas par cas »
+  await knex('titres_types__demarches_types__etapes_types')
+    .where('etape_type_id', 'qae')
+    .delete()
+
+  const etapesQae = await titresEtapesGet(
+    { etapesTypesIds: ['qae'] },
+    { fields: { demarche: {} } },
+    userSuper
+  )
+  for (const etapeQae of etapesQae) {
+    await titreEtapeDelete(etapeQae.id, userSuper, etapeQae.demarche.titreId)
+  }
+
+  await knex('administrations__titres_types__etapes_types')
+    .where('etape_type_id', 'qae')
+    .delete()
+
+  await knex('etapes_types__etapes_statuts')
+    .where('etape_type_id', 'qae')
+    .delete()
+
+  await knex('etapes_types').where('id', 'qae').delete()
 }
 exports.down = () => ({})
