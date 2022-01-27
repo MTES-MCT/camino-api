@@ -725,11 +725,6 @@
     "ordre": 2
   },
   {
-    "etape_type_id": "dsl",
-    "etape_statut_id": "fai",
-    "ordre": 1
-  },
-  {
     "etape_type_id": "dup",
     "etape_statut_id": "fai",
     "ordre": 1

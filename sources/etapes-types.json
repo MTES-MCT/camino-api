@@ -350,12 +350,6 @@
     "entreprises_lecture": true
   },
   {
-    "id": "dsl",
-    "nom": "demande d'accord du propriétaire du sol",
-    "ordre": 3,
-    "entreprises_lecture": true
-  },
-  {
     "id": "dup",
     "nom": "publication de décision administrative au JORF",
     "description": "A la fin d’une instruction, la décision administrative est publiée au JORF  si elle est positive. Pour les instructions relatives aux granulats marins, la décision administrative est publiée au JORF, qu’elle soit positive ou négative.",

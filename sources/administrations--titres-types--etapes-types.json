@@ -3373,14 +3373,6 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "axm",
-    "etape_type_id": "dsl",
-    "lecture_interdit": true,
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
     "etape_type_id": "eof",
     "lecture_interdit": true,
     "creation_interdit": true,
@@ -4966,11 +4958,6 @@
     "etape_type_id": "dim",
     "creation_interdit": true,
     "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "dsl"
   },
   {
     "administration_id": "ope-onf-973-01",
