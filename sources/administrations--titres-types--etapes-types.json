@@ -3500,13 +3500,6 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "axm",
-    "etape_type_id": "qae",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
     "etape_type_id": "rca",
     "lecture_interdit": true,
     "creation_interdit": true,
@@ -5068,13 +5061,6 @@
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
     "etape_type_id": "pqr",
-    "creation_interdit": true,
-    "modification_interdit": true
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "qae",
     "creation_interdit": true,
     "modification_interdit": true
   },
