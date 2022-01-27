@@ -28,5 +28,12 @@ exports.up = async knex => {
     .delete()
 
   await knex('etapes_types').where('id', 'dsl').delete()
+
+  // supprime l’eof « Expertise de l’ONF » des AXM et son cycle d’informations
+  await knex('titres_types__demarches_types__etapes_types')
+    .whereIn('etape_type_id', ['eof', 'rio', 'mio'])
+    .where('demarche_type_id', 'oct')
+    .where('titre_type_id', 'axm')
+    .delete()
 }
 exports.down = () => ({})
