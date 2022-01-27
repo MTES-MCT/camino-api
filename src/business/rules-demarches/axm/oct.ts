@@ -11,10 +11,6 @@ const restrictionsAxmOct: IDemarcheDefinitionRestrictions = {
     justeApres: [],
     avant: [[{ etapeTypeId: 'asl' }]]
   },
-  qae: {
-    justeApres: [[{ etapeTypeId: 'mfr' }]],
-    avant: [[{ etapeTypeId: 'dae' }]]
-  },
   dae: {
     justeApres: [],
     avant: [[{ etapeTypeId: 'dae' }]]

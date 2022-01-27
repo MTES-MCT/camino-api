@@ -6276,12 +6276,6 @@
   },
   {
     "titre_type_id": "axm",
-    "ordre": 120,
-    "demarche_type_id": "oct",
-    "etape_type_id": "qae"
-  },
-  {
-    "titre_type_id": "axm",
     "ordre": 229,
     "demarche_type_id": "oct",
     "etape_type_id": "rca"
