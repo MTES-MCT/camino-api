@@ -1228,6 +1228,10 @@
     "etape_statut_id": "fav"
   },
   {
+    "etape_type_id": "wao",
+    "etape_statut_id": "fai"
+  },
+  {
     "etape_type_id": "wap",
     "etape_statut_id": "def",
     "ordre": 1
@@ -1340,17 +1344,17 @@
     "etape_statut_id": "fai"
   },
   {
+    "etape_type_id": "wpb",
+    "etape_statut_id": "fai"
+  },
+  {
     "etape_type_id": "wpc",
     "etape_statut_id": "fai"
   },
   {
     "etape_type_id": "wpo",
-    "etape_statut_id": "def",
+    "etape_statut_id": "acc",
     "ordre": 1
-  },
-  {
-    "etape_type_id": "wpo",
-    "etape_statut_id": "fav"
   },
   {
     "etape_type_id": "wpp",
