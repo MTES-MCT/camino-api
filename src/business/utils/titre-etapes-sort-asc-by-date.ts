@@ -17,12 +17,15 @@ const titreEtapesSortAscByDate = (
     | undefined
 
   let demarcheDefinition = undefined as IDemarcheDefinition | undefined
-  let dateEtapeFirst = '' as string
 
   if (titreTypeId && demarcheType?.id) {
-    dateEtapeFirst = titreDemarcheDepotDemandeDateFind(titreEtapes)
+    const dateEtapeFirst = titreDemarcheDepotDemandeDateFind(titreEtapes)
 
-    demarcheDefinition = demarcheDefinitionFind(titreTypeId, demarcheType.id)
+    demarcheDefinition = demarcheDefinitionFind(
+      titreTypeId,
+      demarcheType.id,
+      dateEtapeFirst
+    )
 
     demarcheDefinitionRestrictions = demarcheDefinition?.restrictions
   }
@@ -38,11 +41,7 @@ const titreEtapesSortAscByDate = (
 
     // on utilise l'arbre pour trouver quelle étape provoque l’autre
 
-    if (
-      demarcheDefinition &&
-      demarcheDefinitionRestrictions &&
-      dateEtapeFirst > demarcheDefinition.dateDebut
-    ) {
+    if (demarcheDefinition && demarcheDefinitionRestrictions) {
       const bRestriction = demarcheDefinitionRestrictions[b.typeId]
 
       if (!bRestriction) {
