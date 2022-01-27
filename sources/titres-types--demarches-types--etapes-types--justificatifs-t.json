@@ -40,12 +40,6 @@
     "titre_type_id": "arm",
     "demarche_type_id": "oct",
     "etape_type_id": "mfr",
-    "document_type_id": "jpa"
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mfr",
     "document_type_id": "kbi"
   }
 ]

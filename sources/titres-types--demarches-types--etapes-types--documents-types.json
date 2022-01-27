@@ -29,6 +29,26 @@
     "titre_type_id": "arm",
     "demarche_type_id": "oct",
     "etape_type_id": "mfr",
+    "document_type_id": "jpa"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
     "document_type_id": "pla"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "jac",
+    "optionnel": true
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "document_type_id": "nir",
+    "optionnel": true
   }
 ]

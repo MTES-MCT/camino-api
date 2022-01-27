@@ -176,6 +176,10 @@
     "nom": "Identification de matériel"
   },
   {
+    "id": "jac",
+    "nom": "Justificatif d’adhésion à la charte des bonnes pratiques"
+  },
+  {
     "id": "jcf",
     "nom": "Justificatif des capacités financières"
   },
@@ -238,6 +242,10 @@
   {
     "id": "ndd",
     "nom": "Notification de décision"
+  },
+  {
+    "id": "nir",
+    "nom": "Notice d’impact renforcée"
   },
   {
     "id": "nis",
