@@ -1,7 +1,7 @@
 import { demarcheEtatsValidate } from '../_utils.test'
 
 describe('vérifie l’arbre d’octroi d’AXM', () => {
-  const octEtatsValidate = demarcheEtatsValidate('oct', 'axm')
+  const octEtatsValidate = demarcheEtatsValidate('oct', 'axm', '2020-10-01')
 
   test('peut créer une "mdp" après une "mfr"', () => {
     expect(

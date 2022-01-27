@@ -1,7 +1,7 @@
 import { demarcheEtatsValidate } from '../_utils.test'
 
 describe('vérifie l’arbre d’octroi d’une PRM', () => {
-  const octEtatsValidate = demarcheEtatsValidate('oct', 'prm')
+  const octEtatsValidate = demarcheEtatsValidate('oct', 'prm', '2020-01-01')
 
   test('ne peut pas créer une "rpu" après une "dex" rejetée', () => {
     expect(

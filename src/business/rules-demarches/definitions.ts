@@ -89,12 +89,20 @@ const demarchesDefinitions: IDemarcheDefinition[] = [
   }
 ]
 
-const demarcheDefinitionFind = (titreTypeId: string, demarcheTypeId: string) =>
-  demarchesDefinitions.find(
-    d =>
-      d.titreTypeId === titreTypeId &&
-      d.demarcheTypeIds.includes(demarcheTypeId)
-  )
+const demarcheDefinitionFind = (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  date?: string
+) =>
+  demarchesDefinitions
+    .sort((a, b) => a.dateDebut.localeCompare(b.dateDebut))
+    .reverse()
+    .find(
+      d =>
+        (!date || d.dateDebut < date) &&
+        d.titreTypeId === titreTypeId &&
+        d.demarcheTypeIds.includes(demarcheTypeId)
+    )
 
 export {
   demarchesDefinitions,
