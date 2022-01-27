@@ -906,11 +906,6 @@
   },
   {
     "etape_type_id": "rcm",
-    "document_type_id": "cur",
-    "optionnel": true
-  },
-  {
-    "etape_type_id": "rcm",
     "document_type_id": "fac",
     "optionnel": true
   },
@@ -1155,6 +1150,11 @@
     "optionnel": true
   },
   {
+    "etape_type_id": "wao",
+    "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
     "etape_type_id": "wap",
     "document_type_id": "avi",
     "optionnel": true
@@ -1236,12 +1236,12 @@
   },
   {
     "etape_type_id": "wfd",
-    "document_type_id": "lem",
+    "document_type_id": "dcl",
     "optionnel": true
   },
   {
     "etape_type_id": "wfd",
-    "document_type_id": "rap",
+    "document_type_id": "dos",
     "optionnel": true
   },
   {
@@ -1322,6 +1322,16 @@
   {
     "etape_type_id": "wpa",
     "document_type_id": "arp",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "wpb",
+    "document_type_id": "car",
+    "optionnel": true
+  },
+  {
+    "etape_type_id": "wpb",
+    "document_type_id": "cou",
     "optionnel": true
   },
   {
