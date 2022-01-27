@@ -1005,11 +1005,6 @@
     "ordre": 1
   },
   {
-    "etape_type_id": "qae",
-    "etape_statut_id": "fai",
-    "ordre": 1
-  },
-  {
     "etape_type_id": "rca",
     "etape_statut_id": "fai",
     "ordre": 1

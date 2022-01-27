@@ -1107,13 +1107,6 @@
     "entreprises_lecture": true
   },
   {
-    "id": "qae",
-    "nom": "demande d'examen au cas par cas ",
-    "ordre": 4,
-    "unique": true,
-    "entreprises_lecture": true
-  },
-  {
     "id": "rca",
     "parent_id": "rco",
     "nom": "réception de compléments (recevabilité de la demande)",
