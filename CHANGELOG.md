@@ -1,3 +1,10 @@
+# [0.36.0](https://github.com/MTES-MCT/camino-api/compare/v0.35.1...v0.36.0) (2022-01-31)
+
+
+### Features
+
+* **per:** met les PER en survie provisoire si une prolongation a été déposée ([#901](https://github.com/MTES-MCT/camino-api/issues/901)) ([d73da16](https://github.com/MTES-MCT/camino-api/commit/d73da164bc9b93a3c455ce9d025c6bb879b2f586))
+
 ## [0.35.1](https://github.com/MTES-MCT/camino-api/compare/v0.35.0...v0.35.1) (2022-01-26)
 
 
