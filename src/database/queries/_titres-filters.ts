@@ -25,6 +25,7 @@ const titresFiltersQueryModify = (
     domainesIds,
     typesIds,
     statutsIds,
+    substancesLegalesIds,
     noms,
     entreprises,
     substances,
@@ -35,6 +36,7 @@ const titresFiltersQueryModify = (
     domainesIds?: string[] | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    substancesLegalesIds?: string[] | null
     noms?: string | null
     entreprises?: string | null
     substances?: string | null
@@ -77,6 +79,16 @@ const titresFiltersQueryModify = (
     }
 
     q.whereIn(`${name}.statutId`, statutsIds)
+  }
+
+  if (substancesLegalesIds?.length) {
+    if (name === 'titre') {
+      q.leftJoinRelated('titre')
+    }
+
+    q.leftJoinRelated(jointureFormat(name, 'substances.legales'))
+
+    q.whereIn(fieldFormat(name, 'substances:legales.id'), substancesLegalesIds)
   }
 
   if (noms) {
