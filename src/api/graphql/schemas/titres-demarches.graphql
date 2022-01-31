@@ -19,6 +19,9 @@ type Demarche {
   """
   id: ID!
 
+  "Description optionnelle de la démarche"
+  description: String
+
   """
   Slug composé de la concaténation:
   - de l'id du titre
@@ -69,10 +72,12 @@ type Phase {
 input InputDemarcheCreation {
   typeId: ID!
   titreId: ID!
+  description: String
 }
 
 input InputDemarcheModification {
   id: ID!
   typeId: ID!
   titreId: ID!
+  description: String
 }

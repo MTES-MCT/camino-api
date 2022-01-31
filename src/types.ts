@@ -773,6 +773,7 @@ interface ITitreEtapeJustificatif {
 
 interface ITitreDemarche {
   id: string
+  description?: string
   slug?: string
   titreId: string
   titre?: ITitre | null

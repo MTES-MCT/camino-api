@@ -51,6 +51,7 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
       titre_statut: titre.statut!.nom,
       type: titreDemarche.type!.nom,
       statut: titreDemarche.statut!.nom,
+      description: titreDemarche.description,
       titre_references: titre.references
         ?.map(r => `${r.type?.nom} : ${r.nom}`)
         .join(';'),

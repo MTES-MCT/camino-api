@@ -251,7 +251,9 @@ describe('demarcheModifier', () => {
     )
 
     expect(res.body.errors).toHaveLength(1)
-    expect(res.body.errors[0].message).toBe('droits insuffisants')
+    expect(res.body.errors[0].message).toBe(
+      'impossible de modifier le type d’une démarche si celle-ci a déjà une ou plusieurs étapes'
+    )
   })
 })
 
