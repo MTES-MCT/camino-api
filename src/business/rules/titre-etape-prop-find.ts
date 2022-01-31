@@ -28,7 +28,11 @@ const titreEtapePropFind = (
   )
 
   // calcule le statut du titre
-  const titreStatutId = titreStatutIdFind(date, titreDemarchesFiltered)
+  const titreStatutId = titreStatutIdFind(
+    date,
+    titreDemarchesFiltered,
+    titreTypeId
+  )
 
   // cherche la première occurrence de la propriété
   // dans une démarche et une étape valides

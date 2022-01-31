@@ -28,7 +28,11 @@ const titresStatutIdsUpdate = async (titresIds?: string[]) => {
   const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
   titres.forEach(titre => {
-    const statutId = titreStatutIdFind(aujourdhui, titre.demarches)
+    const statutId = titreStatutIdFind(
+      aujourdhui,
+      titre.demarches,
+      titre.typeId
+    )
 
     if (statutId !== titre.statutId) {
       queue.add(async () => {

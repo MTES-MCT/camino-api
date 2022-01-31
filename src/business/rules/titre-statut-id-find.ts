@@ -1,10 +1,11 @@
-import { ITitreDemarche } from '../../types'
+import { DemarchesStatutsTypes, ITitreDemarche } from '../../types'
 
 import { titreDateFinFind } from './titre-date-fin-find'
 
 const titreStatutIdFind = (
   aujourdhui: string,
-  demarches?: ITitreDemarche[] | null
+  demarches: ITitreDemarche[] | null | undefined,
+  titreTypeId: string
 ) => {
   const titreDemarches = demarches
     ? demarches.filter(d => !d.type!.travaux)
@@ -47,6 +48,33 @@ const titreStatutIdFind = (
 
   if (dateFin && aujourdhui < dateFin) {
     return 'val'
+  }
+
+  // si le titre est un PER M ou W
+  // et qu'une démarche de prolongation est déposée et a été déposée avant l'échéance de l'octroi
+  // -> le statut du titre est modification en instance (survie provisoire)
+  if (['prm', 'prw'].includes(titreTypeId)) {
+    const octroi = titreDemarches.find(d => d.typeId === 'oct')
+
+    const dateFinOctroi = octroi ? titreDateFinFind([octroi]) : null
+    if (
+      dateFinOctroi &&
+      titreDemarches.some(d => {
+        if (!['pr1', 'pr2'].includes(d.typeId)) {
+          return false
+        }
+
+        if (d.statutId !== DemarchesStatutsTypes.Depose) {
+          return false
+        }
+
+        const demandeProlongation = d.etapes?.find(e => e.typeId === 'mfr')
+
+        return demandeProlongation && demandeProlongation.date < dateFinOctroi
+      })
+    ) {
+      return 'mod'
+    }
   }
 
   // sinon le statut du titre est échu
