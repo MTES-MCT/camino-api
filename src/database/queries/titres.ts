@@ -127,6 +127,7 @@ const titresGet = async (
     domainesIds,
     typesIds,
     statutsIds,
+    substancesLegalesIds,
     substances,
     noms,
     entreprises,
@@ -144,6 +145,7 @@ const titresGet = async (
     domainesIds?: string[] | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    substancesLegalesIds?: string[] | null
     substances?: string | null
     noms?: string | null
     entreprises?: string | null
@@ -171,6 +173,7 @@ const titresGet = async (
       domainesIds,
       typesIds,
       statutsIds,
+      substancesLegalesIds,
       noms,
       entreprises,
       substances,
@@ -241,6 +244,7 @@ const titresCount = async (
     typesIds,
     statutsIds,
     substances,
+    substancesLegalesIds,
     noms,
     entreprises,
     references,
@@ -250,6 +254,7 @@ const titresCount = async (
     domainesIds?: string[] | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    substancesLegalesIds?: string[] | null
     substances?: string | null
     noms?: string | null
     entreprises?: string | null
@@ -267,6 +272,7 @@ const titresCount = async (
       domainesIds,
       typesIds,
       statutsIds,
+      substancesLegalesIds,
       noms,
       entreprises,
       substances,
