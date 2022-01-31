@@ -124,6 +124,38 @@ const titreDemarchesInstruction = [
   }
 ] as ITitreDemarche[]
 
+const titrePERDemarchesProlongation = [
+  {
+    id: 'm-pr-saint-pierre-2014-pro01',
+    titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'pr1' },
+    typeId: 'pr1',
+    statutId: 'dep',
+    ordre: 1,
+    etapes: [{ date: '2020-01-01', typeId: 'mfr', statutId: 'fai' }]
+  },
+  {
+    id: 'm-pr-saint-pierre-2014-oct01',
+    titreId: 'm-pr-saint-pierre-2014',
+    type: { id: 'oct' },
+    typeId: 'oct',
+    statutId: 'acc',
+    ordre: 1,
+    etapes: [
+      {
+        id: 'm-pr-saint-pierre-2014-oct01-dex01',
+        titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '1014-04-01',
+        dateDebut: null,
+        dateFin: '2020-04-01'
+      }
+    ]
+  }
+] as ITitreDemarche[]
+
 export {
   titreDemarchesIndefini,
   titreDemarchesValide,
@@ -133,5 +165,6 @@ export {
   titreDemarchesOctroiRejete,
   titreDemarchesOctroiClasse,
   titreDemarchesOctroiRetire,
-  titreDemarchesInstruction
+  titreDemarchesInstruction,
+  titrePERDemarchesProlongation
 }
