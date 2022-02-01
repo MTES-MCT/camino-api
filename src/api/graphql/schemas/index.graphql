@@ -52,6 +52,7 @@ type Query {
     domainesIds: [ID]
     statutsIds: [ID]
     substancesLegalesIds: [ID]
+    entreprisesIds: [ID]
     substances: String
     noms: String
     entreprises: String
