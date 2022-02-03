@@ -47,6 +47,7 @@ type Query {
     page: Int
     colonne: String
     ordre: String
+    ids: [ID]
     perimetre: [Float!]
     typesIds: [ID]
     domainesIds: [ID]
