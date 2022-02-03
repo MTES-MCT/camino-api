@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql'
 
-import { IToken, ITitre, ITitreColonneId } from '../../../types'
+import { ITitre, ITitreColonneId, IToken } from '../../../types'
 
 import { debug } from '../../../config/index'
 import { titreFormat, titresFormat } from '../../_format/titres'
@@ -53,6 +53,7 @@ const titres = async (
     page,
     colonne,
     ordre,
+    ids,
     perimetre,
     typesIds,
     domainesIds,
@@ -70,6 +71,7 @@ const titres = async (
     page?: number | null
     colonne?: ITitreColonneId | null
     ordre?: 'asc' | 'desc' | null
+    ids: string[]
     perimetre?: number[] | null
     typesIds: string[]
     domainesIds: string[]
@@ -97,6 +99,7 @@ const titres = async (
           page,
           colonne,
           ordre,
+          ids,
           perimetre,
           typesIds,
           domainesIds,
@@ -115,6 +118,7 @@ const titres = async (
       ),
       titresCount(
         {
+          ids,
           typesIds,
           domainesIds,
           statutsIds,

@@ -1,12 +1,12 @@
-import { Transaction, raw, RawBuilder } from 'objection'
+import { raw, RawBuilder, Transaction } from 'objection'
 
 import {
+  IColonne,
+  IFields,
+  Index,
   ITitre,
   ITitreAdministrationGestionnaire,
   ITitreColonneId,
-  IColonne,
-  Index,
-  IFields,
   IUtilisateur
 } from '../../types'
 
@@ -161,16 +161,13 @@ const titresGet = async (
 ) => {
   const q = titresQueryBuild({ fields }, user, demandeEnCours)
 
-  if (ids) {
-    q.whereIn('titres.id', ids)
-  }
-
   if (slugs) {
     q.whereIn('titres.slug', slugs)
   }
 
   titresFiltersQueryModify(
     {
+      ids,
       perimetre,
       domainesIds,
       typesIds,
@@ -243,6 +240,7 @@ const titresGet = async (
  */
 const titresCount = async (
   {
+    ids,
     domainesIds,
     typesIds,
     statutsIds,
@@ -255,6 +253,7 @@ const titresCount = async (
     territoires,
     demandeEnCours
   }: {
+    ids?: string[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -274,9 +273,9 @@ const titresCount = async (
 
   titresFiltersQueryModify(
     {
+      ids,
       domainesIds,
       typesIds,
-
       statutsIds,
       substancesLegalesIds,
       entreprisesIds,

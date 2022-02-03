@@ -21,6 +21,7 @@ const fieldFormat = (name: string, field: string) =>
 // root: nom de la table de base
 const titresFiltersQueryModify = (
   {
+    ids,
     perimetre,
     domainesIds,
     typesIds,
@@ -33,6 +34,7 @@ const titresFiltersQueryModify = (
     references,
     territoires
   }: {
+    ids?: string[] | null
     perimetre?: number[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null
@@ -52,6 +54,10 @@ const titresFiltersQueryModify = (
   name: ITitreTableName = 'titres',
   root: ITitreRootName = 'titres'
 ) => {
+  if (ids) {
+    q.whereIn('titres.id', ids)
+  }
+
   if (perimetre?.length === 4) {
     q.leftJoinRelated(jointureFormat(name, 'points'))
     q.whereRaw(
@@ -117,7 +123,7 @@ const titresFiltersQueryModify = (
         `${name}.nom`,
         nomsArray.map(n => `(?=.*?(${n}))`).join('')
       ]).orWhereRaw(`?? ~* ?`, [
-        `${name}.id`,
+        `${name}.slug`,
         nomsArray.map(n => `(?=.*?(${n}))`).join('')
       ])
     })
