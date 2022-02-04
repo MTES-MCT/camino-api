@@ -16,6 +16,12 @@ const userFormat = (utilisateur: IUtilisateur | null) => {
   ])
 
   user.sections = {
+    travaux: permissionCheck(user?.permissionId, [
+      'admin',
+      'editeur',
+      'lecteur',
+      'super'
+    ]),
     activites: hasPermissions,
     administrations: permissionCheck(user?.permissionId, [
       'super',

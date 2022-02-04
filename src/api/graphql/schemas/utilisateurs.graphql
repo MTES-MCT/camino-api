@@ -47,6 +47,7 @@ type Sections {
   utilisateurs: Boolean
   metas: Boolean
   journaux: Boolean
+  travaux: Boolean
 }
 
 input InputUtilisateurModification {
