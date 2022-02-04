@@ -2,8 +2,8 @@ import rewind from 'geojson-rewind'
 import center from '@turf/center'
 
 import { ITitrePoint, IGeometry } from '../types'
-import area from '@turf/area'
-import { Feature, FeatureCollection, Geometry } from '@turf/helpers'
+import { Feature } from '@turf/helpers'
+import { knex } from '../knex'
 
 // convertit des points
 // en un geojson de type 'MultiPolygon'
@@ -84,10 +84,14 @@ const geojsonCenter = (points: ITitrePoint[]) => {
   return center(geojson).geometry.coordinates
 }
 
-const geojsonSurface = (
-  geojson: Feature<any> | FeatureCollection<any> | Geometry
-) => {
-  return Number.parseFloat((area(geojson) / 1000000).toFixed(2))
+const geojsonSurface = async (geojson: Feature<any>) => {
+  const result: { rows: { area: number }[] } = await knex.raw(
+    `select ST_AREA(
+    ST_GeomFromGeoJSON('${JSON.stringify(geojson.geometry)}'), true) as area`
+  )
+  const area = result.rows[0].area
+
+  return Number.parseFloat((area / 1000000).toFixed(2))
 }
 
 export {
