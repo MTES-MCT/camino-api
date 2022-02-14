@@ -215,7 +215,13 @@ const titresGet = async (
       q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
     }
   } else {
-    q.orderBy('titres.nom')
+    if (noms?.length) {
+      q.orderByRaw('case when titres.nom ~* ? then 0 else 1 end, titres.nom', [
+        `^${noms}`
+      ])
+    } else {
+      q.orderBy('titres.nom')
+    }
   }
 
   if (page && intervalle) {
