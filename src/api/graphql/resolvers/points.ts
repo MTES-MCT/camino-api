@@ -230,7 +230,7 @@ const sdomZonesInformationsGet = async (
   }
   const geojsonFeatures = geojsonFeatureMultiPolygon(points as ITitrePoint[])
 
-  const surface = geojsonSurface(geojsonFeatures as Feature)
+  const surface = await geojsonSurface(geojsonFeatures as Feature)
 
   const documentTypeIds = documentTypeIdsBySdomZonesGet(
     etapeSdomZones,
