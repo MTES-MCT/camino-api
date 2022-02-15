@@ -18,9 +18,11 @@ const titreValideCheck = (
   titreTypeId: string,
   hasDemarcheDeposee = false
 ) => {
+  const demarches = titreDemarches.filter(d => !d.type!.travaux)
+
   // si le titre a une phase entre dateDebut et dateFin
   if (
-    titreDemarches.some(
+    demarches.some(
       ({ phase }) =>
         phase && dateDebut <= phase.dateFin && dateFin >= phase.dateDebut
     )
@@ -29,7 +31,7 @@ const titreValideCheck = (
 
   const newTitreDemarches = titreDemarchesEtapesRebuild(
     dateDebut,
-    titreDemarches,
+    demarches,
     titreTypeId
   )
 
