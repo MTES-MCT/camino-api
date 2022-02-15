@@ -26,7 +26,7 @@ class TitresActivites extends Model {
       utilisateurId: { type: ['string', 'null'] },
       date: { type: 'string' },
       dateSaisie: { type: ['string', 'null'] },
-      contenu: { type: 'object' },
+      contenu: { type: ['object', 'null'] },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
       periodeId: { type: 'integer' },
