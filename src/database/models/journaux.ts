@@ -20,7 +20,7 @@ class Journaux extends Model {
       elementId: { type: 'string' },
       titreId: { type: 'string' },
       operation: { enum: ['create', 'update', 'delete'] },
-      differences: { type: 'object' }
+      differences: { type: ['object', 'null'] }
     }
   }
 
