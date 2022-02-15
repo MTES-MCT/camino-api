@@ -42,7 +42,7 @@ class Titres extends Model {
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
       dateDemande: { type: ['string', 'null'] },
-      contenusTitreEtapesIds: { type: 'object' },
+      contenusTitreEtapesIds: { type: ['object', 'null'] },
       propsTitreEtapesIds: { type: 'object' },
       coordonnees: {
         type: ['object', 'null'],
