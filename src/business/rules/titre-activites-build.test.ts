@@ -112,7 +112,8 @@ describe("construction des activités d'un titre", () => {
       [
         {
           id: 'demarche-id',
-          phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' }
+          phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' },
+          type: {}
         } as unknown as ITitreDemarche
       ]
     )
@@ -127,7 +128,7 @@ describe("construction des activités d'un titre", () => {
       aujourdhui,
       'titre-id',
       'pxm',
-      [{ id: 'demarche-id', phase: {} } as unknown as ITitreDemarche]
+      [{ id: 'demarche-id', phase: {}, type: {} } as unknown as ITitreDemarche]
     )
 
     expect(titreActivites.length).toEqual(0)
@@ -205,6 +206,7 @@ describe("construction des activités d'un titre", () => {
           id: 'demarche-id',
           statutId: 'acc',
           typeId: 'oct',
+          type: {},
           phase: { dateDebut: '2018-01-01', dateFin: '2018-12-31' }
         } as unknown as ITitreDemarche
       ]
