@@ -586,9 +586,18 @@ const etapeDeposer = async (
 
     const statutIdAndDate = statutIdAndDateGet(titreEtape, user, true)
 
+    if (titreEtape.decisionsAnnexesSections) {
+      // const decisionsAnnexes = titreEtape.decisionsAnnexes
+      // TODO créer les étapes correspondants aux décisions annexes
+    }
+
     await titreEtapeUpdate(
       titreEtape.id,
-      statutIdAndDate,
+      {
+        ...statutIdAndDate,
+        decisionsAnnexesSections: null,
+        decisionsAnnexesContenu: null
+      },
       user,
       titreDemarche.titreId
     )

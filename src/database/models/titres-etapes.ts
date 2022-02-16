@@ -47,7 +47,9 @@ class TitresEtapes extends Model {
       contenu: { type: ['object', 'null'] },
       incertitudes: { type: ['object', 'null'] },
       heritageContenu: { type: ['object', 'null'] },
-      heritageProps: { type: ['object', 'null'] }
+      heritageProps: { type: ['object', 'null'] },
+      decisionsAnnexesSections: {},
+      decisionsAnnexesContenu: { type: ['object', 'null'] }
     }
   }
 

@@ -860,6 +860,8 @@ interface ITitreEtape {
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
   deposable?: boolean | null
+  decisionsAnnexesSections?: ISection[] | null
+  decisionsAnnexesContenu?: IContenu | null
 }
 
 interface ITitreEtapeFiltre {

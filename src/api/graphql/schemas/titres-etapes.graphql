@@ -90,6 +90,11 @@ type Etape {
 
   contenu: Json
 
+  "Les sections des décisions annexes nécessaires à la demande"
+  decisionsAnnexesSections: Json
+  "Le contenu des décisions annexes nécessaires à la demande"
+  decisionsAnnexesContenu: Json
+
   modification: Boolean
   suppression: Boolean
   deposable: Boolean

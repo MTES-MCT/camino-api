@@ -14,7 +14,7 @@ import {
 } from '../../../database/queries/utilisateurs'
 import { titreDemandeEntreprisesGet } from '../../../database/queries/entreprises'
 import { permissionCheck } from '../../../tools/permission'
-import { domaineGet } from '../../../database/queries/metas'
+import { domaineGet, etapeTypeGet } from '../../../database/queries/metas'
 import { titreCreate, titreGet } from '../../../database/queries/titres'
 import { titreDemarcheCreate } from '../../../database/queries/titres-demarches'
 import { titreEtapeUpsert } from '../../../database/queries/titres-etapes'
@@ -122,6 +122,42 @@ const titreDemandeCreer = async (
       titulaires: [{ id: titreDemande.entrepriseId }]
     } as ITitreEtape
 
+    if (titreDemande.typeId === 'axm') {
+      // si c’est une AXM, d’après l’arbre d’instructions il y a 2 décisions annexes
+      // - la décision du propriétaire du sol (asl)
+      // - la décision de la mission autorité environnementale (dae)
+
+      // TODO fichiers obligatoires
+      // TODO contenu
+      titreEtape.decisionsAnnexesSections = []
+
+      for (const etapeTypeId of ['asl', 'dae']) {
+        const etapeType = await etapeTypeGet(etapeTypeId, {
+          fields: { etapesStatuts: { id: {} } }
+        })
+
+        titreEtape.decisionsAnnexesSections.push({
+          id: etapeTypeId,
+          nom: etapeType!.nom,
+          elements: [
+            {
+              id: 'date',
+              nom: 'Date',
+              type: 'date'
+            },
+            {
+              id: 'statutId',
+              nom: 'Statut',
+              type: 'select',
+              valeurs: etapeType!.etapesStatuts!.map(statut => ({
+                id: statut.id,
+                nom: statut.nom
+              }))
+            }
+          ]
+        })
+      }
+    }
     titreEtape = await titreEtapeUpsert(titreEtape, user, titreId)
 
     await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId, user)
