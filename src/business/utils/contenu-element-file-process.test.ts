@@ -249,6 +249,7 @@ describe('contenuElementFileProcess', () => {
       'demarches',
       'etapeId',
       sections,
+      etape => etape.contenu,
       [{ contenu } as unknown as ITitreEtape],
       oldContenu
     )

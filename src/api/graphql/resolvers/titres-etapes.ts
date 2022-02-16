@@ -1,9 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql'
 
 import {
+  IDecisionAnnexeContenu,
+  IDocument,
   IEtapeType,
   ISDOMZone,
-  ITitreDemarche,
   ITitreEtape,
   ITitrePoint,
   IToken,
@@ -15,6 +16,7 @@ import { debug } from '../../../config/index'
 import { titreFormat } from '../../_format/titres'
 
 import {
+  titreEtapeCreate,
   titreEtapeDelete,
   titreEtapeGet,
   titreEtapeUpdate,
@@ -50,17 +52,24 @@ import {
 import {
   contenuElementFilesCreate,
   contenuElementFilesDelete,
+  contenuFilesPathGet,
   sectionsContenuAndFilesGet
 } from '../../../business/utils/contenu-element-file-process'
 import { permissionCheck } from '../../../tools/permission'
 import dateFormat from 'dateformat'
-import { documentsGet } from '../../../database/queries/documents'
+import {
+  documentCreate,
+  documentsGet
+} from '../../../database/queries/documents'
 import {
   titreEtapeAdministrationsEmailsSend,
   titreEtapeUtilisateursEmailsSend
 } from './_titre-etape-email'
 import { objectClone } from '../../../tools'
 import { geojsonFeatureMultiPolygon } from '../../../tools/geojson'
+import { idGenerate } from '../../../database/models/_format/id-create'
+import fileRename from '../../../tools/file-rename'
+import { documentFilePathFind } from '../../../tools/documents/document-path-find'
 
 const statutIdAndDateGet = (
   etape: ITitreEtape,
@@ -173,7 +182,11 @@ const etapeHeritage = async (
     })
 
     const { sections, documentsTypes, justificatifsTypes } =
-      await specifiquesGet(titreDemarche!, etapeType!)
+      await specifiquesGet(
+        titreDemarche!.titre!.typeId,
+        titreDemarche!.typeId,
+        etapeType!
+      )
 
     const titreEtape = titreEtapeHeritageBuild(
       date,
@@ -195,13 +208,14 @@ const etapeHeritage = async (
 }
 
 const specifiquesGet = async (
-  titreDemarche: ITitreDemarche,
+  titreTypeId: string,
+  titreDemarcheTypeId: string,
   etapeType: IEtapeType
 ) => {
   const tde = await titreTypeDemarcheTypeEtapeTypeGet(
     {
-      titreTypeId: titreDemarche.titre!.typeId,
-      demarcheTypeId: titreDemarche.typeId,
+      titreTypeId: titreTypeId,
+      demarcheTypeId: titreDemarcheTypeId,
       etapeTypeId: etapeType.id
     },
     { fields: { documentsTypes: { id: {} }, justificatifsTypes: { id: {} } } }
@@ -275,7 +289,11 @@ const etapeCreer = async (
     etape.date = date
 
     const { sections, documentsTypes, justificatifsTypes } =
-      await specifiquesGet(titreDemarche, etapeType)
+      await specifiquesGet(
+        titreDemarche.titre!.typeId,
+        titreDemarche.typeId,
+        etapeType
+      )
 
     const justificatifs = etape.justificatifIds?.length
       ? await documentsGet(
@@ -430,7 +448,11 @@ const etapeModifier = async (
     etape.date = date
 
     const { sections, documentsTypes, justificatifsTypes } =
-      await specifiquesGet(titreDemarche, etapeType)
+      await specifiquesGet(
+        titreDemarche.titre!.typeId,
+        titreDemarche.typeId,
+        etapeType
+      )
 
     const justificatifs = etape.justificatifIds?.length
       ? await documentsGet(
@@ -496,6 +518,23 @@ const etapeModifier = async (
     )
     etape.contenu = contenu
 
+    if (titreEtapeOld.decisionsAnnexesSections) {
+      const {
+        contenu: decisionsAnnexesContenu,
+        newFiles: decisionsAnnexesNewFiles
+      } = sectionsContenuAndFilesGet(
+        etape.decisionsAnnexesContenu,
+        titreEtapeOld.decisionsAnnexesSections
+      )
+      etape.decisionsAnnexesContenu =
+        decisionsAnnexesContenu as IDecisionAnnexeContenu
+      await contenuElementFilesCreate(
+        decisionsAnnexesNewFiles,
+        'demarches',
+        etape.id
+      )
+    }
+
     const etapeUpdated = await titreEtapeUpsert(
       etape,
       user!,
@@ -515,9 +554,21 @@ const etapeModifier = async (
       'demarches',
       etapeUpdated.id,
       sections,
+      etape => etape.contenu,
       demarche!.etapes,
       titreEtapeOld.contenu
     )
+
+    if (titreEtapeOld.decisionsAnnexesSections) {
+      await contenuElementFilesDelete(
+        'demarches',
+        etapeUpdated.id,
+        titreEtapeOld.decisionsAnnexesSections,
+        etape => etape.decisionsAnnexesContenu,
+        demarche!.etapes,
+        titreEtapeOld.decisionsAnnexesContenu
+      )
+    }
 
     await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -586,9 +637,12 @@ const etapeDeposer = async (
 
     const statutIdAndDate = statutIdAndDateGet(titreEtape, user, true)
 
-    if (titreEtape.decisionsAnnexesSections) {
-      // const decisionsAnnexes = titreEtape.decisionsAnnexes
-      // TODO créer les étapes correspondants aux décisions annexes
+    let decisionsAnnexesContenu: IDecisionAnnexeContenu | null = null
+    if (
+      titreEtape.decisionsAnnexesSections &&
+      titreEtape.decisionsAnnexesContenu
+    ) {
+      decisionsAnnexesContenu = titreEtape.decisionsAnnexesContenu
     }
 
     await titreEtapeUpdate(
@@ -608,6 +662,54 @@ const etapeDeposer = async (
       },
       user
     )
+
+    // Si il y a des décisions annexes, il faut générer une étape par décision
+    if (decisionsAnnexesContenu) {
+      for (const etapeTypeId of Object.keys(decisionsAnnexesContenu!)) {
+        const decisionContenu = decisionsAnnexesContenu![etapeTypeId]
+        let etapeDecisionAnnexe: Partial<ITitreEtape> = {
+          typeId: etapeTypeId,
+          titreDemarcheId: titreDemarche.id,
+          date: decisionContenu.date,
+          statutId: decisionContenu.statutId
+        }
+
+        etapeDecisionAnnexe = await titreEtapeCreate(
+          etapeDecisionAnnexe as ITitreEtape,
+          userSuper,
+          titreDemarche.titreId
+        )
+
+        const documentTypeIds = Object.keys(decisionContenu).filter(
+          key => !['date', 'statutId'].includes(key)
+        )
+        for (const documentTypeId of documentTypeIds) {
+          const fileName = decisionContenu[documentTypeId]
+
+          const id = idGenerate()
+          const document: IDocument = {
+            id,
+            typeId: documentTypeId,
+            date: decisionContenu.date,
+            fichier: true,
+            entreprisesLecture: true,
+            titreEtapeId: etapeDecisionAnnexe.id,
+            fichierTypeId: 'pdf'
+          }
+
+          const filePath = `${contenuFilesPathGet(
+            'demarches',
+            titreEtape.id
+          )}/${fileName}`
+
+          const newDocumentPath = await documentFilePathFind(document, true)
+
+          await fileRename(filePath, newDocumentPath)
+
+          await documentCreate(document)
+        }
+      }
+    }
 
     await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -712,5 +814,6 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeDeposer
+  etapeDeposer,
+  specifiquesGet
 }

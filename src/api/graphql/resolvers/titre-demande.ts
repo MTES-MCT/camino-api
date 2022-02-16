@@ -5,7 +5,8 @@ import {
   ITitreDemande,
   ITitre,
   ITitreDemarche,
-  ITitreEtape
+  ITitreEtape,
+  ISection
 } from '../../../types'
 import { debug } from '../../../config/index'
 import {
@@ -23,6 +24,7 @@ import titreUpdateTask from '../../../business/titre-update'
 import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import { userSuper } from '../../../database/user-super'
+import { specifiquesGet } from './titres-etapes'
 
 const titreDemandeCreer = async (
   { titreDemande }: { titreDemande: ITitreDemande },
@@ -122,21 +124,25 @@ const titreDemandeCreer = async (
       titulaires: [{ id: titreDemande.entrepriseId }]
     } as ITitreEtape
 
+    let decisionsAnnexesEtapeTypeIds: string[] = []
     if (titreDemande.typeId === 'axm') {
       // si c’est une AXM, d’après l’arbre d’instructions il y a 2 décisions annexes
       // - la décision du propriétaire du sol (asl)
       // - la décision de la mission autorité environnementale (dae)
-
-      // TODO fichiers obligatoires
-      // TODO contenu
+      decisionsAnnexesEtapeTypeIds = ['asl', 'dae']
+    }
+    if (decisionsAnnexesEtapeTypeIds.length) {
       titreEtape.decisionsAnnexesSections = []
 
-      for (const etapeTypeId of ['asl', 'dae']) {
+      for (const etapeTypeId of decisionsAnnexesEtapeTypeIds) {
         const etapeType = await etapeTypeGet(etapeTypeId, {
-          fields: { etapesStatuts: { id: {} } }
+          fields: {
+            etapesStatuts: { id: {} },
+            documentsTypes: { id: {} }
+          }
         })
 
-        titreEtape.decisionsAnnexesSections.push({
+        const decisionAnnexeSections: ISection = {
           id: etapeTypeId,
           nom: etapeType!.nom,
           elements: [
@@ -155,7 +161,25 @@ const titreDemandeCreer = async (
               }))
             }
           ]
-        })
+        }
+
+        const { documentsTypes } = await specifiquesGet(
+          titreDemande.typeId,
+          titreDemarche.typeId,
+          etapeType!
+        )
+
+        documentsTypes
+          ?.filter(dt => !dt.optionnel)
+          .forEach(dt => {
+            decisionAnnexeSections.elements!.push({
+              id: dt.id,
+              nom: dt.nom!,
+              type: 'file'
+            })
+          })
+
+        titreEtape.decisionsAnnexesSections.push(decisionAnnexeSections)
       }
     }
     titreEtape = await titreEtapeUpsert(titreEtape, user, titreId)
