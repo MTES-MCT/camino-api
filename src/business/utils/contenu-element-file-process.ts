@@ -157,6 +157,11 @@ const sectionElementFilesGet = (
   return files
 }
 
+const contenuFilesPathGet = (
+  repertoire: IDocumentRepertoire,
+  parentId: string
+) => `files/${repertoire}/${parentId}`
+
 const contenuElementFilesCreate = async (
   newFiles: FileUpload[],
   repertoire: IDocumentRepertoire,
@@ -183,6 +188,7 @@ const contenuElementFilesDelete = async (
   repertoire: IDocumentRepertoire,
   parentId: string,
   sections: ISection[],
+  contenuGet: (etape: ITitreEtape) => IContenu | null | undefined,
   etapes?: ITitreEtape[] | null,
   oldContenu?: IContenu | null
 ) => {
@@ -194,7 +200,7 @@ const contenuElementFilesDelete = async (
   // on récupère tous les fichiers actuels
   const files = etapes
     ? etapes.reduce((acc, etape) => {
-        acc.push(...contenuFilesGet(etape.contenu, sections))
+        acc.push(...contenuFilesGet(contenuGet(etape), sections))
 
         return acc
       }, [] as string[])
@@ -217,5 +223,6 @@ export {
   contenuElementFilesCreate,
   contenuElementFilesDelete,
   sectionsContenuAndFilesGet,
-  contenuFilesGet
+  contenuFilesGet,
+  contenuFilesPathGet
 }

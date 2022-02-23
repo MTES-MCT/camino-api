@@ -105,7 +105,7 @@ const titreEtapeCreate = async (
     .insertAndFetch(titreEtape)
     .withGraphFetched(options.titresEtapes.graph)
 
-  await createJournalCreate(titreEtape.id, user.id, titreId)
+  await createJournalCreate(newValue.id, user.id, titreId)
 
   return newValue
 }
