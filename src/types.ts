@@ -126,6 +126,16 @@ interface IContenuElement {
   [elementId: string]: IContenuValeur
 }
 
+interface IDecisionAnnexeContenuElement extends IContenuElement {
+  date: string
+  statutId: string
+  [elementId: string]: IContenuValeur
+}
+
+interface IDecisionAnnexeContenu {
+  [sectionId: string]: IDecisionAnnexeContenuElement
+}
+
 interface IContenu {
   [sectionId: string]: IContenuElement
 }
@@ -860,6 +870,8 @@ interface ITitreEtape {
   heritageProps?: IHeritageProps | null
   heritageContenu?: IHeritageContenu | null
   deposable?: boolean | null
+  decisionsAnnexesSections?: ISection[] | null
+  decisionsAnnexesContenu?: IDecisionAnnexeContenu | null
 }
 
 interface ITitreEtapeFiltre {
@@ -1173,5 +1185,6 @@ export {
   ICacheId,
   IActiviteTypePays,
   ITitreDemande,
-  IJournaux
+  IJournaux,
+  IDecisionAnnexeContenu
 }

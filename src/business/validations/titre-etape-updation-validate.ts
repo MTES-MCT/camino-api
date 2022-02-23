@@ -5,7 +5,8 @@ import {
   IDocumentType,
   ISection,
   IDocument,
-  ISDOMZone
+  ISDOMZone,
+  IContenu
 } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
@@ -137,44 +138,16 @@ const titreEtapeCompleteValidate = (
   const errors = [] as string[]
   // les éléments non optionnel des sections sont renseignés
   if (sections.length) {
-    sections.forEach(s =>
-      s.elements?.forEach(e => {
-        if (!e.optionnel && !['radio', 'checkbox'].includes(e.type)) {
-          if (
-            !titreEtape.contenu ||
-            titreEtape.contenu[s.id][e.id] === undefined ||
-            titreEtape.contenu[s.id][e.id] === null ||
-            titreEtape.contenu[s.id][e.id] === ''
-          ) {
-            errors.push(
-              `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-            )
-          } else if (e.type === 'multiple') {
-            const values = titreEtape!.contenu[s.id][e.id] as []
-            if (!values?.length) {
-              errors.push(
-                `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-              )
-            } else {
-              e.elements?.forEach(prop => {
-                if (!prop.optionnel) {
-                  values.forEach(v => {
-                    if (
-                      !v[prop.id] ||
-                      v[prop.id] === undefined ||
-                      v[prop.id] === null
-                    ) {
-                      errors.push(
-                        `le champ "${prop.id}" de l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
-                      )
-                    }
-                  })
-                }
-              })
-            }
-          }
-        }
-      })
+    errors.push(...contenuCompleteValidate(sections, titreEtape.contenu))
+  }
+
+  // les décisions annexes sont complètes
+  if (titreEtape.decisionsAnnexesSections) {
+    errors.push(
+      ...contenuCompleteValidate(
+        titreEtape.decisionsAnnexesSections,
+        titreEtape.decisionsAnnexesContenu
+      )
     )
   }
 
@@ -289,6 +262,55 @@ const titreEtapeUpdationBusinessValidate = (
       errors.push(error)
     }
   }
+
+  return errors
+}
+
+const contenuCompleteValidate = (
+  sections: ISection[],
+  contenu: IContenu | null | undefined
+): string[] => {
+  const errors: string[] = []
+  sections.forEach(s =>
+    s.elements?.forEach(e => {
+      if (!e.optionnel && !['radio', 'checkbox'].includes(e.type)) {
+        if (
+          !contenu ||
+          !contenu[s.id] ||
+          contenu[s.id][e.id] === undefined ||
+          contenu[s.id][e.id] === null ||
+          contenu[s.id][e.id] === ''
+        ) {
+          errors.push(
+            `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+          )
+        } else if (e.type === 'multiple') {
+          const values = contenu[s.id][e.id] as []
+          if (!values?.length) {
+            errors.push(
+              `l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+            )
+          } else {
+            e.elements?.forEach(prop => {
+              if (!prop.optionnel) {
+                values.forEach(v => {
+                  if (
+                    !v[prop.id] ||
+                    v[prop.id] === undefined ||
+                    v[prop.id] === null
+                  ) {
+                    errors.push(
+                      `le champ "${prop.id}" de l’élément "${e.nom}" de la section "${s.nom}" est obligatoire`
+                    )
+                  }
+                })
+              }
+            })
+          }
+        }
+      }
+    })
+  )
 
   return errors
 }

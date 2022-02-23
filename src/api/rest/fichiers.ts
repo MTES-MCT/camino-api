@@ -202,16 +202,22 @@ const etapeFichier = async (
 
   let etapeIdPath
 
-  // recherche dans quel élément de quelle section est stocké ce fichier, pour savoir si l’héritage est activé
-  for (const sectionId of Object.keys(etape!.contenu!)) {
-    for (const elementId of Object.keys(etape.contenu![sectionId])) {
-      etapeIdPath = etapeIdPathGet(
-        etape.id,
-        fichierNom,
-        etape.contenu![sectionId][elementId],
-        etape.heritageContenu![sectionId][elementId]
-      )
+  if (etape.contenu) {
+    // recherche dans quel élément de quelle section est stocké ce fichier, pour savoir si l’héritage est activé
+    for (const sectionId of Object.keys(etape.contenu)) {
+      for (const elementId of Object.keys(etape.contenu[sectionId])) {
+        etapeIdPath = etapeIdPathGet(
+          etape.id,
+          fichierNom,
+          etape.contenu[sectionId][elementId],
+          etape.heritageContenu![sectionId][elementId]
+        )
+      }
     }
+  }
+
+  if (!etapeIdPath && etape.decisionsAnnexesContenu) {
+    etapeIdPath = etape.id
   }
 
   if (!etapeIdPath) {
