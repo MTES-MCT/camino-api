@@ -11,6 +11,7 @@ import {
 } from '../../../types'
 
 import { emailsSend } from '../../../tools/api-mailjet/emails'
+import { titreUrlGet } from '../../../business/utils/urls-get'
 
 const elementHtmlBuild = (
   sectionId: string,
@@ -77,12 +78,14 @@ const titreActiviteEmailFormat = (
   emailTitle: string,
   user: IUtilisateur
 ) => {
+  const titreUrl = titreUrlGet(titreId)
+
   const header = `
 <h1>${emailTitle}</h1>
 
 <hr>
 
-<b>Lien</b> : ${process.env.UI_URL}/titres/${titreId} <br>
+<b>Lien</b> : ${titreUrl} <br>
 <b>Rempli par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
 <b>Date de dépôt</b> : ${dateFormat(dateSaisie, 'dd-mm-yyyy')} <br>
 
