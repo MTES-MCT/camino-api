@@ -1,8 +1,11 @@
 import { Request, Response } from 'express'
 
+const origEmails = jest.requireActual('../src/tools/api-mailjet/emails')
 jest.mock('../src/tools/api-mailjet/emails', () => ({
   __esModule: true,
-  emailsSend: jest.fn().mockImplementation(a => a)
+  ...origEmails,
+  emailsSend: jest.fn().mockImplementation(a => a),
+  emailsWithTemplateSend: jest.fn().mockImplementation(a => a)
 }))
 
 jest.mock('../src/tools/api-mailjet/newsletter', () => ({

@@ -3,12 +3,21 @@ import emailRegex from 'email-regex'
 
 import { mailjet } from './index'
 
+enum IEmail {
+  ONF = 'pole.minier@onf.fr',
+  PTMG = 'ptmg@ctguyane.fr',
+  DGTM = 'mc.remd.deal-guyane@developpement-durable.gouv.fr'
+}
 const from = {
   email: process.env.API_MAILJET_EMAIL,
   name: 'Camino - le cadastre minier'
 }
 
-const emailsSend = async (emails: string[], subject: string, html: string) => {
+const mailjetSend = async (
+  emails: string[],
+  subject: string,
+  options: Record<string, any>
+) => {
   try {
     if (!Array.isArray(emails)) {
       throw new Error(`un tableau d'emails est attendu ${emails}`)
@@ -31,9 +40,6 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
     // l'adresse email du destinataire est remplacée
     if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
       subject = `[dev] ${subject}`
-      html = `<p style="color: red">destinataire(s): ${emails.join(
-        ', '
-      )} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV}</p> ${html}`
       emails = [process.env.ADMIN_EMAIL!]
     }
 
@@ -47,10 +53,7 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
           FromName: from.name,
           Recipients: emails.map(Email => ({ Email })),
           Subject: subject,
-          'Html-part': html,
-          'Text-part': convert(html, {
-            wordwrap: 130
-          })
+          ...options
         }
       ]
     })) as {
@@ -72,4 +75,35 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
   }
 }
 
-export { emailsSend }
+const emailsSend = async (emails: string[], subject: string, html: string) => {
+  if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
+    html = `<p style="color: red">destinataire(s): ${emails.join(
+      ', '
+    )} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV}</p> ${html}`
+  }
+
+  mailjetSend(emails, subject, {
+    'Html-part': html,
+    'Text-part': convert(html, {
+      wordwrap: 130
+    })
+  })
+}
+
+enum IEmailTemplateId {
+  DEMARCHE_CONFIRMATION_DEPOT = 3413770
+}
+
+const emailsWithTemplateSend = async (
+  emails: string[],
+  subject: string,
+  templateId: IEmailTemplateId,
+  params: Record<string, string>
+) =>
+  mailjetSend(emails, subject, {
+    'Mj-TemplateID': templateId,
+    'Mj-TemplateLanguage': true,
+    Vars: params
+  })
+
+export { emailsSend, emailsWithTemplateSend, IEmailTemplateId, IEmail }
