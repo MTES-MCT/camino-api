@@ -1,3 +1,26 @@
+# [0.37.0](https://github.com/MTES-MCT/camino-api/compare/v0.36.0...v0.37.0) (2022-03-01)
+
+
+### Bug Fixes
+
+* **activites:** supprime les activités des titres échus ([#906](https://github.com/MTES-MCT/camino-api/issues/906)) ([4561bbf](https://github.com/MTES-MCT/camino-api/commit/4561bbf14573db34adb478ce9f67b102abb9cd79))
+* **modèles:** corrige les modèles qui peuvent avoir des objets null en base de données ([#905](https://github.com/MTES-MCT/camino-api/issues/905)) ([6feebde](https://github.com/MTES-MCT/camino-api/commit/6feebde4682cc9c2bb50fe1833c45dc869c7dcbe))
+
+
+### Features
+
+* **aex:** ajoute les décisions annexes aux demandes d’AEX ([#909](https://github.com/MTES-MCT/camino-api/issues/909)) ([ed28f5c](https://github.com/MTES-MCT/camino-api/commit/ed28f5c74f5aaf9ec2e47ec0790f9dab4d8e68eb))
+* **axm:** supprime l’étape « Demande d’examen au cas par cas » ([43a4ee9](https://github.com/MTES-MCT/camino-api/commit/43a4ee913e97290e83eff47e5e915774a85ba3f4))
+* **axm:** supprime l’étape obsolète « Demande d’accord du propriétaire du sol » ([644c16a](https://github.com/MTES-MCT/camino-api/commit/644c16aaa1d46f94f83e161f9465236ce9851017))
+* **axm:** supprime l’expertise de l’ONF et son cycle d’info des demande d’AXM ([c4d36ab](https://github.com/MTES-MCT/camino-api/commit/c4d36ab65c5e451f55270eaec1d96c324eff7c61))
+* **démarche:** ajoute une description optionnelle sur les démarches ([#900](https://github.com/MTES-MCT/camino-api/issues/900)) ([88e5359](https://github.com/MTES-MCT/camino-api/commit/88e53590fb8be0265d8afd0df68fa0cac82bfc87))
+* **surface:** remplace turf/area par PostGIS pour calculer la surface des titres ([#904](https://github.com/MTES-MCT/camino-api/issues/904)) ([f80c17d](https://github.com/MTES-MCT/camino-api/commit/f80c17d2d7d1543e73f294c758740b048a0b4293))
+* **titres:** modifie le tri des titres, affiche en priorité ceux qui commencent par la recherche ([aa9a5c1](https://github.com/MTES-MCT/camino-api/commit/aa9a5c163defc67f8341a7105b6a4e7481383c2c))
+* **titres:** permet de filtrer les titres par l’identifiant unique d’entreprises ([d53f0f9](https://github.com/MTES-MCT/camino-api/commit/d53f0f9a8498a15f91145bd8dc6ebfd365e0e403))
+* **titres:** permet de filtrer les titres par l’identifiant unique des substances légales ([c839ce4](https://github.com/MTES-MCT/camino-api/commit/c839ce40e0f8862d50823d999234f0ed92ddc7d7))
+* **titres:** permet de rechercher des titres à partir d’une liste d’identifiants uniques ([d04593c](https://github.com/MTES-MCT/camino-api/commit/d04593c359ab78597dc6cc595458a2de8bd9d379))
+* **travaux:** rend les travaux visibles que par les administrations ([#903](https://github.com/MTES-MCT/camino-api/issues/903)) ([524c632](https://github.com/MTES-MCT/camino-api/commit/524c632bc142795724493e0d88e3fd26757418a3))
+
 # [0.37.0](https://github.com/MTES-MCT/camino-api/compare/v0.36.0...v0.37.0) (2022-02-21)
 
 
