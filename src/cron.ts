@@ -38,7 +38,7 @@ const tasks = async () => {
 
 job(
   // cronTime
-  '00 00 04 * * 1-5',
+  '00 00 04 * * *',
   // onTick
   tasks,
   //  onComplete

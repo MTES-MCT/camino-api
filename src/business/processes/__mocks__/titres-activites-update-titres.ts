@@ -4,7 +4,8 @@ import Titres from '../../../database/models/titres'
 const titresSansActivite = [
   {
     id: 'h-cx-courdemanges-1988',
-    activites: []
+    activites: [],
+    titulaires: [{ utilisateurs: [{ email: 'email' }] }]
   }
 ] as unknown as Titres[]
 

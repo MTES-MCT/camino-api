@@ -13,11 +13,7 @@ const from = {
   name: 'Camino - le cadastre minier'
 }
 
-const mailjetSend = async (
-  emails: string[],
-  subject: string,
-  options: Record<string, any>
-) => {
+const mailjetSend = async (emails: string[], options: Record<string, any>) => {
   try {
     if (!Array.isArray(emails)) {
       throw new Error(`un tableau d'emails est attendu ${emails}`)
@@ -29,21 +25,11 @@ const mailjetSend = async (
       }
     })
 
-    // Garde-fou pas top mais efficace pour éviter d’envoyer des emails à trop de gens
-    if (emails.length > 40) {
-      throw new Error(
-        `email non envoyé car trop de destinataires pour l’email ${subject}`
-      )
-    }
-
     // si on est pas sur le serveur de prod
     // l'adresse email du destinataire est remplacée
     if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
-      subject = `[dev] ${subject}`
       emails = [process.env.ADMIN_EMAIL!]
     }
-
-    subject = `[Camino] ${subject}`
 
     const res = (await mailjet.post('send', { version: 'v3' }).request({
       SandboxMode: 'true',
@@ -52,7 +38,6 @@ const mailjetSend = async (
           FromEmail: from.email,
           FromName: from.name,
           Recipients: emails.map(Email => ({ Email })),
-          Subject: subject,
           ...options
         }
       ]
@@ -63,11 +48,9 @@ const mailjetSend = async (
     }
 
     console.info(
-      `Messages envoyés: ${emails.join(
-        ', '
-      )}, ${subject}, MessageIDs: ${res.body.Sent.map(m => m.MessageID).join(
-        ', '
-      )}`
+      `Messages envoyés: ${emails.join(', ')}, MessageIDs: ${res.body.Sent.map(
+        m => m.MessageID
+      ).join(', ')}`
     )
   } catch (e: any) {
     console.error('erreur: emailsSend', e)
@@ -82,7 +65,8 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
     )} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV}</p> ${html}`
   }
 
-  mailjetSend(emails, subject, {
+  mailjetSend(emails, {
+    Subject: `[Camino] ${subject}`,
     'Html-part': html,
     'Text-part': convert(html, {
       wordwrap: 130
@@ -91,16 +75,17 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
 }
 
 enum IEmailTemplateId {
-  DEMARCHE_CONFIRMATION_DEPOT = 3413770
+  DEMARCHE_CONFIRMATION_DEPOT = 3413770,
+  ACTIVITES_NOUVELLES = 3794302,
+  ACTIVITES_RELANCE = 3785214
 }
 
 const emailsWithTemplateSend = async (
   emails: string[],
-  subject: string,
   templateId: IEmailTemplateId,
   params: Record<string, string>
 ) =>
-  mailjetSend(emails, subject, {
+  mailjetSend(emails, {
     'Mj-TemplateID': templateId,
     'Mj-TemplateLanguage': true,
     Vars: params

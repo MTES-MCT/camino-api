@@ -11,10 +11,11 @@ import { activitesTypesGet } from '../../database/queries/metas-activites'
 import { titreActivitesBuild } from '../rules/titre-activites-build'
 
 import {
-  titresSansActivite,
   titresToutesActivites,
-  titreActivitesTypes
+  titreActivitesTypes,
+  titresSansActivite
 } from './__mocks__/titres-activites-update-titres'
+import { emailsSend } from '../../tools/api-mailjet/emails'
 
 jest.mock('../../database/queries/titres', () => ({
   titresGet: jest.fn()
@@ -44,11 +45,17 @@ jest.mock('../rules/titre-activites-build', () => ({
   titreActivitesBuild: jest.fn().mockResolvedValue(true)
 }))
 
+jest.mock('../../tools/api-mailjet/emails', () => ({
+  __esModule: true,
+  emailsSend: jest.fn().mockImplementation(a => a)
+}))
+
 const titresGetMock = mocked(titresGet, true)
 const activitesTypesGetMock = mocked(activitesTypesGet, true)
 const titreActiviteTypeCheckMock = mocked(titreActiviteTypeCheck, true)
 const anneesBuildMock = mocked(anneesBuild, true)
 const titreActivitesBuildMock = mocked(titreActivitesBuild, true)
+const emailsSendMock = mocked(emailsSend, true)
 
 console.info = jest.fn()
 
@@ -58,7 +65,9 @@ describe("activités d'un titre", () => {
     activitesTypesGetMock.mockResolvedValue(titreActivitesTypes)
     titreActiviteTypeCheckMock.mockReturnValue(true)
     anneesBuildMock.mockReturnValue([2018])
-    titreActivitesBuildMock.mockReturnValue([{}] as ITitreActivite[])
+    titreActivitesBuildMock.mockReturnValue([
+      { titreId: titresSansActivite[0].id }
+    ] as ITitreActivite[])
 
     const titresActivitesNew = await titresActivitesUpdate()
 
@@ -69,6 +78,11 @@ describe("activités d'un titre", () => {
     )
     expect(titresActivitesUpsert).toHaveBeenCalled()
     expect(titreActivitesBuild).toHaveBeenCalled()
+    expect(emailsSendMock).toHaveBeenCalledWith(
+      ['email'],
+      expect.any(String),
+      expect.any(String)
+    )
   })
 
   test('ne met pas à jour un titre possédant déjà des activités', async () => {
@@ -85,6 +99,7 @@ describe("activités d'un titre", () => {
     expect(titreActiviteTypeCheck).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).toHaveBeenCalled()
     expect(titresActivitesUpsert).not.toHaveBeenCalled()
+    expect(emailsSendMock).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {

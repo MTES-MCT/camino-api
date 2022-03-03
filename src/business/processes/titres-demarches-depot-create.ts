@@ -26,7 +26,6 @@ const emailConfirmationDepotSend = async (
 ) => {
   await emailsWithTemplateSend(
     emails,
-    'Confirmation du dépôt d’une demande',
     IEmailTemplateId.DEMARCHE_CONFIRMATION_DEPOT,
     {
       ...params,

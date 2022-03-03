@@ -21,6 +21,7 @@ import { titresSlugsUpdate } from './processes/titres-slugs-update'
 import { logsUpdate } from './_logs-update'
 import { utilisateursNewsletterUpdate } from './processes/utilisateurs-newsletter-update'
 import { userSuper } from '../database/user-super'
+import { titresActivitesRelanceSend } from './processes/titres-activites-relance-send'
 
 const daily = async () => {
   try {
@@ -55,6 +56,7 @@ const daily = async () => {
 
     const titresCoordonneesUpdated = await titresCoordonneesUpdate()
     const titresActivitesCreated = await titresActivitesUpdate()
+    const titresActivitesRelanceSent = await titresActivitesRelanceSend()
     const titresActivitesStatutIdsUpdated =
       await titresActivitesStatutIdsUpdate()
     const titresActivitesPropsUpdated = await titresActivitesPropsUpdate()
@@ -82,6 +84,7 @@ const daily = async () => {
       titresContenusEtapesIdsUpdated,
       titresCoordonneesUpdated,
       titresActivitesCreated,
+      titresActivitesRelanceSent,
       titresActivitesStatutIdsUpdated,
       titresActivitesPropsUpdated,
       titresUpdatedIndex,
