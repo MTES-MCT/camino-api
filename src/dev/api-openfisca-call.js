@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { redevanceCommunaleMinesAurifiereGet } from '../tools/api-openfisca'
 
 async function main() {

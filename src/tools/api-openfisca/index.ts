@@ -2,17 +2,47 @@ import fetch from 'node-fetch'
 
 import errorLog from '../error-log'
 
+/*
+ eslint-disable camelcase
+*/
+
 interface IOpenfiscaBody {
-  societes: {
+  articles: {
+    [titreId_substance_commune: string]: {
+      quantite_aurifere_kg?: {
+        [annee: string]: number | null
+      }
+      surface_communale?: {
+        [annee: string]: number | null
+      }
+      redevance_communale_des_mines_aurifere_kg?: {
+        [annee: string]: number | null
+      }
+      surface_totale?: {
+        [annee: string]: number | null
+      }
+    }
+  }
+  titres?: {
     [titreId: string]: {
-      // eslint-disable-next-line camelcase
-      quantite_aurifere_kg: {
-        [annee: string]: number | null
+      commune_principale_exploitation: {
+        [annee: string]: string | null
       }
-      // eslint-disable-next-line camelcase
-      redevance_communale_des_mines_aurifere_kg: {
-        [annee: string]: number | null
+      operateur: {
+        [annee: string]: string | null
       }
+      categorie: {
+        [annee: string]: string | null
+      }
+      investissement: {
+        [annee: string]: string | null
+      }
+      articles: string[]
+    }
+  }
+  communes?: {
+    [communeId: string]: {
+      articles: string[]
     }
   }
 }
@@ -78,7 +108,7 @@ const redevanceCommunaleMinesAurifiereGet = async (
         {}
       )
 
-      acc.societes[entreprise.id] = {
+      acc.articles[entreprise.id] = {
         quantite_aurifere_kg: orNetKg,
         redevance_communale_des_mines_aurifere_kg:
           redevanceCommunaleDesMinesAurifereKg
@@ -86,14 +116,14 @@ const redevanceCommunaleMinesAurifiereGet = async (
 
       return acc
     },
-    { societes: {} } as IOpenfiscaBody
+    { articles: {} } as IOpenfiscaBody
   )
 
-  const result = (await apiOpenfiscaFetch(societes))?.societes
+  const result = (await apiOpenfiscaFetch(societes))?.articles
 
   if (result) {
     return Object.keys(result).reduce((acc, societe) => {
-      acc[societe] = result[societe].redevance_communale_des_mines_aurifere_kg
+      acc[societe] = result[societe].redevance_communale_des_mines_aurifere_kg!
 
       return acc
     }, {} as { [entrepriseId: string]: { [annee: string]: number | null } })
