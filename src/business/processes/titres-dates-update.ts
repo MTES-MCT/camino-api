@@ -1,12 +1,11 @@
 import PQueue from 'p-queue'
 
-import { ITitre } from '../../types'
-
 import { titresGet, titreUpdate } from '../../database/queries/titres'
 import { titreDateFinFind } from '../rules/titre-date-fin-find'
 import { titreDateDebutFind } from '../rules/titre-date-debut-find'
 import { titreDateDemandeFind } from '../rules/titre-date-demande-find'
 import { userSuper } from '../../database/user-super'
+import { DBTitre } from '../../database/models/titres'
 
 const titresDatesUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -26,7 +25,7 @@ const titresDatesUpdate = async (titresIds?: string[]) => {
   const titresUpdated = [] as string[]
 
   titres.forEach(titre => {
-    const patch: Partial<ITitre> = {}
+    const patch: Partial<DBTitre> = {}
 
     const dateFin = titreDateFinFind(titre.demarches!)
 

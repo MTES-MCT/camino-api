@@ -23,7 +23,9 @@ const titresDemarchesQueryModify = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   user: IUtilisateur | null | undefined
 ) => {
-  q.select('titresDemarches.*').leftJoinRelated('[titre, type]')
+  q.select('titresDemarches.*')
+    .where('titresDemarches.archive', false)
+    .leftJoinRelated('[titre, type]')
 
   if (!user || !permissionCheck(user.permissionId, ['super'])) {
     q.whereExists(

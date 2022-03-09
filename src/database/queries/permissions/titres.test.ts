@@ -12,12 +12,14 @@ import { idGenerate } from '../../models/_format/id-create'
 import {
   titresArmEnDemandeQuery,
   titresConfidentielSelect,
+  titresQueryModify,
   titresTravauxCreationQuery,
   titresVisibleByEntrepriseQuery
 } from './titres'
 import AdministrationsTitresTypes from '../../models/administrations-titres-types'
 import AdministrationsTitresTypesTitresStatuts from '../../models/administrations-titres-types-titres-statuts'
 import Administrations from '../../models/administrations'
+import { userSuper } from '../../user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -337,5 +339,38 @@ describe('titresQueryModify', () => {
         expect(titre.travauxCreation ?? false).toEqual(travauxCreation)
       }
     )
+  })
+
+  describe('titresArchive', () => {
+    test('Vérifie si le statut archivé masque le titre', async () => {
+      const archivedTitreId = idGenerate()
+      const titreId = idGenerate()
+      await Titres.query().insert([
+        {
+          id: archivedTitreId,
+          nom: archivedTitreId,
+          statutId: 'val',
+          domaineId: 'm',
+          typeId: 'arm',
+          archive: true
+        },
+        {
+          id: titreId,
+          nom: titreId,
+          statutId: 'val',
+          domaineId: 'm',
+          typeId: 'arm',
+          archive: false
+        }
+      ])
+
+      const q = Titres.query()
+      titresQueryModify(q, userSuper)
+
+      const titres = await q
+
+      expect(titres).toHaveLength(1)
+      expect(titres[0].id).toBe(titreId)
+    })
   })
 })

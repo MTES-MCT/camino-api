@@ -113,7 +113,9 @@ const titresEtapesQueryModify = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user: IUtilisateur | null | undefined
 ) => {
-  q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
+  q.select('titresEtapes.*')
+    .where('titresEtapes.archive', false)
+    .leftJoinRelated('[demarche.titre, type]')
 
   q = specifiquesAdd(q)
 

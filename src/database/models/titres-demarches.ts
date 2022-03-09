@@ -6,10 +6,15 @@ import DemarchesTypes from './demarches-types'
 import DemarchesStatuts from './demarches-statuts'
 import TitresTypes from './titres-types'
 import Titres from './titres'
-import TitresEtapes from './titres-etapes'
+import TitresEtapes, { DBTitresEtapes } from './titres-etapes'
 import TitresPhases from './titres-phases'
 
-interface TitresDemarches extends ITitreDemarche {}
+interface DBTitresDemarches extends ITitreDemarche {
+  archive: boolean
+  etapes: DBTitresEtapes[]
+}
+
+interface TitresDemarches extends DBTitresDemarches {}
 
 class TitresDemarches extends Model {
   public static tableName = 'titresDemarches'
@@ -25,7 +30,8 @@ class TitresDemarches extends Model {
       typeId: { type: 'string', maxLength: 8 },
       statutId: { type: 'string', maxLength: 3 },
       ordre: { type: 'integer' },
-      description: { type: ['string', 'null'] }
+      description: { type: ['string', 'null'] },
+      archive: { type: 'boolean' }
     }
   }
 

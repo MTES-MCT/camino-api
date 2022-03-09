@@ -141,7 +141,7 @@ const titresQueryModify = (
   user: IUtilisateur | null | undefined,
   demandeEnCours?: boolean | null
 ) => {
-  q.select('titres.*')
+  q.select('titres.*').where('titres.archive', false)
 
   // si
   // - l'utilisateur n'est pas connecté

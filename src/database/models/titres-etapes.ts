@@ -22,7 +22,10 @@ import Forets from './forets'
 import SDOMZones from './sdom-zones'
 import Journaux from './journaux'
 
-interface TitresEtapes extends ITitreEtape {}
+interface DbTitresEtapes extends ITitreEtape {
+  archive: boolean
+}
+interface TitresEtapes extends DbTitresEtapes {}
 class TitresEtapes extends Model {
   public static tableName = 'titresEtapes'
 
@@ -49,7 +52,8 @@ class TitresEtapes extends Model {
       heritageContenu: { type: ['object', 'null'] },
       heritageProps: { type: ['object', 'null'] },
       decisionsAnnexesSections: {},
-      decisionsAnnexesContenu: { type: ['object', 'null'] }
+      decisionsAnnexesContenu: { type: ['object', 'null'] },
+      archive: { type: 'boolean' }
     }
   }
 

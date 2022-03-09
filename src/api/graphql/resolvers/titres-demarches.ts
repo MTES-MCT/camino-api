@@ -23,7 +23,7 @@ import {
   titresDemarchesGet,
   titreDemarcheCreate,
   titreDemarcheUpdate,
-  titreDemarcheDelete
+  titreDemarcheArchive
 } from '../../../database/queries/titres-demarches'
 
 import { titreGet } from '../../../database/queries/titres'
@@ -291,9 +291,7 @@ const demarcheSupprimer = async (
 
     if (!demarcheOld.suppression) throw new Error('droits insuffisants')
 
-    await titreDemarcheDelete(id)
-
-    await titreEtapesOrActivitesFichiersDelete('demarches', demarcheOld.etapes)
+    await titreDemarcheArchive(id)
 
     await titreDemarcheUpdateTask(null, demarcheOld.titreId)
 

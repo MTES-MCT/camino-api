@@ -30,8 +30,9 @@ describe('teste les requêtes sur les activités', () => {
       typeId: 'arm'
     })
 
+    const titreActiviteId = 'titreActiviteId'
     await TitresActivites.query().insertGraph({
-      id: 'titreActiviteId',
+      id: titreActiviteId,
       typeId: 'grx',
       titreId,
       date: '',
@@ -47,19 +48,25 @@ describe('teste les requêtes sur les activités', () => {
       gestionnaire: true
     })
 
-    const adminDGALN = {
+    const adminDGALN: IUtilisateur = {
+      permission: { id: 'admin', nom: 'admin', ordre: 1 },
       id: 'utilisateurId',
       permissionId: 'admin',
       nom: 'utilisateurNom',
       email: 'utilisateurEmail',
       motDePasse: 'utilisateurMotdepasse',
-      administrations: [{ id: 'min-mtes-dgaln-01' }]
-    } as IUtilisateur
+      administrations: [
+        { id: 'min-mtes-dgaln-01', typeId: 'min', nom: 'dgaln' }
+      ]
+    }
 
-    await titresActivitesGet(
-      { titresSubstances: 'Or' },
+    const actual = await titresActivitesGet(
+      {},
       { fields: { id: {} } },
       adminDGALN
     )
+
+    expect(actual).toHaveLength(1)
+    expect(actual[0].id).toEqual(titreActiviteId)
   })
 })

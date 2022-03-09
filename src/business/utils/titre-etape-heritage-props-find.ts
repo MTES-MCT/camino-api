@@ -8,6 +8,7 @@ import {
 } from '../../types'
 import { objectClone } from '../../tools/index'
 import { idGenerate } from '../../database/models/_format/id-create'
+import { DBTitresEtapes } from '../../database/models/titres-etapes'
 
 const titreEtapePropsIds: (keyof ITitreEtape)[] = [
   'points',
@@ -110,8 +111,8 @@ const titreEtapePropCheck = (
 }
 
 const titreEtapeHeritagePropsFind = (
-  titreEtape: ITitreEtape,
-  prevTitreEtape?: ITitreEtape | null
+  titreEtape: DBTitresEtapes,
+  prevTitreEtape?: DBTitresEtapes | null
 ) => {
   let hasChanged = false
 

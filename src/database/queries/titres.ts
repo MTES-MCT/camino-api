@@ -19,6 +19,8 @@ import Titres from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import { titresQueryModify } from './permissions/titres'
 import { titresFiltersQueryModify } from './_titres-filters'
+import TitresDemarches from '../models/titres-demarches'
+import TitresEtapes from '../models/titres-etapes'
 
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
@@ -322,8 +324,21 @@ const titreCreate = async (
 const titreUpdate = async (id: string, titre: Partial<ITitre>) =>
   Titres.query().patchAndFetchById(id, { ...titre, id })
 
-const titreDelete = async (id: string, tr?: Transaction) =>
-  Titres.query(tr).deleteById(id)
+export const titreArchive = async (id: string) => {
+  // archive le titre
+  await titreUpdate(id, { archive: true })
+
+  // archive les démarches du titre
+  await TitresDemarches.query().patch({ archive: true }).where('titreId', id)
+
+  // archive les étapes des démarches du titre
+  await TitresEtapes.query()
+    .patch({ archive: true })
+    .whereIn(
+      'titreDemarcheId',
+      TitresDemarches.query().select('id').where('titreId', id)
+    )
+}
 
 const titreUpsert = async (
   titre: ITitre,

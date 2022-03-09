@@ -18,6 +18,7 @@ import { fieldsTitreAdd } from './graph/fields-add'
 import TitresDemarches from '../models/titres-demarches'
 import { titresDemarchesQueryModify } from './permissions/titres-demarches'
 import { titresFiltersQueryModify } from './_titres-filters'
+import TitresEtapes from '../models/titres-etapes'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -374,6 +375,19 @@ const titreDemarcheUpsert = async (
     .upsertGraph(titreDemarche, options.titresDemarches.update)
     .withGraphFetched(options.titresDemarches.graph)
     .returning('*')
+
+export const titreDemarcheArchive = async (id: string) => {
+  // archive la démarche
+  await TitresDemarches.query().patch({ archive: true }).where('id', id)
+
+  // archive les étapes de la démarche
+  await TitresEtapes.query()
+    .patch({ archive: true })
+    .whereIn(
+      'titreDemarcheId',
+      TitresDemarches.query().select('id').where('id', id)
+    )
+}
 
 export {
   titresDemarchesGet,

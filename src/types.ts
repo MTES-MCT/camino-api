@@ -709,7 +709,7 @@ interface ITitre {
   communes?: ICommune[] | null
   forets?: IForet[] | null
   sdomZones?: ISDOMZone[] | null
-  demarches?: ITitreDemarche[] | null
+  demarches?: ITitreDemarche[]
   activites?: ITitreActivite[] | null
   pays?: IPays[] | null
   modification?: boolean | null
@@ -807,7 +807,7 @@ interface ITitreDemarche {
   modification?: boolean | null
   etapesCreation?: boolean | null
   suppression?: boolean | null
-  etapes?: ITitreEtape[] | null
+  etapes?: ITitreEtape[]
 }
 
 interface IDocument {
