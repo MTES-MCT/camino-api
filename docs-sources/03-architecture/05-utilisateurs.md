@@ -13,7 +13,7 @@ sudo nano /home/git/.ssh/authorized_keys
 
 # définit les permissions
 sudo chmod -R 700 /home/<user>/.ssh/
-sudo chown -R <user>:<user> /home/<user>.ssh
+sudo chown -R <user>:<user> /home/<user>/.ssh
 
 # ajoute l'utilisateur aux groupes sudo, users, docker
 sudo usermod -a -G sudo <user>
