@@ -321,7 +321,13 @@ interface IDevise {
   ordre: number
 }
 
-type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'tmp'
+export const DOCUMENTS_REPERTOIRES = [
+  'demarches',
+  'activites',
+  'entreprises',
+  'tmp'
+] as const
+type IDocumentRepertoire = typeof DOCUMENTS_REPERTOIRES[number]
 
 interface IDocumentType {
   id: string
