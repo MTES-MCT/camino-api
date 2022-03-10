@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return all the migrations 1`] = `
+Array [
+  "20180521000000_globales",
+  "20180521000001_domaines_types_statuts",
+  "20180521000002_demarches_etapes",
+  "20180521000003_unites",
+  "20180521000004_substances",
+  "20180521000005_territoires",
+  "20180521000006_calendrier",
+]
+`;

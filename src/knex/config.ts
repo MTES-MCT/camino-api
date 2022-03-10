@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { join } from 'path'
 import { knexSnakeCaseMappers } from 'objection'
+import { Knex } from 'knex'
 
 const connection = {
   host: process.env.PGHOST,
@@ -10,7 +11,8 @@ const connection = {
   password: process.env.PGPASSWORD
 }
 
-const knexConfig = {
+const knexConfig: Required<Pick<Knex.Config, 'migrations'>> &
+  Omit<Knex.Config, 'migrations'> = {
   client: 'pg',
   connection,
   migrations: {

@@ -1,11 +1,17 @@
 import '../init'
 import { knex } from '../knex'
 import chalk from 'chalk'
+import { CustomMigrationSource } from './migrationSource'
+import { knexConfig } from './config'
 
 const run = async () => {
   try {
     console.info('migrate…')
-    const [latestBatchNo, latestLog] = await knex.migrate.latest()
+    const [latestBatchNo, latestLog] = await knex.migrate.latest({
+      migrationSource: new CustomMigrationSource(
+        knexConfig.migrations.directory
+      )
+    })
     if (latestLog.length === 0) {
       console.info(chalk.cyan(`already up to date\n`))
     }

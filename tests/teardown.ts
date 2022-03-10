@@ -1,7 +1,9 @@
 import { dbManager } from './db-manager'
 
 import { knexConfig } from '../src/knex/config'
+import { Knex } from 'knex'
 
 export default async () => {
-  await dbManager.dropDb(knexConfig.connection.database)
+  const connection = knexConfig.connection as Knex.PgConnectionConfig
+  await dbManager.dropDb(connection.database)
 }
