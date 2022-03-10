@@ -1,11 +1,11 @@
-import { QueryBuilder, raw } from 'objection'
+import { QueryBuilder, raw, RawBuilder } from 'objection'
 
 import { IAdministration, IUtilisateur } from '../../../types'
 
 // import sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
@@ -136,6 +136,28 @@ export const titresConfidentielSelect = (
       .as('confidentiel')
   )
 
+export const titresModificationSelectQuery = (
+  q: QueryBuilder<Titres, Titres | Titres[]>,
+  user:
+    | Pick<IUtilisateur, 'permissionId' | 'administrations'>
+    | null
+    | undefined
+): QueryBuilder<Administrations> | RawBuilder => {
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    return raw('true')
+  } else if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
+    const administrationsIds = user?.administrations?.map(a => a.id) ?? []
+
+    return administrationsTitresQuery(administrationsIds, 'titres', {
+      isGestionnaire: true
+    })
+      .modify(administrationsTitresTypesTitresStatutsModify, 'titres', 'titres')
+      .select(raw('true'))
+  }
+
+  return raw('false')
+}
+
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   user: IUtilisateur | null | undefined,
@@ -194,8 +216,6 @@ const titresQueryModify = (
   }
 
   if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('modification'))
-    q.select(raw('true').as('suppression'))
     q.select(raw('true').as('demarchesCreation'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
@@ -203,19 +223,6 @@ const titresQueryModify = (
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
-    q.select(
-      administrationsTitresQuery(administrationsIds, 'titres', {
-        isGestionnaire: true
-      })
-        .modify(
-          administrationsTitresTypesTitresStatutsModify,
-          'titres',
-          'titres'
-        )
-        .select(raw('true'))
-        .as('modification')
-    )
-    q.select(raw('false').as('suppression'))
     q.select(
       administrationsTitresQuery(administrationsIds, 'titres', {
         isGestionnaire: true,
@@ -230,10 +237,11 @@ const titresQueryModify = (
         .as('demarchesCreation')
     )
   } else {
-    q.select(raw('false').as('modification'))
-    q.select(raw('false').as('suppression'))
     q.select(raw('false').as('demarchesCreation'))
   }
+
+  q.select(titresModificationSelectQuery(q, user).as('modification'))
+
   titresTravauxCreationQuery(q, user)
 
   if (user) {

@@ -24,12 +24,12 @@ import cryptoRandomString from 'crypto-random-string'
 import SDOMZones from './sdom-zones'
 import TitresActivites from './titres-activites'
 
-interface DbTitre extends ITitre {
+export interface DBTitre extends ITitre {
   archive: boolean
   demarches: DBTitresDemarches[]
 }
 
-interface Titres extends DbTitre {}
+interface Titres extends DBTitre {}
 
 class Titres extends Model {
   public static tableName = 'titres'

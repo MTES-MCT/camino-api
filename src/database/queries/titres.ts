@@ -15,7 +15,7 @@ import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { titresFieldsAdd } from './graph/fields-add'
 
-import Titres from '../models/titres'
+import Titres, { DBTitre } from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import { titresQueryModify } from './permissions/titres'
 import { titresFiltersQueryModify } from './_titres-filters'
@@ -60,7 +60,7 @@ const titreGet = async (
   id: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
   user: IUtilisateur | null | undefined
-): Promise<ITitre | undefined> => {
+): Promise<DBTitre | undefined> => {
   const q = titresQueryBuild({ fields }, user)
 
   q.context({ fetchHeritage })
@@ -309,9 +309,9 @@ const titresCount = async (
  *
  */
 const titreCreate = async (
-  titre: ITitre,
+  titre: Omit<ITitre, 'id'>,
   { fields }: { fields?: IFields }
-): Promise<ITitre> => {
+): Promise<DBTitre> => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
@@ -321,7 +321,7 @@ const titreCreate = async (
     .insertGraph(titre, options.titres.update)
 }
 
-const titreUpdate = async (id: string, titre: Partial<ITitre>) =>
+const titreUpdate = async (id: string, titre: Partial<DBTitre>) =>
   Titres.query().patchAndFetchById(id, { ...titre, id })
 
 export const titreArchive = async (id: string) => {
@@ -376,7 +376,6 @@ export {
   titresCount,
   titreUpdate,
   titreCreate,
-  titreDelete,
   titresAdministrationsGestionnairesCreate,
   titreAdministrationGestionnaireDelete,
   titreUpsert

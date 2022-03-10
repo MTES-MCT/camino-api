@@ -20,7 +20,7 @@ import {
   titresActivitesQueryModify,
   titresActivitesPropsQueryModify
 } from './permissions/titres-activites'
-import { permissionCheck } from '../../tools/permission'
+import { permissionCheck } from '../../business/permission'
 
 /**
  * Modifie la requête en fonction des paramètres de filtre

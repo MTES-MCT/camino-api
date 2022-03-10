@@ -2,7 +2,7 @@ import { raw, QueryBuilder } from 'objection'
 
 import { IUtilisateur } from '../../../types'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
@@ -161,12 +161,6 @@ const titresEtapesQueryModify = (
       }
     })
   }
-
-  q.select(
-    raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(
-      'suppression'
-    )
-  )
 
   q.select(titreEtapeModificationQueryBuild(user).as('modification'))
 

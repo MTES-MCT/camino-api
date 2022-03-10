@@ -119,7 +119,6 @@ type Titre {
   sdomZones: [SDOMZone]
 
   modification: Boolean
-  suppression: Boolean
   demarchesCreation: Boolean
 
   travauxCreation: Boolean

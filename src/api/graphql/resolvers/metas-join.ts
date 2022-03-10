@@ -15,7 +15,7 @@ import { debug } from '../../../config/index'
 
 import { userGet } from '../../../database/queries/utilisateurs'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import {
   titresTypesGet,

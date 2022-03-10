@@ -1,10 +1,8 @@
 import { raw, QueryBuilder } from 'objection'
 
 import { IUtilisateur } from '../../../types'
-// import { format } from 'sql-formatter'
-// import fileCreate from '../../../tools/file-create'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Titres from '../../models/titres'
 import TitresEtapes from '../../models/titres-etapes'
@@ -78,12 +76,6 @@ const titresDemarchesQueryModify = (
       }
     })
   }
-
-  q.select(
-    raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(
-      'suppression'
-    )
-  )
 
   q.modify(titreDemarcheModificationQuery, 'titresDemarches', user)
 

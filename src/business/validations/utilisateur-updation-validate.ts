@@ -2,10 +2,7 @@ import { IAdministration, IUtilisateur } from '../../types'
 
 import { userGet } from '../../database/queries/utilisateurs'
 
-import {
-  permissionAdministrationsCheck,
-  permissionCheck
-} from '../../tools/permission'
+import { permissionAdministrationsCheck, permissionCheck } from '../permission'
 
 import { diffFind } from '../../tools/index'
 

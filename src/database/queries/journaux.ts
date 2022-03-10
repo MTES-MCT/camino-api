@@ -118,7 +118,7 @@ export const patchJournalCreate = async <T extends Model>(
 }
 
 export const upsertJournalCreate = async <T extends Model>(
-  id: string,
+  id: string | undefined,
   entity: PartialModelGraph<T>,
   model: typeof Model,
   options: UpsertGraphOptions,

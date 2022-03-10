@@ -28,7 +28,7 @@ import { documentInputValidate } from '../../../business/validations/document-in
 import { documentUpdationValidate } from '../../../business/validations/document-updation-validate'
 import { entrepriseGet } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import { userSuper } from '../../../database/user-super'
 import { documentFilePathFind } from '../../../tools/documents/document-path-find'
 

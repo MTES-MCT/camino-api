@@ -3,10 +3,9 @@ import dateFormat from 'dateformat'
 import {
   IToken,
   ITitreDemande,
-  ITitre,
-  ITitreDemarche,
   ITitreEtape,
-  ISection
+  ISection,
+  ITitreEntreprise
 } from '../../../types'
 import { debug } from '../../../config/index'
 import {
@@ -14,7 +13,7 @@ import {
   utilisateurTitreCreate
 } from '../../../database/queries/utilisateurs'
 import { titreDemandeEntreprisesGet } from '../../../database/queries/entreprises'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import { domaineGet, etapeTypeGet } from '../../../database/queries/metas'
 import { titreCreate, titreGet } from '../../../database/queries/titres'
 import { titreDemarcheCreate } from '../../../database/queries/titres-demarches'
@@ -86,13 +85,14 @@ const titreDemandeCreer = async (
         throw new Error('droits insuffisants')
     }
     // insert le titre dans la base
-    let titre = await titreCreate(
+    const titre = await titreCreate(
       {
         nom: titreDemande.nom,
         typeId: titreDemande.typeId,
         domaineId: titreDemande.domaineId,
-        references: titreDemande.references
-      } as ITitre,
+        references: titreDemande.references,
+        propsTitreEtapesIds: {}
+      },
       { fields: {} }
     )
 
@@ -102,27 +102,32 @@ const titreDemandeCreer = async (
     const titreDemarche = await titreDemarcheCreate({
       titreId,
       typeId: 'oct'
-    } as ITitreDemarche)
+    })
 
     await titreDemarcheUpdateTask(titreDemarche.id, titreDemarche.titreId)
 
-    titre = (await titreGet(
+    const updatedTitre = await titreGet(
       titreId,
       { fields: { demarches: { id: {} } } },
       userSuper
-    )) as ITitre
+    )
+
+    if (!updatedTitre) {
+      throw new Error('recupération du titre nouvellement créé impossible')
+    }
 
     const date = dateFormat(new Date(), 'yyyy-mm-dd')
-    const titreDemarcheId = titre.demarches![0].id
+    const titreDemarcheId = updatedTitre.demarches![0].id
 
-    let titreEtape = {
+    const titulaire = { id: titreDemande.entrepriseId } as ITitreEntreprise
+    const titreEtape: Omit<ITitreEtape, 'id'> = {
       titreDemarcheId,
       typeId: 'mfr',
       statutId: 'aco',
       date,
       duree: titreDemande.typeId === 'arm' ? 4 : undefined,
-      titulaires: [{ id: titreDemande.entrepriseId }]
-    } as ITitreEtape
+      titulaires: [titulaire]
+    }
 
     let decisionsAnnexesEtapeTypeIds: string[] = []
     if (titreDemande.typeId === 'axm') {
@@ -182,17 +187,15 @@ const titreDemandeCreer = async (
         titreEtape.decisionsAnnexesSections.push(decisionAnnexeSections)
       }
     }
-    titreEtape = await titreEtapeUpsert(titreEtape, user, titreId)
+    const updatedTitreEtape = await titreEtapeUpsert(titreEtape, user, titreId)
 
-    await titreEtapeUpdateTask(titreEtape.id, titreEtape.titreDemarcheId, user)
+    await titreEtapeUpdateTask(
+      updatedTitreEtape.id,
+      titreEtape.titreDemarcheId,
+      user
+    )
 
-    titre = (await titreGet(
-      titreId,
-      { fields: { demarches: { etapes: { id: {} } } } },
-      userSuper
-    )) as ITitre
-
-    const titreEtapeId = titre.demarches![0].etapes![0].id
+    const titreEtapeId = updatedTitreEtape.id
 
     // on abonne l’utilisateur au titre
     await utilisateurTitreCreate({ utilisateurId: user.id, titreId })

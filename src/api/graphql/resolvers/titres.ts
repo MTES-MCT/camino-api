@@ -250,7 +250,7 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
   if (!titreOld) throw new Error("le titre n'existe pas")
 
-  if (!titreOld.suppression) throw new Error('droits insuffisants')
+  if (!titreOld.modification) throw new Error('droits insuffisants')
 
   await titreArchive(id)
 

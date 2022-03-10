@@ -11,8 +11,6 @@ import { debug } from '../../../config/index'
 
 import { fieldsBuild } from './_fields-build'
 
-import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
-
 import { titreFormat } from '../../_format/titres'
 
 import { titreDemarcheFormat } from '../../_format/titres-demarches'
@@ -289,7 +287,7 @@ const demarcheSupprimer = async (
 
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
 
-    if (!demarcheOld.suppression) throw new Error('droits insuffisants')
+    if (!demarcheOld.modification) throw new Error('droits insuffisants')
 
     await titreDemarcheArchive(id)
 

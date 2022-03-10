@@ -1,5 +1,6 @@
 import {
   IEntreprise,
+  IPermissionId,
   ITitre,
   ITitreDemarche,
   IUtilisateur
@@ -12,6 +13,7 @@ import { idGenerate } from '../../models/_format/id-create'
 import {
   titresArmEnDemandeQuery,
   titresConfidentielSelect,
+  titresModificationSelectQuery,
   titresQueryModify,
   titresTravauxCreationQuery,
   titresVisibleByEntrepriseQuery
@@ -337,6 +339,113 @@ describe('titresQueryModify', () => {
         const titre = (await q.first()) as ITitre
 
         expect(titre.travauxCreation ?? false).toEqual(travauxCreation)
+      }
+    )
+  })
+
+  describe('titresModificationSelectQuery', () => {
+    test.each`
+      permissionId | modification
+      ${'admin'}   | ${true}
+      ${'editeur'} | ${true}
+      ${'lecteur'} | ${false}
+    `(
+      'un utilisateur $permissionId d’une administration gestionnaire peut modifier un titre',
+      async ({
+        permissionId,
+        modification
+      }: {
+        permissionId: IPermissionId
+        modification: boolean
+      }) => {
+        await Titres.query().insert({
+          nom: idGenerate(),
+          statutId: 'val',
+          domaineId: 'm',
+          typeId: 'arm'
+        })
+
+        await AdministrationsTitresTypes.query().delete()
+        const administrationId = 'ope-ptmg-973-01'
+        await AdministrationsTitresTypes.query().insert({
+          administrationId: administrationId,
+          titreTypeId: 'arm',
+          gestionnaire: true
+        })
+
+        await AdministrationsTitresTypesTitresStatuts.query().delete()
+        const administration = await Administrations.query().findById(
+          administrationId
+        )
+
+        const q = Titres.query()
+        q.select(
+          titresModificationSelectQuery(q, {
+            permissionId,
+            administrations: [administration!]
+          }).as('modification')
+        )
+
+        const titre = await q.first()
+
+        expect(titre?.modification).toBe(modification)
+      }
+    )
+
+    test('une administration non gestionnaire ne peut pas modifier un titre', async () => {
+      await Titres.query().insert({
+        nom: idGenerate(),
+        statutId: 'val',
+        domaineId: 'm',
+        typeId: 'arm'
+      })
+
+      await AdministrationsTitresTypes.query().delete()
+      const administrationId = 'ope-ptmg-973-01'
+
+      await AdministrationsTitresTypesTitresStatuts.query().delete()
+      const administration = await Administrations.query().findById(
+        administrationId
+      )
+
+      const q = Titres.query()
+      q.select(
+        titresModificationSelectQuery(q, {
+          permissionId: 'admin',
+          administrations: [administration!]
+        }).as('modification')
+      )
+
+      const titre = await q.first()
+
+      expect(titre?.modification).toBeFalsy()
+    })
+
+    test.each`
+      permissionId    | modification
+      ${'super'}      | ${true}
+      ${'lecteur'}    | ${false}
+      ${'entreprise'} | ${false}
+      ${'default'}    | ${false}
+    `(
+      'Vérifie si un profil $permissionId peut modifier un titre',
+      async ({ permissionId, modification }) => {
+        await Titres.query().insert({
+          nom: idGenerate(),
+          statutId: 'val',
+          domaineId: 'm',
+          typeId: 'arm'
+        })
+        const q = Titres.query()
+        q.select(
+          titresModificationSelectQuery(q, {
+            permissionId
+          }).as('modification')
+        )
+
+        const titre = await q.first()
+
+        expect(titre?.modification).toBe(modification)
       }
     )
   })

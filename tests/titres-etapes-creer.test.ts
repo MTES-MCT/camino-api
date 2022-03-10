@@ -53,10 +53,8 @@ afterAll(async () => {
 })
 
 const demarcheCreate = async () => {
-  const titreId = 'titre-arm-id'
-  await titreCreate(
+  const titre = await titreCreate(
     {
-      id: 'titre-arm-id',
       nom: 'mon titre',
       domaineId: 'm',
       typeId: 'arm',
@@ -69,13 +67,12 @@ const demarcheCreate = async () => {
     {}
   )
 
-  await titreDemarcheCreate({
-    id: 'demarche-test-id',
-    titreId,
+  const titreDemarche = await titreDemarcheCreate({
+    titreId: titre.id,
     typeId: 'oct'
   })
 
-  return 'demarche-test-id'
+  return titreDemarche.id
 }
 
 describe('etapeCreer', () => {

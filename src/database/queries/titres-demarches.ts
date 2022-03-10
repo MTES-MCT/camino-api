@@ -15,7 +15,7 @@ import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 
-import TitresDemarches from '../models/titres-demarches'
+import TitresDemarches, { DBTitresDemarches } from '../models/titres-demarches'
 import { titresDemarchesQueryModify } from './permissions/titres-demarches'
 import { titresFiltersQueryModify } from './_titres-filters'
 import TitresEtapes from '../models/titres-etapes'
@@ -353,7 +353,9 @@ const titreDemarcheGet = async (
  * @param titreDemarche - démarche à créer
  * @returns la nouvelle démarche
  */
-const titreDemarcheCreate = async (titreDemarche: ITitreDemarche) =>
+const titreDemarcheCreate = async (
+  titreDemarche: Omit<ITitreDemarche, 'id'>
+): Promise<ITitreDemarche> =>
   TitresDemarches.query().insertAndFetch(titreDemarche)
 
 const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
@@ -364,7 +366,7 @@ const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
 
 const titreDemarcheUpdate = async (
   id: string,
-  titreDemarche: Partial<ITitreDemarche>
+  titreDemarche: Partial<DBTitresDemarches>
 ) => TitresDemarches.query().patchAndFetchById(id, { ...titreDemarche, id })
 
 const titreDemarcheUpsert = async (

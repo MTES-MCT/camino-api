@@ -9,7 +9,7 @@ import Titres from './titres'
 import TitresEtapes, { DBTitresEtapes } from './titres-etapes'
 import TitresPhases from './titres-phases'
 
-interface DBTitresDemarches extends ITitreDemarche {
+export interface DBTitresDemarches extends ITitreDemarche {
   archive: boolean
   etapes: DBTitresEtapes[]
 }
