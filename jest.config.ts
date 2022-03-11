@@ -54,11 +54,11 @@ const config: Config.InitialOptions = {
   globalTeardown: './tests/teardown.ts',
 
   // A set of global variables that need to be available in all test environments
-  // globals: {
-  //   'ts-jest': {
-  //     useESM: true
-  //   }
-  // },
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
+  },
   // extensionsToTreatAsEsm: ['.ts'],
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -81,7 +81,7 @@ const config: Config.InitialOptions = {
   // notifyMode: "always",
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest/presets/js-with-ts',
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: null,
@@ -156,11 +156,12 @@ const config: Config.InitialOptions = {
 
   // A map from regular expressions to paths to transformers
   // transform: {
-  //   '^.+\\.tsx?$': 'ts-jest'
+  //   '^.+\\.tsx?$': 'babel-jest'
   // },
+  maxWorkers: 1,
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['/node_modules/', '<rootDir>/knex/*'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/knex/*'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
