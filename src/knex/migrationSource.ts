@@ -11,8 +11,9 @@ interface MigrationFile {
 }
 // Overloads fs-migration.js into Knex
 // https://knexjs.org/#custom-migration-sources
+// Waiting for https://github.com/knex/knex/issues/4688
 export class CustomMigrationSource {
-  private migrationFolders: readonly string[]
+  private readonly migrationFolders: readonly string[]
 
   constructor(migrationFolders: undefined | string | readonly string[]) {
     if (migrationFolders === undefined) {
@@ -26,11 +27,12 @@ export class CustomMigrationSource {
   }
 
   public async getMigrations(): Promise<string[]> {
+    console.log('getMigrations')
     const files = this.migrationFolders.flatMap(folder =>
       fs.readdirSync(folder)
     )
 
-    return files
+    const strings = files
       .sort((a, b) => a.localeCompare(b))
       .filter(migration => {
         const migrationName = this.getMigrationName(migration)
@@ -41,6 +43,9 @@ export class CustomMigrationSource {
         )
       })
       .map(CustomMigrationSource.removeExtension)
+    console.log('getMigrations', strings)
+
+    return strings
   }
 
   private static removeExtension(migrationName: string): string {
@@ -70,10 +75,7 @@ export class CustomMigrationSource {
     return null
   }
 
-  public getMigration(migration: string): {
-    up: (knex: Knex) => Promise<void>
-    down: () => Promise<void>
-  } {
+  public getMigration(migration: string) {
     const migrationFile = this.findMigrationFile(migration)
     if (migrationFile === null) {
       throw new Error(`Migration ${migration} not found`)

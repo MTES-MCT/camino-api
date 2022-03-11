@@ -12,7 +12,5 @@ export default async () => {
   await dbManager.dropDb(connection.database)
   await dbManager.createDb(connection.database)
 
-  await dbManager.migrateDb()
-
   await dbManager.closeKnex()
 }

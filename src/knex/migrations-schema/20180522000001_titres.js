@@ -22,4 +22,4 @@ exports.up = knex =>
     table.specificType('coordonnees', 'POINT').index(null, 'GIST')
   })
 
-exports.down = knex => knex.schema.dropTable('titres')
+exports.down = () => ({})

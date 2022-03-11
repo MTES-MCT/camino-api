@@ -37,8 +37,4 @@ exports.up = knex => {
     })
 }
 
-exports.down = knex => {
-  return knex.schema
-    .dropTable('titresPointsReferences')
-    .dropTable('titresPoints')
-}
+exports.down = () => ({})

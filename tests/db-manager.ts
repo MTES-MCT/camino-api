@@ -11,12 +11,11 @@ knexConfig.migrations.directory = [
   join(__dirname, '../src/knex/migrations-schema')
 ]
 
-const connection = knexConfig.connection as Knex.PgConnectionConfig
 const dbManager = databaseManagerFactory({
   knex: knexConfig,
   dbManager: {
-    superUser: connection.user,
-    superPassword: connection.password,
+    superUser: knexConfig.connection.user,
+    superPassword: knexConfig.connection.password,
     populatePathPattern: join(__dirname, '../src/knex/seeds', '0[1-9]*')
   }
 })
