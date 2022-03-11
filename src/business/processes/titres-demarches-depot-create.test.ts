@@ -3,7 +3,7 @@ import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 import TitresDemarches from '../../database/models/titres-demarches'
 import { titresEtapesDepotCreate } from './titres-demarches-depot-create'
 import * as titresDemarchesDepotCreateMethods from './titres-demarches-depot-create'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 jest.mock('../../database/queries/titres-demarches', () => ({
   titreDemarcheGet: jest.fn()
