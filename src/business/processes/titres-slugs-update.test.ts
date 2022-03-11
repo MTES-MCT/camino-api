@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import Titres from '../../database/models/titres'
 import { titresSlugsUpdate } from './titres-slugs-update'

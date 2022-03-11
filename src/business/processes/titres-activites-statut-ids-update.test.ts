@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { titresActivitesStatutIdsUpdate } from './titres-activites-statut-ids-update'
 import { titresActivitesGet } from '../../database/queries/titres-activites'

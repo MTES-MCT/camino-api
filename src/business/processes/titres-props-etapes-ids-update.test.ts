@@ -1,5 +1,5 @@
 import { ITitreEtape } from '../../types'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { titresPropsEtapesIdsUpdate } from './titres-props-etapes-ids-update'
 import { titrePropTitreEtapeFind } from '../rules/titre-prop-etape-find'

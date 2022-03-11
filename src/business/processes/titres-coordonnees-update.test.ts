@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 import { titreCoordonneesFind } from '../utils/titre-coordonnees-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
