@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { titresEtapesOrdreUpdate } from './titres-etapes-ordre-update'
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'

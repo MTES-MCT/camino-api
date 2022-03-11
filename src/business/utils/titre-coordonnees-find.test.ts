@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { titreCoordonneesFind } from './titre-coordonnees-find'
 import { geojsonCenter } from '../../tools/geojson'
