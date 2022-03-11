@@ -7,6 +7,7 @@ import Titres from '../../database/models/titres'
 import { objectClone } from '../../tools'
 
 beforeAll(async () => {
+  await dbManager.migrateDb()
   await dbManager.populateDb()
 })
 

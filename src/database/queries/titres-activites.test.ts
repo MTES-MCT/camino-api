@@ -9,6 +9,7 @@ console.info = jest.fn()
 console.error = jest.fn()
 
 beforeAll(async () => {
+  await dbManager.migrateDb()
   await dbManager.populateDb()
 })
 
