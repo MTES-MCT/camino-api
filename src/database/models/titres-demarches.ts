@@ -6,12 +6,11 @@ import DemarchesTypes from './demarches-types'
 import DemarchesStatuts from './demarches-statuts'
 import TitresTypes from './titres-types'
 import Titres from './titres'
-import TitresEtapes, { DBTitresEtapes } from './titres-etapes'
+import TitresEtapes from './titres-etapes'
 import TitresPhases from './titres-phases'
 
 export interface DBTitresDemarches extends ITitreDemarche {
   archive: boolean
-  etapes: DBTitresEtapes[]
 }
 
 interface TitresDemarches extends DBTitresDemarches {}

@@ -1,6 +1,6 @@
 import { raw, QueryBuilder } from 'objection'
 
-import { IUtilisateur } from '../../../types'
+import { IPermissionId, IUtilisateur } from '../../../types'
 
 import { permissionCheck } from '../../../business/permission'
 
@@ -78,6 +78,11 @@ const titresDemarchesQueryModify = (
   }
 
   q.modify(titreDemarcheModificationQuery, 'titresDemarches', user)
+  q.select(
+    raw(`${titreDemarcheSuppressionSelectQuery(user?.permissionId)}`).as(
+      'suppression'
+    )
+  )
 
   q.select(
     titreEtapesCreationQuery('titresDemarches', user).as('etapesCreation')
@@ -121,6 +126,10 @@ const titreDemarcheModificationQuery = (
 
   q.select(modificationQuery.as('modification'))
 }
+
+export const titreDemarcheSuppressionSelectQuery = (
+  permissionId: IPermissionId | undefined
+): boolean => permissionCheck(permissionId, ['super'])
 
 const titreEtapesCreationQuery = (
   demarcheAlias: string,

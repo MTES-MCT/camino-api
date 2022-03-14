@@ -48,19 +48,27 @@ describe('teste les requêtes sur les titres', () => {
 
       await titreArchive(titre.id)
 
-      const archiveTitre = await Titres.query()
-        .findById(titre.id)
-        .withGraphFetched('demarches.etapes')
+      const archiveTitre = await Titres.query().findById(titre.id)
 
       expect(archiveTitre).not.toBeUndefined()
       expect(archiveTitre?.archive).toBe(true)
-      expect(archiveTitre?.demarches).toHaveLength(3)
 
-      for (const demarche of archiveTitre!.demarches) {
+      const archiveDemarches = await TitresDemarches.query().where(
+        'titreId',
+        archiveTitre!.id
+      )
+      expect(archiveDemarches).toHaveLength(3)
+
+      for (const demarche of archiveDemarches) {
         expect(demarche.archive).toBe(true)
-        expect(demarche.etapes).toHaveLength(3)
 
-        for (const etape of demarche.etapes) {
+        const archiveEtapes = await TitresEtapes.query().where(
+          'titreDemarcheId',
+          demarche.id
+        )
+        expect(archiveEtapes).toHaveLength(3)
+
+        for (const etape of archiveDemarches) {
           expect(etape.archive).toBe(true)
         }
       }

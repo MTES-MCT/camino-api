@@ -53,6 +53,7 @@ type Demarche {
   parents: [Demarche]
 
   modification: Boolean
+  suppression: Boolean
   etapesCreation: Boolean
 }
 

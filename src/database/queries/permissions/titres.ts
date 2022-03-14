@@ -1,6 +1,6 @@
 import { QueryBuilder, raw, RawBuilder } from 'objection'
 
-import { IAdministration, IUtilisateur } from '../../../types'
+import { IAdministration, IPermissionId, IUtilisateur } from '../../../types'
 
 // import sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
@@ -158,6 +158,10 @@ export const titresModificationSelectQuery = (
   return raw('false')
 }
 
+export const titresSuppressionSelectQuery = (
+  permissionId: IPermissionId | undefined
+): boolean => permissionCheck(permissionId, ['super'])
+
 const titresQueryModify = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   user: IUtilisateur | null | undefined,
@@ -241,6 +245,10 @@ const titresQueryModify = (
   }
 
   q.select(titresModificationSelectQuery(q, user).as('modification'))
+
+  q.select(
+    raw(`${titresSuppressionSelectQuery(user?.permissionId)}`).as('suppression')
+  )
 
   titresTravauxCreationQuery(q, user)
 

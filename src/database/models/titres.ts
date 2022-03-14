@@ -8,7 +8,7 @@ import Domaines from './domaines'
 import Entreprises from './entreprises'
 import TitresStatuts from './titres-statuts'
 import Substances from './substances'
-import TitresDemarches, { DBTitresDemarches } from './titres-demarches'
+import TitresDemarches from './titres-demarches'
 import TitresEtapes from './titres-etapes'
 import TitresPoints from './titres-points'
 import TitresReferences from './titres-references'
@@ -26,7 +26,6 @@ import TitresActivites from './titres-activites'
 
 export interface DBTitre extends ITitre {
   archive: boolean
-  demarches: DBTitresDemarches[]
 }
 
 interface Titres extends DBTitre {}

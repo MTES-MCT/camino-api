@@ -15,6 +15,7 @@ import {
   titresConfidentielSelect,
   titresModificationSelectQuery,
   titresQueryModify,
+  titresSuppressionSelectQuery,
   titresTravauxCreationQuery,
   titresVisibleByEntrepriseQuery
 } from './titres'
@@ -450,6 +451,30 @@ describe('titresQueryModify', () => {
     )
   })
 
+  describe('titresSuppressionSelectQuery', () => {
+    test.each`
+      permissionId    | suppression
+      ${'super'}      | ${true}
+      ${'admin'}      | ${false}
+      ${'editeur'}    | ${false}
+      ${'lecteur'}    | ${false}
+      ${'entreprise'} | ${false}
+      ${'default'}    | ${false}
+      ${undefined}    | ${false}
+    `(
+      'un utilisateur $permissionId peut supprimer un titre',
+      async ({
+        permissionId,
+        suppression
+      }: {
+        permissionId: IPermissionId | undefined
+        suppression: boolean
+      }) => {
+        expect(titresSuppressionSelectQuery(permissionId)).toBe(suppression)
+      }
+    )
+  })
+
   describe('titresArchive', () => {
     test('Vérifie si le statut archivé masque le titre', async () => {
       const archivedTitreId = idGenerate()
@@ -473,7 +498,7 @@ describe('titresQueryModify', () => {
         }
       ])
 
-      const q = Titres.query()
+      const q = Titres.query().whereIn('id', [archivedTitreId, titreId])
       titresQueryModify(q, userSuper)
 
       const titres = await q

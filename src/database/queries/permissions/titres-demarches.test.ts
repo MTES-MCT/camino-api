@@ -5,6 +5,8 @@ import { idGenerate } from '../../models/_format/id-create'
 import { userSuper } from '../../user-super'
 import TitresDemarches from '../../models/titres-demarches'
 import { titresDemarchesQueryModify } from './titres-demarches'
+import { IPermissionId } from '../../../types'
+import { titresSuppressionSelectQuery } from './titres'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -19,6 +21,29 @@ afterAll(async () => {
 })
 
 describe('titresDemarchesQueryModify', () => {
+  describe('titreDemarcheSuppressionSelectQuery', () => {
+    test.each`
+      permissionId    | suppression
+      ${'super'}      | ${true}
+      ${'admin'}      | ${false}
+      ${'editeur'}    | ${false}
+      ${'lecteur'}    | ${false}
+      ${'entreprise'} | ${false}
+      ${'default'}    | ${false}
+      ${undefined}    | ${false}
+    `(
+      'un utilisateur $permissionId peut supprimer un titre',
+      async ({
+        permissionId,
+        suppression
+      }: {
+        permissionId: IPermissionId | undefined
+        suppression: boolean
+      }) => {
+        expect(titresSuppressionSelectQuery(permissionId)).toBe(suppression)
+      }
+    )
+  })
   describe('titresDemarchesArchive', () => {
     test('Vérifie si le statut archivé masque la démarche du titre', async () => {
       const titreId = idGenerate()

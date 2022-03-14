@@ -287,7 +287,7 @@ const demarcheSupprimer = async (
 
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
 
-    if (!demarcheOld.modification) throw new Error('droits insuffisants')
+    if (!demarcheOld.suppression) throw new Error('droits insuffisants')
 
     await titreDemarcheArchive(id)
 

@@ -713,6 +713,7 @@ interface ITitre {
   activites?: ITitreActivite[] | null
   pays?: IPays[] | null
   modification?: boolean | null
+  suppression?: boolean | null
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   travauxCreation?: boolean | null
@@ -804,6 +805,7 @@ interface ITitreDemarche {
   publicLecture?: boolean | null
   entreprisesLecture?: boolean | null
   modification?: boolean | null
+  suppression?: boolean | null
   etapesCreation?: boolean | null
   etapes?: ITitreEtape[]
 }
