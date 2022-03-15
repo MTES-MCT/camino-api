@@ -86,6 +86,7 @@
     "@types/node": "^17.0.21",
     "@types/node-fetch": "^2.5.12",
     "@types/node-mailjet": "^3.3.8",
+    "@types/pg": "^8.6.5",
     "@types/proj4": "^2.5.2",
     "@types/shpjs": "^3.4.1",
     "@types/sql-formatter": "^2.3.0",

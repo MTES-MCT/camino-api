@@ -1,5 +1,4 @@
 import { app } from './app'
-import { knex } from '../src/knex'
 import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
 import { userAdd } from '../src/knex/user-add'
 import request from 'supertest'
@@ -9,17 +8,17 @@ import { IUtilisateur } from '../src/types'
 
 console.info = jest.fn()
 console.error = jest.fn()
-
+const knex = dbManager.getKnex()
 beforeEach(async () => {
-  await dbManager.populateDb()
+  await dbManager.populateDb(knex)
 })
 
 afterEach(async () => {
-  await dbManager.truncateDb()
+  await dbManager.truncateDb(knex)
 })
 
 afterAll(async () => {
-  dbManager.closeKnex()
+  await dbManager.closeKnex(knex)
 })
 
 describe('utilisateurModifier', () => {

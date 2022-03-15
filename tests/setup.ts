@@ -1,19 +1,10 @@
 import 'dotenv/config'
 
 import { dbManager } from './db-manager'
-import { connection } from '../src/knex/config'
 import { mailjet } from '../src/tools/api-mailjet'
 
 export default async () => {
   // https://github.com/mailjet/mailjet-apiv3-nodejs#disable-api-call
   mailjet.post('send', { version: 'v3.1', perform_api_call: false })
-  await dbManager.createDbOwnerIfNotExist()
-  // la base de donnée est définie dans packageon
-  // par les variables d'env PGDATABASE=camino_tests
-  await dbManager.dropDb(connection.database)
-  await dbManager.createDb(connection.database)
-
-  await dbManager.migrateDb()
-
-  await dbManager.closeKnex()
+  await dbManager.init()
 }
