@@ -1,4 +1,3 @@
-import { knex } from '../../../knex'
 import { dbManager } from '../../../../tests/db-manager'
 
 import { userSuper } from '../../user-super'
@@ -14,14 +13,14 @@ import { etapeTypeDocumentTypeUsedCheck } from './documents'
 
 console.info = jest.fn()
 console.error = jest.fn()
-
+const knex = dbManager.getKnex()
 beforeAll(async () => {
-  await dbManager.populateDb()
+  await dbManager.populateDb(knex)
 })
 
 afterAll(async () => {
-  await dbManager.truncateDb()
-  await dbManager.closeKnex()
+  await dbManager.truncateDb(knex)
+  await dbManager.closeKnex(knex)
 })
 
 describe('documentSupprimer', () => {

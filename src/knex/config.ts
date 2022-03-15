@@ -24,9 +24,6 @@ const knexConfig = {
     // https://github.com/knex/knex/issues/4688
     extension: 'js'
   },
-  seeds: {
-    directory: join(__dirname, './seeds')
-  },
   ...knexSnakeCaseMappers()
 }
 

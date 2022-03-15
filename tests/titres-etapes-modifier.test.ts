@@ -26,9 +26,9 @@ jest.mock('../src/tools/file-delete', () => ({
 
 console.info = jest.fn()
 console.error = jest.fn()
-
+const knex = dbManager.getKnex()
 beforeAll(async () => {
-  await dbManager.populateDb()
+  await dbManager.populateDb(knex)
 })
 
 beforeEach(async () => {
@@ -36,8 +36,8 @@ beforeEach(async () => {
 })
 
 afterAll(async () => {
-  await dbManager.truncateDb()
-  await dbManager.closeKnex()
+  await dbManager.truncateDb(knex)
+  await dbManager.closeKnex(knex)
 })
 
 async function etapeCreate() {

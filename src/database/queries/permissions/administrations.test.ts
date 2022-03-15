@@ -15,14 +15,17 @@ import options from '../_options'
 
 console.info = jest.fn()
 console.error = jest.fn()
+const knex = dbManager.getKnex()
 
 beforeAll(async () => {
-  await dbManager.populateDb()
+  console.log('BEFORE ALL')
+  await dbManager.populateDb(knex)
+  console.log('AFTER BEFORE ALL')
 })
 
 afterAll(async () => {
-  await dbManager.truncateDb()
-  await dbManager.closeKnex()
+  await dbManager.truncateDb(knex)
+  await dbManager.closeKnex(knex)
 })
 
 describe('administrationsTitresQuery', () => {
@@ -35,6 +38,7 @@ describe('administrationsTitresQuery', () => {
   `(
     "Vérifie l'écriture de la requête sur les titres dont une administration a des droits sur le type",
     async ({ gestionnaire, associee, visible }) => {
+      console.log('PLOOOOOOP')
       await Titres.query().delete()
       await AdministrationsTitresTypes.query().delete()
 

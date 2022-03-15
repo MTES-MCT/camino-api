@@ -7,17 +7,17 @@ import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
-
+const knex = dbManager.getKnex()
 beforeEach(async () => {
-  await dbManager.populateDb()
+  await dbManager.populateDb(knex)
 })
 
 afterEach(async () => {
-  await dbManager.truncateDb()
+  await dbManager.truncateDb(knex)
 })
 
 afterAll(async () => {
-  dbManager.closeKnex()
+  await dbManager.closeKnex(knex)
 })
 
 describe('demarcheCreer', () => {

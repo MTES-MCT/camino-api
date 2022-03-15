@@ -3,14 +3,14 @@ import { graphQLCall, queryImport } from './_utils/index'
 
 console.info = jest.fn()
 console.error = jest.fn()
-
+const knex = dbManager.getKnex()
 beforeAll(async () => {
-  await dbManager.populateDb()
+  await dbManager.populateDb(knex)
 })
 
 afterAll(async () => {
-  await dbManager.truncateDb()
-  await dbManager.closeKnex()
+  await dbManager.truncateDb(knex)
+  await dbManager.closeKnex(knex)
 })
 
 describe('statuts', () => {
