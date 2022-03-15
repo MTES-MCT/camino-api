@@ -1,8 +1,7 @@
-import {
-  titreEtapeDelete,
-  titresEtapesGet
-} from '../../database/queries/titres-etapes'
+import { titresEtapesGet } from '../../database/queries/titres-etapes'
 import { userSuper } from '../../database/user-super'
+import TitresEtapes from '../../database/models/titres-etapes'
+import { deleteJournalCreate } from '../../database/queries/journaux'
 
 exports.up = async knex => {
   // Supprime l’étape DSL « Demande de l’accord du propriétaire du sol »
@@ -16,7 +15,13 @@ exports.up = async knex => {
     userSuper
   )
   for (const etapeDsl of etapesDsl) {
-    await titreEtapeDelete(etapeDsl.id, userSuper, etapeDsl.demarche.titreId)
+    await deleteJournalCreate(
+      etapeDsl.id,
+      TitresEtapes,
+      userSuper.id,
+      etapeDsl.demarche.titreId
+    )
+    await TitresEtapes.query().delete().where('id', etapeDsl.id)
   }
 
   await knex('administrations__titres_types__etapes_types')
@@ -47,7 +52,13 @@ exports.up = async knex => {
     userSuper
   )
   for (const etapeQae of etapesQae) {
-    await titreEtapeDelete(etapeQae.id, userSuper, etapeQae.demarche.titreId)
+    await deleteJournalCreate(
+      etapeQae.id,
+      TitresEtapes,
+      userSuper.id,
+      etapeQae.demarche.titreId
+    )
+    await TitresEtapes.query().delete().where('id', etapeQae.id)
   }
 
   await knex('administrations__titres_types__etapes_types')

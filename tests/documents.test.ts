@@ -3,9 +3,13 @@ import { ITitreEtapeJustificatif } from '../src/types'
 import { documentCreate, documentGet } from '../src/database/queries/documents'
 import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
-import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
+import {
+  titreEtapeCreate,
+  titresEtapesJustificatifsUpsert
+} from '../src/database/queries/titres-etapes'
 import { userSuper } from '../src/database/user-super'
 import { dbManager } from './db-manager'
+import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -72,34 +76,29 @@ describe('documentSupprimer', () => {
     const entrepriseId = 'entreprise-id'
     await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
-    const titreId = 'titre-id'
-    const demarcheId = 'demarche-id'
-    const etapeId = 'etape-id'
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        domaineId: 'm',
-        id: titreId,
         nom: '',
         typeId: 'arm',
         propsTitreEtapesIds: {},
-        demarches: [
-          {
-            id: 'demarche-id',
-            titreId,
-            typeId: 'oct',
-            etapes: [
-              {
-                id: etapeId,
-                typeId: 'mfr',
-                statutId: 'fai',
-                titreDemarcheId: demarcheId,
-                date: ''
-              }
-            ]
-          }
-        ]
+        domaineId: 'm'
       },
       {}
+    )
+    const titreDemarche = await titreDemarcheCreate({
+      titreId: titre.id,
+      typeId: 'oct'
+    })
+
+    const titreEtape = await titreEtapeCreate(
+      {
+        typeId: 'mfr',
+        statutId: 'fai',
+        titreDemarcheId: titreDemarche.id,
+        date: ''
+      },
+      userSuper,
+      titre.id
     )
 
     const documentId = 'document-id'
@@ -113,7 +112,7 @@ describe('documentSupprimer', () => {
     await titresEtapesJustificatifsUpsert([
       {
         documentId,
-        titreEtapeId: etapeId
+        titreEtapeId: titreEtape.id
       } as ITitreEtapeJustificatif
     ])
 
@@ -124,7 +123,7 @@ describe('documentSupprimer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      `impossible de supprimer ce document lié à l’étape ${etapeId}`
+      `impossible de supprimer ce document lié à l’étape ${titreEtape.id}`
     )
   })
 
@@ -132,34 +131,30 @@ describe('documentSupprimer', () => {
     const entrepriseId = 'entreprise-id'
     await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
-    const titreId = 'titre-id'
-    const demarcheId = 'demarche-id'
-    const etapeId = 'etape-id'
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        domaineId: 'm',
-        id: titreId,
         nom: '',
         typeId: 'arm',
         propsTitreEtapesIds: {},
-        demarches: [
-          {
-            id: 'demarche-id',
-            titreId,
-            typeId: 'oct',
-            etapes: [
-              {
-                id: etapeId,
-                typeId: 'mfr',
-                statutId: 'aco',
-                titreDemarcheId: demarcheId,
-                date: ''
-              }
-            ]
-          }
-        ]
+        domaineId: 'm'
       },
       {}
+    )
+
+    const titreDemarche = await titreDemarcheCreate({
+      titreId: titre.id,
+      typeId: 'oct'
+    })
+
+    const titreEtape = await titreEtapeCreate(
+      {
+        typeId: 'mfr',
+        statutId: 'aco',
+        titreDemarcheId: titreDemarche.id,
+        date: ''
+      },
+      userSuper,
+      titre.id
     )
 
     const documentId = 'document-id'
@@ -168,7 +163,7 @@ describe('documentSupprimer', () => {
       typeId: 'fac',
       date: '',
       entrepriseId,
-      titreEtapeId: etapeId
+      titreEtapeId: titreEtape.id
     })
 
     const res = await graphQLCall(

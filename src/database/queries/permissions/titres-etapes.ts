@@ -2,7 +2,7 @@ import { raw, QueryBuilder } from 'objection'
 
 import { IUtilisateur } from '../../../types'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
@@ -113,7 +113,9 @@ const titresEtapesQueryModify = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user: IUtilisateur | null | undefined
 ) => {
-  q.select('titresEtapes.*').leftJoinRelated('[demarche.titre, type]')
+  q.select('titresEtapes.*')
+    .where('titresEtapes.archive', false)
+    .leftJoinRelated('[demarche.titre, type]')
 
   q = specifiquesAdd(q)
 
@@ -159,12 +161,6 @@ const titresEtapesQueryModify = (
       }
     })
   }
-
-  q.select(
-    raw(permissionCheck(user?.permissionId, ['super']) ? 'true' : 'false').as(
-      'suppression'
-    )
-  )
 
   q.select(titreEtapeModificationQueryBuild(user).as('modification'))
 

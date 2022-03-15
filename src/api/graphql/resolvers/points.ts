@@ -27,7 +27,7 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { etapeTypeGet } from '../../../database/queries/metas'
 import { titreGet, titresGet } from '../../../database/queries/titres'
 import { userSuper } from '../../../database/user-super'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import intersect from '@turf/intersect'
 
 const stream2buffer = async (stream: Stream): Promise<Buffer> => {

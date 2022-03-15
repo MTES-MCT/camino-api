@@ -61,7 +61,7 @@ import {
 
 import { userGet } from '../../../database/queries/utilisateurs'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import { fieldsBuild } from './_fields-build'
 import {
   etapeTypeFormat,

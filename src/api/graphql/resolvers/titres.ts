@@ -9,15 +9,13 @@ import { fieldsBuild } from './_fields-build'
 
 import {
   titreCreate,
-  titreDelete,
   titreGet,
   titresCount,
   titresGet,
-  titreUpsert
+  titreUpsert,
+  titreArchive
 } from '../../../database/queries/titres'
 import { userGet } from '../../../database/queries/utilisateurs'
-
-import { titreFichiersDelete } from './_titre-document'
 
 import titreUpdateTask from '../../../business/titre-update'
 
@@ -254,9 +252,7 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
   if (!titreOld.suppression) throw new Error('droits insuffisants')
 
-  await titreFichiersDelete(titreOld)
-
-  await titreDelete(id)
+  await titreArchive(id)
 
   return titreOld.slug
 }

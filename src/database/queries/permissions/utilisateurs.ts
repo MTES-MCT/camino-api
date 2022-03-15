@@ -3,7 +3,7 @@ import { raw, QueryBuilder } from 'objection'
 import { IUtilisateur } from '../../../types'
 
 import { knex } from '../../../knex'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Utilisateurs from '../../models/utilisateurs'
 import Administrations from '../../models/administrations'

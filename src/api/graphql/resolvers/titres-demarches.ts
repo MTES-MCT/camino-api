@@ -11,8 +11,6 @@ import { debug } from '../../../config/index'
 
 import { fieldsBuild } from './_fields-build'
 
-import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
-
 import { titreFormat } from '../../_format/titres'
 
 import { titreDemarcheFormat } from '../../_format/titres-demarches'
@@ -23,7 +21,7 @@ import {
   titresDemarchesGet,
   titreDemarcheCreate,
   titreDemarcheUpdate,
-  titreDemarcheDelete
+  titreDemarcheArchive
 } from '../../../database/queries/titres-demarches'
 
 import { titreGet } from '../../../database/queries/titres'
@@ -291,9 +289,7 @@ const demarcheSupprimer = async (
 
     if (!demarcheOld.suppression) throw new Error('droits insuffisants')
 
-    await titreDemarcheDelete(id)
-
-    await titreEtapesOrActivitesFichiersDelete('demarches', demarcheOld.etapes)
+    await titreDemarcheArchive(id)
 
     await titreDemarcheUpdateTask(null, demarcheOld.titreId)
 

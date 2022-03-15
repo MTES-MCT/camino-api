@@ -1,4 +1,3 @@
-import { Transaction } from 'objection'
 import {
   ITitreEtape,
   ITitreCommune,
@@ -14,7 +13,7 @@ import options from './_options'
 import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 
-import TitresEtapes from '../models/titres-etapes'
+import TitresEtapes, { DBTitresEtapes } from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
 import TitresEtapesJustificatifs from '../models/titres-etapes-justificatifs'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
@@ -22,7 +21,6 @@ import TitresForets from '../models/titres-forets'
 import { titresEtapesQueryModify } from './permissions/titres-etapes'
 import {
   createJournalCreate,
-  deleteJournalCreate,
   patchJournalCreate,
   upsertJournalCreate
 } from './journaux'
@@ -97,7 +95,7 @@ const titresEtapesGet = async (
 }
 
 const titreEtapeCreate = async (
-  titreEtape: ITitreEtape,
+  titreEtape: Omit<ITitreEtape, 'id'>,
   user: IUtilisateur,
   titreId: string
 ) => {
@@ -112,7 +110,7 @@ const titreEtapeCreate = async (
 
 const titreEtapeUpdate = async (
   id: string,
-  titreEtape: Partial<ITitreEtape>,
+  titreEtape: Partial<DBTitresEtapes>,
   user: IUtilisateur,
   titreId: string
 ) => {
@@ -125,19 +123,8 @@ const titreEtapeUpdate = async (
   )
 }
 
-const titreEtapeDelete = async (
-  id: string,
-  user: IUtilisateur,
-  titreId: string,
-  trx?: Transaction
-) => {
-  await deleteJournalCreate(id, TitresEtapes, user.id, titreId, trx)
-
-  return TitresEtapes.query(trx).delete().where('id', id)
-}
-
 const titreEtapeUpsert = async (
-  titreEtape: ITitreEtape,
+  titreEtape: Partial<Pick<ITitreEtape, 'id'>> & Omit<ITitreEtape, 'id'>,
   user: IUtilisateur,
   titreId: string
 ) =>
@@ -245,6 +232,5 @@ export {
   titresEtapesJustificatifsUpsert,
   titreEtapeJustificatifsDelete,
   titresEtapesAdministrationsCreate,
-  titreEtapeAdministrationDelete,
-  titreEtapeDelete
+  titreEtapeAdministrationDelete
 }

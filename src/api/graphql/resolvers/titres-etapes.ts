@@ -17,15 +17,12 @@ import { titreFormat } from '../../_format/titres'
 
 import {
   titreEtapeCreate,
-  titreEtapeDelete,
   titreEtapeGet,
   titreEtapeUpdate,
   titreEtapeUpsert
 } from '../../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
-
-import { fichiersRepertoireDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import {
@@ -55,7 +52,7 @@ import {
   contenuFilesPathGet,
   sectionsContenuAndFilesGet
 } from '../../../business/utils/contenu-element-file-process'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import dateFormat from 'dateformat'
 import {
   documentCreate,
@@ -757,7 +754,7 @@ const etapeSupprimer = async (
 
     if (!titreEtape) throw new Error("l'étape n'existe pas")
 
-    if (!titreEtape.suppression) throw new Error('droits insuffisants')
+    if (!titreEtape.modification) throw new Error('droits insuffisants')
 
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
@@ -789,10 +786,7 @@ const etapeSupprimer = async (
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
-
-    await titreEtapeDelete(id, user!, titreDemarche.titreId)
-
-    await fichiersRepertoireDelete(id, 'demarches')
+    await titreEtapeUpdate(id, { archive: true }, user, titreDemarche.titreId)
 
     await titreEtapeUpdateTask(null, titreEtape.titreDemarcheId, user)
 

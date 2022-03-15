@@ -1,5 +1,5 @@
 import { IUtilisateur, IUtilisateurCreation } from '../../types'
-import { permissionCheck } from '../../tools/permission'
+import { permissionCheck } from '../../business/permission'
 import { emailCheck } from '../../tools/email-check'
 
 const utilisateurEditionCheck = (

@@ -1,6 +1,6 @@
 import { IUtilisateur, IUser } from '../../types'
 
-import { permissionCheck } from '../../tools/permission'
+import { permissionCheck } from '../../business/permission'
 
 const userFormat = (utilisateur: IUtilisateur | null) => {
   if (!utilisateur) return null

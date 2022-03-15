@@ -267,12 +267,11 @@ describe('titreCreer', () => {
 describe('titreModifier', () => {
   const titreModifierQuery = queryImport('titre-modifier')
 
-  const id = 'm-ar-mon-titre-0000'
+  let id = ''
 
   beforeEach(async () => {
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        id,
         nom: 'mon titre',
         domaineId: 'm',
         typeId: 'arm',
@@ -284,6 +283,7 @@ describe('titreModifier', () => {
       },
       {}
     )
+    id = titre.id
   })
 
   test('ne peut pas modifier un titre (utilisateur anonyme)', async () => {
@@ -338,7 +338,7 @@ describe('titreModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         titreModifier: {
-          id: 'm-ar-mon-titre-0000',
+          id,
           slug: 'm-ar-mon-titre-modifie-0000',
           nom: 'mon titre modifié'
         }
@@ -347,9 +347,8 @@ describe('titreModifier', () => {
   })
 
   test("ne peut pas modifier un titre ARM échu (un utilisateur 'admin' PTMG)", async () => {
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        id: 'titre-arm-echu',
         nom: 'mon titre échu',
         domaineId: 'm',
         typeId: 'arm',
@@ -367,7 +366,7 @@ describe('titreModifier', () => {
       titreModifierQuery,
       {
         titre: {
-          id: 'titre-arm-echu',
+          id: titre.id,
           nom: 'mon titre échu modifié',
           typeId: 'arm',
           domaineId: 'm'
@@ -397,12 +396,11 @@ describe('titreModifier', () => {
 describe('titreSupprimer', () => {
   const titreSupprimerQuery = queryImport('titre-supprimer')
 
-  const id = 'titre-arm'
+  let id = ''
 
   beforeEach(async () => {
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        id,
         nom: 'mon titre',
         domaineId: 'm',
         typeId: 'arm',
@@ -410,6 +408,7 @@ describe('titreSupprimer', () => {
       },
       {}
     )
+    id = titre.id
   })
 
   test('ne peut pas supprimer un titre (utilisateur anonyme)', async () => {

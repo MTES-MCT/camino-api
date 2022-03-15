@@ -4,7 +4,7 @@ import { IUtilisateur } from '../../../types'
 
 import { knex } from '../../../knex'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Entreprises from '../../models/entreprises'
 import Utilisateurs from '../../models/utilisateurs'

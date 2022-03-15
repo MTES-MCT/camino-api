@@ -1,5 +1,5 @@
 import { ITitre, IUtilisateur } from '../../types'
-import { permissionCheck } from '../../tools/permission'
+import { permissionCheck } from '../permission'
 
 const titreUpdationValidate = async (
   titreNew: ITitre,

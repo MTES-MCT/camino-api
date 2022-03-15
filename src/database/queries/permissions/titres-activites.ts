@@ -6,7 +6,7 @@ import { knex } from '../../../knex'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Titres from '../../models/titres'
 import Documents from '../../models/documents'
