@@ -18,9 +18,7 @@ console.error = jest.fn()
 const knex = dbManager.getKnex()
 
 beforeAll(async () => {
-  console.log('BEFORE ALL')
   await dbManager.populateDb(knex)
-  console.log('AFTER BEFORE ALL')
 })
 
 afterAll(async () => {
@@ -38,7 +36,6 @@ describe('administrationsTitresQuery', () => {
   `(
     "Vérifie l'écriture de la requête sur les titres dont une administration a des droits sur le type",
     async ({ gestionnaire, associee, visible }) => {
-      console.log('PLOOOOOOP')
       await Titres.query().delete()
       await AdministrationsTitresTypes.query().delete()
 

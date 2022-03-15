@@ -17,8 +17,16 @@ class DbManager {
     process.env.DB_NAME = this.dbName
   }
 
+  private static getPgUser() {
+    return process.env.PGUSER ?? 'postgres'
+  }
+
+  private static getPgPassword() {
+    return process.env.PGPASSWORD ?? 'password'
+  }
+
   public async init(): Promise<void> {
-    const globalConnection = 'postgres://postgres:password@localhost/postgres'
+    const globalConnection = `postgres://${DbManager.getPgUser()}:${DbManager.getPgPassword()}@localhost/postgres`
     const globalClient = new Client(globalConnection)
     await globalClient.connect()
     const queryResult = await globalClient.query(
@@ -42,8 +50,8 @@ class DbManager {
         host: 'localhost',
         port: 5432,
         database: this.dbName,
-        user: 'postgres',
-        password: 'password'
+        user: DbManager.getPgUser(),
+        password: DbManager.getPgPassword()
       },
       migrations: {
         directory: [join(__dirname, '../src/knex/migrations-schema')]
@@ -68,7 +76,7 @@ class DbManager {
   }
 
   public async closeKnex(knex: Knex<any, unknown[]>): Promise<void> {
-    knex.destroy()
+    await knex.destroy()
   }
 
   public setGlobally(knex: Knex<any, unknown[]>): void {
