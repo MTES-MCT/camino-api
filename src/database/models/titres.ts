@@ -24,7 +24,11 @@ import cryptoRandomString from 'crypto-random-string'
 import SDOMZones from './sdom-zones'
 import TitresActivites from './titres-activites'
 
-interface Titres extends ITitre {}
+export interface DBTitre extends ITitre {
+  archive: boolean
+}
+
+interface Titres extends DBTitre {}
 
 class Titres extends Model {
   public static tableName = 'titres'
@@ -48,7 +52,8 @@ class Titres extends Model {
         type: ['object', 'null'],
         properties: { x: { type: 'number' }, y: { type: 'number' } }
       },
-      doublonTitreId: { type: ['string', 'null'] }
+      doublonTitreId: { type: ['string', 'null'] },
+      archive: { type: 'boolean' }
     }
   }
 

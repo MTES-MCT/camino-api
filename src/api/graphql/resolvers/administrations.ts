@@ -33,7 +33,7 @@ import administrationUpdateTask from '../../../business/administration-update'
 import { fieldsBuild } from './_fields-build'
 
 import { administrationFormat } from '../../_format/administrations'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import { emailCheck } from '../../../tools/email-check'
 import { userGet } from '../../../database/queries/utilisateurs'
 

@@ -27,7 +27,7 @@ import {
   activitesTypesPaysGet,
   activiteTypePaysDelete
 } from '../../../database/queries/metas-activites'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 import { ordreUpdate } from './_ordre-update'
 
 const activitesTypes = async (

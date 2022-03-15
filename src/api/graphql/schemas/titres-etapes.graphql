@@ -96,7 +96,6 @@ type Etape {
   decisionsAnnexesContenu: Json
 
   modification: Boolean
-  suppression: Boolean
   deposable: Boolean
 }
 

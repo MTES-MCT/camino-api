@@ -41,10 +41,8 @@ afterAll(async () => {
 })
 
 async function etapeCreate() {
-  const titreId = 'titre-arm-id'
-  await titreCreate(
+  const titre = await titreCreate(
     {
-      id: 'titre-arm-id',
       nom: 'mon titre',
       domaineId: 'm',
       typeId: 'arm',
@@ -56,27 +54,23 @@ async function etapeCreate() {
     },
     {}
   )
-  const titreDemarcheId = 'demarche-test-id'
-  await titreDemarcheCreate({
-    id: titreDemarcheId,
-    titreId,
+  const titreDemarche = await titreDemarcheCreate({
+    titreId: titre.id,
     typeId: 'oct'
   })
 
-  const titreEtapeId = 'etape-test-id'
-  await titreEtapeCreate(
+  const titreEtape = await titreEtapeCreate(
     {
-      id: titreEtapeId,
       typeId: 'mfr',
       statutId: 'fai',
-      titreDemarcheId,
+      titreDemarcheId: titreDemarche.id,
       date: '2018-01-01'
     },
     userSuper,
-    titreId
+    titre.id
   )
 
-  return { titreDemarcheId, titreEtapeId }
+  return { titreDemarcheId: titreDemarche.id, titreEtapeId: titreEtape.id }
 }
 
 describe('etapeModifier', () => {

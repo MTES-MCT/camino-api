@@ -15,7 +15,12 @@ import {
 import { entrepriseUpsert } from '../src/database/queries/entreprises'
 import { titreCreate } from '../src/database/queries/titres'
 import { documentCreate } from '../src/database/queries/documents'
-import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
+import {
+  titreEtapeCreate,
+  titresEtapesJustificatifsUpsert
+} from '../src/database/queries/titres-etapes'
+import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
+import { userSuper } from '../src/database/user-super'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -235,34 +240,29 @@ describe('entreprise', () => {
     const entrepriseId = 'entreprise-id'
     await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
-    const titreId = 'titre-id'
-    const demarcheId = 'demarche-id'
-    const etapeId = 'etape-id'
-    await titreCreate(
+    const titre = await titreCreate(
       {
         domaineId: 'm',
-        id: titreId,
         nom: '',
         typeId: 'arm',
-        propsTitreEtapesIds: {},
-        demarches: [
-          {
-            id: 'demarche-id',
-            titreId,
-            typeId: 'oct',
-            etapes: [
-              {
-                id: etapeId,
-                typeId: 'mfr',
-                statutId: 'fai',
-                titreDemarcheId: demarcheId,
-                date: ''
-              }
-            ]
-          }
-        ]
+        propsTitreEtapesIds: {}
       },
       {}
+    )
+
+    const titreDemarche = await titreDemarcheCreate({
+      titreId: titre.id,
+      typeId: 'oct'
+    })
+    const titreEtape = await titreEtapeCreate(
+      {
+        typeId: 'mfr',
+        statutId: 'fai',
+        titreDemarcheId: titreDemarche.id,
+        date: ''
+      },
+      userSuper,
+      titre.id
     )
 
     const documentId = 'document-id'
@@ -274,7 +274,7 @@ describe('entreprise', () => {
     })
 
     await titresEtapesJustificatifsUpsert([
-      { documentId, titreEtapeId: etapeId } as ITitreEtapeJustificatif
+      { documentId, titreEtapeId: titreEtape.id } as ITitreEtapeJustificatif
     ])
 
     const res = await graphQLCall(

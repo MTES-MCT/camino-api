@@ -1,11 +1,11 @@
 import { IUtilisateur, IPermissionId } from '../types'
 
-const permissionCheck = (
+export const permissionCheck = (
   permissionId: IPermissionId | null | undefined,
   permissions: IPermissionId[]
 ) => !!(permissionId && permissions.includes(permissionId))
 
-const permissionAdministrationsCheck = (
+export const permissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
   administrationsIds: string[]
 ) =>
@@ -16,5 +16,3 @@ const permissionAdministrationsCheck = (
     administrationsIds.length &&
     user.administrations.some(ua => administrationsIds.includes(ua.id))
   )
-
-export { permissionCheck, permissionAdministrationsCheck }

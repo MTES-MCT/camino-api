@@ -15,10 +15,12 @@ import graphBuild from './graph/build'
 import { fieldsFormat } from './graph/fields-format'
 import { titresFieldsAdd } from './graph/fields-add'
 
-import Titres from '../models/titres'
+import Titres, { DBTitre } from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import { titresQueryModify } from './permissions/titres'
 import { titresFiltersQueryModify } from './_titres-filters'
+import TitresDemarches from '../models/titres-demarches'
+import TitresEtapes from '../models/titres-etapes'
 
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
@@ -58,7 +60,7 @@ const titreGet = async (
   id: string,
   { fields, fetchHeritage }: { fields?: IFields; fetchHeritage?: boolean },
   user: IUtilisateur | null | undefined
-): Promise<ITitre | undefined> => {
+): Promise<DBTitre | undefined> => {
   const q = titresQueryBuild({ fields }, user)
 
   q.context({ fetchHeritage })
@@ -307,9 +309,9 @@ const titresCount = async (
  *
  */
 const titreCreate = async (
-  titre: ITitre,
+  titre: Omit<ITitre, 'id'>,
   { fields }: { fields?: IFields }
-): Promise<ITitre> => {
+): Promise<DBTitre> => {
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', fieldsFormat)
     : options.titres.graph
@@ -319,11 +321,24 @@ const titreCreate = async (
     .insertGraph(titre, options.titres.update)
 }
 
-const titreUpdate = async (id: string, titre: Partial<ITitre>) =>
+const titreUpdate = async (id: string, titre: Partial<DBTitre>) =>
   Titres.query().patchAndFetchById(id, { ...titre, id })
 
-const titreDelete = async (id: string, tr?: Transaction) =>
-  Titres.query(tr).deleteById(id)
+export const titreArchive = async (id: string) => {
+  // archive le titre
+  await titreUpdate(id, { archive: true })
+
+  // archive les démarches du titre
+  await TitresDemarches.query().patch({ archive: true }).where('titreId', id)
+
+  // archive les étapes des démarches du titre
+  await TitresEtapes.query()
+    .patch({ archive: true })
+    .whereIn(
+      'titreDemarcheId',
+      TitresDemarches.query().select('id').where('titreId', id)
+    )
+}
 
 const titreUpsert = async (
   titre: ITitre,
@@ -361,7 +376,6 @@ export {
   titresCount,
   titreUpdate,
   titreCreate,
-  titreDelete,
   titresAdministrationsGestionnairesCreate,
   titreAdministrationGestionnaireDelete,
   titreUpsert

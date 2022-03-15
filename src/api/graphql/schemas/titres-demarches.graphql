@@ -53,8 +53,8 @@ type Demarche {
   parents: [Demarche]
 
   modification: Boolean
-  etapesCreation: Boolean
   suppression: Boolean
+  etapesCreation: Boolean
 }
 
 "Phase d'un titre minier"

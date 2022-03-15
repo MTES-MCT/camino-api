@@ -15,9 +15,10 @@ import { fieldsFormat } from './graph/fields-format'
 import graphBuild from './graph/build'
 import { fieldsTitreAdd } from './graph/fields-add'
 
-import TitresDemarches from '../models/titres-demarches'
+import TitresDemarches, { DBTitresDemarches } from '../models/titres-demarches'
 import { titresDemarchesQueryModify } from './permissions/titres-demarches'
 import { titresFiltersQueryModify } from './_titres-filters'
+import TitresEtapes from '../models/titres-etapes'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -352,7 +353,9 @@ const titreDemarcheGet = async (
  * @param titreDemarche - démarche à créer
  * @returns la nouvelle démarche
  */
-const titreDemarcheCreate = async (titreDemarche: ITitreDemarche) =>
+const titreDemarcheCreate = async (
+  titreDemarche: Omit<ITitreDemarche, 'id'>
+): Promise<ITitreDemarche> =>
   TitresDemarches.query().insertAndFetch(titreDemarche)
 
 const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
@@ -363,7 +366,7 @@ const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
 
 const titreDemarcheUpdate = async (
   id: string,
-  titreDemarche: Partial<ITitreDemarche>
+  titreDemarche: Partial<DBTitresDemarches>
 ) => TitresDemarches.query().patchAndFetchById(id, { ...titreDemarche, id })
 
 const titreDemarcheUpsert = async (
@@ -374,6 +377,19 @@ const titreDemarcheUpsert = async (
     .upsertGraph(titreDemarche, options.titresDemarches.update)
     .withGraphFetched(options.titresDemarches.graph)
     .returning('*')
+
+export const titreDemarcheArchive = async (id: string) => {
+  // archive la démarche
+  await TitresDemarches.query().patch({ archive: true }).where('id', id)
+
+  // archive les étapes de la démarche
+  await TitresEtapes.query()
+    .patch({ archive: true })
+    .whereIn(
+      'titreDemarcheId',
+      TitresDemarches.query().select('id').where('id', id)
+    )
+}
 
 export {
   titresDemarchesGet,

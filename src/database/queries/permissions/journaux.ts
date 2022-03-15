@@ -2,7 +2,7 @@ import { QueryBuilder } from 'objection'
 
 import { IUtilisateur } from '../../../types'
 
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 import Journaux from '../../models/journaux'
 import { utilisateursQueryModify } from './utilisateurs'

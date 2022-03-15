@@ -24,7 +24,7 @@ import { entrepriseFormat } from '../../_format/entreprises'
 import { emailCheck } from '../../../tools/email-check'
 import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
 import { userGet } from '../../../database/queries/utilisateurs'
-import { permissionCheck } from '../../../tools/permission'
+import { permissionCheck } from '../../../business/permission'
 
 const entreprise = async (
   { id }: { id: string },

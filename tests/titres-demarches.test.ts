@@ -24,9 +24,8 @@ describe('demarcheCreer', () => {
   const demarcheCreerQuery = queryImport('titre-demarche-creer')
 
   test('ne peut pas créer une démarche (utilisateur anonyme)', async () => {
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        id: 'titre-id',
         nom: 'mon titre',
         domaineId: 'm',
         typeId: 'arm',
@@ -37,16 +36,15 @@ describe('demarcheCreer', () => {
     )
 
     const res = await graphQLCall(demarcheCreerQuery, {
-      demarche: { titreId: 'titre-id', typeId: 'dpu' }
+      demarche: { titreId: titre.id, typeId: 'dpu' }
     })
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
   })
 
   test('ne peut pas créer une démarche (utilisateur editeur)', async () => {
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        id: 'titre-id',
         nom: 'mon titre',
         domaineId: 'm',
         typeId: 'arm',
@@ -58,7 +56,7 @@ describe('demarcheCreer', () => {
 
     const res = await graphQLCall(
       demarcheCreerQuery,
-      { demarche: { titreId: 'titre-id', typeId: 'dpu' } },
+      { demarche: { titreId: titre.id, typeId: 'dpu' } },
       'editeur'
     )
 
@@ -115,9 +113,8 @@ describe('demarcheCreer', () => {
   })
 
   test("ne peut pas créer une démarche sur un titre ARM échu (un utilisateur 'admin' PTMG)", async () => {
-    await titreCreate(
+    const titre = await titreCreate(
       {
-        id: 'titre-arm-echu',
         nom: 'mon titre échu',
         domaineId: 'm',
         typeId: 'arm',
@@ -130,7 +127,7 @@ describe('demarcheCreer', () => {
 
     const res = await graphQLCall(
       demarcheCreerQuery,
-      { demarche: { titreId: 'titre-arm-echu', typeId: 'oct' } },
+      { demarche: { titreId: titre.id, typeId: 'oct' } },
       'admin',
       administrations.ptmg.id
     )
@@ -302,11 +299,8 @@ describe('demarcheSupprimer', () => {
 })
 
 const demarcheCreate = async () => {
-  const titreId = 'titre-arm-id'
-
-  await titreCreate(
+  const titre = await titreCreate(
     {
-      id: titreId,
       nom: 'mon titre',
       domaineId: 'm',
       typeId: 'arm',
@@ -321,7 +315,7 @@ const demarcheCreate = async () => {
 
   const resDemarchesCreer = await graphQLCall(
     queryImport('titre-demarche-creer'),
-    { demarche: { titreId, typeId: 'oct' } },
+    { demarche: { titreId: titre.id, typeId: 'oct' } },
     'super'
   )
 
