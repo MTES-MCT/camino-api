@@ -1,4 +1,4 @@
-import { raw, QueryBuilder } from 'objection'
+import { raw, QueryBuilder, RawBuilder } from 'objection'
 
 import { IPermissionId, IUtilisateur } from '../../../types'
 
@@ -77,11 +77,12 @@ const titresDemarchesQueryModify = (
     })
   }
 
-  q.modify(titreDemarcheModificationQuery, 'titresDemarches', user)
+  q.modify(titreDemarcheModificationSelectQuery, 'titresDemarches', user)
   q.select(
-    raw(`${titreDemarcheSuppressionSelectQuery(user?.permissionId)}`).as(
-      'suppression'
-    )
+    titreDemarcheSuppressionSelectQuery(
+      'titresDemarches',
+      user?.permissionId
+    ).as('suppression')
   )
 
   q.select(
@@ -104,7 +105,7 @@ const titresDemarchesQueryModify = (
   return q
 }
 
-const titreDemarcheModificationQuery = (
+const titreDemarcheModificationSelectQuery = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   demarcheAlias: string,
   user: IUtilisateur | null | undefined
@@ -128,8 +129,28 @@ const titreDemarcheModificationQuery = (
 }
 
 export const titreDemarcheSuppressionSelectQuery = (
-  permissionId: IPermissionId | undefined
-): boolean => permissionCheck(permissionId, ['super'])
+  demarcheAlias: string,
+  permissionId: IPermissionId | null | undefined
+): RawBuilder => {
+  if (permissionCheck(permissionId, ['super'])) {
+    return raw('true')
+  }
+
+  if (permissionCheck(permissionId, ['admin', 'editeur'])) {
+    return raw('NOT EXISTS(??)', [
+      TitresEtapes.query()
+        .alias('titresEtapesSuppression')
+        .select('titresEtapesSuppression.id')
+        .whereRaw('?? = ??', [
+          `${demarcheAlias}.id`,
+          'titresEtapesSuppression.titreDemarcheId'
+        ])
+        .first()
+    ])
+  }
+
+  return raw('false')
+}
 
 const titreEtapesCreationQuery = (
   demarcheAlias: string,
