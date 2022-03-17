@@ -1,6 +1,6 @@
 {
   "name": "camino-api",
-  "version": "0.37.0",
+  "version": "0.38.0",
   "description": "Camino api",
   "license": "AGPL-3.0-or-later",
   "private": true,

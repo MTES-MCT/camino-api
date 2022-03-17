@@ -1,3 +1,17 @@
+# [0.38.0](https://github.com/MTES-MCT/camino-api/compare/v0.37.0...v0.38.0) (2022-03-17)
+
+
+### Bug Fixes
+
+* **fichiers:** ajoute automatiquement les dossiers utilisés pour stocker les fichiers ([#913](https://github.com/MTES-MCT/camino-api/issues/913)) ([8397a39](https://github.com/MTES-MCT/camino-api/commit/8397a39062dcb7ebbd2d2ffd473689516719f879))
+
+
+### Features
+
+* **démarches:** donne la possibilité aux administrations de supprimer les démarches sans étape ([#917](https://github.com/MTES-MCT/camino-api/issues/917)) ([6f8fc52](https://github.com/MTES-MCT/camino-api/commit/6f8fc52bd91cfa2db34eb8c901a841edd3e6e670))
+* **openfisca:** mise à jour de la structure des objets échangés avec Openfisca ([27160c7](https://github.com/MTES-MCT/camino-api/commit/27160c7b17d7203786c3ffef71847bd3c69ae1df))
+* **titres:** archive les titres, les démarches et les étapes ([#915](https://github.com/MTES-MCT/camino-api/issues/915)) ([6488fc8](https://github.com/MTES-MCT/camino-api/commit/6488fc863f63c5b8fbd0eb255a2d07294a115e59))
+
 # [0.37.0](https://github.com/MTES-MCT/camino-api/compare/v0.36.0...v0.37.0) (2022-03-01)
 
 
