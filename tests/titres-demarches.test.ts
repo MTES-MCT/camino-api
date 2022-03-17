@@ -185,7 +185,7 @@ describe('demarcheModifier', () => {
 
     const res = await graphQLCall(
       demarcheModifierQuery,
-      { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
+      { demarche: { id: demarcheId, titreId, typeId: 'pro' } },
       'admin',
       administrations.ptmg.id
     )
@@ -199,7 +199,7 @@ describe('demarcheModifier', () => {
 
     const res = await graphQLCall(
       demarcheModifierQuery,
-      { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
+      { demarche: { id: demarcheId, titreId, typeId: 'pro' } },
       'admin',
       administrations.dgtmGuyane.id
     )

@@ -43,7 +43,7 @@ const visibleCheck = async (
       titreId: `${titreTypeId}${
         locale ? '-local' : ''
       }-${cible}-admin-${administrationId}`,
-      titreTypeId: titreTypeId
+      titreTypeId
     },
     gestionnaire ? administrationId : undefined,
     locale ? administrationId : undefined,
@@ -162,7 +162,7 @@ const creationCheck = async (
 
     const tde = (await titreTypeDemarcheTypeEtapeTypeGet(
       {
-        titreTypeId: titreTypeId,
+        titreTypeId,
         demarcheTypeId: demarcheType.id,
         etapeTypeId: etapeType.id
       },
@@ -300,7 +300,7 @@ const modificationCheck = async (
       titreId: `${titreTypeId}${
         locale ? '-local' : ''
       }${etapeTypeId}-${cible}-modification-admin-${administrationId}`,
-      titreTypeId: titreTypeId
+      titreTypeId
     },
     gestionnaire ? administrationId : undefined,
     locale ? administrationId : undefined,
@@ -399,7 +399,7 @@ const titreBuild = (
     demarches: [
       {
         id: `${titreId}-demarche-id`,
-        titreId: titreId,
+        titreId,
         typeId: 'oct',
         etapes: [
           {

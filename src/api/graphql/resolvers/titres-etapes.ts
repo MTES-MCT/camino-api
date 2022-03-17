@@ -211,7 +211,7 @@ const specifiquesGet = async (
 ) => {
   const tde = await titreTypeDemarcheTypeEtapeTypeGet(
     {
-      titreTypeId: titreTypeId,
+      titreTypeId,
       demarcheTypeId: titreDemarcheTypeId,
       etapeTypeId: etapeType.id
     },
