@@ -369,7 +369,7 @@ describe('titresQueryModify', () => {
         await AdministrationsTitresTypes.query().delete()
         const administrationId = 'ope-ptmg-973-01'
         await AdministrationsTitresTypes.query().insert({
-          administrationId: administrationId,
+          administrationId,
           titreTypeId: 'arm',
           gestionnaire: true
         })

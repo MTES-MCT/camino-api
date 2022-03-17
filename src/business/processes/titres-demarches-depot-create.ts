@@ -104,6 +104,7 @@ const titreDemarcheDepotCheck = (titreDemarche: ITitreDemarche) => {
     ) {
       return false
     }
+
     // Si on a déjà un dépot de la demande
     return !titreDemarche.etapes?.find(e => e.typeId === 'mdp')
   }

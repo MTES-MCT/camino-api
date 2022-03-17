@@ -210,7 +210,7 @@ const titreActiviteBuild = (
   return {
     titreId,
     date,
-    typeId: typeId,
+    typeId,
     statutId: 'abs',
     periodeId,
     annee,

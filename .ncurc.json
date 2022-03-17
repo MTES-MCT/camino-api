@@ -10,10 +10,6 @@
     "dateformat",
     "node-fetch",
     "p-queue",
-    "typedoc",
-    "eslint",
-    "typescript",
-    "@typescript-eslint/eslint-plugin",
-    "@typescript-eslint/parser"
+    "typedoc"
   ]
 }
