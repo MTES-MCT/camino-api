@@ -1,0 +1,21 @@
+{
+  "realm": "mine-planets",
+  "users": [
+    {
+      "username": "v.maubert@code-troopers.com",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "firstName": "Maubert",
+      "lastName": "Vincent",
+      "email": "v.maubert@code-troopers.com",
+      "credentials": [
+        {
+          "type": "password",
+          "algorithm": "bcrypt",
+          "value": "$2a$10$P4/BfuacipY1uWGbBtPa/.oUyo60ZzR2PnGPWMl7DXwoThlI4szD2"
+        }
+      ]
+    }
+  ]
+}
